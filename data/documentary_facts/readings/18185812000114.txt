@@ -1,0 +1,52 @@
+# Gávea Sul FIDC Multissetorial LP (QI CTVM; M8 Partners)
+type: Duplicatas/multicedente
+q1: * "a) O conjunto dos Direitos Creditórios cedidos por um mesmo Cedente, em conjunto com as pessoas que integram seu Grupo Econômico, não deverá superar 7%"
+q2: * "c) os Direitos Creditórios devidos por um mesmo Devedor, em conjunto com as pessoas que integram seu Grupo Econômico, não deverão superar 5%"
+q3: * "e/ou NC, que é de 720 (setecentos e vinte) dias a contar da data de emissão da CCB"
+q4: * "azo médio da carteira de Direitos Creditórios não será superior a 60 (sessenta) dias"
+q5: * "a) O Fundo terá como Relação Mínima o percentual de 181,82%"
+q6: * "Subordinadas Mezanino em circulação, o Fundo terá como Índice de Subordinação Junior o percentual mínimo de 22%"
+q7: * "Artigo 148 - São considerados Eventos de Avaliação do Fundo"
+q8: * "tual 0,20% a.a. (vinte centésimos por cento ao ano) cabem à Gestora"
+q9: * "O valor mensal da parcela da Taxa de Remuneração prevista no caput não poderá ser inferior a R$ 15.000,00"
+q10: * "O Fundo é administrado pela QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q11: * "gestão da carteira do Fundo será exercida pela M8 PARTNERS GESTORA DE RECURSOS LTDA."
+q12: * "As atividades de custódia e controladoria dos ativos e passivos do Fundo previstas na RCVM 175, serão realizadas pela QI CORRETORA"
+q13: * "O público-alvo do Fundo são investidores qualificados"
+q14: * "tem prazo de duração de 10 (dez) anos contados a partir de 1º (primeiro) de junho de 2021"
+q15: * "ral dos encargos do Fundo previstos para os próximos 2 (dois) meses"
+q16: * "A provisão para devedores duvidosos atingirá os demais créditos do mesmo devedor"
+q17: * "análise e seleção de potenciais Cedentes e dos respectivos Direitos de Crédito para aquisição pelo Fundo"
+receivables: Multissetorial: duplicatas, CCBs, NCs e demais títulos comerciais | q3,q17
+originator: Cedentes diversos, selecionados pela gestora e consultoria | q17
+assignor: Cedentes diversos; grupo cedente ≤ 7% do PL | q1
+debtor: Sacados diversos; grupo devedor ≤ 5% do PL | q2
+recourse: n/d | Cedente pode responder com os clientes conforme cada cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Vincendos; CCB/NC até 720 dias; prazo médio ≤ 60 dias (exceto CCB/NC) | q3,q4
+debtor_limit: Grupo devedor ≤ 5% do PL, salvo CCB e NC | q2
+assignor_limit: Grupo cedente ≤ 7% do PL | q1
+term_max: CCB e NC até 720 dias; prazo médio da carteira ≤ 60 dias | q3,q4
+allocation: ≥ 67% do PL em direitos creditórios | o25 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q5,q6
+sub_senior: 45% · (mez.+jr.)/PL; relação mínima de 181,82% | q5 | basis=mez+jr/PL | value=45
+sub_mezz: 22% · jr/PL quando houver mezanino | q6 | basis=jr/PL
+sub_check: Desenquadramento sem aporte no prazo é evento de avaliação | q7
+reserve: Despesas de 2 meses; reserva de amortização antes de cada data | q15,o38
+pdd: Provisão por devedor com efeito vagão | q16
+eval_triggers: Relação mínima ou índice júnior sem reenquadramento, entre outros | q7
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído
+revolving: n/d | Revolvência não detalhada no texto extraído
+amortization: n/d | Cronograma definido nos suplementos das séries | why=Resposta anterior também não localizou o cronograma
+admin_fee: 0,175% a.a. à administradora (mais 0,20% da gestão); mín. R$ 15 mil | q8,q9,o53
+mgmt_fee: 0,20% a.a. do PL | q8
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Remuneração alvo em branco no modelo de suplemento
+target_mezz: n/d | Remuneração alvo em branco no modelo de suplemento
+administrator: QI CTVM | q10
+manager: M8 Partners Gestora de Recursos | q11
+custodian: QI CTVM | q12
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores qualificados | q13
+duration: 10 anos desde junho de 2021, renováveis por igual prazo | q14
+sacado_limit: Grupo devedor ≤ 5% do PL, salvo CCB e NC | q2
+leitura: Multissetorial com 45% de subordinação (relação mínima de 181,82%); grupo cedente ≤ 7% e devedor ≤ 5% do PL.

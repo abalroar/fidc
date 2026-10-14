@@ -1,0 +1,779 @@
+{
+ "schema_version": 1,
+ "cnpj": "18185812000114",
+ "name": "GAVEA SUL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSETORIAL LP",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:17:33Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1343421",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "08/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421"
+  },
+  "D2": {
+   "document_id": "1222432",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "15/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222432"
+  },
+  "D3": {
+   "document_id": "1214708",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "08/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1214708"
+  },
+  "D4": {
+   "document_id": "1175771",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "30/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1175771"
+  },
+  "D5": {
+   "document_id": "1089508",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "21/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089508"
+  },
+  "D6": {
+   "document_id": "1011996",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "13/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1011996"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Multissetorial: duplicatas, CCBs, NCs e demais títulos comerciais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 31,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "Jardim Paulistano - CEP 01445-000 Corporativo | Interno e/ou NC, que é de 720 (setecentos e vinte) dias a contar da data de emissão da CCB; d) O prazo médio da carteira de Direitos Creditórios não será superior a 60 (sessenta) dias, não incluindo operações com CCB e NC; Parágrafo Primeiro. As operações de aquisição dos Direitos de Crédito pelo Fundo deverão ser realizadas necessariamente com base na política de investimento estabelecida neste Regulamento e somente após a assinatura de um Contrato que Regula as Cessões de Direitos Creditórios para FIDC a ser celebrado pelo Fundo com as Cedentes. A Cedente poderá responder solidariamente com seus Clientes pelo pagamento dos Direitos Creditórios cedidos ao Fundo. Parágrafo Segundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 14,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "nsável por todos os serviços de suporte à Administradora ou à Gestora, conforme aplicável, relativos à (i) análise e seleção de potenciais Cedentes e dos respectivos Direitos de Crédito para aquisição pelo Fundo, observando sempre qitech.com.br Rua Maria Carolina, 624, 7º - 12º andar, Jardim Paulistano - CEP 01445-000 Corporativo | Interno os Critérios de Elegibilidade; cuja validação será realizada pela Gestora; (ii) negociação dos valores de cessão com as respectivas Cedentes; (iii) cobrança extrajudicial de todos os Direitos de Crédito integrantes da carteira do Fundo que não tenham sido pagos nas respectivas datas de vencimento, de acordo com a Política de Cobrança do Fundo e as demais condições estabelecidas no respectivo Contrato de Prestação de Serviços. Artigo 30 - A Consultora Especializada também será responsável pela validação das condições de cessão no momento da aquisição dos Direitos Creditórios. Parágrafo Único."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos, selecionados pela gestora e consultoria",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 14,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "nsável por todos os serviços de suporte à Administradora ou à Gestora, conforme aplicável, relativos à (i) análise e seleção de potenciais Cedentes e dos respectivos Direitos de Crédito para aquisição pelo Fundo, observando sempre qitech.com.br Rua Maria Carolina, 624, 7º - 12º andar, Jardim Paulistano - CEP 01445-000 Corporativo | Interno os Critérios de Elegibilidade; cuja validação será realizada pela Gestora; (ii) negociação dos valores de cessão com as respectivas Cedentes; (iii) cobrança extrajudicial de todos os Direitos de Crédito integrantes da carteira do Fundo que não tenham sido pagos nas respectivas datas de vencimento, de acordo com a Política de Cobrança do Fundo e as demais condições estabelecidas no respectivo Contrato de Prestação de Serviços. Artigo 30 - A Consultora Especializada também será responsável pela validação das condições de cessão no momento da aquisição dos Direitos Creditórios. Parágrafo Único."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos; grupo cedente ≤ 7% do PL",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 28,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "Jardim Paulistano - CEP 01445-000 Corporativo | Interno a) O conjunto dos Direitos Creditórios cedidos por um mesmo Cedente, em conjunto com as pessoas que integram seu Grupo Econômico, não deverá superar 7% (sete por cento) do Patrimônio Líquido, exceto para operações com CCB e NC; b) A soma dos 5 (cinco) maiores Cedentes, em conjunto com as pessoas que integram seus respectivos Grupos Econômicos, não deverá exceder 23% (vinte e três por cento) do Patrimônio Líquido, exceto para operações com CCB e NC; c) os Direitos Creditórios devidos por um mesmo Devedor, em conjunto com as pessoas que integram seu Grupo Econômico, não deverão superar 5% (cinco por cento) do Patrimônio Líquido, exceto para CCB, NC e para operações que o Devedor seja Petrobras e outras empresas integrantes de seu grupo econômico;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Sacados diversos; grupo devedor ≤ 5% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 28,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "três por cento) do Patrimônio Líquido, exceto para operações com CCB e NC; c) os Direitos Creditórios devidos por um mesmo Devedor, em conjunto com as pessoas que integram seu Grupo Econômico, não deverão superar 5% (cinco por cento) do Patrimônio Líquido, exceto para CCB, NC e para operações que o Devedor seja Petrobras e outras empresas integrantes de seu grupo econômico; d) A soma dos 5 (cinco) maiores Devedores, em conjunto com as pessoas que integram seus respectivos Grupos Econômicos, não deverá superar 15% (quinze por cento) do Patrimônio Líquido, exceto para operações com CCB, NC e para operações que o Devedor seja Petrobras e outras empresas integrantes de seu grupo econômico; e) O somatório dos valores dos Direitos Creditórios cujo Devedor seja Petrobras ou outras empresas integrantes de seu grupo econômico não poderá exceder 15% (quinze por cento) do Patrimônio Líquido;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cedente pode responder com os clientes conforme cada cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Cedente poderá responder solidariamente com os clientes.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Vincendos; CCB/NC até 720 dias; prazo médio ≤ 60 dias (exceto CCB/NC)",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 31,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "Jardim Paulistano - CEP 01445-000 Corporativo | Interno e/ou NC, que é de 720 (setecentos e vinte) dias a contar da data de emissão da CCB; d) O prazo médio da carteira de Direitos Creditórios não será superior a 60 (sessenta) dias, não incluindo operações com CCB e NC; Parágrafo Primeiro. As operações de aquisição dos Direitos de Crédito pelo Fundo deverão ser realizadas necessariamente com base na política de investimento estabelecida neste Regulamento e somente após a assinatura de um Contrato que Regula as Cessões de Direitos Creditórios para FIDC a ser celebrado pelo Fundo com as Cedentes. A Cedente poderá responder solidariamente com seus Clientes pelo pagamento dos Direitos Creditórios cedidos ao Fundo. Parágrafo Segundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 31,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "vinte) dias a contar da data de emissão da CCB; d) O prazo médio da carteira de Direitos Creditórios não será superior a 60 (sessenta) dias, não incluindo operações com CCB e NC; Parágrafo Primeiro. As operações de aquisição dos Direitos de Crédito pelo Fundo deverão ser realizadas necessariamente com base na política de investimento estabelecida neste Regulamento e somente após a assinatura de um Contrato que Regula as Cessões de Direitos Creditórios para FIDC a ser celebrado pelo Fundo com as Cedentes. A Cedente poderá responder solidariamente com seus Clientes pelo pagamento dos Direitos Creditórios cedidos ao Fundo. Parágrafo Segundo. Parágrafo Primeiro - A Consultora Especializada, antes da aquisição, será responsável pela verificação do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade conforme definido neste Regulamento, nada obstante a responsabilidade da Gestora ou terceiro contratado para validar os referidos Critérios de Elegibilidade.. Parágrafo Terceiro."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos vincendos; CCB/NC até 720 dias; prazo médio≤60 dias exclui CCB/NC.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo devedor ≤ 5% do PL, salvo CCB e NC",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 28,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "três por cento) do Patrimônio Líquido, exceto para operações com CCB e NC; c) os Direitos Creditórios devidos por um mesmo Devedor, em conjunto com as pessoas que integram seu Grupo Econômico, não deverão superar 5% (cinco por cento) do Patrimônio Líquido, exceto para CCB, NC e para operações que o Devedor seja Petrobras e outras empresas integrantes de seu grupo econômico; d) A soma dos 5 (cinco) maiores Devedores, em conjunto com as pessoas que integram seus respectivos Grupos Econômicos, não deverá superar 15% (quinze por cento) do Patrimônio Líquido, exceto para operações com CCB, NC e para operações que o Devedor seja Petrobras e outras empresas integrantes de seu grupo econômico; e) O somatório dos valores dos Direitos Creditórios cujo Devedor seja Petrobras ou outras empresas integrantes de seu grupo econômico não poderá exceder 15% (quinze por cento) do Patrimônio Líquido;"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Grupo cedente ≤ 7% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 28,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "Jardim Paulistano - CEP 01445-000 Corporativo | Interno a) O conjunto dos Direitos Creditórios cedidos por um mesmo Cedente, em conjunto com as pessoas que integram seu Grupo Econômico, não deverá superar 7% (sete por cento) do Patrimônio Líquido, exceto para operações com CCB e NC; b) A soma dos 5 (cinco) maiores Cedentes, em conjunto com as pessoas que integram seus respectivos Grupos Econômicos, não deverá exceder 23% (vinte e três por cento) do Patrimônio Líquido, exceto para operações com CCB e NC; c) os Direitos Creditórios devidos por um mesmo Devedor, em conjunto com as pessoas que integram seu Grupo Econômico, não deverão superar 5% (cinco por cento) do Patrimônio Líquido, exceto para CCB, NC e para operações que o Devedor seja Petrobras e outras empresas integrantes de seu grupo econômico;"
+    }
+   ],
+   "value": 7.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "CCB e NC até 720 dias; prazo médio da carteira ≤ 60 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 31,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "Jardim Paulistano - CEP 01445-000 Corporativo | Interno e/ou NC, que é de 720 (setecentos e vinte) dias a contar da data de emissão da CCB; d) O prazo médio da carteira de Direitos Creditórios não será superior a 60 (sessenta) dias, não incluindo operações com CCB e NC; Parágrafo Primeiro. As operações de aquisição dos Direitos de Crédito pelo Fundo deverão ser realizadas necessariamente com base na política de investimento estabelecida neste Regulamento e somente após a assinatura de um Contrato que Regula as Cessões de Direitos Creditórios para FIDC a ser celebrado pelo Fundo com as Cedentes. A Cedente poderá responder solidariamente com seus Clientes pelo pagamento dos Direitos Creditórios cedidos ao Fundo. Parágrafo Segundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 31,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "vinte) dias a contar da data de emissão da CCB; d) O prazo médio da carteira de Direitos Creditórios não será superior a 60 (sessenta) dias, não incluindo operações com CCB e NC; Parágrafo Primeiro. As operações de aquisição dos Direitos de Crédito pelo Fundo deverão ser realizadas necessariamente com base na política de investimento estabelecida neste Regulamento e somente após a assinatura de um Contrato que Regula as Cessões de Direitos Creditórios para FIDC a ser celebrado pelo Fundo com as Cedentes. A Cedente poderá responder solidariamente com seus Clientes pelo pagamento dos Direitos Creditórios cedidos ao Fundo. Parágrafo Segundo. Parágrafo Primeiro - A Consultora Especializada, antes da aquisição, será responsável pela verificação do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade conforme definido neste Regulamento, nada obstante a responsabilidade da Gestora ou terceiro contratado para validar os referidos Critérios de Elegibilidade.. Parágrafo Terceiro."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos vincendos; CCB/NC até 720 dias; prazo médio≤60 dias exclui CCB/NC.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1011996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/10/2025",
+     "page": 31,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1011996",
+     "excerpt": "Subscrição Inicial do Fundo, observar a Alocação Mínima de 67% (sessenta e sete por cento) do Patrimônio Líquido em Direitos Creditórios. São considerados Direitos Creditórios as cotas de fundo de investimento em direitos creditórios, para fins de enquadramento tributário, não se aplicando os Critérios de Elegibilidade ou Condições de Cessão, ficando a critério da Gestora sua aquisição."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL após 180 dias; cotas FIDC contam para enquadramento tributário.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/10/2025, Anexo III"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 54,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "panhamento da subordinação mínima as seguintes regras deverão ser seguidas: a) O Fundo terá como Relação Mínima o percentual de 181,82% (cento e oitenta e um e oitenta e dois por cento). Isso significa que, no mínimo, 45% (quarenta e cinco por cento) de seu Patrimônio Líquido representado por Cotas Subordinadas, seja de subclasse Subordinada Mezanino ou da Júnior;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 54,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "b) Observado o disposto no Item anterior e enquanto existirem Cotas Subordinadas Mezanino em circulação, o Fundo terá como Índice de Subordinação Junior o percentual mínimo de 22% (vinte dois por cento) de seu Patrimônio Líquido representados por Cotas Subordinadas Junior. Artigo 142 - Na hipótese de inobservância de qualquer umas dos Índices de Subordinação, serão adotados os seguintes procedimentos: a) Passados cinco dias úteis consecutivos, de desenquadramento de qualquer Índice de Subordinação, a Administradora interromperá imediatamente a aquisição de novos Direitos de Créditos;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥45%/PL (relação 181,82%); júnior≥22%/PL com mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/10/2026, Anexo III"
+   }
+  },
+  "sub_senior": {
+   "display": "45% · (mez.+jr.)/PL; relação mínima de 181,82%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 54,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "panhamento da subordinação mínima as seguintes regras deverão ser seguidas: a) O Fundo terá como Relação Mínima o percentual de 181,82% (cento e oitenta e um e oitenta e dois por cento). Isso significa que, no mínimo, 45% (quarenta e cinco por cento) de seu Patrimônio Líquido representado por Cotas Subordinadas, seja de subclasse Subordinada Mezanino ou da Júnior;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 45.0,
+   "legacy": {
+    "value": "Subordinadas ≥45%/PL (relação 181,82%); júnior≥22%/PL com mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/10/2026, Anexo III"
+   }
+  },
+  "sub_mezz": {
+   "display": "22% · jr/PL quando houver mezanino",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 54,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "b) Observado o disposto no Item anterior e enquanto existirem Cotas Subordinadas Mezanino em circulação, o Fundo terá como Índice de Subordinação Junior o percentual mínimo de 22% (vinte dois por cento) de seu Patrimônio Líquido representados por Cotas Subordinadas Junior. Artigo 142 - Na hipótese de inobservância de qualquer umas dos Índices de Subordinação, serão adotados os seguintes procedimentos: a) Passados cinco dias úteis consecutivos, de desenquadramento de qualquer Índice de Subordinação, a Administradora interromperá imediatamente a aquisição de novos Direitos de Créditos;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 22.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Desenquadramento sem aporte no prazo é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 59,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "Jardim Paulistano - CEP 01445-000 Corporativo | Interno Artigo 148 - São considerados Eventos de Avaliação do Fundo (os “Eventos de Avaliação”) quaisquer dos seguintes eventos: a) o não atendimento da Relação Mínima e/ou do Índice de Subordinação Júnior sem que tenha havido subscrição adicional de Cotas Subordinadas para o reenquadramento do Fundo dentro do prazo estabelecido, nos termos do Capítulo X deste Regulamento; b) cessação pela Consultora Especializada, a qualquer tempo e por qualquer motivo, da prestação dos serviços para o Fundo; c) que a média dos últimos 120 dias dos direitos creditórios recomprados pelos Cedentes ou Coobrigados seja superior a 8% dos créditos adquiridos no mês corrente;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥45%/PL (relação 181,82%); júnior≥22%/PL com mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/10/2026, Anexo III"
+   }
+  },
+  "reserve": {
+   "display": "Despesas de 2 meses; reserva de amortização antes de cada data",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 32,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "Parágrafo Segundo. A Gestora deverá manter uma reserva monetária suficiente para garantir o pagamento integral dos encargos do Fundo previstos para os próximos 2 (dois) meses (“Reserva de Despesas”). Artigo 76 - Os Direitos Creditórios serão custodiados pelo Custodiante, conforme indicado neste Regulamento, e os demais ativos integrantes da carteira do Fundo também serão registrados e custodiados ou mantidos em contas de depósito diretamente em nome do Fundo, em contas específicas abertas no Sistema Especial de Liquidação e de Custódia - SELIC, em sistemas de registro e de liquidação financeira de ativos autorizados pelo Banco Central do Brasil ou em instituições ou entidades autorizadas à prestação desses serviços pela referida Autarquia ou pela CVM. Parágrafo único."
+    },
+    {
+     "doc": "D6",
+     "document_id": "1011996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/10/2025",
+     "page": 31,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1011996",
+     "excerpt": "o pagamento integral dos encargos do Fundo previstos para os próximos 2 (dois) meses (“Reserva de Despesas”). Artigo 76 - Os Direitos Creditórios serão custodiados pelo Custodiante, conforme indicado neste Regulamento, e os demais ativos integrantes da carteira do Fundo também serão registrados e custodiados ou mantidos em contas de depósito diretamente em nome do Fundo, em contas específicas abertas no Sistema Especial de Liquidação e de Custódia - SELIC, em sistemas de registro e de liquidação financeira de ativos autorizados pelo Banco Central do Brasil ou em instituições ou enti"
+    }
+   ],
+   "legacy": {
+    "value": "2 meses de despesas; amortização 50% emD-10 DU e saldo conforme cronograma.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/10/2026, Anexo III"
+   }
+  },
+  "pdd": {
+   "display": "Provisão por devedor com efeito vagão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 58,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "cado, em decorrência da situação e monitoramento do crédito inadimplente. Parágrafo Segundo. A provisão para devedores duvidosos atingirá os demais créditos do mesmo devedor, ou seja, ocorrerá o chamado “efeito vagão”. CAPÍTULO XI ENCARGOS DO FUNDO Artigo 147 - Constituem Encargos do Fundo as despesas descritas no art. 117, da Parte Geral da RCVM 175, que lhe podem ser debitadas diretamente, assim como de sua Classe de cotas, sem prejuízo de outras despesas previstas em regulamentações específicas. Parágrafo Primeiro: Por ser classe restrita, são encargos do Fundo as despesas com a contratação de Consultoria Especializada e Agente de Cobrança. Parágrafo Segundo: Serão encargos do Fundo as despesas com a contratação de banco de dados para consulta e negativação, plataformas de assinatura e certificadoras. Parágrafo Terceiro: Quaisquer despesas não previstas como Encargos do Fundo na regulamentação aplicável, correm por conta do Prestador de Serviço Essencial que a tiver contratado. TÍTULO 4"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Relação mínima ou índice júnior sem reenquadramento, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 59,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "Jardim Paulistano - CEP 01445-000 Corporativo | Interno Artigo 148 - São considerados Eventos de Avaliação do Fundo (os “Eventos de Avaliação”) quaisquer dos seguintes eventos: a) o não atendimento da Relação Mínima e/ou do Índice de Subordinação Júnior sem que tenha havido subscrição adicional de Cotas Subordinadas para o reenquadramento do Fundo dentro do prazo estabelecido, nos termos do Capítulo X deste Regulamento; b) cessação pela Consultora Especializada, a qualquer tempo e por qualquer motivo, da prestação dos serviços para o Fundo; c) que a média dos últimos 120 dias dos direitos creditórios recomprados pelos Cedentes ou Coobrigados seja superior a 8% dos créditos adquiridos no mês corrente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não detalhada no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos das séries",
+   "sources": [],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "regression",
+    "why": "Resposta anterior também não localizou o cronograma"
+   }
+  },
+  "admin_fee": {
+   "display": "0,175% a.a. à administradora (mais 0,20% da gestão); mín. R$ 15 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 9,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "mônio Líquido no dia útil imediatamente anterior à data do cálculo, sendo que deste percentual 0,20% a.a. (vinte centésimos por cento ao ano) cabem à Gestora (“Taxa de Gestão”) e 0,175% (cento e setenta e cinco milésimos por cento ao ano) cabem à Administradora (“Taxa de Administração”). REA: Remuneração da Consultora Especializada. Parágrafo Primeiro. O valor mensal da parcela da Taxa de Remuneração prevista no caput não poderá ser inferior a R$ 15.000,00 (quinze mil reais). Parágrafo Segundo. O valor mensal da remuneração da Consultora Especializada será fixo, no valor de R$ 1.000.000,00 (um milhão de reais), sendo que deste valor R$ 7.000,00 (sete mil reais) correspondem à remuneração mínima da Gestora e R$ 8.000,00 (oito mil reais) correspondem à remuneração mínima da Administradora. Parágrafo Terceiro."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 9,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "tração”). REA: Remuneração da Consultora Especializada. Parágrafo Primeiro. O valor mensal da parcela da Taxa de Remuneração prevista no caput não poderá ser inferior a R$ 15.000,00 (quinze mil reais). Parágrafo Segundo. O valor mensal da remuneração da Consultora Especializada será fixo, no valor de R$ 1.000.000,00 (um milhão de reais), sendo que deste valor R$ 7.000,00 (sete mil reais) correspondem à remuneração mínima da Gestora e R$ 8.000,00 (oito mil reais) correspondem à remuneração mínima da Administradora. Parágrafo Terceiro. A Taxa de Remuneração (TA) será paga mensalmente até o 5º (quinto) dia útil do mês subsequente ao vencido. qitech.com.br Rua Maria Carolina, 624, 7º - 12º andar, Jardim Paulistano - CEP 01445-000 Corporativo | Interno Parágrafo Quarto."
+    },
+    {
+     "doc": "D6",
+     "document_id": "1011996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/10/2025",
+     "page": 9,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1011996",
+     "excerpt": "Gestora (“Taxa de Gestão”) e 0,175% (cento e setenta e cinco milésimos por cento ao ano) cabem à Administradora (“Taxa de Administração”). REA: Remuneração da Consultora Especializada. Parágrafo Primeiro. O valor mensal da parcela da Taxa de Remuneração prevista no caput não poderá ser inferior a R$ 15.000,00 (quinze mil reais). Parágrafo Segundo."
+    }
+   ],
+   "legacy": {
+    "value": "Componente 0,175% a.a./PL; administração+gestão total 0,375%; mínimo conjunto R$ 15 mil/mês.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/10/2026, Anexo III"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 9,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "mônio Líquido no dia útil imediatamente anterior à data do cálculo, sendo que deste percentual 0,20% a.a. (vinte centésimos por cento ao ano) cabem à Gestora (“Taxa de Gestão”) e 0,175% (cento e setenta e cinco milésimos por cento ao ano) cabem à Administradora (“Taxa de Administração”). REA: Remuneração da Consultora Especializada. Parágrafo Primeiro. O valor mensal da parcela da Taxa de Remuneração prevista no caput não poderá ser inferior a R$ 15.000,00 (quinze mil reais). Parágrafo Segundo. O valor mensal da remuneração da Consultora Especializada será fixo, no valor de R$ 1.000.000,00 (um milhão de reais), sendo que deste valor R$ 7.000,00 (sete mil reais) correspondem à remuneração mínima da Gestora e R$ 8.000,00 (oito mil reais) correspondem à remuneração mínima da Administradora. Parágrafo Terceiro."
+    }
+   ],
+   "legacy": {
+    "value": "Componente 0,20% a.a./PL; cláusula fixa de consultoria inclui R$ 7 mil mínimos da gestora.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/10/2026, Anexo III"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Remuneração alvo em branco no modelo de suplemento",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Remuneração alvo em branco no modelo de suplemento",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 5,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "CAPÍTULO II ADMINISTRAÇÃO Seção 1 – Instituição Administradora Artigo 10 - O Fundo é administrado pela QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada a funcionar pelo BACEN e autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários e fundos de investimentos, nos termos do Ato Declaratório CVM nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "M8 Partners Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 15,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "descritos nesta Seção. Seção 3 – Gestão da carteira Artigo 31 - A atividade de gestão da carteira do Fundo será exercida pela M8 PARTNERS GESTORA DE RECURSOS LTDA., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório n. 13.304, de 23 de setembro de 2013, inscrita no CNPJ/MF sob o nº 18.038.439/0001-79, sociedade com sede na cidade e Estado de São Paulo, na Rua Bandeira Paulista, n.º 477, 10º andar, CEP 04532-011 (“Gestora”). Artigo 32 - Sem prejuízo das suas obrigações decorrentes da regulamentação aplicável e nos demais itens deste Regulamento e pelo contrato celebrado com a Administradora ou Acordo Operacional, a Gestora será responsável por: (i) tomar as decisões de aquisição e alienação de Direitos de Crédito, em estrita observância à política de investimento, composição e diversificação da carteira do Fundo, incluindo sem limitação o disposto neste Regulamento e na regulamentação em vigor;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 10,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "CAPÍTULO III CUSTÓDIA Seção 1 – Instituição Custodiante Artigo 22 - As atividades de custódia e controladoria dos ativos e passivos do Fundo previstas na RCVM 175, serão realizadas pela QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Av. Rebouças, 2.942, 7º ao 12º andar, Parte I, Pinheiros, na cidade de São Paulo, Estado de São Paulo, inscrito no CNPJ sob o nº 62.825.390/0001-40, doravante designado Custodiante. Seção 2 – Obrigações do Custodiante Artigo 23 - O Custodiante é responsável pelas obrigações previstas na RCVM 175. qitech.com.br Rua Maria Carolina, 624, 7º - 12º andar, Jardim Paulistano - CEP 01445-000 Corporativo | Interno Parágrafo Primeiro. Em razão da significativa quantidade de créditos cedidos e expressiva diversificação de devedores, a Gestora ou o Custodiante, conforme aplicável, realizará a verificação do lastro dos direitos creditórios por amostragem, cujos parâmetros constam do Anexo IV a este Regulamento. Parágrafo Segundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 5,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "s aplicações. Não haverá meta de rentabilidade para as Cotas Subordinadas Junior. Artigo 6 - O público-alvo do Fundo são investidores qualificados, definidos como tal pela Resolução n.º 30, de 11 de maio de 2021, editada pela CVM em vigor e eventuais posteriores alterações (“RCVM 30”). Artigo 7 - É indispensável, por ocasião da subscrição de Cotas do Fundo, a adesão do Cotista aos termos deste Regulamento, com a assinatura do respectivo Termo de Adesão ao Regulamento no qual referido Cotista atesta que tomou conhecimento dos riscos envolvidos e da política de investimento do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "10 anos desde junho de 2021, renováveis por igual prazo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 3,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "i) é constituído na forma de condomínio fechado, com classe única de cotas; ii) tem prazo de duração de 10 (dez) anos contados a partir de 1º (primeiro) de junho de 2021, podendo ser renovado por um prazo adicional de 10 (dez) anos por deliberação da Assembleia Geral de Cotistas; qitech.com.br Rua Maria Carolina, 624, 7º - 12º andar, Jardim Paulistano - CEP 01445-000 Corporativo | Interno iii) não possui taxa de ingresso, nem taxa de saída, e não possui taxa de desempenho ou de performance; iv) possui Cotas de subclasse Sênior e de subclasses Subordinadas (“Mezanino e Júnior”); v) poderá emitir séries de Cotas Seniores com prazos e valores para amortização, resgate e remuneração distintos. As Cotas Subordinadas serão divididas em (a) um número indeterminado de subclasses de Cotas Subordinadas Mezanino e (b) 1 (uma) subclasse de Cotas Subordinadas Júnior;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Grupo devedor ≤ 5% do PL, salvo CCB e NC",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343421",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/10/2026",
+     "page": 28,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+     "excerpt": "três por cento) do Patrimônio Líquido, exceto para operações com CCB e NC; c) os Direitos Creditórios devidos por um mesmo Devedor, em conjunto com as pessoas que integram seu Grupo Econômico, não deverão superar 5% (cinco por cento) do Patrimônio Líquido, exceto para CCB, NC e para operações que o Devedor seja Petrobras e outras empresas integrantes de seu grupo econômico; d) A soma dos 5 (cinco) maiores Devedores, em conjunto com as pessoas que integram seus respectivos Grupos Econômicos, não deverá superar 15% (quinze por cento) do Patrimônio Líquido, exceto para operações com CCB, NC e para operações que o Devedor seja Petrobras e outras empresas integrantes de seu grupo econômico; e) O somatório dos valores dos Direitos Creditórios cujo Devedor seja Petrobras ou outras empresas integrantes de seu grupo econômico não poderá exceder 15% (quinze por cento) do Patrimônio Líquido;"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Multissetorial com 45% de subordinação (relação mínima de 181,82%); grupo cedente ≤ 7% e devedor ≤ 5% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
