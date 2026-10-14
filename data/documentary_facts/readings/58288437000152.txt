@@ -1,0 +1,52 @@
+# Altomax FIDC Recebíveis Comerciais (Oliveira Trust; Kanastra)
+type: Duplicatas/multicedente
+q1: * "“Cedente Altomax” significa a ALTOMAX COMÉRCIO DE MEIAS E COBERTORES"
+q2: * "de cada operação de compra e venda mercantil contratada entre os Cedentes e um Devedor"
+q3: * "aquisição pretendida, deverá manter prazo médio máximo de 180 (cento e oitenta) dias"
+q4: * "(h) o Valor Presente dos Direitos Creditórios – Duplicatas devidos pelos 10 (dez) maiores Devedores, excetuados os Devedores Especiais, será limitado a 25%"
+q5: * "Subordinação Sênior” será considerada como atendida se, enquanto houver Cotas Seniores em circulação, o valor total das Cotas Subordinadas em circulação"
+q6: * "Após 180 (cento e oitenta) dias contados da 1ª Data de Integralização, a Classe do Fundo deverá observar a Alocação Mínima"
+q7: * "O Fundo pagará uma parcela da Taxa de Administração, Custódia e Agente de Controladoria do Fundo, à Administradora, o valor correspondente a 0,20%"
+q8: * "A Administradora não fará jus a taxa de performance e não serão cobradas taxas de ingresso, de performance e/ou de saída"
+q9: * "“Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Gestora” significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA."
+q11: * "“Custodiante” significa a Administradora, atuando como custodiante do Fundo"
+q12: * "18.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos"
+q13: * "19.1. Sem prejuízo de outras hipóteses previstas na legislação aplicável, são considerados Eventos de Liquidação do Fundo"
+q14: * "A provisão para Devedores duvidosos atingirá todos os Direitos Creditórios, vencidos e a vencer"
+q15: * "com prazo de duração indeterminado, regido pelo presente Regulamento"
+q16: * "titulares de Cotas Subordinadas Júnior deverão responder a Notificação de Desenquadramento de Índice de Subordinação"
+q17: * "não será permitida a Revolvência e será observada a ordem de alocação"
+receivables: Duplicatas mercantis; recebíveis de cartão e créditos adicionais sob condições | o1,q2
+originator: Altomax Comércio de Meias e Cobertores e demais cedentes de duplicatas | q1
+assignor: Cedente Altomax e cedentes de duplicatas | q1,q2
+debtor: Compradores das vendas mercantis a prazo | q2
+recourse: Cedentes sem coobrigação; vícios e resolução pelo contrato | o13
+eligibility: Prazo médio ≤ 180 dias; taxa de cessão ≥ DI + benchmark ponderado | q3,o16
+debtor_limit: 10 maiores devedores (exceto especiais) ≤ 25% do PL | q4
+assignor_limit: Não previsto | Regulamento limita por devedor, não por cedente
+term_max: Prazo médio e individual de até 180 dias | q3,o16
+allocation: ≥ 67% do PL após 180 dias, com alocação mínima adicional | o25,q6 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q5
+sub_senior: 30% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: Júnior ≥ 20% do PL quando houver mezanino | o28 | basis=jr/PL | value=20
+sub_check: Diária pela gestora; desenquadramento notificado aos subordinados | q5,q16
+reserve: Reserva de despesas de 6 meses; reserva de amortização pelo cronograma | o39
+pdd: Provisão por risco do devedor sobre todos os créditos dele | q14
+eval_triggers: Índices de atraso acima dos limites; relatório não enviado em 15 DU | o45,q12
+liquidation: Lista do item 19.1, além das hipóteses legais | q13
+revolving: Revolvência suspensa em eventos e rebaixamento soberano | q17
+amortization: n/d | Cronograma definido nos apêndices das séries | why=Resposta anterior também não localizou o cronograma
+admin_fee: 0,20% a.a. até R$ 250 mi, regressiva até 0,15%; mín. R$ 22 mil/mês | q7,o57
+mgmt_fee: 0,12% a.a. até R$ 200 mi; 0,11% acima; mín. R$ 11,3 mil/mês | o60
+perf_fee: Não prevista | Regulamento veda taxa de performance | q8
+target_senior: n/d | Benchmark definido nos apêndices, fora do acervo
+target_mezz: n/d | Benchmark definido nos apêndices, fora do acervo
+administrator: Oliveira Trust DTVM | q9
+manager: Kanastra Administração de Recursos | q10
+custodian: Oliveira Trust DTVM (a administradora) | q11,q9
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado | q15
+sacado_limit: 10 maiores devedores (exceto especiais) ≤ 25% do PL | q4
+leitura: Duplicatas da Altomax e outros cedentes com 30% de subordinação (júnior ≥ 20%); 10 maiores devedores ≤ 25% do PL.

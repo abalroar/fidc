@@ -1,0 +1,50 @@
+# Anzen FIDC (Azumi DTVM; Asset Bank; cogestão Azumi Asset)
+type: Duplicatas/multicedente
+q1: * "O Fundo está apto a adquirir Direitos Creditórios de titularidade de múltiplos Cedentes"
+q2: * "A Carteira do Fundo não observará nenhum limite de concentração por devedor, emissor e tipo de direito creditório"
+q3: * "o Fundo deverá observar a Alocação Mínima, possuindo parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q4: * "“Limite Mínimo de Subordinação” Significa o limite mínimo do Índice de Subordinação, equivalente a 30%"
+q5: * "15.2 Será considerado como Evento de Avaliação: (a) caso o Índice de Subordinação fique abaixo de 20% (vinte por cento) por período superior a 90"
+q6: * "A Taxa de Administração da Subclasse Subordinada Júnior, a ser paga à Administradora pelos serviços prestados à Subclasse, corresponde ao valor mínimo fixo de R$ 4.000,00"
+q7: * "A Taxa de Gestão da Subclasse Subordinada Júnior, a ser paga à Gestora pelos serviços prestados à Subclasse, corresponde ao percentual anual de 0,30%"
+q8: * "taxa de ingresso, taxa de saída ou taxa de performance. 9. SUBSTITUIÇÃO"
+q9: * "“Administradora” Significa a AZUMI DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q10: * "“Gestora” Significa a ASSET BANK – ASSET MANAGEMENT LTDA."
+q11: * "“Custodiante” Significa a AZUMI DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada"
+q12: * "“Cogestora” Significa a AZUMI ASSET MANAGEMENT LTDA."
+q13: * "O Fundo é destinado a Investidores Profissionais"
+q14: * "O Fundo tem prazo de duração indeterminado"
+q15: * "observado, ainda, o valor mínimo mensal de R$ 8.000,00 (oito mil reais)"
+receivables: Créditos de vendas e serviços, performados ou a performar; CCB e cartão | o1
+originator: Cedentes diversos, não predeterminados | q1
+assignor: Múltiplos cedentes | q1
+debtor: Sacados dos créditos cedidos | q1
+recourse: n/d | Coobrigação definida em cada cessão
+eligibility: n/d | Critérios de elegibilidade não detalhados no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+debtor_limit: Sem limite de concentração por devedor | q2
+assignor_limit: Sem limite de concentração por cedente | q2
+term_max: n/d | Prazo máximo não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: > 50% do PL em direitos creditórios | q3 | value=50
+quota_structure: Sênior / Subordinada júnior | q4,q6
+sub_senior: 30% · subord./PL | q4 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino identificada
+sub_check: Abaixo de 20% por mais de 90 dias é evento de avaliação | q5
+reserve: n/d | Reserva de caixa não localizada no texto extraído
+pdd: n/d | Critério de provisão não localizado no texto extraído
+eval_triggers: Subordinação < 20% por mais de 90 dias; saída de prestador, entre outros | q5
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído
+revolving: n/d | Revolvência não detalhada no texto extraído
+amortization: n/d | Cronograma definido nos apêndices das subclasses
+admin_fee: Júnior: R$ 4 mil/mês fixos (R$ 2 mil nos 6 primeiros meses) | q6
+mgmt_fee: 0,30% a.a. do PL; mín. R$ 8 mil/mês (50% de desconto nos 6 primeiros meses) | q7,q15
+perf_fee: Não prevista | Regulamento veda taxa de performance | q8
+target_senior: n/d | Meta de remuneração definida nos apêndices, fora do acervo
+target_mezz: — | Sem cota mezanino identificada
+administrator: Azumi DTVM | q9
+manager: Asset Bank Asset Management (cogestão Azumi Asset) | q10,q12
+custodian: Azumi DTVM | q11
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais | q13
+duration: Indeterminado | q14
+sacado_limit: Sem limite de concentração por devedor | q2
+leitura: Multicedente para profissionais com 30% de subordinação e sem limites de concentração por devedor ou cedente.

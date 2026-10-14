@@ -1,0 +1,820 @@
+{
+ "schema_version": 1,
+ "cnpj": "58288437000152",
+ "name": "ALTOMAX FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO RECEBÍVEIS COMERCIAIS DE RESP LTDA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:14:03Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1240668",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "24/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668"
+  },
+  "D2": {
+   "document_id": "1240826",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "06/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240826"
+  },
+  "D3": {
+   "document_id": "982590",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "02/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982590"
+  },
+  "D4": {
+   "document_id": "978340",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "26/08/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=978340"
+  },
+  "D5": {
+   "document_id": "954709",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "28/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=954709"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Duplicatas mercantis; recebíveis de cartão e créditos adicionais sob condições",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 5,
+     "clause": "Apêndice, cl. 3.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "diversificação e composição da carteira, a política de investimento do Fundo, os Critérios de Elegibilidade, as Condições de Cessão e a ordem de alocação de recursos definida no Capítulo 12 abaixo, mediante solicitação dos cotistas titulares das Cotas Subordinadas Júnior, observado que tal aquisição independe de aprovação de quaisquer dos Cotistas Seniores ou dos Cotistas Subordinados Mezanino. 3.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 8,
+     "clause": "Apêndice, cl. 3.15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "o Fundo poderá adquirir total ou parcialmente os recebíveis dos Direitos Creditórios, oriundos de cada operação de compra e venda mercantil contratada entre os Cedentes e um Devedor, desde que (i) os Direitos Creditórios adquiridos pelo Fundo correspondam às parcelas inteiras e específicas do saldo a pagar, sendo certo que cada termo de cessão vinculado ao Contrato de Cessão deverá especificar as parcelas cedidas ao Fundo; e (ii) as parcelas dos Direitos Creditórios a vencer sejam cedidas ao Fundo de forma que nenhum outro cessionário tenha direito de receber parcelas a vencer de tais Direitos Creditórios com vencimento anterior àquelas devidas ao Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Duplicatas; cartões sob aprovação/homologação; créditos adicionais sujeitos a excesso de cobertura.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Altomax Comércio de Meias e Cobertores e demais cedentes de duplicatas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 83,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "82 / 108 Docusign Envelope ID: 8542C63A-D2F9-489A-BCB3-2F927728BA20 “Cedente Altomax” significa a ALTOMAX COMÉRCIO DE MEIAS E COBERTORES, IMPORTAÇÃO E EXPORTAÇÃO LTDA, sociedade limitada, com sede na cidade de Foz do Iguaçu, estado do Paraná, na Av. Perimetral Leste, nº 8.119, Distrito Industrial de Foz do Iguaçu – Morumbi, CEP 85858- 760, inscrita no CNPJ/MF sob o nº 08.307.549/0001-35, bem como suas respectivas filiais. “Cedente Ameizin” significa a AMEIZIN COMÉRCIO, IMPORTADORA E EXPORTADORA LTDA., sociedade limitada, com sede na cidade de Foz do Igaçu, no estado do Paraná, na Av Perimetral Leste, nº 8.119, Distrito Industrial de Foz do Iguaçu – Morumbi, CEP 85858- 760, inscrita no CNPJ/MF 42.144.433/0001-60;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedente Altomax e cedentes de duplicatas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 83,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "82 / 108 Docusign Envelope ID: 8542C63A-D2F9-489A-BCB3-2F927728BA20 “Cedente Altomax” significa a ALTOMAX COMÉRCIO DE MEIAS E COBERTORES, IMPORTAÇÃO E EXPORTAÇÃO LTDA, sociedade limitada, com sede na cidade de Foz do Iguaçu, estado do Paraná, na Av. Perimetral Leste, nº 8.119, Distrito Industrial de Foz do Iguaçu – Morumbi, CEP 85858- 760, inscrita no CNPJ/MF sob o nº 08.307.549/0001-35, bem como suas respectivas filiais. “Cedente Ameizin” significa a AMEIZIN COMÉRCIO, IMPORTADORA E EXPORTADORA LTDA., sociedade limitada, com sede na cidade de Foz do Igaçu, no estado do Paraná, na Av Perimetral Leste, nº 8.119, Distrito Industrial de Foz do Iguaçu – Morumbi, CEP 85858- 760, inscrita no CNPJ/MF 42.144.433/0001-60;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 8,
+     "clause": "Apêndice, cl. 3.15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "o Fundo poderá adquirir total ou parcialmente os recebíveis dos Direitos Creditórios, oriundos de cada operação de compra e venda mercantil contratada entre os Cedentes e um Devedor, desde que (i) os Direitos Creditórios adquiridos pelo Fundo correspondam às parcelas inteiras e específicas do saldo a pagar, sendo certo que cada termo de cessão vinculado ao Contrato de Cessão deverá especificar as parcelas cedidas ao Fundo; e (ii) as parcelas dos Direitos Creditórios a vencer sejam cedidas ao Fundo de forma que nenhum outro cessionário tenha direito de receber parcelas a vencer de tais Direitos Creditórios com vencimento anterior àquelas devidas ao Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Compradores das vendas mercantis a prazo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 8,
+     "clause": "Apêndice, cl. 3.15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "o Fundo poderá adquirir total ou parcialmente os recebíveis dos Direitos Creditórios, oriundos de cada operação de compra e venda mercantil contratada entre os Cedentes e um Devedor, desde que (i) os Direitos Creditórios adquiridos pelo Fundo correspondam às parcelas inteiras e específicas do saldo a pagar, sendo certo que cada termo de cessão vinculado ao Contrato de Cessão deverá especificar as parcelas cedidas ao Fundo; e (ii) as parcelas dos Direitos Creditórios a vencer sejam cedidas ao Fundo de forma que nenhum outro cessionário tenha direito de receber parcelas a vencer de tais Direitos Creditórios com vencimento anterior àquelas devidas ao Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Cedentes sem coobrigação; vícios e resolução pelo contrato",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 12,
+     "clause": "Apêndice, cl. 3.17.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "Cedentes, conforme aplicável. Os Direitos Creditórios não contarão com a coobrigação dos Cedentes, sem prejuízo do disposto no Artigo 3.18 abaixo e das hipóteses de resolução de cessão previstas nos Contratos de Cessão. 3.17.2."
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes sem coobrigação; vícios/resolução regidos pelo contrato.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Prazo médio ≤ 180 dias; taxa de cessão ≥ DI + benchmark ponderado",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 9,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "(a) a carteira do Fundo, em relação aos Direitos Creditórios, considerando pro forma a aquisição pretendida, deverá manter prazo médio máximo de 180 (cento e oitenta) dias, devendo tal cálculo levar em consideração a quantidade de dias entre a data de cálculo aplicável e as datas de vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos Creditórios, conforme aplicável; (b) as parcelas não terão prazo de vencimento superior a 180 (cento e oitenta) dias, a contar da data da emissão das respectivas notas fiscais no caso dos Direitos Creditórios - Duplicatas; da data da cessão no caso dos Direitos Creditórios – Recebíveis Cartão ou da data da emissão em face do Fundo ou da cessão para o Fundo, conforme aplicável, dos Direitos Creditórios - Adicionais;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 9,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "aquisição pretendida, deverá manter prazo médio máximo de 180 (cento e oitenta) dias, devendo tal cálculo levar em consideração a quantidade de dias entre a data de cálculo aplicável e as datas de vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos Creditórios, conforme aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo médio e individual ≤180 dias; taxa de cessão ≥DI + benchmark ponderado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "10 maiores devedores (exceto especiais) ≤ 25% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 10,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "tos Creditórios - Adicionais, não haverá limitação de concentração por Devedor; (h) o Valor Presente dos Direitos Creditórios – Duplicatas devidos pelos 10 (dez) maiores Devedores, excetuados os Devedores Especiais, será limitado a 25% (vinte e cinco por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo, conforme consulta de Devedores por grupo econômico mais recente realizada pela Gestora, sendo que, na hipótese de aporte nas Cotas Subordinadas Júnior, o limite de concentração pelos 10 (dez) maiores Devedores poderá ser aumentado no limite do Excesso de Subordinação. No caso dos Direitos Creditórios – Recebíveis de Cartão e dos Direitos Creditórios - Adicionais, não haverá limitação de concentração por Devedor; (i) os Direitos Creditórios – Duplicatas devem ser originados pelos Cedentes – Duplicatas;"
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor, não por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Prazo médio e individual de até 180 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 9,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "(a) a carteira do Fundo, em relação aos Direitos Creditórios, considerando pro forma a aquisição pretendida, deverá manter prazo médio máximo de 180 (cento e oitenta) dias, devendo tal cálculo levar em consideração a quantidade de dias entre a data de cálculo aplicável e as datas de vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos Creditórios, conforme aplicável; (b) as parcelas não terão prazo de vencimento superior a 180 (cento e oitenta) dias, a contar da data da emissão das respectivas notas fiscais no caso dos Direitos Creditórios - Duplicatas; da data da cessão no caso dos Direitos Creditórios – Recebíveis Cartão ou da data da emissão em face do Fundo ou da cessão para o Fundo, conforme aplicável, dos Direitos Creditórios - Adicionais;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 9,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "aquisição pretendida, deverá manter prazo médio máximo de 180 (cento e oitenta) dias, devendo tal cálculo levar em consideração a quantidade de dias entre a data de cálculo aplicável e as datas de vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos Creditórios, conforme aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo médio e individual ≤180 dias; taxa de cessão ≥DI + benchmark ponderado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL após 180 dias, com alocação mínima adicional",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 81,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "“Alocação Mínima” significa o percentual mínimo de 67% (sessenta e sete por cento) do patrimônio líquido a ser mantido em Direitos Creditórios após 180 (cento e oitenta) dias contados da 1ª Data de Integralização."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 5,
+     "clause": "Apêndice, cl. 3.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "de investimento financeiro e fundos de aplicação em cotas de fundos de investimento. 3.3. Após 180 (cento e oitenta) dias contados da 1ª Data de Integralização, a Classe do Fundo deverá observar a Alocação Mínima. 3.4. Caso a Classe do Fundo não disponha de ofertas de Direitos Creditórios elegíveis suficientes ou em condições aceitáveis para atingir a Alocação Mínima no prazo referido acima, a Gestora poderá solicitar à CVM autorização para prorrogar o prazo para enquadramento do patrimônio líquido do Fundo à Alocação Mínima, sem necessidade de autorização da Assembleia Geral. 3.5. Adicionalmente, decorridos 210 (duzentos e dez) dias a contar da 1ª Data de Integralização, o Fundo também deverá observar a Alocação Mínima Adicional. 3.6. À parte do quanto descrito neste Capítulo 3 e nos Capítulos 4 e 5 abaixo, o Fundo não tem critérios de composição e diversificação da carteira pré-definidos. 3.7."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL após 180 dias; 85%/PL após 210 dias da primeira integralização.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/02/2026, Apêndice"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 95,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "“Índice de significa a razão, a ser verificada pela Gestora em todo Dia Útil, que Subordinação Sênior” será considerada como atendida se, enquanto houver Cotas Seniores em circulação, o valor total das Cotas Subordinadas em circulação, independentemente da Subclasse, corresponder a, no mínimo, 30% (trinta por cento) do valor total do patrimônio líquido do Fundo. “Índice Financeiro” tem o significado atribuído no item (xxii) do Artigo 18.1 deste Regulamento. “Índices de Atraso” significa, em conjunto, o Índice de Atraso até 30, o Índice de Atraso over 60 e o Índice de Atraso over 90. “Índices de significam os Índices de Atraso, o Índice de Resolução de Cessão e o Monitoramento” Índice de Repasse. “Índices de significam o Índice de Subordinação Mezanino, caso aplicável, e o Subordinação” Índice de Subordinação Sênior, quando referidos em conjunto e indistintamente. “Inconsistência significa qua"
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinadas ≥30%/PL; júnior ≥20%/PL quando houver mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/02/2026, Apêndice"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 95,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "“Índice de significa a razão, a ser verificada pela Gestora em todo Dia Útil, que Subordinação Sênior” será considerada como atendida se, enquanto houver Cotas Seniores em circulação, o valor total das Cotas Subordinadas em circulação, independentemente da Subclasse, corresponder a, no mínimo, 30% (trinta por cento) do valor total do patrimônio líquido do Fundo. “Índice Financeiro” tem o significado atribuído no item (xxii) do Artigo 18.1 deste Regulamento. “Índices de Atraso” significa, em conjunto, o Índice de Atraso até 30, o Índice de Atraso over 60 e o Índice de Atraso over 90. “Índices de significam os Índices de Atraso, o Índice de Resolução de Cessão e o Monitoramento” Índice de Repasse. “Índices de significam o Índice de Subordinação Mezanino, caso aplicável, e o Subordinação” Índice de Subordinação Sênior, quando referidos em conjunto e indistintamente. “Inconsistência significa qua"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Total subordinadas ≥30%/PL; júnior ≥20%/PL quando houver mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/02/2026, Apêndice"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 20% do PL quando houver mezanino",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 94,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "corresponder a, no mínimo, 20% (vinte por cento) do valor total do patrimônio líquido do Fundo. 94 / 108 Docusign Envelope ID: 8542C63A-D2F9-489A-BCB3-2F927728BA20 “Índice de significa a razão, a ser verificada pela Gestora em todo Dia Útil, que Subordinação Sênior” será considerada como atendida se, enquanto houver Cotas Seniores em c"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela gestora; desenquadramento notificado aos subordinados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 95,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "“Índice de significa a razão, a ser verificada pela Gestora em todo Dia Útil, que Subordinação Sênior” será considerada como atendida se, enquanto houver Cotas Seniores em circulação, o valor total das Cotas Subordinadas em circulação, independentemente da Subclasse, corresponder a, no mínimo, 30% (trinta por cento) do valor total do patrimônio líquido do Fundo. “Índice Financeiro” tem o significado atribuído no item (xxii) do Artigo 18.1 deste Regulamento. “Índices de Atraso” significa, em conjunto, o Índice de Atraso até 30, o Índice de Atraso over 60 e o Índice de Atraso over 90. “Índices de significam os Índices de Atraso, o Índice de Resolução de Cessão e o Monitoramento” Índice de Repasse. “Índices de significam o Índice de Subordinação Mezanino, caso aplicável, e o Subordinação” Índice de Subordinação Sênior, quando referidos em conjunto e indistintamente. “Inconsistência significa qua"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 45,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "44 / 108 Docusign Envelope ID: 8542C63A-D2F9-489A-BCB3-2F927728BA20 (iii) os titulares de Cotas Subordinadas Júnior deverão responder a Notificação de Desenquadramento de Índice de Subordinação, impreterivelmente até o 3º (terceiro) Dia Útil subsequente à data do seu recebimento, informando, por escrito, qual procedimento será adotado, dentre aqueles indicados na Notificação de Desenquadramento de Índice de Subordinação, visando o reenquadramento do respectivo Índice de Subordinação (“Resposta dos Cotistas Subordinados Júnior”);"
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinadas ≥30%/PL; júnior ≥20%/PL quando houver mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/02/2026, Apêndice"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas de 6 meses; reserva de amortização pelo cronograma",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 97,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "incorridas pelo Fundo para o período de 6 (seis) meses, sendo regulada nos termos do Capítulo 15 deste Regulamento. “Resolução CMN nº significa a Resolução do CMN n° 2.907, de 29 de novembro de 2001, 2.907” conforme alterada, ou qualquer outra norma que vier a substitui-la."
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de despesas: 6 meses; reserva de amortização conforme cronograma.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Provisão por risco do devedor sobre todos os créditos dele",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 31,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "ndo, e a Gestora deverá então reverter a provisão ou os prejuízos, conforme o caso. 11.1.4. A provisão para Devedores duvidosos atingirá todos os Direitos Creditórios, vencidos e a vencer, devendo ser provisionado com base no risco dos Devedores, e sobre o saldo devedor dos Devedores, ocorrendo o chamado “efeito vagão”. 11.1.5. A Administradora, no mínimo, anualmente realizará a revisão da política de provisão para devedores duvidosos (PDD) do Fundo, incluindo, mas não limitadamente, à revisão da avaliação e, caso entenda necessário, adequação dos níveis de provisão. Independente do prazo mínimo acima estipulado, a Administradora poderá, a qualquer momento, se entender necessário, realizar a revisão da política de provisão para devedores duvidosos do Fundo, devendo comunicar a Gestora em até 10 (dez) Dias Úteis contados de tal alteração extraordinária. 11.1.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Índices de atraso acima dos limites; relatório não enviado em 15 DU",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 51,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "de até 30 (trinta) dias após a data da sua realização. 18. DOS EVENTOS DE AVALIAÇÃO 18.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos: (i) não divulgação, pela Gestora, do Relatório de Monitoramento, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Monitoramento o envio do referido relatório não seja sanado pela Gestora;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 51,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "a data da sua realização. 18. DOS EVENTOS DE AVALIAÇÃO 18.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos: (i) não divulgação, pela Gestora, do Relatório de Monitoramento, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Monitoramento o envio do referido relatório não seja sanado pela Gestora; (ii) desenquadramento dos limites de concentração da carteira do Fundo indicados no Artigo 3.18, deste Regulamento, sem que haja a correspondente regularização no prazo de 10 (dez) Dias Úteis após o envio da comunicação da Gestora ao Cedente Altomax sobre o desenquadramento; (iii) desenquadramento dos Índices de Monitoramento em qualquer Data de Verificação, por 2 (duas) vezes seguidas ou 3 (três) vezes alternadas em um período de 2 (dois) anos, exceto pelo Índice de Repasse, conforme item (xii) abaixo; (iv) desenquadramento ou não constituição da Reserva de Despesas; (v) desenquadramento ou não constituição da Reserva de Amortização;"
+    }
+   ],
+   "legacy": {
+    "value": "Atrasos até 30/over 60/over 90: limites 20%/10%/5%; avaliação em 2 ocorrências seguidas ou 3 alternadas/2 anos.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/02/2026, Apêndice"
+   }
+  },
+  "liquidation": {
+   "display": "Lista do item 19.1, além das hipóteses legais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 55,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "o de Evento de Liquidação. 19. DA LIQUIDAÇÃO DO FUNDO 19.1. Sem prejuízo de outras hipóteses previstas na legislação aplicável, são considerados Eventos de Liquidação do Fundo: (i) caso os Cotistas venham a deliberar, nos termos do disposto no Artigo 18.1 acima, que um Evento de Avaliação constitui um Evento de Liquidação, observado ainda o disposto no Artigo 17.3 acima; (ii) interrupção, a qualquer tempo e por qualquer motivo, da prestação dos respectivos serviços previstos neste Regulamento, por parte da Administradora, do Custodiante ou da Gestora, sem que tenha havido sua devida substituição por outra instituição, de acordo com os procedimentos e prazos definidos no Capítulo 6 deste Regulamento; (iii) decretação de intervenção, liquidação ou qualquer regime de administração especial da Gestora, da Administradora ou do Custodiante, sem a sua efetiva substituição nos termos deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Atrasos até 30/over 60/over 90: limites 20%/10%/5%; avaliação em 2 ocorrências seguidas ou 3 alternadas/2 anos.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/02/2026, Apêndice"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência suspensa em eventos e rebaixamento soberano",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 33,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "uída, exceto nos casos em que tal rebaixamento decorrer de modificação da classificação de risco soberano, não será permitida a Revolvência e será observada a ordem de alocação dos recursos do Fundo descrita abaixo: (i) pagamento dos encargos, despesas e custos correntes do Fundo; (ii) pagamento, aos titulares das Cotas Seniores, do resgate integral das Cotas Seniores correspondente aos valores aportados ao Fundo, acrescidos dos rendimentos calculados de acordo 33 / 108 Docusign Envelope ID: 8542C63A-D2F9-489A-BCB3-2F927728BA20 com o respectivo Benchmark; (iii) após o resgate integral das Cotas Seniores, pagamento, aos titulares das Cotas Subordinadas Mezanino, do resgate integral das Cotas Subordinadas Mezanino, se aplicável, correspondente aos valores aportados ao Fundo, acrescidos dos rendimentos calculados de acordo com o respectivo Benchmark;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das séries",
+   "sources": [],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "regression",
+    "why": "Resposta anterior também não localizou o cronograma"
+   }
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. até R$ 250 mi, regressiva até 0,15%; mín. R$ 22 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 24,
+     "clause": "Apêndice, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "BCB3-2F927728BA20 PRESTADORES DE SERVIÇOS DO FUNDO 7.1. O Fundo pagará uma parcela da Taxa de Administração, Custódia e Agente de Controladoria do Fundo, à Administradora, o valor correspondente a 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo até R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), acrescido de 0,175% (cento e setenta e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo entre R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) e R$ 500.000.000,00 (quinhentos milhões de reais), acrescido de 0,15% (quinze centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo que exceder R$ 500.000.000,00 (quinhentos milhões de reais, respeitado o valor mínimo mensal de R$ 22.000,00 (vinte e dois mil reais), a ser corrigido anualmente pela variação acumulada do IPCA, a partir da data de início do funcionamento do Fundo, e acrescido dos tributos incidentes sobre a remuneração (ISS, PIS, CSLL, IRRF e COFINS e outros que porventura venham a incidir), nas alíquotas vigentes nas respectivas datas de pagamento. 7.1.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 24,
+     "clause": "Apêndice, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "Controladoria do Fundo, à Administradora, o valor correspondente a 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo até R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), acrescido de 0,175% (cento e setenta e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo entre R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) e R$ 500.000.000,00 (quinhentos milhões de reais), acrescido de 0,15% (quinze centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo que"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais 0,20%/0,175%/0,15% a.a.; cortes R$ 250/500 mi; mínimo R$ 22 mil/mês; IPCA.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/02/2026, Apêndice, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,12% a.a. até R$ 200 mi; 0,11% acima; mín. R$ 11,3 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 25,
+     "clause": "Apêndice, cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "Até R$ 200.000.000,00 (duzentos 0,12% a.a. (doze centésimos por R$ 11.300,00 (onze mil e milhões de reais) cento ao ano) trezentos reais) A partir de R$ 200.000.000,00 0,11% a.a. (onze centésimos por R$ 11.300,00 (onze mil e (duzentos milhões de reais) cento ao ano) trezentos reais) 7.3.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,12% a.a. até PL R$ 200 mi; 0,11% acima; mínimo R$ 11,3 mil/mês, IPCA.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 24,
+     "clause": "Apêndice, cl. 7.1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 7.1.3. A Administradora não fará jus a taxa de performance e não serão cobradas taxas de ingresso, de performance e/ou de saída. 7.1.4. A Taxa de Administração não inclui as despesas com publicações de editais e convocação de Assembleias Gerais de Cotistas, tampouco as despesas com a contratação de auditoria especializada, classificação de risco ou assessoria legal ao Fundo. 7.1.5. Adicionalmente, a título de revisão dos documentos do Fundo e implantação do Fundo perante os órgãos reguladores, será devido à Administradora o valor correspondente a R$ 35.000,00 (trinta e cinco mil reais), em parcela única, na data da primeira integralização de cotas do Fundo. 7.1.6."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 81,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "de significa a 1ª (primeira) data de integralização de Cotas do Fundo. Integralização” “Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade devidamente autorizada pela CVM a administrar carteiras de títulos e valores mobiliários, por meio do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, inscrita no CNPJ sob o n° 36.113.876/0001-91, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Sala 201, CEP 22640-100, Barra da Tijuca. “Agência de significa a agência classificadora de risco devidamente habilitada para Classificação de tanto pela CVM, contratada pelo Fundo, caso aplicável, para classificar Risco” o risco das Cotas Seniores e das Cotas Subordinadas Mezanino, caso aplicável, que poderá ser escolhida pela Administradora dentre as seguintes empres"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Kanastra Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 92,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "ADE LIMITADA, inscrito no CNPJ sob o nº 58.288.437/0001-52. “Gestora” significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA., instituição devidamente autorizada pela CVM para prestação dos serviços de administração de carteira de títulos e valores mobiliários através do Ato Declaratório nº 19.724, expedido em 7 de abril de 92 / 108 Docusign Envelope ID: 8542C63A-D2F9-489A-BCB3-2F927728BA20 2022, inscrita no CNPJ/MF sob o nº 44.870.662/0001-98, com sede na Cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, sala 802, Bairro Jardim Sul, CEP 38411-848, ou sua sucessora a qualquer título. “Grupo Econômico” significa, para os fins deste Regulamento, as pessoas naturais controladoras, as entidades por estas controladas, direta ou"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 87,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "86 / 108 Docusign Envelope ID: 8542C63A-D2F9-489A-BCB3-2F927728BA20 “Custodiante” significa a Administradora, atuando como custodiante do Fundo. “CVM” significa a Comissão de Valores Mobiliários. “Data da 1ª Significa a data em que os recursos decorrentes da 1ª (primeira) Integralização” integralização de determinada Série de Cotas Seniores, de determinada Série ou Subclasse de Cotas Subordinadas Mezanino, caso aplicável, ou da Subclasse de Cotas Subordinadas Júnior são colocados pelos investidores à disposição do Fundo, nos termos deste Regulamento, a qual deverá ser, necessariamente, um Dia Útil. “Data de Envio do significa todo 7º (sétimo) Dia Útil de cada mês. Relatório de Monitoramento” “Data de Pagamento” significa cada uma das datas em que serão realizadas as amortizações das Cotas, conforme previstas no Re"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 81,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "de significa a 1ª (primeira) data de integralização de Cotas do Fundo. Integralização” “Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade devidamente autorizada pela CVM a administrar carteiras de títulos e valores mobiliários, por meio do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, inscrita no CNPJ sob o n° 36.113.876/0001-91, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Sala 201, CEP 22640-100, Barra da Tijuca. “Agência de significa a agência classificadora de risco devidamente habilitada para Classificação de tanto pela CVM, contratada pelo Fundo, caso aplicável, para classificar Risco” o risco das Cotas Seniores e das Cotas Subordinadas Mezanino, caso aplicável, que poderá ser escolhida pela Administradora dentre as seguintes empres"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 3,
+     "clause": "Apêndice, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "de dezembro de 1976, conforme alterada, constituído sob a forma de condomínio fechado de natureza especial, com prazo de duração indeterminado, regido pelo presente Regulamento, pela Resolução CMN nº 2.907, conforme alterada, pela Resolução CVM nº 175, conforme alterada, pelos artigos 1.368-C a 1.368-F do Código Civil e pelas demais disposições legais e regulamentares aplicáveis. 1.2. Os termos e expressões utilizados neste Regulamento quando iniciados por letra maiúscula têm o significado a eles atribuídos no Complemento I ao presente Regulamento. Além disso, (a) sempre que exigido pelo contexto, as definições contidas neste Regulamento aplicar-se-ão tanto no singular, quanto no plural, e o gênero masculino incluirá o feminino e vice- versa; (b) referências a qualquer documento ou outros instrumentos incluem todas as suas alterações, substituições, consolidações e respectivas complementações, salvo se expressamente disposto de forma diferente; (c) referências a disposições legais e normativas serão interpretadas como referências às disposições conforme alteradas, estendidas, consolidadas ou reformuladas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "10 maiores devedores (exceto especiais) ≤ 25% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240668",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/02/2026",
+     "page": 10,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240668",
+     "excerpt": "tos Creditórios - Adicionais, não haverá limitação de concentração por Devedor; (h) o Valor Presente dos Direitos Creditórios – Duplicatas devidos pelos 10 (dez) maiores Devedores, excetuados os Devedores Especiais, será limitado a 25% (vinte e cinco por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo, conforme consulta de Devedores por grupo econômico mais recente realizada pela Gestora, sendo que, na hipótese de aporte nas Cotas Subordinadas Júnior, o limite de concentração pelos 10 (dez) maiores Devedores poderá ser aumentado no limite do Excesso de Subordinação. No caso dos Direitos Creditórios – Recebíveis de Cartão e dos Direitos Creditórios - Adicionais, não haverá limitação de concentração por Devedor; (i) os Direitos Creditórios – Duplicatas devem ser originados pelos Cedentes – Duplicatas;"
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Duplicatas da Altomax e outros cedentes com 30% de subordinação (júnior ≥ 20%); 10 maiores devedores ≤ 25% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
