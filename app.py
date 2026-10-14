@@ -479,7 +479,8 @@ with dashboard_page(selected_section):
     elif selected_section == "carteira":
         render_page_header("Dados de Carteira")
         _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
-        period = _render_period_selector(state_prefix="ime_global", context_label="Selecionado")
+        # The portfolio page states the displayed window once, after loading.
+        period = _render_period_selector(state_prefix="ime_global", context_label="Selecionado", show_caption=False)
         render_portfolio_center_page(period=period)
     elif selected_section == "estimativas":
         render_tab_estimativas_modelagem()
