@@ -1,0 +1,49 @@
+# Pneucash II FIDC (Daycoval; Angá; cedentes CPX, ITR e GP Pneus)
+type: Duplicatas/multicedente
+q1: * "ficam, quando mencionadas em conjunto, a CPX, a ITR e a GP, “Cedentes” conforme abaixo qualificados"
+q2: * "Significa a GP PNEUS LTDA., sociedade limitada com sede na cidade de Porto Alegre"
+q3: * "“CPX” Significa a cedente CPX DISTRIBUIDORA S.A."
+q4: * "Significam, em conjunto, (i) os direitos creditórios performados (cujos respectivos Produtos foram entregues ou retirado"
+q5: * "(i) não poderão estar com parcelas vencidas"
+q6: * "deverão se enquadrar nos limites de concentração de até 1% (um por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores"
+q7: * "7.15 Revolvência. Observada a Ordem de Alocação de Recursos, será admitida livremente a revolvência"
+q8: * "(“Taxa de Administração”) e será equivalente ao valor correspondente a 0,08% (oito centésimos por cento) ao ano"
+q9: * "6.2.3 A Taxa de Gestão será de 0,16% (dezesseis centésimos por cento) ao ano, sobre o Patrimônio Líquido do Fundo"
+q10: * "te e inseparável do presente Regulamento. Significa o BANCO DAYCOVAL S.A."
+q11: * "“Gestor” Significa a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA."
+q12: * "“Custodiante” Significa o BANCO DAYCOVAL S"
+q13: * "2.1 A Classe é exclusivamente destinada a Investidores Profissionais"
+q14: * "O Fundo terá prazo de duração indeterminado"
+receivables: Vendas a prazo de pneus e produtos das cedentes, performadas | q4
+originator: CPX, ITR e GP Pneus (e o Pneucash I, quando aplicável) | q1,q2,q3
+assignor: CPX, ITR e GP Pneus | q1,q2
+debtor: Clientes das cedentes | q4
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Sem parcelas vencidas; índices de subordinação enquadrados | q5,q6
+debtor_limit: Grupo econômico de devedores ≤ 1% do PL | q6 | value=1
+sacado_limit: Grupo econômico de devedores ≤ 1% do PL | q6 | value=1
+assignor_limit: — | Cedentes do mesmo grupo de distribuição de pneus
+term_max: n/d | Prazo máximo individual não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: n/d | Alocação mínima não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Mezanino A / Mezanino B / Subordinada júnior | q6
+sub_senior: n/d | Índices de subordinação definidos nos apêndices, sem trecho localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+sub_mezz: n/d | Índices de subordinação definidos nos apêndices, sem trecho localizado
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: n/d | Reserva de caixa sem valor localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: n/d | Critério de provisão não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: n/d | Eventos de avaliação sem lista localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+liquidation: n/d | Eventos de liquidação sem lista localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Revolvência livre, observada a ordem de alocação | q7
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,08% a.a. do PL | q8
+mgmt_fee: 0,16% a.a. do PL, com mínimo mensal | q9
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior vem de anúncio de oferta, não do regulamento
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior vem de anúncio de oferta, não do regulamento
+administrator: Banco Daycoval | q10
+manager: Angá Administração de Recursos | q11
+custodian: Banco Daycoval | q12
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | q13
+duration: Indeterminado | q14
+leitura: Vendas a prazo de pneus de CPX, ITR e GP Pneus; grupo de devedores ≤ 1% do PL e revolvência livre.

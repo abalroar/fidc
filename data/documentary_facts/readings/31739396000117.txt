@@ -1,0 +1,65 @@
+# LF III FIDC (Finaxis; Petra Capital; cedente Listo IP)
+type: Cartão/adquirência
+q1: * "“Direitos Creditórios” são os direitos creditórios detidos pela Cedente em face dos Devedores"
+q2: * "“Cedente” é a LISTO INSTITUIÇÃO DE PAGAMENTO LTDA."
+q3: * "“Devedores” são os Emissores que fornecem os cartões para os Usuários de sua rede"
+q4: * "Como regra geral, o Índice de Recompra não deverá ultrapassar o montante equivalente a 1,50%"
+q5: * "12.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade"
+q6: * "(e) os Direitos Creditórios não poderão ter prazo de vencimento superior a 720 (setecentos e vinte) dias"
+q7: * "Emissor Limite Relativo Individualmente, 100% (cem por ITAU UNIBANCO S.A."
+q8: * "Individualmente, até 2,5% (dois e BANCO DIGIO S.A."
+q9: * "Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido"
+q10: * "Subordinadas Júnior e o valor total das Cotas Mezanino; e (ii) o Patrimônio Líquido do Fundo, que deverá ser equivalente a, no mínimo, 5%"
+q11: * "que deverá ser equivalente a, no mínimo, 33,33% (trinta e três inteiros e trinta e três centésimos por cento)"
+q12: * "“Reserva de Caixa” significa uma reserva de caixa equivalente a, no mínimo, 1 (um) mês de despesas ordinárias"
+q13: * "26.2 São considerados Eventos de Avaliação: (a) renúncia da Administradora"
+q14: * "26.3 São considerados Eventos de Liquidação: (a) se for deliberado"
+q15: * "11.1.3.2 Será permitida a revolvência da carteira do Fundo"
+q16: * "7.1 Pela prestação dos serviços de administração, gestão, custódia qualificada, controladoria e escrituração"
+q17: * "Faixa do Patrimônio Percentual ao ano Líquido Até R$500.000.000,00 0,20%"
+q18: * "7.2 Pela prestação dos serviços de gestão da carteira do Fundo, será devido pelo Fundo à Gestora uma parcela da Taxa de Administração"
+q19: * "taxa de performance, taxa de ingresso ou taxa de saída"
+q20: * "“Administradora” FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q21: * "“Gestora” PETRA CAPITAL GESTÃO DE INVESTIMENTOS LTDA."
+q22: * "“Custodiante” BANCO FINAXIS S.A., acima qualificado"
+q23: * "4.1 As Cotas serão destinadas exclusivamente aos Investidores Profissionais"
+q24: * "O Fundo terá prazo de duração indeterminado"
+q25: * "mantendo a política de provisão para devedores duvidosos da Administradora"
+q26: * "“Conta do Fundo” significa a conta bancária de titularidade do Fundo mantida junto ao Banco Finaxis S.A."
+q27: * "Como regra geral, o Índice de Resolução de Cessão não deverá ultrapassar o montante equivalente a 1,50%"
+q28: * "(g) os Direitos Creditórios deverão ser decorrentes de transações presenciais, por meio de transações realizadas via chip e PIN"
+receivables: Recebíveis de cartão da credenciadora Listo contra os emissores | q1,q2
+card_receivables: Transações presenciais chip e PIN, devidas pelos emissores à Listo | q1,q28
+originator: Listo Instituição de Pagamento (credenciadora) | q2
+assignor: Listo Instituição de Pagamento | q2
+debtor: Emissores de cartões (bancos listados no regulamento) | q3,q7
+recourse: Recompra e resolução de cessão limitadas a 1,50% do PL ao mês | q4,q27
+eligibility: Em reais, adimplentes, livres de ônus; até 720 dias; chip e PIN | q5,q6,q28
+debtor_limit: Grandes bancos até 100% do PL; Digio até 2,5%; outros pelo colchão subordinado | q7,q8 | value=none
+assignor_limit: — | Cedente única: a Listo
+term_max: Até 720 dias | q6
+allocation: ≥ 50% do PL em direitos creditórios | q9 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q10,q11
+sub_senior: 5% · subord./PL | q10 | basis=mez+jr/PL | value=5
+sub_mezz: (Júnior + mezanino C)/mezanino 1 ≥ 33,33% | q11 | basis=jr/PL | value=none
+sub_check: n/d | Periodicidade de apuração dos índices não explicitada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de caixa de ao menos 1 mês de despesas | q12
+pdd: PDD pela política da administradora, mantida atualizada | q25
+eval_triggers: Renúncia ou falha de prestador não sanada em 5 dias úteis, entre outros | q13
+liquidation: Ausência ou inexigibilidade de créditos por mais de 30 dias, entre outros | q14
+revolving: Revolvência durante todo o prazo do fundo | q15
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,20% a.a. até R$ 500 mi de PL, regressiva até 0,13%; mín. R$ 25 mil/mês | q16,q17
+mgmt_fee: Parcela da taxa de administração, fixada em acordo operacional | q18
+perf_fee: Não prevista | Regulamento veda taxa de performance | q19
+target_senior: n/d | Benchmark definido no apêndice de cada série
+target_mezz: n/d | Benchmark definido no apêndice de cada subclasse
+administrator: Finaxis CTVM | q20
+manager: Petra Capital | q21
+custodian: Banco Finaxis | q22
+servicer: n/d | Agente de cobrança não nomeado no regulamento
+investors: Investidores profissionais | q23
+duration: Indeterminado | q24
+card_lock: Pagamentos na conta do fundo, movimentada pelo custodiante | q26
+dilution: Resolução de cessão e recompra limitadas a 1,50% do PL | q27,q4
+leitura: Recebíveis de cartão chip e PIN da Listo contra grandes emissores; subordinação de 5% e até 720 dias.

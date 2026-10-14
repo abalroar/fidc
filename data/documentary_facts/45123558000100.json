@@ -1,0 +1,486 @@
+{
+ "schema_version": 1,
+ "cnpj": "45123558000100",
+ "name": "CANAÃ FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO - FIAGRO - IMOBILIÁRIO - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T08:24:57Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1337333",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333"
+  },
+  "D2": {
+   "document_id": "812959",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "03/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=812959"
+  },
+  "D3": {
+   "document_id": "795340",
+   "kind": "Instrumento de emissão",
+   "title": "Lâmina de Oferta de Fundos Fechados",
+   "date": "05/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=795340"
+  },
+  "D4": {
+   "document_id": "795329",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=795329"
+  },
+  "D5": {
+   "document_id": "795339",
+   "kind": "Instrumento de emissão",
+   "title": "Prospecto",
+   "date": "05/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=795339"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Imóveis rurais (aquisição e arrendamento), CRA, CRI, LCA e LCI do agro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "ta com 4 (quatro) Subclasses. 3. POLÍTICA DE INVESTIMENTOS Objetivo 3.1. O objetivo da Classe I é a obtenção de renda e ganho de capital a serem auferidos mediante o investimento em ativos do agronegócio: Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. (i)imóveis rurais, que serão objeto de aquisição, venda e arrendamento, em todo o território nacional, que não possuam irregularidades perante os órgãos ambientais de âmbito federal, estadual ou municipal, os quais serão adquiridos diretamente pela Classe I ou via participação em sociedades de propósito específico (“Ativos-Alvo Imóveis”); (ii) (a) certificados de recebíveis do agronegócio (“CRA”), emitidos por companhias securitizadoras, observados os limites de concentração previstos na regulamentação aplicável; (b) certificados de recebíveis imobiliários lastreados em créditos imobiliários das cadeias produtivas do agronegócio (“CRI”); (c) Letras de Crédito do Agronegócio (“LCA”); (d) Letras de Credito Imobiliário lastreadas em créditos das cadeias produtivas do agronegócio (“LCI”);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIAGRO de ativos-alvo; não há originador de recebíveis",
+   "sources": []
+  },
+  "assignor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "Não há cessão de direitos creditórios",
+   "sources": []
+  },
+  "debtor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Exposição a arrendatários e emissores dos títulos",
+   "sources": []
+  },
+  "recourse": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Não aplicável a imóveis e títulos adquiridos",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Imóveis rurais sem irregularidade ambiental; títulos do agronegócio",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "ta com 4 (quatro) Subclasses. 3. POLÍTICA DE INVESTIMENTOS Objetivo 3.1. O objetivo da Classe I é a obtenção de renda e ganho de capital a serem auferidos mediante o investimento em ativos do agronegócio: Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. (i)imóveis rurais, que serão objeto de aquisição, venda e arrendamento, em todo o território nacional, que não possuam irregularidades perante os órgãos ambientais de âmbito federal, estadual ou municipal, os quais serão adquiridos diretamente pela Classe I ou via participação em sociedades de propósito específico (“Ativos-Alvo Imóveis”); (ii) (a) certificados de recebíveis do agronegócio (“CRA”), emitidos por companhias securitizadoras, observados os limites de concentração previstos na regulamentação aplicável; (b) certificados de recebíveis imobiliários lastreados em créditos imobiliários das cadeias produtivas do agronegócio (“CRI”); (c) Letras de Crédito do Agronegócio (“LCA”); (d) Letras de Credito Imobiliário lastreadas em créditos das cadeias produtivas do agronegócio (“LCI”);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Demais ativos (fora dos imóveis) limitados a 49% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 26,
+     "clause": "cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "vestimento constituídas nos termos do Anexo Normativo III da Resolução, conforme previsões lá descritas. O investimento dos demais ativos mencionados nesta Política de Investimentos estará limitado a 49% (quarenta e nove por cento) do Patrimônio Líquido da Classe. 3.3. As aquisições dos Ativos Alvo pela Classe I deverão obedecer à Política de Investimentos e às demais condições estabelecidas neste Anexo Descritivo I. Este documento foi assinado eletronicamente por Cintia Santana e Rodrigo Godoy. 3.4. Os Ativos Alvo integrantes da carteira da Classe I, bem como seus frutos e rendimentos, deverão observar as seguintes restrições: (i) não poderão integrar o ativo do Administrador, nem responderão, direta ou indiretamente, por qualquer obrigação de sua responsabilidade; (ii) não comporão a lista de bens e direitos do Administrador para efeito de liquidação judicial ou extrajudicial, nem serão passíveis de execução por seus credores, por mais privilegiados que sejam; e (iii) não poderão ser dados em garantia de débito de operação do Administrador. 3.5."
+    }
+   ],
+   "value": 49.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Não há cedentes",
+   "sources": []
+  },
+  "term_max": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Não aplicável",
+   "sources": []
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Alocação mínima em imóveis não fixada em trecho contínuo",
+   "sources": []
+  },
+  "quota_structure": {
+   "display": "Classe I com 4 subclasses",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "cl. 2.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "rtizadas nos prazos determinados nos respectivos Apêndices, observado o previsto no Artigo 3.7.2 abaixo. Subclasses 2.6. A Classe I conta com 4 (quatro) Subclasses. 3. POLÍTICA DE INVESTIMENTOS Objetivo 3.1. O objetivo da Classe I é a obtenção de renda e ganho de capital a serem auferidos mediante o investimento em ativos do agronegócio: Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. (i)imóveis rurais, que serão objeto de aquisição, venda e arrendamento, em todo o território nacional, que não possuam irregularidades perante os órgãos ambientais de âmbito federal, estadual ou municipal, os quais serão adquiridos diretamente pela Classe I ou via participação em sociedades de propósito específico (“Ativos-Alvo Imóveis”); (ii) (a) certificados de recebíveis do agronegócio (“CRA”), emitidos por companhias securitizadoras, observados os limites de concentração previstos na regulamentação aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "Subclasse A da Classe I identificada; FIAGRO imobiliário",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção entre subclasses definida nos apêndices",
+   "sources": []
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção entre subclasses definida nos apêndices",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": []
+  },
+  "reserve": {
+   "display": "Reserva de caixa verificada mensalmente pelo gestor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "cl. 2.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "frente a referidas despesas e à recomposição da Reserva de Caixa, devendo ainda ser mantido o Mínimo da Subclasse D. 2.3.2 A Reserva de Caixa será verificada pelo Gestor mensalmente. Regime Condominial 2.4. Fechado Este documento foi assinado eletronicamente por Cintia Santana e Rodrigo Godoy. Prazo de Duração 2.5. Indeterminado, sendo certo que as Subclasses terão suas Cotas amortizadas nos prazos determinados nos respectivos Apêndices, observado o previsto no Artigo 3.7.2 abaixo. Subclasses 2.6. A Classe I conta com 4 (quatro) Subclasses. 3. POLÍTICA DE INVESTIMENTOS Objetivo 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Não aplicável a imóveis rurais",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de avaliação não localizados em trecho contínuo",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados em trecho contínuo",
+   "sources": []
+  },
+  "revolving": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Não aplicável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Amortização das subclasses nos prazos dos apêndices",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "cl. 2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "Este documento foi assinado eletronicamente por Cintia Santana e Rodrigo Godoy. Prazo de Duração 2.5. Indeterminado, sendo certo que as Subclasses terão suas Cotas amortizadas nos prazos determinados nos respectivos Apêndices, observado o previsto no Artigo 3.7.2 abaixo. Subclasses 2.6. A Classe I conta com 4 (quatro) Subclasses. 3. POLÍTICA DE INVESTIMENTOS Objetivo 3.1. O objetivo da Classe I é a obtenção de renda e ganho de capital a serem auferidos mediante o investimento em ativos do agronegócio: Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. (i)imóveis rurais, que serão objeto de aquisição, venda e arrendamento, em todo o território nacional, que não possuam irregularidades perante os órgãos ambientais de âmbito federal, estadual ou municipal, os quais serão adquiridos diretamente pela Classe I ou via participação em sociedades de propósito específico (“Ativos-Alvo Imóveis”);"
+    }
+   ],
+   "legacy": {
+    "value": "Rendimento anunciado R$ 7, 42542501 por cota; competência jul/2026; pagamento 17/07/2026",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 2.4"
+   }
+  },
+  "admin_fee": {
+   "display": "Taxa por faixa de PL, com taxa mínima total de 0,10% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 37,
+     "clause": "cl. 5.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "o código sobre o patrimônio líquido que superar R$1.500.000.000,00, com taxa mínima total de 0,10% (dez centésimos por cento) ao ano. 5.5.1. O Valor Mínimo será atualizado anualmente pela variação positiva do IPCA, a partir da vigência deste Este documento foi assinado eletronicamente por Cintia Santana e Rodrigo Godoy. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. Este documento foi assinado eletronicamente por Cintia Santana e Rodrigo Godoy. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. Regulamento. Taxa Máxima de Custódia 5.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Parcela do gestor incluída na taxa por faixa, sem trecho separado",
+   "sources": []
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de performance, se houver, conforme anexo",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 1.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "classe, quando houver. 2. PRESTADORES DE SERVIÇOS Administrador 2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., CNPJ: 27.652.684/0001-62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. 2.1.1. Serviços: Além dos serviços de administração fiduciária, o Administrador também prestará ao Fundo os serviços de: Este documento foi assinado eletronicamente por Cintia Santana e Rodrigo Godoy. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. (i) Custódia; (ii) Escrituração; (iii) Controladoria; e (iv) Tesouraria. 2.1.1.1. Compete ao Administrador contratar, conforme o caso: (i) serviços de distribuição de Cotas; (ii) consultoria de investimentos; e (iii) formador de mercado. 2.1.2. Incluem-se entre as obrigações do Administrador, além das demais responsabilidades previstas na Resolução, neste Regulamento e nos Anexos Descritivos: (i) diligenciar para que sejam mantidos, às suas expensas, atualizados e em perfeita ordem: (a) registro de Cotistas; (b) livro de atas das Assembleias de Cotistas; (c) lista de presença de Cotistas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "rdo com a lei e regulamentação aplicáveis e este Regulamento, no que tange aos Ativos-Alvo Imóveis. Gestor 3.1. GENIAL GESTÃO LTDA., inscrita CNPJ: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, de 30 de setembro de 2015. 3.1.1. O Gestor é o responsável pela seleção de todos os Ativos da carteira, estando por sua responsabilidade a negociação e gestão direta dos títulos e valores mobiliários, observado o disposto no item (xxiii) do Artigo 2.1.2 acima. 3.1.1.1. Quanto aos Ativos-Alvo Imóveis, o Gestor irá acompanhar as atividades, participar de negociações e propor negócios, acompanhar melhorias e indicar ao Administrador a alienação ou aquisição, conforme decisão do Comitê da Classe I, no caso da Classe I. 3.1.2. Caso o Gestor contrate cogestor para determinada Classe, as informações do prestador de serviços estarão descritas diretamente no Anexo Descritivo da respectiva Classe, assim Este documento foi assinado eletronicamente por Cintia Santana e Rodrigo Godoy. como o seu mercado específico de atuação. 3.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "Não aplicável",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 22,
+     "clause": "cl. 1.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "e o código 3099-DA21-87B8-AAC9. 2. CARACTERÍSTICAS DA CLASSE I Público-Alvo 2.1. A Classe I é destinada a Investidores Qualificados, nos termos do artigo 12 da Resolução CVM nº 30, de 11 de maio de 2021, conforme em vigor. 2.2. A subscrição de Cotas por empregados e sócios do Gestor e Administrador é vedada. Responsabilidade dos Cotistas 2.3. A responsabilidade dos Cotistas será limitada ao valor das Cotas por eles subscritas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado (subclasses com prazos próprios)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "cl. 2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "Este documento foi assinado eletronicamente por Cintia Santana e Rodrigo Godoy. Prazo de Duração 2.5. Indeterminado, sendo certo que as Subclasses terão suas Cotas amortizadas nos prazos determinados nos respectivos Apêndices, observado o previsto no Artigo 3.7.2 abaixo. Subclasses 2.6. A Classe I conta com 4 (quatro) Subclasses. 3. POLÍTICA DE INVESTIMENTOS Objetivo 3.1. O objetivo da Classe I é a obtenção de renda e ganho de capital a serem auferidos mediante o investimento em ativos do agronegócio: Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. (i)imóveis rurais, que serão objeto de aquisição, venda e arrendamento, em todo o território nacional, que não possuam irregularidades perante os órgãos ambientais de âmbito federal, estadual ou municipal, os quais serão adquiridos diretamente pela Classe I ou via participação em sociedades de propósito específico (“Ativos-Alvo Imóveis”);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Imóveis rurais arrendados e títulos do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337333",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+     "excerpt": "ta com 4 (quatro) Subclasses. 3. POLÍTICA DE INVESTIMENTOS Objetivo 3.1. O objetivo da Classe I é a obtenção de renda e ganho de capital a serem auferidos mediante o investimento em ativos do agronegócio: Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 3099-DA21-87B8-AAC9. (i)imóveis rurais, que serão objeto de aquisição, venda e arrendamento, em todo o território nacional, que não possuam irregularidades perante os órgãos ambientais de âmbito federal, estadual ou municipal, os quais serão adquiridos diretamente pela Classe I ou via participação em sociedades de propósito específico (“Ativos-Alvo Imóveis”); (ii) (a) certificados de recebíveis do agronegócio (“CRA”), emitidos por companhias securitizadoras, observados os limites de concentração previstos na regulamentação aplicável; (b) certificados de recebíveis imobiliários lastreados em créditos imobiliários das cadeias produtivas do agronegócio (“CRI”); (c) Letras de Crédito do Agronegócio (“LCA”); (d) Letras de Credito Imobiliário lastreadas em créditos das cadeias produtivas do agronegócio (“LCI”);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "collateral": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Não aplicável a imóveis próprios",
+   "sources": []
+  }
+ },
+ "leitura": "FIAGRO de imóveis rurais arrendados e títulos do agro; demais ativos limitados a 49% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

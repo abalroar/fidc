@@ -1,0 +1,53 @@
+# VTK FIDC (Oliveira Trust DTVM; Oliveira Trust Servicer; cedente Facta)
+type: Consignado público
+q16: * "mantenha a idade média dos Devedores em menor ou igual a 68 (sessenta e oito) anos"
+q1: * "FACTA FINANCEIRA S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO, instituição financeira com sede na cidade de Porto Alegre"
+q2: * "Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS"
+q3: * "mesmo Devedor não poderá exceder R$ 120.000,00 (cento e vinte mil reais)"
+q4: * "O percentual mínimo de 67%"
+q5: * "Subordinação Sênior mínimo 15% (quinze por cento), conforme previsto no item 8.3.4 abaixo"
+q6: * "Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme previsto no item 8.4.3 abaixo"
+q7: * "São Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Monitoramento"
+q8: * "São Eventos de Liquidação quaisquer das seguintes ocorrências: (i) caso seja deliberado"
+q9: * "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q10: * "A OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q11: * "OLIVEIRA TRUST SERVICER S.A."
+q12: * "OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN"
+q13: * "destinada exclusivamente a Investidores Qualificados que busquem rentabilidade, no longo prazo"
+q14: * "prazo de duração indeterminado, inscrito no CNPJ sob o nº 62.588.266/0001-54"
+q15: * "revolvente. 3.6 A cada aquisição de Direitos Creditórios, na respectiva Data de Aquisição e Pagamento, o Fundo pagará à Facta"
+receivables: CCBs de consignado e cartão INSS originadas pela Facta | q2,q1
+originator: Facta Financeira | q1
+assignor: Facta Financeira | q1
+debtor: Aposentados e pensionistas do INSS | q2
+recourse: Facta não responde pela solvência dos devedores | o11
+eligibility: Saldo por devedor ≤ R$ 120 mil; idade média dos devedores ≤ 68 anos | q3,q16
+debtor_limit: Saldo por devedor até R$ 120 mil | q3 | value=none
+assignor_limit: — | Cedente única: Facta
+term_max: n/d | Prazo combinado com idade; trecho sem limite isolado | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 67% do PL em direitos creditórios | q4 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q5,q6
+sub_senior: 15% · subord./PL | q5 | basis=mez+jr/PL | value=15
+sub_mezz: 5% · júnior/PL | q6 | basis=jr/PL | value=5
+sub_check: n/d | Periodicidade de apuração dos índices não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Despesas de 3 meses; acúmulo para remuneração sênior desde D-30 | o40
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Pré-pagamento e perdas over acima dos limites, entre outros | o46,q7
+liquidation: Deliberação da assembleia ou determinação da CVM, entre outros | q8
+revolving: Carteira revolvente, com aquisições sucessivas da Facta | q15
+amortization: Pro rata; sequencial após desalavancagem ou liquidação | o55
+admin_fee: 0,056% a.a. na faixa inicial de PL, regressiva por faixa | o60
+mgmt_fee: 0,014% a.a. na faixa inicial de PL, regressiva por faixa | o63
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: n/d | Meta definida no suplemento de cada série
+target_mezz: n/d | Meta definida no suplemento de cada série
+administrator: Oliveira Trust DTVM | q10
+manager: Oliveira Trust Servicer | q11
+custodian: Oliveira Trust DTVM | q12
+servicer: n/d | Agente de cobrança não nomeado em trecho localizável
+investors: Investidores qualificados | q13
+duration: Indeterminado | q14
+payroll: Convênio da Facta com INSS e Dataprev | q2
+age_limit: Idade média da carteira ≤ 68 anos | q16
+installment_min: Parcela média ≥ R$ 200 | o14
+leitura: Consignado INSS da Facta com subordinação de 15% (júnior ≥ 5%) e devedor até R$ 120 mil.

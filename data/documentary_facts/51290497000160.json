@@ -1,0 +1,813 @@
+{
+ "schema_version": 1,
+ "cnpj": "51290497000160",
+ "name": "MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T07:57:33Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "956736",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736"
+  },
+  "D2": {
+   "document_id": "557485",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "21/11/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557485"
+  },
+  "D3": {
+   "document_id": "551560",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "10/11/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=551560"
+  },
+  "D4": {
+   "document_id": "545845",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "06/11/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545845"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado INSS originadas pela Plataforma MT",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 8,
+     "clause": "Anexo, cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "lo GESTOR, com base no Patrimônio Líquido do Dia Útil imediatamente anterior. 4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimos consignados concedidos por um Endossante a um Devedor, por meio da Plataforma MT, e representados por CCBs devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. 4.2.1 Previamente ao endosso de Direitos Creditórios à Classe, cada Endossante deve ter celebrado (a) o Convênio INSS com o INSS e a Dataprev, estando devidamente habilitado e credenciado perante o INSS e a Dataprev, a fim de realizar as Consignações dos valores devidos por cada Devedor; (b) o Acordo Operacional com o Agente de Retenção e Cobrança a fim de estabelecer os procedimentos operacionais da Plataforma MT;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "erviços contratados pela Classe. (iii) Risco Operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a carteira da Classe poderá sofrer prejuízos, já que não receberá automaticamente os Direitos Creditórios, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (iv) Risco Operacional do Convênio INSS: o desconto na folha de benefícios das parcelas dos empréstimos concedidos aos Devedores é permitido pelo Convênio INSS. As partes do Convênio INSS devem seguir certas regras para manter o Convênio INSS, e a violação delas poderá levar à sua rescisão. Além disso, mudanças legais e/ou regulatórios podem afetar e/ou tornar inviável a manutenção do Convênio INSS."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de consignado INSS pela Plataforma MT",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Endossantes Parati, QI Tech ou outras instituições conveniadas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 60,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "rotocolo de Internet para comunicação e que identifica um dispositivo na Internet ou em uma rede local; “Endossante”: (a) a Parati; (b) a QI Tech; ou (c) outras instituições financeiras que (1) tenham celebrado o Convênio INSS, (2) sejam previamente aprovadas pelo ADMINISTRADOR e pela Assembleia de Cotistas e (3) tenham celebrado Contrato de Promessa de Endosso e Contrato de Retenção e Cobrança; “Entidade de Investimento”: o FUNDO e/ou Classe, na forma do disposto na Resolução CMN nº 5.111; “Entidade Registradora”: a câmara de cessão e registro de crédito operada pela Câmara Interbancária de Pagamento (CIP); “Evento de Aceleração”: cada um dos eventos previstos no item 11.1 acima; “Evento de Avaliação”: cada um dos eventos de avaliação descritos no item 11.2 deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "Parati; QI Tech; outras IFs aprovadas e conveniadas INSS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Parati, QI Tech ou outras instituições conveniadas, por endosso",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 60,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "rotocolo de Internet para comunicação e que identifica um dispositivo na Internet ou em uma rede local; “Endossante”: (a) a Parati; (b) a QI Tech; ou (c) outras instituições financeiras que (1) tenham celebrado o Convênio INSS, (2) sejam previamente aprovadas pelo ADMINISTRADOR e pela Assembleia de Cotistas e (3) tenham celebrado Contrato de Promessa de Endosso e Contrato de Retenção e Cobrança; “Entidade de Investimento”: o FUNDO e/ou Classe, na forma do disposto na Resolução CMN nº 5.111; “Entidade Registradora”: a câmara de cessão e registro de crédito operada pela Câmara Interbancária de Pagamento (CIP); “Evento de Aceleração”: cada um dos eventos previstos no item 11.1 acima; “Evento de Avaliação”: cada um dos eventos de avaliação descritos no item 11.2 deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "Parati; QI Tech; outras IFs aprovadas e conveniadas INSS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Aposentados e pensionistas do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "erviços contratados pela Classe. (iii) Risco Operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a carteira da Classe poderá sofrer prejuízos, já que não receberá automaticamente os Direitos Creditórios, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (iv) Risco Operacional do Convênio INSS: o desconto na folha de benefícios das parcelas dos empréstimos concedidos aos Devedores é permitido pelo Convênio INSS. As partes do Convênio INSS devem seguir certas regras para manter o Convênio INSS, e a violação delas poderá levar à sua rescisão. Além disso, mudanças legais e/ou regulatórios podem afetar e/ou tornar inviável a manutenção do Convênio INSS."
+    }
+   ],
+   "legacy": {
+    "value": "Beneficiário/pensionista INSS; idade final ≤ 76a11m29d, inválidos ≤ 72a11m29d",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2025, Anexo"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de endosso",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "CCB até 84 parcelas; devedor adimplente e com até 76 anos",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "quiridos pela Classe deverão satisfazer, na Data de Oferta de Direitos Creditórios, cumulativamente, os seguintes Critérios de Elegibilidade, a serem validados pelo GESTOR, que poderá subcontratar o Custodiante ou terceiro, exclusivamente com base nas informações enviadas através de API ao Custodiante (i) a data de vencimento final dos Direitos Creditórios deverá observar o prazo máximo de 84 (oitenta e quatro) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório, e não exceder o prazo de duração mais longo das Cotas Seniores ou das Cotas Mezanino; (ii) o saldo dos Direitos Creditórios devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "vés de API ao Custodiante (i) a data de vencimento final dos Direitos Creditórios deverá observar o prazo máximo de 84 (oitenta e quatro) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório, e não exceder o prazo de duração mais longo das Cotas Seniores ou das Cotas Mezanino; (ii) o saldo dos Direitos Creditórios devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios que tenham sido adquiridos pela Classe;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "m relação a outros Direitos Creditórios que tenham sido adquiridos pela Classe; (iv) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios; (2) por aposentadoria por tempo de contribuição e ter até 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios; (3) por pensão por morte e ter até 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios; ou (4) por aposentadoria por invalidez e ter até 72 (setenta e dois) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor: R$ 60 mil acima de 61 anos; R$ 120 mil abaixo",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "Cotas Seniores ou das Cotas Mezanino; (ii) o saldo dos Direitos Creditórios devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios que tenham sido adquiridos pela Classe; (iv) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Devedor > 61 anos até R$ 60 mil; ≤ 61 anos até R$ 120 mil; invalidez ≤ 20% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2025, Anexo, cl. 4.7"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por endossante não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor > 61 anos até R$ 60 mil; ≤ 61 anos até R$ 120 mil; invalidez ≤ 20% do PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Até 84 parcelas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "vés de API ao Custodiante (i) a data de vencimento final dos Direitos Creditórios deverá observar o prazo máximo de 84 (oitenta e quatro) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório, e não exceder o prazo de duração mais longo das Cotas Seniores ou das Cotas Mezanino; (ii) o saldo dos Direitos Creditórios devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios que tenham sido adquiridos pela Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 55,
+     "clause": "Anexo, cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "operações de crédito representadas pelas CCBs, inclusive por meio da Plataforma MT; “Alocação Mínima”: alocação mínima de 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis; “Alocação Mínima Tributária”: percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em “direitos creditórios”, conforme a definição na Resolução CMN nº 5.111, para fins de sujeição do FUNDO ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica, nos termos da na Lei nº 14.754."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "Inadimplência Cumulativa de 7,82% (sete inteiros e oitenta e dois centésimos por cento); “Índice Mínimo de Subordinação Sênior”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe é de 10% (dez por cento); “Índice Mínimo de Subordinação Mezanino”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe é de 1% (um por cento); Cor por Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Glossário do Anexo I ao Regulamento CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS “Índices de Monitoramento”: o Índice de Inadimplência Cumulativa e os Índices de Subordinação, quando referidos em conjunto e indistintamente; “Índices Mínimos de Subordinação”: o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando referidos em conjunto e indistintamente; “Índice de Subordinação Sênior”: significa a relação entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe; “Índice de Subordinação Mezanino”: a relação entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "ntre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe é de 10% (dez por cento); “Índice Mínimo de Subordinação Mezanino”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe é de 1% (um por cento); Cor por Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Glossário do Anexo I ao Regulamento CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS “Índices de Monitoramento”: o Índice de Inadimplência Cumulativa e os Índices de Subordinação, quando referidos em conjunto e indistintamente; “Índices Mínimos de Subordinação”: o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando referidos em conjunto e indistintamente; “Índice de Subordinação Sênior”: significa a relação entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe; “Índice de Subordinação Mezanino”: a relação entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 1%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2025, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "10% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "Inadimplência Cumulativa de 7,82% (sete inteiros e oitenta e dois centésimos por cento); “Índice Mínimo de Subordinação Sênior”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe é de 10% (dez por cento); “Índice Mínimo de Subordinação Mezanino”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe é de 1% (um por cento); Cor por Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Glossário do Anexo I ao Regulamento CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS “Índices de Monitoramento”: o Índice de Inadimplência Cumulativa e os Índices de Subordinação, quando referidos em conjunto e indistintamente; “Índices Mínimos de Subordinação”: o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando referidos em conjunto e indistintamente; “Índice de Subordinação Sênior”: significa a relação entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe; “Índice de Subordinação Mezanino”: a relação entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 1%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2025, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "1% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "ntre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe é de 10% (dez por cento); “Índice Mínimo de Subordinação Mezanino”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe é de 1% (um por cento); Cor por Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Glossário do Anexo I ao Regulamento CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS “Índices de Monitoramento”: o Índice de Inadimplência Cumulativa e os Índices de Subordinação, quando referidos em conjunto e indistintamente; “Índices Mínimos de Subordinação”: o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando referidos em conjunto e indistintamente; “Índice de Subordinação Sênior”: significa a relação entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe; “Índice de Subordinação Mezanino”: a relação entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 1.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração dos índices não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 1%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Despesas: 1% do PL; defesa da carteira: mais 1% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 8,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "ue tal solicitação deverá ser acompanhada dos comprovantes de pagamento correspondentes. 3.2 O GESTOR deverá constituir e manter, desde a Data de Início da Classe até a liquidação da Classe, Reserva de Despesas, em dinheiro ou Ativos Financeiros de Liquidez, em valor correspondente a 1% (um por cento) do Patrimônio Líquido, para arcar com os encargos da Classe, conforme previstos no item 3.1 acima, e demais despesas da Classe, conforme previstas neste Regulamento. 3.3 O GESTOR deverá constituir e manter, desde a Data de Início da Classe até a liquidação da Classe, Reserva de Defesa da Carteira, em dinheiro ou em Ativos Financeiros de Liquidez, em valor correspondente a 1% (um por cento) do Patrimônio Líquido, cujos recursos serão empregados exclusivamente para a retenção das operações de crédito consignado relativas aos Direitos Creditórios integrantes da carteira da Classe por meio de Operações de Refinanciamento, nos termos da Política de Cobrança. Capítulo 4 – POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 4.1 A Classe aplicará seus recursos na aquisição de Direitos Creditórios Elegíveis e/ou Ativos Finan"
+    },
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 8,
+     "clause": "Anexo, cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "previstos no item 3.1 acima, e demais despesas da Classe, conforme previstas neste Regulamento. 3.3 O GESTOR deverá constituir e manter, desde a Data de Início da Classe até a liquidação da Classe, Reserva de Defesa da Carteira, em dinheiro ou em Ativos Financeiros de Liquidez, em valor correspondente a 1% (um por cento) do Patrimônio Líquido, cujos recursos serão empregados exclusivamente para a retenção das operações de crédito consignado relativas aos Direitos Creditórios integrantes da carteira da Classe por meio de Operações de Refinanciamento, nos termos da Política de Cobrança. Capítulo 4 – POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 4.1 A Classe aplicará seus recursos na aquisição de Direitos Creditórios Elegíveis e/ou Ativos Financeiros de Liquidez, observados os limites estabelecidos neste Regulamento e na legislação e regulamentação aplicáveis. 4.1.1 Os percentuais de composição e diversificação da carteira da Classe deverão ser observados diariamente pelo GESTOR, com base no Patrimônio Líquido do Dia Útil imediatamente anterior. 4.2 Os Direitos Creditórios são originados no âmbito de operações de"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas 1% do PL + defesa da carteira 1% do PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 22,
+     "clause": "Anexo, cl. 9.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "uladas pelo ADMINISTRADOR, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas do ADMINISTRADOR, também disponível em seu site (www.oliveiratrust.com.br). 9.5 O Patrimônio Líquido equivale ao valor dos recursos em caixa acrescido do valor dos Direitos Creditórios e dos Ativos Financeiros de Liquidez integrantes da carteira da Classe, deduzidas as exigibilidades e provisões. 9.6 As Cotas terão seu valor calculado todo Dia Útil nos termos descritos no Capítulo 6 acima. Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Anexo I ao Regulamento ANEXO DESCRITIVO DA CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS Capítulo 10 – ASSEMBLEIA ESPECIAL DE COTISTAS 10.1 Sem prejuízo de outros requisitos e informações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas. 10.2 A Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Intervenção no endossante; inadimplência cumulativa acima de 7,82%, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 25,
+     "clause": "Anexo, cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "quente à verificação do saneamento do Evento de Aceleração. Eventos de Avaliação 11.2 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) em caso de decretação de regime de administração especial temporária – RAET, intervenção ou liquidação extrajudicial de Endossante ou do Agente das Contas Vinculadas; (ii) não cumprimento por Endossante, pelo ADMINISTRADOR, pelo Agente de Retenção e Cobrança, pelo GESTOR ou pelo CUSTODIANTE de quaisquer de suas obrigações estabelecidas em Contrato de Promessa de Endosso, desde que não sanado no prazo previsto no próprio contrato; (iii) não cumprimento por Endossante, pelo Agente de Retenção e Cobrança, pelo ADMINISTRADOR, pelo GESTOR ou pelo CUSTODIANTE de quaisquer de suas obrigações estabelecidas em Contrato de Retenção e Cobrança, desde não sanado dentro do prazo previsto no respectivo contrato;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "Reinicialização; “Índice Máximo de Inadimplência Cumulativa”: o valor máximo admitido para a Índice de Inadimplência Cumulativa de 7,82% (sete inteiros e oitenta e dois centésimos por cento); “Índice Mínimo de Subordinação Sênior”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe é de 10% (dez por cento); “Índice Mínimo de Subordinação Mezanino”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe é de 1% (um por cento); Cor por Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Glossário do Anexo I ao Regulamento CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS “Índices de Monitoramento”: o Índice de Inadimplência Cumulativa e os Índices de Subordinação, quando referidos em conjunto e indistintamente; “Índices Mínimos de Subordinação”: o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando referidos em conjunto e indistintamente;"
+    }
+   ],
+   "legacy": {
+    "value": "Inadimplência cumulativa > 7,82%; subordinação fora por > 13 DU; rating cai 2 níveis",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2025, Anexo, cl. 11.1"
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou deliberação dos cotistas, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 27,
+     "clause": "Anexo, cl. 11.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "valiação e/ou Eventos de Liquidação. Eventos de Liquidação 11.4 As seguintes hipóteses são consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) nos casos em que houver determinação da CVM, nos termos previstos na Resolução CVM 175; (iii) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada para tal fim, nos termos do item 10.2(xv) acima; (iv) impossibilidade de a Classe adquirir Direitos Creditórios admitidos por sua Política de Investimento;"
+    }
+   ],
+   "legacy": {
+    "value": "Inadimplência cumulativa > 7,82%; subordinação fora por > 13 DU; rating cai 2 níveis",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2025, Anexo, cl. 11.4"
+   }
+  },
+  "revolving": {
+   "display": "Período de investimento com novas aquisições",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 13,
+     "clause": "Anexo, cl. 4.18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "rá investir em Direitos Creditórios Não-Padronizados. Revolvência e Período de Investimento da Carteira 4.19 A Classe terá um Período de Investimento que (a) se inicia na Data de Integralização Inicial e (b) se encerra ao fim do prazo de 286 (duzentos e oitenta e seis) dias contado da data da primeira integralização da 8ª (oitava) série de Cotas Seniores e Cotas Subordinadas Mezanino ou até que a Classe detenha R$ 1.250.000,00 (um bilhão e duzentos e cinquenta milhões de reais) alocados em Direitos Creditórios Elegíveis, o que ocorrer primeiro. 4.20 Durante o Período de Investimento, a Classe utilizará (a) os recursos provenientes da integralização das Cotas e (b) os recursos decorrentes do pagamento dos Direitos Creditórios anteriormente endossados à Classe (revolvência) para investir em novos Direitos Creditórios Elegíveis e Ativos Financeiros. Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Anexo I ao Regulamento ANEXO DESCRITIVO DA CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS 4.20.1 Após o término do Período de Investimento, a Classe somente realizará a a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,07% a.a. até R$ 300 mi de PL, regressiva até 0,025%; mín. R$ 8.750/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 36,
+     "clause": "Anexo, cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "A Taxa de Administração 13.1 Pelos serviços de administração, tesouraria, controladoria e escrituração, a Classe pagará a Taxa de Administração os valores correspondentes aos percentuais indicados na tabela abaixo e aplicados sobre o Patrimônio Líquido observado o valor mínimo mensal de R$ 8.750,00 (oito mil, setecentos e cinquenta reais): Patrimônio Taxa ao ano (%) Até R$300.000.000,00 0,07% a.a. Entre R$300.000.000,01 e 0,0375% a.a. R$600.000.000,00 Acima de R$600.000.000,01 0,025% a.a. 13.1.1 Os valores aqui estabelecidos serão atualizados anualmente, a cada 12 (doze) meses, a partir da primeira data de integralização de Cotas da Classe, ou na menor periodicidade admitida em lei, pela variação acumulada positiva do Índice Geral de Preços do Mercado (IGP-M), divulgado pela Fundação Getúlio Vargas (FGV), ou outro índice que venha a substituí-lo."
+    }
+   ],
+   "legacy": {
+    "value": "0,07%/0,0375%/0,025% a.a.; mínimo R$ 8,75 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "Percentual por faixa de PL; mín. R$ 8.750/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 37,
+     "clause": "Anexo, cl. 13.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "as da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos valores correspondentes aos percentuais indicados na tabela abaixo e aplicados sobre o Patrimônio Líquido, observado o valor mínimo de: R$ 8.750,00 ( oito mil, setecentos e cinquenta reais reais) mensais. Patrimônio Taxa ao ano (%) Até R$300.000.000,00 0,07% a.a. Entre R$300.000.000,01 e 0,0375% a.a. R$600.000.000,00 Acima de R$600.000.000,01 0,025% a.a. 13.4.1 O valor mínimo acima estabelecido será atualizado anualmente, a cada 12 (doze) meses, a partir da Data de Integralização Inicial de Cotas da Classe, pela variação acumulada positiva do Índice Geral de Preços do Mercado (IGP-M), divulgado pela Fundação Getúlio Vargas (FGV), ou outro índice que venha a substituí-lo. 13.4.2 A Taxa de Gestão será calculada e provisionada todo Dia Útil à razão de"
+    }
+   ],
+   "legacy": {
+    "value": "0,07%/0,0375%/0,025% a.a.; mínimo R$ 8,75 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2025, Anexo, cl. 13.3"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 37,
+     "clause": "Anexo, cl. 13.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "tados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 13.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos valores correspondentes aos percentuais indicados na tabela abaixo e aplicados sobre o Patrimônio Líquido, observado o valor mínimo de: R$ 8.750,00 ( oito mil, setecentos e cinquenta reais reais) mensais. Patrimônio Taxa ao ano (%) Até R$300.000.000,00 0,07% a.a. Entre R$300.000.000,01 e 0,0375% a.a. R$600.000.000,00 Acima de R$600.000.000,01 0,025% a.a. 13.4.1 O valor mínimo acima estabelecido será atualizado anualmente, a cada 12 (doze) meses, a partir da Data de Integralização Inicial de Cotas da Classe, pela variação acumulada positiva do Índice Geral de Preços do Mercado (IGP-M), divulgado pela Fundação Getúlio"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "cotistas reunidos em assembleia geral de cotistas. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de ADMINISTRADOR fiduciário, por meio do ADMINISTRADOR Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, bloco 7, sala 201, Barra da Tijuca, CEP 22640- 102, inscrita no CNPJ sob o nº 36.113.876/0001-91 (“ADMINISTRADOR”). OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de GESTOR de recursos, por meio do Ato Declaratório CVM nº 7.44"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "º 36.113.876/0001-91 (“ADMINISTRADOR”). OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de GESTOR de recursos, por meio do Ato Declaratório CVM nº 7.446, de 13 de outubro de 2003, com sede na cidade do Rio de Janeiro, Estado GESTOR do Rio de Janeiro, na Avenida Americanas, nº 3.434, bloco 07, sala 202, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ sob o nº 02.150.453/0001-20 (“GESTOR” e, quando referido conjuntamente e indistintamente com o ADMINISTRADOR, os “Prestadores de Serviços Essenciais”). Foro Aplicável Foro da Cidade de São Paulo, Estado de São Paulo. Encerramento do 31 de dezembro de cada ano. Exercício Social 1.2 Este regulamento é composto por esta parte geral, um ou mais an"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 6,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E Custódia VALORES MOBILIÁRIOS S.A., acima qualificada (“CUSTODIANTE”). Tesouraria e Escrituração ADMINISTRADOR. Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Anexo I ao Regulamento ANEXO DESCRITIVO DA CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS OLIVEIRA TRUST SERVICER S.A., sociedade por ações, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, sala 202, Centro Controladoria Empresarial Mario Henrique Simonsen, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ sob o n.º 02.150.453/0001-20, ou sua sucessora a qualquer título;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Tudo Serviços (agente de retenção e cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 55,
+     "clause": "Anexo, cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "o, na Avenida Brigadeiro Faria Lima, nº 3.477, 14º andar, inscrita no CNPJ sob o nº 30.306.294/0002-26; “Agente de Retenção e Cobrança”: Tudo Serviços S.A., sociedade por ações com sede na cidade de Eusébio, estado do Ceará, na Rua Comendador Ari Freitas, nº 577, Coaçu, CEP 61.760- 000, inscrita no CNPJ sob nº 27.852.506/0001-85; “Agente Escriturador”: O ADMINISTRADOR, o qual se encontra devidamente habilitado pela CVM para prestar os serviços de escrituração das Cotas, ou seu sucessor a qualquer título; “Acordo de Parceria”: significa cada acordo de parceria operacional, contrato de correspondente bancário ou acordo ou contrato similar, celebrado entre o Endossante e o Agente de Retenção e Cobrança, por meio do qual o Endossante contrata o Agente de Retenção e Cobrança como correspondente bancário, de acordo com a Resolução CMN nº 4.935, para que o Agente de Retenção e Cobrança auxilie o Endossante na originação e monitoramento das operações de crédito representadas pelas CCBs, inclusive por meio da Plataforma MT; “Alocação Mínima”: alocação mínima de 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 6,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "rentabilidade e liquidez dos títulos componentes de sua carteira. Público-Alvo Investidores Qualificados. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E Custódia VALORES MOBILIÁRIOS S.A., acima qualificada (“CUSTODIANTE”). Tesouraria e Escrituração ADMINISTRADOR. Docusign Envelope ID: D420AB5C-7D8A-4CC8-BA37-3BDDEEC4204C Anexo I ao Regulamento ANEXO DESCRITIVO DA CLASSE A – RESPONSABILIDADE LIMITADA MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS OLIVEIRA TRUST SERVICER S.A., sociedade por ações, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, sala 202, Centro Controladoria Empresarial Mario Henrique Simonsen, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ sob o n.º 02.150.453/0001-20, ou"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 17,
+     "clause": "Anexo, cl. 5.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "o Valor de Emissão Unitário conforme previsto no item 5.4 acima; (v) terão prazo de duração indeterminado; (vi) deverão ser subscritas e integralizadas na forma e no prazo estabelecido no respectivo Apêndice; (vii) não terão preferência entre elas para efeitos de amortização, valorização e resgate, independentemente das datas de emissão de cada uma delas, conferirão aos seus Cotistas os mesmos direitos e obrigações;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Desconto em folha do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "erviços contratados pela Classe. (iii) Risco Operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a carteira da Classe poderá sofrer prejuízos, já que não receberá automaticamente os Direitos Creditórios, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (iv) Risco Operacional do Convênio INSS: o desconto na folha de benefícios das parcelas dos empréstimos concedidos aos Devedores é permitido pelo Convênio INSS. As partes do Convênio INSS devem seguir certas regras para manter o Convênio INSS, e a violação delas poderá levar à sua rescisão. Além disso, mudanças legais e/ou regulatórios podem afetar e/ou tornar inviável a manutenção do Convênio INSS."
+    }
+   ],
+   "legacy": {
+    "value": "Consignação INSS/Dataprev; portabilidade e glosa sujeitas a defesa da carteira",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "Devedor de até 76 anos (aposentadoria por idade)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "956736",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+     "excerpt": "m relação a outros Direitos Creditórios que tenham sido adquiridos pela Classe; (iv) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios; (2) por aposentadoria por tempo de contribuição e ter até 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios; (3) por pensão por morte e ter até 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios; ou (4) por aposentadoria por invalidez e ter até 72 (setenta e dois) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Regulamento não fixa parcela mínima",
+   "sources": []
+  }
+ },
+ "leitura": "Consignado INSS da Plataforma MT; subordinação de 10% (júnior ≥ 1%) e CCB de até 84 parcelas.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

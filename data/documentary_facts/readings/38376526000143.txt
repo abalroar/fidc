@@ -1,0 +1,49 @@
+# Hotfund FIDC Meios de Pagamento (Genial Investimentos; Genial Gestão; cedente Hotmart)
+type: Cartão/adquirência
+q13: * "“Hotmart” significa a LAUNCH PAD TECNOLOGIA, SERVIÇOS E PAGAMENTOS LTDA"
+q1: * "administrado pelo GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A."
+q2: * "gestão da carteira de ativos da Classe será realizada pela GENIAL GESTÃO LTDA."
+q3: * "Cedente é responsável pela solvência dos Direitos Creditórios Recebíveis a Prazo até o limite da Parcela Retida do Preço de Aquisição"
+q4: * "Devedores significam os Devedores dos Direitos Creditórios Cartão e os Devedores dos Direitos Creditórios Recebíveis a Prazo"
+q5: * "a Classe poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros dos Devedores, sem a observância do limite de 20%"
+q6: * "Subordinação Sênior” significa a proporção mínima obrigatória de 21% (vinte e um por cento) de Cotas Subordinadas Júnior"
+q7: * "São eventos de avaliação (“Eventos de Avaliação”): (i) caso a Classe deixe de efetuar o pagamento"
+q8: * "Eventos de Liquidação: São eventos que ensejam a liquidação antecipada do Fundo, a ser deliberada em Assembleia Geral"
+q9: * "Revolvência. Será permitida a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira da Classe"
+q10: * "Taxa de Gestão a ser paga ao Gestor, o percentual de 10% (dez por cento) calculados sobre a Taxa de Administração, observado o valor máximo mensal de R$ 4.000,00"
+q11: * "prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e Subclasse ou Série de Cotas Subordinadas Mezanino"
+receivables: Vendas de cursos da Hotmart: cartões e compras parceladas de usuários | o1
+card_receivables: Recebíveis de cartão das vendas da Hotmart e parcelados a prazo | o79,q4
+originator: Hotmart (Launch Pad Tecnologia) | q13
+assignor: Hotmart, com coobrigação limitada à parcela retida | q13,q3
+debtor: Devedores dos recebíveis de cartão e usuários compradores a prazo | q4
+recourse: Cedente responde pela solvência dos recebíveis a prazo até a parcela retida | q3
+eligibility: n/d | Critérios de elegibilidade sem trecho contínuo localizado
+debtor_limit: Sem o limite de 20% por devedor (classe para profissionais) | q5
+assignor_limit: — | Cedente única: Hotmart
+term_max: n/d | Prazo máximo não localizado em trecho contínuo
+allocation: Direitos creditórios entre 67% e 100% do PL | o24 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q6,q11
+sub_senior: 21% · júnior/PL | q6 | basis=jr/PL | value=21
+sub_mezz: n/d | Proteção da mezanino definida nos apêndices
+sub_check: Diária | q6
+reserve: Despesas de ao menos 2 meses, além de reservas de amortização | o40
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Atraso de amortização ou remuneração da sênior, entre outros | q7
+liquidation: Determinação da CVM ou falta de lastro elegível, entre outros | q8
+revolving: Revolvência com recursos da carteira | q9
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: Faixas de PL de 0,16% a 0,07% a.a., com mínimo mensal | o56
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês | q10
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Genial Investimentos Corretora de Valores | q1
+manager: Genial Gestão | q2
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | o75
+duration: Indeterminado | q11
+card_lock: n/d | Mecanismo de trava não descrito em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+dilution: n/d | Tratamento de cancelamentos não localizado em trecho contínuo
+leitura: Recebíveis de vendas da Hotmart com júnior ≥ 21% do PL e coobrigação até a parcela retida.

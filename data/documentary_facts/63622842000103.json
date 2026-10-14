@@ -1,0 +1,636 @@
+{
+ "schema_version": 1,
+ "cnpj": "63622842000103",
+ "name": "DESBRAVA UNO ARTIGOS ESPORTIVOS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
+ "fund_type": "Outros",
+ "reviewed_at": "2026-10-14T12:51:12Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1051646",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646"
+  },
+  "D2": {
+   "document_id": "1051644",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051644"
+  },
+  "D3": {
+   "document_id": "1058151",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "09/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058151"
+  },
+  "D4": {
+   "document_id": "1056679",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "09/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056679"
+  },
+  "D5": {
+   "document_id": "1054054",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso de Modificação de Oferta",
+   "date": "03/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1054054"
+  },
+  "D6": {
+   "document_id": "1050644",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "27/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1050644"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Outros",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Notas comerciais incentivadas (Lei 12.431) de projetos de investimento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 8,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "dia exceto: (i) sábados, domingos ou feriados nacionais; e (ii) aqueles sem expediente na B3. \"Direitos Creditórios\": são os direitos creditórios passíveis de investimento pelo Fundo, representados pelas Notas Comerciais emitidas por Devedores, destinadas à captação de recursos para pagamento futuro ou reembolso de gastos ou despesas relacionados a projetos de investimento, nos termos da Lei 12.431, que sejam selecionadas pelo Gestor em observância à política de investimentos estabelecida nos itens 6.1.1 e 6.1.2 do Anexo Descritivo, e que atendam aos Critérios de Elegibilidade previstos no item 8.3 do Anexo Descritivo. \"Diretor Designado\": é o diretor estatutário do Administrador designado para, nos termos da legislação aplicável, responder civil e criminalmente, pela supervisão e acompanhamento do Fundo, bem como pela prestação de informações relativas ao Fundo, nos termos da Resolução CVM nº 21, de 25 de fevereiro de 2021, conforme alterada. \"Disponibilidades\": são os valores disponíveis: (i) no caixa do Fundo, após subtraídos os Encargos da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Notas Comerciais para projetos de investimento em calçados/vestuário esportivo, Lei 12.431",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "Fundo subscreve títulos; não há originador de recebíveis",
+   "sources": [],
+   "legacy": {
+    "value": "Dass Nordeste Calçados e Artigos Esportivos S.A. emite Notas Comerciais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "Aquisição no primário ou secundário, sem cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Dass Nordeste Calçados e Artigos Esportivos S.A. emite Notas Comerciais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Emissores das notas comerciais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 7,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "o. “Destinação dos Recursos”: tem o significado que lhe é atribuído no item 6.1.2 do Anexo Descritivo. \"Devedores\": Os emissores, devedores e/ou garantidores dos Direitos Creditórios ou Ativos Financeiros, conforme o caso. Os devedores dos Direitos Creditórios serão a Dass Nordeste Calçados e Artigos Esportivos 7 S.A. (CNPJ 01.287.588/0001-79) e suas filiais. \"Dia Útil\": é qualquer dia exceto: (i) sábados, domingos ou feriados nacionais;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 8,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "dia exceto: (i) sábados, domingos ou feriados nacionais; e (ii) aqueles sem expediente na B3. \"Direitos Creditórios\": são os direitos creditórios passíveis de investimento pelo Fundo, representados pelas Notas Comerciais emitidas por Devedores, destinadas à captação de recursos para pagamento futuro ou reembolso de gastos ou despesas relacionados a projetos de investimento, nos termos da Lei 12.431, que sejam selecionadas pelo Gestor em observância à política de investimentos estabelecida nos itens 6.1.1 e 6.1.2 do Anexo Descritivo, e que atendam aos Critérios de Elegibilidade previstos no item 8.3 do Anexo Descritivo. \"Diretor Designado\": é o diretor estatutário do Administrador designado para, nos termos da legislação aplicável, responder civil e criminalmente, pela supervisão e acompanhamento do Fundo, bem como pela prestação de informações relativas ao Fundo, nos termos da Resolução CVM nº 21, de 25 de fevereiro de 2021, conforme alterada. \"Disponibilidades\": são os valores disponíveis: (i) no caixa do Fundo, após subtraídos os Encargos da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Dass Nordeste Calçados e Artigos Esportivos S.A., CNPJ 01.287.588/0001-79 e filiais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 1"
+   }
+  },
+  "recourse": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Não aplicável a títulos subscritos",
+   "sources": [],
+   "legacy": {
+    "value": "Sem indenização contra prestadores por desenquadramento posterior; fraude suspende aquisições",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "list",
+   "reason": "Critérios de elegibilidade sem trecho contínuo localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Notas Comerciais com prazo mínimo 6 anos; juros/principal a intervalos≥ 180 dias; IPCA ou taxa prefixada",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite de concentração por devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 30,
+     "clause": "Anexo, cl. 6.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "e. 6.13 Em linha com o disposto no artigo 45, parágrafo 7º do Anexo Normativo II, considerando que o Fundo é destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de concentração máxima por Devedor, cedente ou originador, observados os Critérios de Elegibilidade. 30 6.14 O Administrador, o Gestor, o Custodiante e suas respectivas Partes Relacionadas não respondem pela certeza, liquidez, exigibilidade, conteúdo, exatidão, veracidade, legitimidade e validade dos Direitos Creditórios adquiridos pelo Fundo, ou pela solvência dos respectivos Devedores, sem prejuízo de suas obrigações previstas na regulamentação vigente. 6.15 Os Direitos Creditórios devem ser registrados junto à Entidade Registradora. 6.16 Os Ativos Financeiros devem ser registrados, custodiados ou mantidos em conta de depósito diretamente em nome do Fundo, em contas específicas abertas no SELIC, no sistema de liquidação financeira administrado pela B3 ou em instituições ou entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 6.17 A exclusivo critério do Gestor (ou terceiro subcontratado pelo Gestor nos termos deste Regulamento), o Fundo poderá est"
+    }
+   ],
+   "legacy": {
+    "value": "Devedor único/grupo admitido; sem teto máximo por devedor, cedente ou originador",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Não há cedentes",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor único/grupo admitido; sem teto máximo por devedor, cedente ou originador",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo dos títulos definido em cada emissão",
+   "sources": [],
+   "legacy": {
+    "value": "Notas Comerciais com prazo mínimo 6 anos; juros/principal a intervalos≥ 180 dias; IPCA ou taxa prefixada",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 85% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 5,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "ndos de investimento conforme Ato Declaratório expedido pela CVM nº 2.528, de 29 de julho de 1993. \"Alocação Mínima\": é o percentual mínimo de 85% (oitenta e cinco por cento) do Patrimônio Líquido da Classe que deverá ser alocado em Direitos Creditórios, nos termos do inciso VIII do parágrafo 1º-A do art. 1º da Lei 12.431. \"ANBIMA\": é a Associação Brasileira de Entidades dos Mercados Financeiro e de Capitais. \"Anexo Normativo II\": é o Anexo Normativo II da Resolução CVMº 175, que em complemento à parte geral da Resolução CVM 175 dispõe sobre a constituição e o funcionamento dos fundos de investimento em direitos creditórios. \"Anexo Descritivo\": É o anexo a este Regulamento referente às características da Classe única de Cotas do Fundo. 5 \"Anexos\": são os anexos a este Regulamento. \"Apêndices\": são os anexos a este Regulamento que disciplinam as características específicas de cada subclasse de Cotas. \"Assembleia de Esclarecimento\": tem o significado que lhe é designado no item 18.6 do Anexo Descritivo. \"Assembleia de Resolução\": é a Assembleia Geral convocada para deliberar acerca do Plano de Resolução nos termos do item 18.3, (iii) do Anexo Descritivo. \"Assembleia Geral\": é a assembleia geral de Cotistas, or"
+    }
+   ],
+   "value": 85.0,
+   "legacy": {
+    "value": "Direitos creditórios ≥ 85% PL, nos requisitos da Lei 12.431",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 69,
+     "clause": "Suplemento, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "or de integralização ou resgate, observados os critérios definidos neste Regulamento; (d) o Índice de Subordinação deve corresponder, a todo tempo, a, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe; (e) direito de votar todas e quaisquer matérias objeto de deliberação nas Assembleias Gerais, observado o disposto no item 21.4 e seus subitens do Anexo Descritivo, sendo que a cada Cota Subordinada corresponderá a 1 (um) voto. 2.1.1 As Cotas Subordinadas não se subordinam entre si para efeito de amortização e/ou resgate, e serão amortizadas e/ou resgatadas na mesma data por seu valor unitário, na forma prevista no Regulamento. 2.1.2 As Cotas Subordinadas não possuem meta de remuneração. 69 2.1.3 Caso, ao decorrer do prazo de duração da Classe, o Gestor verifique qualquer desenquadramento do Índice de Subordinação, o Gestor poderá oferecer aos Cotistas detentores de Cotas Subordinadas, mediante envio de solicitação escrita a esses, a opção de realizarem uma nova subscrição/integralização de Cotas Subordinadas, em m"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥ 50% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, Suplemento, cl. 2.1"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 69,
+     "clause": "Suplemento, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "or de integralização ou resgate, observados os critérios definidos neste Regulamento; (d) o Índice de Subordinação deve corresponder, a todo tempo, a, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe; (e) direito de votar todas e quaisquer matérias objeto de deliberação nas Assembleias Gerais, observado o disposto no item 21.4 e seus subitens do Anexo Descritivo, sendo que a cada Cota Subordinada corresponderá a 1 (um) voto. 2.1.1 As Cotas Subordinadas não se subordinam entre si para efeito de amortização e/ou resgate, e serão amortizadas e/ou resgatadas na mesma data por seu valor unitário, na forma prevista no Regulamento. 2.1.2 As Cotas Subordinadas não possuem meta de remuneração. 69 2.1.3 Caso, ao decorrer do prazo de duração da Classe, o Gestor verifique qualquer desenquadramento do Índice de Subordinação, o Gestor poderá oferecer aos Cotistas detentores de Cotas Subordinadas, mediante envio de solicitação escrita a esses, a opção de realizarem uma nova subscrição/integralização de Cotas Subordinadas, em m"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Subordinadas ≥ 50% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "A todo tempo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 69,
+     "clause": "Suplemento, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "or de integralização ou resgate, observados os critérios definidos neste Regulamento; (d) o Índice de Subordinação deve corresponder, a todo tempo, a, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe; (e) direito de votar todas e quaisquer matérias objeto de deliberação nas Assembleias Gerais, observado o disposto no item 21.4 e seus subitens do Anexo Descritivo, sendo que a cada Cota Subordinada corresponderá a 1 (um) voto. 2.1.1 As Cotas Subordinadas não se subordinam entre si para efeito de amortização e/ou resgate, e serão amortizadas e/ou resgatadas na mesma data por seu valor unitário, na forma prevista no Regulamento. 2.1.2 As Cotas Subordinadas não possuem meta de remuneração. 69 2.1.3 Caso, ao decorrer do prazo de duração da Classe, o Gestor verifique qualquer desenquadramento do Índice de Subordinação, o Gestor poderá oferecer aos Cotistas detentores de Cotas Subordinadas, mediante envio de solicitação escrita a esses, a opção de realizarem uma nova subscrição/integralização de Cotas Subordinadas, em m"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥ 50% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, Suplemento, cl. 2.1"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas de ao menos 12 meses de encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "ento da próxima amortização ou resgate de Cotas, nos termos do item 12.10 do Anexo Descritivo. \"Reserva de Despesas\": é a reserva equivalente a, no mínimo, 12 (doze) meses de Encargos da Classe, a ser constituída e controlada pelo Gestor, para fins de cobertura dos encargos e despesas da Classe, nos termos do item 12.9 do Anexo Descritivo. “Resolução CVM 160”: é a Resolução nº 160, emitida pela CVM em 22 de julho de 2022, conforme alterada. \"Resolução CVM 175\": é a Resolução nº 175, emitida pela CVM em 23 de dezembro de 2022, conforme alterada, que dispõe sobre a constituição e o funcionamento dos fundos de investimento. “Resolução CVM 30”: é a Resolução da CVM n° 30, emitida pela CVM em 11 de maio de 2021, conforme 11 alterada. \"Rentabilidade Alvo\": é a rentabilidade esperada para cada série de Cotas Sênior, determinada na forma do respectivo Suplemento ao Apêndice A ao Anexo Descritivo. \"SELIC\": é o Sistema Especial de Liquidação e Custódia. \"Subclasses\": são as subclasses de Cotas do Fundo, diferenciadas por prazos e condições de aplicação, amortização e resgate, constituídas pela subclasse de Cotas Sênior e a subclasse de Cotas Subordinadas, quando"
+    }
+   ],
+   "legacy": {
+    "value": "12 meses de encargos; 100% do próximo pagamento até 2 dias úteis antes",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, p. 11"
+   }
+  },
+  "pdd": {
+   "display": "PDD conforme Instrução CVM 489",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 89,
+     "clause": "Suplemento",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "rios e/ou Ativos Financeiros será reduzido pelo valor da provisão efetuada ou perda reconhecida. O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no artigo 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do Custodiante, através do site: https://www.itau.com.br/investmentservices/custodia. 89 ANEXO III AO REGULAMENTO DO DESBRAVA UNO ARTIGOS ESPORTIVOS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP. LIMITADA DESCRIÇÃO DOS PROJETOS DE INVESTIMENTO, CONFORME ARTIGO 1º, PARÁGRAFO 1º, INCISO IV DA LEI 12.431 E ARTIGO 2º DA RESOLUÇÃO 3.947/2011 Projeto de modernização física e tecnológica da empresa DASS NORDESTE CALÇ E ART ESPORTIVOS S.A. O projeto e subprojetos preveem gastos e despesas de capital (CAPEX), voltados a aquisições, construções, reformas e ampliações prediais e de instalações."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Saída de prestador essencial, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 48,
+     "clause": "Anexo, cl. 19",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "sponsabilidade pelas obrigações ou dívidas contraídas ao Fundo. 19. EVENTOS DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 19.1 São considerados eventos de avaliação do Fundo (\"Eventos de Avaliação\") quaisquer das seguintes ocorrências: I. descredenciamento, destituição, ou renúncia do Administrador, do Gestor, do Custodiante ou do Escriturador, sem que tenha sido convocada Assembleia Geral para decidir sobre a sua substituição; II. amortização ou resgate de Cotas em desacordo com os procedimentos definidos neste Anexo Descritivo; III. caso a Classe deixe de atender à Reserva de Amortização, à Reserva de Despesas, à Alocação Mínima e/ou ao Índice de Subordinação fixado no item 2.1.(d) do Apêndice B do Anexo Descritivo e tal evento não seja sanado no prazo de 5 (cinco) Dias Úteis, contado da data em que se verificar o desenquadramento; IV."
+    }
+   ],
+   "legacy": {
+    "value": "Reservas/alocação/subordinação desenquadradas por 5 dias úteis; decisões exigíveis do devedor> R$ 10 mi; falhas de prestadores",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, Anexo, cl. 19"
+   }
+  },
+  "liquidation": {
+   "display": "PL abaixo do mínimo após 90 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 49,
+     "clause": "Anexo, cl. 19.1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "rá instalada e deliberará normalmente, podendo inclusive decidir pela configuração de um Evento de Liquidação. 19.2 São considerados eventos de liquidação do Fundo (\"Eventos de Liquidação\"), quaisquer das seguintes ocorrências: I. se após 90 (noventa) dias do início de atividades, a Classe mantiver, a qualquer tempo, Patrimônio Líquido diário inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90 (noventa) dias consecutivos; II. caso os Cotistas, observado o disposto neste Capítulo 19, venham a deliberar que um Evento de Avaliação constitui um Evento de Liquidação nos termos do item 19.1.2 acima; 49 III. a ocorrência de um Evento de Insolvência do Administrador, do Gestor, do Custodiante, do Custodiante ou do Escriturador, sem que tenha sido convocada Assembleia Geral para, conforme o caso, nomear representante dos Cotistas e decidir sobre a sua substituição; IV."
+    }
+   ],
+   "legacy": {
+    "value": "Reservas/alocação/subordinação desenquadradas por 5 dias úteis; decisões exigíveis do devedor> R$ 10 mi; falhas de prestadores",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, Anexo, cl. 19.1.3"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Pool sem revolvência: recursos de pagamentos não podem adquirir novos créditos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada subclasse",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos/reservas → sênior → subordinadas, observados suplementos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,05% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 52,
+     "clause": "Anexo, cl. 20.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "atividades do Administrador, o Fundo pagará ao Administrador uma taxa de administração (\"Taxa de Administração\") equivalente a 0,05% (cinco centésimos por cento) ao ano incidente sobre o Patrimônio Líquido da Classe calculado conforme item 20.3 deste Anexo Descritivo, podendo chegar a 0,10% (dez centésimos por cento) ao ano (“Taxa Máxima de Administração”) sobre o Patrimônio Líquido da Classe, em função da taxa de administração das classes/subclasses investidas. 20.2 Pela prestação dos serviços de gestão o Fundo pagará ao Gestor uma taxa de gestão (\"Taxa de Gestão\") equivalente a 0,10% (dez centésimos por cento) ao ano incidente sobre o Patrimônio Líquido da Classe calculado conforme item 20.3 deste Anexo Descritivo, podendo chegar a 0,30% (trinta centésimos por cento) ao ano (“Taxa Máxima de Gestão”) sobre o Patrimônio Líquido da Classe, em função da taxa de gestão das classes/subclasses investidas. 20.3 A Taxa de Administração e a Taxa de Gestão são calculadas, apropriadas e pagas em Dias Úteis (conforme abaixo definido), mediante divisão da taxa anual por 252 (duzentos e cinquenta e dois) Dias Úteis. 20.4 Os tributos incidentes sobre a Taxa de Administração e a Taxa de Gestão serão arcados pelos seus respectivo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,10% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 52,
+     "clause": "Anexo, cl. 20.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "s. 20.2 Pela prestação dos serviços de gestão o Fundo pagará ao Gestor uma taxa de gestão (\"Taxa de Gestão\") equivalente a 0,10% (dez centésimos por cento) ao ano incidente sobre o Patrimônio Líquido da Classe calculado conforme item 20.3 deste Anexo Descritivo, podendo chegar a 0,30% (trinta centésimos por cento) ao ano (“Taxa Máxima de Gestão”) sobre o Patrimônio Líquido da Classe, em função da taxa de gestão das classes/subclasses investidas. 20.3 A Taxa de Administração e a Taxa de Gestão são calculadas, apropriadas e pagas em Dias Úteis (conforme abaixo definido), mediante divisão da taxa anual por 252 (duzentos e cinquenta e dois) Dias Úteis. 20.4 Os tributos incidentes sobre a Taxa de Administração e a Taxa de Gestão serão arcados pelos seus respectivos responsáveis tributários, conforme definidos na legislação tributária aplicável. 52 20.5 A Taxa de Administração e a Taxa de Gestão serão provisionadas diariamente e paga mensalmente ao Administrador e ao Gestor, conforme o caso, por período vencido, até o 5º (quinto) Dia Útil do mês subsequente ao dos serviços prestados. 20.6 O Administrador ou o Gestor"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 1ª série: taxa fixa 14, 70% a.a.; subordinadas recebem excedente patrimonial",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 1ª série: taxa fixa 14, 70% a.a.; subordinadas recebem excedente patrimonial",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "Intrag DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 5,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "\"Acordo Operacional\": é o acordo operacional celebrado entre os Prestadores de Serviços Essenciais. \"Administrador\": é a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.500, 4º andar, inscrita no CNPJ sob o nº 62.418.140/0001-31, habilitada para a administração de fundos de investimento conforme Ato Declaratório expedido pela CVM nº 2.528, de 29 de julho de 1993. \"Alocação Mínima\": é o percentual mínimo de 85% (oitenta e cinco por cento) do Patrimônio Líquido da Classe que deverá ser alocado em Direitos Creditórios, nos termos do inciso VIII do parágrafo 1º-A do art."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Itaú Unibanco Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "\"Fundo\": é o DESBRAVA UNO ARTIGOS ESPORTIVOS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP. LIMITADA. \"Gestor\": é a Itaú Unibanco Asset Management Ltda., com sede na Cidade de São Paulo, estado de São Paulo, na Avenida Brigadeiro Faria Lima, 3500/4º Andar, CEP 04538-132, inscrita no CNPJ sob o nº 9 40.430.971/0001-96, autorizada pela CVM a prestar o serviço de gestão de carteira de valores mobiliários por meio do Ato Declaratório da CVM nº 18.862, de 25 de junho de 2021. \"Índice de Subordinação\": relação mínima que deve ser observada entre o valor do somatório da Subclasse de Cotas Subordinadas em circulação e o Patrimônio Líquido da Classe, conforme definido no item 2.1.(d) do Apêndice B do Anexo Descritivo. \"Informações do Fundo\": tem o significado que lhe é designado no item 23.1 do Anexo Descritivo. \"Instrução CVM 489\": é a Instrução nº 489, emitida pela CVM em 14 de janeiro de 2011, conforme alterada, que dispõe sobre a elaboração e divulgação das Demonstrações Financeiras dos fundos de investimento em direitos creditórios, regidos pelo Anexo Normativo II, dentre outros. \"Investidores Profissionais\": são os"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Itaú Unibanco",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 7,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "ser adquiridos pelo Fundo, e que serão verificados pelo Gestor, conforme definidos neste Regulamento. \"Custodiante\": é o Itaú Unibanco S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Praça Alfredo Egydio de Souza Aranha, nº 100, inscrita no CNPJ sob o nº 60.701.190/0001-04, responsável pelos serviços de custódia e controle dos ativos integrantes da carteira do Fundo, não abrangendo os serviços previstos na Seção IV do Anexo II da Resolução CVM 175. \"CVM\": é a Comissão de Valores Mobiliários. \"Data de Amortização\" é cada data em que ocorrerá a amortização programada das Cotas, conforme previstas em cada Suplemento. \"Data de Resgate\" significa a data em que as Cotas Seniores de uma determinada Série ou as Cotas Subordinadas sejam integralmente amortizadas, observado o estabelecido no respectivo Suplemento. “Destinação dos Recursos”: tem o significado que lhe é atribuído no item 6.1.2 do Anexo Descritivo. \"Devedores\": Os emissores, devedores e/ou garantidores dos Direitos Creditórios ou Ativos Financeiros, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança extraordinária só se contratado",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051646",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 30,
+     "clause": "Anexo, cl. 6.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+     "excerpt": "e. 6.13 Em linha com o disposto no artigo 45, parágrafo 7º do Anexo Normativo II, considerando que o Fundo é destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de concentração máxima por Devedor, cedente ou originador, observados os Critérios de Elegibilidade. 30 6.14 O Administrador, o Gestor, o Custodiante e suas respectivas Partes Relacionadas não respondem pela certeza, liquidez, exigibilidade, conteúdo, exatidão, veracidade, legitimidade e validade dos Direitos Creditórios adquiridos pelo Fundo, ou pela solvência dos respectivos Devedores, sem prejuízo de suas obrigações previstas na regulamentação vigente. 6.15 Os Direitos Creditórios devem ser registrados junto à Entidade Registradora. 6.16 Os Ativos Financeiros devem ser registrados, custodiados ou mantidos em conta de depósito diretamente em nome do Fundo, em contas específicas abertas no SELIC, no sistema de liquidação financeira administrado pela B3 ou em instituições ou entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 6.17 A exclusivo critério do Gestor (ou terceiro subcontratado pelo Gestor nos termos deste Regulamento), o Fundo poderá est"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada exclusiva para profissionais; fundo até 17/12/2032",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo de duração não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Classe fechada exclusiva para profissionais; fundo até 17/12/2032",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Notas comerciais incentivadas de projetos de investimento; subordinação de 50% e alocação mínima de 85%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

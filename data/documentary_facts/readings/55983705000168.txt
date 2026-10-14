@@ -1,0 +1,55 @@
+# Crédito Universitário IV FIDC (Oliveira Trust; Pravaler; cedentes bancos, instituições de ensino e FIDC CU III)
+type: Educacional
+q21: * "“Alocação Mínima” Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Elegíveis"
+q1: * "Direitos Creditórios são oriundos de contratos de financiamento de serviços educacionais"
+q2: * "Cedentes” Significam, em conjunto, os Cedentes Instituições de Ensino, os Cedentes Bancos e o Cedente FIDC Crédito Universitário III"
+q3: * "Devedores” Os alunos das Instituições de Ensino que tenham valores a pagar referentes aos Direitos Creditórios"
+q4: * "Cedente é somente responsável, na Data de Aquisição e Pagamento, pela existência, autenticidade e correta formalização"
+q5: * "seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios. (a) Critérios de Elegibilidade a serem observados exclusivamente"
+q6: * "dos seguintes valores contábeis: (a) o equivalente a 0,5% (zero vírgula cinco por cento) do Patrimônio Líquido, ou (b) R$ 800"
+q7: * "Índice de Cobertura não poderá ser inferior a 100%"
+q8: * "Reserva de Despesas e Encargos deverá ser equivalente a 100% (cem por cento) do valor estimado para todas as despesas e os encargos referentes a 1 (um) mês"
+q9: * "provisão para cada Direito Creditório em atraso acima de 60 (sessenta) dias"
+q10: * "São Eventos de Avaliação: (i) não divulgação, pela Gestora, (a) de relatório mensal"
+q11: * "São Eventos de Liquidação Antecipada: (i) caso seja deliberado, em Assembleia Geral"
+q12: * "Taxa de Administração equivalente a: 0,17% (dezessete centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo"
+q13: * "a qual será equivalente a: ao montante de 0,10% a.m. (dez centésimos por cento ao mês)"
+q14: * "taxa de performance, taxa de ingresso ou taxa de saída"
+q15: * "administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q16: * "gerido pela PRAVALER S.A., sociedade autorizada pela CVM"
+q17: * "Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q18: * "Agente de Cobrança” A PRAVALER S.A."
+q19: * "destinada exclusivamente a Investidores Profissionais; (ii) será intermediada"
+q20: * "prazo de duração indeterminado, podendo a Assembleia Geral estabelecer regras e condições"
+receivables: Financiamento estudantil de serviços educacionais | q1
+originator: Instituições de ensino, bancos e o FIDC Crédito Universitário III | q2
+assignor: Instituições de ensino, bancos e o FIDC Crédito Universitário III | q2
+debtor: Alunos das instituições de ensino, com devedores solidários | q3
+recourse: Cedente responde só por existência, autenticidade e formalização | q4
+eligibility: Critérios próprios para as duas primeiras cessões e para as seguintes | q5
+debtor_limit: Por devedor: menor entre 0,5% do PL e R$ 800 mil | q6 | value=0.5
+assignor_limit: n/d | Limite por cedente não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo máximo dos contratos não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 67% do PL em direitos creditórios elegíveis | q21 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q7
+sub_senior: Índice de cobertura de no mínimo 100% | q7 | basis=cobertura | value=none
+sub_mezz: n/d | Proteção da mezanino definida nos apêndices
+sub_check: Na integralização de seniores e mezanino, pro forma | q7
+reserve: Reserva de despesas para 1 mês de atividade | q8
+pdd: Provisão acompanhada por crédito com atraso acima de 60 dias | q9
+eval_triggers: Falta de relatório mensal da gestora, entre outros | q10
+liquidation: Deliberação sobre evento de avaliação ou determinação da CVM | q11
+revolving: n/d | Novas aquisições não detalhadas em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,17% a.a. do PL | q12
+mgmt_fee: 0,10% a.m. do PL | q13
+perf_fee: Não prevista | Regulamento veda taxa de performance | q14
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Oliveira Trust DTVM | q15
+manager: Pravaler | q16
+custodian: Oliveira Trust DTVM | q17
+servicer: Pravaler (agente de cobrança) | q18
+investors: Investidores profissionais | q19
+duration: Indeterminado | q20
+leitura: Crédito estudantil da Pravaler; devedor ≤ 0,5% do PL e índice de cobertura de no mínimo 100%.

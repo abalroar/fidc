@@ -1,0 +1,46 @@
+# IS Green Solfácil II FIDC (Genial Investimentos; Angá; plataforma Solfácil)
+type: Energia solar
+q1: * "s Devedores para aquisição de Sistemas Solares"
+q2: * "Solfácil Energia Solar e Serviços Financeiros Ltda."
+q3: * "ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA."
+q4: * "GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela"
+q5: * "na qualidade de administradora e custodiante do Fundo"
+q6: * "Subordinadas em circulação e o Patrimônio Líquido, conforme apurada em Sênior” cada Dia Útil, equivalente a, no mínimo, 20,00%"
+q7: * "Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme apurada Mezanino” em cada Dia Útil, equivalente a, no mínimo 4,5%"
+q8: * "os Creditórios devidos por um Devedor individualmente não deverá representar mais de 2% (dois por cento) do Patrimônio Líquido do Fundo"
+q9: * "São considerados Eventos de Avaliação: (i) não divulgação, pela Administradora, do Relatório de Monitoramento"
+q10: * "destinadas exclusivamente aos Investidores Autorizados"
+q11: * "O Fundo terá prazo indeterminado de duração"
+receivables: CCBs de financiamento de sistemas solares | q1
+originator: Solfácil Energia Solar e Serviços Financeiros | q2
+assignor: Instituições financeiras endossantes das CCBs | q1
+debtor: Pessoas físicas e jurídicas que financiam sistemas solares | q1
+recourse: n/d | Recompra e resolução regidas pelo contrato de transferência | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: n/d | Critérios de elegibilidade sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+debtor_limit: Devedor individual até 2% do PL | q8 | value=2
+assignor_limit: n/d | Limite por endossante não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo individual não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios; 67% para fins tributários | o27 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q6,q7
+sub_senior: 20% · subord./PL | q6 | basis=mez+jr/PL | value=20
+sub_mezz: Júnior ≥ 4,5% do PL | q7 | basis=jr/PL | value=4.5
+sub_check: Diária | q6
+reserve: 3 meses de despesas ordinárias estimadas | o40
+pdd: n/d | Critério de provisão não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: Falta do relatório de monitoramento em 15 dias úteis, entre outros | q9,o46
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: n/d | Aquisições durante a carência, sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: Despesas, reserva e amortizações; compras durante a carência | o55
+admin_fee: Maior entre mínimo mensal mais 0,12% a.a. e faixas percentuais de PL | o59
+mgmt_fee: 0,12% a.a. do PL | o62
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Genial Investimentos Corretora de Valores | q4
+manager: Angá Administração de Recursos | q3
+custodian: Genial Investimentos (a administradora) | q5,q4
+servicer: n/d | Agente de cobrança não nomeado em trecho localizável
+investors: Investidores autorizados | q10
+duration: Indeterminado | q11
+real_collateral: n/d | Garantia sobre equipamentos sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Financiamento solar da Solfácil com subordinação de 20% (júnior ≥ 4,5%) e devedor ≤ 2% do PL.

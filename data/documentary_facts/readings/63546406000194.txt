@@ -1,0 +1,44 @@
+# Pine INSS III FIDC (Vert DTVM; Vert Gestora; cedente Banco Pine)
+type: Consignado público
+q1: * "Direitos Creditórios significam as vias negociáveis de cada CCB, emitidas a partir dos caracteres criados em computador"
+q3: * "mesmo Devedor (incluindo integrantes de seu respectivo grupo econômico), conforme aplicável, está limitada a 20%"
+q4: * "são Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Gestão em até 5 (cinco) Dias Úteis"
+q5: * "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q6: * "destinada a Investidores Qualificados, que busquem rentabilidade, no longo prazo"
+q7: * "prazo de duração indeterminado, inscrito no CNPJ sob o nº 63.546.406/0001-94"
+q8: * "a aquisição de Direitos Creditórios somente será permitida de forma ampla até o fim do 1º (primeiro) Mês Completo de Alocação"
+receivables: CCCBs lastreadas em CCBs de consignado INSS | q1
+originator: Banco Pine (cedente) | o4
+assignor: Banco Pine | o4
+debtor: Aposentados e pensionistas do INSS | q1
+recourse: Sem regresso nem coobrigação de terceiros pelo pagamento | o14
+eligibility: Faixas etárias, benefício 32 e limites individuais por devedor | o20
+debtor_limit: Por devedor ou grupo: até 20% do PL, além de limites individuais | q3 | value=20
+assignor_limit: — | Cedente único: Banco Pine
+term_max: n/d | Prazo combinado com idade; trecho sem limite isolado | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios (regulatório) | o27 | value=50
+quota_structure: Sênior / Mezanino A / B / C / Subordinada júnior | o30
+sub_senior: n/d | Proteção sênior definida por índices de cobertura e mezaninos | why=Resposta anterior sem trecho localizável no regulamento vigente
+sub_mezz: Mezanino A e B protegidas por ao menos 5% cada | o37 | value=none
+sub_check: n/d | Periodicidade de apuração dos índices não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de liquidez ≥ 2,50% do PL, mais reserva de MTM | o43
+pdd: Cobertura usa créditos líquidos de PDD; provisão pelo manual do administrador | o46
+eval_triggers: Relatório de gestão atrasado em 5 dias úteis; cobertura e perdas, entre outros | q4,o49
+liquidation: n/d | Lista de eventos de liquidação cruza páginas | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Aquisições só até o fim do 1º mês completo de alocação; sem revolvência | q8,o55
+amortization: n/d | Cronograma definido no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Faixas cumulativas de 0,045% a 0,02% a.a., com mínimo mensal | o61
+mgmt_fee: Faixas cumulativas de 0,045% a 0,02% a.a., com mínimo mensal | o64
+perf_fee: Não prevista | Regulamento veda taxa de performance | q5
+target_senior: n/d | Spread definido em bookbuilding, no suplemento | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Vert DTVM | o74
+manager: Vert Gestora | o74
+custodian: Vert DTVM | o74
+servicer: Pine (agente de arrecadação) | o74
+investors: Investidores qualificados | q6
+duration: Indeterminado | q7
+payroll: Consignação de benefícios do INSS via Dataprev | q1
+age_limit: Faixas etárias por espécie de benefício | o20
+installment_min: n/d | Regulamento não fixa parcela mínima | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Consignado INSS do Banco Pine em estrutura com mezaninos A, B e C; aquisição só no 1º mês de alocação.

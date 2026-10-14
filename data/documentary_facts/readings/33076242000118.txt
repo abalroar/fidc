@@ -1,0 +1,51 @@
+# Workcap Agro FIDC (Finaxis; B.OND Capital; cedente Albaugh Agro)
+type: Agro/FIAGRO
+q1: * "Cedente”: a ALBAUGH AGRO BRASIL LTDA"
+q2: * "seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, previamente à cessão"
+q3: * "prazo máximo dos Direitos Creditórios deverá ser de 360 (trezentos e sessenta) dias"
+q4: * "é o limite máximo de 2% (dois por cento) de concentraçã"
+q5: * "é quantidade mínima de Devedores de Direitos Creditórios adquiridos pela Classe, que deverá ser equivalente a 50 (cinquenta) Devedores"
+q6: * "é a razão entre o valor contábil dos Direitos Creditórios Cedidos à Classe e o Patrimônio Líquido, que deverá ser de 50%"
+q7: * "significa o total de Cotas Subordinadas em relação ao Patrimônio Líquido da Classe, que deverá ser de, no mínimo, 20%"
+q8: * "Eventos de Avaliação: (i) caso a Classe deixe de efetuar o pagamento: (a) integral de qualquer das Amortizações Programadas"
+q9: * "4.13 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título"
+q10: * "Taxa de Gestão será equivalente a 0,20% (vinte centésimos por cento) ao ano"
+q11: * "FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Avenida Paulista"
+q12: * "B.OND CAPITAL LTDA, pessoa jurídica de direito privado"
+q13: * "Público-Alvo Investidores Profissionais"
+q14: * "Provisionamento sobre os valores Faixa de Atraso do Devedor/Grupo"
+q15: * "Reserva de Caixa não possua saldo equivalente, no mínimo, ao valor da próxima Amortização Programada"
+receivables: Recebíveis de vendas de insumos agrícolas da Albaugh | q1,q2
+agro_backing: Vendas a prazo de defensivos da Albaugh Agro a produtores | q1
+originator: Albaugh Agro Brasil | q1
+assignor: Albaugh Agro Brasil | q1
+debtor: Ao menos 50 devedores do agronegócio | q5
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Prazo de até 360 dias da aquisição, entre outros critérios | q2,q3
+debtor_limit: Por grupo econômico: até 2% do PL (especial até 5%) | q4 | value=2
+assignor_limit: — | Cedente única: Albaugh Agro
+term_max: Até 360 dias da aquisição | q3
+allocation: ≥ 50% do PL em direitos creditórios | q6 | value=50
+quota_structure: Sênior / Subordinada júnior | q7
+sub_senior: 20% · subord./PL | q7 | basis=jr/PL | value=20
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Aquisições param se a reserva não cobrir a próxima amortização | q15
+pdd: Provisão escalonada por faixa de atraso do devedor | q14
+eval_triggers: Falta de pagamento de amortização programada, entre outros | q8
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Recursos dos créditos podem comprar novos direitos creditórios | q9
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: n/d | Taxa de administração não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+mgmt_fee: 0,20% a.a. do PL, com mínimo mensal | q10
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Finaxis CTVM | q11
+manager: B.OND Capital | q12
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | q13
+duration: n/d | Prazo de duração não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+collateral: n/d | Garantias dos títulos não descritas em trecho contínuo
+leitura: Recebíveis de defensivos da Albaugh com ao menos 50 devedores; subordinação de 20% e grupo ≤ 2% do PL.

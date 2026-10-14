@@ -1,0 +1,741 @@
+{
+ "schema_version": 1,
+ "cnpj": "47151680000108",
+ "name": "FARM TECH IBBA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T08:23:11Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "993922",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "22/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922"
+  },
+  "D2": {
+   "document_id": "360352",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "24/06/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=360352"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas agro a prazo: duplicatas, notas fiscais, CPR-F e promissórias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 18,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "Direitos Creditórios Significam os direitos creditórios decorrentes das CPR-F Emitidos Clientes e/ou das NP que sejam emitidos por Clientes, indicados pelos Distribuidores de Produtos, diretamente em favor da Classe Única (ou do Fundo, em benefício da Classe Única) representativos de Operações de Compra a Prazo, detidos contra os Devedores, conforme o caso, nos termos dos Termos Gerais de Ce"
+    }
+   ],
+   "legacy": {
+    "value": "Agronegócio: vendas a prazo, duplicatas/notas fiscais, CPR-F e notas promissórias; admite créditos a performar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Distribuidores de produtos agro e seus clientes",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 57,
+     "clause": "Anexo, cl. 4.4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "4.4.2. Os Devedores deverão ser indicados ao Gestor pelos Cedentes e aprovados nos termos dos Termos Gerais de Cessão e Emissão, no Contrato de Cessão e/ou no Contrato de Indicação, conforme o caso, do Contrato de Formalização e Cobrança e deste Regulamento. O Gestor, quando da indicação de Devedores pelos Distribuidores de Produtosao Fundo, observará a Política de Crédito, Originação e Cobrança vigente, cujos termos e condições estão dispostos no Adendo VII a este Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Distribuidores de produtos agro e clientes; Farm Investimentos na gestão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Distribuidores de produtos agro (multicedente)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 57,
+     "clause": "Anexo, cl. 4.4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "4.4.2. Os Devedores deverão ser indicados ao Gestor pelos Cedentes e aprovados nos termos dos Termos Gerais de Cessão e Emissão, no Contrato de Cessão e/ou no Contrato de Indicação, conforme o caso, do Contrato de Formalização e Cobrança e deste Regulamento. O Gestor, quando da indicação de Devedores pelos Distribuidores de Produtosao Fundo, observará a Política de Crédito, Originação e Cobrança vigente, cujos termos e condições estão dispostos no Adendo VII a este Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Distribuidores de produtos agro e clientes; Farm Investimentos na gestão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Clientes dos distribuidores do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 57,
+     "clause": "Anexo, cl. 4.4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "4.4.2. Os Devedores deverão ser indicados ao Gestor pelos Cedentes e aprovados nos termos dos Termos Gerais de Cessão e Emissão, no Contrato de Cessão e/ou no Contrato de Indicação, conforme o caso, do Contrato de Formalização e Cobrança e deste Regulamento. O Gestor, quando da indicação de Devedores pelos Distribuidores de Produtosao Fundo, observará a Política de Crédito, Originação e Cobrança vigente, cujos termos e condições estão dispostos no Adendo VII a este Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Clientes e distribuidores de produtos da cadeia agro; contratação por cessão ou emissão direta",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Coobrigação pode existir ou não, conforme contrato",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 67,
+     "clause": "Anexo, cl. 4.35",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "4.35. Possibilidade de Direito de Regresso e de Coobrigação. O Fundo poderá adquirir, em benefício da Classe Única, Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo, podendo ou não, a exclusivo critério do Gestor, haver direito de regresso contra os Cedente e/ou os Distribuidores de Produtose/ou coobrigação destes pelo adimplemento dos Direitos Creditórios Cessão, Direitos Creditórios Emitidos e/ou solvência dos Devedores."
+    }
+   ],
+   "legacy": {
+    "value": "Resolução nas hipóteses dos contratos; desenquadramento superveniente não gera regresso automático",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; valor fixo ou determinável; em reais",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 61,
+     "clause": "Anexo, cl. 4.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "itérios de Elegibilidade. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) não poderão estar vencidos e devem possuir valor fixo e determinado ou determinável; (b) os Direitos Creditórios deverão ser representados em moeda corrente nacional; - 61 - JUR_SP - 50819857v20 - 13189004.526656 (c) deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Oferta ao Fundo, com exceção dos Direitos Creditórios Emitidos Distribuidores, os quais não possuirão prazo mínimo de vencimento; (d) deverão ter data de vencimento anterior à última Data de Resgate Esperada das Cotas Seniores em circulação; (e) os Direitos Creditórios Emitidos Clientes e os Direitos Creditórios Cessão, deverão ter prazo de vencimento até 360 (trezentos e sessenta) dias, com exceção de até 10% (dez por cento) do Patrimônio Líquido do Fundo que poderá aceitar que esses Direitos Creditórios Emitidos Clientes e Direitos Creditórios Cessão tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos contados, em qualquer caso, a partir da respectiva Data de Oferta, conforme informado no Arquivo Remessa;"
+    }
+   ],
+   "legacy": {
+    "value": "Adimplentes; 30–360 dias, até 10% PL com 540 dias; emitidos distribuidor até 240 dias; prazo médio agro≤240 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo, cl. 4.14"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por cliente: menor entre R$ 5 mi e 1% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 62,
+     "clause": "Anexo, cl. 4.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "o Valor Nominal Considerado dos Direitos Creditórios Cessão e dos Direitos Creditórios Emitidos Clientes devidos por um mesmo Devedor, considerado individualmente, não poderá representar concentração superior ao menor entre (a) R$ 5.000.000,00 (cinco milhões de reais); e (b) 1% (um por cento) do Patrimônio Líquido; (i) considerando-se pro forma a aquisição pretendida, o somatório do Valor Nominal Considerado dos Direitos Creditórios Emitidos Distribuidores devidos por um mesmo Distribuidor de Produtos, considerada em conjunto com os demais integrantes do seu Grupo Econômico, não poderão representar concentração superior a 5% (cinco por cento) do Patrimônio Líquido, com exceção de determinado(s) Distribuidor(es) de Produtos especiais que, considerados em conjunto com os demais integrantes do seu Grupo Econômico, poderão representar concentração superior a 5% (cinco por cento) do Patrimônio Líquido, conforme previamente aprovados pelo Consultor Especializado;"
+    }
+   ],
+   "value": 1.0,
+   "legacy": {
+    "value": "Cliente: menor de R$ 5 mi/1% PL; distribuidor/grupo 5% com exceções; top 5 distribuidores 20% PL; originador/grupo 20% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo, cl. 4.14"
+   }
+  },
+  "assignor_limit": {
+   "display": "Distribuidor ou grupo ≤ 5% do PL, com exceções",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 62,
+     "clause": "Anexo, cl. 4.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "representar concentração superior ao menor entre (a) R$ 5.000.000,00 (cinco milhões de reais); e (b) 1% (um por cento) do Patrimônio Líquido; (i) considerando-se pro forma a aquisição pretendida, o somatório do Valor Nominal Considerado dos Direitos Creditórios Emitidos Distribuidores devidos por um mesmo Distribuidor de Produtos, considerada em conjunto com os demais integrantes do seu Grupo Econômico, não poderão representar concentração superior a 5% (cinco por cento) do Patrimônio Líquido, com exceção de determinado(s) Distribuidor(es) de Produtos especiais que,"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "Cliente: menor de R$ 5 mi/1% PL; distribuidor/grupo 5% com exceções; top 5 distribuidores 20% PL; originador/grupo 20% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo, cl. 4.14"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Faixas de prazo sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplentes; 30–360 dias, até 10% PL com 540 dias; emitidos distribuidor até 240 dias; prazo médio agro≤240 dias",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 5,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "determinadas Garantias foram ou poderão ser constituídas. Alocação Mínima de Significa a alocação de, no mínimo, 50% (cinquenta por Investimento cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II. Alocação Mínima de Significa a alocação de, no mínimo, 67% (sessenta e sete Investimento Tributária por cento) da carteira em Direitos Creditórios Elegíveis, nos termos dos artigos 18, 19 e 24 da Lei nº 14.754/23, para fins de enquadramento do Fundo como Entidade de Investimento sujeita ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Amortização de Principal Significa, com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas, calculado nos termos deste Regulamento, do Anexo Descritivo e do respectivo Apêndice, conforme aplicável, acrescida de eventual Amortização Extraordinária de Principal. Amortização Significa uma Amortização Extraordinária de Principal que Extraor"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50% PL em créditos elegíveis em 180 dias; meta tributária 67% da carteira perseguida discricionariamente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 29,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "corresponder, no mínimo, a 125,00% (cento e vinte e cinco por cento). - 29 - JUR_SP - 50819857v20 - 13189004.526656 Remuneração do Gestor Significa a Taxa de Gestão e da parcela da Taxa de Performance devida ao Gestor pela prestação dos serviços de gestão da Carteira, ou a prestadores de serviços contratados pelo Gestor, conforme indicado pelo"
+    }
+   ],
+   "legacy": {
+    "value": "PL / cotas sênior≥125%; índice ponderado sênior≥1,00, fator específico remetido ao apêndice",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 125%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 29,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "corresponder, no mínimo, a 125,00% (cento e vinte e cinco por cento). - 29 - JUR_SP - 50819857v20 - 13189004.526656 Remuneração do Gestor Significa a Taxa de Gestão e da parcela da Taxa de Performance devida ao Gestor pela prestação dos serviços de gestão da Carteira, ou a prestadores de serviços contratados pelo Gestor, conforme indicado pelo"
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 125.0,
+   "legacy": {
+    "value": "PL / cotas sênior≥125%; índice ponderado sênior≥1,00, fator específico remetido ao apêndice",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice ponderado remetido ao apêndice",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "PL / cotas sênior≥125%; índice ponderado sênior≥1,00, fator específico remetido ao apêndice",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Despesas e meta de pagamentos do período de liquidez; piso de 1% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 97,
+     "clause": "Anexo, cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "mínimo, 1,0% (um por cento) do Patrimônio Líquido. 9.1.1. Especificamente nos períodos que antecedem qualquer Data de Amortização Total Esperada, com antecedência mínima de 12 (doze) meses, mas não superior a 18 (dezoito) meses da respectiva Data de Amortização Total Esperada, o Fundo deverá acrescer ao montante da Reserva de Liquidez descrita no item 9.1 acima, o valor necessário para o pagamento da totalidade da Remuneração e/ou Meta de Amortização de Principal na respectiva Dat"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas + meta de pagamentos do período de liquidez; piso 1% PL; reforço 12–18 meses antes de amortização esperada",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo, cl. 9.1"
+   }
+  },
+  "pdd": {
+   "display": "Provisão escalonada de 0,5% (1–15 dias) a 100% (> 180 dias)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 153,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "1 a 15 dias 0,50% 16 a 30 dias 1,00% 31 a 60 dias 3,00% 61 a 90 dias 10,00% 91 a 120 dias 30,00% 121 a 150 dias 50,00% 151 a 180 dias 70,00% 181 dias em diante 100,00% Considera-se a seguinte formula para cálculo da provisão em momentos diversos do momento de perda: perda esperada no momento da"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso 1–15/16–30/31–60/61–90/91–120/121–150/151–180/>180:0,5/1/3/10/30/50/70/100%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo"
+   }
+  },
+  "eval_triggers": {
+   "display": "Inadimplência, resoluções e renegociações acima dos limites, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 98,
+     "clause": "Anexo, cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "(a) Índice de Inadimplemento (91-360 dias) uma fração cujo (a.1) numerador é igual a soma do Valor Nominal Considerado dos Direitos Creditórios Inadimplidos, cujos vencimentos e inadimplências tenham ocorrido - 98 - JUR_SP - 50819857v20 - 13189004.526656 há mais de 90 (noventa) dias e menos de 360 (trezentos e sessenta) dias, contados de suas respectivas datas de vencimento, e (a.2) denominador é igual a (a.2.1) soma do Valor Nominal Considerado dos Direitos Creditórios Inadim"
+    }
+   ],
+   "legacy": {
+    "value": "Inadimplemento 91–360>10% ou 181–360>5%; resolução/PL>15%; renegociação/PL>10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo, cl. 9.3"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos descritos no anexo, sem trecho contínuo localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Inadimplemento 91–360>10% ou 181–360>5%; resolução/PL>15%; renegociação/PL>10%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência admitida, observada a ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 66,
+     "clause": "Anexo, cl. 4.27",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "ivo Direito Creditório realizada pelo Gestor. 4.26. Segmento Econômico dos Direitos Creditórios: Agronegócio. 4.27. Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência dos Direitos Creditórios que compõe a carteira da Classe Única. 4.28. É permitido ao Gestor vender Direitos Creditórios ao Cedentes originadora dos respectivos Direitos Creditórios e/ou à terceiros por preço inferior ao Preço de Aquisição desembolsado pela Classe Única para a aquisição do respectivo Direito Creditório e atualizado pela taxa de desconto praticada pelo Fundo quando do investimento calculado até a data da efetiva venda a determinado Distribuidor de Produtos. 4.29. O Fundo, em benefício da Classe Única, poderá realizar operações com Derivativos exclusivamente com o objetivo de proteção patrimonial. O Gestor deverá observar a Política de Investimento em Derivativos para o investimento em Derivativos, observada a limitação acima. 4.29.1. Nos termos da Política de Investimento em Derivativos, o Gestor empregará seus melhores esforços para que parcela preponderante do Patrimônio Líquido esteja protegida de variações de mercado, tais como taxas de juros, na Data de Aquisição, não sendo esta uma condição para aquisição dos Direitos Creditórios. 4.30."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência no período de investimento; ata de 23/10/2025 prioriza amortizações após reservas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Despesas, reservas, sênior, mezanino, júnior e aquisições",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 87,
+     "clause": "Anexo, cl. 8.15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "Amortização Sequencial Sequencial Datas que não Na forma do item Na forma do item Na forma do item sejam Datas de 8.16.1 abaixo. 8.16.2 abaixo. 8.16.2 abaixo. Pagamento Datas de Na forma do item Na forma do item Na forma do item Pagamento 8.16.3 abaixo. 8.16.4 abaixo. 8.16.5 abaixo. 8.16.1."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas/reservas; sênior; mezanino; júnior; aquisições conforme regime pro rata/sequencial",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,11% a.a. até R$ 250 mi de PL, 0,08% acima, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 136,
+     "clause": "Anexo, cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "(1) 0,11% (onze centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido até R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), acrescido de; (2) 0,08% (oito centésimos por cento) ao ano, incidente sobre a parcela do Patrimônio Líquido que exceder R$ 250.000.000,00 (duzentos e cinquenta milhões);"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais:0,11% a.a. atéR$ 250 mi e 0,08% acima; mínimoR$ 18 mil/mês; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo, cl. 12.2"
+   }
+  },
+  "mgmt_fee": {
+   "display": "1% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 138,
+     "clause": "Anexo, cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "3. Taxa de Gestão. A taxa de gestão será devida pelo Fundo e correspondente à Taxa de Gestão O Gestor cobrará o valor correspondente a 1% (um por cento) ao ano sobre o valor do Patrimônio Líquido, observado o valor mínimo mensal de R$ 40.000,00 (quarenta mil reais) pelos serviços de gestão profissional da carteira do Fundo, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido do Fundo em cada Dia Útil: 12.3.1. Parcelas da Taxa de Gestão poderão ser pagas diretamente pelo Fundo aos prestadores de serviços contratados pelo Gestor, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão. 12.4. As remunerações descritas na Taxa de Administração e na Taxa de Gestão acima, quando recorrentes, serão mensalmente pagas pelo Fundo no último Dia Útil de cada mês da prestação dos serviços, com exceção da Taxa de Performance, a partir do mês em que ocorrer a primeira integralização de Cotas. Os valores expressos em reais dispostos acima serão atualizados a cada período de 12 (doze) meses, contado da data de início das atividades do Fundo ou na menor periodicidade admitida em lei, pela variação positiva do IPCA ou, na sua falta, pelo índice que vier a substituí- lo. 12.5."
+    }
+   ],
+   "legacy": {
+    "value": "1% a.a. sobre PL; mínimoR$ 40 mil/mês; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo, cl. 12.3"
+   }
+  },
+  "perf_fee": {
+   "display": "Prevista, paga em julho e novembro após remunerações e amortizações",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 15,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "conforme os respectivos Apêndices de Cotas. Data de Pagamento da Significam as datas em que serão realizados os Taxa de Performance pagamentos da Taxa de Performance, as quais deverão acontecer no último Dia Útil dos meses de julho e novembro de cada ano, desde que após o pagamento das Remunerações, Amortizações de Principal e Amortização Total das Cotas previstas para o respectivo mês, conforme os respectivos apêndices de Cotas. Data de Pagamento Significam as datas em que serão realizados os pagamentos de Remuneração e de Amortização de Principal das Cotas, conforme previstas no Anexo Descritivo e no respectivo Apêndice, as quais, caso o regime de amortização seja (i) a Amortização Sequencial, somente poderão ocorrer nas Datas de Aniversário e (ii) a Amortização Pro Rata, somente poderão ocorrer conforme cronograma definido no respectivo Apêndice. - 15 - JUR_SP - 50819857v20 - 13189004.526656 Data de Recomposição Significam os Dias Úteis compreendidos nos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 3,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "respectivos Prestadores de Serviços Essenciais dentro do Fundo. Administrador Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002. -3- JUR_SP - 50819857v20 - 13189004.526656 Significa a NOVA GESTÕES SERVIÇO DE COBRANÇA EXTRA-JUDICIAL LTDA., com sede na Cidade de Curitiba, Estado do Paraná, na Rodovia BR KM 116, nº 11.550, J"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Farmtech Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 22,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "com requisito mínimo de garantia em relação às obrigações dos Devedores. Gestor Significa a FARMTECH GESTÃO DE RECURSOS LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 4.509, conjuntos 91 e 94, CEP 04538-133, Itaim Bibi, inscrita no CNPJ sob o nº 20.043.909/0001-34, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 13.185, de 13 de agosto de 2014, na qualidade de gestor da Carteira. Grupo Econômico Significa cada conglomerado econômico de pessoas que controlem, sejam controladas por, ou estejam sob controle comum de determinada entidade ou que estejam sob o controle das mesmas pessoas físicas. Indicador(es) Significa determinadas pessoas jurídicas, incluindo cooperativas de produtores rurais e empresas do agronegócio, conforme aplicáveis, que realizam - 22 -"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "Luchesi Advogados (cobrança judicial)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 4,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "serviços de cobrança judicial e extrajudicial dos Direitos Creditórios Inadimplidos. Agente de Cobrança Significa a LUCHESI ADVOGADOS, com sede na Cidade Judicial de São Paulo, Estado de São Paulo, na Avenida Francisco Matarazzo, 1500, 16º andar, CEP 05001-100, Ribeirânia, inscrita no CNPJ sob o nº 03.873.308/0001- 30, responsável pela cobrança judicial dos Direitos Creditórios Inadimplidos. Agente de Controladoria Significa a OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM para o exercício profissional de administração de fundos de investimento e gestão de carteiras por meio do Ato Declaratório nº 7.446, de 13 de outubro de 2003, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, sala 202, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20. Agentes d"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "conceito de Investidores Qualificados. - 23 - JUR_SP - 50819857v20 - 13189004.526656 Investidores Qualificados Significam os investidores assim definidos de acordo com o artigo 12 da Resolução CVM 30. IPCA Significa o Índice Nacional de Preços ao Consumidor Amplo (IPCA) divulgado pelo Instituto Brasileiro de Geografia e Estatística (IBGE)."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada de prazo indeterminado; investidores qualificados; liquidação após amortização de todas as cotas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 37,
+     "clause": "Anexo, cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "ão CMN 2.907, e pelas disposições legais e normativas que lhe forem aplicáveis. 2.3. Prazo de Duração. O Fundo terá prazo de duração indeterminado. 3. PRESTADORES DE SERVIÇOS Prestadores de Serviços Essenciais 3.1. Administrador. O Fundo será administrado pelo Administrador. O Administrador, observadas as limitações legais e as previstas na regulamentação aplicável e neste Regulamento, tem poderes para praticar todos os atos necessários à administração do Fundo, na sua respectiva esfera de atuação. 3.1.1. Observados os termos e as condições deste Regulamento, do Anexo Descritivo, da Resolução CVM 175, do Anexo Normativo II e das demais normas e regulamentações aplicáveis, em especial o disposto no artigo 83, conforme aplicável, e 104, da parte geral da Resolução CVM 175, e nos artigos 30 e 31 do Anexo Normativo II, incluem-se entre as obrigações do Administrador: (i) diligenciar para que sejam mantidos, às suas expensas, atualizados e em perfeita ordem: (a) o registro de Cotistas; (b) o livro de atas das assembleias gerais; (c) o livro ou lista de presença de Cotistas; (d) os pareceres do auditor independente;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada de prazo indeterminado; investidores qualificados; liquidação após amortização de todas as cotas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "Duplicatas, CPR-F e promissórias do agronegócio, inclusive a performar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 17,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "Cessão, no Contrato de Indicação na CPR-F e/ou na NP, - 17 - JUR_SP - 50819857v20 - 13189004.526656 conforme o caso, privilégios, preferências, prerrogativas e ações relacionados aos Direitos Creditórios, sem prejuízo dos procedimentos de cobrança previstos no Contrato de Formalização e Cobrança."
+    }
+   ],
+   "legacy": {
+    "value": "Agronegócio: vendas a prazo, duplicatas/notas fiscais, CPR-F e notas promissórias; admite créditos a performar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Garantias e acessórios acompanham os direitos; constituição específica nos instrumentos de cessão/CPR-F/NP",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "sacado_limit": {
+   "display": "Por cliente: menor entre R$ 5 mi e 1% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993922",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/07/2025",
+     "page": 62,
+     "clause": "Anexo, cl. 4.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+     "excerpt": "o Valor Nominal Considerado dos Direitos Creditórios Cessão e dos Direitos Creditórios Emitidos Clientes devidos por um mesmo Devedor, considerado individualmente, não poderá representar concentração superior ao menor entre (a) R$ 5.000.000,00 (cinco milhões de reais); e (b) 1% (um por cento) do Patrimônio Líquido; (i) considerando-se pro forma a aquisição pretendida, o somatório do Valor Nominal Considerado dos Direitos Creditórios Emitidos Distribuidores devidos por um mesmo Distribuidor de Produtos, considerada em conjunto com os demais integrantes do seu Grupo Econômico, não poderão representar concentração superior a 5% (cinco por cento) do Patrimônio Líquido, com exceção de determinado(s) Distribuidor(es) de Produtos especiais que, considerados em conjunto com os demais integrantes do seu Grupo Econômico, poderão representar concentração superior a 5% (cinco por cento) do Patrimônio Líquido, conforme previamente aprovados pelo Consultor Especializado;"
+    }
+   ],
+   "value": 1.0,
+   "legacy": {
+    "value": "Cliente: menor de R$ 5 mi/1% PL; distribuidor/grupo 5% com exceções; top 5 distribuidores 20% PL; originador/grupo 20% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/07/2025, Anexo, cl. 4.14"
+   }
+  }
+ },
+ "leitura": "Multicedente agro de distribuidores; PL/sênior ≥ 125% e cliente ≤ 1% do PL ou R$ 5 mi.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

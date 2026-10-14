@@ -1,0 +1,597 @@
+{
+ "schema_version": 1,
+ "cnpj": "44909456000144",
+ "name": "SOLFÁCIL IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Energia solar",
+ "reviewed_at": "2026-10-14T08:14:21Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1338059",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059"
+  },
+  "D2": {
+   "document_id": "1337787",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337787"
+  },
+  "D3": {
+   "document_id": "998793",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "23/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998793"
+  },
+  "D4": {
+   "document_id": "563981",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/12/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=563981"
+  },
+  "D5": {
+   "document_id": "491900",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "14/07/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=491900"
+  },
+  "D6": {
+   "document_id": "402516",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "16/01/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=402516"
+  },
+  "D7": {
+   "document_id": "1030295",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "23/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1030295"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Energia solar",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de financiamento de sistemas fotovoltaicos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 10,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "favor da liquidação do Fundo em tal Assembleia Geral de Cotistas. “Direitos Creditórios” Significam os direitos creditórios originários de operações de Financiamento Solar para aquisição de Sistemas Fotovoltaicos, representados por CCBs emitidas em favor das Instituições Financeiras Parceiras pelos Devedores, que Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. serão endossadas pela Instituição Financeira Parceira ao Fundo, nos termos do Capítulo Five deste Regulamento. “Direitos Creditórios Significam os Direitos Creditórios que compõem a Carteira do Adquiridos” Fundo. “Direitos Creditórios Significam os Direitos Creditórios ofertados ao Fundo em Ofertados” cada Data de Aquisição e Pagamento. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757."
+    }
+   ],
+   "legacy": {
+    "value": "Financiamento de sistemas solares, representado por CCBs.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Solfácil, via plataforma, com instituições financeiras parceiras",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 6,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "tada de 10 de janeiro de 2002, Brasileiro” conforme alterada de tempos em tempos. “Companhia” Significa a Solfácil Energia Solar Tecnologia e Serviços Financeiros Ltda., sociedade limitada devidamente constituída e existente de acordo com as leis da República Federativa do Brasil, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, 2450, 2º andar, cjs. 201 a 207, 210 e 211, 5º andar, cjs. 501 a 511, 6º andar, cjs."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 10,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "Subordinadas Júnior, o que ocorrerá necessariamente em um Dia Útil. “Devedores” Significa qualquer Pessoa que emita CCBs em favor de uma Instituição Financeira Parceira no âmbito da Plataforma Solfácil. “Dia Útil” Significa qualquer dia que não seja um sábado, domingo ou dias declarados como feriado de âmbito nacional no Brasil. Qualquer ato ou circunstância previsto neste Regulamento Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. que seja exigido ou que ocorra em uma data que não seja Dia Útil será considerado, em vez disso, como exigido ou que irá ocorrer no Dia Útil imediatamente posterior. “Direito de Significa o direito do Cotista dissidente de requerer o resgate Dissidência” antecipado das suas Cotas no caso de uma Assembleia Geral de Cotistas que ocorrer após a"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Instituições financeiras parceiras emissoras das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 10,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "Subordinadas Júnior, o que ocorrerá necessariamente em um Dia Útil. “Devedores” Significa qualquer Pessoa que emita CCBs em favor de uma Instituição Financeira Parceira no âmbito da Plataforma Solfácil. “Dia Útil” Significa qualquer dia que não seja um sábado, domingo ou dias declarados como feriado de âmbito nacional no Brasil. Qualquer ato ou circunstância previsto neste Regulamento Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. que seja exigido ou que ocorra em uma data que não seja Dia Útil será considerado, em vez disso, como exigido ou que irá ocorrer no Dia Útil imediatamente posterior. “Direito de Significa o direito do Cotista dissidente de requerer o resgate Dissidência” antecipado das suas Cotas no caso de uma Assembleia Geral de Cotistas que ocorrer após a"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Emitentes das CCBs na Plataforma Solfácil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 10,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "Subordinadas Júnior, o que ocorrerá necessariamente em um Dia Útil. “Devedores” Significa qualquer Pessoa que emita CCBs em favor de uma Instituição Financeira Parceira no âmbito da Plataforma Solfácil. “Dia Útil” Significa qualquer dia que não seja um sábado, domingo ou dias declarados como feriado de âmbito nacional no Brasil. Qualquer ato ou circunstância previsto neste Regulamento Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. que seja exigido ou que ocorra em uma data que não seja Dia Útil será considerado, em vez disso, como exigido ou que irá ocorrer no Dia Útil imediatamente posterior. “Direito de Significa o direito do Cotista dissidente de requerer o resgate Dissidência” antecipado das suas Cotas no caso de uma Assembleia Geral de Cotistas que ocorrer após a"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas e jurídicas que financiam sistemas solares.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Endosso definitivo; recompra/resolução e indenização condicionadas ao contrato de transferência.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "list",
+   "reason": "Critérios de elegibilidade sem trecho contínuo localizado",
+   "sources": [],
+   "legacy": {
+    "value": "CCBs para sistemas solares; condições de cessão e integridade do lastro previstas no contrato.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: até 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 21,
+     "clause": "Anexo XI, cl. 5.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "5.11. O Fundo poderá adquirir Direitos Creditórios e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor, desde que limitado a 20% (vinte por cento) do Patrimônio Líquido do Fundo, nos termos do artigo 45 do Anexo Normativo II da Resolução CVM 175. 5.12. Nos termos do artigo 1.368-D do Código Civil Brasileiro, e do artigo 81 da Resolução CVM 175, a responsabilidade dos prestadores de serviço do Fundo será limitada às suas respectivas ações e/ou omissões decorrentes do cumprimento e/ou descumprimento de suas obrigações perante o Fundo, nos termos deste Regulamento, do Acordo Operacional, do Contrato de Cobrança e de quaisquer outros documentos relacionados, conforme aplicável, e da legislação brasileira aplicável, e responde exclusivamente perante o Fundo, os Cotistas, terceiros e as autoridades por todos os danos e prejuízos que deles decorram, não sendo o Administrador e os demais prestadores de serviço do Fundo responsáveis solidários pelo cumprimento e/ou descumprimento das obrigações uns dos outros. 5.13."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Limites individuais/por grupo não transcritos sem reconciliação dos anexos da versão vigente.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por instituição parceira não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Limites individuais/por grupo não transcritos sem reconciliação dos anexos da versão vigente.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "CCBs para sistemas solares; condições de cessão e integridade do lastro previstas no contrato.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1030295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/10/2025",
+     "page": 20,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1030295",
+     "excerpt": "em data anterior. Em qualquer caso, a Carteira do Fundo deverá ser composta de, no mínimo 67% (sessenta e sete por cento) do Patrimônio Líquido em Direitos Creditórios, conforme previsto na regulamentação do CMN, para fins de atendimentos disposto no artigo 19 da Lei n. 14.754, de 12 de dezembro de 2023 e artigo 4º, da Resolução CMN nº 5.111, de 21 de dezembro de 2023. 5.3. Os Direitos Creditórios serão representados pelos Documentos Comprobatórios. 5.4."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL em DC até 90 dias da primeira integralização.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 23/10/2025, Anexo XI"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 8,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "Subordinadas Júnior em Circulação. “Cota Sênior” Significa a Cota de subclasse sênior emitida pelo Fundo, a qual não está subordinada às demais Cotas para fins de Amortização, resgate e distribuição de rendimentos da Carteira, nos termos deste Regulamento. “Cota Sênior em Significa a Cota Sênior que foi subscrita, integralizada, parcial Circulação” ou integralmente, e ainda não resgatada ou cancelada pelo Fundo. “Cotas Subordinadas” Significam, em conjunto, as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. “Cotas Subordinadas Significam as Cotas de subclasse subordinada emitidas pelo Júnior” Fundo, as quais estão subordinadas à Cota Sênior e às Cotas Subordinadas Mezanino para fins de Amortização, resgate e distribuição de rendimentos da Carteira, nos termos deste Regulamento. “Cotas Subordinadas Significam as Cota"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior, subordinadas mezanino e júnior; modelos de emissão não comprovam todas as séries em circulação.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice de subordinação não localizado em trecho contínuo",
+   "sources": []
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino descrita",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": []
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa sem valor localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Reservas para despesas e benchmark; verificação mensal e restrição a chamadas enquanto não recompostas.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "Provisão e perdas por devedor, com efeito sobre todos os créditos dele",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 27,
+     "clause": "Anexo XI, cl. 9.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 26 9.6. A provisão para perdas e perdas efetivas em relação aos Direitos Creditórios devidos por um Devedor específico deverá ser calculada observado o Anexo IX ao presente Regulamento. Capítulo Dez – CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS Características Gerais das Cotas 10.1. As Cotas correspondem a frações ideais do patrimônio da Classe do Fundo e são divididas em subclasses e séries. Existirá apenas 1 (uma) subclasse de Cota Sênior, em série única. As Cotas Subordinadas são emitidas em 2 (duas) subclasses diferentes, divididas em Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior. As características e direitos de cada subclasse e série de Cotas, bem como as condições de emissão, subscrição, integralização, amortização e resgate correspondentes estão descritas nos respectivos Apêndices. 10.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Política de provisão em anexo; faixa por atraso e renegociação exige aplicação ao contrato.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de avaliação sem lista localizada em trecho contínuo",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação sem lista localizada em trecho contínuo",
+   "sources": []
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada no regulamento",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Pagamento de despesas, benchmark e principal segundo ordem contratual; valores dependem do suplemento.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "R$ 15 mil/mês, corrigido pelo IPCA",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1030295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/10/2025",
+     "page": 50,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1030295",
+     "excerpt": "distribuição das cotas, o valor mensal de R$15.000,00 (quinze mil reais) (“Taxa de Administração”); 17.1. Pela prestação dos serviços de gestão, será cobrada, como taxa de gestão a ser paga à Gestora, o percentual de 10% (dez por cento) ao ano calculados sobre a Taxa de Administração, observado o valor máximo mensal de R$ 4.000,00 (quatro mil reais) (“Taxa de Gestão”)."
+    }
+   ],
+   "legacy": {
+    "value": "R$ 15 mil/mês; IPCA anual; setup de R$ 75 mil separado.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 23/10/2025, Anexo XI"
+   }
+  },
+  "mgmt_fee": {
+   "display": "10% da taxa de administração, até R$ 4 mil/mês (deduzida dela)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1030295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/10/2025",
+     "page": 50,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1030295",
+     "excerpt": "Gestora, o percentual de 10% (dez por cento) ao ano calculados sobre a Taxa de Administração, observado o valor máximo mensal de R$ 4.000,00 (quatro mil reais) (“Taxa de Gestão”). Esse valor correspondente à Taxa de Gestão será descontado da Taxa de Administração, acima descrita, a qual está segregada neste Regulamento apenas para fins de cumprimento regulatório. 17.2."
+    }
+   ],
+   "legacy": {
+    "value": "10% a.a. sobre a taxa de administração, teto R$ 4 mil/mês; deduzida da administração.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "Direitos Creditórios \", celebrado entre o Gestor e o Administrador. “Administrador” Significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição financeira devidamente organizada e validamente existente de acordo com as leis da República Federativa do Brasil, com sede na Cidade do Rio de Janeiro Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 913, Botafogo, CEP 22.250-040, Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. inscrita no CNPJ/MF sob o nº 27.652.684/0001-62, prestadora de serviços responsável pela administração do Fundo, autorizada pela CVM para o exercício profissional da administração da carteira de valores mobiliários, por meio do At"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 13,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "Investimento em Direitos Creditórios de Responsabilidade Limitada. “Gestor” Significa a GENIAL GESTÃO LTDA., sociedade limitada constituída de acordo com as leis da República Federativa do Brasil, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.400, conjunto 91 parte, inscrita no CNPJ/MF sob o nº 22.119.959/0001-83, empresa autorizada pela CVM para o exercício profissional de administração de carteira de valores mobiliários, para os Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. ativos incluídos na Carteira, por meio do Ato Declaratório No. 14.519, de 30 de setembro de 2015, e qualquer outra"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (o administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "pelo Gestor e pelo Custodiante no contexto de cada referida aquisição. “Custodiante” Significa o Administrador, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. controladoria do Fundo, custódia qualificada dos ativos integrantes da Carteira do Fundo, escrituração das Cotas e guarda dos Documentos Comprobatórios, conforme Resolução CVM 175. “CVM” Significa a Comissão de Valores Mobiliários. “Data da Primeira Significa 23 de junho de 2022. Integralização” “Data de Aquisição e Significa cada data em que o Fundo efetivamente adquirir e Pagamento” pagar o Preço de Compra ao respectivo Endossante. Para verificar as assinaturas vá ao site http:"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "Direitos Creditórios \", celebrado entre o Gestor e o Administrador. “Administrador” Significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição financeira devidamente organizada e validamente existente de acordo com as leis da República Federativa do Brasil, com sede na Cidade do Rio de Janeiro Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 913, Botafogo, CEP 22.250-040, Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. inscrita no CNPJ/MF sob o nº 27.652.684/0001-62, prestadora de serviços responsável pela administração do Fundo, autorizada pela CVM para o exercício profissional da administração da carteira de valores mobiliários, por meio do At"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho localizável",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 15,
+     "clause": "Anexo XI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338059",
+     "excerpt": "Resolução CVM 160, artigo 26, incisos VI e VII, a qual (i) será destinada exclusivamente a Investidores Profissionais; e (ii) será intermediada por instituição financeira integrante do sistema de distribuição de valores mobiliários, registrada perante a CVM nos termos da Resolução da CVM nº 161, de 13 de julho de 2022. “Partes Relacionadas” Significa as empresas controladoras, controladas, empresas sob controle comum, afiliadas e/ou subsidiárias de uma determinada sociedade ou pessoa, ou fundos de investimento cuja base de investidores seja composta exclusivamente por empresas controladoras, controladas, afiliadas, subsidiárias e/ou empresas sob controle comum Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. com tal sociedade ou"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; prazos e resgates dependem de suplementos.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo de duração não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Classe fechada; prazos e resgates dependem de suplementos.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "real_collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantia sobre equipamentos sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Equipamentos solares em alienação fiduciária; formalização e registro sujeitos às condições contratuais.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Financiamento solar da plataforma Solfácil; devedor ≤ 20% do PL e alocação mínima de 67%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

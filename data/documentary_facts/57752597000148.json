@@ -1,0 +1,796 @@
+{
+ "schema_version": 1,
+ "cnpj": "57752597000148",
+ "name": "AGROMERCANTIL CRÉDITO AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T13:03:03Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1200681",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "21/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681"
+  },
+  "D2": {
+   "document_id": "1200727",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "21/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200727"
+  },
+  "D3": {
+   "document_id": "1184215",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "08/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1184215"
+  },
+  "D4": {
+   "document_id": "1170296",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "24/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1170296"
+  },
+  "D5": {
+   "document_id": "1168321",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "23/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1168321"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Duplicatas de vendas no agronegócio, com arquivo XML",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 7,
+     "clause": "cl. 38",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "sábado ou domingo ou data em que, por qualquer motivo, não haja expediente na B3; 38. “Direitos Creditórios”: os direitos creditórios originados de operações realizadas no segmento do agronegócio a serem adquiridos pela Classe, conforme definidos no Anexo Descritivo; 39. “Direitos Creditórios Inadimplidos”: os Direitos Creditórios adquiridos pela Classe que estiverem, em dado momento, vencidos e não pagos pelos respectivos Devedores; 40. “Documentos Complementares”: significa os documentos físicos ou eletrônicos complementares aos Documentos Comprobatórios do Crédito, conforme identificados no Anexo Descritivo; 41. “Documentos Comprobatórios do Crédito”: os documentos físicos ou eletrônicos que evidenciam o lastro dos Direitos Creditórios elegíveis adquiridos pela Classe, conforme identificados no Anexo Descritivo; 42. “Entidade Registradora”: o prestador de serviços de registro de direitos creditórios devidamente autorizado para tanto pelo BACEN, contratado pelo Administrador, em nome da Classe Única, nas hipóteses previstas na regulamentação que poderá ser escolhido e substituído pelo Administrador a qualquer tempo; 43."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 55,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "II. os Direitos Creditórios deverão ter prazo de vencimento mínimo de 7 (sete) dias contados da data de emissão da Duplicata; III. os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias contados da data de emissão da Duplicata; IV. a Taxa Mínima de Cessão deve ser observada; V. somente poderão ser adquiridos Direitos Creditórios que não estejam vencidos e pendentes de pagamento na respectiva Data de Aquisição e Pagamento; VI."
+    }
+   ],
+   "legacy": {
+    "value": "Duplicatas e notas fiscais de produtos agrícolas; admite FIDCs até 15% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, cl. 38"
+   }
+  },
+  "originator": {
+   "display": "Agromercantil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 4,
+     "clause": "cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": ", que poderá(ão) ser escolhida(s) pelo Gestor e ratificada(s) pelo Administrador; 4. “Agente de Cobrança”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de Uberlândia, estado de Minas Gerais, na Rua Beijos Brancos, 374 - Cidade Jardim - Uberlândia-MG; CEP: 38412-204, inscrita no CNPJ sob o nº 20.439.095/0001-51, prestador de serviço contratado em nome do Fundo, pelo Gestor, para cobrar e receber Direitos Creditórios Inadimplidos; 5. “Amortização”: significa com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas da Classe, calculado nos termos do Anexo Descritivo e do respectivo Apêndice, conforme aplicável; 6. “ANBIMA”: a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; 7. “Anexo Descritivo”: o anexo descritivo ao Regulamento contendo as características da Classe Única de Cotas emitida pelo Fundo; 8. “Apêndice”: cada apêndice ao Anexo Descritivo contendo as características de cada Subclasse de Cotas da Classe Única; 9. “Assembleia Geral de Cotistas”: a assembleia geral de Cotistas do Fundo, que abrange todos os detentores de Cotas do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Agromercantil e filiais",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 4,
+     "clause": "cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": ", que poderá(ão) ser escolhida(s) pelo Gestor e ratificada(s) pelo Administrador; 4. “Agente de Cobrança”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de Uberlândia, estado de Minas Gerais, na Rua Beijos Brancos, 374 - Cidade Jardim - Uberlândia-MG; CEP: 38412-204, inscrita no CNPJ sob o nº 20.439.095/0001-51, prestador de serviço contratado em nome do Fundo, pelo Gestor, para cobrar e receber Direitos Creditórios Inadimplidos; 5. “Amortização”: significa com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas da Classe, calculado nos termos do Anexo Descritivo e do respectivo Apêndice, conforme aplicável; 6. “ANBIMA”: a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; 7. “Anexo Descritivo”: o anexo descritivo ao Regulamento contendo as características da Classe Única de Cotas emitida pelo Fundo; 8. “Apêndice”: cada apêndice ao Anexo Descritivo contendo as características de cada Subclasse de Cotas da Classe Única; 9. “Assembleia Geral de Cotistas”: a assembleia geral de Cotistas do Fundo, que abrange todos os detentores de Cotas do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Clientes do agronegócio com relação comercial com a cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 41,
+     "clause": "cl. 10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "ce; 10. “Devedor(es)”: as pessoas físicas e jurídicas que sejam produtores rurais ou integrem a cadeia produtiva do agronegócio que mantêm relacionamento comercial com o Cedente e que figuram como devedores (sacados) dos Direitos Creditórios adquiridos pela Classe; 11. “Devedor(es) Especial(is)”: significa os Devedores Especiais Nível I, Devedores Especiais Nível II, Devedores Especiais Nível III em conjunto e indistintamente; 12. “Devedor(es) Especial(is) Nível I”: significa as sociedades listadas na lista positiva detida pelo Gestor e Administrador, incluindo as filiais daquelas, na qualidade de Devedores, desde que tenham suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do Direito Creditório elaboradas em conformidade com o disposto na Lei nº 6.404, de 1976, e a regulamentação editada pela CVM, e auditadas por auditor independente registrado na CVM, bem como tenham faturamento mínimo comprovado de R$ 2.000.000.000,00 (dois bilhões de reais) no exercício social imediatamente anterior à data de aquisição do Direito Creditório; e/ou sejam alvos de relatórios de rating em que o Gestor possa auferir a devida análise de crédito. 13."
+    }
+   ],
+   "legacy": {
+    "value": "Clientes dos cedentes de operações de compra e venda no agronegócio",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Com ou sem coobrigação da cedente, conforme a cessão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 49,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "Única, Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo com ou sem coobrigação do Cedente pelo adimplemento dos Direitos Creditórios Cedidos e/ou solvência dos Devedores, observados cumulativamente, em qualquer caso: I. os demais termos e condições deste Anexo Descritivo da Classe Única; II. os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão, incluindo, sem limitar-se às hipóteses de resolução de cessão, se aplicável; III. os procedimentos pertinentes à aquisição dos Direitos Creditórios Elegíveis e atendimento aos Critérios de Elegibilidade e às Condições de Cessão definidos neste Anexo Descritivo; e IV."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão irrevogável; recompra por falha de entrega nas condições específicas; repasse/recompra ≤10% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, p. 49"
+   }
+  },
+  "eligibility": {
+   "display": "Vencimento de 7 a 360 dias da duplicata, não vencidos, entre outros",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 55,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "II. os Direitos Creditórios deverão ter prazo de vencimento mínimo de 7 (sete) dias contados da data de emissão da Duplicata; III. os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias contados da data de emissão da Duplicata; IV. a Taxa Mínima de Cessão deve ser observada; V. somente poderão ser adquiridos Direitos Creditórios que não estejam vencidos e pendentes de pagamento na respectiva Data de Aquisição e Pagamento; VI."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 55,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "ios deverão ter prazo de vencimento mínimo de 7 (sete) dias contados da data de emissão da Duplicata; III. os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias contados da data de emissão da Duplicata; IV. a Taxa Mínima de Cessão deve ser observada; V. somente poderão ser adquiridos Direitos Creditórios que não estejam vencidos e pendentes de pagamento na respectiva Data de Aquisição e Pagamento; VI. considerada pro forma a aquisição pretendida, o prazo médio da carteira de Direitos Creditórios deverá ser igual ou menor a 60 (sessenta) dias; VII. A concentração máxima por Devedor dentro do Fundo deverá observar o previsto no Artigo 21º e seus respectivos parágrafos, abaixo; VIII. os Direitos Creditórios deverão ser denominados em Reais (BRL); IX. Os Direitos Creditórios deverão ser originados de acordo com a política de concessão de crédito do Cedente e demais diretrizes estabelecidas pelo Gestor e pela Administradora; X. Não serão admitidos Direitos Creditórios cujo Devedor esteja inadimplente há mais de 30 (trinta) dias ou cujo prazo tenha sido prorrogado; XI."
+    }
+   ],
+   "legacy": {
+    "value": "BRL; vencimento de 7 a 360 dias; prazo médio ≤60 dias; sem atraso ≥30 dias; exceção de comprovação de entrega até 50% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, p. 55"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedores sem nível especial: 2,5% do PL cada, 5% no grupo",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 42,
+     "clause": "cl. 15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "tório; e (iii) estejam previsto na lista positiva detida pelo Gestor e Administrador. 15. “Demais Devedores”: Para devedores que não se enquadrem nos níveis acima, os limites máximos de exposição em relação ao Patrimônio Líquido serão de 2,5% individualmente e de 5% no total do grupo 16. “Demais + Nível 3”: A soma das exposições aos Devedores classificados como Nível III e Demais não poderá ultrapassar 20 % do Patrimônio Líquido da Classe. 17. “Devedor(es) Ordinário(s)”: significa qualquer Devedor que não se enquadre como Devedor Especial; 18. “Direitos Creditórios”: significa os direitos creditórios, incluindo todos os valores devidos a título de contraprestação, reajustes monetários, juros, encargos e quaisquer multas ou penalidades de qualquer natureza devidos pelos respectivo Devedor, assim como privilégios, preferências, prerrogativas e ações a eles relacionados, decorrentes das Notas Fiscais, representativos de Operações de Compra a Prazo, detidos pelo Cedente contra os Devedores, que sejam cedidos à Classe pelo Cedente, nos termos do Contrato de Cessão, desde que acompanhados com o respectivo título de crédito que deu origem ao arquivo XML; 19."
+    }
+   ],
+   "value": 2.5,
+   "legacy": {
+    "value": "Devedor níveis I/II/III/demais: 50%/10%/5%/2,5% do PL; limites agregados 100%/35%/15%/5%; III+demais ≤20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, cl. 15"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Agromercantil",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor níveis I/II/III/demais: 50%/10%/5%/2,5% do PL; limites agregados 100%/35%/15%/5%; III+demais ≤20%",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 360 dias da emissão da duplicata",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 55,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "ios deverão ter prazo de vencimento mínimo de 7 (sete) dias contados da data de emissão da Duplicata; III. os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias contados da data de emissão da Duplicata; IV. a Taxa Mínima de Cessão deve ser observada; V. somente poderão ser adquiridos Direitos Creditórios que não estejam vencidos e pendentes de pagamento na respectiva Data de Aquisição e Pagamento; VI. considerada pro forma a aquisição pretendida, o prazo médio da carteira de Direitos Creditórios deverá ser igual ou menor a 60 (sessenta) dias; VII. A concentração máxima por Devedor dentro do Fundo deverá observar o previsto no Artigo 21º e seus respectivos parágrafos, abaixo; VIII. os Direitos Creditórios deverão ser denominados em Reais (BRL); IX. Os Direitos Creditórios deverão ser originados de acordo com a política de concessão de crédito do Cedente e demais diretrizes estabelecidas pelo Gestor e pela Administradora; X. Não serão admitidos Direitos Creditórios cujo Devedor esteja inadimplente há mais de 30 (trinta) dias ou cujo prazo tenha sido prorrogado; XI."
+    }
+   ],
+   "legacy": {
+    "value": "BRL; vencimento de 7 a 360 dias; prazo médio ≤60 dias; sem atraso ≥30 dias; exceção de comprovação de entrega até 50% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, p. 55"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 40,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "1. “Alocação Mínima de Investimento”: significa a alocação de, pelo menos, 50% (cinquenta por cento) de seu Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II da Resolução CVM nº 175, após decorridos 180 (cento e oitenta) dias contados da Data da 1ª Integralização de Cotas da Classe Única; 2. “Arquivo Remessa”: significa o arquivo eletrônico a ser enviado pelo Cedente ao Gestor, em formato previamente acordado entre eles, contendo informações dos Direitos Creditórios ofertados à Classe Única; 3."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos elegíveis ≥50% do PL após 180 dias; índice de alocação separado ≥67%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, cl. 1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "CAPÍTULO XI – DO ÍNDICE DE SUBORDINAÇÃO DA CLASSE Artigo 30º Após a Data da 1ª Integralização de Cotas Seniores, a Classe deverá observar o Índice de Subordinação, que deverá ser igual ou superior a 30% (trinta por cento), conforme disposto neste Anexo Descritivo. Parágrafo Primeiro O Índice de Subordinação deverá ser apurado em todo Dia Útil pelo Administrador, e informado (i) ao Gestor, no mesmo dia, e (ii) aos Cotistas, em bases mensais. Parágrafo Segundo Na hipótese de desenquadramento do Índice de Subordinação da Classe Única por um período superior a 3 (três) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I. o Administrador notificará o Gestor para que esta interrompa a aquisição de novos Direitos Creditórios, mesmo que dentro do período de carência para Amortização das Cotas Seniores; II."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL ≥30%, enquanto houver sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, p. 62"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "CAPÍTULO XI – DO ÍNDICE DE SUBORDINAÇÃO DA CLASSE Artigo 30º Após a Data da 1ª Integralização de Cotas Seniores, a Classe deverá observar o Índice de Subordinação, que deverá ser igual ou superior a 30% (trinta por cento), conforme disposto neste Anexo Descritivo. Parágrafo Primeiro O Índice de Subordinação deverá ser apurado em todo Dia Útil pelo Administrador, e informado (i) ao Gestor, no mesmo dia, e (ii) aos Cotistas, em bases mensais. Parágrafo Segundo Na hipótese de desenquadramento do Índice de Subordinação da Classe Única por um período superior a 3 (três) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I. o Administrador notificará o Gestor para que esta interrompa a aquisição de novos Direitos Creditórios, mesmo que dentro do período de carência para Amortização das Cotas Seniores; II."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Júnior / PL ≥30%, enquanto houver sênior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária, pelo administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "e deverá ser igual ou superior a 30% (trinta por cento), conforme disposto neste Anexo Descritivo. Parágrafo Primeiro O Índice de Subordinação deverá ser apurado em todo Dia Útil pelo Administrador, e informado (i) ao Gestor, no mesmo dia, e (ii) aos Cotistas, em bases mensais. Parágrafo Segundo Na hipótese de desenquadramento do Índice de Subordinação da Classe Única por um período superior a 3 (três) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I. o Administrador notificará o Gestor para que esta interrompa a aquisição de novos Direitos Creditórios, mesmo que dentro do período de carência para Amortização das Cotas Seniores; II. o Administrador comunicará tal ocorrência a todos os Cotistas, mediante o envio de correio eletrônico, bem como da necessidade de aporte adicional de recursos pelos Cotistas detentores de Cotas Subordinadas Juniores para o reenquadramento do Índice de Subordinação da Classe Única, mediante a emissão e subscrição de novas Cotas Subordinadas Juniores, as quais poderão ser integralizadas nos moldes do previsto no CAPÍTULO XIII deste Anexo Descritivo; III."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL ≥30%, enquanto houver sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, p. 62"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de amortização; sem ela, aquisições são suspensas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 61,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "ações de Cotas terão seus valores calculados conforme o disposto Artigo 42º deste Anexo Descritivo. Parágrafo Segundo Caso o Gestor verifique não ser possível a formação da Reserva de Amortização de acordo com os procedimentos descritos no caput, deverá suspender a aquisição de Direitos Creditórios até que a Reserva de Amortização seja devidamente constituída. CAPÍTULO X – DA RESERVA DE CAIXA Artigo 29º O Gestor constituirá, desde a Data da 1ª Integralização de Cotas da Classe, uma Reserva de Caixa no montante equivalente ao valor do somatório das despesas e encargos da Classe Única descritas no Regulamento, estimados para serem incorridos em um período de 3 (três) meses a contar de cada Data de Verificação, mediante ordem encaminhada ao Administrador. Parágrafo Primeiro Os recursos da Reserva de Caixa integrarão o patrimônio da Classe Única e constituirão uma provisão para garantir o pagamento das despesas e encargos da Classe Única, incluindo despesas e encargos do Fundo que forem comuns a todas as Classes de Cotas, descritos no Regulamento. Parágrafo Segundo Os recursos da Reserva de Caixa serão alocados exclusivamente para aquisição de Ativos Financeiros. Parágrafo Terceiro Sempre que necessário, o Gestor deverá compleme"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 61,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "um período de 3 (três) meses a contar de cada Data de Verificação, mediante ordem encaminhada ao Administrador. Parágrafo Primeiro Os recursos da Reserva de Caixa integrarão o patrimônio da Classe Única e constituirão uma provisão para garantir o pagamento das despesas e encargos da Classe Única, incluindo despesas e encargos do Fundo que forem comuns a todas as Classes de Cotas, descritos no Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas; reserva sênior D-30/D-20/D-10: 20%/50%/100% do próximo pagamento",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, p. 61"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Falta de amortização ou resgate sênior, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 73,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "fetivado no primeiro Dia Útil subsequente. CAPÍTULO XIV – DOS EVENTOS DE AVALIAÇÃO Artigo 48º São considerados Eventos de Avaliação da Classe Única quaisquer dos seguintes eventos e que obrigam o Administrador a verificar eventual patrimônio líquido negativo da Classe: I. caso a Classe deixe de efetuar, a qualquer tempo, o pagamento: (a) integral de qualquer das amortizações programadas das Cotas Seniores, na respectiva Data de Pagamento; (b) integral dos resgates das Cotas Seniores, na respectiva data de resgate de Cotas Seniores, e/ou (c) do Benchmark das Cotas Seniores nas respectivas Datas de Pagamento; II. não observância, pelo Custodiante, Administrador, Gestor e/ou pelo Cedente, dos deveres e obrigações dispostas abaixo e/ou estabelecidos nos Documentos da Operação, conforme o caso, ou a ocorrência de qualquer dos seguintes eventos: II.1. extinção de qualquer dos Documentos da Operação, sem que outras pessoas assumam integralmente as atribuições ali estabelecidas no prazo de até 5 (cinco) dias, com exceção de rescisão do Contrato de Cessão pelo Cedente, hipótese na qual este item não estará sujeito a qualquer prazo de cura; e/ou II.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação em assembleia ou avaliação convertida, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 76,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "ÍTULO XV – DA LIQUIDAÇÃO DA CLASSE Artigo 49º Sem prejuízo de outras hipóteses previstas na legislação aplicável, são considerados Eventos de Liquidação da Classe Única: I. deliberação da Assembleia Geral de Cotistas pela liquidação da Classe; II. caso seja deliberado em Assembleia Geral de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; III. renúncia ou destituição do Administrador e/ou o Gestor, sem que uma nova instituição assuma suas funções no prazo de até 60 (sessenta) dias; e IV."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Recursos podem ser reinvestidos em novos direitos creditórios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 72,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "decorrência de liquidação dos Direitos Creditórios durante esse período não serão utilizados para amortização de Cotas, podendo ser aplicados ou reinvestidos em novos Direitos Creditórios, observada a Ordem de Alocação de Recursos definida no CAPÍTULO VIII acima. Parágrafo Terceiro Os Apêndices poderão estabelecer a distribuição periódica de rendimentos aos titulares das Cotas da referida subclasse, os quais serão pagos desde que observada a Ordem de Alocação de Recursos definida no CAPÍTULO VIII acima. Parágrafo Quarto As Cotas Subordinadas Juniores somente poderão ser amortizadas caso a Classe Única atenda a todas as regras, índices e parâmetros previstos neste Anexo Descritivo, especialmente ao Índice de Subordinação da Classe Única. Parágrafo Quinto Qualquer pagamento de remuneração ou amortização deverá englobar todos os Cotistas Seniores, de forma proporcional e em igualdade de condições, não havendo entre eles qualquer relação de subordinação, respeitadas, contudo, as características de cada Série de Cota Sênior em circulação. Artigo 45º A amortização das Cotas das Classe Única poderá ocorrer de forma extraordinária, antes do prazo previsto nos respectivos Apêndices nas seguintes hipóteses: I."
+    }
+   ],
+   "legacy": {
+    "value": "Reinvestimento permitido se índices enquadrados e sem eventos de avaliação/liquidação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 2ª série: não aplicável",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,30% a.a. do PL, com mínimo mensal escalonado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 79,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "DA REMUNERAÇÃO DO ADMINISTRADOR E DO GESTOR E DEMAIS ENCARGOS DA CLASSE Artigo 52º A Classe Única pagará uma Taxa de Administração ao Administrador, equivalente ao percentual de 0,30% a.a. (trinta centésimos por cento ao ano), incidente sobre o valor do Patrimônio Líquido da Classe Única, respeitado o valor mínimo mensal de R$ 9.000,00 (nove mil reais) no primeiro mês; R$ 12.000,00 (doze mil reais) no segundo mês; R$ 15.000,00 (quinze mil reais) no terceiro mês; e, a partir do quarto mês, R$ 16.000,00 (dezesseis mil reais). Parágrafo Primeiro A Classe Única pagará ao Custodiante a Taxa Máxima de Custódia, equivalente ao valor fixo mensal de R$ 2.000,00 (dois mil reais). Parágrafo Segundo A Taxa de Administração e a Taxa Máxima de Custódia são calculadas e apropriadas diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e serão pagas mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao vencido, devendo o valor mínimo mensal da Taxa de Administração ser corrigido anualmente pela variação positiva acumulada do IPCA, a partir da data de início do funcionamento do Fundo. Artigo 53º O Fundo pagará uma Taxa de Gestão ao Gestor, equivalente ao percentual de 0,50% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,30% a.a. sobre PL; mínimo R$ 9/12/15 mil nos 3 primeiros meses e R$ 16 mil após; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, p. 79"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,50% a.a. do PL, mínimo R$ 22,6 mil por mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 79,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "mente pela variação positiva acumulada do IPCA, a partir da data de início do funcionamento do Fundo. Artigo 53º O Fundo pagará uma Taxa de Gestão ao Gestor, equivalente ao percentual de 0,50% a.a. (cinquenta centésimos por cento ao ano), incidente sobre o valor do Patrimônio Líquido da Classe Única, respeitado o valor mínimo mensal de R$ 22.600,00 (vinte dois mil e seiscentos reais). Parágrafo Primeiro Da mesma forma que a Taxa de Administração, a Taxa de Gestão é calculada e apropriada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao vencido, devendo o valor mínimo mensal ser corrigido anualmente pela variação positiva acumulada do IPCA, a partir da data de início do funcionamento do Fundo. Parágrafo Segundo Além dos montantes acima mencionados, o Fundo reembolsará o Gestor pelas despesas comprovadamente incorridas para a estruturação do Fundo no valor de até R$ 15.000,00 (quinze mil reais), incluindo, mas não se limitando, as relativas ao pagamento da taxa de fiscalização da CVM de que trata a Lei nº 7.940, de 20 de dezembro de 1989, e de contratação de softwares e outros sistemas para a operacionalização e formalização das cessões de Direitos Creditó"
+    }
+   ],
+   "legacy": {
+    "value": "0,50% a.a. sobre PL; mínimo R$ 22,6 mil/mês; IPCA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 2ª série: CDI + 3,85% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 2ª série: CDI + 3,85% a.a.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "Limine Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 4,
+     "clause": "cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "no que se refere à administração fiduciária do Fundo e a gestão da carteira do Fundo; 2. “Administrador”: a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade e Estado de São Paulo, na Avenida Doutor Cardoso de Melo, n° 1.184, 9° andar, Vila Olímpia, CEP 04548-004, inscrita no CNPJ/MF sob o n° 24.361.690/0001-72, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, através do Ato Declaratório CVM n° 16.206, expedido em 8 de maio de 2018; 3. “Agência Classificadora de Risco”: a(s) agência(s) classificadora(s) de risco devidamente habilitada(s) para tanto pela CVM, contratada(s) pelo Fundo, que poderá(ão) ser escolhida(s) pelo Gestor e ratificada(s) pelo Administrador; 4. “Agente de Cobrança”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de Uberlândia, estado de Minas Gerais, na Rua Beijos Brancos, 374 - Cidade Jardim - Uberlândia-MG; CEP: 38412-204, inscrita no CNPJ sob o nº 20.439.095/0001-51, prestador de serviço contratado em nome do Fundo, pelo Gestor, para cobrar e receber Direitos Creditórios Inadimplidos; 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oriz Asset",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 8,
+     "clause": "cl. 47",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "ANTIL CRÉDITO AGRO – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – RESPONSABILIDADE LIMITADA; 47. “Gestor”: a ORIZ ASSET MANAGEMENT LTDA., sociedade empresária com sede na cidade de São Paulo, Estado de São Paulo na Av. Brigadeiro Faria Lima, nº 2055, Jardim Paulistano, Conj. 152, CEP: 01.452-001, inscrita no CNPJ/MF sob o nº 31.384.260/0001-31, devidamente habilitada para a prestação de serviços de gestão de carteira de valores mobiliários perante a CVM, nos termos do Ato Declaratório nº 17.185, de 7 de junho de 2019; 48. “Grupo Econômico”: são considerados pertencentes ao mesmo grupo econômico, para os fins deste Regulamento, as pessoas naturais controladoras, as entidades por estas controladas, direta ou indiretamente, e demais entidades sob controle comum das pessoas mencionadas anteriormente, observado que, para os fins desta definição de Grupo Econômico, será caracterizado o controle quando uma entidade for titular de quotas ou ações representativas de 50% (cinquenta por cento) do capital social votante da entidade investida, mais 1 (uma) quota ou ação com direito a voto; 49."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Limine Trust DTVM (o próprio administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 7,
+     "clause": "cl. 32",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "o Gestor em cada Data de Aquisição e Pagamento, nos termos do respectivo Anexo Descritivo; 32. “Custodiante”: o Administrador, devidamente habilitada pela CVM para a prestação dos serviços de custódia de valores mobiliários para terceiros; 33. “CVM”: a Comissão de Valores Mobiliários; 34. “Data da 1ª Integralização de Cotas”: a data em que os recursos decorrentes da 1ª (primeira) integralização de determinada série de Cotas Seniores ou de determinada emissão de Cotas Subordinadas Juniores são colocados pelos investidores à disposição da Classe à qual pertençam, nos termos deste Regulamento e do respectivo Anexo Descritivo, a qual deverá ser, necessariamente, um Dia Útil; 35. “Data de Aquisição e Pagamento”: significa cada data em que a Classe Única efetivamente adquirir Direitos Creditórios elegíveis e efetuar o pagamento do preço de aquisição dos Direitos Creditórios, nos termos dos Contratos de Cessão; 36. “Data de Verificação”: o 5º (quinto) Dia Útil de cada mês; 37."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 4,
+     "clause": "cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "no que se refere à administração fiduciária do Fundo e a gestão da carteira do Fundo; 2. “Administrador”: a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade e Estado de São Paulo, na Avenida Doutor Cardoso de Melo, n° 1.184, 9° andar, Vila Olímpia, CEP 04548-004, inscrita no CNPJ/MF sob o n° 24.361.690/0001-72, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, através do Ato Declaratório CVM n° 16.206, expedido em 8 de maio de 2018; 3. “Agência Classificadora de Risco”: a(s) agência(s) classificadora(s) de risco devidamente habilitada(s) para tanto pela CVM, contratada(s) pelo Fundo, que poderá(ão) ser escolhida(s) pelo Gestor e ratificada(s) pelo Administrador; 4. “Agente de Cobrança”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de Uberlândia, estado de Minas Gerais, na Rua Beijos Brancos, 374 - Cidade Jardim - Uberlândia-MG; CEP: 38412-204, inscrita no CNPJ sob o nº 20.439.095/0001-51, prestador de serviço contratado em nome do Fundo, pelo Gestor, para cobrar e receber Direitos Creditórios Inadimplidos; 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Agromercantil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 4,
+     "clause": "cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "ancos, 374 - Cidade Jardim - Uberlândia-MG; CEP: 38412-204, inscrita no CNPJ sob o nº 20.439.095/0001-51, prestador de serviço contratado em nome do Fundo, pelo Gestor, para cobrar e receber Direitos Creditórios Inadimplidos; 5. “Amortização”: significa com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas da Classe, calculado nos termos do Anexo Descritivo e do respectivo Apêndice, conforme aplicável; 6. “ANBIMA”: a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; 7. “Anexo Descritivo”: o anexo descritivo ao Regulamento contendo as características da Classe Única de Cotas emitida pelo Fundo; 8. “Apêndice”: cada apêndice ao Anexo Descritivo contendo as características de cada Subclasse de Cotas da Classe Única; 9. “Assembleia Geral de Cotistas”: a assembleia geral de Cotistas do Fundo, que abrange todos os detentores de Cotas do Fundo. Tendo em vista que o Fundo emitirá exclusivamente a Classe Única, as deliberações de interesse de todos os detentores de Cotas da Classe Única serão tomadas em assembleia geral de Cotistas; 10."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 4,
+     "clause": "cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": ", que poderá(ão) ser escolhida(s) pelo Gestor e ratificada(s) pelo Administrador; 4. “Agente de Cobrança”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de Uberlândia, estado de Minas Gerais, na Rua Beijos Brancos, 374 - Cidade Jardim - Uberlândia-MG; CEP: 38412-204, inscrita no CNPJ sob o nº 20.439.095/0001-51, prestador de serviço contratado em nome do Fundo, pelo Gestor, para cobrar e receber Direitos Creditórios Inadimplidos; 5. “Amortização”: significa com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas da Classe, calculado nos termos do Anexo Descritivo e do respectivo Apêndice, conforme aplicável; 6. “ANBIMA”: a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; 7. “Anexo Descritivo”: o anexo descritivo ao Regulamento contendo as características da Classe Única de Cotas emitida pelo Fundo; 8. “Apêndice”: cada apêndice ao Anexo Descritivo contendo as características de cada Subclasse de Cotas da Classe Única; 9. “Assembleia Geral de Cotistas”: a assembleia geral de Cotistas do Fundo, que abrange todos os detentores de Cotas do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 50,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "ição e diversificação da carteira pré-definidos. Artigo 8º Sem prejuízo dos Limites de Concentração por Devedor, tendo em vista que a Classe Única é restrita a Investidores Profissionais, a Classe poderá aplicar recursos em Direitos Creditórios e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor ou coobrigado até o limite de 100% (cem por cento) do Patrimônio Líquido da Classe, nos termos do §7º do art. 45 do Anexo Normativo II da Resolução CVM 175. Parágrafo Primeiro Para efeito de cálculo dos Limites de Concentração por Devedor, consideram-se como pertencentes a um único Devedor os Direitos Creditórios e ativos financeiros de liquidez de responsabilidade ou coobrigação de Devedores integrantes de um mesmo grupo econômico. Parágrafo Segundo O Gestor, conforme aplicável, deve assegurar que, na consolidação das aplicações da classe investidora com as das classes investidas, o limite disposto no caput remanesce observado, ficando dispensada a consolidação no caso de aplicações em classes geridas por terceiros que não sejam partes relacionadas ao gestor da classe investidora. Parágrafo Terceiro Os percentuais referidos neste Artigo devem ser cumpridos mensalmente, com base no patrimônio líquido da Classe Única ao final do mês imediatamente ante"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "de 29 de novembro de 2001, e pelas demais disposições legais e regulamentares aplicáveis. Parágrafo Primeiro O Fundo terá prazo de duração indeterminado. Artigo 2º Para o efeito do disposto neste Regulamento, considera-se: 1. “Acordo Operacional”: o instrumento particular firmado entre o Administrador e o Gestor, que regulará as atividades a serem desenvolvidas pelas partes no que se refere à administração fiduciária do Fundo e a gestão da carteira do Fundo; 2. “Administrador”: a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade e Estado de São Paulo, na Avenida Doutor Cardoso de Melo, n° 1.184, 9° andar, Vila Olímpia, CEP 04548-004, inscrita no CNPJ/MF sob o n° 24.361.690/0001-72, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, através do Ato Declaratório CVM n° 16.206, expedido em 8 de maio de 2018; 3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Duplicatas de vendas da Agromercantil a clientes do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 7,
+     "clause": "cl. 38",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": "sábado ou domingo ou data em que, por qualquer motivo, não haja expediente na B3; 38. “Direitos Creditórios”: os direitos creditórios originados de operações realizadas no segmento do agronegócio a serem adquiridos pela Classe, conforme definidos no Anexo Descritivo; 39. “Direitos Creditórios Inadimplidos”: os Direitos Creditórios adquiridos pela Classe que estiverem, em dado momento, vencidos e não pagos pelos respectivos Devedores; 40. “Documentos Complementares”: significa os documentos físicos ou eletrônicos complementares aos Documentos Comprobatórios do Crédito, conforme identificados no Anexo Descritivo; 41. “Documentos Comprobatórios do Crédito”: os documentos físicos ou eletrônicos que evidenciam o lastro dos Direitos Creditórios elegíveis adquiridos pela Classe, conforme identificados no Anexo Descritivo; 42. “Entidade Registradora”: o prestador de serviços de registro de direitos creditórios devidamente autorizado para tanto pelo BACEN, contratado pelo Administrador, em nome da Classe Única, nas hipóteses previstas na regulamentação que poderá ser escolhido e substituído pelo Administrador a qualquer tempo; 43."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1200681",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 4,
+     "clause": "cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+     "excerpt": ", que poderá(ão) ser escolhida(s) pelo Gestor e ratificada(s) pelo Administrador; 4. “Agente de Cobrança”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de Uberlândia, estado de Minas Gerais, na Rua Beijos Brancos, 374 - Cidade Jardim - Uberlândia-MG; CEP: 38412-204, inscrita no CNPJ sob o nº 20.439.095/0001-51, prestador de serviço contratado em nome do Fundo, pelo Gestor, para cobrar e receber Direitos Creditórios Inadimplidos; 5. “Amortização”: significa com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas da Classe, calculado nos termos do Anexo Descritivo e do respectivo Apêndice, conforme aplicável; 6. “ANBIMA”: a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; 7. “Anexo Descritivo”: o anexo descritivo ao Regulamento contendo as características da Classe Única de Cotas emitida pelo Fundo; 8. “Apêndice”: cada apêndice ao Anexo Descritivo contendo as características de cada Subclasse de Cotas da Classe Única; 9. “Assembleia Geral de Cotistas”: a assembleia geral de Cotistas do Fundo, que abrange todos os detentores de Cotas do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Duplicatas e notas fiscais de produtos agrícolas; admite FIDCs até 15% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, cl. 38"
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos créditos não descritas em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Duplicatas agro da Agromercantil; subordinação de 30% com apuração diária e prazo até 360 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

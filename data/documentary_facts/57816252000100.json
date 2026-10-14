@@ -1,0 +1,680 @@
+{
+ "schema_version": 1,
+ "cnpj": "57816252000100",
+ "name": "NATURA PAY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESP LTDA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T12:58:08Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1343190",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "06/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190"
+  },
+  "D2": {
+   "document_id": "1343188",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "06/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343188"
+  },
+  "D3": {
+   "document_id": "1182510",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "13/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182510"
+  },
+  "D4": {
+   "document_id": "1155186",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "02/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155186"
+  },
+  "D5": {
+   "document_id": "1016663",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "10/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016663"
+  },
+  "D6": {
+   "document_id": "1012708",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "13/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1012708"
+  },
+  "D7": {
+   "document_id": "1182394",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "07/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de financiamento a consultoras para compra de produtos Natura",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 65,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "a-feira, exceto feriados de âmbito nacional. “Direitos Creditórios” significam os recebíveis alienados pela Endossante à Classe, originados no âmbito de operações de financiamentos concedidos pela Natura SCD às Devedoras, mediante a emissão de CCB em favor da Natura SCD. 65 Docusign Envelope ID: 46A49829-B8AE-874A-82A9-793441EA3FE1 ANEXO I-B – DEFINIÇÕES APLICÁVEIS À CLASSE ÚNICA DO NATURA PAY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESPONSABILIDADE LIMITADA “Direitos Creditórios Significam (i) aqueles Direitos Creditórios vencidos Inadimplidos” e não pagos pelas Devedoras após 31 (trinta e um) dias da data de vencimento de determinada parcela (inclusive), desde que tal parcela não seja a data de vencimento final do Direito Creditório;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 66,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "istos nos respectivos Contratos de Distribuição. “Devedoras” significam as consultoras da Natura Cosméticos que obtenham financiamento, mediante a emissão de CCB, para aquisição de produtos cosméticos da Natura Cosméticos. “Documentos significam as cédulas das CCB devidamente Comprobatórios” endossadas à Classe. “Endossante” ou “Natura significa a NATURA & CO PAY SOCIEDADE DE SCD” CRÉDITO DIRETO S.A., instituição financeira autorizada pelo Banco Central do Brasil, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Alexandre Colares, 1188, Sala A22D, Parque Anhanguera, inscrita no CNPJ sob o nº 48.805.820/0001-87, que realiza a transferência de Direitos Creditórios à Classe por meio de celebração"
+    }
+   ],
+   "legacy": {
+    "value": "CCB de financiamento às consultoras de beleza para compra de cosméticos Natura.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Natura &Co Pay SCD",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 66,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "Comprobatórios” endossadas à Classe. “Endossante” ou “Natura significa a NATURA & CO PAY SOCIEDADE DE SCD” CRÉDITO DIRETO S.A., instituição financeira autorizada pelo Banco Central do Brasil, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Alexandre Colares, 1188, Sala A22D, Parque Anhanguera, inscrita no CNPJ sob o nº 48.805.820/0001-87, que realiza a transferência de Direitos Creditórios à Classe por meio de celebração de Contrato de Endosso. “Entidade de Investimento” significam os fundos de investimento no país que tenham estrutura de gestão profissional, representada por agentes ou prestadores de serviços com poderes para to"
+    }
+   ],
+   "legacy": {
+    "value": "Natura & Co Pay SCD, CNPJ 48.805.820/0001-87.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo I"
+   }
+  },
+  "assignor": {
+   "display": "Natura &Co Pay SCD, por endosso",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 66,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "Comprobatórios” endossadas à Classe. “Endossante” ou “Natura significa a NATURA & CO PAY SOCIEDADE DE SCD” CRÉDITO DIRETO S.A., instituição financeira autorizada pelo Banco Central do Brasil, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Alexandre Colares, 1188, Sala A22D, Parque Anhanguera, inscrita no CNPJ sob o nº 48.805.820/0001-87, que realiza a transferência de Direitos Creditórios à Classe por meio de celebração de Contrato de Endosso. “Entidade de Investimento” significam os fundos de investimento no país que tenham estrutura de gestão profissional, representada por agentes ou prestadores de serviços com poderes para to"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 65,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "a-feira, exceto feriados de âmbito nacional. “Direitos Creditórios” significam os recebíveis alienados pela Endossante à Classe, originados no âmbito de operações de financiamentos concedidos pela Natura SCD às Devedoras, mediante a emissão de CCB em favor da Natura SCD. 65 Docusign Envelope ID: 46A49829-B8AE-874A-82A9-793441EA3FE1 ANEXO I-B – DEFINIÇÕES APLICÁVEIS À CLASSE ÚNICA DO NATURA PAY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESPONSABILIDADE LIMITADA “Direitos Creditórios Significam (i) aqueles Direitos Creditórios vencidos Inadimplidos” e não pagos pelas Devedoras após 31 (trinta e um) dias da data de vencimento de determinada parcela (inclusive), desde que tal parcela não seja a data de vencimento final do Direito Creditório;"
+    }
+   ],
+   "legacy": {
+    "value": "Natura & Co Pay SCD, CNPJ 48.805.820/0001-87.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo I"
+   }
+  },
+  "debtor": {
+   "display": "Consultoras da Natura Cosméticos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 66,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "istos nos respectivos Contratos de Distribuição. “Devedoras” significam as consultoras da Natura Cosméticos que obtenham financiamento, mediante a emissão de CCB, para aquisição de produtos cosméticos da Natura Cosméticos. “Documentos significam as cédulas das CCB devidamente Comprobatórios” endossadas à Classe. “Endossante” ou “Natura significa a NATURA & CO PAY SOCIEDADE DE SCD” CRÉDITO DIRETO S.A., instituição financeira autorizada pelo Banco Central do Brasil, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Alexandre Colares, 1188, Sala A22D, Parque Anhanguera, inscrita no CNPJ sob o nº 48.805.820/0001-87, que realiza a transferência de Direitos Creditórios à Classe por meio de celebração"
+    }
+   ],
+   "legacy": {
+    "value": "Consultoras Natura Cosméticos; crédito pessoal com objetivo social documentado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação da endossante, salvo recompra compulsória",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 23,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "Classe ou pela solvência das Devedoras. Os Direitos Creditórios alienados à Classe não contarão com coobrigação da Endossante, sem prejuízo do disposto no Contrato de Endosso, em especial em relação às Hipóteses de Recompra Compulsória (conforme definido no Contrato de Endosso). 23 Docusign Envelope ID: 46A49829-B8AE-874A-82A9-793441EA3FE1 ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DO NATURA PAY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESPONSABILIDADE LIMITADA 2.21. A Gestora será a responsável por observar diariamente a Alocação Mínima Inicial e a Alocação Mínima Tributária, com base no Patrimônio Líquido da Classe do Dia Útil imediatamente anterior. 2.22. As aplicações da Classe não contam com garantia: (i) da Administradora; (ii) do Custodiante; (iii) da Gestora; (iv) do Agente de Cobrança; ou (v) do Fundo Garantidor de Créditos - FGC. 2.23. Os Documentos Comprobatórios dos Direitos Creditórios serão enviados pela Endossante à Gestora na respectiva Data de Aquisição e Pagamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "CCB de R$ 100 a R$ 5 mil, entre outros critérios",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1182394",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/05/2026",
+     "page": 24,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+     "excerpt": "(iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$100,00 (cem reais) e, no máximo, R$ 5.000,00 (cinco mil reais), dado o viés social referente ao microcrédito refletido na metodologia de investimento sustentável adotada pela Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB R$ 100–5 mil, até 10 parcelas; cessão≥1,75% a.m.; parcelas em atraso até 30 dias admitidas.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/05/2026, Anexo I"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite adicional por devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 21,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "ndicado no item 2.3 abaixo. 2.2. Sem prejuízo dos Critérios de Elegibilidade, considerando que a Classe é destinada exclusivamente a investidores profissionais, a carteira da Classe não está sujeita a qualquer outro limite de concentração por devedor, emissor e tipo de Direito Creditório, conforme facultado pelo art. 52, I, do Anexo Normativo II. 2.3. A Classe adota metodologia de investimento sustentável, composta por princípios, diretrizes e critérios de avaliação dos impactos sociais que são considerados quando da seleção dos Direitos Creditórios pela Gestora, originados, dentre outros, por meio da adoção do Critério de Elegibilidade definido no inciso (iv) do item 3.1 (“Metodologia ASG”), com o propósito de redução do déficit de financiamento e a ampliação da inclusão financeira de populações em situação de vulnerabilidade econômico-financeira, bem como a promoção da movimentação da economia local, sobretudo, mas não se limitando, em regiões de baixo desenvolvimento econômico, melhorando a acessibilidade à infraestrutura econômica básica, contribuindo para a erradicação da pobreza e redução das desigualdades e promovendo a igualdade de gênero por meio do fornecimento de microcrédito."
+    }
+   ],
+   "legacy": {
+    "value": "Mesma devedora: menor entre 1%/PL eR$ 1 mi; prazo>6 meses limitado 15%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo I"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Endossante única: Natura &Co Pay SCD",
+   "sources": [],
+   "legacy": {
+    "value": "Mesma devedora: menor entre 1%/PL eR$ 1 mi; prazo>6 meses limitado 15%/PL.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Limite de parcelas sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "CCB R$ 100–5 mil, até 10 parcelas; cessão≥1,75% a.m.; parcelas em atraso até 30 dias admitidas.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 70% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 22,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "180 (cento e oitenta) dias contados da Data da 1ª Integralização de Cotas (“Prazo Mínimo para Alocação”), a Classe deverá ter alocado, no mínimo, 70% (setenta por cento) do seu Patrimônio Líquido em Direitos Creditórios (“Alocação Mínima Inicial”). 2.14. Se mantido o enquadramento da Alocação Mínima Tributária e da Entidade de Investimento, a qual a Gestora de forma discricionária buscará obter os melhores esforços para perseguir, os Cotistas passarão a se sujeitar ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica, conforme definição disposta na Lei 14.754, e suas alterações, com a produção de efeitos completos a partir de 1º de janeiro de 2024. Isso significa que a Classe estará sujeita ao imposto de renda retido na fonte (“IRRF”) de 15% (quinze por cento) na distribuição de rendimentos, amortização ou resgate de Cotas. 2.15."
+    }
+   ],
+   "value": 70.0,
+   "legacy": {
+    "value": "70%/PL após 180 dias da 1ªintegralização; tributária 67%/PL em DC.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo I"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 28,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESPONSABILIDADE LIMITADA percentual mínimo de 25,26% (vinte e cinco inteiros e vinte e seis centésimos por cento). Isso significa que, no mínimo, 25,26% (vinte e cinco inteiros e vinte e seis centésimos por cento)do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação (“Índice de Subordinação”). 4.12. As Cotas Subordinadas serão emitidas em série única e conferirão aos seus titulares os mesmos direitos e obrigações, conforme descrito neste Anexo I-A. 4.13. As Cotas Subordinadas conferirão aos seus titulares o direito de votar em matérias objeto de deliberação nas Assembleias de Cotistas, observados os quóruns previstos neste Regulamento, sendo que a cada Cota Sênior corresponderá 1 (um) voto. 4.14. O valor unitário das Cotas Subordinadas será equivalente à divisão do Patrimônio Líquido da Classe, após a dedução do valor das Cotas Seniores, pelo número de Cotas Subordinadas em circulação."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas≥25,26%/PL, diariamente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo I"
+   }
+  },
+  "sub_senior": {
+   "display": "25,26% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 28,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESPONSABILIDADE LIMITADA percentual mínimo de 25,26% (vinte e cinco inteiros e vinte e seis centésimos por cento). Isso significa que, no mínimo, 25,26% (vinte e cinco inteiros e vinte e seis centésimos por cento)do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação (“Índice de Subordinação”). 4.12. As Cotas Subordinadas serão emitidas em série única e conferirão aos seus titulares os mesmos direitos e obrigações, conforme descrito neste Anexo I-A. 4.13. As Cotas Subordinadas conferirão aos seus titulares o direito de votar em matérias objeto de deliberação nas Assembleias de Cotistas, observados os quóruns previstos neste Regulamento, sendo que a cada Cota Sênior corresponderá 1 (um) voto. 4.14. O valor unitário das Cotas Subordinadas será equivalente à divisão do Patrimônio Líquido da Classe, após a dedução do valor das Cotas Seniores, pelo número de Cotas Subordinadas em circulação."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 25.26,
+   "legacy": {
+    "value": "Subordinadas≥25,26%/PL, diariamente.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1182394",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/05/2026",
+     "page": 28,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+     "excerpt": "percentual mínimo de 25,26% (vinte e cinco inteiros e vinte e seis centésimos por cento). Isso significa que, no mínimo, 25,26% (vinte e cinco inteiros e vinte e seis centésimos por cento)do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação (“Índice de Subordinação”). 4.12. As Cotas Subordinadas serão emitidas em série única e conferirão aos seus titulares os mesmos direitos e obrigações, conforme descrito neste Anexo I-A."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas≥25,26%/PL, diariamente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/05/2026, Anexo I"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva sem valor localizado em trecho contínuo",
+   "sources": []
+  },
+  "pdd": {
+   "display": "Régua de provisão crescente por faixa de atraso",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1182394",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/05/2026",
+     "page": 77,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+     "excerpt": "I - 3% (três por cento) sobre o valor dos Direitos Creditórios com atraso entre 31 (trinta e um) e 60 (sessenta) dias; II - 10% (dez por cento) sobre o valor dos Direitos Creditórios com atraso entre 61 (sessenta e um) e 90 (noventa) dias; III - 30% (trinta por cento) sobre o valor dos Direitos Creditórios com atraso entre 91 (noventa e um) e 120 (cento e vinte) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Régua por atraso:3%/10%/30%/50%/70%/100%; 100% após 180 dias.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/05/2026, Anexo I"
+   }
+  },
+  "eval_triggers": {
+   "display": "Aquisição fora dos critérios de elegibilidade, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 44,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "ALIAÇÃO 16.1. Será considerado evento de avaliação da Classe qualquer dos seguintes eventos (“Eventos de Avaliação”): (i) aquisição de Direitos Creditórios em desacordo com os Critérios de Elegibilidade e as Condições de Endosso, desde que não tenham sido objeto de Recompra Compulsória (conforme definido no Contrato de Endosso) pela Endossante; 44 Docusign Envelope ID: 46A49829-B8AE-874A-82A9-793441EA3FE1 ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DO NATURA PAY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESPONSABILIDADE LIMITADA (ii) desenquadramento da Alocação Mínima Inicial após o Prazo Mínimo para Alocação, e apenas caso a Alocação Mínima Inicial não seja reenquadrada em até 20 (vinte) Dias Úteis a contar do desenquadramento; (iii) desenquadramento da Alocação Mínima Tributária, caso não reenquadrada em até 30 (trinta) dias a contar do desenquadramento; (iv) verificação de Patrimônio Líquido negativo;"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso>31/>91 dias limitado 13%/10% doPL anterior; recompra facultativa 8%/PL anterior.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo I"
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou deliberação de assembleia, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 49,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "guir. 17.2. Será considerado evento de liquidação da Classe qualquer dos seguintes eventos (“Eventos de Liquidação”): (i) por determinação da CVM, em caso de descumprimento de disposição legal ou regulamentar; (ii) por deliberação de Assembleia Geral de Cotistas, inclusive, sem limitação, mediante conversão de um Evento de Avaliação em um Evento de Liquidação, nos termos dispostos no Capítulo XV acima; (iii) por renúncia da Administradora ou da Gestora, sem que uma nova instituição assuma suas funções no prazo de até 180 (cento e oitenta) dias; (iv) caso seja verificado, pelo período de 90 (noventa) dias consecutivos, patrimônio líquido diário da classe de Cotas inferior a R$ 1.000.000,00 (um milhão de reais); e (v) caso a Endossante exerça a Recompra Facultativa Total (conforme definido no Contrato de Endosso). 17.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Atraso>31/>91 dias limitado 13%/10% doPL anterior; recompra facultativa 8%/PL anterior.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo I"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Encargos, reservas, sênior, subordinadas e aquisições",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1182394",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/05/2026",
+     "page": 41,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+     "excerpt": "(iv) Amortização das Cotas Seniores, nas respectivas datas de pagamento, conforme cronograma constante do respectivo Suplemento, se houver; (v) Remuneração das Cotas Subordinadas, desde que mantido o Índice de Subordinação;"
+    }
+   ],
+   "legacy": {
+    "value": "Encargos → reservas → remuneração/principal sênior → subordinadas → aquisições.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,126% a.a. do PL (extenso diverge), com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1182394",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/05/2026",
+     "page": 37,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+     "excerpt": "fará jus à remuneração no valor correspondente a 0,126% (cento e oitenta centésimos por cento) ao ano sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$18.550,00 (dezoito mil, quinhentos e cinquenta reais) contados a partir da Data da 1ª Integralização de Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "Numérico 0,126% a.a./PL versus extenso 1,80%; mínimo R$ 18,55 mil/mês; IGP-M.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/05/2026, Anexo I"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,054% a.a. do PL (extenso diverge), com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D7",
+     "document_id": "1182394",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/05/2026",
+     "page": 38,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+     "excerpt": "0,054% (cinquenta e quatro centésimos por cento) ao ano sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$7.950,00 (sete mil e novecentos e cinquenta reais) contados a partir da Data da 1ª Integralização de Cotas. 10.2.1. A Taxa de Gestão será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe do Dia Útil imediatamente anterior."
+    }
+   ],
+   "legacy": {
+    "value": "Numérico 0,054% a.a./PL versus extenso 0,54%; mínimo R$ 7,95 mil; lastroR$ 5 mil/mês adicional.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/05/2026, Anexo I"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 60,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. “Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade devidamente autorizada pela CVM para administração de carteiras de valores mobiliários por meio do Ato Declaratório n.º 6.696, de 21 de fevereiro de 2002, inscrita no CNPJ sob o n.º 36.113.876/0001-91, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, CEP 22640-102, Barra da Tijuca, ou quem venha a substitui-la. “Agente de Cobrança” significa a Natura &Co Pay Sociedade de Crédito Direto S.A., instituição financeira autorizada pelo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 6,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "da documentação relativa aos direitos creditórios. Gestora 2.5. A atividade de gestão da carteira de ativos do Fundo será realizada pela OLIVEIRA TRUST SERVICER S.A., sociedade devidamente autorizada pela CVM para administração de carteiras de valores mobiliários por meio do Ato Declaratório n.º 7.446, de 13 de outubro de 2003, inscrita no CNPJ sob o nº 02.150.453/0001-20, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, sala 202, CEP 22640-102, Barra da Tijuca (“Gestora” e, em conjunto com a Administradora, os “Prestadores de Serviços Essenciais”). Observadas as limitações legais e as previstas na regulamentação aplicável, a Gestora tem poderes para praticar os atos necessários à gestão da carteira de ativos da Classe, na sua respectiva esfera de atuação. 6 Docusign Envelope ID: 46A49829-B8AE-874A-82A9-793441EA3FE1 CONDIÇÕES GERAIS APLICÁVEIS AO NATURA PAY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESPONSABILIDADE LIMITADA 2.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança citado sem nome em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 21,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "ndicado no item 2.3 abaixo. 2.2. Sem prejuízo dos Critérios de Elegibilidade, considerando que a Classe é destinada exclusivamente a investidores profissionais, a carteira da Classe não está sujeita a qualquer outro limite de concentração por devedor, emissor e tipo de Direito Creditório, conforme facultado pelo art. 52, I, do Anexo Normativo II. 2.3. A Classe adota metodologia de investimento sustentável, composta por princípios, diretrizes e critérios de avaliação dos impactos sociais que são considerados quando da seleção dos Direitos Creditórios pela Gestora, originados, dentre outros, por meio da adoção do Critério de Elegibilidade definido no inciso (iv) do item 3.1 (“Metodologia ASG”), com o propósito de redução do déficit de financiamento e a ampliação da inclusão financeira de populações em situação de vulnerabilidade econômico-financeira, bem como a promoção da movimentação da economia local, sobretudo, mas não se limitando, em regiões de baixo desenvolvimento econômico, melhorando a acessibilidade à infraestrutura econômica básica, contribuindo para a erradicação da pobreza e redução das desigualdades e promovendo a igualdade de gênero por meio do fornecimento de microcrédito."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; investidores profissionais.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343190",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 4,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343190",
+     "excerpt": "o de investimento em direitos creditórios, constituído sob a forma de condomínio de natureza especial, com prazo de duração indeterminado, regido pelo presente regulamento (“Regulamento”), seus anexos, seus respectivos suplementos, disciplinado pela Resolução da Comissão de Valores Mobiliários (“CVM”) nº 175, de 23 de dezembro de 2022, conforme alterada (“Resolução CVM 175”) e seu anexo normativo II (“Anexo Normativo II”), pela Resolução do Conselho Monetário Nacional (“CMN”) nº 2.907, de 29 de novembro de 2001, conforme alterada (“Resolução CMN 2.907”), e pelas demais disposições legais e regulamentares que lhe forem aplicáveis. 1.2. Quando da sua constituição, o patrimônio do Fundo contará com uma única classe (“Classe”), cujas características encontram-se descritas no anexo descritivo da classe (“Anexo I-A”) ao presente Regulamento, sem prejuízo da possibilidade de constituição de novas classes a partir da entrada em vigor do art."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; investidores profissionais.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Crédito a consultoras da Natura via Natura Pay SCD; subordinação de 25,26% e alocação mínima de 70%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

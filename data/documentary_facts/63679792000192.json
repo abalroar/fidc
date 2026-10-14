@@ -1,0 +1,733 @@
+{
+ "schema_version": 1,
+ "cnpj": "63679792000192",
+ "name": "BLUE HEALTH FIDC RECEBÍVEIS COMERCIAIS DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T12:54:23Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1278972",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "27/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972"
+  },
+  "D2": {
+   "document_id": "1277702",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "27/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1277702"
+  },
+  "D3": {
+   "document_id": "1087618",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "15/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1087618"
+  },
+  "D4": {
+   "document_id": "1066557",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "18/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066557"
+  },
+  "D5": {
+   "document_id": "1066543",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "18/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066543"
+  },
+  "D6": {
+   "document_id": "1061521",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "09/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061521"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Locação de equipamentos médicos com manutenção, inclusive não performados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 5,
+     "clause": "Apêndice C, cl. 3.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "3.1.1. O Fundo poderá ter até 100% (cem por cento) do seu patrimônio líquido aplicado em Direitos Creditórios oriundos de operações de locação de Equipamentos com prestação futura, sem contar com garantia de instituição financeira ou de sociedade seguradora, sendo certo que, por essa razão e tendo em vista o público-alvo do Fundo, as Cotas não serão distribuídas ao público em geral, nos termos do artigo 13, inciso IV, “a” do Anexo Normativo II à Resolução CVM nº 175. 3.2."
+    }
+   ],
+   "legacy": {
+    "value": "Locação de equipamentos com manutenção/substituição futura; admite 100% do PL em créditos não performados",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 3.1.1"
+   }
+  },
+  "originator": {
+   "display": "Ultra-Som Equipamentos Médicos e demais cedentes do grupo",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 85,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "04.543-000, inscrita no CNPJ/MF sob o nº 27.547.607/0001-42. “Cedentes” significa a (i) Ultra-Som Equipamentos Médicos Ltda., sociedade limitada com sede na Cidade de Ribeirão Preto, Estado de São Paulo, na Rua Paschoal Bardaro, nº 2.005, 1º andar, Jardim Botânico, CEP 14.021-655, inscrita no CNPJ/MF sob o nº 07.149.505/0001-61, com filial na Cidade de Feira de Santana, Estado da Bahia, na Estrada Velha de Humildes, nº 9.984, Sala “Blue”, Humildes, CEP 44.135-000, inscrita no CNPJ/MF sob o nº 07.149.505/0003-23; (ii) Brazil 3 Business Participações Ltda., sociedade limitada, com sede na cidade de Barueri, Estado de São Paulo, na Avenida Piraíba, 355, sala 06, CEP 06.460-121, inscrita no CNPJ/MF sob o nº 10.515.403/0001- 27;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 85,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "Docusign Envelope ID: 6F3F58FC-FBED-8DA6-812E-1CE09F88C8A7 “Blue Health” significa a BLUE HEALTH PARTICIPAÇÕES S.A., sociedade anônima fechada com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Presidente Juscelino Kubitschek, nº 1.726, Edifício Spazio JK, conjunto 172, Vila Nova Conceição, CEP 04.543-000, inscrita no CNPJ/M"
+    }
+   ],
+   "legacy": {
+    "value": "Ultra-Som Equipamentos Médicos, Brazil 3 Business e Cryo Service",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C"
+   }
+  },
+  "assignor": {
+   "display": "Ultra-Som Equipamentos Médicos e demais cedentes do grupo",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 85,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "04.543-000, inscrita no CNPJ/MF sob o nº 27.547.607/0001-42. “Cedentes” significa a (i) Ultra-Som Equipamentos Médicos Ltda., sociedade limitada com sede na Cidade de Ribeirão Preto, Estado de São Paulo, na Rua Paschoal Bardaro, nº 2.005, 1º andar, Jardim Botânico, CEP 14.021-655, inscrita no CNPJ/MF sob o nº 07.149.505/0001-61, com filial na Cidade de Feira de Santana, Estado da Bahia, na Estrada Velha de Humildes, nº 9.984, Sala “Blue”, Humildes, CEP 44.135-000, inscrita no CNPJ/MF sob o nº 07.149.505/0003-23; (ii) Brazil 3 Business Participações Ltda., sociedade limitada, com sede na cidade de Barueri, Estado de São Paulo, na Avenida Piraíba, 355, sala 06, CEP 06.460-121, inscrita no CNPJ/MF sob o nº 10.515.403/0001- 27;"
+    }
+   ],
+   "legacy": {
+    "value": "Ultra-Som Equipamentos Médicos, Brazil 3 Business e Cryo Service",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C"
+   }
+  },
+  "debtor": {
+   "display": "Hospitais e clínicas locatários, agrupados por grupo econômico",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 8,
+     "clause": "Apêndice C, cl. 3.12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "será limitado a 15% (quinze por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo; (vii) o Valor Presente dos Direitos Creditórios devidos pelos 5 (cinco) maiores Devedores, considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 40% (quarenta por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas jurídicas adimplentes perante o fundo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Em reais; prazo médio ≤ 48 meses; cessão integral do contrato",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 7,
+     "clause": "Apêndice C, cl. 3.12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "questão, deverá manter prazo médio máximo de 48 (quarenta e oito) meses, devendo tal cálculo levar em consideração a quantidade de dias entre a data de cálculo aplicável e as datas de vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos Creditórios, conforme aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "BRL; prazo médio≤48 meses; cessão integral do contrato; aluguel médio≥2,5% do custo dos equipamentos e individual≥1,8%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 3.12.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por grupo econômico: até 15% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 8,
+     "clause": "Apêndice C, cl. 3.12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "pe ID: 6F3F58FC-FBED-8DA6-812E-1CE09F88C8A7 (vi) o Valor Presente dos Direitos Creditórios devidos por Devedor do mesmo Grupo Econômico, será limitado a 15% (quinze por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo; (vii) o Valor Presente dos Direitos Creditórios devidos pelos 5 (cinco) maiores Devedores, considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 40% (quarenta por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo; (viii) o Valor Presente dos Direitos Creditórios devidos pelos 10 (dez) maiores Devedores, considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 62% (sessenta e dois por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo;"
+    }
+   ],
+   "value": 15.0,
+   "legacy": {
+    "value": "Grupo≤15% do PL; top 5≤40%; top 10≤62%; demais≤3,5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 3.12.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedentes do mesmo grupo Blue Health",
+   "sources": [],
+   "legacy": {
+    "value": "Grupo≤15% do PL; top 5≤40%; top 10≤62%; demais≤3,5%",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Prazo médio da carteira ≤ 48 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 7,
+     "clause": "Apêndice C, cl. 3.12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "questão, deverá manter prazo médio máximo de 48 (quarenta e oito) meses, devendo tal cálculo levar em consideração a quantidade de dias entre a data de cálculo aplicável e as datas de vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos Creditórios, conforme aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "BRL; prazo médio≤48 meses; cessão integral do contrato; aluguel médio≥2,5% do custo dos equipamentos e individual≥1,8%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 3.12.1"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Alocação mínima sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Direitos≥50% do PL; entidade de investimento≥67%; após 180 dias",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 92,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "20% (vinte por cento) do valor total do patrimônio líquido do Fundo para fins do disposto neste Regulamento, exceto em relação à Amortização por Excesso de Cobertura das Cotas Subordinadas Júnior, situação na qual o percentual mínimo deve ser de 21% (vinte e um por cento) do valor total do patrimônio líquido do Fundo,"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior/PL≥20%; após amortização por excesso≥21%; regra mezanino remetida ao apêndice",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · júnior/PL (21% após amortização por excesso)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 92,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "20% (vinte por cento) do valor total do patrimônio líquido do Fundo para fins do disposto neste Regulamento, exceto em relação à Amortização por Excesso de Cobertura das Cotas Subordinadas Júnior, situação na qual o percentual mínimo deve ser de 21% (vinte e um por cento) do valor total do patrimônio líquido do Fundo,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 41,
+     "clause": "Apêndice C, cl. 13.15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": ", em montante tal que, considerada pro forma a Amortização por Excesso de Cobertura em questão, o Índice de Subordinação passe a ser de 21% (vinte e um por cento). 13.15.1. A Amortização por Excesso de Cobertura será o maior que permita o atendimento das condições previstas acima e atingirá proporcionalmente todas as Cotas Subordinadas Júnior em circulação. 14. DA RESERVA DE CAIXA 14.1. A Administradora constituirá, desde o momento inicial de subscrição de Cotas, uma Reserva de Caixa para o pagamento de despesas e encargos do Fundo, em montante estimado pela Página 40 de 110 CONFIDENCIAL Docusign Envelope ID: 6F3F58FC-FBED-8DA6-812E-1CE09F88C8A7 Administradora, para atender às despesas e encargos do Fundo por um período de 3 (três) meses a contar de cada Data de Verificação. 14.2. Os recursos da Reserva de Caixa integrarão o patrimônio do Fundo e constituirão uma provisão para garantir o pagamento das despesas e encargos do Fundo descritos no Capítulo 19 abaixo."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Júnior/PL≥20%; após amortização por excesso≥21%; regra mezanino remetida ao apêndice",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Regra da mezanino remetida ao apêndice",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Júnior/PL≥20%; após amortização por excesso≥21%; regra mezanino remetida ao apêndice",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "3 meses de despesas, com complementação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 41,
+     "clause": "Apêndice C, cl. 14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "14. DA RESERVA DE CAIXA 14.1. A Administradora constituirá, desde o momento inicial de subscrição de Cotas, uma Reserva de Caixa para o pagamento de despesas e encargos do Fundo, em montante estimado pela Página 40 de 110 CONFIDENCIAL Docusign Envelope ID: 6F3F58FC-FBED-8DA6-812E-1CE09F88C8A7 Administradora, para atender às despesas e encargos do Fundo por um período de 3 (três) m"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas, complementação em até 30 dias da verificação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 14"
+   }
+  },
+  "pdd": {
+   "display": "Provisão escalonada por atraso, de 1% a 100% do saldo do contrato",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 30,
+     "clause": "Apêndice C, cl. 11.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "A 5 a 30 1,00% B 31 a 45 3,00% C 46 a 90 7,00% D 91 a 120 30,00% E 121 a 180 50,00% F >181 100,00%"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso 5–30/31–45/46–90/91–120/121–180/>181 dias:1%/3%/7%/30%/50%/100% sobre todo saldo do contrato",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 11.1.2"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falta de informações da originadora para o monitoramento, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 50,
+     "clause": "Apêndice C, cl. 17.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "0 (trinta) dias após a data da sua realização. 17. DOS EVENTOS DE AVALIAÇÃO 17.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos: (i) não envio pela originadora das informações indispensáveis para a elaboração do Relatório de Monitoramento, nas datas previstas, sem que haja correspondente regularização no prazo de 15 (quinze) Dias Úteis; (ii) desenquadramento dos limites de concentração da carteira do Fundo indicados no Artigo 3.16.1, deste Regulamento, sem que haja a correspondente regularização no prazo de 15 (quinze) Dias Úteis após o envio da comunicação da Gestora aos Cedentes sobre o desenquadramento; (iii) desenquadramento dos Índices de Monitoramento em qualquer Data de Verificação, por 3 (três) vezes, dentro do período de 12 (doze) meses; (iv) desenquadramento ou não constituição da Reserva de Caixa, não sanado em 5 dias úteis;"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso>180 dias≤2% do valor de face das parcelas, média 30 dias; eventos de avaliação após reincidência/curas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 17.1"
+   }
+  },
+  "liquidation": {
+   "display": "Evento de avaliação convertido em liquidação pelos cotistas, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 55,
+     "clause": "Apêndice C, cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "DA LIQUIDAÇÃO DO FUNDO 18.1. Sem prejuízo de outras hipóteses previstas na legislação aplicável, são considerados Eventos de Liquidação do Fundo: (i) caso os Cotistas venham a deliberar, nos termos do disposto no Artigo 17.1 acima, que um Evento de Avaliação constitui um Evento de Liquidação, observado ainda o disposto no Artigo 16.3 acima; (ii) interrupção, a qualquer tempo e por qualquer motivo, da prestação dos respectivos serviços previstos neste Regulamento, por parte da Administradora, do Custodiante ou da Gestora, sem que tenha havido sua devida substituição por outra instituição, de acordo com os procedimentos e prazos definidos no Capítulo 6 deste Regulamento; (iii) caso os Cedentes deixem de comunicar à Administradora, à Gestora e/ou ao Custodiante a ocorrência de um Evento de Avaliação que seja de seu conhecimento no prazo de 3 (três) Dias Úteis; (iv) decretação de intervenção, liquidação ou qualquer regime de administração especial da Gestora, da Administradora ou do Custodiante, sem a sua efetiva substituição nos termos deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso>180 dias≤2% do valor de face das parcelas, média 30 dias; eventos de avaliação após reincidência/curas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 18.1"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Reinvestimento durante carência depois de despesas, derivativos, reserva e pagamentos prioritários",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 1ª: não aplicável",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,064% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 24,
+     "clause": "Apêndice C, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "7.1. Pela prestação dos serviços de administração fiduciária, o Fundo pagará à Administradora a Taxa de Administração, equivalente a 0,064% (sessenta e quatro milésimos por cento) ao ano incidente sobre o valor do patrimônio líquido do Fundo, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, respeitado o valor mínimo mensal de R$9.200,00 (nove mil e duzentos reais). 7.1.1. Pela prestação dos serviços de escrituração, o Fundo pagará à Administradora o montante fixo mensal de R$ 2.500,00 (dois mil e quinhentos reais), bem como será acrescido à remuneração da Administradora, em caso de implementação das decisões tomadas em Assembleia de Cotistas extraordinária, o valor equivalente a R$ 850,00 (oitocentos e cinquenta reais) por hora-homem de trabalho dedicada a tais atividades. 7.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,064% a.a. do PL; piso R$ 9,2 mil/mês; pisos conjuntosR$ 19,5 mil sePL<R$ 140 mi/R$ 16,5 mil sePL<R$ 90 mi; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,65% a.a. até R$ 100 mi de PL; 0,50% acima, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 25,
+     "clause": "Apêndice C, cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "Menor ou igual 100.000.000,00 (cem milhões 0,65% a.a. (sessenta e cinco centésimo de reais) por cento ao ano) Página 24 de 110 CONFIDENCIAL Docusign Envelope ID: 6F3F58FC-FBED-8DA6-812E-1CE09F88C8A7 Acima de R$ 100.000.000,00 (cem 0,50% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,65% a.a. do PL atéR$ 100 mi;0,50% acima; mínimo R$ 25 mil/mês; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 7.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 25,
+     "clause": "Apêndice C, cl. 7.1.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "base nas alíquotas vigentes nas respectivas datas de pagamento. 7.1.7. A Administradora não fará jus a taxa de performance e não serão cobradas taxas de ingresso, de performance e/ou de saída. 7.1.8. A Taxa de Administração não inclui as despesas com publicações de editais e convocação de Assembleias Gerais de Cotistas, tampouco as despesas com a contratação de auditoria especializada, classificação de risco ou assessoria legal ao Fundo. 7.2. Pela prestação dos serviços previstos neste Regulamento, será devida à Gestora uma Taxa de Gestão, que variará conforme o Patrimônio Líquido do Fundo, na forma do disposto na tabela abaixo, observado o valor mínimo mensal de R$ 25.000,00 (vinte e cinco mil reais). Patrimônio Líquido Taxa (ao ano) Menor ou igual 100.000.000,00 (cem milhões 0,65% a.a."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 1ª série: DI +2,00% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 1ª série: DI +2,00% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 83,
+     "clause": "Apêndice C, cl. 25.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "de significa a 1ª (primeira) data de integralização de Cotas do Fundo. Integralização” “Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Avenida das Américas, nº 3.343, bloco 7, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91, ou seu sucessor a qualquer título. “Agência de significa a agência classificadora de risco devidamente habilitada para Classificação de Risco” tanto pela CVM, contratada pela Gestora, em nome do Fundo, para classificar o risco das Cotas Seniores"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Leto Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 89,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "ADE LIMITADA, inscrita no CNPJ/MF sob o nº 63.679.792/0001-92. “Gestora” significa a LETO ASSET MANAGEMENT LTDA., sociedade com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Rua Humaitá, 275 - 11º Andar (Parte), Humaitá, CEP 22261-005, inscrita no CNPJ/MF sob o nº 13.189.882/0001-27, devidamente autorizada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 11.902, de 26 de agosto de 2011, ou sua sucessora a qualquer título. Página 88 de 110 CONFIDENCIAL Docusign Envelope ID: 6F3F58FC-FBED-8DA6-812E-1CE09F88C8A7 “Grupo Blue Health” significa a Blue Health e os Cedentes, quando referidos em conjunto. “Grupo Econômico” significa, para os fins deste Regulamento, as pessoas naturais"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 87,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "itórios ao Fundo, nos termos do Artigo 3.12 deste Regulamento. “Custodiante” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Avenida das Américas, nº 3.343, bloco 7, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91. “CVM” significa a Comissão de Valores Mobiliários. “Data de Aquisição” significa cada uma das datas em que serão realizadas as aquisições dos Direitos Creditórios pelo Fundo. “Data de Envio do significa todo 10"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Blue Health (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 83,
+     "clause": "Apêndice C, cl. 25.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "eadas acima dependerá de aprovação prévia da Assembleia Geral. “Agente de Cobrança” significa a Blue Health, abaixo qualificada, atuando como agente de cobrança dos Direitos Creditórios Inadimplidos. “Agente de significa a OLIVEIRA TRUST SERVICER S.A., sociedade por ações Controladoria” devidamente autorizada pela CVM para o exercício profissional de administração de fundos de investimento e gestão de carteiras por meio do Ato Declaratório nº 7.446, de 13 de outubro de 2003, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, sala 202, CEP 22640-102, inscrita no CNPJ/MF sob o nº 02.150.453/0001-20. “Alocação Mínima” significa o percentual mínimo de 50% (cinquenta por cento) do patrimônio líquido a ser mantido em Direitos Creditórios após 180"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 4,
+     "clause": "Apêndice C, cl. 1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "vos, este deve ser imediatamente liquidado pela Administradora. 1.5. A Classe do Fundo é destinada a Investidores Autorizados que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceitem os riscos associados aos seus investimentos. 1.6. Nos termos do Capítulo VII, do Anexo Complementar V, das “Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros” da ANBIMA, o Fundo é classificado como “Fundo de Investimento em Direitos Creditórios”, do tipo “Agro, indústria e comércio”, com foco de atuação em “Recebíveis Comerciais”. 1.7. Os Cotistas da Classe do Fundo terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18 da Resolução CVM nº 175 e do artigo 1.368-D, inciso I, do Código Civil Brasileiro. 2. DO OBJETIVO DO FUNDO 2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 3,
+     "clause": "Apêndice C, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "ezembro de 1976, conforme alterada, constituído sob a forma de condomínio fechado de natureza especial, com prazo de duração indeterminado, regido pelo presente Regulamento e Complementos, bem como Apêndices, disciplinado pela Resolução CMN nº 2.907, conforme alterada, pela Resolução CVM nº 175, conforme alterada, o Anexo Normativo II à Resolução CVM nº 175, pelos artigos 1.368-C a 1.368-F do Código Civil Brasileiro e pelas demais disposições legais e regulamentares aplicáveis. 1.2. Todos os termos e expressões utilizados neste Regulamento quando iniciados por letra maiúscula têm o significado a eles atribuídos no Complemento I ao presente Regulamento. Além disso, (i) sempre que exigido pelo contexto, as definições contidas neste Regulamento aplicar-se- ão tanto no singular, quanto no plural, e o gênero masculino incluirá o feminino e vice-versa; (I) referências a qualquer documento ou outros instrumentos incluem todas as suas alterações, substituições, consolidações e respectivas complementações, salvo se expressamente disposto de forma diferente;"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 1ª:12/08/2030; júnior prazo indeterminado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Por grupo econômico: até 15% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1278972",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/07/2026",
+     "page": 8,
+     "clause": "Apêndice C, cl. 3.12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+     "excerpt": "pe ID: 6F3F58FC-FBED-8DA6-812E-1CE09F88C8A7 (vi) o Valor Presente dos Direitos Creditórios devidos por Devedor do mesmo Grupo Econômico, será limitado a 15% (quinze por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo; (vii) o Valor Presente dos Direitos Creditórios devidos pelos 5 (cinco) maiores Devedores, considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 40% (quarenta por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo; (viii) o Valor Presente dos Direitos Creditórios devidos pelos 10 (dez) maiores Devedores, considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 62% (sessenta e dois por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo;"
+    }
+   ],
+   "value": 15.0,
+   "legacy": {
+    "value": "Grupo≤15% do PL; top 5≤40%; top 10≤62%; demais≤3,5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/07/2026, Apêndice C, cl. 3.12.1"
+   }
+  }
+ },
+ "leitura": "Locação de equipamentos médicos do grupo Blue Health; júnior ≥ 20% do PL e grupo econômico ≤ 15%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

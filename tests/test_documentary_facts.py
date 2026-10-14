@@ -139,6 +139,15 @@ class ViewTests(unittest.TestCase):
         self.assertFalse(pending)
         self.assertFalse(missing)
 
+    def test_pl_over_senior_peers_are_not_pooled_with_subordination_shares(self):
+        with _Store() as store:
+            for index, value in enumerate((10, 20, 30)):
+                store.fund(f"8888888800018{index}", "Veículos", {"sub_senior": _fact(f"{value}% · subord./PL", value, basis="jr/PL")})
+            store.fund("88888888000189", "Veículos", {"sub_senior": _fact("PL/sênior ≥ 125%", 125, basis="PL/sr")})
+            view = facts.build_view(_portfolio("88888888000180"))
+        protection = dict(next(s for s in view.sections if s.title == "Estrutura e proteção").rows)
+        self.assertEqual(protection["Subordinação mínima da sênior"][1], "pares insuficientes")
+
     def test_large_baskets_use_the_transposed_layout(self):
         cnpjs = [f"7777777700{index:04d}" for index in range(10)]
         with _Store() as store:

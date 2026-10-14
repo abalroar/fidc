@@ -1,0 +1,710 @@
+{
+ "schema_version": 1,
+ "cnpj": "44272584000120",
+ "name": "LAVORO AGRO FIAGRO - DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T12:52:01Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1003378",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "30/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378"
+  },
+  "D2": {
+   "document_id": "1003267",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "30/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003267"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de insumos agrícolas das revendas do grupo Lavoro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 45,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "Resgate das Cotas, a Reserva de Cobrança e a Reserva de Despesas e Encargos. significa, individualmente, na qualidade de cedentes dos Direitos Creditórios à esta Classe (i) a LAVORO AGROCOMERCIALS.A., sociedade anônima fechada, com sede na Cidade de Rondonópolis, Estado do Mato Grosso, na Avenida Daniel Clemente, nº 87, Lote 18B, Quadra IND-4, Loteamento Distrito Industrial, CEP 78745-830, inscrita no CNPJ sob o nº 06.116.723/0001-37; (ii) a AGROCONTATO COMÉRCIO E REPRESENTAÇÕES DE PRODUTOS AGROPECUÁRIOS S.A., sociedade anônima fechada, com sede na Cidade de Sinop, Estado de Mato Grosso, na Rua Colonizador Ênio Pipino, nº 4669, Setor Industrial Norte, Cedente CEP 78550-528, inscrita no CNPJ sob o nº 07.425.270/0001-93;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 90,
+     "clause": "Anexo I, cl. 12.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "os Direitos Creditórios Adquiridos são destinados à aplicação exclusiva por produtor rural, em sua produção; (ix) que as atividades de comercialização e/ou fornecimento dos Produtos, em especial os fertilizantes, adubos, agrotóxicos, defensivos agrícolas, bactericidas e sementes, pelas Cedentes, são realizadas de acordo com a legislação e regulamentação aplicável; (x) os Produtos comercializados e/ou fornecidos pelas Cedentes não contêm substâncias proibidas por organismos nacional e/ou estrangeiro; (xi) no melhor do seu conhecimento, os Devedores dos Direitos Creditório Adquiridos cumprem a Legislação Socioambiental (conforme definido no Contrato de Cessão) e a Legislação Anticorrupção (conforme definido no Contrato de Cessão); (xii) as Cedentes não exercem, em cada Data de Aquisição, nenhuma atividade relacionada às Atividades de Pesquisa de OGM (conforme definido no Contrato de Cessão); (xiii) os Direitos Creditórios ofertados e adquiridos pela Classe, bem como os respectivos Devedores e as Cedentes atendem a todas as Condições de Cessão; (xiv) as Cedentes não atuam na cadeia produtiva do tabaco, fumo e derivados; e (xv) dão ciência aos respectivos Devedores das políticas anticorrupção e socioambiental das Cedentes;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis performados de vendas de insumos agrícolas a produtores rurais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Lavoro Agrocomercial e demais revendas cedentes",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 45,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "Resgate das Cotas, a Reserva de Cobrança e a Reserva de Despesas e Encargos. significa, individualmente, na qualidade de cedentes dos Direitos Creditórios à esta Classe (i) a LAVORO AGROCOMERCIALS.A., sociedade anônima fechada, com sede na Cidade de Rondonópolis, Estado do Mato Grosso, na Avenida Daniel Clemente, nº 87, Lote 18B, Quadra IND-4, Loteamento Distrito Industrial, CEP 78745-830, inscrita no CNPJ sob o nº 06.116.723/0001-37; (ii) a AGROCONTATO COMÉRCIO E REPRESENTAÇÕES DE PRODUTOS AGROPECUÁRIOS S.A., sociedade anônima fechada, com sede na Cidade de Sinop, Estado de Mato Grosso, na Rua Colonizador Ênio Pipino, nº 4669, Setor Industrial Norte, Cedente CEP 78550-528, inscrita no CNPJ sob o nº 07.425.270/0001-93;"
+    }
+   ],
+   "legacy": {
+    "value": "Agrocontato, Agrovenci, Lavoro e Pitangueiras",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Lavoro Agrocomercial, Agrocontato e outras revendas, sem coobrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 45,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "Resgate das Cotas, a Reserva de Cobrança e a Reserva de Despesas e Encargos. significa, individualmente, na qualidade de cedentes dos Direitos Creditórios à esta Classe (i) a LAVORO AGROCOMERCIALS.A., sociedade anônima fechada, com sede na Cidade de Rondonópolis, Estado do Mato Grosso, na Avenida Daniel Clemente, nº 87, Lote 18B, Quadra IND-4, Loteamento Distrito Industrial, CEP 78745-830, inscrita no CNPJ sob o nº 06.116.723/0001-37; (ii) a AGROCONTATO COMÉRCIO E REPRESENTAÇÕES DE PRODUTOS AGROPECUÁRIOS S.A., sociedade anônima fechada, com sede na Cidade de Sinop, Estado de Mato Grosso, na Rua Colonizador Ênio Pipino, nº 4669, Setor Industrial Norte, Cedente CEP 78550-528, inscrita no CNPJ sob o nº 07.425.270/0001-93;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 103,
+     "clause": "Anexo I, cl. 13.27",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "Pagamento ou de Coobrigação na Cessão de Direitos Creditórios das Cedentes. A cessão à Classe de Direitos Creditórios será realizada sem direito de regresso contra ou coobrigação das Cedentes ou de qualquer outra Pessoa. As Cedentes são apenas responsáveis pela correta constituição e, quando constituídos, pela existência, certeza, autenticidade e correta formalização dos Direitos Creditórios por ela oferecidos ao tempo da cessão, conforme o caso. O Administrador, o coordenador líder da respectiva distribuição pública de Cotas, e/ou qualquer de suas Afiliadas não respondem pela solvência dos Devedores, pelo pagamento dos Direitos Creditórios Adquiridos ou por sua existência, certeza, autenticidade, correta formalização e/ou liquidez. 13.28 Demora na obtenção de decisão judicial em ações de cobrança ou ações de execução. A Classe ou terceiro por ela contratado poderá ajuizar ação de cobrança dos Direitos Creditórios Inadimplidos ou ação de execução das garantias referentes a tais Direitos Creditórios Inadimplidos. É possível que tais ações se estendam por um período excessivamente superior ao estimado e que a Classe demore ou não consiga recuperar os valores devidos."
+    }
+   ],
+   "legacy": {
+    "value": "Agrocontato, Agrovenci, Lavoro e Pitangueiras",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Produtores rurais clientes das revendas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 90,
+     "clause": "Anexo I, cl. 12.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "os Direitos Creditórios Adquiridos são destinados à aplicação exclusiva por produtor rural, em sua produção; (ix) que as atividades de comercialização e/ou fornecimento dos Produtos, em especial os fertilizantes, adubos, agrotóxicos, defensivos agrícolas, bactericidas e sementes, pelas Cedentes, são realizadas de acordo com a legislação e regulamentação aplicável; (x) os Produtos comercializados e/ou fornecidos pelas Cedentes não contêm substâncias proibidas por organismos nacional e/ou estrangeiro; (xi) no melhor do seu conhecimento, os Devedores dos Direitos Creditório Adquiridos cumprem a Legislação Socioambiental (conforme definido no Contrato de Cessão) e a Legislação Anticorrupção (conforme definido no Contrato de Cessão); (xii) as Cedentes não exercem, em cada Data de Aquisição, nenhuma atividade relacionada às Atividades de Pesquisa de OGM (conforme definido no Contrato de Cessão); (xiii) os Direitos Creditórios ofertados e adquiridos pela Classe, bem como os respectivos Devedores e as Cedentes atendem a todas as Condições de Cessão; (xiv) as Cedentes não atuam na cadeia produtiva do tabaco, fumo e derivados; e (xv) dão ciência aos respectivos Devedores das políticas anticorrupção e socioambiental das Cedentes;"
+    }
+   ],
+   "legacy": {
+    "value": "Produtores rurais compradores dos produtos das cedentes",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso nem coobrigação das cedentes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 103,
+     "clause": "Anexo I, cl. 13.27",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "Pagamento ou de Coobrigação na Cessão de Direitos Creditórios das Cedentes. A cessão à Classe de Direitos Creditórios será realizada sem direito de regresso contra ou coobrigação das Cedentes ou de qualquer outra Pessoa. As Cedentes são apenas responsáveis pela correta constituição e, quando constituídos, pela existência, certeza, autenticidade e correta formalização dos Direitos Creditórios por ela oferecidos ao tempo da cessão, conforme o caso. O Administrador, o coordenador líder da respectiva distribuição pública de Cotas, e/ou qualquer de suas Afiliadas não respondem pela solvência dos Devedores, pelo pagamento dos Direitos Creditórios Adquiridos ou por sua existência, certeza, autenticidade, correta formalização e/ou liquidez. 13.28 Demora na obtenção de decisão judicial em ações de cobrança ou ações de execução. A Classe ou terceiro por ela contratado poderá ajuizar ação de cobrança dos Direitos Creditórios Inadimplidos ou ação de execução das garantias referentes a tais Direitos Creditórios Inadimplidos. É possível que tais ações se estendam por um período excessivamente superior ao estimado e que a Classe demore ou não consiga recuperar os valores devidos."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão irrevogável e definitiva; documentos não apresentados ensejam resolução",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Em reais, representados pelos documentos comprobatórios, entre outros",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 88,
+     "clause": "Anexo I, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "Os Direitos Creditórios a serem adquiridos pela Classe, na Data de Aquisição, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados pelo Gestor, na Data de Aquisição: (a) os Direitos Creditórios devem ter valor expresso em moeda corrente nacional, representados pelos Documentos Comprobatórios, cujos dados serão transmitidos ao Custodiante, pelas 88 respectivas Cedentes, por meio eletrônico ou magnético, de acordo com o procedimento previsto no Contrato de Cessão; (b) os Direitos Creditórios devem ser passíveis de pagamento por meio de Boleto de Cobrança; (c) a Data de Vencimento dos respectivos Direitos Creditórios não poderá ser inferior a 35 (trinta e cinco) dias ou superior a 290 (duzentos e noventa) dias, em ambos os casos contados da data de emissão das Notas Fiscais, pelas respectivas Cedentes, conforme informado no Arquivo de Remessa, observada a Data Limite dos Direitos Creditórios; (d) os Direitos Creditórios não poderão estar vencidos em cada Data de Aquisição de Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos vincendos; 35–290 dias da emissão da NF; devedor adimplente e relacionamento ≥ 2 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/09/2025, Anexo I, cl. 12.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por devedor não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Grupos econômicos novos: ≤ 15% dos créditos e ≤ 10% PL; mínimo 100 devedores",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Grupos econômicos novos: ≤ 15% dos créditos e ≤ 10% PL; mínimo 100 devedores",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Créditos vincendos; 35–290 dias da emissão da NF; devedor adimplente e relacionamento ≥ 2 anos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Alocação mínima não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Direitos creditórios ≥ 67% PL após 180 dias; aquisições após oferta em 30 dias, prorrogáveis 15",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 114,
+     "clause": "Anexo I, cl. 14.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "lização de Cotas da Subclasse Sênior só será realizada em cada Data de Integralização de Cotas da Subclasse Sênior se o Índice de Subordinação Seniores for igual ou superior a 40% (quarenta por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Sênior em questão. A integralização de Cotas da Subclasse Subordinadas Mezanino A só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino A se o Índice de Subordinação Mezanino A (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino A) for igual ou superior a 25% (vinte e cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino A em questão. A integralização de Cotas Subordinadas Mezanino B só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino B se o Índice de Subordinação Mezanino B (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino B) for igual ou superior a 5% (cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino B em questão."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 114,
+     "clause": "Anexo I, cl. 14.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "rdinadas Mezanino A só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino A se o Índice de Subordinação Mezanino A (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino A) for igual ou superior a 25% (vinte e cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino A em questão. A integralização de Cotas Subordinadas Mezanino B só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino B se o Índice de Subordinação Mezanino B (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino B) for igual ou superior a 5% (cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino B em questão."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior ≥ 40% PL; mezanino A ≥ 25% PL; mezanino B ≥ 5% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/09/2025, Anexo I, cl. 14.6"
+   }
+  },
+  "sub_senior": {
+   "display": "40% · subord./PL (na integralização da sênior)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 114,
+     "clause": "Anexo I, cl. 14.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "lização de Cotas da Subclasse Sênior só será realizada em cada Data de Integralização de Cotas da Subclasse Sênior se o Índice de Subordinação Seniores for igual ou superior a 40% (quarenta por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Sênior em questão. A integralização de Cotas da Subclasse Subordinadas Mezanino A só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino A se o Índice de Subordinação Mezanino A (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino A) for igual ou superior a 25% (vinte e cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino A em questão. A integralização de Cotas Subordinadas Mezanino B só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino B se o Índice de Subordinação Mezanino B (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino B) for igual ou superior a 5% (cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino B em questão."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 40.0,
+   "legacy": {
+    "value": "Sênior ≥ 40% PL; mezanino A ≥ 25% PL; mezanino B ≥ 5% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/09/2025, Anexo I, cl. 14.6"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A protegida por ≥ 25%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 114,
+     "clause": "Anexo I, cl. 14.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "rdinadas Mezanino A só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino A se o Índice de Subordinação Mezanino A (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino A) for igual ou superior a 25% (vinte e cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino A em questão. A integralização de Cotas Subordinadas Mezanino B só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino B se o Índice de Subordinação Mezanino B (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino B) for igual ou superior a 5% (cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino B em questão."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Pro forma, na integralização de cada subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 114,
+     "clause": "Anexo I, cl. 14.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "lização de Cotas da Subclasse Sênior só será realizada em cada Data de Integralização de Cotas da Subclasse Sênior se o Índice de Subordinação Seniores for igual ou superior a 40% (quarenta por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Sênior em questão. A integralização de Cotas da Subclasse Subordinadas Mezanino A só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino A se o Índice de Subordinação Mezanino A (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino A) for igual ou superior a 25% (vinte e cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino A em questão. A integralização de Cotas Subordinadas Mezanino B só será realizada em cada Data de Integralização de Cotas da Subclasse Subordinadas Mezanino B se o Índice de Subordinação Mezanino B (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino B) for igual ou superior a 5% (cinco por cento) em tal data, considerada proforma a integralização de Cotas da Subclasse Subordinadas Mezanino B em questão."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior ≥ 40% PL; mezanino A ≥ 25% PL; mezanino B ≥ 5% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/09/2025, Anexo I, cl. 14.6"
+   }
+  },
+  "reserve": {
+   "display": "Despesas e encargos estimados para 6 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 125,
+     "clause": "Anexo I, cl. 17.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "Primeira Integralização de Cotas, o Gestor deverá constituir e manter, durante todo o prazo de vigência da Classe, uma Reserva de Despesas e Encargos equivalente ao montante suficiente para pagamento das despesas e encargos estimados pelo Administrador para os 6 (seis) meses subsequentes, o que for maior, com recursos recebidos da integralização de Cotas, dos pagamentos dos Direitos Creditórios Adquiridos e dos Ativos Financeiros, segundo os critérios estabelecidos neste Anexo Descritivo. 17.2 Dentro de 5 (cinco) Dias Úteis, contados da Data da Primeira Integralização de Cotas, o Gestor deverá constituir e manter, durante todo o prazo de vigência da Classe, uma Reserva de Cobrança no montante equivalente a R$750.000,00 (setecentos e cinquenta mil reais). 17.3 Dentro de 5 (cinco) Dias Úteis contados da Data da Primeira Integralização de Cotas, o Gestor deverá constituir e manter, durante todo o prazo de vigência da Classe uma Reserva de Remuneração, Amortização e resgate das Cotas equivalente a (i) 50% (cinquenta por cento) do valor do próximo pagamento de Remuneração e/ou Amortização e/ou resgate, a ser acumulada com, no mínimo, 60 (sessenta) dias de antecedência em relação à próxima Data de pagamento da Remuneração, Amortização e/ou Resgate prevista no respectivo Apêndice e (ii) 100% (cem por cento) do valor do próximo pagamento de Remuneração e/ou Amor"
+    }
+   ],
+   "legacy": {
+    "value": "6 meses de despesas; cobrança R$ 750 mil; pagamento 50% a 60 dias e 100% a 30 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/09/2025, Anexo I, cl. 17.1"
+   }
+  },
+  "pdd": {
+   "display": "Manual de PDD do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 9,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "é a Lei nº 8.668, de 25 de junho de 1993, conforme alterada. significa o manual de provisão para devedores duvidosos do Manual de PDD Administrador, o qual se encontra disponível no website: https://vortx.com.br/ri. é o Módulo de Distribuição de Ativos, ambiente de distribuição MDA de ativos de renda fixa em mercado primário, administrado e operacionalizado pela B3. significa qualquer ônus, encargo, gravame, penhor, alienação/cessão fiduciária, usufruto, fideicomisso, direito de garantia, security interest, arrendamento, opção, direito de Ônus preferência, bloqueio, arrolamento, penhora, arresto e/ou qualquer outra restrição que tenha o efeito prático similar a qualquer das expressões acima, incluindo de cunho fiscal. significa, em relação a uma determinada Pessoa, qualquer Pessoa (i) controlada direta ou indiretamente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Inobservância de deveres por gestor, custodiante ou cedentes, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 133,
+     "clause": "Anexo I, cl. 21.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "S DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 21.1 A Classe poderá ser liquidada por deliberação da Assembleia. 21.2 São considerados Eventos de Avaliação da Classe quaisquer das seguintes ocorrências: (a) inobservância pelo Gestor, pelo Custodiante e/ou pelas Cedentes de seus respectivos deveres e obrigações, que não constitua um Evento de Liquidação Antecipada, desde que o respectivo 133 evento, a critério exclusivo do Administrador, (a) possa afetar negativamente a boa ordem financeira, operacional ou legal do Fundo, bem como os direitos, as garantias e as prerrogativas dos Cotistas; e (b) não seja regularizado no prazo de 2 (dois) Dias Úteis contados do recebimento, pelo Gestor, pelo Custodiante e/ou pelas Cedentes, de comunicação enviada pelo Administrador, informando-o(a) de sua ocorrência;"
+    }
+   ],
+   "legacy": {
+    "value": "Perda> 6% recorrente ou> 8% pontual desalavanca; perda> 10% é avaliação; diluição/resolução/fungibilidade> 5% com recorrência",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/09/2025, Anexo I, cl. 21.2"
+   }
+  },
+  "liquidation": {
+   "display": "Resilição do contrato de cessão, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 137,
+     "clause": "Anexo I, cl. 21.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "ação e detalhando as informações utilizadas para sua caracterização. 21.6 Eventos de Liquidação Antecipada. São considerados Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: i. caso o Contrato de Cessão seja, por qualquer motivo, resilido; ii. na hipótese de extinção da Taxa DI, caso os Cotistas não consigam, por 2 (duas) Assembleias Gerais de Cotistas consecutivas, determinar um novo índice ou parâmetro de apuração do valor das Cotas Seniores e/ou das Cotas Subordinadas Mezanino A e/ou das Cotas Subordinadas Mezanino B e/ou de Cotas Subordinadas Mezanino de novas subclasses emitidas (se houver), ou caso não haja aprovação do índice ou parâmetro apresentado pelos titulares de Cotas Subordinadas Júnior; iii. caso as Cedentes deixem de comunicar à Administrador e/ou à Gestor a ocorrência de um Evento de Avaliação em até 10 (dez) Dias Úteis contados da ciência, pelas Cedentes, quanto à ocorrência de um Evento de Avaliação, conforme aplicável; iv."
+    }
+   ],
+   "legacy": {
+    "value": "Perda> 6% recorrente ou> 8% pontual desalavanca; perda> 10% é avaliação; diluição/resolução/fungibilidade> 5% com recorrência",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/09/2025, Anexo I, cl. 21.6"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência durante todo o prazo da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 86,
+     "clause": "Anexo I, cl. 11.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "85 11.4 Será permitida a revolvência da carteira da Classe durante todo o prazo de duração da Classe, respeitada a Ordem de Alocação. Verificação e guarda dos Documentos Comprobatórios e Adicionais 11.5 Os Direitos Creditórios Adquiridos estarão amparados pelos Documentos Comprobatórios e pelos Documentos Adicionais, hábeis a evidenciar sua existência, validade e exequibilidade. 11.6 Os Documentos Comprobatórios compreenderão toda e quaisquer documentação necessária para o devido exercício das prerrogativas decorrentes da titularidade dos Direitos Creditórios Adquiridos, tais como (i) as Notas Fiscais eletrônicas; (ii) o Contrato de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência durante a vigência, observada ordem de alocação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada subclasse",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos e reservas precedem pagamentos de cotas e aquisições; ordem varia por fase",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de administração não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "0, 27%/0, 25%/0, 22%/0, 20%/0, 15% a.a. por faixas de PL; mínimo R$ 15 mil/mês",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "mgmt_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de gestão não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "0, 06%/0, 04%/0, 03%/0, 02%/0, 01% a.a. por faixas; custos de conferência das NFs adicionais",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de performance remetida a encargos, sem percentual localizado",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 13,
+     "clause": "Anexo I, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "dicadas nesta Cláusula, nos termos dos parágrafos do artigo 8 da Resolução CVM 175. 4. PRESTADORES DE SERVIÇOS 4.1 A administração fiduciária do Fundo será exercida pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA. instituição financeira, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 4º andar, Pinheiros, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para atuar como administrador fiduciário na administração de carteiras de valores mobiliários, nos termos do Ato Declaratório CVM nº 14.820, de 08 de janeiro de 2016. 4.2 A gestão do Fundo será exercida pela KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA, sociedade com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, sala 802, CEP 38411-848, inscrita no CNPJ sob o nº 44.870.662/0001-98, autorizada pela CVM para atuar na gestão profissional de carteiras de valores mobiliários, na categoria de gestor de recursos, conforme o Ato Declaratório CVM nº 19.724, de 07 de abril de 2022. 4.3 Os Prestadores de Serviços Essenciais, bem como os demais Prestadores de Serviços possuem, cada qual, atribuições e deveres próprios relacionados à prestação dos serviços para os quais foram contratados pelo Fundo e/ou pela Classe, prestando ta"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Kanastra Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 13,
+     "clause": "Anexo I, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "istração de carteiras de valores mobiliários, nos termos do Ato Declaratório CVM nº 14.820, de 08 de janeiro de 2016. 4.2 A gestão do Fundo será exercida pela KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA, sociedade com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, sala 802, CEP 38411-848, inscrita no CNPJ sob o nº 44.870.662/0001-98, autorizada pela CVM para atuar na gestão profissional de carteiras de valores mobiliários, na categoria de gestor de recursos, conforme o Ato Declaratório CVM nº 19.724, de 07 de abril de 2022. 4.3 Os Prestadores de Serviços Essenciais, bem como os demais Prestadores de Serviços possuem, cada qual, atribuições e deveres próprios relacionados à prestação dos serviços para os quais foram contratados pelo Fundo e/ou pela Classe, prestando tais serviços em regime de melhores esforços e como uma obrigação de meio. 4.4 Cada Prestador de Serviços responderá somente pelas perdas ou prejuízos que sejam resultantes de comprovado dolo ou má-fé de sua atuação, sendo que a sua responsabilidade perante o Fundo, a(s) Classe(s) e demais Prestadores de Serviços é, individual e limitada aos serviços por ele prestados, sem qualquer solidariedade. 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM (o administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 6,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "é um tributo federal que significa a contribuição social sobre o CSLL lucro líquido. Custodiante é o Administrador, ou a sua sucessora a qualquer título. CVM é a Comissão de Valores Mobiliários. é qualquer dia que não seja sábado, domingo ou feriado nacional ou, ainda, dias em que, por qualquer motivo, não houver expediente bancário ou não funcionar o mercado financeiro na praça da sede do Administrador ou do Custodiante. Caso as datas em que venham a ocorrer eventos relativo a pagamentos, ou cuja Dia Útil definição envolva Dias Úteis, nos termos deste Regulamento, não forem Dia Útil, conforme definição deste item, considerar-se-á como a data do referido evento o Dia Útil imediatamente seguinte."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 13,
+     "clause": "Anexo I, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "dicadas nesta Cláusula, nos termos dos parágrafos do artigo 8 da Resolução CVM 175. 4. PRESTADORES DE SERVIÇOS 4.1 A administração fiduciária do Fundo será exercida pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA. instituição financeira, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 4º andar, Pinheiros, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para atuar como administrador fiduciário na administração de carteiras de valores mobiliários, nos termos do Ato Declaratório CVM nº 14.820, de 08 de janeiro de 2016. 4.2 A gestão do Fundo será exercida pela KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA, sociedade com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, sala 802, CEP 38411-848, inscrita no CNPJ sob o nº 44.870.662/0001-98, autorizada pela CVM para atuar na gestão profissional de carteiras de valores mobiliários, na categoria de gestor de recursos, conforme o Ato Declaratório CVM nº 19.724, de 07 de abril de 2022. 4.3 Os Prestadores de Serviços Essenciais, bem como os demais Prestadores de Serviços possuem, cada qual, atribuições e deveres próprios relacionados à prestação dos serviços para os quais foram contratados pelo Fundo e/ou pela Classe, prestando ta"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 10,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "es de Serviços são o Gestor e o Administrador, em conjunto. Essenciais são os Investidores Profissionais que buscam rentabilidade, no longo prazo, compatível com a Política de Investimento da Classe, Público-Alvo e que aceitam os riscos associados aos investimentos realizados pela Classe. RAET é o regime de administração especial temporária. Regulamento é este regulamento do Fundo. é o relatório contendo as informações previstas na Cláusula 5.2.2 Relatório de Gestão deste Regulamento. é a Resolução do CMN nº 2.907, de 29 de novembro de 2001, Resolução CMN n° 2.907 conforme alterada. é a Resolução do CMN n.º 2.921, de 17 de janeiro de 2002, Resolução CMN n° 2.921 conforme alterada. é a Resolução CVM 21, de 25 de fevereiro de 2021, conforme Resolução CVM 21 alterada. Resolução CVM 30 é a Resolução CVM 30, de 11 de maio de 2021, conforme alt"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo indeterminado; classe fechada exclusiva para profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 11,
+     "clause": "Anexo I, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "PRAZO DE DURAÇÃO DO FUNDO 3.1 As atividades do Fundo serão iniciadas na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado. 11 2.1 Após 90 (noventa) dias do início das atividades, caso a Classe mantenha, a qualquer tempo, Patrimônio Líquido diário inferior a R$1.000.000,00 (um milhão de reais) por 90 (noventa) dias seguidos, esta deve ser imediatamente liquidada ou incorporada a outra Classe de cotas pelo Administrador, caso exista. A CVM poderá cancelar o registro do funcionamento da Classe correspondente caso o 12 Administrador não tome tempestivamente as medidas ora indicadas nesta Cláusula, nos termos dos parágrafos do artigo 8 da Resolução CVM 175. 4. PRESTADORES DE SERVIÇOS 4.1 A administração fiduciária do Fundo será exercida pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo indeterminado; classe fechada exclusiva para profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "Fertilizantes, defensivos e sementes vendidos a produtores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1003378",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/09/2025",
+     "page": 90,
+     "clause": "Anexo I, cl. 12.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003378",
+     "excerpt": "os Direitos Creditórios Adquiridos são destinados à aplicação exclusiva por produtor rural, em sua produção; (ix) que as atividades de comercialização e/ou fornecimento dos Produtos, em especial os fertilizantes, adubos, agrotóxicos, defensivos agrícolas, bactericidas e sementes, pelas Cedentes, são realizadas de acordo com a legislação e regulamentação aplicável; (x) os Produtos comercializados e/ou fornecidos pelas Cedentes não contêm substâncias proibidas por organismos nacional e/ou estrangeiro; (xi) no melhor do seu conhecimento, os Devedores dos Direitos Creditório Adquiridos cumprem a Legislação Socioambiental (conforme definido no Contrato de Cessão) e a Legislação Anticorrupção (conforme definido no Contrato de Cessão); (xii) as Cedentes não exercem, em cada Data de Aquisição, nenhuma atividade relacionada às Atividades de Pesquisa de OGM (conforme definido no Contrato de Cessão); (xiii) os Direitos Creditórios ofertados e adquiridos pela Classe, bem como os respectivos Devedores e as Cedentes atendem a todas as Condições de Cessão; (xiv) as Cedentes não atuam na cadeia produtiva do tabaco, fumo e derivados; e (xv) dão ciência aos respectivos Devedores das políticas anticorrupção e socioambiental das Cedentes;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis performados de vendas de insumos agrícolas a produtores rurais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Garantias reais/fidejussórias admitidas; cobertura varia por rating interno/cluster",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Insumos agrícolas das revendas Lavoro sem coobrigação; subordinação de 40% e mezanino A protegida por 25%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

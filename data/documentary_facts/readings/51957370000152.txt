@@ -1,0 +1,50 @@
+# FIDC Angá FGTS I (Daycoval; Angá; cedente Banco Votorantim)
+type: FGTS
+q13: * "caso o Índice de Arrecadação foi inferior à 93% (noventa e três por cento) em 2 (duas) Datas de Verificação"
+q12: * "A alocação de, ao menos, 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM"
+q1: * "“Cedente”: O BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo"
+q2: * "“CCB”: As cédulas de crédito bancário emitidas ou a serem emitidas pelos Devedores em favor do Cedente"
+q3: * "saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00"
+q4: * "10.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à Gestora comunicar à Administradora"
+q5: * "provisão para perdas da Administradora, este último disponível na sua página"
+q6: * "ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo"
+q7: * "“Custodiante”: O BANCO DAYCOVAL S.A., acima qualificado"
+q8: * "“Agente de Cobrança”: O Cedente ou seu sucessor a qualquer título"
+q9: * "Prazo de Duração Indeterminado. BANCO DAYCOVAL S.A., instituição financeira autorizada pela CVM"
+q10: * "Público-Alvo Investidores Profissionais"
+q11: * "A Classe A é constituída por 3 (três) subclasses de Cotas, quais Subclasses sejam: Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Juniores"
+receivables: CCBs de antecipação do saque-aniversário do FGTS | o1,q2
+originator: Banco Votorantim | q1
+assignor: Banco Votorantim, sem coobrigação | q1,o13
+debtor: Titulares de conta do FGTS emitentes das CCBs | q2
+recourse: Sem coobrigação; cedente responde pela existência e formalização | o13
+eligibility: CCB prefixada, adimplente, até a série sênior mais longa | o16
+debtor_limit: Saldo por devedor até R$ 120 mil | q3 | value=none
+assignor_limit: — | Cedente única: Banco Votorantim
+term_max: n/d | Vencimento limitado à série sênior mais longa, sem prazo fixo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios; 67% para fins tributários | q12 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q11
+sub_senior: 10% · subord./PL | o29 | basis=mez+jr/PL | value=10
+sub_mezz: 5% · júnior/PL | o29 | basis=jr/PL | value=5
+sub_check: n/d | Periodicidade de apuração dos índices não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de caixa para despesas e reserva de liquidez | o40
+pdd: Manual de provisão para perdas da administradora | q5
+eval_triggers: Arrecadação abaixo de 93% ou atraso acima de 10%, entre outros | q13,q4
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: n/d | Regulamento não trata de revolvência explicitamente
+amortization: Ordem: despesas, reservas, sênior, mezanino e júnior | o53
+admin_fee: Percentual por faixa de PL; mín. R$ 15,5 mil/mês | o58
+mgmt_fee: Percentual por faixa de PL; mín. R$ 7 mil/mês, mais tributos | o61
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Banco Daycoval | q9
+manager: Angá Administração de Recursos | q6
+custodian: Banco Daycoval | q7
+servicer: Banco Votorantim (cedente), como agente de cobrança | q8,q1
+investors: Investidores profissionais | q10
+duration: Indeterminado | q9
+payroll: Cessão fiduciária do saque-aniversário, parcial ou total | o78
+age_limit: n/d | Regulamento não fixa idade do devedor | why=Resposta anterior sem trecho localizável no regulamento vigente
+installment_min: n/d | Regulamento não fixa parcela mínima | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: CCBs de saque-aniversário FGTS do Banco Votorantim; subordinação de 10% (júnior ≥ 5%) e devedor até R$ 120 mil.

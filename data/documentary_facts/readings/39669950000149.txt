@@ -1,0 +1,61 @@
+# FIDC Somacred Bach (Vert DTVM; Vert Gestora; cedentes Sabemi) — regulamento-base D3 de 30/06/2026; D1/D2 são atos de emissão
+type: Consignado público
+q24: D3 "Sabemi” a SABEMI SEGURADORA S"
+q23: D3 "assegurado um mínimo mensal de R$ 20.000,00 (vinte mil reais) corrigido anualmente pelo IGP-M"
+q1: D3 "cujas parcelas sejam pagas através de consignação realizada pelos Entes Públicos Conveniados"
+q2: D3 "“Cedentes” em conjunto, a Sabemi e a Sabemi Previdência Privada"
+q3: D3 "seguintes Critérios de Elegibilidade, conforme a modalidade de Direito Creditório"
+q4: D3 "(ii) cada parcela do Direito Creditório a ser cedido à Classe deve ter valor nominal mínimo de R$ 30,00"
+q5: D3 "(iii) o Devedor não deve ter, na data da cessão pretendida, saldo devedor junto à Classe"
+q6: D3 "Ente Público Limite mínimo de Limite máximo de Conveniado concentração"
+q7: D3 "É o resultado mínimo obrigatório, de 11,98% (onze inteiros e noventa e oito"
+q8: D3 "É o resultado mínimo obrigatório, de 4,98% (quatro inteiros e noventa e oito"
+q9: D3 "É o resultado mínimo obrigatório, de 1% (um por cento), calculado através da"
+q10: D3 "São Eventos de Avaliação: I. não divulgação, pela Gestora, do Relatório de Gestão"
+q11: D3 "Artigo 80º São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências"
+q12: D3 "revolvência), observada a ordem de alocação de recursos e desde que: I. durante o Período de Alocação"
+q13: D3 "Artigo 92º Taxa Global dos Prestadores de Serviço Essenciais"
+q14: D3 "Artigo 6º As atividades de administração do Fundo serão exercidas pela VERT"
+q15: D3 "Custodiante” A VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada"
+q16: D3 "Agentes de Cobrança” As Cedentes, ou seus respectivos sucessores a qualquer título"
+q17: D3 "Investidores Autorizados que busquem rentabilidade, no longo prazo"
+q18: D3 "prazo de duração indeterminado, regido pelo presente Regulamento, que inclui esta Parte Geral"
+q19: D1 "a VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade com sede na cidade de São Paulo"
+q20: D3 "Artigo 18º Adicionalmente à Taxa de Gestão, o Anexo Descritivo poderá prever"
+q21: D3 "O Patrimônio Líquido da Classe poderá ser composto por até 100% (cem por cento) de Direitos Creditórios"
+q22: D3 "os Direitos Creditórios oferecidos em cessão à Classe deverão ter como objeto a totalidade das parcelas vincendas"
+receivables: Empréstimos consignados de servidores e militares, via Sabemi | q1,q2
+originator: Sabemi Seguradora e Sabemi Previdência Privada | q2,q24
+assignor: Sabemi Seguradora e Sabemi Previdência Privada | q2,q24
+debtor: Servidores e militares com desconto em folha dos entes conveniados | q1
+recourse: n/d | Recompra e coobrigação não descritas em trecho localizável
+eligibility: Até 120 parcelas; parcela ≥ R$ 30; todas as parcelas vincendas; não vencido | q3,q4,q22
+debtor_limit: Saldo por devedor de R$ 350 mil (até 64 anos) a R$ 125 mil (70–71 anos) | q5 | value=none
+assignor_limit: — | Cedentes do mesmo grupo Sabemi
+term_max: Até 120 parcelas | q3
+allocation: Até 100% do PL em direitos creditórios | q21 | value=none
+quota_structure: Sênior / Mezanino A / B / C / Subordinada júnior | q7,q8,q9
+sub_senior: 11,98% · subord./PL | q7 | basis=mez+jr/PL | value=11.98
+sub_mezz: Mezanino A 4,98%; mezanino C (júnior) 1% | q8,q9 | basis=jr/PL | value=none
+sub_check: Diária, pelo custodiante | q7
+reserve: n/d | Valor da reserva de despesas não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: n/d | Critério de provisão não descrito em trecho localizável
+eval_triggers: Falta do relatório de gestão por 15 dias úteis, entre outros | q10
+liquidation: Eventos de insolvência ou determinação da CVM, entre outros | q11
+revolving: Revolvência no período de alocação, com índices enquadrados | q12
+amortization: n/d | Cronograma definido no suplemento de cada série
+admin_fee: Taxa global de 0,185% a.a. até R$ 300 mi de PL, regressiva; mín. R$ 20 mil/mês | q23
+mgmt_fee: Incluída na taxa global dos prestadores essenciais | q13
+perf_fee: n/d | Regulamento remete eventual performance ao anexo descritivo | q20
+target_senior: n/d | Meta definida no suplemento de cada série
+target_mezz: n/d | Meta definida no suplemento de cada subclasse
+administrator: Vert DTVM | q14
+manager: Vert Gestora de Recursos Financeiros | q19
+custodian: Vert DTVM | q15
+servicer: Sabemi (cedentes), como agentes de cobrança | q16,q2
+investors: Investidores autorizados | q17
+duration: Indeterminado | q18
+payroll: Exército Brasileiro de 65% a 100% do PL; SIAPE até 35% | q6
+age_limit: Limite de saldo cai com a idade, até a faixa de 70–71 anos | q5
+installment_min: Parcela mínima de R$ 30 | q4
+leitura: Consignado de militares do Exército via Sabemi; subordinação sênior de 11,98% e parcela mínima de R$ 30.

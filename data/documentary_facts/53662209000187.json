@@ -1,0 +1,725 @@
+{
+ "schema_version": 1,
+ "cnpj": "53662209000187",
+ "name": "PNEUCASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA - RESP LTDA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T08:15:55Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1239751",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "30/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751"
+  },
+  "D2": {
+   "document_id": "924981",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "13/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=924981"
+  },
+  "D3": {
+   "document_id": "924968",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "13/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=924968"
+  },
+  "D4": {
+   "document_id": "808151",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "24/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=808151"
+  },
+  "D5": {
+   "document_id": "633148",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "02/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=633148"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de pneus e produtos das cedentes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "simpedidos de quaisquer ônus, gravames ou restrições, de titularidade das Cedentes, originados no “Direitos Creditórios” âmbito de Operações a Prazo envolvendo Produtos celebradas entre as Cedentes e seus respectivos Devedores, no mercado local, expressos em moeda corrente nacional, cujas respectivas transações sejam sempre representadas por Documentos Comprobatórios. Significam os Direitos Creditórios adquiridos pelo “Direitos Creditórios Adquiridos” Fundo e/ou pela Classe Significam os Direitos Creditórios devidos e não “Direitos Creditórios pagos, pelos Devedores, na respectiva data de Inadimplidos” vencimento estipulada nos Documen"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis comerciais do varejo de pneus, vendas a prazo das cedentes.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "CPX Distribuidora e ITR Comércio de Pneus",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "Significa o titular de Cotas, sem distinção. Significa a cedente CPX DISTRIBUIDORA S.A., sociedade por ações, com sede na Cidade de Itajaí, “CPX” Estado de Santa Catarina, na Rodovia Antonio Heil, nº 800, km 01, sala 02, Itaipava, CEP 88.316-001, inscrita no CNPJ/MF sob o nº 10.158.356/0001-01. Significam os critérios previstos no Capítulo 9 do Regulamento e detalhados no Anexo Descritivo, a serem verificados pelo Gestor, diretamente ou através “Critérios de Elegibilidade” de um prestador de serviços contratado para este fim, no momento de cada cessão de Direitos Creditórios ao Fundo. “Custodiante” Significa o Administr"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "conforme alterada. Significa a ITR COMÉRCIO DE PNEUS S.A., sociedade por ações, com sede na Cidade de Barueri, “ITR” Estado de São Paulo, na V AC JOAO DE GOES, nº 1400, barracão B09, Jardim Itaquiti, CEP 06.422-150, inscrita no CNPJ/MF sob o nº 15.426.874/0001-82. Significam as notas fiscais eletrônicas representativas das Operações a Prazo que originaram os Direitos Creditórios Adquiridos pelo “Nota Fiscal” Fundo e/ou pela Classe Única, detidas pelos Cedentes contra os Devedores e cedidas de acordo com o estabelecido em cada Contrato de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "CPX Distribuidora e ITR Comércio de Pneus",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "Significa o titular de Cotas, sem distinção. Significa a cedente CPX DISTRIBUIDORA S.A., sociedade por ações, com sede na Cidade de Itajaí, “CPX” Estado de Santa Catarina, na Rodovia Antonio Heil, nº 800, km 01, sala 02, Itaipava, CEP 88.316-001, inscrita no CNPJ/MF sob o nº 10.158.356/0001-01. Significam os critérios previstos no Capítulo 9 do Regulamento e detalhados no Anexo Descritivo, a serem verificados pelo Gestor, diretamente ou através “Critérios de Elegibilidade” de um prestador de serviços contratado para este fim, no momento de cada cessão de Direitos Creditórios ao Fundo. “Custodiante” Significa o Administr"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "conforme alterada. Significa a ITR COMÉRCIO DE PNEUS S.A., sociedade por ações, com sede na Cidade de Barueri, “ITR” Estado de São Paulo, na V AC JOAO DE GOES, nº 1400, barracão B09, Jardim Itaquiti, CEP 06.422-150, inscrita no CNPJ/MF sob o nº 15.426.874/0001-82. Significam as notas fiscais eletrônicas representativas das Operações a Prazo que originaram os Direitos Creditórios Adquiridos pelo “Nota Fiscal” Fundo e/ou pela Classe Única, detidas pelos Cedentes contra os Devedores e cedidas de acordo com o estabelecido em cada Contrato de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Sacados PF ou PJ clientes das cedentes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "” integralização da respectiva Cota. Significam os devedores (sacados), pessoas físicas “Devedores” ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes. Significa qualquer dia exceto (i) sábados, domingos ou “Dia Útil” feriados nacionais;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Cessão irrevogável; resolução contratual; pós-cessão sem regresso automático por desenquadramento.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Sem parcelas vencidas; valor fixo; devedor adimplente com a classe",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 55,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "presa contratada para este fim, pelo Gestor, em relação a cada Direito Creditório: (i) não poderão estar com parcelas vencidas e devem possuir valor fixo e determinado; (ii) deverão ser representados em moeda corrente nacional; (iii) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e Pagamento; (iv) não poderão ser devidos por Devedor que esteja inadimplente com a Classe; (v) a aquisição do Direito Creditório somente ocorrerá caso os Índices de Subordinação estejam enquadrados; (vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; D4Sign b51b99a8-a4ae-481d-b9de-6104700d00ce - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2."
+    }
+   ],
+   "legacy": {
+    "value": "Sem parcelas vencidas; devedor adimplente; média≤120 dias; exceção 5%/PL até 300 dias.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, cl. 8.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo econômico de devedores ≤ 2% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 55,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "correrá caso os Índices de Subordinação estejam enquadrados; (vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; D4Sign b51b99a8-a4ae-481d-b9de-6104700d00ce - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil (viii) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;"
+    }
+   ],
+   "value": 2.0,
+   "legacy": {
+    "value": "Grupo de devedores ≤2%/PL; regra específica de elegibilidade.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedentes do mesmo grupo de distribuição de pneus",
+   "sources": [],
+   "legacy": {
+    "value": "Grupo de devedores ≤2%/PL; regra específica de elegibilidade.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo individual não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Sem parcelas vencidas; devedor adimplente; média≤120 dias; exceção 5%/PL até 300 dias.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 53,
+     "clause": "cl. 7.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 7.6 Considerando a Alocação Mínima Tributária, a qual o Gestor de forma discricionária busca perseguir, os cotistas passarão a se sujeitar ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica, conforme o disposto na Lei nº 14.754, de 12 de dezembro de 2023, conforme alterada, e suas alterações, com a produção de efeitos completos a"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios >50%/PL até 180 dias; alocação tributária buscada discricionariamente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, cl. 7.5"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Mezanino B / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 48,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte inteiros por cento). Isso significa que, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas subordinadas em circulação (“Índice de Subordinação Sênior”)."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 20%/PL; proteção mezanino A 12,25%/PL e B 10,77%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, cl. 5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 48,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte inteiros por cento). Isso significa que, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas subordinadas em circulação (“Índice de Subordinação Sênior”)."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Sênior 20%/PL; proteção mezanino A 12,25%/PL e B 10,77%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, cl. 5.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção das mezaninos sem trecho contínuo localizado",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 20%/PL; proteção mezanino A 12,25%/PL e B 10,77%/PL.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Maior entre 90 dias de despesas e 0,5% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 57,
+     "clause": "cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "as assinaturas de 90 (noventa) dias contados da data acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil de apuração ou (ii) 0,5% (meio por cento) do Patrimônio Líquido da Classe na data de apuração."
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre 90 dias de despesas e 0,5%/PL; pagamentos 30% emD−20,100% emD−10.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, cl. 10.2"
+   }
+  },
+  "pdd": {
+   "display": "Provisão pelo manual de provisão para perdas do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 84,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "A – RESPONSABILIDADE LIMITADA METODOLOGIA DE PROVISÃO PARA DEVEDORES DUVIDOSOS O Administrador constituirá provisão para os Direitos Creditórios cedidos de liquidação duvidosa consoante a metodologia própria e específica definida em seu Manual de Provisão para Perdas em Ativos de Crédito. As provisões deverão respeitar os seguintes percentuais mínimos por faixa conforme tabela abaixo: Faixa Atraso PDD AA De 0 dias 0,00% A De 1 a 14 dias 0,50% B De 15 a 30 dias 1,00% C De 31 a 60 dias 3,00% D De 61 a 90 dias 10,00% E De 91 a 120 dias 100,00% De 121 a 150 F dias 100,00%"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Aging da carteira acima dos limites por faixa de atraso, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "(zero) a 30 (trinta) dias, com base no último dia do mês “Índice de Inadimplemento (30 anterior ao mês corrente e o denominador é igual ao dias)” valor agregado dos Direitos Creditórios do Fundo, deduzidos de provisões, na mesma data, que deverá ser inferior a 5,00% (cinco por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "Regulamento e detalhados no Anexo Descritivo, cuja “Eventos de Avaliação” ocorrência enseja a imediata convocação da Assembleia Geral para deliberar se deverão ser considerados Eventos de Liquidação Antecipada. Significam os eventos definidos na Cláusula 18 do Regulamento e detalhado no Anexo Descritivo, cuja “Eventos de Liquidação ocorrência enseja a observância dos procedimentos Antecipada” de liquidação da Classe e do Fundo, conforme dispostos no Regulamento. Significa o valor financeiro do excesso de spread acumulado e a apropriar pelo Fundo, o qual será, caso possível e desde que observadas as disposições deste Regulamento, notadamente a Ordem de Alocação de Recursos, ut"
+    }
+   ],
+   "legacy": {
+    "value": "Aging 0–30/31–60/61–90/91–180 abaixo 5%/3%/2%/1,8%; basecrédito líquido de provisões.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, p. 9"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Aging 0–30/31–60/61–90/91–180 abaixo 5%/3%/2%/1,8%; basecrédito líquido de provisões.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência livre, observada a ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 54,
+     "clause": "cl. 7.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "ionadas ceder ou originar, direta ou indiretamente, Direitos Creditórios à Classe. 7.12 Revolvência. Observada a Ordem de Alocação de Recursos, será admitida livremente a revolvência dos Direitos Creditórios que compõe a carteira da Classe Única. Para fins de entendimento, a revolvência significa a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira de Direitos Creditórios da Classe Única. 7.13 Não será permitida a cessão de Direitos Creditórios para as Cedentes e suas partes relacionadas, sem prejuízo da ocorrência de eventos de Resolução de Cessão, conforme previstos no Contrato de Cessão. 7.14 O remanescente do Patrimônio Líquido, que não for aplicado em Direitos Creditórios, poderá ser mantido em moeda corrente nacional ou investido nos seguintes Ativos Financeiros: (i) Disponibilidades; (ii) Letras Financeiras do Tesoura Nacional, com liquidez diária;"
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência livre observada a ordem de alocação.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos → caixa → sênior → mezaninos A/B/C → júnior → reserva amortização → excesso → créditos.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 52,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "o será devida pelo Fundo e correspondente à prestação dos serviços do Administrador e do Custodiante (“Taxa de Administração”) e será equivalente ao valor correspondente a 0,20% (vinte centésimos por cento) ao ano, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido em cada Dia Útil, observado o piso mensal de R$ 20.000,00 (vinte mil reais). 6.1.1 Será acrescido à remuneração do Custodiante: (i) pelos serviços de escrituração de Cotas do Fundo, o valor de R$ 2.500,00 (dois mil e quinhentos reais) mensais; (ii) pelos serviços de verificação de lastro dos Direitos Creditórios Cedidos inadimplidos e/ou substituídos integrantes da carteira do Fundo, conforme o disposto neste Anexo, o valor de R$ 3.000,00 (três mil reais) trimestrais;"
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a./PL; mínimo R$ 20 mil/mês; IGP-M; acréscimos de serviços e tributos.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, cl. 6.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,19% a.a. do PL; mín. R$ 10 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 52,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "s parcelas não exceda o montante total da Taxa de Administração. 6.1.5 A Taxa de Gestão será de 0,19% (dezenove centésimos por cento) ao ano, sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 10.000,00 (dez mil reais) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.1.6 A Taxa de Gestão será reajustada anualmente, com base no índice da variação positiva do IGP-M, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início D4Sign b51b99a8-a4ae-481d-b9de-6104700d00ce daconﬁrmar - Para prestação de serviço, as assinaturas conforme acesse o caso. https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2."
+    }
+   ],
+   "legacy": {
+    "value": "0,19% a.a./PL; mínimo R$ 10 mil/mês; IGP-M.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 53,
+     "clause": "cl. 6.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "Patrimônio Líquido anual da Classe. 6.5 Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 7 POLÍTICA DE INVESTIMENTO, AQUISIÇÃO DOS DIREITOS CREDITÓRIOS, ENQUADRAMENTO, CONCENTRAÇÃO E CRITÉRIOS DE ELEGIBILIDADE 7.1 A Classe terá como objetivo proporcionar aos Cotistas a valorização das Cotas de suas respectivas titularidades por meio da aplicação dos recursos da Classe, preponderantemente na aquisição dos Direitos Creditórios. 7.2 Nas aquisições de Direitos Creditórios pela Classe Única, como regra geral, cada operação de aquisição será considerada formalizada após a verificação cumulativa de atendimento de todas as etapas para aquisição de Direitos Creditórios, pelo Fundo, conforme descrito nos Contratos de Cessão e/ou Documentos Comprobatórios, conforme o caso, neste Regulamento, bem como mediante o pagamento, pela Classe, do Preço de Aquisição. 7.2.1 O pagamento do Preço de Aquisição pela Classe deverá ser realizado em moeda corrente nacional, mediante transferê"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 70,
+     "clause": "cl. 18.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": ". São Paulo, 01 de julho de 2026. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Administradora ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA. Gestor D4Sign b51b99a8-a4ae-481d-b9de-6104700d00ce - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil ADENDO I DO ANEXO DESCRITIVO DO PNEUCASH FUNDO DE INVESTIMENTOS EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA – RESPONSABILIDADE LIMITADA POLÍTICA DE COBRANÇA DA CLASSE ÚNICA DO PNEUCASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA A cobrança dos Direitos Creditórios e dos Direitos Creditórios Inadimplidos deverá ser realizada de acordo com os seguintes termos e condições, que deverão ser observados pelos Agentes de Formalização e Cobrança e pelo Custodiante (“Política de Cobrança”), sem prejuízo de outros procedimentos a serem descritos no Contrato de Formalização e Cobrança: 1 Em até 1 (um) Dia Útil da data de aquisição dos Direitos Creditórios, as Cedentes deverão instruir o Banco Cobrador a realizar o tombame"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 70,
+     "clause": "cl. 18.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": ". São Paulo, 01 de julho de 2026. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Administradora ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA. Gestor D4Sign b51b99a8-a4ae-481d-b9de-6104700d00ce - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil ADENDO I DO ANEXO DESCRITIVO DO PNEUCASH FUNDO DE INVESTIMENTOS EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA – RESPONSABILIDADE LIMITADA POLÍTICA DE COBRANÇA DA CLASSE ÚNICA DO PNEUCASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA A cobrança dos Direitos Creditórios e dos Direitos Creditórios Inadimplidos deverá ser realizada de acordo com os seguintes termos e condições, que deverão ser observados pelos Agentes de Formalização e Cobrança e pelo Custodiante (“Política de Cobrança”), sem prejuízo de outros procedimentos a serem descritos no Contrato de Formalização e Cobrança: 1 Em até 1 (um) Dia Útil da data de aquisição dos Direitos Creditórios, as Cedentes deverão instruir o Banco Cobrador a realizar o tombame"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM (o administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "Direitos Creditórios ao Fundo. “Custodiante” Significa o Administrador do Fundo. “CVM” Significa a Comissão de Valores Mobiliários. Significa a data em que ocorrer a assinatura de cada Termo de Cessão, e o pagamento do Preço de Aquisição do respectivo Direito Creditório pelo “Data de Aquisição e Administrador, em nome do Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 70,
+     "clause": "cl. 18.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": ". São Paulo, 01 de julho de 2026. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Administradora ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA. Gestor D4Sign b51b99a8-a4ae-481d-b9de-6104700d00ce - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil ADENDO I DO ANEXO DESCRITIVO DO PNEUCASH FUNDO DE INVESTIMENTOS EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA – RESPONSABILIDADE LIMITADA POLÍTICA DE COBRANÇA DA CLASSE ÚNICA DO PNEUCASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA A cobrança dos Direitos Creditórios e dos Direitos Creditórios Inadimplidos deverá ser realizada de acordo com os seguintes termos e condições, que deverão ser observados pelos Agentes de Formalização e Cobrança e pelo Custodiante (“Política de Cobrança”), sem prejuízo de outros procedimentos a serem descritos no Contrato de Formalização e Cobrança: 1 Em até 1 (um) Dia Útil da data de aquisição dos Direitos Creditórios, as Cedentes deverão instruir o Banco Cobrador a realizar o tombame"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança extrajudicial não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 28,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "tratação da Entidade Registradora; (xx) tendo em vista a Classe ser destinada a Investidores Profissionais, despesas relacionadas à contratação dos Agentes de Cobrança Extrajudicial e Agente de Formalização, inclusive aos serviços de verificação dos Critérios de Elegibilidade, caso aplicável; e (xxi) despesas relacionadas a protestos aos Direitos Creditórios Inadimplidos e cadastro em órgãos de proteção de crédito. 14.1.2 Quaisquer despesas não previstas como encargos do Fundo correm por conta do Prestador de Serviço Essencial que a tiver contratado, sem prejuízo do disposto na Cláusula 6.4 deste Regulamento. 15 ORDEM DE ALOCAÇÃO DOS RECURSOS 15.1 A partir da Data de Subscrição Inicial até a liquidação da Classe e/ou do Fundo, o Administrador deverá, todo Dia Útil, por meio dos competentes débitos e créditos realizados na Conta da Classe, alocar os recursos decorrentes da integralização das Cotas e do recebimento d"
+    }
+   ],
+   "legacy": {
+    "value": "Classe única fechada, prazo indeterminado, profissionais, responsabilidade limitada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 16,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "de investimento em direitos creditórios constituído sob a forma de condomínio fechado, por prazo de duração indeterminado, não obstante os Eventos de Liquidação Antecipada do Fundo previstos neste Regulamento, em comum acordo entre os cotistas, o Administrador e o Gestor, regido pela Resolução CVM 175 e Anexo Normativo II, e por este Regulamento, seus Anexos, seus respectivos Apêndices, se houver, e pelas demais disposições legais e regulamentares que lhe forem aplicáveis, conforme o disposto abaixo. 1.1.2 Os termos definidos e expressões adotadas com iniciais em letras maiúsculas no presente Regulamento, em seus Anexos e respectivos Apêndices, se houver, terão o significado a eles atribuído no Glossário acima, aplicável tanto no singular quanto no plural. 1.1.3 O Fundo é constituído por deliberação conjunta dos Prestadores de Serviços Essenciais, os quais foram os responsáveis pela aprovação, no mesmo ato, do Regulamento. 1.1.4 Para fins do Cód"
+    }
+   ],
+   "legacy": {
+    "value": "Classe única fechada, prazo indeterminado, profissionais, responsabilidade limitada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Grupo econômico de devedores ≤ 2% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239751",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 55,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+     "excerpt": "correrá caso os Índices de Subordinação estejam enquadrados; (vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; D4Sign b51b99a8-a4ae-481d-b9de-6104700d00ce - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil (viii) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;"
+    }
+   ],
+   "value": 2.0,
+   "legacy": {
+    "value": "Grupo de devedores ≤2%/PL; regra específica de elegibilidade.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Vendas a prazo de pneus da CPX e da ITR; subordinação de 20% e grupo de devedores ≤ 2% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,46 @@
+# IS Green Solfácil III FIDC (Daycoval; Régia Capital; agente de cobrança Solfácil)
+type: Energia solar
+q1: * "Significam todos os direitos creditórios originários de operações de “Direitos Financiamento Solar para aquisição de Sistemas Solares"
+q2: * "Financeira Parceira, formalizado por meio da emissão de uma CCB, para Solar” aquisição de Sistemas Solares"
+q3: * "Significa a Solfácil, ou seu respectivo sucessor a qualquer título, “Agente de contratado para realizar a cobrança"
+q4: * "Significa a RÉGIA CAPITAL LTDA, sociedade devidamente autorizada pela CVM"
+q5: * "celebrado entre os Prestadores de Serviços Essenciais. Significa o BANCO DAYCOVAL S.A."
+q6: * "Subordinação pela Gestora em cada Dia Útil, equivalente a, no mínimo, 25,00% (vinte Sênior” e cinco por cento)"
+q7: * "em circulação e o Patrimônio Líquido, conforme apurada pela Gestora Mezanino A” em cada Dia Útil, equivalente a, no mínimo 10,00%"
+q8: * "o valor dos Direitos Creditórios devidos por um Devedor individualmente não deverá representar mais de 0,10%"
+q9: * "22.1 São Eventos de Avaliação: (i) não divulgação, pela Administradora, do Relatório de Monitoramento"
+q10: * "5.1 A Classe é destinada a Investidores Autorizados"
+q11: * "3.1. O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado"
+receivables: CCBs de financiamento de sistemas solares | q1,q2
+originator: Instituições financeiras parceiras via plataforma Solfácil | q2,q3
+assignor: Instituições financeiras parceiras emissoras das CCBs | q2
+debtor: Pessoas físicas e jurídicas que financiam sistemas solares | q2
+recourse: n/d | Recompra e resolução regidas pelo contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Adimplente; PF até 71 anos; prazo médio da carteira limitado | o17
+debtor_limit: Devedor individual até 0,10% do PL; 10 maiores ≤ 1% | q8 | value=0.1
+assignor_limit: n/d | Limite por instituição parceira não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo individual não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: n/d | Alocação mínima sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Mezanino A / Mezanino B / Subordinada júnior | q6,q7
+sub_senior: 25% · subord./PL | q6 | basis=mez+jr/PL | value=25
+sub_mezz: Mezanino A protegida por ≥ 10% (júnior + mezanino B) | q7 | basis=jr/PL | value=10
+sub_check: Diária, pela gestora | q6
+reserve: Reserva de despesas e encargos | o43
+pdd: n/d | Critério de provisão não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: Atraso do estoque acima de 12%; relatório não enviado, entre outros | o49,q9
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: n/d | Revolvência não detalhada em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: Pro rata; sequencial após desalavancagem | o58
+admin_fee: 0,04% a.a. do PL; mín. R$ 8 mil/mês | o62
+mgmt_fee: 0,20% a.a. do PL, com mínimo mensal | o65
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Banco Daycoval | q5
+manager: Régia Capital | q4
+custodian: n/d | Custodiante não nomeado em trecho localizável
+servicer: Solfácil (agente de cobrança) | q3
+investors: Investidores autorizados | q10
+duration: Indeterminado | q11
+real_collateral: n/d | Garantia sobre equipamentos sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Financiamento solar via Solfácil com subordinação de 25% e devedor individual ≤ 0,10% do PL.

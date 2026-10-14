@@ -1,0 +1,773 @@
+{
+ "schema_version": 1,
+ "cnpj": "32526025000110",
+ "name": "COBUCCIO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA DE RESPONS LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T08:21:15Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1186789",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789"
+  },
+  "D2": {
+   "document_id": "1138542",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "13/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1138542"
+  },
+  "D3": {
+   "document_id": "1134299",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "12/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1134299"
+  },
+  "D4": {
+   "document_id": "695970",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "08/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=695970"
+  },
+  "D5": {
+   "document_id": "608946",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "23/02/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=608946"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Financiamentos de fatura, antecipações e CCBs pessoais da Brasil Card",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 58,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "aquisição de direitos creditórios oriundos de (i) operações de financiamento com as Instituições Financeiras Conveniadas realizadas pelos Devedores, representados pela Brasil Card, para quitar faturas em atraso ou que estejam a vencer contendo qualquer tipo de parcelamento referentes 58 aos Cartões Brasil Card, representados por CCB ou outro instrumento de qualquer natureza para formalizar o financiamento; (ii) Transações de Pagamentos realizadas pelos Usuários-Finais com a utilização de Cartões Brasil Card para aquisição de b"
+    }
+   ],
+   "legacy": {
+    "value": "Brasil Card: financiamentos de faturas, transações de pagamentos e CCBs de empréstimos pessoais; demais créditos limitados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Brasil Card e coligadas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "conforme alterada, representando os Direitos Creditórios de Financiamento. “Cedentes” Significam: (i) a Brasil Card e suas Coligadas; (ii) os Estabelecimentos Comerciais, representados pela Bolt Card, nos termos dos Contratos com Estabelecimentos; (iii) Cobuccio S.A. Sociedade de Crédito, Financiamento e Investimentos, com sede na Avenida Jorge Vieira, nº 257, Anexo Parte, Paranazinho, na cidade de Monte Belo, estado de Minas Gerais, CEP 37.115-000; e (iv) quaisquer outras empresas, desde que previamente aprovadas em Assembleia Geral de Cotistas. “Classe Única” ou “Classe” Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no respectivo Anexo da Classe."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "s Gerais, CEP 37.115-000, inscrita no CNPJ/ME sob o nº 28.080.769/0001-86; “Brasil Card” é a BRASIL CARD INSTITUIÇÃO DE PAGAMENTOS LTDA., sociedade limitada, com sede na Avenida Jorge Vieira, nº 257, Anexo Parte, Paranazinho, na cidade de Monte Belo, estado de Minas Gerais, CEP 37.115-000, inscrita no CNPJ/ME sob o nº 03.130.170/0001-89 e/ou quaisquer de suas Coligadas. “Cartão(ões) Brasil Card” é o instrumento de pagamento apresentado sob a forma de cartão físico ou virtual emitido pela Brasil Card, que 4 possui características únicas e formais, tais como: número de identificação próprio, código de segurança e prazo de validade, quando aplicável. “CCBs” são as cédulas de crédito bancário emitidas pelos Devedores, representados pela Brasil Card conforme cláusula mandato contida"
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras conveniadas e Brasil Card; validar cedente de cada cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Brasil Card, coligadas e estabelecimentos representados pela Bolt Card",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "conforme alterada, representando os Direitos Creditórios de Financiamento. “Cedentes” Significam: (i) a Brasil Card e suas Coligadas; (ii) os Estabelecimentos Comerciais, representados pela Bolt Card, nos termos dos Contratos com Estabelecimentos; (iii) Cobuccio S.A. Sociedade de Crédito, Financiamento e Investimentos, com sede na Avenida Jorge Vieira, nº 257, Anexo Parte, Paranazinho, na cidade de Monte Belo, estado de Minas Gerais, CEP 37.115-000; e (iv) quaisquer outras empresas, desde que previamente aprovadas em Assembleia Geral de Cotistas. “Classe Única” ou “Classe” Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no respectivo Anexo da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras conveniadas e Brasil Card; validar cedente de cada cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Portadores dos cartões Brasil Card, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "ão e integralização de Cotas. “Data de Verificação” Significa o 5º (quinto) Dia Útil de cada mês. “Devedores” são os Devedores (sacados) dos Direitos Creditórios, que são, conforme o caso: (i) portadores de Cartões Brasil Card, que tenham outorgado, nos termos do Contrato com os Titulares, poderes especiais para a Brasil Card obter, em nome do titular, financiamento de valor não 8 excedente ao saldo devedor das faturas e/ou carnês inadimplidos ou que estão a vencer contendo qualquer tipo de parcelamento referentes às Transações de Pagamento feitas mediante o uso do Cartão Brasil Card, por meio da emissão de CCBs ou outro instrumento de qualquer natureza para formalizar o financiamento; (ii) a Bolt Card, na condição de devedora dos Estabelecimentos Comerciais, em razão da realização de Transações de Pagamento pelos Usuários-Finais;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Aquisição definitiva sem regresso nem coobrigação do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 59,
+     "clause": "cl. 7.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "de regresso contra o respectivo Cedente e/ou coobrigação deste, observados, em qualquer caso: (i) os demais termos e condições deste Regulamento; (ii) os termos, condições e procedimentos previstos nos Contrato com Titulares, nos Contratos com Estabelecimentos e no Contrato de Cessão e/ou de Endosso; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos Critérios de Elegibilidade e às Condições de Cessão definidos neste Regulamento; e (iv) a Política de Investimento definida neste Capítulo. 7.6."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisição definitiva sem regresso/coobrigação do cedente; cedente responde pela existência e formalização",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Antecipações e financiamentos não vencidos; prazo médio ≤ 180 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 61,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "devem ter prazo de vencimento máximo de até 40 (quarenta) meses a contar da respectiva Data de Aquisição e Pagamento; 61 (d) os Direitos Creditórios de titularidade da Classe, considerados em conjunto, devem ter o prazo médio ponderado de vencimento de até 180 (cento e oitenta) dias, calculado na respectiva Data de Aquisição e Pagamento; (e) os Direitos Creditórios devem ser representados em moeda corrente nacional;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 62,
+     "clause": "cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "e poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade para todos os Direitos Creditórios: (a) os Direitos Creditórios deverão ser provenientes de Direitos Creditórios de Antecipação, Direitos Creditórios de Financiamento e/ou de direitos creditórios de natureza diversa aos créditos anteriormente mencionados, a serem cedidos pelos Cedentes em conformidade com as regras e procedimentos disciplinados pelo Regulamento e o presente Anexo; (b) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; (c) os Direitos Creditórios deverão constituir uma obrigação legal, válida e vinculante para o Devedor e para o Cedente; (d) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (e) o Fundo poderá ainda adquirir Direitos Creditórios representados por contratos performados ou a performar, desde que o limite máximo não exceda o equivalente a 5% (cinco por cento) de seu Patrimônio Líquido, considerada pro forma a aquisição pretendida;"
+    }
+   ],
+   "legacy": {
+    "value": "Financiamentos e antecipações não vencidos; prazo individual≤40 meses e médio ponderado≤180 dias; BRL e lastro válido",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 8.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou coobrigado: até 4% do PL, com exceções da norma",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 60,
+     "clause": "cl. 7.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "ocado, no mínimo, 50% (cinquenta por cento), de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis. 7.8.1. A Classe deverá observar o limite de 4% (quatro por cento) de seu Patrimônio Líquido para adquirir Direitos Creditórios Elegíveis e Ativos Financeiros de um mesmo devedor, ou de coobrigação de uma mesma Pessoa. Ressalvado o disposto no Item 7.8.3, abaixo, esse limite pode ser excedido desde que observado o Artigo 45 e parágrafos do Anexo Normativo II. 7.8.2. Para efeito de cálculo dos limites, consideram-se como pertencentes a um único devedor os Direitos Creditórios e Ativos Financeiros de liquidez de responsabilidade ou coobrigação de Devedores integrantes de um mesmo grupo econômico. 7.8.3. A parcela do Patrimônio Líquido do Fundo que não estiver alocada em Direitos Creditórios Elegíveis poderá ser aplicada nos ativos financeiros abaixo relacionados (“Ativos Financeiros”): (i) títulos de emissão do Tesouro Nacional; (ii) títulos de emissão do BACEN; (iii) títulos de emissão de instituições financeiras; (iv) operações compromissadas lastreadas nos títulos mencionados (i) a (iii) acima;"
+    }
+   ],
+   "value": 4.0,
+   "legacy": {
+    "value": "Devedor≤4% do PL, ressalva Brasil Card; top 5≤20%; empréstimos pessoais≤40% dos financiamentos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 7.8"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não fixado em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor≤4% do PL, ressalva Brasil Card; top 5≤20%; empréstimos pessoais≤40% dos financiamentos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Prazo individual de até 40 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 61,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "devem ter prazo de vencimento máximo de até 40 (quarenta) meses a contar da respectiva Data de Aquisição e Pagamento; 61 (d) os Direitos Creditórios de titularidade da Classe, considerados em conjunto, devem ter o prazo médio ponderado de vencimento de até 180 (cento e oitenta) dias, calculado na respectiva Data de Aquisição e Pagamento; (e) os Direitos Creditórios devem ser representados em moeda corrente nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "Financiamentos e antecipações não vencidos; prazo individual≤40 meses e médio ponderado≤180 dias; BRL e lastro válido",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 8.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 60,
+     "clause": "cl. 7.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "alocado, no mínimo, 50% (cinquenta por cento), de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis. 7.8.1. A Classe deverá observar o limite de 4% (quatro por cento) de seu Patrimônio Líquido para adquirir Direitos Creditórios Elegíveis e Ativos Financeiros de um mesmo devedor, ou de coobrigação de uma mesma Pessoa. Ressalvado o disposto no Item 7.8.3, abaixo, esse limite pode ser excedido desde que observado o Artigo 45 e parágrafos do Anexo Normativo II. 7.8.2."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos elegíveis ≥50% do PL após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 7.8"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 57,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "mínimo, 75% (setenta e cinco por cento). 5.2. Caso a relação mínima, dispostos no Item 5.1 acima não seja observado por 5 (cinco) dias consecutivos ou por 10 (dez) dias não consecutivos nos últimos 90 (noventa), a contar do 1º (primeiro) dia de desenquadramento, a Administradora comunicará imediatamente a Gestora, tal ocorrência, bem como, aos Cotistas da Classe, mediante o envio de correspondência ou por meio eletrônico, em ambos os casos com aviso de recebimento, tomando, em seguida, as demais medidas dispostas no CAP"
+    }
+   ],
+   "legacy": {
+    "value": "Sem mezanino emitido: júnior / PL ≥75%; condições com mezanino exigem validação específica",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "Sem mezanino emitido: júnior ≥ 75% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 57,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "mínimo, 75% (setenta e cinco por cento). 5.2. Caso a relação mínima, dispostos no Item 5.1 acima não seja observado por 5 (cinco) dias consecutivos ou por 10 (dez) dias não consecutivos nos últimos 90 (noventa), a contar do 1º (primeiro) dia de desenquadramento, a Administradora comunicará imediatamente a Gestora, tal ocorrência, bem como, aos Cotistas da Classe, mediante o envio de correspondência ou por meio eletrônico, em ambos os casos com aviso de recebimento, tomando, em seguida, as demais medidas dispostas no CAP"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 75.0,
+   "legacy": {
+    "value": "Sem mezanino emitido: júnior / PL ≥75%; condições com mezanino exigem validação específica",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Condições com mezanino emitido não localizadas em trecho contínuo",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Sem mezanino emitido: júnior / PL ≥75%; condições com mezanino exigem validação específica",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa de ao menos 3 meses de despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 19,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "Regulamento do Anexo da respectiva Classe. “Reserva de Caixa” significa uma reserva de caixa equivalente a, no mínimo, 3 (três) meses de despesas ordinárias do Fundo e ou da Classe, a ser constituída e controlada pela Gestora, para fins de cobertura dos encargos e despesas da Classe e/ou do Fundo mencionados no CAPÍTULO 17 deste Regulamento e detalhado no Anexo da Classe. “Resolução CVM 30/21” significa a Resolução CVM nº 30, de 11 de maio de 2021 de 2013, conforme alterada, ou qualquer outra norma que venha a substitui-la. “Resolução CVM 175” Resolução da CVM nº 175, de 23 de dezembro de 2022, conforme alterada, que dispõe sobre a constituição, o funcionamento e a divulgação de informações dos fundos de investimento, bem como sobre a prestação de serviços para os fundos, incluindo todos os seus anexos, apêndices e similares para todos os fins. “Risco de Capital” Exposição da Cla"
+    }
+   ],
+   "legacy": {
+    "value": "Mínimo 3 meses de despesas ordinárias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Índices calculados líquidos de PDD na data base mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "Creditórios de titularidade da Classe serão considerados bruto de provisão para devedores duvidosos, e serão determinados com data base do último Dia Útil do mês calendário anterior; e (b) que serão deduzidos tanto do numerador quanto do denominador os Direitos Creditórios baixados contabilmente. \"Índice de Cobertura\" O menor entre o Índice de Cobertura Sênior e o Índice de Cobertura Mezanino. Caso não haja Cotas Subordinadas Mezanino em circulação, o Índice de Cobertura será 13 equivalente ao Índice de Cobertura Sênior; e caso não haja Cotas Seniores em circulação, o Índice de Cobertura será equivalente ao Índice de Cobertura Mezanino."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Renúncia de prestador essencial, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 73,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "ada especialmente para esse fim, ou, caso não existam Cotas em circulação, por deliberação da Administradora. 72 14.2. São eventos de avaliação: (i) renúncia da Administradora ou da Gestora à administração ou gestão do Fundo, respectivamente, nos termos deste Regulamento; (ii) inobservância pela Administradora de seus deveres e obrigações previstos neste Regulamento, verificada pelos Cotistas, desde que, notificada pela Gestora por Cotistas que representem mais de 5% (cinco por cento) das Cotas emitidas pelo Fundo para sanar ou justificar o descumprimento, a Administradora não o fizer no prazo de 5 (cinco) Dias Úteis, contados da data do recebimento da referida notificação; (iii) inobservância pela Gestora dos deveres e das obrigações previstos neste Regulamento, desde que, se notificada pela Administradora para sanar ou justificar o descumprimento, a Gestora não o fizer no prazo de 5 (cinco) Dias Úteis, contados da data do recebimento da referida notificação;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação por descumprimentos, originação, subordinação e reservas; liquidação por atraso sênior>1 DU, insolvência e outros eventos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 14.1"
+   }
+  },
+  "liquidation": {
+   "display": "Atraso no pagamento da sênior e insolvência, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 73,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "14.2. São eventos de avaliação: (i) renúncia da Administradora ou da Gestora à administração ou gestão do Fundo, respectivamente, nos termos deste Regulamento; (ii) inobservância pela Administradora de seus deveres e obrigações previstos neste Regulamento, verificada pelos Cotistas, desde que, notificada pela Gestora por Cotistas que representem mais de 5% (cinco por cento) das Cotas emitidas pelo Fundo para sanar ou justificar o descumprimento, a Administradora não o fizer n"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação por descumprimentos, originação, subordinação e reservas; liquidação por atraso sênior>1 DU, insolvência e outros eventos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 14.1"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Despesas, reserva, sênior e depois subordinadas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 70,
+     "clause": "cl. 11.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "resgatadas após o pagamento integral das parcelas de amortização das Cotas Seniores emitidas e em circulação referentes à respectiva emissão/série; e (ii) as Cotas Subordinadas somente serão resgatadas após o pagamento integral das parcelas de amortização das Cotas Seniores emitidas e em circulação referentes. 11.7."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas; reserva; sênior; subordinadas após subordinação exceder 77%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 11.6"
+   }
+  },
+  "admin_fee": {
+   "display": "0,13% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 57,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "0,13% (treze centésimos por cento) ao Administração ano Escrituração e Custódia 0,02% (dois décimos por cento) ao ano 57 6.1.1. A remuneração acima será considerada tão logo o patrimônio líquido acima atinja a faixa indicada no quadro sendo calculada para todo o patrimônio líquido e não só a parcela excedente. 6.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,13% a.a. sobre PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,10% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 58,
+     "clause": "cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "Gestão 0,10% (dez centésimos por cento) ao ano 6.2.1. A remuneração acima será considerada tão logo o patrimônio líquido acima atinja a faixa indicada no quadro sendo calculada para todo o patrimônio líquido e não só a parcela excedente. 6.3. A Taxa de Administração e a Taxa de Gestão serão calculadas e provisionadas todo Dia Útil a base de 1/252 (um inteiro e duzentos e cinquenta e dois avos), sobre o valor do Patrimônio Líquido da Classe e deverão ser pagas até o 5º (quinto) dia útil do mês subsequente. 6.4."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a. sobre PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance própria",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "faturas e/ou carnês dos cartões de crédito emitidos pela Brasil Card. “Administradora” é a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto 1990, com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Carmel Gestora de Ativos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "ária de Cotas de fundos de investimento, administrado e operacionalizado pela B3. “Gestora” é a CARMEL GESTORA DE ATIVOS LTDA., situada na Avenida Paulista, 1009 – Conj. 2010, Bela Vista, CEP 04542-060, na cidade de São Paulo, estado de São Paulo, inscrita no CNPJ sob o nº 24.515.907/0001-51, credenciada pela CVM para gestão de carteiras pelo Ato Declaratório CVM nº 15.385, de 15/12/2016. “Grupo Adriano Cobuccio” Em relação à Brasil Card, o grupo formado por seu(s) controlador(es) até o último nível de pessoa física, sociedades controladas, e demais sociedades consideradas como tais. \"Horizonte de Liquidez\" Com relação a cada Data de Verificação, intervalo de tempo entre a Data de Verificação em questão (exclusive) e a 12ª (décima segunda) Data de Referência (inclusive) subsequente ao mês em questão. “Índice de Inadimplência”"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "a no momento de cada cessão de Direitos Creditórios ao Fundo e/ou à Classe. “Custodiante” é a Administradora. “CVM” Comissão de Valores Mobiliários. “Data de Amortização” é a respectiva data de amortização das Cotas, conforme cronograma de amortização disposto em seu respectivo Apêndice. “Data de Oferta” Toda data em que o Cedente, nos termos do Contrato de Cessão e/ou de Endosso, ofertar Direitos Creditórios para transferência ao Fundo. “Data de Aquisição e Pagamento” qualquer Dia Útil em que ocorrer a celebração de um Termo de Cessão e/ou Endosso e o pagamento do respectivo Preço de Aquisição à Cedente ou Endossante, com relação à cada aquisição de Direitos Creditórios pela Classe. “Data de Emissão” é a respectiva data de emissão das Cotas, conforme"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "faturas e/ou carnês dos cartões de crédito emitidos pela Brasil Card. “Administradora” é a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto 1990, com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Brasil Card e instituição conveniada (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "ordinária” ou “Contrato de Classe, representado pela Gestora, e o Agente de Cobrança” Cobrança Extraordinária, por meio do qual a Brasil Card e a Instituição Financeira Conveniada, conforme cada caso, são contratados como prestadores de serviço de cobrança dos Direitos Creditórios de titularidade da Classe. “Contratos de Depósito” são os contratos celebrados entre os Bancos Depositários, a Brasil Card e a Classe, assim como pela Administradora, na qualidade de interveniente anuente, que regulam a movimentação das Contas Vinculadas. “Contrato de Cessão” é cada Instrumento de Promessa de Cessão de Aquisição de Direitos Creditórios sem Coobrigação e Outras Avenças celebrado entre a Classe e os Cedentes, tendo a Gestora e a Administradora como intervenientes anuentes por meio dos quais são estabelecidos os termos e as condições gerais do endosso de Direitos Creditórios ao Fundo e/ou à Classe, quando aplicável."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 35,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "dora e a Administradora não forem partes relacionadas do originador ou da respectiva Cedente e, caso a Classe não seja destinada exclusivamente a Investidores Profissionais, (ii) a Gestora, a Entidade Registradora e a Administradora não forem partes relacionadas entre si, nos termos da regulamentação aplicável. 8.4. É vedado à Administradora e à Gestora, em suas respectivas esferas de atuação, aceitar que as garantias prestadas em favor da Classe sejam formalizadas em nome de terceiros, ressalvada a possibilidade de formalização de garantias em favor da Administradora, da Gestora ou de agentes de garantias que representem o Fundo e/ou a Classe como titular da garantia, os quais devem diligenciar para segregá-las adequadamente dos seus próprios patrimônios, respondendo, inclusive, caso não o façam pelos danos que causarem ao Fundo e/ou à Classe. 8.5. É vedada a aplicação de recursos na aquisição de Direitos Creditórios e Ativos Financeiros de liquidez no exterior. 8.6. É vedado aos Prestadores de Serviços Essenciais, em suas respectivas esferas de atuação, praticar os seguintes atos em nome do Fundo em relação à Classe: (a) receber depósito em conta corrente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 32,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "ÇÃO E PÚBLICO-ALVO 4.1. O funcionamento do Fundo terá início na primeira Data de Subscrição Inicial. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas em conformidade com o disposto neste Regulamento. 32 4.2. O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 4.3. O Público-Alvo da Classe é definido no respectivo Anexo da Classe. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo da Classe do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação dos recursos da Classe na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de Elegibilidade e às Condições de Cessão estabelecidos neste Regulamento; e (ii) Ativos Financeiros e valores mobiliários, observados os índices de composição e diversificação da carteira da Classe. A descrição exata dos Direitos Creditórios passíveis de aquisição pela Classe, bem como as regras de enquadramento e concentração encontram-se descritos no respectivo Anexo da Classe. DA AQUISIÇÃO DOS DIREITOS CREDITÓRIOS E VERIFICAÇÃO DO LASTRO 6.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Financiamento de faturas e transações dos cartões Brasil Card",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 58,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "aquisição de direitos creditórios oriundos de (i) operações de financiamento com as Instituições Financeiras Conveniadas realizadas pelos Devedores, representados pela Brasil Card, para quitar faturas em atraso ou que estejam a vencer contendo qualquer tipo de parcelamento referentes 58 aos Cartões Brasil Card, representados por CCB ou outro instrumento de qualquer natureza para formalizar o financiamento; (ii) Transações de Pagamentos realizadas pelos Usuários-Finais com a utilização de Cartões Brasil Card para aquisição de b"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1186789",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186789",
+     "excerpt": "ão e integralização de Cotas. “Data de Verificação” Significa o 5º (quinto) Dia Útil de cada mês. “Devedores” são os Devedores (sacados) dos Direitos Creditórios, que são, conforme o caso: (i) portadores de Cartões Brasil Card, que tenham outorgado, nos termos do Contrato com os Titulares, poderes especiais para a Brasil Card obter, em nome do titular, financiamento de valor não 8 excedente ao saldo devedor das faturas e/ou carnês inadimplidos ou que estão a vencer contendo qualquer tipo de parcelamento referentes às Transações de Pagamento feitas mediante o uso do Cartão Brasil Card, por meio da emissão de CCBs ou outro instrumento de qualquer natureza para formalizar o financiamento; (ii) a Bolt Card, na condição de devedora dos Estabelecimentos Comerciais, em razão da realização de Transações de Pagamento pelos Usuários-Finais;"
+    }
+   ],
+   "legacy": {
+    "value": "Brasil Card: financiamentos de faturas, transações de pagamentos e CCBs de empréstimos pessoais; demais créditos limitados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Mecanismo de trava não descrito em trecho contínuo",
+   "sources": []
+  },
+  "dilution": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Tratamento de cancelamentos não localizado em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Crédito dos cartões Brasil Card com júnior ≥ 75% do PL (sem mezanino) e devedor ≤ 4% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

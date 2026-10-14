@@ -1,0 +1,756 @@
+{
+ "schema_version": 1,
+ "cnpj": "61288838000117",
+ "name": "IFOOD PAGO CRÉDITO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FINANCEIRO RESP. LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T08:27:25Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1240846",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "03/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846"
+  },
+  "D2": {
+   "document_id": "1247950",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "14/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247950"
+  },
+  "D3": {
+   "document_id": "1244649",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "10/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1244649"
+  },
+  "D4": {
+   "document_id": "1240807",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "06/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240807"
+  },
+  "D5": {
+   "document_id": "1240575",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "06/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240575"
+  },
+  "D6": {
+   "document_id": "1240845",
+   "kind": "Ata",
+   "title": "AGE",
+   "date": "03/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240845"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de clientes do iFood Pago e recebíveis de cartão contra credenciadora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 105,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "iniciando-se no mês imediatamente posterior ao 1º (primeiro) Mês Completo de Alocação. “Devedores” significamos Devedores CCB e o Devedor Credenciadora, quando referidos em conjunto ou indistintamente. “Devedores CCB” significam pessoas físicas ou jurídicas que possuam uma Conta Digital do Devedor CCB e que emitam uma CCB em favor da Instituição Financeira Parceira, conforme aplicável, com o objetivo de realizar uma operação de crédito. “Devedor Credenciadora” significa a Credenciadora, na qualidade de devedora dos Direitos Creditórios Credenciadora. “Devedores Elegíveis significam Devedores CCB que atendam aos seguintes critérios mínimos, CCB” observado o disposto na Política de Crédito: (i) tenham aberto sua Conta Digital do Devedor CCB após um processo de know your client (KYC) e coleta de informações, incluindo análise do perfil de cliente cadastrado nas Plataformas, consulta a bancos de dados públicos e privados e envio de documentos cadastrais;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 106,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "“Direitos Creditórios” significam os Direitos Creditórios CCB e os Direitos Creditórios Credenciadora, quando referidos em conjunto ou indistintamente."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de crédito e recebíveis performados de cartão devidos à subcredenciadora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "MovilePay (MI Pagamentos) e instituição financeira parceira",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 107,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "e Cartões), com validade no Brasil, nos termos da legislação aplicável do CMN e BACEN. “Endossante” significa (i) a MovilePay, e/ou (ii) uma Instituição Financeira Parceira. “Endosso Eletrônico” significa o endosso em preto realizado eletronicamente, sem coobrigação do Endossante, de cada CCB com todos os respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados ao Endossante por meio da CCB, nos termos da legislação cambiária aplicável, realizado pelo Endossante em favor do Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 116,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "s Mezanino, a meta de rentabilidade das Cotas, determinada em seu respectivo Apêndice. “MovilePay” significa (i) a MI PAGAMENTOS DO BRASIL LTDA., sociedade limitada empresária, inscrita no CNPJ/MF sob o nº 02.599.377/0001-34, com sede na Cidade de Osasco, Estado de São Paulo, na Avenida dos Autonomistas, nº 1496, 7º andar, lado A, Vila Yara, CEP 06020-902; (ii) o iFood Pago SCD;"
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras parceiras originam CCB; MovilePay e parceiras endossam",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "MovilePay ou instituição financeira parceira, por endosso",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 107,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "e Cartões), com validade no Brasil, nos termos da legislação aplicável do CMN e BACEN. “Endossante” significa (i) a MovilePay, e/ou (ii) uma Instituição Financeira Parceira. “Endosso Eletrônico” significa o endosso em preto realizado eletronicamente, sem coobrigação do Endossante, de cada CCB com todos os respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados ao Endossante por meio da CCB, nos termos da legislação cambiária aplicável, realizado pelo Endossante em favor do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras parceiras originam CCB; MovilePay e parceiras endossam",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Devedores das CCBs e credenciadora dos recebíveis de cartão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 105,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "iniciando-se no mês imediatamente posterior ao 1º (primeiro) Mês Completo de Alocação. “Devedores” significamos Devedores CCB e o Devedor Credenciadora, quando referidos em conjunto ou indistintamente. “Devedores CCB” significam pessoas físicas ou jurídicas que possuam uma Conta Digital do Devedor CCB e que emitam uma CCB em favor da Instituição Financeira Parceira, conforme aplicável, com o objetivo de realizar uma operação de crédito. “Devedor Credenciadora” significa a Credenciadora, na qualidade de devedora dos Direitos Creditórios Credenciadora. “Devedores Elegíveis significam Devedores CCB que atendam aos seguintes critérios mínimos, CCB” observado o disposto na Política de Crédito: (i) tenham aberto sua Conta Digital do Devedor CCB após um processo de know your client (KYC) e coleta de informações, incluindo análise do perfil de cliente cadastrado nas Plataformas, consulta a bancos de dados públicos e privados e envio de documentos cadastrais;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB: PF/PJ com conta digital; cartão: credenciadora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação do endossante e da cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 26,
+     "clause": "cl. 9.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "l significativa, o que afetaria negativamente a rentabilidade das Cotas e o investimento dos Cotistas. 9.3.2. Ausência de coobrigação do Endossante e da Cedente. O Endossante, a Cedente, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum não respondem pelo pagamento dos Direitos Creditórios CCB ou dos Direitos Creditórios Credenciadora, ou pela solvência dos Devedores. O Endossante e a Cedente são somente responsáveis, na Data de Aquisição e Pagamento, pela existência, liquidez, certeza, exigibilidade, exequibilidade, legitimidade e correta formalização dos Direitos Creditórios Adquiridos, de acordo com o previsto neste Regulamento, no Contrato de Endosso e no Contrato de Cessão, conforme aplicável. Assim, na hipótese de inadimplência dos Direitos Creditórios Adquiridos, poderá haver impacto negativo no patrimônio e na rentabilidade do Fundo e, consequentemente, no investimento dos Cotistas. 9.3.3. Risco de crédito dos Devedores e Ausência de Auditoria Legal nos Devedores."
+    }
+   ],
+   "legacy": {
+    "value": "Endosso de CCB sem coobrigação do endossante",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Devedor da CCB adimplente; CCB de até 48 meses com aval",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 55,
+     "clause": "cl. 10.5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "Elegibilidade, a serem verificados pela Gestora na respectiva Data de Oferta de Direitos Creditórios: (1) em relação aos Direitos Creditórios CCBs: (i) o respectivo Devedor CCB não poderá estar inadimplente com relação a qualquer Direito Creditório CCB integrante da carteira do Fundo, na Data de Oferta de Direitos Creditórios; (ii) as CCBs deverão ter prazo máximo de (a) 48 (quarenta e oito) meses a contar da data de sua respectiva aquisição pelo Fundo, caso contem com Aval ou Devedor Solidário CCB, conforme aplicável; ou (b) 35 (trinta e cinco) dias corridos a contar da data de sua respectiva aquisição pelo Fundo, caso não contem com Aval ou Devedor Solidário CCB; (iii) as CCBs deverão ter prazo máximo de carência de 96 (noventa e seis) dias a contar de sua respectiva emissão;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 55,
+     "clause": "cl. 10.5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "o Creditório CCB integrante da carteira do Fundo, na Data de Oferta de Direitos Creditórios; (ii) as CCBs deverão ter prazo máximo de (a) 48 (quarenta e oito) meses a contar da data de sua respectiva aquisição pelo Fundo, caso contem com Aval ou Devedor Solidário CCB, conforme aplicável; ou (b) 35 (trinta e cinco) dias corridos a contar da data de sua respectiva aquisição pelo Fundo, caso não contem com Aval ou Devedor Solidário CCB; (iii) as CCBs deverão ter prazo máximo de carência de 96 (noventa e seis) dias a contar de sua respectiva emissão;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB até 48 meses com aval/devedor solidário; até 35 dias sem essas garantias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, cl. 10.5.2"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: limite de 20% do PL da norma",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 49,
+     "clause": "cl. 10.1.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "de Devedores previstas na política de investimento deste Regulamento, o Fundo não poderá adquirir Direitos Creditórios e outros ativos de um mesmo devedor, ou de coobrigação de uma mesma pessoa ou entidade, em montante igual ou superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo, nos termos do artigo 45 do Anexo Normativo II, observadas as exceções do §3º do artigo 45 do Anexo Normativo II. 10.1.12. O Fundo poderá adquirir Direitos Creditórios cedidos, endossados ou originados, direta ou indiretamente, pelo Agente de Cobrança Extraordinária CCB e por suas respectivas Partes Relacionadas, até o limite de 100% (cem por cento) do Patrimônio Líquido. 10.1.13. O Fundo poderá adquirir Direitos Creditórios Credenciadora cedidos, ou originados, direta ou indiretamente, pelo Agente de Cobrança Extraordinária Credenciadora e por suas respectivas Partes Relacionadas, até o limite de 50% (cinquenta por cento) do Patrimônio Líquido. 10.1.14. O Fundo não poderá realizar operações nas quais a Administradora, a Gestora, seus controladores, sociedades por elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum atuem na condição de contraparte. 10.1.14.1."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por endossante não localizado em trecho contínuo",
+   "sources": []
+  },
+  "term_max": {
+   "display": "CCB de até 48 meses (com aval ou devedor solidário)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 55,
+     "clause": "cl. 10.5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "o Creditório CCB integrante da carteira do Fundo, na Data de Oferta de Direitos Creditórios; (ii) as CCBs deverão ter prazo máximo de (a) 48 (quarenta e oito) meses a contar da data de sua respectiva aquisição pelo Fundo, caso contem com Aval ou Devedor Solidário CCB, conforme aplicável; ou (b) 35 (trinta e cinco) dias corridos a contar da data de sua respectiva aquisição pelo Fundo, caso não contem com Aval ou Devedor Solidário CCB; (iii) as CCBs deverão ter prazo máximo de carência de 96 (noventa e seis) dias a contar de sua respectiva emissão;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB até 48 meses com aval/devedor solidário; até 35 dias sem essas garantias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, cl. 10.5.2"
+   }
+  },
+  "allocation": {
+   "display": "Alocação regulatória de 50% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 97,
+     "clause": "cl. 26.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "“Alocação Mínima significa o percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido Regulatória” a ser mantido em Direitos Creditórios. “Alocações Mínimas” significa a Alocação Mínima - Entidade de Investimento e a Alocação Mínima – Regulatória, quando referidas em conjunto ou indistintamente."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Regulatória 50% PL; entidade de investimento 67% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, cl. 26.1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 114,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "bordinação significa a razão mínima admitida entre o somatório do valor das Cotas Sênior” Subordinadas em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 25% (vinte e cinco por cento). “Instituição Autorizada” significa qualquer das seguintes instituições financeiras: (i) Banco Bradesco S.A., (ii) Banco Santander (Brasil) S.A., (iii) Banco do Brasil S.A., (iv) Caixa Econômica Federal, (v) Banco Itaú Unibanco S.A., (vi) Banco Citibank S.A., desde que possua classificação de risco de crédito de longo prazo, atribuída pela Agência Classificadora de Risco, no mínimo igual ou superior ao maior entre (a) a mais elevada classificação de risco atribuída às Cotas Seniores e (b) br.A. Caso uma dessas instituições financeiras atue como contraparte ou prestadora de serviços do Fundo e tenha sua classificação de risco de crédito de longo prazo rebaixada abaixo do patamar descrito acima, a Administradora e o Custodiante comprometem-se a"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 114,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "bordinação significa a razão mínima admitida entre o somatório do valor das Cotas Mezanino” Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo 15% (quinze por cento). “Índice de Subordinação significa a razão mínima admitida entre o somatório do valor das Cotas Sênior” Subordinadas em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 25% (vinte e cinco por cento). “Instituição Autorizada” significa qualquer das seguintes instituições financeiras: (i) Banco Bradesco S.A., (ii) Banco Santander (Brasil) S.A., (iii) Banco do Brasil S.A., (iv) Caixa Econômica Federal, (v) Banco Itaú Unibanco S.A., (vi) Banco Citibank S.A., desde que possua classificação de risco de crédito de longo prazo, atribuída pela Agência Classificadora de Risco, no mínimo igual ou superior ao maior entre (a) a mais elevada classificação de risco atribuída às Cotas Seniores e (b) br.A. Caso uma dessas instituiçõe"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥25%; júnior/PL ≥15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, p. 114"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 114,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "bordinação significa a razão mínima admitida entre o somatório do valor das Cotas Sênior” Subordinadas em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 25% (vinte e cinco por cento). “Instituição Autorizada” significa qualquer das seguintes instituições financeiras: (i) Banco Bradesco S.A., (ii) Banco Santander (Brasil) S.A., (iii) Banco do Brasil S.A., (iv) Caixa Econômica Federal, (v) Banco Itaú Unibanco S.A., (vi) Banco Citibank S.A., desde que possua classificação de risco de crédito de longo prazo, atribuída pela Agência Classificadora de Risco, no mínimo igual ou superior ao maior entre (a) a mais elevada classificação de risco atribuída às Cotas Seniores e (b) br.A. Caso uma dessas instituições financeiras atue como contraparte ou prestadora de serviços do Fundo e tenha sua classificação de risco de crédito de longo prazo rebaixada abaixo do patamar descrito acima, a Administradora e o Custodiante comprometem-se a"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥25%; júnior/PL ≥15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, p. 114"
+   }
+  },
+  "sub_mezz": {
+   "display": "15% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 114,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "bordinação significa a razão mínima admitida entre o somatório do valor das Cotas Mezanino” Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo 15% (quinze por cento). “Índice de Subordinação significa a razão mínima admitida entre o somatório do valor das Cotas Sênior” Subordinadas em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 25% (vinte e cinco por cento). “Instituição Autorizada” significa qualquer das seguintes instituições financeiras: (i) Banco Bradesco S.A., (ii) Banco Santander (Brasil) S.A., (iii) Banco do Brasil S.A., (iv) Caixa Econômica Federal, (v) Banco Itaú Unibanco S.A., (vi) Banco Citibank S.A., desde que possua classificação de risco de crédito de longo prazo, atribuída pela Agência Classificadora de Risco, no mínimo igual ou superior ao maior entre (a) a mais elevada classificação de risco atribuída às Cotas Seniores e (b) br.A. Caso uma dessas instituiçõe"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pelo custodiante",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 114,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "bordinação significa a razão mínima admitida entre o somatório do valor das Cotas Sênior” Subordinadas em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 25% (vinte e cinco por cento). “Instituição Autorizada” significa qualquer das seguintes instituições financeiras: (i) Banco Bradesco S.A., (ii) Banco Santander (Brasil) S.A., (iii) Banco do Brasil S.A., (iv) Caixa Econômica Federal, (v) Banco Itaú Unibanco S.A., (vi) Banco Citibank S.A., desde que possua classificação de risco de crédito de longo prazo, atribuída pela Agência Classificadora de Risco, no mínimo igual ou superior ao maior entre (a) a mais elevada classificação de risco atribuída às Cotas Seniores e (b) br.A. Caso uma dessas instituições financeiras atue como contraparte ou prestadora de serviços do Fundo e tenha sua classificação de risco de crédito de longo prazo rebaixada abaixo do patamar descrito acima, a Administradora e o Custodiante comprometem-se a"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥25%; júnior/PL ≥15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, p. 114"
+   }
+  },
+  "reserve": {
+   "display": "3 meses de despesas; reserva da próxima amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 89,
+     "clause": "cl. 20.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "o pagamento referente aos 3 (três) meses subsequentes de despesas ordinárias identificadas como encargos do Fundo, nos termos do capítulo 19 deste Regulamento, incluindo-se a Taxa de Administração e a Taxa de Docusign Envelope ID: C5686DA9-ACCA-82C9-836A-8EEEA2CD6AEE Gestão, calculada, se disponível, com base na média simples das despesas ordinárias incorridas nos últimos 12 (doze) meses, se disponível. 20.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas ordinárias; reserva de amortização 100% da próxima projeção",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, cl. 20.1"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Política de provisão em complemento, sem trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Falta do relatório de monitoramento; atrasos acima dos limites, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 81,
+     "clause": "cl. 16.18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "§2º do Anexo Normativo II. 17. EVENTOS DE AVALIAÇÃO 17.1. São Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Monitoramento, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Monitoramento o envio do referido relatório não seja sanado pela Gestora; (ii) se a Agência Classificadora de Risco não divulgar, caso assim for exigido nos respectivos Apêndices, a atualização trimestral da classificação de risco referente às Cotas Seniores e Cotas Subordinadas Mezanino por prazo igual ou superior a 90 (noventa) dias, sem a substituição da Agência Classificadora de Risco;"
+    },
+    {
+     "doc": "D6",
+     "document_id": "1240845",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "03/07/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240845",
+     "excerpt": "30 (trinta) dias, (ii) 15% (quinze por cento), para Direitos Creditórios Inadimplidos vencidos e inadimplidos há mais de 90 (noventa) dias, e (iii) 14% (catorze por cento), para Direitos Creditórios Inadimplidos vencidos e inadimplidos há mais de 180 (cento e oitenta) dias."
+    }
+   ],
+   "legacy": {
+    "value": "Limites de atraso >30/>90/>180 dias: 20%/15%/14%, conforme fórmula contratual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, cl. 16.18"
+   }
+  },
+  "liquidation": {
+   "display": "Insolvência da MovilePay ou da instituição parceira, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 84,
+     "clause": "cl. 17.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "verão ser interrompidas. 18. EVENTOS DE LIQUIDAÇÃO ANTECIPADA E LIQUIDAÇÃO DO FUNDO 18.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: (i) a ocorrência de Eventos de Insolvência em relação à MovilePay ou a uma Instituição Financeira Parceira; (ii) a ocorrência de Eventos de Insolvência em relação ao Provedor das Contas Digitais dos Devedores, sua renúncia à função ou término do contrato celebrado entre o Provedor das Contas Digitais dos Devedores e a MovilePay ou quem vier a substituí-la, a qualquer título, em qualquer hipótese desde que não seja substituído por empresa pertencente ao grupo econômico iFood ou quem vier a substituí-la em (a) até 5 (cinco) Dias Úteis contados da data de recebimento de notificação da Administradora a respeito de referido Evento de Insolvência, ou (b) 90 (noventa) dias da data de término do contrato celebrado entre o Provedor das Contas Digitais dos Devedores e a MovilePay ou quem vier a substituí-la, e desde que a administração das Contas Digitais dos Devedores não seja afetada adversamente;"
+    }
+   ],
+   "legacy": {
+    "value": "Limites de atraso >30/>90/>180 dias: 20%/15%/14%, conforme fórmula contratual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, cl. 17.6"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Principal: até o 24º mês da emissão, inclusive",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Faixas de PL a partir de 0,09% a.a., com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 21,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "0,09% Até R$ 500.000.000,00 (nove centésimos por cento) 0,0759% Entre R$ 500.000.000,01 (setecentos e cinquenta e nove décimos de e R$ 1.000.000.000,00"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais 0,09%/0,0759%/0,0708% a.a. PL; mínimo escrito por extenso R$ 35 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, cl. 8.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Faixas de PL a partir de 0,04% a.a., com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 22,
+     "clause": "cl. 8.1.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "Até R$ 500.000.000,00 0,04% (quatro centésimos por cento) Entre R$ 500.000.000,01 e R$ 0,03% (três centésimos por cento) 1.000.000.000,00 Acima de R$1.000.000.000,00 0,028% (vinte e oito milésimos por cento) 8.1.5.2."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas 0,04%/0,03%/0,028% a.a. PL; mínimo R$ 15 mil/mês; implantação R$ 65 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/07/2026, cl. 8.1.5.1"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "2ª série sênior: DI + 2,50% a.a.; capitalização composta/252 DU",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "2ª série sênior: DI + 2,50% a.a.; capitalização composta/252 DU",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 96,
+     "clause": "cl. 26.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "ignifica a data da primeira integralização de determinada Subclasse ou Série de Integralização de Cotas” Cotas. “Administradora” significa a VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório CVM nº 21.369 de 20 de outubro de 2023, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, n.º 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ/MF sob o nº 48.967.968/0001-18, ou seu sucessor a qualquer título. “Afiliada” significa, em relação a determinada Pessoa, seu controlador direto ou indireto em qualquer nível societário, sociedade direta ou indiretamente controlada por ele em qualquer nível societário, sociedade coligada ou sob Controle comum em qualquer nível societário. “Agência Classificadora significa qualquer agência de classificação de risco autorizada a prestar tais de Risco” serviços junto a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Vert Gestora de Recursos Financeiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 110,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "em conjunto ou indistintamente, o Aval e a Cessão Fiduciária de Recebíveis Comerciais. “Gestora” significa a VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório CVM nº 17.249, de 11 de julho de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2365, 11º andar, CEP 05407-003, inscrita no CNPJ sob o nº 31.636.333/0001-35, ou sua sucessora a qualquer título. “Horizonte de Liquidez” significa, com relação a cada Data de Verificação, intervalo de tempo entre a Data de Verificação em questão (exclusive) e a 12ª (décima segunda) Data de Referência (inclusive) subsequente ao mês em questão, no qual serão calculados o Índice de Liquidez mensal individual para cada mês. Docusign Envelope ID: C5686DA9-ACCA-82C9-836A-8EEEA2CD6AEE “iFood” significa o IFOOD.COM AGÊNCIA DE RESTAURANTES ONLINE"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vert DTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 103,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "undo, que serão verificados pela Gestora, nos termos do item 10.5.2 deste Regulamento. “Custodiante” significa a Administradora, na qualidade de custodiante dos ativos integrantes da carteira, responsável pela controladoria do Fundo, custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas e guarda dos Documentos Comprobatórios, conforme Resolução CVM nº 175. “CVM” significa a Comissão de Valores Mobiliários. “Data Base de Índices” significa a Data de Referência. Docusign Envelope ID: C5686DA9-ACCA-82C9-836A-8EEEA2CD6AEE “Data de Amortização significa a data de amortização de cada Série de Cotas Seniores ou Subclasse ou Final” Série de Cotas Subordinadas Mezanino, especificada no respectivo Apêndice, ou a data em que as Cotas sejam integralmente amortizadas, o que ocorrer primeiro, observada a subordinação entre as Cotas. “Data de Aquisição e significa cada data de pagamento pelo Fundo ao Endossante e/ou à Cedente, Pagamento” conforme aplicável, do Preço d"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 96,
+     "clause": "cl. 26.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "ignifica a data da primeira integralização de determinada Subclasse ou Série de Integralização de Cotas” Cotas. “Administradora” significa a VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório CVM nº 21.369 de 20 de outubro de 2023, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, n.º 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ/MF sob o nº 48.967.968/0001-18, ou seu sucessor a qualquer título. “Afiliada” significa, em relação a determinada Pessoa, seu controlador direto ou indireto em qualquer nível societário, sociedade direta ou indiretamente controlada por ele em qualquer nível societário, sociedade coligada ou sob Controle comum em qualquer nível societário. “Agência Classificadora significa qualquer agência de classificação de risco autorizada a prestar tais de Risco” serviços junto a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança extraordinária não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 4,
+     "clause": "cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "ríodo de 90 (noventa) dias consecutivos, estes devem ser imediatamente liquidados pela Administradora. 2.3. A Classe do Fundo é destinada a Investidores Qualificados que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceitem os riscos associados aos investimentos do Fundo. 2.4. Para fins do disposto no “Código de Administração e Gestão de Recursos de Terceiros” o Fundo é Docusign Envelope ID: C5686DA9-ACCA-82C9-836A-8EEEA2CD6AEE classificado como “Fundo de Investimento em Direitos Creditórios”, tipo “Multicarteira”, conforme o Anexo Complementar V das “Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros”, conforme em vigor, todos da ANBIMA. 2.5. Os Cotistas da Classe do Fundo terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18 da Resolução CVM nº 175 e do artigo 1.368-D, inciso I, do Código Civil. 3. PRAZO DE DURAÇÃO 3.1. O funcionamento do Fundo terá início na Data de Início do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1240846",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/07/2026",
+     "page": 5,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+     "excerpt": "3. PRAZO DE DURAÇÃO 3.1. O funcionamento do Fundo terá início na Data de Início do Fundo. A Classe do Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e Série ou Subclasse de Cotas Subordinadas Mezanino terá o Prazo de Duração estipulado no respectivo Apêndice. 3.1.1. O Prazo de Duração da Classe poderá ser estendido ou reduzido por deliberação dos Cotistas reunidos em Assembleia Geral, observado o disposto neste Regulamento. 3.1.2. Na hipótese de o Prazo de Duração de cada Série de Cotas Seniores ou Série ou Subclasse de Cotas Subordinadas Mezanino encerrar-se em qualquer dia que não seja um Dia Útil, a respectiva amortização final será efetuada no primeiro Dia Útil subsequente. 3.1.3. O término do Fundo não afetará o cumprimento das obrigações do Fundo que tenham se tornado exigíveis até o último dia do referido prazo de duração, inclusive. 4. PRESTADORES DE SERVIÇOS ESSENCIAIS 4.1. Administradora 4.1.1. O Fundo é administrado pela Administradora. 4.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "36º Mês Completo de Alocação desde a 1ª integralização",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "CCBs do iFood Pago via MovilePay sem coobrigação; subordinação de 25% (júnior ≥ 15%) e CCB até 48 meses.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

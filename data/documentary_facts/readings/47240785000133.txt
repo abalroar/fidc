@@ -1,0 +1,48 @@
+# FIDC IS Green Solfácil V (Daycoval; Angá; plataforma Solfácil)
+type: Energia solar
+q13: * "o prazo de vencimento dos Direitos Creditórios, incluindo o período de carência de pagamento de principal e/ou juros, deverá ser de, no máximo, 4.760"
+q12: * "a Média Ponderada dos Prazos de Vencimento das CCB e das CPR-Financeiras integrantes do patrimônio do Fundo deverá ser de, no máximo, 2.400"
+q1: * "omo objeto um financiamento aos Devedores para aquisição de Sistemas Solares"
+q2: * "Solfácil Energia Solar e Serviços Financeiros Ltda."
+q3: * "“Gestor ou Gestora” ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA."
+q4: * "“Custodiante” BANCO DAYCOVAL S.A."
+q5: * "“Administradora” BANCO DAYCOVAL S.A."
+q6: * "Razão de Garantia das Cotas Subordinadas for, no mínimo, 20% (vinte por cento), sendo que as Cotas"
+q7: * "Subordinadas Júnior deverão representar, em conjunto, no mínimo, 7% (sete por cento) do patrimônio líquido da Classe"
+q8: * "16.2. São considerados Eventos de Avaliação: a) não restabelecimento do desenquadramento da Razão de Garantia no prazo de 10 (dez) Dias Úteis"
+q9: * "3.1 As Cotas serão destinadas exclusivamente aos Investidores Autorizados"
+q10: * "O Fundo terá prazo indeterminado de duração"
+q11: * "manual de provisão para perdas de devedores disponível em seu website"
+receivables: CCBs e CPR financeiras de financiamento de sistemas solares | q1,q12
+originator: Solfácil Energia Solar e Serviços Financeiros | q2
+assignor: Instituições financeiras endossantes das CCBs | q1
+debtor: Pessoas físicas e jurídicas que financiam sistemas solares | q1
+recourse: n/d | Recompra e resolução regidas pelo contrato de transferência | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Prazo médio ≤ 2.400 dias; individual ≤ 4.760; preço PF ≤ R$ 500 mil | q12,q13
+debtor_limit: Devedor ≤ 2% do PL; 10 maiores ≤ 10% | o19 | value=2
+assignor_limit: n/d | Limite por endossante não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Prazo individual de até 4.760 dias | q13
+allocation: ≥ 50% do PL em direitos creditórios; 67% para fins tributários | o26 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q6
+sub_senior: 20% · subord./PL | q6 | basis=mez+jr/PL | value=20
+sub_mezz: Júnior ≥ 7% do PL | q7 | basis=jr/PL | value=7
+sub_check: Desenquadramento sem cura em 10 dias úteis é evento de avaliação | q8
+reserve: 3 meses de despesas; próxima amortização provisionada | o39
+pdd: Manual de provisão para perdas da administradora | q11
+eval_triggers: Razão de garantia não restabelecida em 10 dias úteis, entre outros | q8
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: n/d | Revolvência não detalhada em trecho localizável
+amortization: Despesas e reservas antes dos pagamentos; cotas públicas antes da júnior | o54
+admin_fee: 0,09% a.a. do PL, com mínimo mensal escalonado (IPCA) | o58
+mgmt_fee: 0,30% a.a. do PL | o61
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Banco Daycoval | q5
+manager: Angá Administração de Recursos | q3
+custodian: Banco Daycoval | q4
+servicer: n/d | Agente de cobrança não nomeado em trecho localizável
+investors: Investidores autorizados | q9
+duration: Indeterminado | q10
+real_collateral: n/d | Garantia sobre equipamentos sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Financiamento solar da Solfácil com subordinação de 20% (júnior ≥ 7%) e devedor ≤ 2% do PL.

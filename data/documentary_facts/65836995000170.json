@@ -1,0 +1,664 @@
+{
+ "schema_version": 1,
+ "cnpj": "65836995000170",
+ "name": "PNEUCASH II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA RESP LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T08:16:50Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1322406",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "14/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406"
+  },
+  "D2": {
+   "document_id": "1333659",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso de Modificação de Oferta",
+   "date": "29/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333659"
+  },
+  "D3": {
+   "document_id": "1324443",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "18/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324443"
+  },
+  "D4": {
+   "document_id": "1323994",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "15/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323994"
+  },
+  "D5": {
+   "document_id": "1309799",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "03/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1309799"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de pneus e produtos das cedentes, performadas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "omingos ou feriados nacionais; e (ii) aqueles sem expediente na B3. “Direitos Creditórios” Significam, em conjunto, (i) os direitos creditórios performados (cujos respectivos Produtos foram entregues ou retirados, ou com pedidos emitidos) vincendos, existentes, livres e desimpedidos de quaisquer ônus, gravames ou restrições, de titularidade das Cedentes, originados no âmbito de Operações a Prazo envolvendo Produtos celebradas entre as Cedentes e seus respectivos Devedores, no mercado local, expressos em moeda corrente nacional, cujas respectivas transações sejam sempre representadas por Documentos Comprobatórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis comerciais de pneumáticos, câmaras de ar e autopeças; créditos transferidos do PneuCash I admitidos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "CPX, ITR e GP Pneus (e o Pneucash I, quando aplicável)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "tores Independentes Ltda. “BACEN” Significa o Banco Central do Brasil. Significam, quando mencionadas em conjunto, a CPX, a ITR e a GP, “Cedentes” conforme abaixo qualificados e, quando aplicável, a Cedente FIDC I. Significa o PNEUCASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA – RESPONSABILIDADE LIMITADA, fundo de investimento em direitos creditórios constituído e “Cedente FIDC I” organizado sob a forma de condomínio fechado e inscrito no CNPJ/MF sob o nº 53.662.209/0001-87, na qualidade de cedente do Fundo para os fins específicos dos Direitos Creditórios FIDC I, conforme Contrato de Cessão Direitos Creditórios FIDC I. “Chave de Acesso É um conjunto de 44 (quarenta e quatro) dígitos que identifica da NFe” univocamente uma Nota Fiscal e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição do Cedente. “Classe” ou “Classe Classe única de Cotas, constituída sob a f"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "gosto de 2008, que presta serviço de gestão da carteira de Ativos do Fundo. Significa a GP PNEUS LTDA., sociedade limitada com sede na cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua Dona Margarida, nº “GP” 573, sala 11, Navegantes, CEP 90240-611, inscrita no CNPJ/MF sob o nº 46.378.127/0001-40. “Grupo Econômico” Significa, com relação a qualquer das partes, seus coordenadores, controladores, controladas, coligadas, sociedades sob controle comum, subsidiárias, filiais e afiliadas, onde quer que estejam localizados. “Grupo Econômico Significa, as seguintes pessoas físicas e jurídicas: O Humberto Gabriel das Cedentes” Cantu, as Cedentes, a CP Comercial (CNPJ: 08.888.040/0001-23), a Canaan Trade (CNPJ:35.973.224/0001-64), a Gripmaster (CNPJ: 08.265.644/000-13) e a Verum Store (CNPJ: 35.835.092/0001-50). “IGP-M” Significa o Índice Geral de Preços do Mercado, divulgado pela Fundação Getúlio Vargas, ou outro índice que venha a substituí-lo. “Índices de Significa o Índice de Cobertura Sênior, o Índice de Cobertura Mezanino A"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "endo V ao Anexo Descritivo. “Cotista” Significa o titular de Cotas, sem distinção. “CPX” Significa a cedente CPX DISTRIBUIDORA S.A., sociedade por ações, com sede na Cidade de Itajaí, Estado de Santa Catarina, na Rodovia Antonio Heil, nº 800, km 01, sala 02, Itaipava, CEP 88.316-001, inscrita no CNPJ sob o nº 10.158.356/0001-01. “Critérios de Significam os critérios previsto no Capítulo 10 do Regulamento e detalhado Elegibilidade” no Anexo Descritivo, a serem verificados pelo Gestor no momento de cada cessão de Direitos Creditórios ao Fundo. “Custodiante” Significa o BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou o seu sucessor a qualque"
+    }
+   ],
+   "legacy": {
+    "value": "CPX Distribuidora, ITR Comércio de Pneus e GP Pneus; veículo PneuCash I como cedente específico",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "CPX, ITR e GP Pneus",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "tores Independentes Ltda. “BACEN” Significa o Banco Central do Brasil. Significam, quando mencionadas em conjunto, a CPX, a ITR e a GP, “Cedentes” conforme abaixo qualificados e, quando aplicável, a Cedente FIDC I. Significa o PNEUCASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA – RESPONSABILIDADE LIMITADA, fundo de investimento em direitos creditórios constituído e “Cedente FIDC I” organizado sob a forma de condomínio fechado e inscrito no CNPJ/MF sob o nº 53.662.209/0001-87, na qualidade de cedente do Fundo para os fins específicos dos Direitos Creditórios FIDC I, conforme Contrato de Cessão Direitos Creditórios FIDC I. “Chave de Acesso É um conjunto de 44 (quarenta e quatro) dígitos que identifica da NFe” univocamente uma Nota Fiscal e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição do Cedente. “Classe” ou “Classe Classe única de Cotas, constituída sob a f"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "gosto de 2008, que presta serviço de gestão da carteira de Ativos do Fundo. Significa a GP PNEUS LTDA., sociedade limitada com sede na cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua Dona Margarida, nº “GP” 573, sala 11, Navegantes, CEP 90240-611, inscrita no CNPJ/MF sob o nº 46.378.127/0001-40. “Grupo Econômico” Significa, com relação a qualquer das partes, seus coordenadores, controladores, controladas, coligadas, sociedades sob controle comum, subsidiárias, filiais e afiliadas, onde quer que estejam localizados. “Grupo Econômico Significa, as seguintes pessoas físicas e jurídicas: O Humberto Gabriel das Cedentes” Cantu, as Cedentes, a CP Comercial (CNPJ: 08.888.040/0001-23), a Canaan Trade (CNPJ:35.973.224/0001-64), a Gripmaster (CNPJ: 08.265.644/000-13) e a Verum Store (CNPJ: 35.835.092/0001-50). “IGP-M” Significa o Índice Geral de Preços do Mercado, divulgado pela Fundação Getúlio Vargas, ou outro índice que venha a substituí-lo. “Índices de Significa o Índice de Cobertura Sênior, o Índice de Cobertura Mezanino A"
+    }
+   ],
+   "legacy": {
+    "value": "CPX Distribuidora, ITR Comércio de Pneus e GP Pneus; veículo PneuCash I como cedente específico",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Clientes das cedentes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "omingos ou feriados nacionais; e (ii) aqueles sem expediente na B3. “Direitos Creditórios” Significam, em conjunto, (i) os direitos creditórios performados (cujos respectivos Produtos foram entregues ou retirados, ou com pedidos emitidos) vincendos, existentes, livres e desimpedidos de quaisquer ônus, gravames ou restrições, de titularidade das Cedentes, originados no âmbito de Operações a Prazo envolvendo Produtos celebradas entre as Cedentes e seus respectivos Devedores, no mercado local, expressos em moeda corrente nacional, cujas respectivas transações sejam sempre representadas por Documentos Comprobatórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Sacados PF/PJ com compras a prazo das cedentes",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Cessão irrevogável; vedada cessão de volta a cedentes/relacionadas, salvo resolução",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Sem parcelas vencidas; índices de subordinação enquadrados",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 59,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "lidados, diretamente ou por meio de empresa contratada para este fim, pelo Gestor: (i) não poderão estar com parcelas vencidas; (ii) devem possuir valor fixo e determinado; (iii) deverão ser representados em moeda corrente nacional; (iv) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e Pagamento; (v) não poderão ser devidos por Devedor que esteja inadimplente com a Classe há mais de 1 (um) dia corrido; (vi) a aquisição do Direito Creditório somente ocorrerá caso os Índices de Subordinação estejam enquadrados; (vii) deverão se enquadrar nos limites de concentração de até 1% (um por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (viii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 59,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "te ocorrerá caso os Índices de Subordinação estejam enquadrados; (vii) deverão se enquadrar nos limites de concentração de até 1% (um por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (viii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; (ix) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos; devedor sem atraso> 1 dia; grupo≤ 1% PL; prazo médio≤ 120 dias, exceção 5% PL até 300 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/09/2026, Anexo, cl. 8.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo econômico de devedores ≤ 1% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 59,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "te ocorrerá caso os Índices de Subordinação estejam enquadrados; (vii) deverão se enquadrar nos limites de concentração de até 1% (um por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (viii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; (ix) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;"
+    }
+   ],
+   "value": 1.0,
+   "legacy": {
+    "value": "Grupo econômico de devedores ≤ 1% PL; créditos longos≤ 5% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/09/2026, Anexo, cl. 8.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedentes do mesmo grupo de distribuição de pneus",
+   "sources": [],
+   "legacy": {
+    "value": "Grupo econômico de devedores ≤ 1% PL; créditos longos≤ 5% PL",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo individual não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Vincendos; devedor sem atraso> 1 dia; grupo≤ 1% PL; prazo médio≤ 120 dias, exceção 5% PL até 300 dias",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Alocação mínima não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Direitos creditórios > 50% PL até 180 dias; objetivo tributário 67% PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Mezanino B / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 59,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "te ocorrerá caso os Índices de Subordinação estejam enquadrados; (vii) deverão se enquadrar nos limites de concentração de até 1% (um por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (viii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; (ix) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 20%; mezanino A 14, 67%; B 9, 34%; C 1, 34%, com excesso de spread na fórmula",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/09/2026, Anexo, cl. 8.1"
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índices de subordinação definidos nos apêndices, sem trecho localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 20%; mezanino A 14, 67%; B 9, 34%; C 1, 34%, com excesso de spread na fórmula",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índices de subordinação definidos nos apêndices, sem trecho localizado",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 20%; mezanino A 14, 67%; B 9, 34%; C 1, 34%, com excesso de spread na fórmula",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa sem valor localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Maior de 90 dias de despesas e 0, 5% PL; pagamento 30% a 30 dias e 100% a 10 dias",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Provisão pela metodologia do administrador; valor presente líquido de PDD integra cobertura",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de avaliação sem lista localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Desenquadramentos, cross default de cedentes ≥ R$ 5 mi e falhas contratuais",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação sem lista localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Desenquadramentos, cross default de cedentes ≥ R$ 5 mi e falhas contratuais",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência livre, observada a ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 57,
+     "clause": "Anexo, cl. 7.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "I pelo Fundo, serão a ela aplicáveis os termos e condições do Contrato de Cessão FIDC I. 7.15 Revolvência. Observada a Ordem de Alocação de Recursos, será admitida livremente a revolvência dos Direitos Creditórios que compõe a carteira da Classe Única. Para fins de entendimento, a revolvência significa a aquisição de novos Direitos Creditórios com a CONFIDENCIAL utilização de recursos financeiros originados na carteira de Direitos Creditórios da Classe Única. 7.16 Não será permitida a cessão de Direitos Creditórios ou dos Direitos Creditórios FIDC I para as Cedentes, conforme o caso, e suas partes relacionadas, sem prejuízo da ocorrência de eventos de Resolução de Cessão, conforme previstos no Contrato de Cessão e no Contrato de Cessão FIDC I, conforme o caso. 7.17 O remanescente do Patrimônio Líquido, que não for aplicado em Direitos Creditórios, poderá ser mantido em moeda corrente nacional ou investido nos seguintes Ativos Financeiros: (i) Disponibilidades; (ii) Letras Financeiras do Tesoura Nacional, com liquidez diária;"
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência permitida; créditos do FIDC I adquiridos uma única vez",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos/reservas → sênior → mezaninos → subordinada júnior → aquisições",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,08% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 55,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "axa de administração será devida pelo Fundo e correspondente à prestação dos serviços do Administrador (“Taxa de Administração”) e será equivalente ao valor correspondente a 0,08% (oito centésimos por cento) ao ano, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido em cada Dia Útil, observado o piso mensal de R$ 12.000,00 (doze mil reais). 6.2 Taxa de Custódia. A taxa de Custódia será devida pelo Fundo e correspondente à prestação dos serviços do Custodiante (“Taxa de Custódia”) e será equivalente ao valor correspondente a 0,02% (dois centésimos por cento) ao ano, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido em cada Dia Útil, observado o piso mensal de R$ 2.000,00 (dois mil reais). 6.2.1 Observadas as disposições mencionadas nas Cláusulas acima, a Taxa de Administração descrita acima será mensalmente paga pelo Fundo no último Dia Útil de cada mês da prestação dos serviços, a partir do mês em que ocorrer a data da primeira integralização de Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "0, 08% a.a./PL; mínimo R$ 12 mil/mês; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/09/2026, Anexo, cl. 6.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,16% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 55,
+     "clause": "Anexo, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "atório dessas parcelas não exceda o montante total da Taxa de Administração. 6.2.3 A Taxa de Gestão será de 0,16% (dezesseis centésimos por cento) ao ano, sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 10.000,00 (dez mil reais) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.2.4 A Taxa de Gestão será reajustada anualmente, com base no índice da variação positiva do IGP-M, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 6.2.5 Ao montante da remuneração devida ao Gestor, será acrescido o valor do imposto sobre serviços – ISS, programa de integração social – PIS, contribuição para financiamento da seguridade social – COFINS, contribuição social sobre lucro líquido – CSLL, imposto de renda retido na fonte – IRRF e contribuição sobre bens e serviços - CBS que incidam sobre tais remunerações e outros que"
+    }
+   ],
+   "legacy": {
+    "value": "0, 16% a.a./PL; mínimo R$ 10 mil/mês; IGP-M e tributos adicionais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/09/2026, Anexo, cl. 6.2"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior CDI + 1, 25%; A CDI + 3%; B CDI + 5%; C CDI + 2, 75%; júnior 100% CDI",
+    "decision": "regression",
+    "why": "Resposta anterior vem de anúncio de oferta, não do regulamento"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior CDI + 1, 25%; A CDI + 3%; B CDI + 5%; C CDI + 2, 75%; júnior 100% CDI",
+    "decision": "regression",
+    "why": "Resposta anterior vem de anúncio de oferta, não do regulamento"
+   }
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "nifica qualquer adendo ou apêndice a este Regulamento, os quais “Apêndice” constituem parte integrante e inseparável do presente Regulamento. Significa o BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, “Administrador” nos termos do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título. “Agência de Significa a agência classificadora de risco, devidamente qualificada para a Classificação de prestação de tais serviços, que venha a ser contratada pelo Fundo. Risco” “Agentes de Significa o Casillo Advogados – Sociedade de Advogados, com sede Cobrança Judicial” na Cidade de Curitiba, Estado do Paraná, na Rua Lourenço Pinto, 500, CEP 80.010-1"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "undo de investimento em direitos creditórios constituído na forma prevista na Resolução CVM 175. “Gestor” Significa a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Av. Magalhães de Castro, nº 4.800, 17° andar, conjunto 174, CEP 05676-120, Cidade Jardim, inscrita no CNPJ sob o nº 09.452.272/0001-05, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 9.837, de 14 de agosto de 2008, que presta serviço de gestão da carteira de Ativos do Fundo. Significa a GP PNEUS LTDA., sociedade limitada com sede na cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua Dona Margarida, nº “GP” 573, sala 11, Navegantes, CEP 90240-611, inscrita no CNPJ/MF sob o nº 46.378.127/0001-40. “Grupo Econômico” Significa, com relação a qualquer das partes, seus coordenadores, controladores, controladas, coligadas, sociedades sob controle comum, subsidiárias, filiais e afiliadas,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "a serem verificados pelo Gestor no momento de cada cessão de Direitos Creditórios ao Fundo. “Custodiante” Significa o BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou o seu sucessor a qualquer título. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Aquisição e Significa cada data em que ocorrer a aquisição dos Direitos Creditórios Pagamento” pelo Fundo. “Data de Pagamento Significam as datas em que serão realizados os pagamentos do Prêmio de do Prêmio de Excesso de Spread, as quais deverão acontecer na data de pagamento da Excesso de Spread” Remuneração das Cotas Subordinadas Mezanino C ou na data de amortização integral das Cotas Subordinadas Juniores do Fundo,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "m conformidade com o disposto neste Anexo Descritivo. 2 DO PÚBLICO-ALVO 2.1 A Classe é exclusivamente destinada a Investidores Profissionais. 3 DO PRAZO DE DURAÇÃO DA CLASSE E EXERCÍCIO SOCIAL 3.1 A Classe terá prazo de duração indeterminado, podendo ser liquidada antecipadamente por deliberação da Assembleia de Cotistas em conformidade com o disposto no Regulamento e neste Anexo Descritivo. 3.2 O exercício social da Classe terá duração de 1 (um) ano e encerrar-se-á no último Dia Útil de abril de cada ano. 4 DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO E TRANSFERÊNCIA DAS COTAS E VALORAÇÃO DOS ATIVOS 4.1 A Classe se divide nas seguintes Subclasses: (i) Cotas Seniores; (ii) Cotas Subordinadas Mezanino A; (iii) Cotas Subordinadas Mezanino B; (iv) Cotas Subordinadas Mezanino C;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe única fechada, prazo indeterminado; ofertas públicas para profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 26,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "Classe. 8 DO PRAZO DE DURAÇÃO 8.1 O funcionamento do Fundo terá início na primeira Data de Subscrição Inicial. O Fundo terá prazo de duração indeterminado, podendo ser liquidado antecipadamente por deliberação da Assembleia de Cotistas, em conformidade com o disposto neste Regulamento. 8.2 O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 9 DA POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 9.1 A Classe do Fundo terá como objetivo proporcionar aos Cotistas a valorização de suas Cotas, por meio da aplicação dos recursos da Classe do Fundo preponderantemente na aquisição de Direitos Creditórios. 9.2 A descrição dos Direitos Creditórios passíveis de aquisição pela Classe, bem como as regras de enquadramento e concentração encontram-se descritos no respectivo Anexo Descritivo. 10 CRITÉRIOS DE ELEGIBILIDADE 10.1 Os Direitos Creditórios que poderão ser adquiridos pela Classe do Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender aos Critérios de Elegibilidade que se encontram descritos no respectivo Anexo Descritivo, observado o disposto quanto aos Direitos Creditórios FIDC I. 11 DAS VEDAÇÕES 11."
+    }
+   ],
+   "legacy": {
+    "value": "Classe única fechada, prazo indeterminado; ofertas públicas para profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Grupo econômico de devedores ≤ 1% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1322406",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/09/2026",
+     "page": 59,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+     "excerpt": "te ocorrerá caso os Índices de Subordinação estejam enquadrados; (vii) deverão se enquadrar nos limites de concentração de até 1% (um por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (viii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; (ix) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;"
+    }
+   ],
+   "value": 1.0,
+   "legacy": {
+    "value": "Grupo econômico de devedores ≤ 1% PL; créditos longos≤ 5% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/09/2026, Anexo, cl. 8.1"
+   }
+  }
+ },
+ "leitura": "Vendas a prazo de pneus de CPX, ITR e GP Pneus; grupo de devedores ≤ 1% do PL e revolvência livre.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

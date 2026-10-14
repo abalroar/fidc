@@ -1,0 +1,53 @@
+# Multiplike Plus FIDC (QI CTVM; Multiplike Gestão; consultora Multiplike Consultoria)
+type: Duplicatas/multicedente
+q18: * "a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 1% (um por cento)"
+q17: * "deverá observar um prazo médio ponderado máximo de 540 (quinhentos e quarenta) Dias Úteis"
+q16: * "Alocação Mínima O percentual mínimo de 50% (cinquenta por cento) do Patrimônio"
+q1: * "4.1 O Fundo é administrado pela QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q2: * "4.6 O Fundo é gerido pela MULTIPLIKE GESTÃO DE RECURSOS LTDA."
+q3: * "7.1 A MULTIPLIKE CONSULTORIA E COBRANÇA LTDA."
+q4: * "7.6 A MULTIPLIKE CONSULTORIA E COBRANÇA LTDA."
+q5: * "Atividades de custódia, escrituração, controladoria dos ativos e passivos da Classe serão exercidas pela Admini"
+q6: * "As Cotas Subordinadas, em conjunto, terão um índice de subordinação que será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido"
+q7: * "que deverá diariamente representar o percentual mínimo de 50% (cinquenta por cento) (o “Índice de Subordinação Júnior”)"
+q8: * "Eventos de Liquidação Antecipada quaisquer das seguintes hipóteses"
+q9: * "TG = (tx/252) x PL (D-1) onde: TG = Taxa de Gestão; tx = 1,20% a.a."
+q10: * "0,215% a.a. (duzentos e quinze milésimos por cento ao ano)"
+q11: * "taxa de performance, taxa de ingresso ou taxa de saída"
+q12: * "1.3 O público-alvo da Classe são Investidores Autorizados"
+q13: * "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral de Cotistas"
+q14: * "provisão para perdas. A perda por redução no valor de recuperação será mensurada"
+q15: * "Direitos Creditórios”, do tipo “Fomento Mercantil”"
+receivables: Duplicatas, CCBs, CPRs, notas comerciais e contratos de múltiplos cedentes | o1,q15
+originator: Cedentes selecionados com apoio da Multiplike Consultoria | q3
+assignor: Múltiplos cedentes (fomento mercantil) | q15
+debtor: Múltiplos sacados e devedores | o1
+recourse: Cessão com ou sem coobrigação do cedente | o12
+eligibility: Crédito adimplente; devedor sem atraso > 12 dias úteis | o15
+debtor_limit: CCB/CPR/NCC: devedor ≤ 3,5% do PL; 10 maiores ≤ 20% | o18 | value=3.5
+sacado_limit: CCB/CPR/NCC: devedor ≤ 3,5% do PL; 10 maiores ≤ 20% | o18 | value=3.5
+assignor_limit: n/d | Limite por cedente não localizado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Prazo médio ponderado de até 540 dias úteis (CCB/CPR/NCC) | q17
+allocation: ≥ 50% do PL em direitos creditórios | q16 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q6,q7
+sub_senior: 40% · subord./PL | q6 | basis=mez+jr/PL | value=40
+sub_mezz: Júnior ≥ 50% das subordinadas | q7 | basis=jr/PL | value=none
+sub_check: Diária; desenquadramento com cura em 10 dias úteis | q6,o45
+reserve: Maior entre 90 dias de despesas e 1% do PL | q18
+pdd: Perda esperada mensurada pelo valor de recuperação | q14
+eval_triggers: Desenquadramento sem cura em 10 dias úteis, entre outros | o45
+liquidation: PL médio < R$ 1 mi por 3 meses, entre outros | q8
+revolving: n/d | Regulamento não trata de revolvência explicitamente | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,215% a.a. do PL (administração, custódia e controladoria) | q10
+mgmt_fee: 1,20% a.a. do PL | q9
+perf_fee: Não prevista | Regulamento veda taxa de performance | q11
+target_senior: n/d | Benchmark definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Benchmark definido no apêndice de cada subclasse | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: QI CTVM | q1
+manager: Multiplike Gestão de Recursos | q2
+custodian: QI CTVM (a própria administradora) | q5,q1
+servicer: Multiplike Consultoria e Cobrança | q4
+investors: Investidores autorizados | q12
+duration: Indeterminado | q13
+leitura: Fomento mercantil multicedente com 40% de subordinação; devedor de crédito financeiro ≤ 3,5% do PL.

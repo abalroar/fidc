@@ -1,0 +1,58 @@
+# Pernambucanas FIDC (Daycoval; Daycoval Asset; cedente Casas Pernambucanas)
+type: Cartão/adquirência
+q1: * "“Cedente” Significa a ARTHUR LUNDGREN TECIDOS S.A CASAS PERNAMBUCANAS"
+q2: * "7.1 Os Direitos Creditórios a serem adquiridos pela Classe serão organizados e formalizados em formato de UR registrada no Sistema de Registro"
+q3: * "seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: (i) os Direitos Creditórios deverão estar livres e desembaraçados"
+q4: * "mesmo devedor estará limitada a 20% (vinte por cento) do Patrimônio Líquido"
+q5: * "Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido"
+q6: * "a Relação Mínima de Subordinação deverá corresponder a, no mínimo, 10%"
+q7: * "Reserva de Liquidez” A reserva de liquidez equivalente a, no mínimo, 3 (três) meses de despesas ordinárias"
+q8: * "provisão para perdas da Administradora, também disponível na sua página"
+q9: * "São considerados Eventos de Avaliação: (i) inobservância pela Administradora e ou pela Gestora"
+q10: * "São considerados Eventos de Liquidação: (i) caso, por disposição legal, regulamentar ou contratual"
+q11: * "revolvência da carteira da Classe, ou seja, a aquisição de novos Direitos Creditórios pela Classe"
+q12: * "Taxa de Administração, equivalente a 0,10% (dez centésimos por cento) ao ano incidente sobre o Patrimônio Líquido até R$ 250.000.000,00"
+q13: * "Taxa de Gestão, equivalente a 0,12% (doze centésimos por cento) ao ano incidente sobre o Patrimônio Líquido"
+q14: * "Administradora” BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM"
+q15: * "Gestora” DAYCOVAL ASSET MANAGEMENT ADMINISTRAÇÃO DE RECURSOS LTDA."
+q16: * "Custodiante” BANCO DAYCOVAL S.A."
+q17: * "destinado a Investidores Autorizados, que significam, para a primeira emissão de Cotas, os investidores profissionais"
+q18: * "prazo de duração indeterminado. 4. CLASSE E SUBCLASSES DE COTAS DO FUNDO"
+q19: * "Coobrigação. O Fundo adquirirá Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo, sem direito de regresso"
+q20: * "Unidade de Recebíveis de Cartão de Crédito originados pela Cedente e devidos pelas Devedoras, representem percentual mínimo de transações presentes"
+q21: * "Significa (i) qualquer evento relacionado a uma “Chargeback” Transação de Pagamento"
+receivables: URs de cartão de crédito da Casas Pernambucanas contra credenciadoras | q2,q20
+card_receivables: URs registradas, devidas pelas credenciadoras à Pernambucanas | q2
+originator: Casas Pernambucanas (Arthur Lundgren Tecidos) | q1
+assignor: Casas Pernambucanas | q1
+debtor: Credenciadoras devedoras das URs | q2
+recourse: Aquisição definitiva sem direito de regresso contra a cedente | q19
+eligibility: Livres de ônus; percentual mínimo de transações presenciais, entre outros | q3,q20
+debtor_limit: Por devedor: até 20% do PL | q4 | value=20
+assignor_limit: — | Cedente única: Pernambucanas
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | q5 | value=50
+quota_structure: Sênior / Subordinada | q18,q6
+sub_senior: 10% · subord./PL | q6 | basis=jr/PL | value=10
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de liquidez de ao menos 3 meses de despesas | q7
+pdd: Manual de provisão para perdas da administradora | q8
+eval_triggers: Inobservância de deveres por administradora ou gestora, entre outros | q9
+liquidation: Cedente impedida de ceder por lei, contrato ou ordem judicial, entre outros | q10
+revolving: Revolvência durante todo o prazo da classe | q11
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,10% a.a. até R$ 250 mi de PL, regressiva | q12
+mgmt_fee: 0,12% a.a. do PL, com mínimo mensal | q13
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Banco Daycoval | q14
+manager: Daycoval Asset Management | q15
+custodian: Banco Daycoval | q16
+servicer: n/d | Agente de cobrança a contratar, não nomeado
+investors: Investidores profissionais (primeira emissão) | q17
+duration: Indeterminado | q18
+card_lock: URs registradas no sistema de registro em favor da classe | q2
+dilution: Chargeback definido no regulamento; sem reserva específica localizada | q21
+leitura: URs de cartão da Casas Pernambucanas contra credenciadoras; subordinação de 10% e devedor ≤ 20% do PL.

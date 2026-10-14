@@ -1,0 +1,45 @@
+# Solfácil IV FIDC (Genial Investimentos; Genial Gestão; plataforma Solfácil)
+type: Energia solar
+q1: * "“Direitos Creditórios” Significam os direitos creditórios originários de operações de Financiamento Solar para aquisição de Sistemas Fotovoltaicos"
+q2: * "“Devedores” Significa qualquer Pessoa que emita CCBs em favor de uma Instituição Financeira Parceira no âmbito da Plataforma Solfácil"
+q3: * "“Companhia” Significa a Solfácil Energia Solar Tecnologia e Serviços Financeiros Ltda"
+q4: * "mesmo Devedor, desde que limitado a 20% (vinte por cento) do Patrimônio Líquido do Fundo"
+q5: * "“Administrador” Significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q6: * "“Gestor” Significa a GENIAL GESTÃO LTDA."
+q7: * "“Custodiante” Significa o Administrador, na qualidade de custodiante dos ativos integrantes da Carteira"
+q8: * "Investidores Profissionais; e (ii) será intermediada por instituição financeira"
+q9: * "subclasse sênior emitida pelo Fundo, a qual não está subordinada às demais Cotas"
+q10: * "provisão para perdas e perdas efetivas em relação aos Direitos Creditórios devidos por um Devedor"
+receivables: CCBs de financiamento de sistemas fotovoltaicos | q1
+originator: Solfácil, via plataforma, com instituições financeiras parceiras | q3,q2
+assignor: Instituições financeiras parceiras emissoras das CCBs | q2
+debtor: Emitentes das CCBs na Plataforma Solfácil | q2
+recourse: n/d | Recompra e resolução regidas pelo contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: n/d | Critérios de elegibilidade sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+debtor_limit: Por devedor: até 20% do PL | q4 | value=20
+assignor_limit: n/d | Limite por instituição parceira não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 67% do PL em direitos creditórios | o26 | value=67
+quota_structure: Sênior / Subordinada júnior | q9
+sub_senior: n/d | Índice de subordinação não localizado em trecho contínuo
+sub_mezz: — | Sem cota mezanino descrita
+sub_check: n/d | Periodicidade de apuração não localizada
+reserve: n/d | Reserva de caixa sem valor localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: Provisão e perdas por devedor, com efeito sobre todos os créditos dele | q10
+eval_triggers: n/d | Eventos de avaliação sem lista localizada em trecho contínuo
+liquidation: n/d | Eventos de liquidação sem lista localizada em trecho contínuo
+revolving: n/d | Revolvência não tratada no regulamento
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: R$ 15 mil/mês, corrigido pelo IPCA | o56
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês (deduzida dela) | o59
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Genial Investimentos Corretora de Valores | q5
+manager: Genial Gestão | q6
+custodian: Genial Investimentos (o administrador) | q7,q5
+servicer: n/d | Agente de cobrança não nomeado em trecho localizável
+investors: Investidores profissionais | q8
+duration: n/d | Prazo de duração não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+real_collateral: n/d | Garantia sobre equipamentos sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Financiamento solar da plataforma Solfácil; devedor ≤ 20% do PL e alocação mínima de 67%.

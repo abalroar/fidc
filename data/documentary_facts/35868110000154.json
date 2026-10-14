@@ -1,0 +1,754 @@
+{
+ "schema_version": 1,
+ "cnpj": "35868110000154",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV - CRÉDITO DE VEÍCULOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Veículos",
+ "reviewed_at": "2026-10-14T08:07:56Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "792021",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "27/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021"
+  },
+  "D2": {
+   "document_id": "332588",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "22/07/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=332588"
+  },
+  "D3": {
+   "document_id": "329915",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "22/07/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=329915"
+  },
+  "D4": {
+   "document_id": "179891",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "27/05/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=179891"
+  },
+  "D5": {
+   "document_id": "179881",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "27/05/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=179881"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Veículos",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Financiamento de veículos por CDC e CCB eletrônica",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "10.3. Os Direitos Creditórios Elegíveis são recebíveis originados de Cédulas de Crédito Bancário, relativas ao Financiamento de Veículos Automotores nas modalidades deCrédito Direto ao Consumidor – CDC. Em geral, tais Cédulas de Crédito Bancário contêm termos padrões de financiamento e são aplicadas de acordo com as práticas costumeiras de mercado do Cedente, conforme política de concessão de crédito descrita no item 11 abaixo. 10.4."
+    }
+   ],
+   "legacy": {
+    "value": "Financiamento de veículos por CDC/CCB eletrônica",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Banco Votorantim",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 78,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "Resolução CMN 3.998/11 e da Circular BACEN 3.553/11. Cedente Significa o Banco Votorantim S.A., acima qualificado, na qualidade de cedente dos Direitos Creditórios ao Fundo, nos termos do Contrato de Cessão, considerados em conjunto ou isoladamente. Docusign Envelope ID: 908EEE64-04F3-4851-ABAD-C820CEF09F0E Cédula de Crédito Significa o título de crédito emitido por pessoa física, Bancário ou CCB conforme definido na Lei n.º 10.931, de 2 de agosto de 2004, em favor do Cedente, representando promessa de pagamento em dinheiro. Circular Circular BACEN 3.553, de 3 de agosto de 2011, que BACE regulamentou os procedimentos para registro da cessão de N3.553/11 direitos creditórios previstos na Resolução CMN 3.998/11."
+    }
+   ],
+   "legacy": {
+    "value": "Banco Votorantim/BV, conforme definição de cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Banco Votorantim, sem coobrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 78,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "Resolução CMN 3.998/11 e da Circular BACEN 3.553/11. Cedente Significa o Banco Votorantim S.A., acima qualificado, na qualidade de cedente dos Direitos Creditórios ao Fundo, nos termos do Contrato de Cessão, considerados em conjunto ou isoladamente. Docusign Envelope ID: 908EEE64-04F3-4851-ABAD-C820CEF09F0E Cédula de Crédito Significa o título de crédito emitido por pessoa física, Bancário ou CCB conforme definido na Lei n.º 10.931, de 2 de agosto de 2004, em favor do Cedente, representando promessa de pagamento em dinheiro. Circular Circular BACEN 3.553, de 3 de agosto de 2011, que BACE regulamentou os procedimentos para registro da cessão de N3.553/11 direitos creditórios previstos na Resolução CMN 3.998/11."
+    },
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 36,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "13.49 Ausência de Coobrigação do Cedente. O Cedente não responde pela solvência dos Devedores dos Direitos Creditórios Elegíveis Cedidos, cabendo exclusivamente ao Fundo suportar o risco de inadimplência dos Devedores. Caso a inadimplência ocorra, o Fundo deverá cobrar os Devedores, sendo que o atraso nos pagamentos dos Direitos Creditórios Elegíveis Cedidos e o resultado incerto dos procedimentos de cobrança podem afetar negativamente os resultados do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Banco Votorantim/BV, conforme definição de cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas financiadas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "atendidos cumulativamente na Data de Aquisição e Pagamento: (i) sejam devidos por Devedores que não estejam inadimplentes com suas obrigações perante o Fundo na Data de Aquisição e Pagamento; (ii) tenham como devedores pessoas físicas; (iii) tenham grau de concentração, após a cessão a ser celebrada e considerando apenas os Direitos Creditórios Elegíveis Cedidos, (a) para Direitos Creditórios decorrentes do Financiamento de Veículos Automotores do tipo veículos pesados (vans e caminhões), não superiora 10% (dez por cento) do Patrimônio Líquido; e (b) para Direitos Creditórios Docusign Envelope ID: 908EEE64-04F3-4851-ABAD-C820CEF09F0E decorrentes de Financiamento de Veículos Automotores do tipo automóveis, até 100% (cem por cento) do Patrimônio Líquido; (iv) tenham o somatório das parcelas vincendas a valor de face limitado ao máximo de R$150.000,00 (cento e cinquenta mil reais) por Cédula de Crédito Bancário;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física; idade máxima de 65 anos na aquisição",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, p. 16"
+   }
+  },
+  "recourse": {
+   "display": "Cessão sem coobrigação do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 36,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "13.49 Ausência de Coobrigação do Cedente. O Cedente não responde pela solvência dos Devedores dos Direitos Creditórios Elegíveis Cedidos, cabendo exclusivamente ao Fundo suportar o risco de inadimplência dos Devedores. Caso a inadimplência ocorra, o Fundo deverá cobrar os Devedores, sendo que o atraso nos pagamentos dos Direitos Creditórios Elegíveis Cedidos e o resultado incerto dos procedimentos de cobrança podem afetar negativamente os resultados do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão de CCB integral; resolução/indenização remetidas ao contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "LTV abaixo de 70%; CCB cedida integralmente; devedor adimplente",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "do respectivo Financiamento de Veículo Automotor, medido por meio da Tabela Molicar, será sempre inferior a 70% (setenta por cento); (iii) cada Cédula de Crédito Bancário somente será cedida ao Fundo integralmente, de forma que não será admitida a cessão parcial de Direitos Creditórios decorrentes de uma Cédula de Crédito Bancário; (iv) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza na data de sua cessãoao Fundo, exceto pela alienação fiduciária de Veículos Automotores quedeve ter sido constituída em favor do Cedente, de acordo com os procedimentos definidos no Sistema Nacional de Gravames; (v) os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio dos Documentos Comprobatórios, não sendo admitidos Direitos Creditórios formalizados exclusivamente via telefone;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "atendidos cumulativamente na Data de Aquisição e Pagamento: (i) sejam devidos por Devedores que não estejam inadimplentes com suas obrigações perante o Fundo na Data de Aquisição e Pagamento; (ii) tenham como devedores pessoas físicas; (iii) tenham grau de concentração, após a cessão a ser celebrada e considerando apenas os Direitos Creditórios Elegíveis Cedidos, (a) para Direitos Creditórios decorrentes do Financiamento de Veículos Automotores do tipo veículos pesados (vans e caminhões), não superiora 10% (dez por cento) do Patrimônio Líquido; e (b) para Direitos Creditórios Docusign Envelope ID: 908EEE64-04F3-4851-ABAD-C820CEF09F0E decorrentes de Financiamento de Veículos Automotores do tipo automóveis, até 100% (cem por cento) do Patrimônio Líquido; (iv) tenham o somatório das parcelas vincendas a valor de face limitado ao máximo de R$150.000,00 (cento e cinquenta mil reais) por Cédula de Crédito Bancário;"
+    }
+   ],
+   "legacy": {
+    "value": "LTV < 70%; ≥2 parcelas pagas; veículo ≤10 anos; sem atraso; taxa Price ≥1,10% a.m.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, p. 18"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limites por CCB e por CPF sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "CCB ≤R$150 mil; por CPF ≤R$200 mil; veículos pesados/vans/caminhões ≤10% PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente único: Banco Votorantim",
+   "sources": [],
+   "legacy": {
+    "value": "CCB ≤R$150 mil; por CPF ≤R$200 mil; veículos pesados/vans/caminhões ≤10% PL",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo das CCBs não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "LTV < 70%; ≥2 parcelas pagas; veículo ≤10 anos; sem atraso; taxa Price ≥1,10% a.m.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios após 90 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "mínimo 50% (cinquenta por cento) de seu Patrimônio Líquido em DireitosCreditórios Elegíveis Cedidos. A pedido do Administrador, a CVM poderá, a seu exclusivo critério, prorrogar tal prazo por período adicional de 90 (noventa) dias, desde que o Administrador apresente justificativas para a prorrogação. 8.2."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios ≥50% do PL após 90 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada (do cedente)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 48,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "de todas as Cotas Subordinadas em circulação, por (ii) o valor total do Patrimônio Líquido do Fundo deve ser equivalente a, no mínimo, 25% (vinte e cinco por cento) (“Relação Mínima”). Essa relaçãodeve ser apurada pelo Administrador todo Dia Útil e informada aos Cotistas periodicamente, nos termos deste Regulamento. 17.2. Em cada Data de Pagamento, o Administrador deverá realizar os pagamentos descritos no item 15.1 acima aos Cotistas Seniores de forma que o Relação Mínima seja mantida. 17.3. Na hipótese de desenquadramento da Relação Mínima por 5 (cinco) Dias Úteis consecutivos, o Cedente será imediatamente informado de tal fato pelo Administrador por meio de um aviso de desenquadramento. 17.4. O Cedente deverá responder o aviso de desenquadramento, impreterivelmente até o 5º (quinto) Dia Útil subsequente à data do seu recebimento, informando por escrito sedeseja ou não, a seu exclusivo critério, integralizar novas Cotas Subordinadas."
+    },
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 48,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "equivalente a, no mínimo, 25% (vinte e cinco por cento) (“Relação Mínima”). Essa relaçãodeve ser apurada pelo Administrador todo Dia Útil e informada aos Cotistas periodicamente, nos termos deste Regulamento. 17.2. Em cada Data de Pagamento, o Administrador deverá realizar os pagamentos descritos no item 15.1 acima aos Cotistas Seniores de forma que o Relação Mínima seja mantida. 17.3."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥25%, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, p. 48"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 48,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "de todas as Cotas Subordinadas em circulação, por (ii) o valor total do Patrimônio Líquido do Fundo deve ser equivalente a, no mínimo, 25% (vinte e cinco por cento) (“Relação Mínima”). Essa relaçãodeve ser apurada pelo Administrador todo Dia Útil e informada aos Cotistas periodicamente, nos termos deste Regulamento. 17.2. Em cada Data de Pagamento, o Administrador deverá realizar os pagamentos descritos no item 15.1 acima aos Cotistas Seniores de forma que o Relação Mínima seja mantida. 17.3. Na hipótese de desenquadramento da Relação Mínima por 5 (cinco) Dias Úteis consecutivos, o Cedente será imediatamente informado de tal fato pelo Administrador por meio de um aviso de desenquadramento. 17.4. O Cedente deverá responder o aviso de desenquadramento, impreterivelmente até o 5º (quinto) Dia Útil subsequente à data do seu recebimento, informando por escrito sedeseja ou não, a seu exclusivo critério, integralizar novas Cotas Subordinadas."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥25%, apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária, pelo administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 48,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "de todas as Cotas Subordinadas em circulação, por (ii) o valor total do Patrimônio Líquido do Fundo deve ser equivalente a, no mínimo, 25% (vinte e cinco por cento) (“Relação Mínima”). Essa relaçãodeve ser apurada pelo Administrador todo Dia Útil e informada aos Cotistas periodicamente, nos termos deste Regulamento. 17.2. Em cada Data de Pagamento, o Administrador deverá realizar os pagamentos descritos no item 15.1 acima aos Cotistas Seniores de forma que o Relação Mínima seja mantida. 17.3. Na hipótese de desenquadramento da Relação Mínima por 5 (cinco) Dias Úteis consecutivos, o Cedente será imediatamente informado de tal fato pelo Administrador por meio de um aviso de desenquadramento. 17.4. O Cedente deverá responder o aviso de desenquadramento, impreterivelmente até o 5º (quinto) Dia Útil subsequente à data do seu recebimento, informando por escrito sedeseja ou não, a seu exclusivo critério, integralizar novas Cotas Subordinadas."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥25%, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, p. 48"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor da reserva não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "R$2,5 mi reajustados por IPCA; reserva de pagamento 30% D−30 e 100% D−15",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "PDD pela política pública do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 84,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "deduzidos das suas respectivas despesas de PDD \\(Provisão para Devedores Duvidosos\\), calculada nos termos da Política Pública do Administrador, trazidos à valor presente pela taxa de remuneração mensal das Cotas Seniores na data do cálculo, utilizando a Taxa DI mais recente divulgada. “Patrimônio Líquido Sintético do Fundo”: significa a razão entre \\(i\\) o valor agregado das Cotas Seniores Docusign Envelope ID: 908EEE64-04F3-4851-ABAD-C820CEF09F0E em Circulação e (ii) 1,00 (um) menos o percentual mínimo previsto na definição de Relação Mínima;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Indicador IP90+ acima de 2%, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 58,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "Seniores devido na respectiva Datas de Pagamento e/ou data de resgate; (ix) caso o indicador IP90+ do Índice de Monitoramento, em uma Data de Verificação, seja superior a 2% (dois por cento); (x) a ocorrência de qualquer dos Evento de Revisão previsto na Cláusula 15.2 do Contrato de Cessão; (xi) renúncia da Administradora à administração do Fundo, do Gestor à gestão do Fundo e/ou da Custodiante à custódia do Fundo, nos termos deste Regulamento, desde que o prestador de serviço em questão não tenha sido substituído na forma prevista no item 5.6 e seguintes, deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "IP90+ >2%; resolução de cessões >3% PL em 6 meses; eventos de prestadores",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, p. 58"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação de que evento de avaliação é de liquidação, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 59,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "uidação Antecipada do Fundo. 24. EVENTOS DE LIQUIDAÇÃO ANTECIPADA 24.1. São considerados Eventos de Liquidação Antecipada do Fundo quaisquer das seguintes ocorrências: (i) se for deliberado que um Evento de Avaliação constitui um Evento de Liquidação Antecipada; Docusign Envelope ID: 908EEE64-04F3-4851-ABAD-C820CEF09F0E (ii) na hipótese de ocorrência de um evento de rescisão do Contrato de Cessão, por qualquer motivo, incluindo em razão do disposto naCláusula 15.3 do Contrato de Cessão; (iii) se, durante 3 (três) meses consecutivos (incluindo os primeiros 3 (três) meses de operação do Fundo), o Patrimônio Líquido médio for inferior a R$ 500.000,00 (quinhentos mil reais); (iv) na hipótese de renúncia do Administrador e se este não for substituído dentro de 120 (cento e vinte dias) por qualquer razão;"
+    }
+   ],
+   "legacy": {
+    "value": "IP90+ >2%; resolução de cessões >3% PL em 6 meses; eventos de prestadores",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, p. 59"
+   }
+  },
+  "revolving": {
+   "display": "Aquisições até 30 dias antes do resgate da 1ª série sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 46,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "que se inicia 30 (trinta) dias antes do resgate das Cotas Seniores da 1ª (primeira) série; (viii) se aplicável, realização dos Investimentos Permitidos nos termos do presente Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Aquisições permitidas; interrupção 30 dias antes do resgate da 1ª série sênior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Ordem: encargos, reservas, sênior, subordinada condicional e aquisições",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "remuneração e das amortizações das Cotas Seniores de cada subclasse em cada Data de Pagamento. Para tanto, o Administrador deverá interromper a aquisição de novos Direitos Creditórios Elegíveis de modo que: (i) até o 30° (trigésimo) dia corrido anterior a cada Data de Pagamento de remuneração e amortização de Cotas Seniores de determinada subclasse, o valor de resgate e/ou alienação dos ativos segreg"
+    }
+   ],
+   "legacy": {
+    "value": "Encargos/cobrança → reservas → remuneração/principal sênior → subordinada condicional → aquisições",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "Remuneração global de 0,07% a.a. até R$ 300 mi de PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 13,
+     "clause": "cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "7.1. Pela prestação de seus serviços de administração, o Administrador terá direito a uma remuneração global equivalente à: 0,07% (sete décimos por cento) ao ano sobre valor do Patrimônio Líquido, considerando um Patrimônio Líquido de até R$ 300.000.000,00 (trezentos milhões de reais), a qual será acrescida de 0,035% (trinta e cinco milésimos por cento) sobre o valor do Patrimônio Líquido que exceder R$ 300.000.000,00 (trezentos milhões de reais). A remuneração do Administrador prevista neste item terá o valor mínimo de R$ 9.750,00 (nove mil e setecentos e cinquenta reais)ao mês (“Taxa de Administração”). 7.2. Pela prestação de seus serviços de gestão, o Gestor terá direito a uma remuneração global equivalente à: 0,07% (sete décimos por cento) ao ano sobre valor do Patrimônio Líquido, considerando um Patrimônio Líquido de até R$ 300.000.000,00 (trezentos milhões de reais), a qual será acrescida de 0,035% (trinta e cinco milésimos por cento) sobre o valor do Patrimônio Líquido que exceder R$ 300.000.000,00 (trezentos milhões de reais)."
+    }
+   ],
+   "legacy": {
+    "value": "Numérico: 0,07% a.a. até R$300 mi PL +0,035% excedente; mínimo R$9.750/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, cl. 6.3"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na remuneração global",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 13,
+     "clause": "cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "7.1. Pela prestação de seus serviços de administração, o Administrador terá direito a uma remuneração global equivalente à: 0,07% (sete décimos por cento) ao ano sobre valor do Patrimônio Líquido, considerando um Patrimônio Líquido de até R$ 300.000.000,00 (trezentos milhões de reais), a qual será acrescida de 0,035% (trinta e cinco milésimos por cento) sobre o valor do Patrimônio Líquido que exceder R$ 300.000.000,00 (trezentos milhões de reais). A remuneração do Administrador prevista neste item terá o valor mínimo de R$ 9.750,00 (nove mil e setecentos e cinquenta reais)ao mês (“Taxa de Administração”). 7.2. Pela prestação de seus serviços de gestão, o Gestor terá direito a uma remuneração global equivalente à: 0,07% (sete décimos por cento) ao ano sobre valor do Patrimônio Líquido, considerando um Patrimônio Líquido de até R$ 300.000.000,00 (trezentos milhões de reais), a qual será acrescida de 0,035% (trinta e cinco milésimos por cento) sobre o valor do Patrimônio Líquido que exceder R$ 300.000.000,00 (trezentos milhões de reais)."
+    }
+   ],
+   "legacy": {
+    "value": "Numérico: 0,07% a.a. até R$300 mi PL +0,035% excedente; mínimo R$9.750/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, cl. 6.3"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "5. PRESTADORES DE SERVIÇO ESSENCIAIS 5.1. Administrador: O Fundo é administrado pela OLIVEIRA TRUST DTVM S.A., sociedade anônima com sede na Avenida das Américas, 3434 BL 07, SALA 201 - Barra da Tijuca, na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, inscrita no CNPJ sob o n.º 36.113.876/0001-91, autorizada pela CVM para a administração profissional de carteiras de títulos e valores mobiliários, na categoria de administrador fiduciário, mediante o Ato Declaratório nº 6.696, de 21 de fevereiro de 2002. 5.1.1. O Administrador deverá administrar o Fundo cumprindo com suas obrigações de acordo com os mais altos padrões de diligência e correção do mercado, praticandotodos os seus atos com a estrita observância (i) da lei e das normas regulamentaresaplicáveis, (ii) deste Regulamento, (iii) das deliberações da Assembleia Geral de Cotistas, e (iv) dos deveres fiduciários de diligência e lealdade, de informação e de preservação dos direitos dos Cotistas. 5.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 83,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "itórios BV –Crédito de Veículos Responsabilidade Limitada. Gestor Oliveira Trust Servicer S.A., sociedade com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, sala 202, Barrada Tijuca, CEP 22640-102, inscrita no CNPJ sob o nº 02.150.453/0001-20, autorizada pela CVM para a gestão profissional de carteiras de títulos e valores mobiliários, na categoria de administrador fiduciário, mediante o Ato Docusign Envelope ID: 908EEE64-04F3-4851-ABAD-C820CEF09F0E Declaratório nº 7.446, de 13 de outubro de 2003], ou seu sucessor a qualquer título. ICP-Brasil Significa a Infraestrutura de Chaves Públicas Brasileira. IGP-M Índice Geral d"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM (o próprio administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 81,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "Direitos Creditórios, nos termos do Regulamento. Custodiante Significa o Administrador atuando na qualidade de custodiante do Fundo. CVM Comissão de Valores Mobiliários. Data de Pagamento Significa quaisquer das datas de pagamento de remuneração e/ou de amortização das Cotas, conforme determinadas no respectivo Apêndice de Cotas. Data de Aquisição e Significa a data na qual o Fundo e o Cedente formalizarão Pagamento cada cessão, transferência e pagamento dos Direitos Creditórios Elegíveis do Cedente para o Fundo, por meio da celebração e formalização do correspondente Termo de Cessão, conforme procedimento disposto no Contrato de Cessão. Data de Emissão Significa uma data de subscrição e integralização das"
+    },
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "5. PRESTADORES DE SERVIÇO ESSENCIAIS 5.1. Administrador: O Fundo é administrado pela OLIVEIRA TRUST DTVM S.A., sociedade anônima com sede na Avenida das Américas, 3434 BL 07, SALA 201 - Barra da Tijuca, na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, inscrita no CNPJ sob o n.º 36.113.876/0001-91, autorizada pela CVM para a administração profissional de carteiras de títulos e valores mobiliários, na categoria de administrador fiduciário, mediante o Ato Declaratório nº 6.696, de 21 de fevereiro de 2002. 5.1.1. O Administrador deverá administrar o Fundo cumprindo com suas obrigações de acordo com os mais altos padrões de diligência e correção do mercado, praticandotodos os seus atos com a estrita observância (i) da lei e das normas regulamentaresaplicáveis, (ii) deste Regulamento, (iii) das deliberações da Assembleia Geral de Cotistas, e (iv) dos deveres fiduciários de diligência e lealdade, de informação e de preservação dos direitos dos Cotistas. 5.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Banco Votorantim (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 76,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "de fevereiro de 2002, ou seu sucessor a qualquer título. Agente de Cobrança Banco Votorantim S.A., com sede na Cidade de São Paulo, Estado de São Paulo, na Av. das Nações Unidas, 14.171, Torre A, 18º andar, inscrito no CNPJ sob o n.º 59.588.111/0001-03, ou seu sucessor a qualquer título. Agente de Cobrança Significa qualquer assessoria de cobrança terceirizada, Terceirizado subcontratada pelo Agente de Cobrança, para realizar a cobrança judicial e/ou extrajudicial dos Direitos Creditórios Elegíveis Cedidos Inadimplidos do Fundo, nos termos deste Regulamento e do Contrato de Cobrança dos Direitos Creditórios. Agente de Controladoria Tem o seu significado atribuído no item 6.7 do Regulamento. Alocação Mínima Percentual mínim"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "4.1. O funcionamento do Fundo terá início na primeira Data de Emissão. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da AssembleiaGeral de Cotistas. 4.2. O Fundo terá como público-alvo Investidores Qualificados, nos termos do assim definidos de acordo com o artigo 12 da Resolução CVM nº 30, de 11 de maio de 2021, conforme alterada (“Resolução CVM 30”). 5. PRESTADORES DE SERVIÇO ESSENCIAIS 5.1. Administrador: O Fundo é administrado pela OLIVEIRA TRUST DTVM S.A., sociedade anônima com sede na Avenida das Américas, 3434 BL 07, SALA 201 - Barra da Tijuca, na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, inscrita no CNPJ sob o n.º 36.113.876/0001-91, autorizada pela CVM para a administração profissional de carteiras de títulos e valores mobiliários, na categoria de administrador fiduciário, mediante o Ato Declaratório nº 6.696, de 21 de fevereiro de 2002. 5.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo indeterminado; investidores qualificados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "4.1. O funcionamento do Fundo terá início na primeira Data de Emissão. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da AssembleiaGeral de Cotistas. 4.2. O Fundo terá como público-alvo Investidores Qualificados, nos termos do assim definidos de acordo com o artigo 12 da Resolução CVM nº 30, de 11 de maio de 2021, conforme alterada (“Resolução CVM 30”). 5. PRESTADORES DE SERVIÇO ESSENCIAIS 5.1. Administrador: O Fundo é administrado pela OLIVEIRA TRUST DTVM S.A., sociedade anônima com sede na Avenida das Américas, 3434 BL 07, SALA 201 - Barra da Tijuca, na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, inscrita no CNPJ sob o n.º 36.113.876/0001-91, autorizada pela CVM para a administração profissional de carteiras de títulos e valores mobiliários, na categoria de administrador fiduciário, mediante o Ato Declaratório nº 6.696, de 21 de fevereiro de 2002. 5.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo indeterminado; investidores qualificados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "real_collateral": {
+   "display": "Alienação fiduciária do veículo registrada no SNG em nome do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "792021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+     "excerpt": "exceto pela alienação fiduciária de Veículos Automotores quedeve ter sido constituída em favor do Cedente, de acordo com os procedimentos definidos no Sistema Nacional de Gravames;"
+    }
+   ],
+   "legacy": {
+    "value": "Alienação fiduciária do veículo registrada no SNG em nome do cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Financiamento de veículos do Banco Votorantim; subordinação de 25% e LTV abaixo de 70%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

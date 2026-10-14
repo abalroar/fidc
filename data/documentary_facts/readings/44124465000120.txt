@@ -1,0 +1,56 @@
+# TMAQ 21 FIDC Arranjos de Pagamento (Genial Investimentos; Integral Investimentos; cedente Acqio)
+type: Cartão/adquirência
+q1: * "“Cedente” Significa a Acqio"
+q2: * "Direitos Creditórios são oriundos do pagamento devido pelos Devedores à Cedente, decorrentes de Transações de Pagamento realizadas por Usuários-Finais, operacionalizadas pelo Sistema Acqio"
+q3: * "Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar"
+q4: * "Cedente é responsável somente pela existência, certeza, exigibilidade e boa formalização dos respectivos Direitos Creditórios Cedidos"
+q5: * "seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ii) o respectivo Devedor deverá estar adimplente"
+q6: * "coobrigação de um mesmo devedor poderá ultrapassar 20% (vinte por cento) do Patrimônio"
+q7: * "Alocação Mínima, isto é, no mínimo, 50% (cinquenta por cento), e, no máximo, 100% (cem por cento) de seu Patrimônio Líquido"
+q8: * "Índice de Subordinação Sênior for, no mínimo, 22,15% (vinte e dois inteiros e quinze décimos por cento); e (ii) o Índice de Subordinação Mezanino for, no mínimo, 3%"
+q9: * "São Eventos de Avaliação: (i) caso o Fundo deixe de efetuar o pagamento"
+q10: * "São Eventos de Liquidação: (i) vedação legal e/ou impossibilidade de aquisição de Direitos Creditórios"
+q11: * "revolvência da carteira do Fundo, ou seja, a aquisição de novos Direitos Creditórios pelo Fundo com a utilização de recursos decorrentes do pagamento"
+q12: * "Taxa de Administração, equivalente ao percentual de 0,20% (dois décimos por cento) ao ano calculado sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$20.000,00"
+q13: * "“Administradora” Significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A."
+q14: * "“Gestora” Significa a INTEGRAL INVESTIMENTOS LTDA"
+q15: * "Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores Autorizados"
+q16: * "prazo de duração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terá o prazo de duração estipulado"
+q17: * "provisão para perdas da Administradora atualizado e em conformidade com as boas práticas de mercado"
+q18: * "“Chargeback” Significa a contestação de Transação(ões) de Pagamento"
+q19: * "Reserva de Caixa não corresponda, no mínimo, ao valor da próxima Amortização Programada"
+receivables: Recebíveis de transações operacionalizadas no Sistema Acqio | q2
+card_receivables: Valores devidos por instituições financeiras à Acqio por transações | q2,q3
+originator: Acqio (cedente) | q1
+assignor: Acqio | q1
+debtor: Instituições financeiras devedoras dos pagamentos | q3
+recourse: Cedente responde só por existência, certeza e formalização | q4
+eligibility: Em reais; devedor adimplente com a classe, entre outros | q5
+debtor_limit: Concentração por devedor pode passar de 20% do PL | q6
+assignor_limit: — | Cedente única: Acqio
+term_max: n/d | Prazo máximo não localizado em trecho contínuo
+allocation: ≥ 50% e até 100% do PL em direitos creditórios elegíveis | q7 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q8
+sub_senior: 22,15% · subord./PL | q8 | basis=mez+jr/PL | value=22.15
+sub_mezz: 3% · júnior/PL | q8 | basis=jr/PL | value=3
+sub_check: Diária | o29
+reserve: Reserva de caixa para a próxima amortização programada | q19
+pdd: Manual de provisão para perdas da administradora | q17
+eval_triggers: Atraso de amortização ou remuneração da sênior, entre outros | q9
+liquidation: Impossibilidade de adquirir créditos elegíveis, entre outros | q10
+revolving: Revolvência durante todo o prazo do fundo | q11
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,20% a.a. do PL; mín. R$ 20 mil/mês | q12
+mgmt_fee: 0,20% a.a. do PL, com mínimo mensal | o62
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Genial Investimentos Corretora de Valores | q13
+manager: Integral Investimentos | q14
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança extraordinária não nomeado em trecho contínuo
+investors: Investidores autorizados | q15
+duration: Indeterminado | q16
+card_lock: n/d | Mecanismo de trava não descrito em trecho contínuo
+dilution: Chargeback definido no regulamento; sem reserva específica localizada | q18
+leitura: Recebíveis de transações do Sistema Acqio; subordinação de 22,15% (júnior ≥ 3%) e revolvência.

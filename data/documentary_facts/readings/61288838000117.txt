@@ -1,0 +1,50 @@
+# iFood Pago Crédito III FIDC (Vert DTVM; Vert Gestora; endossantes MovilePay e IF parceira)
+type: Crédito pessoal
+q1: * "“Endossante” significa (i) a MovilePay, e/ou (ii) uma Instituição Financeira Parceira"
+q2: * "“MovilePay” significa (i) a MI PAGAMENTOS DO BRASIL LTDA"
+q3: * "“Devedores” significamos Devedores CCB e o Devedor Credenciadora, quando referidos em conjunto ou indistintamente"
+q4: * "9.3.2. Ausência de coobrigação do Endossante e da Cedente"
+q5: * "(1) em relação aos Direitos Creditórios CCBs: (i) o respectivo Devedor CCB não poderá estar inadimplente"
+q6: * "(ii) as CCBs deverão ter prazo máximo de (a) 48 (quarenta e oito) meses a contar da data de sua respectiva aquisição pelo Fundo"
+q7: * "itórios e outros ativos de um mesmo devedor, ou de coobrigação de uma mesma pessoa ou entidade, em montante igual ou superior a 20%"
+q8: * "Subordinadas em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 25%"
+q9: * "Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo 15%"
+q10: * "17.1. São Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Monitoramento"
+q11: * "18.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: (i) a ocorrência de Eventos de Insolvência em relação à MovilePay"
+q12: * "“Administradora” significa a VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q13: * "“Gestora” significa a VERT GESTORA DE RECURSOS FINANCEIROS LTDA"
+q14: * "“Custodiante” significa a Administradora, na qualidade de custodiante"
+q15: * "2.3. A Classe do Fundo é destinada a Investidores Qualificados"
+q16: * "A Classe do Fundo terá prazo de duração indeterminado"
+receivables: CCBs de clientes do iFood Pago e recebíveis de cartão contra credenciadora | q3,o1
+originator: MovilePay (MI Pagamentos) e instituição financeira parceira | q1,q2
+assignor: MovilePay ou instituição financeira parceira, por endosso | q1
+debtor: Devedores das CCBs e credenciadora dos recebíveis de cartão | q3
+recourse: Sem coobrigação do endossante e da cedente | q4
+eligibility: Devedor da CCB adimplente; CCB de até 48 meses com aval | q5,q6
+debtor_limit: Por devedor: limite de 20% do PL da norma | q7 | value=20
+assignor_limit: n/d | Limite por endossante não localizado em trecho contínuo
+term_max: CCB de até 48 meses (com aval ou devedor solidário) | q6
+allocation: Alocação regulatória de 50% do PL | o24 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q8,q9
+sub_senior: 25% · subord./PL | q8 | basis=mez+jr/PL | value=25
+sub_mezz: 15% · júnior/PL | q9 | basis=jr/PL | value=15
+sub_check: Diária, pelo custodiante | q8
+reserve: 3 meses de despesas; reserva da próxima amortização | o40
+pdd: n/d | Política de provisão em complemento, sem trecho contínuo
+eval_triggers: Falta do relatório de monitoramento; atrasos acima dos limites, entre outros | q10,o46
+liquidation: Insolvência da MovilePay ou da instituição parceira, entre outros | q11
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Faixas de PL a partir de 0,09% a.a., com mínimo mensal | o60
+mgmt_fee: Faixas de PL a partir de 0,04% a.a., com mínimo mensal | o63
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Vert DTVM | q12
+manager: Vert Gestora de Recursos Financeiros | q13
+custodian: Vert DTVM (a administradora) | q14,q12
+servicer: n/d | Agente de cobrança extraordinária não nomeado em trecho contínuo
+investors: Investidores qualificados | q15
+duration: Indeterminado | q16
+leitura: CCBs do iFood Pago via MovilePay sem coobrigação; subordinação de 25% (júnior ≥ 15%) e CCB até 48 meses.

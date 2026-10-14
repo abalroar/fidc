@@ -1,0 +1,63 @@
+# MT INSS Receivables V FIDC (Oliveira Trust DTVM; Oliveira Trust Servicer; endossantes Parati e QI Tech; agente Tudo Serviços)
+type: Consignado público
+q1: * "Direitos Creditórios são originados no âmbito de operações de empréstimos consignados concedidos por um Endossante a um Devedor"
+q2: * "“Endossante”: (a) a Parati; (b) a QI Tech; ou (c) outras instituições financeiras"
+q3: * "Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS"
+q4: * "seguintes Critérios de Elegibilidade, a serem validados pelo GESTOR, que poderá subcontratar o Custodiante"
+q5: * "prazo máximo de 84 (oitenta e quatro) parcelas, a contar da data de emissão da respectiva CCB"
+q6: * "mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00"
+q7: * "(iv) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 76 (setenta e seis) anos"
+q8: * "alocação mínima de 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis"
+q9: * "Subordinação Sênior”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe é de 10%"
+q10: * "Índice Mínimo de Subordinação Mezanino”: a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior"
+q11: * "3.2 O GESTOR deverá constituir e manter, desde a Data de Início da Classe até a liquidação da Classe, Reserva de Despesas"
+q12: * "3.3 O GESTOR deverá constituir e manter, desde a Data de Início da Classe até a liquidação da Classe, Reserva de Defesa da Carteira"
+q13: * "provisão para perdas do ADMINISTRADOR, também disponível em seu site"
+q14: * "11.2 As seguintes hipóteses são consideradas Eventos de Avaliação"
+q15: * "Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação"
+q16: * "4.19 A Classe terá um Período de Investimento que (a) se inicia na Data de Integralização Inicial"
+q17: * "a Classe pagará a Taxa de Administração os valores correspondentes aos percentuais indicados na tabela abaixo"
+q18: * "13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos valores correspondentes aos percentuais"
+q19: * "13.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída"
+q20: * "IVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade devidamente autorizada pela CVM"
+q21: * "OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM"
+q22: * "VALORES MOBILIÁRIOS S.A., acima qualificada (“CUSTODIANTE”)"
+q23: * "“Agente de Retenção e Cobrança”: Tudo Serviços S.A."
+q24: * "Público-Alvo Investidores Qualificados"
+q25: * "prazo de duração indeterminado; (vi) deverão ser subscritas e integralizadas"
+q26: * "Inadimplência Cumulativa de 7,82% (sete inteiros e oitenta e dois centésimos por cento)"
+receivables: CCBs de consignado INSS originadas pela Plataforma MT | q1,q3
+originator: Endossantes Parati, QI Tech ou outras instituições conveniadas | q2
+assignor: Parati, QI Tech ou outras instituições conveniadas, por endosso | q2
+debtor: Aposentados e pensionistas do INSS | q3
+recourse: n/d | Recompra e resolução regidas pelo contrato de endosso
+eligibility: CCB até 84 parcelas; devedor adimplente e com até 76 anos | q4,q5,q7
+debtor_limit: Saldo por devedor: R$ 60 mil acima de 61 anos; R$ 120 mil abaixo | q6 | value=none
+assignor_limit: n/d | Limite por endossante não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Até 84 parcelas | q5
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | q8 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q9,q10
+sub_senior: 10% · subord./PL | q9 | basis=mez+jr/PL | value=10
+sub_mezz: 1% · júnior/PL | q10 | basis=jr/PL | value=1
+sub_check: n/d | Periodicidade de apuração dos índices não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Despesas: 1% do PL; defesa da carteira: mais 1% do PL | q11,q12
+pdd: Manual de provisão para perdas do administrador | q13
+eval_triggers: Intervenção no endossante; inadimplência cumulativa acima de 7,82%, entre outros | q14,q26
+liquidation: Determinação da CVM ou deliberação dos cotistas, entre outros | q15
+revolving: Período de investimento com novas aquisições | q16
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,07% a.a. até R$ 300 mi de PL, regressiva até 0,025%; mín. R$ 8.750/mês | q17
+mgmt_fee: Percentual por faixa de PL; mín. R$ 8.750/mês | q18
+perf_fee: Não prevista | Regulamento veda taxa de performance | q19
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Oliveira Trust DTVM | q20
+manager: Oliveira Trust Servicer | q21
+custodian: Oliveira Trust DTVM | q22
+servicer: Tudo Serviços (agente de retenção e cobrança) | q23
+investors: Investidores qualificados | q24
+duration: Indeterminado | q25
+payroll: Desconto em folha do INSS | q3
+age_limit: Devedor de até 76 anos (aposentadoria por idade) | q7
+installment_min: n/d | Regulamento não fixa parcela mínima
+leitura: Consignado INSS da Plataforma MT; subordinação de 10% (júnior ≥ 1%) e CCB de até 84 parcelas.

@@ -1,0 +1,755 @@
+{
+ "schema_version": 1,
+ "cnpj": "47936340000192",
+ "name": "FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS AGROINDUSTRIAIS OPEA AGRO INSUMOS RESPONSABILIDADE LIMI",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T13:02:15Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "862072",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "11/03/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=862072"
+  },
+  "D2": {
+   "document_id": "801978",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=801978"
+  },
+  "D3": {
+   "document_id": "1071652",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "28/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1071652"
+  },
+  "D4": {
+   "document_id": "1030080",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "06/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1030080"
+  },
+  "D5": {
+   "document_id": "1027147",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "03/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027147"
+  },
+  "D6": {
+   "document_id": "800242",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "12/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=800242"
+  },
+  "D7": {
+   "document_id": "1038524",
+   "kind": "Ata",
+   "title": "AGE",
+   "date": "07/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de insumos agrícolas da BASF, admitida indexação cambial",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 131,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "er dia que não seja sábado, domingo ou feriado declarado nacional; “Direitos Creditórios”: Significam os direitos creditórios do agronegócio performados, vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade da Cedente, originados no âmbito de Operações de Compra a Prazo de Insumos representados por Notas Fiscais, que sejam cedidos pela Cedente nos termos do Contrato de Cessão e do respectivo Termo de Cessão, podendo ser denominados em moeda corrente nacional ou, observada a legislação aplicável às respectivas operações, conter cláusula de indexação cambial a moedas estrangeiras, permanecendo a liquidação perante o Fundo sempre em moeda corrente nacional, na Conta Autorizada; “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Adquiridos”: Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos performados de compra a prazo de insumos agro; admite indexação cambial com liquidação em reais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "BASF",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 124,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "lasse Única, formada por Direitos Creditórios Adquiridos e Ativos Financeiros; “Cedente”: A BASF S.A., sociedade por ações de capital fechado, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, 10º ao 12º e 14º ao 17º andar, Torre C - Crystal Tower, Vila Gertrudes, inscrita no CNPJ/MF sob o nº 48.539.407/0001-18, cujas cessões não contarão com coobrigação; “Classe Única” ou A classe única de Cotas do Fundo, cujos Cotistas possuem “Classe Única – responsabilidade limitada, nos termos do item 2.1 do Anexo Página 124 de 168 #9347864v6 Responsabilidade I a este Regulamento, e, a qual é formada por 3 (três) Limitada”: subclasses de Cotas, quais sejam: (i) subclasse de Cotas Seniores; (ii) subclasse de Cotas Subordinadas Mezanino; e (iii) subclasse de Cotas Subordinadas Júnior; “CMN”: O Conselho Monetário Nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "Política de crédito das empresas BASF; cedente conforme contrato de cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "BASF",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 124,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "lasse Única, formada por Direitos Creditórios Adquiridos e Ativos Financeiros; “Cedente”: A BASF S.A., sociedade por ações de capital fechado, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, 10º ao 12º e 14º ao 17º andar, Torre C - Crystal Tower, Vila Gertrudes, inscrita no CNPJ/MF sob o nº 48.539.407/0001-18, cujas cessões não contarão com coobrigação; “Classe Única” ou A classe única de Cotas do Fundo, cujos Cotistas possuem “Classe Única – responsabilidade limitada, nos termos do item 2.1 do Anexo Página 124 de 168 #9347864v6 Responsabilidade I a este Regulamento, e, a qual é formada por 3 (três) Limitada”: subclasses de Cotas, quais sejam: (i) subclasse de Cotas Seniores; (ii) subclasse de Cotas Subordinadas Mezanino; e (iii) subclasse de Cotas Subordinadas Júnior; “CMN”: O Conselho Monetário Nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "Política de crédito das empresas BASF; cedente conforme contrato de cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Perfil de devedores não descrito em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Produtores PF/PJ, cooperativas e distribuidores de insumos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação da cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 124,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "7º andar, Torre C - Crystal Tower, Vila Gertrudes, inscrita no CNPJ/MF sob o nº 48.539.407/0001-18, cujas cessões não contarão com coobrigação; “Classe Única” ou A classe única de Cotas do Fundo, cujos Cotistas possuem “Classe Única – responsabilidade limitada, nos termos do item 2.1 do Anexo Página 124 de 168 #9347864v6 Responsabilidade I a este Regulamento, e, a qual é formada por 3 (três) Limitada”: subclasses de Cotas, quais sejam: (i) subclasse de Cotas Seniores; (ii) subclasse de Cotas Subordinadas Mezanino; e (iii) subclasse de Cotas Subordinadas Júnior; “CMN”: O Conselho Monetário Nacional; “CNPJ/MF”: Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda; “Código ANBIMA”: O “Código de Administração e Gestão de Recursos de Terceiros”, editado pela ANBIMA, vigente na presente data; “Código Civil”: A Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "Contrato de cessão sem coobrigação da cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Prazo até 360 dias; Barter ≤ 20% e pessoa física ≤ 15% do PL",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 54,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "Gestor, com base nas (ii) os Direitos Creditórios deverão ter prazo informações do Agente de máximo de vencimento de até 360 (trezentos e Formalização e do Cedente sessenta) dias com base na Data de Aquisição; DIREITOS CREDITÓRIOS (“PRAZO”) Gestor, com base nas os Direitos Creditórios deverão ter prazo (iii) informações do Agente de mínimo de vencimento de até 120 (cento e Formalização e do Cedente vinte) dias com base na Data de Aquisição; DIREITOS CREDITÓRIOS (“PRAZO GLOBAL”) considerando-se pro forma a aquisição pretendida, o valor presente dos Direitos Creditórios com prazo de vencimento superior Gestor, com base nas a 240 (duzentos e quarenta) dias com base na informações do Agente de (iv) Data de Aquisição devem estar limitados a 25% Formalização, do Cedente e (vinte e cinco por cento) do Patrimônio Líquido do Custodiante. do Fundo."
+    },
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 2,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "aliação; (c) Incluir como Critério de Elegibilidade: “DIREITOS CREDITÓRIOS (CONCENTRAÇÃO GLOBAL)”, de modo a limitar o valor de face dos Direitos Creditórios que são Operação de Barter a 20% (vinte por cento) do Patrimônio Líquido da Classe. Em consequência, será incluído o item (v) do rol previsto no artigo 7.1. do Anexo Descritivo da Classe, que passará a viger com a seguinte redação: CRITÉRIOS DE ELEGIBILIDADE VERIFICAÇÃO DIREITOS CREDITÓRIOS (“CONCENTRAÇÃO GLOBAL”) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios que Gestor, com base nas são Operação de Barter devem informações do estar limitados a 20% (vinte por Agente de (v) cento) do Patrimônio Líquido da Formalização, do Classe, sendo certo que, até o dia Cedente e do 31 de dezembro de 2025, será Custodiante. considerado como Patrimônio"
+    },
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 55,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "considerando-se pro forma a aquisição pretendida, a soma do valor nominal dos Devedores de Direitos Creditórios que sejam Pessoa Física deverá ser no máximo 15% (quinze por cento) do Patrimônio Líquido do Gestor, com base nas Fundo, sendo certo que, até o dia 31 de informações do Agente de (vii) dezembro de 2025, será considerado como Formalização, do Cedente e Patrimônio Líquido, o maior entre: (i) R$ do Custodiante 1.300.000.000,00 (um bilhão e trezentos milhões de reais); ou (ii) o Patrimônio Líquido do Fundo. Em caso de desenquadramento, só serão aceitos Devedores de Direitos Creditórios que sejam Pessoa Jurídica;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo≤360 dias; vencimento≥30 dias antes de 10/09/2026; Barter≤20% PL; PF≤15% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 07/11/2025, cl. 7.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: até 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 47,
+     "clause": "cl. 5.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "ntegralização de Cotas, a Classe Única deverá observar a Alocação Mínima. 5.4. Limite de Concentração por Devedor. A aplicação de recursos em Direitos Creditórios e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor está limitada a 20% (vinte por cento) do Patrimônio Líquido da Classe Única. 5.4.1. Para efeito de cálculo dos limites, consideram-se como pertencentes a um único Devedor os Direitos Creditórios Elegíveis e Ativos Financeiros de liquidez de responsabilidade ou coobrigação de Devedores integrantes de um mesmo grupo econômico. #9347864v6 5.4.2. O percentual mencionado no item 5.4 acima deve ser cumprido mensalmente, com base no Patrimônio Líquido da Classe Única ao final do mês imediatamente anterior. 5.4.3. As aplicações em Direitos Creditórios decorrentes de receitas públicas originárias ou derivadas da União, dos Estados, do Distrito Federal e dos Municípios ou de suas autarquias e fundações, assim como em Direitos Creditórios cedidos ou originados por empresas controladas pelo poder público, não estão submetidas ao limite de concentração por devedor previsto no item 5.4 acima. 5.4.4."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor/grupo≤20% PL; Barter≤20%; PF≤15%; base transitória até 31/12/2025 não extrapolada",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 07/11/2025, cl. 5.4"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: BASF",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor/grupo≤20% PL; Barter≤20%; PF≤15%; base transitória até 31/12/2025 não extrapolada",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 360 dias da aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 54,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "Gestor, com base nas (ii) os Direitos Creditórios deverão ter prazo informações do Agente de máximo de vencimento de até 360 (trezentos e Formalização e do Cedente sessenta) dias com base na Data de Aquisição; DIREITOS CREDITÓRIOS (“PRAZO”) Gestor, com base nas os Direitos Creditórios deverão ter prazo (iii) informações do Agente de mínimo de vencimento de até 120 (cento e Formalização e do Cedente vinte) dias com base na Data de Aquisição; DIREITOS CREDITÓRIOS (“PRAZO GLOBAL”) considerando-se pro forma a aquisição pretendida, o valor presente dos Direitos Creditórios com prazo de vencimento superior Gestor, com base nas a 240 (duzentos e quarenta) dias com base na informações do Agente de (iv) Data de Aquisição devem estar limitados a 25% Formalização, do Cedente e (vinte e cinco por cento) do Patrimônio Líquido do Custodiante. do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo≤360 dias; vencimento≥30 dias antes de 10/09/2026; Barter≤20% PL; PF≤15% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 07/11/2025, cl. 7.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 122,
+     "clause": "cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "Agente Formalização e de Cobrança Extrajudicial e o Agente de Cobrança Judicial; Cobrança”: “Alocação Mínima”: O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Elegíveis; “Amortização de Significa, com relação a cada Data de Pagamento, a Principal”: amortização de parcela do valor de principal das Cotas, calculado nos termos deste Regulamento e do respectivo Apêndice, conforme aplicável, acrescida de eventual Amortização Extraordinária; “Amortização Significa a Meta de Amortização de Principal de cada série Extraordinária”: e/ou classe de Cotas será acrescida de valor correspondente à Amortização Extraordinária, conforme a ordem de alocação de recursos prevista Capítulo X do Anexo I ao Regulamento; “Amortização Significa a ordem de alocação de recursos decorrentes da Sequencial” integralização das Cotas e do recebimento dos recursos decorrentes dos ativos integrantes da Carteira da Classe Única, conforme prevista no Capítulo X do Anexo I ao Regulamento;"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada Mezanino / Subordinada Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 67,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "o denominador é igual ao Patrimônio Líquido da Classe Única; d) “Índice de Subordinação Sênior” significa a razão entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, que deverá ser apurada pela Gestora; e deverá corresponder a, no mínimo, 25% (vinte e cinco por cento); #9347864v6 e) \"Índice de Subordinação Mezanino” significa a razão entre o valor total das Cotas Subordinadas Junior e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 0,5% (cinco décimos por cento); f) “Quantidade Mínima de Devedores” significa a quantidade mínima de Devedores de Direitos Creditórios que compõem a carteira de ativos da Classe Única em um dado momento;"
+    },
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 68,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "#9347864v6 e) \"Índice de Subordinação Mezanino” significa a razão entre o valor total das Cotas Subordinadas Junior e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 0,5% (cinco décimos por cento); f) “Quantidade Mínima de Devedores” significa a quantidade mínima de Devedores de Direitos Creditórios que compõem a carteira de ativos da Classe Única em um dado momento; e g) “Índice de Atrasos” (Aging) significa, para cada mês, o percentual de atrasos das faixas de 0 a 30 dias, 31 a 60 dias, 61 a 90 dias, 91 a 120 dias, 121 a 150 dias, 151 a 180 dias e maiores que 180 dias cujo numerador é igual à soma dos valores nominais (valor de face) dos Direitos Creditórios Adquiridos atrasado na faixa e o denominador é igual ao total dos valores nominais (valor de face) dos Direitos Creditórios Adquiridos. 12.2. A Gestora verificará os Índices de Monitoramento dispostos no item 12.1 acima. 12.3."
+    }
+   ],
+   "legacy": {
+    "value": "Relação sênior / PL≤75%; índice de subordinação sênior abaixo 25% gera monitoramento",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 07/11/2025, cl. 12.1"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 67,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "o denominador é igual ao Patrimônio Líquido da Classe Única; d) “Índice de Subordinação Sênior” significa a razão entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, que deverá ser apurada pela Gestora; e deverá corresponder a, no mínimo, 25% (vinte e cinco por cento); #9347864v6 e) \"Índice de Subordinação Mezanino” significa a razão entre o valor total das Cotas Subordinadas Junior e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 0,5% (cinco décimos por cento); f) “Quantidade Mínima de Devedores” significa a quantidade mínima de Devedores de Direitos Creditórios que compõem a carteira de ativos da Classe Única em um dado momento;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Relação sênior / PL≤75%; índice de subordinação sênior abaixo 25% gera monitoramento",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 07/11/2025, cl. 12.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "0,5% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 68,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "#9347864v6 e) \"Índice de Subordinação Mezanino” significa a razão entre o valor total das Cotas Subordinadas Junior e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 0,5% (cinco décimos por cento); f) “Quantidade Mínima de Devedores” significa a quantidade mínima de Devedores de Direitos Creditórios que compõem a carteira de ativos da Classe Única em um dado momento; e g) “Índice de Atrasos” (Aging) significa, para cada mês, o percentual de atrasos das faixas de 0 a 30 dias, 31 a 60 dias, 61 a 90 dias, 91 a 120 dias, 121 a 150 dias, 151 a 180 dias e maiores que 180 dias cujo numerador é igual à soma dos valores nominais (valor de face) dos Direitos Creditórios Adquiridos atrasado na faixa e o denominador é igual ao total dos valores nominais (valor de face) dos Direitos Creditórios Adquiridos. 12.2. A Gestora verificará os Índices de Monitoramento dispostos no item 12.1 acima. 12.3."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 0.5,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Relação sênior / PL≤75%; índice de subordinação sênior abaixo 25% gera monitoramento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Fundo de despesas recomposto ao mínimo de R$ 300 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 134,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "VI do Anexo I a este Regulamento, para cobrir as Despesas do Fundo. Para efeito de recomposição do Fundo de Despesa, o valor mínimo será de R$ 300.000,00 (trezentos mil reais); “Fundos21”: É o Fundos21 – Módulo de Fundos, ambiente de negociação secundária de cotas de fundos de investimento, administrado e operacionalizado pela B3; “Gestora”: A OPEA GESTORA DE RECURSOS LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Hungria, nº 1.240, 6º andar, conjunto 62, Jardim Europa, CEP 01455-000, inscrita no CNPJ/MF sob o nº 36.196.900/0001-01, autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 19.365, de 7 de dezembro de 2021, na qualidade de gestora da Carteira; “Grandes Grupos Significam determinados Grupos Econômicos de Devedores Econômicos de da Cedente, conforme Anexo IV ao Contrato de Gestão;"
+    }
+   ],
+   "legacy": {
+    "value": "Fundo de despesas: recompor a R$ 300 mil quando saldo<R$ 200 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 07/11/2025, p. 134"
+   }
+  },
+  "pdd": {
+   "display": "PDD pelo manual da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 60,
+     "clause": "cl. 9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "estabelecidos no manual #9347864v6 de provisão para perdas por redução no valor de recuperação ou provisão para perdas com devedores duvidosos, disponível em https://www.vortx.com.br/static/assets/manuais/PRO0016_Manual_de_PDD.pdf. 9.3. As demonstrações contábeis anuais do Fundo serão elaboradas conforme definido na Instrução CVM 489 e os valores de cada Direito Creditório Adquirido e Ativo Financeiro, serão calculados de acordo com os parâmetros estabelecidos neste Capítulo. CAPÍTULO X – ORDEM DE ALOCAÇÃO DE RECURSOS 10.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Violação de declarações da cedente, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 76,
+     "clause": "cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "TOS DE LIQUIDAÇÃO ANTECIPADA E PROCEDIMENTOS DE LIQUIDAÇÃO DA CLASSE ÚNICA 18.1. Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação: a) violação das declarações, obrigações e garantias da Cedente no âmbito do Contrato de Cessão ou demais documentos integrantes do Fundo e que não sejam sanadas pelo Cedente em até 5 (cinco) Dias Úteis a contar do recebimento, pela Cedente, conforme o caso, de notificação enviada pela Administradora nesse sentido; b) (i) decretação de falência, pedido de falência formulado por terceiros e não elidido no prazo legal (inclusive mediante depósito elisivo nos termos do parágrafo único do art. 98 da Lei nº 11.101, de 9 de fevereiro de 2005, conforme alterada) ou pedido de autofalência, independentemente de sua concessão pelo juiz competente, formulado pelo ou em face da Cedente; (I) ocorrência de evento que, para os fins da legislação aplicável à época na qual ocorrer o evento, torne a Cedente insolvente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Evento de avaliação convertido ou remuneração sênior não paga, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 80,
+     "clause": "cl. 18.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "siderados eventos de liquidação, além daqueles previstos na regulamentação aplicável (“Eventos de Liquidação”): a) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; b) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura; c) caso este Regulamento, o Contrato de Cessão e/ou qualquer documento acessório previsto nestes contratos, sejam considerados nulos, inválidos ou ineficazes, no todo ou em parte, ou venham a ser contestados judicial, extrajudicialmente ou administrativamente pela Cedente ou qualquer autoridade governamental, e, desde que referida ocorrência não seja sanada em até 10 (dez) Dias Úteis a partir da data do seu acontecimento; d) caso o Contrato de Cessão seja resolvido, resilido e/ou encerrado, de acordo com seus próprios termos e condições;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regra de revolvência não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisições durante período de investimento; eventos suspendem novas compras",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,15% a.a. do PL, mínimo R$ 5 mil, e implantação de R$ 25 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 72,
+     "clause": "cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "#9347864v6 a) pelo serviço de administração do Fundo e da Classe Única, será pago à Administradora o valor correspondente a 0,15% (quinze centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$ 5.000,00 (cinco mil reais) (“Taxa de Administração Específica”); b) parcela única de R$ 25.000,00 (Vinte e cinco mil reais) será devida à Administradora na Data da Primeira Integralização, pelos serviços de implantação do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "0,15% a.a. PL, mínimo R$ 5 mil; implantação R$ 25 mil; escrituração R$ 2 mil/mês +cotista",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 07/11/2025, cl. 15.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Flat de 0,50% do integralizado, mais parcela anual sobre o PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 72,
+     "clause": "cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "ais itens deste Capítulo (“Taxa de Gestão”). a) pela prestação dos serviços de gestão da carteira do Fundo, a Gestora fará jus à remuneração (i) flat de 0,50% (cinquenta centésimos por cento) centésimos por cento) aplicado sobre valor total integralizado líquidos de impostos (“Flat Fee de Gestão”); e (ii) anual equivalente a 0,15% (quinze centésimos por cento), pagos mensalmente até o 3º (terceiro) Dia Útil, aplicado sobre o Patrimônio Líquido e líquidos de impostos, observado o valor mínimo de R$ 10.000,00 (dez mil reais) contados da 1ª Data de Integralização de Cotas; b) pela prestação dos serviços de custódia e controladoria dos ativos integrantes da carteira do Fundo será devido pelo Fundo ao Agente de Controladoria o equivalente a 0,10% (dez centésimos por cento) ao ano, #9347864v6 incidentes sobre o Patrimônio Líquido do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Flat 0,50% do integralizado líquido de impostos +0,15% a.a. PL, mínimo R$ 10 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 07/11/2025, cl. 15.2"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Remuneração por apêndice; spread final das séries 4/5 não reconciliado nesta revisão",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Remuneração por apêndice; spread final das séries 4/5 não reconciliado nesta revisão",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "DE NOVEMBRO de 2025 DATA, HORA E LOCAL: Realizada em 06 de novembro de 2025, às 10:00 horas, de forma não presencial, pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na Rua Gilberto Sabino, nº 215, 4º andar, Pinheiros, Cidade de São Paulo, Estado de São Paulo, inscrita no CNPJ sob o n.º 22.610.500/0001-88, autorizada a administrar carteiras de valores mobiliários pelo Ato Declaratório da Comissão de Valores Mobiliários (“CVM”) n.º 14.820, de 8 de janeiro de 2016 (“Administradora”), na qualidade de instituição administradora da Classe. 1. CONVOCAÇÃO E PRESENÇA: Dispensada a convocação em virtude da presença do Cotista Exclusivo, nesta data, representando a totalidade das cotas de emissão Classe (“Cotista”), em conformidade com o disposto no artigo 71, §2° da Resolução CVM nº 175, de 23 de dezembro de 2022 (“Resolução CVM 175”), conforme lista de presença arquivada na sede da Administradora. 2. COMPOSIÇÃO DA MESA: Maria Carolina de Oliveira Prates (“Presidente”); Mathilde Máximo Ribeiro (“Secretária”). 3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Opea Gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 134,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "e fundos de investimento, administrado e operacionalizado pela B3; “Gestora”: A OPEA GESTORA DE RECURSOS LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Hungria, nº 1.240, 6º andar, conjunto 62, Jardim Europa, CEP 01455-000, inscrita no CNPJ/MF sob o nº 36.196.900/0001-01, autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 19.365, de 7 de dezembro de 2021, na qualidade de gestora da Carteira; “Grandes Grupos Significam determinados Grupos Econômicos de Devedores Econômicos de da Cedente, conforme Anexo IV ao Contrato de Gestão;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 129,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "a de Aquisição, descritos no Capítulo VII do Anexo I ao Regulamento; “Custodiante”: A VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada, ou sua sucessora a qualquer título, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios; “CVM”: A Comissão de Valores Mobiliários; “D”: Significa o valor expresso na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculado a partir da fração abaixo, observado, em todo o caso, o mínimo de 1% (um por cento) ao ano: 𝐷𝐺 + 2.5𝐷𝐴 𝐷= 𝑃𝑎𝑡𝑟𝑖𝑚ô𝑛𝑖𝑜 𝐿í𝑞𝑢𝑖𝑑𝑜 “Data da 1ª Significa a data da primeira integralização das Cotas, em que Integralização”: os recursos são efetivamente colocados à disposição da Classe Única pelos Cotistas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agentes de cobrança não nomeados em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais e qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 40,
+     "clause": "cl. 1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "disposto acima, a Classe Única será liquidada quando do Resgate de todas as suas Cotas. 1.3. Público-Alvo. A Classe Única será destinada à Investidores Profissionais e à Investidores Qualificados, observado o disposto neste Regulamento. CAPÍTULO II – REGIME DE RESPONSABILIDADE E REGIME DE INSOLVÊNCIA 2.1. Responsabilidade Limitada. A responsabilidade dos Cotistas da Classe Única é limitada ao valor das Cotas por eles subscritas, sem qualquer solidariedade entre si, nos termos do artigo 18, caput, da Parte Geral da Resolução CVM 175. 2.2. Patrimônio Líquido Negativo. Tendo em vista a responsabilidade limitada, os Cotistas não responderão por eventual Patrimônio Líquido negativo da Classe Única, salvo deliberação em contrário dos Cotistas em Assembleia Geral. 2.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 40,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "do artigo 5º, parágrafo 7º, inciso II da Parte Geral da Resolução CVM 175, 1.2. Prazo de Duração da Classe Única. A Classe Única terá prazo de duração indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas reunidos em Assembleia Geral, nos termos previstos neste Regulamento, observado que as Cotas de cada emissão ou série (i) terão prazo de duração determinado e (ii) serão resgatadas conforme as datas de Resgate definidas nos respectivos Apêndices ou em virtude da liquidação do Fundo. 1.2.1. Não obstante o disposto acima, a Classe Única será liquidada quando do Resgate de todas as suas Cotas. 1.3. Público-Alvo. A Classe Única será destinada à Investidores Profissionais e à Investidores Qualificados, observado o disposto neste Regulamento. CAPÍTULO II – REGIME DE RESPONSABILIDADE E REGIME DE INSOLVÊNCIA 2.1. Responsabilidade Limitada. A responsabilidade dos Cotistas da Classe Única é limitada ao valor das Cotas por eles subscritas, sem qualquer solidariedade entre si, nos termos do artigo 18, caput, da Parte Geral da Resolução CVM 175. 2.2. Patrimônio Líquido Negativo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Direitos do agronegócio performados, com notas fiscais de insumos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1038524",
+     "document_id": "1038524",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "07/11/2025",
+     "page": 131,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038524",
+     "excerpt": "er dia que não seja sábado, domingo ou feriado declarado nacional; “Direitos Creditórios”: Significam os direitos creditórios do agronegócio performados, vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade da Cedente, originados no âmbito de Operações de Compra a Prazo de Insumos representados por Notas Fiscais, que sejam cedidos pela Cedente nos termos do Contrato de Cessão e do respectivo Termo de Cessão, podendo ser denominados em moeda corrente nacional ou, observada a legislação aplicável às respectivas operações, conter cláusula de indexação cambial a moedas estrangeiras, permanecendo a liquidação perante o Fundo sempre em moeda corrente nacional, na Conta Autorizada; “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Adquiridos”: Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos performados de compra a prazo de insumos agro; admite indexação cambial com liquidação em reais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos créditos não descritas em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Insumos da BASF sem coobrigação; subordinação de 25% e devedor ≤ 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

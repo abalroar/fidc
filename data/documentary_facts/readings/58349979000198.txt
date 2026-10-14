@@ -1,0 +1,46 @@
+# Volkswagen Tera FIDC Recebíveis Comerciais (Oliveira Trust; Oliveira Trust Servicer; cedente Volkswagen do Brasil)
+type: Duplicatas/multicedente
+q1: * "seguintes Critérios de Elegibilidade na Data de Aquisição e Pagamento: (a) os Direitos Creditórios são expressos em Reais (BRL); (b) os Direitos Creditórios não podem estar vencidos"
+q2: * "coobrigação da Cedente ou de terceiros. A Cedente não responde pelo pagamento dos Direitos Creditórios Cedidos ou pela solvência dos Devedores"
+q3: * "significa a relação mínima admitida entre o somatório do valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, equivalente a 25%"
+q4: * "São Eventos de Avaliação: (a) não divulgação, pela Gestora, do Relatório de Monitoramento"
+q5: * "São Eventos de Liquidação: (a) caso seja deliberado, em Assembleia de Cotistas, que um Evento de Avaliação configura um Evento de Liquidação"
+q6: * "Revolvência dos Direitos Creditórios durante o Período de Carência"
+q7: * "administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q8: * "gerido pela OLIVEIRA TRUST SERVICER S.A."
+q9: * "destinada a Investidores Profissionais que busquem rentabilidade"
+q10: * "prazo de duração indeterminado, sendo que cada Série de Cotas Seniores terá o Prazo de Duração estipulado no respectivo Apêndice"
+receivables: Recebíveis comerciais de veículos Volkswagen novos, inclusive não performados | o1
+originator: Volkswagen do Brasil | o7
+assignor: Volkswagen do Brasil e filiais identificadas | o7
+debtor: Clientes pulverizados e locadoras como Movida, Unidas e LM | o10
+recourse: Sem coobrigação da cedente; resolução por vício ou cancelamento | q2,o12
+eligibility: Em reais, não vencidos; devedor adimplente, entre outros | q1
+debtor_limit: Pulverizado ≤ 3% do PL; grupo concentrado ≤ 25% do PL | q12 | value=3
+sacado_limit: Pulverizado ≤ 3% do PL; grupo concentrado ≤ 25% do PL | q12 | value=3
+assignor_limit: — | Cedente única: Volkswagen do Brasil
+term_max: Pulverizados até 60 dias; concentrados até 180 dias | o15
+allocation: Alvo ≥ 95% do PL em direitos creditórios | o25 | value=95
+quota_structure: Sênior / Subordinada | q3
+sub_senior: 25% · subord./PL | q3 | basis=jr/PL | value=25
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: 3 meses de despesas; reserva de remuneração na carência | o38
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Atraso acima dos limites por tipo de cliente; relatório não divulgado, entre outros | o44,q4
+liquidation: Evento de avaliação convertido em liquidação ou insolvência, entre outros | q5
+revolving: Revolvência durante o período de carência | q6
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Faixas marginais a partir de 0,195% a.a. do PL, com mínimo mensal | o56
+mgmt_fee: 25% da taxa de administração | o59
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q7
+manager: Oliveira Trust Servicer | q8
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança extrajudicial não nomeado em trecho contínuo
+investors: Investidores profissionais | q9
+duration: Indeterminado (séries com prazo próprio) | q10
+q12: * "não seja superior a 3% (três por cento) do Patrimônio Líquido do Fundo, considerada pro forma a aquisição"
+leitura: Recebíveis de veículos Volkswagen; subordinação de 25%, pulverizado ≤ 3% e grupo concentrado ≤ 25% do PL.

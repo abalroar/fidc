@@ -1,0 +1,47 @@
+# FIDC Blue II Crédito Privado (Oliveira Trust; Oliveira Trust Servicer; debêntures da Azul)
+type: Outros
+q1: * "Dívidas Corporativas”: significa a “12ª (décima segunda) Emissão de Debêntures Simples, Não Conversíveis em Ações, da Espécie com Garantia Real"
+q2: * "Azul Linhas Aéreas Brasileiras S.A., inscrita no CNPJ sob o nº 09.296.295/0001-60"
+q3: * "Critérios de Elegibilidade, a serem verificados e validados pela Gestora, previamente à cessão e na respectiva Data de Aquisição e Pagamento"
+q4: * "“Índice de Subordinação Sênior”: significa a relação mínima admitida entre o somatório do valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, equivalente a 70%"
+q5: * "“Índice de Subordinação Mezanino I”: significa a relação mínima admitida entre o somatório do valor das Cotas Subordinadas Mezanino II e Cotas Subordinadas Júnior"
+q6: * "“Índice de Subordinação Mezanino II”: significa a relação mínima admitida entre o somatório do valor das Cotas Subordinadas Júnior e o Patrimônio Líquido da Classe, equivalente a 5%"
+q7: * "Reserva de Despesas ao equivalente ao montante necessário estimado para o pagamento de 15 quinze meses de Encargos do Fundo"
+q8: * "Eventos de Avaliação: (a) inobservância pela Administradora, pelo Custodiante e/ou pela Gestora"
+q9: * "Eventos de Liquidação: (a) caso seja deliberado em Assembleia Geral que um Evento de Avaliação constitui um Evento de Liquidação; (b) caso ocorra um evento de vencimento antecipado das Dívidas Corporativas"
+q10: * "administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q11: * "gerido pela Oliveira Trust Servicer S.A."
+q13: * "destinada exclusivamente a Investidores Profissionais que busquem rentabilidade"
+q14: * "provisão para devedores duvidosos de Direitos Creditórios de um mesmo devedor deverá ser mensurado"
+receivables: Debêntures da 12ª emissão da Azul, com garantia real e fidejussória | q1
+originator: — | Fundo adquire debêntures; não há originador de recebíveis
+assignor: — | Aquisição de debêntures, sem cedente operacional
+debtor: Azul Linhas Aéreas Brasileiras | q2
+recourse: Garantia real e garantia adicional fidejussória das debêntures | q1
+eligibility: Em reais, verificados pela gestora na aquisição, entre outros | q3
+debtor_limit: Devedor único: Azul | q2
+assignor_limit: — | Não há cedentes
+term_max: n/d | Prazo segue a escritura das debêntures
+allocation: n/d | Alocação mínima não localizada em trecho contínuo
+quota_structure: Sênior / Mezanino I / Mezanino II / Subordinada júnior | q4,q5,q6
+sub_senior: 70% · subord./PL | q4 | basis=mez+jr/PL | value=70
+sub_mezz: Mezanino I protegida por 40%; mezanino II por júnior ≥ 5% | q5,q6 | basis=jr/PL | value=5
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Despesas estimadas de 15 meses | q7
+pdd: PDD conforme Instrução CVM 489 | q14
+eval_triggers: Inobservância de deveres por prestadores, entre outros | q8
+liquidation: Vencimento antecipado das debêntures da Azul, entre outros | q9
+revolving: — | Não aplicável a debêntures de emissão única
+amortization: n/d | Cronograma segue os pagamentos das debêntures e apêndices
+admin_fee: 0,1050% a.a. até R$ 300 mi + 0,05250% no excedente, com mínimo mensal | o48
+mgmt_fee: 0,0450% a.a. até R$ 300 mi + 0,02250% no excedente, com mínimo mensal | o51
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Oliveira Trust DTVM | q10
+manager: Oliveira Trust Servicer | q11
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: — | Não aplicável a debêntures
+investors: Investidores profissionais | q13
+duration: n/d | Prazo de duração não localizado em trecho contínuo
+leitura: Debêntures da Azul com garantia real; subordinação de 70% para a sênior e júnior ≥ 5%.

@@ -1,0 +1,793 @@
+{
+ "schema_version": 1,
+ "cnpj": "63546406000194",
+ "name": "PINE INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T08:09:31Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1130481",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "05/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481"
+  },
+  "D2": {
+   "document_id": "1130478",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "05/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130478"
+  },
+  "D3": {
+   "document_id": "1172101",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "22/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1172101"
+  },
+  "D4": {
+   "document_id": "1171276",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "09/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171276"
+  },
+  "D5": {
+   "document_id": "1162293",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "13/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1162293"
+  },
+  "D6": {
+   "document_id": "1130507",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "05/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130507"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCCBs lastreadas em CCBs de consignado INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 130,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "ria ou na Taxa de Gestão. 5.8. Os documentos comprobatórios (\"Documentos Comprobatórios\") dos Direitos Creditórios significam as vias negociáveis de cada CCB, emitidas a partir dos caracteres criados em computador ou meio eletrônico equivalente, contendo a autorização expressa do Devedor para a realização dos descontos, consignação em folha de pagamento e repasse dos recursos necessários para pagamento das parcelas da CCB apensada à CCCB, bem como os respectivos Termos de Cessão. 5.9. Os documentos complementares (\"Documentos Complementares\") significam as cópias dos documentos adicionais que, embora não sejam essenciais para comprovar a existência dos Direitos Creditórios, podem ser úteis para sua gestão, cobrança ou para a análise de risco, como (i) a cópia dos documentos que atestem a identidade do Devedor (RG e CPF ou CNH); (ii) a foto (selfie) de cada Devedor; e (iii) os demais documentos que ampararão os documentos acima descritos que o Cedente tenha ou deva ter de acordo com as normas aplicáveis, se aplicável. 5.10."
+    }
+   ],
+   "legacy": {
+    "value": "CCCBs lastreados em CCBs de empréstimos consignados INSS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Banco Pine (cedente)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 122,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "“Originadores”). Docusign Envelope ID: C0A36854-4B52-48BD-8CC8-BCBFAC809617 2.8. Agente de Arrecadação. A Gestora contratou o Banco Pine S.A. como agente de arrecadação (\"Agente de Arrecadação\") dos Direitos Creditórios Cedidos, mediante Consignação pelo Agente Operador do INSS, os quais deverão ser depositados na Conta Vinculada, para posterior conciliação e Cessão, por ordem do Consultor Especializado, para"
+    }
+   ],
+   "legacy": {
+    "value": "Cedente Banco Pine; originadores Banco Pine e Facta Financeira",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Banco Pine",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 122,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "“Originadores”). Docusign Envelope ID: C0A36854-4B52-48BD-8CC8-BCBFAC809617 2.8. Agente de Arrecadação. A Gestora contratou o Banco Pine S.A. como agente de arrecadação (\"Agente de Arrecadação\") dos Direitos Creditórios Cedidos, mediante Consignação pelo Agente Operador do INSS, os quais deverão ser depositados na Conta Vinculada, para posterior conciliação e Cessão, por ordem do Consultor Especializado, para"
+    }
+   ],
+   "legacy": {
+    "value": "Cedente Banco Pine; originadores Banco Pine e Facta Financeira",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Aposentados e pensionistas do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 130,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "ria ou na Taxa de Gestão. 5.8. Os documentos comprobatórios (\"Documentos Comprobatórios\") dos Direitos Creditórios significam as vias negociáveis de cada CCB, emitidas a partir dos caracteres criados em computador ou meio eletrônico equivalente, contendo a autorização expressa do Devedor para a realização dos descontos, consignação em folha de pagamento e repasse dos recursos necessários para pagamento das parcelas da CCB apensada à CCCB, bem como os respectivos Termos de Cessão. 5.9. Os documentos complementares (\"Documentos Complementares\") significam as cópias dos documentos adicionais que, embora não sejam essenciais para comprovar a existência dos Direitos Creditórios, podem ser úteis para sua gestão, cobrança ou para a análise de risco, como (i) a cópia dos documentos que atestem a identidade do Devedor (RG e CPF ou CNH); (ii) a foto (selfie) de cada Devedor; e (iii) os demais documentos que ampararão os documentos acima descritos que o Cedente tenha ou deva ter de acordo com as normas aplicáveis, se aplicável. 5.10."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas devedoras das CCBs, beneficiárias do INSS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso nem coobrigação de terceiros pelo pagamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 76,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Financeiros integrantes da carteira do Fundo. Assim, tendo em vista a inexistência de coobrigação ou direito de regresso contra quaisquer terceiros com relação ao pagamento dos Direitos Creditórios e dos Ativos Financeiros, ocorrendo inadimplemento dos Direitos Creditórios e dos Ativos Financeiros, depois de esgotados todos os meios cabíveis para a cobrança, judicial ou extrajudicial, dos referidos ativos, o Fundo não disporá de quaisquer outros valores para efetuar a amortização e/ou o resgate, em moeda corrente nacional, de suas"
+    }
+   ],
+   "legacy": {
+    "value": "Termo eletrônico + registro; contrato prevê resolução da cessão com recompra pelo cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Faixas etárias, benefício 32 e limites individuais por devedor",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 139,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "deverão observar, em relação aos Devedores Benefício 32, os seguintes limites de saldo total acumulado em aberto dos Direitos Creditórios adquiridos indicado na coluna da direita: Limite de Saldo Total Acumulado Caso sejam Devedor Benefício 32 permanentes na Data de Oferta: até 25% (vinte e cinco por cento) do"
+    }
+   ],
+   "legacy": {
+    "value": "Sem inadimplência; idade média ≤ 70 anos; idade + prazo ≤ 79 anos; saldo por devedor ≤ R$ 150 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, p. 139"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou grupo: até 20% do PL, além de limites individuais",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 23,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Ativos Financeiros, Operações de Derivativos e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor (incluindo integrantes de seu respectivo grupo econômico), conforme aplicável, está limitada a 20% (vinte por cento) do Patrimônio Líquido da Classe Única, sem prejuízo dos Critérios de Elegibilidade – Debêntures ou dos Critérios de Elegibilidade – Lote Adicional e/ou das Condições de Cessão relacionados à concentração por Devedor de Direitos Creditórios do mesmo grupo econômico. O limite aqui referido poderá ser aumentado quando o devedor ou o coobrigado: (a) tiver registro de companhia aberta; (b) ser instituição financeira ou equiparada; ou (c) ser entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do direito creditório elaboradas em conformidade com o disposto na Lei nº 6.404, de 15 de dezembro de 1976, e a regulamentação editada pela CVM, e auditadas por auditor independente registrado na CVM, ou se tratar de aplicações em: (i) títulos públicos federais; (ii) operações compromissadas lastreadas em títulos públicos federais;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Faixas etárias, benefício 32 e limites individuais; base valor presente de créditos não inadimplidos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, p. 23"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente único: Banco Pine",
+   "sources": [],
+   "legacy": {
+    "value": "Faixas etárias, benefício 32 e limites individuais; base valor presente de créditos não inadimplidos",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo combinado com idade; trecho sem limite isolado",
+   "sources": [],
+   "legacy": {
+    "value": "Sem inadimplência; idade média ≤ 70 anos; idade + prazo ≤ 79 anos; saldo por devedor ≤ R$ 150 mil",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios (regulatório)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 80,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "\"Alocação Mínima - Regulatório\" O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. \"Alocações Mínimas\" A Alocação Mínima - Entidade de Investimento e a Alocação Mínima - Regulatório quando referidos em conjunto."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50% PL regulatório; 67% PL para entidade de investimento",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, p. 80"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / B / C / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 141,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "1 Cotas Significa a relação mínima de 5% (cinco por cento) que Mezanino deve ser observada, entre (i) o somatório do valor das A Cotas Mezanino B, o valor das Cotas Mezanino C e o valor das Cotas Subordinadas Júnior; e (ii) o Patrimônio Líquido da Classe, desconsiderado eventual efeito do MTM da O"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior inicial ≥1,50%, meta ≥2,50%; MZ A: B+C+júnior ≥5%. Exclusão de MTM expressa para A/júnior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, p. 141"
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção sênior definida por índices de cobertura e mezaninos",
+   "sources": [],
+   "legacy": {
+    "value": "Júnior inicial ≥1,50%, meta ≥2,50%; MZ A: B+C+júnior ≥5%. Exclusão de MTM expressa para A/júnior",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A e B protegidas por ao menos 5% cada",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 141,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "1 Cotas Significa a relação mínima de 5% (cinco por cento) que Mezanino deve ser observada, entre (i) o somatório do valor das A Cotas Mezanino B, o valor das Cotas Mezanino C e o valor das Cotas Subordinadas Júnior; e (ii) o Patrimônio Líquido da Classe, desconsiderado eventual efeito do MTM da O"
+    }
+   ],
+   "legacy": {
+    "value": "MZ A protegida por B+C+júnior ≥5%; MZ B por C+júnior ≥5%; MZ C por júnior ≥3%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, p. 141"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração dos índices não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Júnior inicial ≥1,50%, meta ≥2,50%; MZ A: B+C+júnior ≥5%. Exclusão de MTM expressa para A/júnior",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de liquidez ≥ 2,50% do PL, mais reserva de MTM",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 144,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "o disposto no Anexo Descritivo, a \"Reserva de Liquidez\" deverá corresponder à 2,50% (dois inteiros e cinquenta centésimos por cento) do Patrimônio Líquido da Classe Única. Esse percentual mínimo poderá ser reduzido se, e somente se, o Índice de Subordinação Mezanino C atingir 2,50% (dois inteiros e cinquenta centésimos por cento) do Patrimônio Líquido da Classe Única, sendo certo que a redução permitida será limitada ao suficiente para que a Reserva de Liquidez permaneça em, no mínimo"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidez ≥ 2,50% PL; pode cair a 2% com proteção MZ C de 2,50%; reserva MTM aplicável",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, p. 144"
+   }
+  },
+  "pdd": {
+   "display": "Cobertura usa créditos líquidos de PDD; provisão pelo manual do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Direitos Creditórios serão considerados líquidos de provisão para devedores duvidosos, e serão determinados com referência da Data Base de Índices; (ii) o valor das Disponibilidades será determinado com referência na Data Base de Índices, líquido da Reserva de Despesas e Encargos e da Reserva de MTM, conforme aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "Cobertura usa DC a valor presente líquido de PDD; provisão conforme manual da administração",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eval_triggers": {
+   "display": "Relatório de gestão atrasado em 5 dias úteis; cobertura e perdas, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 57,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "juízo dos Eventos de Avaliação adicionais previstos no Anexo Definições Específicas da Classe, se houver, são Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Gestão em até 5 (cinco) Dias Úteis contados da Data de Envio do Relatório de Gestão; (ii) amortização de Cotas Subordinadas Juniores em desconformidade com este Anexo Descritivo e, se for o caso, com o Anexo Definições Específicas da Classe, exceto se os valores pagos incorretamente sejam devolvidos à Classe, podendo a devolução ser realizada por meio de subscrição e integralização de novas cotas da Subclasse de Cotas Subordinadas Juniores no prazo de 3 (três) Dias Úteis contados da notificação neste sentido enviada pela Administradora aos Cotistas detentores de Cotas Subordinadas Juniores; (iii) rebaixamento da classificação de qualquer série de Cotas Seniores em 3 (três) ou mais níveis abaixo da classificação de risco originalmente atribuída à respectiva série de Cotas Seniores, conforme aplicável;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 144,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "\"Patamar de Desalavancagem 1\" 1,00 (um inteiro) \"Patamar de Desalavancagem 2\" 0,98 (noventa e oito centésimos) \"Patamar de Desalavancagem de Perdas” 5% (cinco por cento) \"Patamar de Realavancagem de Perdas\" 4% (quatro por cento) 11.2."
+    }
+   ],
+   "legacy": {
+    "value": "Patamares cobertura 1,00/0,98; perdas desalavancagem 5% / realavancagem 4%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, p. 57"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação cruza páginas",
+   "sources": [],
+   "legacy": {
+    "value": "Patamares cobertura 1,00/0,98; perdas desalavancagem 5% / realavancagem 4%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "Aquisições só até o fim do 1º mês completo de alocação; sem revolvência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 140,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "sem revolvência. 7.2. Não obstante o disposto no CAPÍTULO 11 do Anexo Descritivo, a aquisição de Direitos Creditórios somente será permitida de forma ampla até o fim do 1º (primeiro) Mês Completo de Alocação. 7.3. A Classe Única poderá alienar Direitos Creditórios Cedidos a terceiros nas seguintes hipóteses: (a) hipóteses previstas nos processos no CAPÍTULO 15 do Anexo Descritivo; e (b) hipóteses previstas no item 9.5 abaixo. 8. Derivativos 8.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 140,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "sem revolvência. 7.2. Não obstante o disposto no CAPÍTULO 11 do Anexo Descritivo, a aquisição de Direitos Creditórios somente será permitida de forma ampla até o fim do 1º (primeiro) Mês Completo de Alocação. 7.3."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisição até fim do primeiro mês completo de alocação; sem revolvência",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Principal ligado ao fluxo/estoque de créditos; calendário fechado remetido ao suplemento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Faixas cumulativas de 0,045% a 0,02% a.a., com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 124,
+     "clause": "cl. 2.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Até R$ 500.000.000,00 0,045% Entre R$ 500.000.000,01 a R$ 0,035% 1.000.000.000,00 Acima de R$ 1.000.000.000,01 0,02% (b) para a participação e a implementação das decisões tomadas em reunião formal ou na Assembleia de Cotistas, o Fundo pagará à Admini"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas cumulativas 0,045% / 0,035% / 0,02% a.a.; mínimo R$ 7.500/mês; IGP-M; tributos adicionais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, cl. 2.8"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Faixas cumulativas de 0,045% a 0,02% a.a., com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 124,
+     "clause": "cl. 2.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Até R$ 500.000.000,00 0,045% Entre R$ 500.000.000,01 a R$ 0,035% 1.000.000.000,00 Acima de R$ 1.000.000.000,01 0,02% (b) para a participação e a implementação das decisões tomadas em reunião formal ou na Assembleia de Cotistas, o Fundo pagará à Admini"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas cumulativas 0,045% / 0,035% / 0,02% a.a.; mínimo R$ 7.500/mês; IGP-M",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, cl. 2.8"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 126,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "s do Contrato de Consultoria e Cobrança. 3.7. Taxa de Ingresso ou Saída. Taxa de Performance. Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas. 3.8. Taxa Máxima de Distribuição. Tendo em vista que não há distribuidor que preste serviços de forma contínua ao Fundo e/ou a Classe Única, o presente Regulamento e seus Anexos não preveem uma taxa máxima de distribuição, nos termos do Ofício-Circular- Conjunto nº 1/2023/CVM/SIN/SSE. A remuneração do distribuidor que venha a ser contratado e remunerado pontualmente, a cada nova emissão de Cotas, será prevista nos documentos da respectiva oferta, nos termos da Resolução CVM 160. 4. Comitê de Investimentos. 4.1. A Classe Única não contará com um comitê de investimentos. 5. Direitos Creditórios, Documentos Comprobatórios e Documentos Complementares 5.1."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Spread definido em bookbuilding, no suplemento",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior CDI + spread em bookbuilding, piso 1,10% e teto 1,25%; MZ A +3,50%, B +4,75%, C +7,50% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior CDI + spread em bookbuilding, piso 1,10% e teto 1,25%; MZ A +3,50%, B +4,75%, C +7,50% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 118,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Descritivo, a Administradora é responsável por: (i) monitorar passivamente a ocorrência de qualquer Evento de Insolvência e Evento de Deterioração de Crédito do Cedente, por meio: (a) do recebimento de comunicação enviada pelo Cedente ou por terceiros Docusign Envelope ID: C0A36854-4B52-48BD-8CC8-BCBFAC809617 interessados sobre a configuração de qualquer Evento de Inso"
+    }
+   ],
+   "legacy": {
+    "value": "Administração/custódia: Vert DTVM; gestão: Vert Gestora; arrecadação: Banco Pine",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "manager": {
+   "display": "Vert Gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 118,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Descritivo, a Administradora é responsável por: (i) monitorar passivamente a ocorrência de qualquer Evento de Insolvência e Evento de Deterioração de Crédito do Cedente, por meio: (a) do recebimento de comunicação enviada pelo Cedente ou por terceiros Docusign Envelope ID: C0A36854-4B52-48BD-8CC8-BCBFAC809617 interessados sobre a configuração de qualquer Evento de Inso"
+    }
+   ],
+   "legacy": {
+    "value": "Administração/custódia: Vert DTVM; gestão: Vert Gestora; arrecadação: Banco Pine",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "custodian": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 118,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Descritivo, a Administradora é responsável por: (i) monitorar passivamente a ocorrência de qualquer Evento de Insolvência e Evento de Deterioração de Crédito do Cedente, por meio: (a) do recebimento de comunicação enviada pelo Cedente ou por terceiros Docusign Envelope ID: C0A36854-4B52-48BD-8CC8-BCBFAC809617 interessados sobre a configuração de qualquer Evento de Inso"
+    }
+   ],
+   "legacy": {
+    "value": "Administração/custódia: Vert DTVM; gestão: Vert Gestora; arrecadação: Banco Pine",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "servicer": {
+   "display": "Pine (agente de arrecadação)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 118,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "Descritivo, a Administradora é responsável por: (i) monitorar passivamente a ocorrência de qualquer Evento de Insolvência e Evento de Deterioração de Crédito do Cedente, por meio: (a) do recebimento de comunicação enviada pelo Cedente ou por terceiros Docusign Envelope ID: C0A36854-4B52-48BD-8CC8-BCBFAC809617 interessados sobre a configuração de qualquer Evento de Inso"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 118,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "de Administração e Gestão de Recursos de Terceiros. 1.2. Público-Alvo. A Classe Única é destinada a Investidores Qualificados, que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceitem os riscos associados aos investimentos da Classe Única. 1.3. Investidores Autorizados. Somente Investidores Autorizados que sejam Investidores Qualificados poderão adquirir as Cotas da Classe Única. 1.4. Prazo de Duração. A Classe Única terá prazo de duração determinado de 96 (noventa e seis) meses. 1.5. Exercício Social. O exercício social da Classe Única tem duração de 1 (um) ano e encerra-se em 31 de março de cada ano. 1.6. Valor Unitário de Emissão. As Cotas terão Valor Unitário de Emissão de R$ 1.000,00 (mil reais). 2. Prestadores de Serviços. 2.1. Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "Fundo indeterminado; investidores autorizados devem ser qualificados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "de investimento em direitos creditórios, constituído sob a forma de condomínio de natureza especial e com prazo de duração indeterminado, inscrito no CNPJ sob o nº 63.546.406/0001-94 (\"Fundo\"), regido pelo presente regulamento (“Regulamento”), pela Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada (\"Código Civil\"), pela Resolução do Conselho Monetário Nacional (\"CMN\") nº 2.907, de 29 de novembro de 2001, conforme alterada, pela parte geral e pelo Anexo Normativo II da Resolução da Comissão de Valores Mobiliários (\"CVM\") nº 175, de 23 de dezembro de 2022, conforme alterada (\"Resolução CVM 175\") e pelas demais disposições legais e regulamentares aplicáveis. 1.2 O Fundo possui uma única classe de cotas, a qual possui subclasses, na forma do §3º, do artigo 5º, da parte geral da Resolução CVM 175 e conforme disposto no Anexo Descritivo que compõe o Anexo I a este Regulamento, observadas ainda as disposições específicas previstas no Anexo Definições Específicas da Classe que compõe o Anexo VI a este Regulamento. 1.3 Todos os termos e expressões iniciados em letras maiúsculas, utilizados na parte geral do"
+    }
+   ],
+   "legacy": {
+    "value": "Fundo indeterminado; investidores autorizados devem ser qualificados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Consignação de benefícios do INSS via Dataprev",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 130,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "ria ou na Taxa de Gestão. 5.8. Os documentos comprobatórios (\"Documentos Comprobatórios\") dos Direitos Creditórios significam as vias negociáveis de cada CCB, emitidas a partir dos caracteres criados em computador ou meio eletrônico equivalente, contendo a autorização expressa do Devedor para a realização dos descontos, consignação em folha de pagamento e repasse dos recursos necessários para pagamento das parcelas da CCB apensada à CCCB, bem como os respectivos Termos de Cessão. 5.9. Os documentos complementares (\"Documentos Complementares\") significam as cópias dos documentos adicionais que, embora não sejam essenciais para comprovar a existência dos Direitos Creditórios, podem ser úteis para sua gestão, cobrança ou para a análise de risco, como (i) a cópia dos documentos que atestem a identidade do Devedor (RG e CPF ou CNH); (ii) a foto (selfie) de cada Devedor; e (iii) os demais documentos que ampararão os documentos acima descritos que o Cedente tenha ou deva ter de acordo com as normas aplicáveis, se aplicável. 5.10."
+    }
+   ],
+   "legacy": {
+    "value": "Consignação autorizada e margem averbada; validação do lastro das CCBs",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "Faixas etárias por espécie de benefício",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130481",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/03/2026",
+     "page": 139,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+     "excerpt": "deverão observar, em relação aos Devedores Benefício 32, os seguintes limites de saldo total acumulado em aberto dos Direitos Creditórios adquiridos indicado na coluna da direita: Limite de Saldo Total Acumulado Caso sejam Devedor Benefício 32 permanentes na Data de Oferta: até 25% (vinte e cinco por cento) do"
+    }
+   ],
+   "legacy": {
+    "value": "Sem inadimplência; idade média ≤ 70 anos; idade + prazo ≤ 79 anos; saldo por devedor ≤ R$ 150 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/03/2026, p. 139"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Regulamento não fixa parcela mínima",
+   "sources": [],
+   "legacy": {
+    "value": "Sem inadimplência; idade média ≤ 70 anos; idade + prazo ≤ 79 anos; saldo por devedor ≤ R$ 150 mil",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Consignado INSS do Banco Pine em estrutura com mezaninos A, B e C; aquisição só no 1º mês de alocação.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

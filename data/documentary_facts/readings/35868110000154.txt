@@ -1,0 +1,48 @@
+# FIDC BV Crédito de Veículos (Oliveira Trust DTVM; Oliveira Trust Servicer; cedente Banco Votorantim)
+type: Veículos
+q14: * "ser equivalente a, no mínimo, 25% (vinte e cinco por cento) (“Relação Mínima”)"
+q13: * "caso o indicador IP90+ do Índice de Monitoramento, em uma Data de Verificação, seja superior a 2%"
+q12: * "licar, será sempre inferior a 70% (setenta por cento); (iii) cada Cédula de Crédito Bancário somente será cedida ao Fundo integralmente"
+q1: * "Cedente Significa o Banco Votorantim S.A."
+q2: * "Gestor Oliveira Trust Servicer S.A."
+q3: * "Custodiante Significa o Administrador atuando na qualidade de custodiante do Fundo"
+q4: * "Agente de Cobrança Banco Votorantim S.A."
+q5: * "administrado pela OLIVEIRA TRUST DTVM S.A."
+q6: * "remuneração global equivalente à: 0,07% (sete décimos por cento) ao ano sobre valor do Patrimônio Líquido"
+q8: * "São considerados Eventos de Liquidação Antecipada do Fundo quaisquer das seguintes ocorrências"
+q9: * "prazo de duração indeterminado, podendo ser liquidado por deliberação da AssembleiaGeral de Cotistas"
+q10: * "Provisão para Devedores Duvidosos\), calculada nos termos da Política Pública do Administrador"
+q11: * "por Devedores que não estejam inadimplentes com suas obrigações perante o Fundo na Data de Aquisição e Pagamento; (ii) tenham como devedores pessoas físicas"
+receivables: Financiamento de veículos por CDC e CCB eletrônica | o1
+originator: Banco Votorantim | q1
+assignor: Banco Votorantim, sem coobrigação | q1,o14
+debtor: Pessoas físicas financiadas | q11
+recourse: Cessão sem coobrigação do cedente | o14
+eligibility: LTV abaixo de 70%; CCB cedida integralmente; devedor adimplente | q12,q11
+debtor_limit: n/d | Limites por CCB e por CPF sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+assignor_limit: — | Cedente único: Banco Votorantim
+term_max: n/d | Prazo máximo das CCBs não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios após 90 dias | o27 | value=50
+quota_structure: Sênior / Subordinada (do cedente) | q14,o30
+sub_senior: 25% · subord./PL | q14 | basis=jr/PL | value=25
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária, pelo administrador | q14
+reserve: n/d | Valor da reserva não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: PDD pela política pública do administrador | q10
+eval_triggers: Indicador IP90+ acima de 2%, entre outros | q13
+liquidation: Deliberação de que evento de avaliação é de liquidação, entre outros | q8
+revolving: Aquisições até 30 dias antes do resgate da 1ª série sênior | o52
+amortization: Ordem: encargos, reservas, sênior, subordinada condicional e aquisições | o53
+admin_fee: Remuneração global de 0,07% a.a. até R$ 300 mi de PL | q6
+mgmt_fee: Incluída na remuneração global | q6
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q5
+manager: Oliveira Trust Servicer | q2
+custodian: Oliveira Trust DTVM (o próprio administrador) | q3,q5
+servicer: Banco Votorantim (agente de cobrança) | q4
+investors: Investidores qualificados | q9
+duration: Indeterminado | q9
+real_collateral: Alienação fiduciária do veículo registrada no SNG em nome do cedente | o77
+leitura: Financiamento de veículos do Banco Votorantim; subordinação de 25% e LTV abaixo de 70%.

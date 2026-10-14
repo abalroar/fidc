@@ -1,0 +1,51 @@
+# Pneucash FIDC (Oliveira Trust; Angá; cedentes CPX Distribuidora e ITR Comércio de Pneus)
+type: Duplicatas/multicedente
+q1: * "Significa a cedente CPX DISTRIBUIDORA S.A., sociedade por ações, com sede na Cidade de Itajaí"
+q2: * "Significa a ITR COMÉRCIO DE PNEUS S.A., sociedade por ações, com sede na Cidade de Barueri"
+q3: * "de titularidade das Cedentes, originados no “Direitos Creditórios” âmbito de Operações a Prazo envolvendo Produtos"
+q4: * "gnificam os devedores (sacados), pessoas físicas “Devedores” ou jurídicas"
+q5: * "(i) não poderão estar com parcelas vencidas e devem possuir valor fixo e determinado"
+q6: * "deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores"
+q7: * "Revolvência. Observada a Ordem de Alocação de Recursos, será admitida livremente a revolvência"
+q8: * "O Administrador constituirá provisão para os Direitos Creditórios cedidos de liquidação duvidosa"
+q9: * "Taxa de Administração”) e será equivalente ao valor correspondente a 0,20% (vinte centésimos por cento) ao ano"
+q10: * "Taxa de Gestão será de 0,19% (dezenove centésimos por cento) ao ano, sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 10.000,00"
+q11: * "taxa de performance, taxa de ingresso ou taxa de saída"
+q12: * "OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Administradora ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA. Gestor"
+q13: * "“Custodiante” Significa o Administrador do Fundo"
+q14: * "destinada a Investidores Profissionais"
+q15: * "prazo de duração indeterminado, não obstante os Eventos de Liquidação Antecipada do Fundo"
+q16: * "ocorrência enseja a imediata convocação da Assembleia Geral para deliberar se deverão ser considerados Eventos de Liquidação Antecipada"
+receivables: Vendas a prazo de pneus e produtos das cedentes | q3
+originator: CPX Distribuidora e ITR Comércio de Pneus | q1,q2
+assignor: CPX Distribuidora e ITR Comércio de Pneus | q1,q2
+debtor: Sacados PF ou PJ clientes das cedentes | q4
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Sem parcelas vencidas; valor fixo; devedor adimplente com a classe | q5
+debtor_limit: Grupo econômico de devedores ≤ 2% do PL | q6 | value=2
+sacado_limit: Grupo econômico de devedores ≤ 2% do PL | q6 | value=2
+assignor_limit: — | Cedentes do mesmo grupo de distribuição de pneus
+term_max: n/d | Prazo máximo individual não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: > 50% do PL em direitos creditórios | o23 | value=50
+quota_structure: Sênior / Mezanino A / Mezanino B / Subordinada júnior | o26
+sub_senior: 20% · subord./PL | o26 | basis=mez+jr/PL | value=20
+sub_mezz: n/d | Proteção das mezaninos sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Maior entre 90 dias de despesas e 0,5% do PL | o39
+pdd: Provisão pelo manual de provisão para perdas do administrador | q8
+eval_triggers: Aging da carteira acima dos limites por faixa de atraso, entre outros | o45,q16
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Revolvência livre, observada a ordem de alocação | q7
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,20% a.a. do PL | q9
+mgmt_fee: 0,19% a.a. do PL; mín. R$ 10 mil/mês | q10
+perf_fee: Não prevista | Regulamento veda taxa de performance | q11
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Oliveira Trust DTVM | q12
+manager: Angá Administração de Recursos | q12
+custodian: Oliveira Trust DTVM (o administrador) | q13,q12
+servicer: n/d | Agente de cobrança extrajudicial não nomeado em trecho contínuo
+investors: Investidores profissionais | q14
+duration: Indeterminado | q15
+leitura: Vendas a prazo de pneus da CPX e da ITR; subordinação de 20% e grupo de devedores ≤ 2% do PL.

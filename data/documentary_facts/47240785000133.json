@@ -1,0 +1,698 @@
+{
+ "schema_version": 1,
+ "cnpj": "47240785000133",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS IS GREEN SOLFÁCIL V DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Energia solar",
+ "reviewed_at": "2026-10-14T08:11:31Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "791217",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "19/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217"
+  },
+  "D2": {
+   "document_id": "389119",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "14/12/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=389119"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Energia solar",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs e CPR financeiras de financiamento de sistemas solares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "2004, conforme alterada emitidas por um Devedor em favor de uma instituição financeira, tendo como objeto um financiamento aos Devedores para aquisição de Sistemas Solares. 3 “Classe” Classe única de Cotas. Uma vez que o Fundo é constituído com classe única de Cotas, todas as referências à Classe no Regulamento serão entendidas como referências ao Fundo e vice- versa. \"CMN” O Conselho Monetário Nacional. “Código Civil A Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada. Brasileiro” “Condições de Condições de cessão dos Direitos Creditórios, definidas no Cessão” item 8.3 do Anexo. “Conta do Fundo” A conta corrente a ser aberta e mantida pelo Fundo na qual deverão ser depositados os pagamentos dos Direitos Creditórios diretamente pelos Devedores, e que será utilizada para todas as movimentações de recursos pelo Fundo, manutenção das reservas previstas neste Regulamento, bem como para"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 56,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "Públicas deverá ser de, no mínimo, 105% (cento e cinco por cento); VIII. considerada pro forma a cessão pretendida, a Média Ponderada dos Prazos de Vencimento das CCB e das CPR-Financeiras integrantes do patrimônio do Fundo deverá ser de, no máximo, 2.400 (dois mil e quatrocentos) dias; IX. os Direitos Creditórios devem ter sido formalizados por meio da emissão, pelos Devedores, de CCB ou de CPR-Financeiras em favor de uma Cedente; X. as CCB ou CPR-Financeiras devem contar com garantia de Alienação Fiduciária de Equipamentos, que tenha sido devidamente (a) constituída na CCB ou na CPR-Financeira; ou (b) celebrada, caso formalizada mediante a celebração de contrato independente, observado 56 que o registro do contrato nos competentes CRTD não será um requisito para cumprimento deste inciso; XI. os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio dos Documentos Comprobatórios (exceto, se aplicável, o Contrato de Alienação Fiduciária de Equipamentos, cujo registro nos competentes CRTD não será um requisito para cumprimento deste inciso); XII. as Cedentes devem ser as exclusivas e legítimas proprietárias dos respectivos Direitos Creditórios; XIII."
+    }
+   ],
+   "legacy": {
+    "value": "Financiamento de sistemas solares, representado por CCBs e CPR financeiras.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Solfácil Energia Solar e Serviços Financeiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "de risco devidamente habilitada pela CVM, a critério do Gestor. “Agente de Solfácil Energia Solar e Serviços Financeiros Ltda., pessoa jurídica Cobrança”, de direito privado, com sede com sede na Rua Cardeal Arcoverde, “Originador” ou 2450, 2º, 5º e 6º andares, conjuntos 201 a 207, 210 e 211, anexos “Solfácil” 501 a 511 e 601 a 611, na cidade de São Paulo, Estado de São Paulo, CEP 05.428-000, inscrita no CNPJ/MF sob o nº 31.931.053/0001-50. A garantia de alienação fiduciária sobre Equipamentos objeto de “Alienação Fiduciária cada CCB ou na CPR-Financeira ou de cada Contrato de Alienação de Equipamentos” Fiduciária de Equipamentos (caso tenha sido formalizado de forma apartada da CCB)."
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Instituições financeiras endossantes das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "2004, conforme alterada emitidas por um Devedor em favor de uma instituição financeira, tendo como objeto um financiamento aos Devedores para aquisição de Sistemas Solares. 3 “Classe” Classe única de Cotas. Uma vez que o Fundo é constituído com classe única de Cotas, todas as referências à Classe no Regulamento serão entendidas como referências ao Fundo e vice- versa. \"CMN” O Conselho Monetário Nacional. “Código Civil A Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada. Brasileiro” “Condições de Condições de cessão dos Direitos Creditórios, definidas no Cessão” item 8.3 do Anexo. “Conta do Fundo” A conta corrente a ser aberta e mantida pelo Fundo na qual deverão ser depositados os pagamentos dos Direitos Creditórios diretamente pelos Devedores, e que será utilizada para todas as movimentações de recursos pelo Fundo, manutenção das reservas previstas neste Regulamento, bem como para"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas e jurídicas que financiam sistemas solares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "2004, conforme alterada emitidas por um Devedor em favor de uma instituição financeira, tendo como objeto um financiamento aos Devedores para aquisição de Sistemas Solares. 3 “Classe” Classe única de Cotas. Uma vez que o Fundo é constituído com classe única de Cotas, todas as referências à Classe no Regulamento serão entendidas como referências ao Fundo e vice- versa. \"CMN” O Conselho Monetário Nacional. “Código Civil A Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada. Brasileiro” “Condições de Condições de cessão dos Direitos Creditórios, definidas no Cessão” item 8.3 do Anexo. “Conta do Fundo” A conta corrente a ser aberta e mantida pelo Fundo na qual deverão ser depositados os pagamentos dos Direitos Creditórios diretamente pelos Devedores, e que será utilizada para todas as movimentações de recursos pelo Fundo, manutenção das reservas previstas neste Regulamento, bem como para"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas e jurídicas que financiam sistemas solares.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de transferência",
+   "sources": [],
+   "legacy": {
+    "value": "Endosso definitivo; recompra/resolução e indenização condicionadas ao contrato de transferência.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Prazo médio ≤ 2.400 dias; individual ≤ 4.760; preço PF ≤ R$ 500 mil",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 56,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "Públicas deverá ser de, no mínimo, 105% (cento e cinco por cento); VIII. considerada pro forma a cessão pretendida, a Média Ponderada dos Prazos de Vencimento das CCB e das CPR-Financeiras integrantes do patrimônio do Fundo deverá ser de, no máximo, 2.400 (dois mil e quatrocentos) dias; IX. os Direitos Creditórios devem ter sido formalizados por meio da emissão, pelos Devedores, de CCB ou de CPR-Financeiras em favor de uma Cedente; X. as CCB ou CPR-Financeiras devem contar com garantia de Alienação Fiduciária de Equipamentos, que tenha sido devidamente (a) constituída na CCB ou na CPR-Financeira; ou (b) celebrada, caso formalizada mediante a celebração de contrato independente, observado 56 que o registro do contrato nos competentes CRTD não será um requisito para cumprimento deste inciso; XI. os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio dos Documentos Comprobatórios (exceto, se aplicável, o Contrato de Alienação Fiduciária de Equipamentos, cujo registro nos competentes CRTD não será um requisito para cumprimento deste inciso); XII. as Cedentes devem ser as exclusivas e legítimas proprietárias dos respectivos Direitos Creditórios; XIII."
+    },
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 54,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "(quinze por cento) do patrimônio líquido do Fundo; II. observada a Condição de Cessão prevista no item 8.1, inciso I, o prazo de vencimento dos Direitos Creditórios, incluindo o período de carência de pagamento de principal e/ou juros, deverá ser de, no máximo, 4.760 (quatro mil, setecentos e sessenta) dias; III. caso o Devedor seja pessoa física, o respectivo Preço de Aquisição não deverá exceder R$500.000,00 (quinhentos mil reais); IV. caso o Devedor seja pessoa jurídica, o respectivo Preço de Aquisição não deverá exceder R$700.000,00 (setecentos mil reais); V. devem ser observados os seguintes limites de concentração (“Limites de Concentração”), considerando-se pro forma a cessão pretendida: a) o Valor Presente dos Direitos Creditórios devidos por um mesmo Devedor, individualmente, não deverá representar mais de 2% (dois por cento) do patrimônio líquido do Fundo; b) o grupo dos 10 (dez) maiores Devedores não deverá representar mais de 10% (dez por cento) do patrimônio líquido do Fundo; c) o conjunto dos Direitos Creditórios cujos Devedores sejam pessoas físicas e cujos respectivos Preços de Aquisição, considerados individualmente, excedam R$350.000,00 (trezentos e cinquenta mil reais) não deverá representar mais de 1% (um por cento) do patrimônio líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs e CPR financeiras; PF/PJ; prazo médio 2.400 dias, individual 4.760 dias; preço PF R$ 500 mil/PJ R$ 700 mil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2024, cl. 8.3"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor ≤ 2% do PL; 10 maiores ≤ 10%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 54,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "individualmente, não deverá representar mais de 2% (dois por cento) do patrimônio líquido do Fundo; b) o grupo dos 10 (dez) maiores Devedores não deverá representar mais de 10% (dez por cento) do patrimônio líquido do Fundo;"
+    }
+   ],
+   "value": 2.0,
+   "legacy": {
+    "value": "Devedor ≤2%/PL; top 10 ≤10%/PL; prefixados ≤15%/PL; tickets PF >R$ 350 mil/PJ >R$ 550 mil com limites agregados de 1%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2024, cl. 8.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por endossante não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor ≤2%/PL; top 10 ≤10%/PL; prefixados ≤15%/PL; tickets PF >R$ 350 mil/PJ >R$ 550 mil com limites agregados de 1%/PL.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Prazo individual de até 4.760 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 54,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "(quinze por cento) do patrimônio líquido do Fundo; II. observada a Condição de Cessão prevista no item 8.1, inciso I, o prazo de vencimento dos Direitos Creditórios, incluindo o período de carência de pagamento de principal e/ou juros, deverá ser de, no máximo, 4.760 (quatro mil, setecentos e sessenta) dias; III. caso o Devedor seja pessoa física, o respectivo Preço de Aquisição não deverá exceder R$500.000,00 (quinhentos mil reais); IV. caso o Devedor seja pessoa jurídica, o respectivo Preço de Aquisição não deverá exceder R$700.000,00 (setecentos mil reais); V. devem ser observados os seguintes limites de concentração (“Limites de Concentração”), considerando-se pro forma a cessão pretendida: a) o Valor Presente dos Direitos Creditórios devidos por um mesmo Devedor, individualmente, não deverá representar mais de 2% (dois por cento) do patrimônio líquido do Fundo; b) o grupo dos 10 (dez) maiores Devedores não deverá representar mais de 10% (dez por cento) do patrimônio líquido do Fundo; c) o conjunto dos Direitos Creditórios cujos Devedores sejam pessoas físicas e cujos respectivos Preços de Aquisição, considerados individualmente, excedam R$350.000,00 (trezentos e cinquenta mil reais) não deverá representar mais de 1% (um por cento) do patrimônio líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs e CPR financeiras; PF/PJ; prazo médio 2.400 dias, individual 4.760 dias; preço PF R$ 500 mil/PJ R$ 700 mil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2024, cl. 8.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios; 67% para fins tributários",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "“Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Cedidos. “Alocação Mínima A alocação de, pelo menos, 67% (sessenta e sete por cento) do Tributária” Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos dos artigos 18, 19 e 24 da Lei nº 14.754/23, para fins de enquadramento do Fundo e da Classe como Entidade de Investimento sujeita ao Regime Específico do"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50%/PL em DC; 67% para enquadramento tributário.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 74,
+     "clause": "cl. 11.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "es e enquanto houver Cotas Seniores em circulação. 11.9. A Razão de Garantia será considerado enquadrado sempre que, a Razão de Garantia das Cotas Subordinadas for, no mínimo, 20% (vinte por cento), sendo que as Cotas 74 Subordinadas Júnior deverão representar, em conjunto, no mínimo, 7% (sete por cento) do patrimônio líquido da Classe. 11.10. Na hipótese de inobservância da Razão de Garantia mencionada no item 11.9 serão adotados os seguintes procedimentos: I. a Administradora imediatamente suspenderá a aquisição de novos Direitos de Crédito; II. a Administradora comunicará, em até 02 (dois) Dias Úteis, tal ocorrência aos Cotistas titulares de Cotas Subordinados Júnior, mediante o envio de correspondência ou de correio eletrônico, em ambos os casos com aviso de recebimento, para realizar aporte adicional de recursos para o reenquadramento da Classe à Razão de Garantia, mediante a emissão e subscrição de novas Cotas Subordinadas Júnior, observado o disposto nos itens abaixo; III."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥20%/PL; júnior ≥7%/PL; razão PL/sênior 125%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2024, cl. 11.9"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 74,
+     "clause": "cl. 11.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "es e enquanto houver Cotas Seniores em circulação. 11.9. A Razão de Garantia será considerado enquadrado sempre que, a Razão de Garantia das Cotas Subordinadas for, no mínimo, 20% (vinte por cento), sendo que as Cotas 74 Subordinadas Júnior deverão representar, em conjunto, no mínimo, 7% (sete por cento) do patrimônio líquido da Classe. 11.10. Na hipótese de inobservância da Razão de Garantia mencionada no item 11.9 serão adotados os seguintes procedimentos: I. a Administradora imediatamente suspenderá a aquisição de novos Direitos de Crédito; II. a Administradora comunicará, em até 02 (dois) Dias Úteis, tal ocorrência aos Cotistas titulares de Cotas Subordinados Júnior, mediante o envio de correspondência ou de correio eletrônico, em ambos os casos com aviso de recebimento, para realizar aporte adicional de recursos para o reenquadramento da Classe à Razão de Garantia, mediante a emissão e subscrição de novas Cotas Subordinadas Júnior, observado o disposto nos itens abaixo; III."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Subordinadas ≥20%/PL; júnior ≥7%/PL; razão PL/sênior 125%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2024, cl. 11.9"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 7% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 75,
+     "clause": "cl. 11.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "sendo que as Cotas 74 Subordinadas Júnior deverão representar, em conjunto, no mínimo, 7% (sete por cento) do patrimônio líquido da Classe. 11.10. Na hipótese de inobservância da Razão de Garantia mencionada no item 11.9 serão adotados os seguintes procedimentos: I. a Administradora imediatamente suspenderá a aquisição de novos Direitos de Crédito; II. a Administradora comunicará, em até 02 (dois) Dias Úteis, tal ocorrência aos Cotistas titulares de Cotas Subordinados Júnior, mediante o envio de correspondência ou de correio eletrônico, em ambos os casos com aviso de recebimento, para realizar aporte adicional de recursos para o reenquadramento da Classe à Razão de Garantia, mediante a emissão e subscrição de novas Cotas Subordinadas Júnior, observado o disposto nos itens abaixo; III."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 7.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Desenquadramento sem cura em 10 dias úteis é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 85,
+     "clause": "cl. 16.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "AÇÃO, EVENTOS DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 16.1. A Classe poderá ser liquidada por deliberação da Assembleia. 16.2. São considerados Eventos de Avaliação: a) não restabelecimento do desenquadramento da Razão de Garantia no prazo de 10 (dez) Dias Úteis contados da verificação do seu desenquadramento; b) se aplicável, rebaixamento da classificação de risco inicial das Cotas Seniores ou das Cotas Subordinadas Mezanino, conforme aplicável, em 2 (dois) ou mais subníveis, considerando-se a tabela da Agência Classificadora de Risco, exceto se tal rebaixamento for motivado única e exclusivamente por alteração de metodologia da Agência Classificadora de Risco e/ou por rebaixamento do rating soberano da República Federativa do Brasil; c) a inobservância, pela Administradora e/ou pelo Custodiante, de seus deveres e obrigações previstos neste Regulamento, bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento do Fundo, verificada pelo Gestor ou por qualquer dos Cotistas, desde que, se notificada pelo Gestor ou pelo respectivo Cotista para sanar ou justificar o descumprimento, a Administradora ou o Custodiante, conforme o caso, não o façam no prazo de 5 (cinco) Dias Úteis contado do recebimento da referida notificação;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥20%/PL; júnior ≥7%/PL; razão PL/sênior 125%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2024, cl. 16.1"
+   }
+  },
+  "reserve": {
+   "display": "3 meses de despesas; próxima amortização provisionada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 82,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "montante mínimo equivalente a 3 (três) meses de despesas ordinárias estimadas da Classe. 14.1.1 Os recursos da Reserva de Caixa integrarão o patrimônio da Classe e constituirão uma provisão para o pagamento de todo e qualquer passivo financeiro, despesas ou encargos de responsabilidade da Classe. 14.1.2 Os recursos da Reserva de Caixa serão alocados exclusivamente em Ativos Financeiros de Liquidez. 14.1."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas; reserva da próxima amortização, 100% até 30 dias antes, formação desde 45 dias.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2024, cl. 14.1"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 30,
+     "clause": "cl. 9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "orme as regras e procedimentos definidos na Instrução CVM nº 489, de 14 de janeiro de 2011, conforme alterada, e em seu manual de provisão para perdas de devedores disponível em seu website. 9.3 O patrimônio líquido do Fundo corresponderá ao somatório dos valores dos Direitos de Crédito e dos Ativos Financeiros de Liquidez integrantes da carteira do Fundo, apurados na forma deste item 9, menos as exigibilidades referentes aos encargos do Fundo e as provisões. 9.4 Todos os recursos que o Fundo vier a receber, a qualquer tempo, a título, entre outros, de multas, indenizações ou verbas compensatórias, serão incorporados ao seu patrimônio. 30 10. DA RESPONSABILIDADE DOS COTISTAS E REGIME DE INSOLVÊNCIA 10.1 A responsabilidade de cada Cotista está limitada ao valor por ele subscrito. 10.2 Caso o Patrimônio Líquido da Classe se torne negativo, a Administradora deverá: (i) imediatamente: a. fechar para resgates e suspender a amortização de Cotas; b. suspender novas subscrições de Cotas; c. comunicar a existência de Patrimônio Líquido negativo ao GESTOR; e d."
+    }
+   ],
+   "legacy": {
+    "value": "Política de provisão em anexo; faixa por atraso e renegociação exige aplicação ao contrato.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eval_triggers": {
+   "display": "Razão de garantia não restabelecida em 10 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 85,
+     "clause": "cl. 16.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "AÇÃO, EVENTOS DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 16.1. A Classe poderá ser liquidada por deliberação da Assembleia. 16.2. São considerados Eventos de Avaliação: a) não restabelecimento do desenquadramento da Razão de Garantia no prazo de 10 (dez) Dias Úteis contados da verificação do seu desenquadramento; b) se aplicável, rebaixamento da classificação de risco inicial das Cotas Seniores ou das Cotas Subordinadas Mezanino, conforme aplicável, em 2 (dois) ou mais subníveis, considerando-se a tabela da Agência Classificadora de Risco, exceto se tal rebaixamento for motivado única e exclusivamente por alteração de metodologia da Agência Classificadora de Risco e/ou por rebaixamento do rating soberano da República Federativa do Brasil; c) a inobservância, pela Administradora e/ou pelo Custodiante, de seus deveres e obrigações previstos neste Regulamento, bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento do Fundo, verificada pelo Gestor ou por qualquer dos Cotistas, desde que, se notificada pelo Gestor ou pelo respectivo Cotista para sanar ou justificar o descumprimento, a Administradora ou o Custodiante, conforme o caso, não o façam no prazo de 5 (cinco) Dias Úteis contado do recebimento da referida notificação;"
+    }
+   ],
+   "legacy": {
+    "value": "Eventos de avaliação/liquidação por desenquadramentos e falhas de prestadores; limites de perdas precisam de fórmula contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Eventos de avaliação/liquidação por desenquadramentos e falhas de prestadores; limites de perdas precisam de fórmula contratual.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não detalhada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Despesas e reservas antes dos pagamentos; cotas públicas antes da júnior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 82,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "montantes referentes às parcelas de amortizações das Cotas Públicas, e será constituída e mantida conforme cláusula 14.2.1 seguinte. 14.2.1. Ao longo dos 45 (quarenta e cinco) dias corridos que antecedem cada uma das Datas de Amortização, o Gestor deverá segregar Ativos Financeiros de Liquidez, incluindo recursos em moeda corrente nacional, na Reserva de Amortização, que deverá corresponder, em até 30 (trinta) dias que antecederem cada Data de Amortização, à somatória de 100% (cem por cento) do resultado das fórmul"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas/reservas antes de pagamentos; cotas públicas precedem júnior, sujeito a exceções de amortização extraordinária.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,09% a.a. do PL, com mínimo mensal escalonado (IPCA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 46,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "Administradora 0,09% a.a. Até o 6º mês: R$ 5.000,00/mês A partir do 7º mês até o 18º mês: R$ 7.000,00/mês A partir do 19º mês: R$"
+    }
+   ],
+   "legacy": {
+    "value": "0,09% a.a./PL; mínimos R$ 5 mil (1–6), R$ 7 mil (7–18), R$ 10 mil (≥19); IPCA anual.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2024, cl. 5.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,30% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 46,
+     "clause": "cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "Gestor 0,30% a.a. N/A (2) O valor mínimo mensal será corrigido anualmente pelo IPCA, a partir da 1ª data de integralização de Cotas. 5.3. A Taxa de Administração e a Taxa de Gestão serão calculadas e provisionadas todo Dia Útil e pagas no último Dia Útil do mês subsequente ao mês da prestação dos serviços. 5.4."
+    }
+   ],
+   "legacy": {
+    "value": "0,30% a.a./PL; mínimo mensal não aplicável; sem gross-up.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "a maiúscula, terão os significados a eles atribuídos nesta cláusula 1, aplicáveis tanto no singular quanto no plural: “Administradora” BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001- 90, ou a sua sucessora a qualquer título. “Agência Se aplicável, Austin Rating Serviços Financeiros Ltda., contratada Classificadora de pelo Fundo para realizar a classificação de risco das Cotas Seniores, Risco” das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, conforme aplicável, a qual poderá ser substituída por outra agência de classificação de risco devidamente habilitada pela"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "S GREEN SOLFÁCIL V DE RESPONSABILIDADE LIMITADA, CNPJ 47.240.785/0001-33 “Gestor ou Gestora” ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº 09.452.272/0001-05, devidamente autorizada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 9.837, de 14 de maio de 2008. “Inconsistência A verificação pelo Gestor, caso adquira Direitos Creditórios a partir Relevante” da Data da Adaptação 175, no âmbito da verificação do lastro dos Direitos Creditórios adquiridos pelo Fundo vincendos, de situações em que (a) sejam identificadas inconsistências individuais em, pelo menos, 5% (cinco por cento) dos Direitos Creditórios verificados, considerando-se um intervalo de confiança"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "dos no Elegibilidade” item 8.1 do Anexo. “CRTD” Cartório de Registro de Títulos e Documentos. “Custodiante” BANCO DAYCOVAL S.A., acima qualificado. “CVM” Comissão de Valores Mobiliários. “Data da Data da 1ª (primeira) integralização de Cotas de uma 1ª Integralização” determinada subclasse ou série. O Fundo entrará em funcionamento na Data da 1ª Integralização;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho localizável",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 40,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "e duração de cada subclasse ou série de Cotas será definido no respectivo Apêndice. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente aos Investidores Autorizados. 4. DEMAIS PRESTADORES DE SERVIÇOS Demais Prestadores de Serviços contratados pela Administradora, em nome do Fundo 4.1 A Administradora poderá contratar, em nome do Fundo, terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; 40 (d) registro dos Direitos Creditórios Cedidos; (e) custódia dos Direitos Creditórios Cedidos, e dos Ativos Financeiros de Liquidez integrantes da carteira da Classe, incluindo os serviços previstos nos artigos 37 a 39 do Anexo Normativo II à Resolução CVM nº 175/22; (f) guarda física ou eletrônica dos Documentos Comprobatórios dos Direitos Creditórios Cedidos; e (g) liquidação física ou eletrônica e financeira dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; termos de duração e pagamentos por série nos suplementos.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791217",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2024",
+     "page": 13,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791217",
+     "excerpt": "175. 3. PRAZO DE DURAÇÃO DO FUNDO 3.1 O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo indeterminado de duração. 13 4. QUALIFICAÇÃO “VERDE” DO FUNDO 4.1 O Fundo buscará adquirir Direitos Creditórios oriundos de benefícios ambientais em sua gestão, focados em energia renovável, conforme orientações da Gestora. A Gestora irá aplicar seu framework próprio (“Framework Angá”), que será atualizado anualmente, bem como monitorar juntamente à Solfácil acerca da aderência dos requisitos e princípios estabelecidos para sua classificação como Fundo Verde. 4.2 O Fundo pode ser caracterizado como \"FIDC Verde\", conforme parecer independente (“Parecer Independente”) elaborado pelo Avaliador Independente, que comprova o alinhamento do Green Bond Framework, de setembro de 2023, da Solfácil (“Framework Solfácil”) com as regras emitidas pela International Capital Market Association (ICMA) e constantes do Green Bond Principles (GBP) versão de junho de 2022, com base em: (a) desempenho socioambiental avaliado; e (b) atendimento aos \"Green Bond Principles\"."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; termos de duração e pagamentos por série nos suplementos.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "real_collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantia sobre equipamentos sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Equipamentos solares em alienação fiduciária; formalização e registro sujeitos às condições contratuais.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Financiamento solar da Solfácil com subordinação de 20% (júnior ≥ 7%) e devedor ≤ 2% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

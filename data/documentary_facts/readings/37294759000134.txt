@@ -1,0 +1,57 @@
+# Galleria Home Equity FIDC (Vert DTVM; Vert Gestora; credores BMP e Grupo Galleria) — regulamento de 09/06/2025 (id 927443); atos posteriores só alteram suplementos
+type: Imobiliário
+q1: id927443 "(i) os direitos creditórios de home equity; (ii) os direitos creditórios"
+q2: id927443 "“Credores” O BMP, o Grupo Galleria e/ou outras instituições financeiras"
+q3: id927443 "“Devedores” Os devedores dos Direitos Creditórios Cedidos, incluindo (a) no caso de Direitos Creditórios de Home Equity"
+q4: id927443 "5.4. Critérios de Elegibilidade dos Direitos Creditórios de Home Equity: I. a respectiva CCB deverá ser garantida por Alienação Fiduciária de Imóvel"
+q5: id927443 "devidos por um mesmo Devedor não poderá exceder o menor valor entre"
+q6: id927443 "igual ou maior que 36 (trinta e seis) parcelas e menor ou igual a 240 (duzentos e quarenta) parcelas"
+q7: id927443 "LTV máximo de 60% (sessenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre apartamentos residenciais"
+q8: id927443 "Alocação Mínima” O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios"
+q9: id927443 "A razão mínima admitida entre o Patrimônio Líquido e o somatório do valor das Cotas Seniores em circulação, equivalente a 105%"
+q10: id927443 "pagamento de despesas e encargos do Fundo, nos termos previstos Anexo"
+q11: id927443 "I. não divulgação pela Administradora, do Relatório de Gestão"
+q12: id927443 "11.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências"
+q13: id927443 "o regime de amortização será a Amortização Pro Rata. Tal regime permanecerá em curso até que ocorra um Evento de Desalavancagem"
+q14: id927443 "4.1. A Administradora receberá taxa de administração mensal equivalente a 0,25%"
+q15: id927443 "4.3. O Fundo pagará à Gestora, pelos serviços de gestão da carteira da Classe do Fundo, o equivalente a uma remuneração de 0,25%"
+q16: id927443 "subordinadas mezanino, a meta de rentabilidade das cotas, determinada em seu respectivo suplemento"
+q17: id927443 "2.1. O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q18: D1 "em conjunto com a VERT GESTORA DE RECURSOS FINANCEIROS LTDA."
+q19: id927443 "Custodiante” A Administradora, na qualidade de custodiante do Fundo"
+q20: id927443 "A Galleria Bank, ou seu respectivo sucessor a qualquer título"
+q21: id927443 "enquadrar no conceito de investidores qualificados ou investidores profissionais, conforme definido no respectivo suplemento da oferta"
+q22: id927443 "prazo de duração indeterminado, sendo que para cada série de Cotas Seniores"
+receivables: CCBs de home equity com CCI; também LFs e cotas subordinadas de securitizações | q1,q4
+originator: BMP, Grupo Galleria e outras instituições credoras | q2
+assignor: BMP, Grupo Galleria e outras instituições credoras | q2
+debtor: Pessoas físicas ou jurídicas donas dos imóveis em garantia | q3
+recourse: Alienação fiduciária do imóvel e seguros MIP e DFI obrigatórios | q4,q7
+eligibility: CCB com alienação fiduciária e CCI; 36 a 240 parcelas; LTV até 60% | q4,q6,q7
+debtor_limit: Por devedor: menor entre R$ 5 mi e 2% do PL | q5 | value=2
+assignor_limit: n/d | Limite por credor não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Até 240 parcelas mensais | q6
+allocation: ≥ 50% do PL em direitos creditórios | q8 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q16
+sub_senior: PL/sênior ≥ 105% | q9 | basis=PL/sr | value=105
+sub_mezz: n/d | Índice da mezanino definido por fórmula de cobertura e suplemento
+sub_check: Diária, pelo custodiante | q9
+reserve: Reserva de despesas e encargos em disponibilidades | q10
+pdd: n/d | Regime de provisão não descrito em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: Falta do relatório de gestão por 15 dias úteis, entre outros | q11
+liquidation: Determinação da CVM ou prestador não substituído, entre outros | q12
+revolving: n/d | Regulamento não trata de revolvência explicitamente | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: Pro rata; vira sequencial após evento de desalavancagem | q13
+admin_fee: 0,25% a.a. do PL; mín. R$ 20 mil/mês, mais custódia de até 0,03% | q14
+mgmt_fee: 0,25% a.a. do PL; mín. R$ 10 mil/mês | q15
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta de rentabilidade definida no suplemento de cada série | q16 | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta de rentabilidade definida no suplemento de cada subclasse | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Vert DTVM | q17
+manager: Vert Gestora de Recursos Financeiros | q18
+custodian: Vert DTVM (a própria administradora) | q19,q17
+servicer: Galleria Bank (cobrança extraordinária) | q20
+investors: Qualificados ou profissionais, conforme suplemento | q21
+duration: Indeterminado | q22
+real_collateral: Alienação fiduciária de imóveis, LTV até 60%, com seguros MIP e DFI | q4,q7
+leitura: Home equity com alienação fiduciária de imóvel e LTV ≤ 60%; PL/sênior ≥ 105% e devedor ≤ R$ 5 mi.

@@ -1,0 +1,58 @@
+# FIDC Turbi I (Daycoval; Milênio Capital; devedora Turbi)
+type: Veículos
+q1: * "“Direitos Creditórios” Significa todo e qualquer valor devido pela Devedora em razão da subscrição/aquisição pelo Fundo das Debêntures e das Notas Comerciais"
+q2: * "“Devedora” TURBI COMPARTILHAMENTO DE VEÍCULOS S/A."
+q3: * "“Alienação Fiduciária” Significa a alienação fiduciária constituída sobre os Veículos em Garantia"
+q4: * "“Cessão Fiduciária” Significa a cessão fiduciária dos recebíveis oriundos de operações de cartão de crédito e débito da Devedora"
+q5: * "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade"
+q6: * "itórios e em Ativos Financeiros de responsabilidade ou Coobrigação de um mesmo devedor estará limitada a 20% (vinte por cento) do Patrimônio Líquido"
+q7: * "Uma vez que as Cotas serão destinadas exclusivamente a Investidores Autorizados, o limite previsto neste item 6.6 poderá ser aumentado"
+q8: * "Alocação Mínima” Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido"
+q9: * "a) a subordinação mínima sênior admitida no Fundo é de 20% (vinte por cento) do Patrimônio Líquido"
+q10: * "b) a subordinação mínima mezanino admitida no Fundo é de 10% (dez por cento) do Patrimônio Líquido"
+q11: * "17.2 São considerados Eventos de Avaliação: (a) inobservância pela Administradora"
+q12: * "17.3 São considerados Eventos de Liquidação: (a) caso seja deliberado em Assembleia Geral"
+q13: * "7.3 Será permitida a revolvência da carteira da Classe"
+q14: * "5.1 Pela prestação dos serviços de administração fiduciária do Fundo, a Classe pagará à Administradora a Taxa de Administração, equivalente a 0,11%"
+q15: * "5.2 Pela prestação dos serviços de gestão do Fundo, a Classe pagará à Gestora a Taxa de Gestão"
+q16: * "acrescido de uma sobretaxa (spread) de 5,1481% (cinco inteiros e mil quatrocentos e oitenta e um décimos de milésimo por cento) ao ano"
+q17: * "“Administradora” BANCO DAYCOVAL S.A."
+q18: * "“Gestora” A MILÊNIO CAPITAL GESTÃO DE INVESTIMENTOS LTDA."
+q19: * "“Custodiante” BANCO DAYCOVAL S.A."
+q20: * "Investidores Profissionais no mercado primário, e a Autorizados” Investidores Qualificados, no mercado secundário"
+q21: * "2.1 A Classe terá prazo de duração indeterminado"
+q22: * "metodologia descrita no manual de provisão para perdas da Administradora"
+q23: * "“Garantias” Significa, quando em conjunto, a Alienação Fiduciária, a Cessão Fiduciária e a Fiança"
+receivables: Debêntures e notas comerciais emitidas pela Turbi | q1,q2
+originator: Turbi Compartilhamento de Veículos (emissora) | q2
+assignor: — | Fundo subscreve títulos emitidos pela devedora; não há cedente
+debtor: Turbi Compartilhamento de Veículos e subsidiárias | q2
+recourse: Garantias de veículos, recebíveis de cartão e fiança | q23
+eligibility: Debêntures ou notas da devedora, em reais, não vencidas; devedora adimplente | q5
+debtor_limit: Por devedor: 20% do PL, ampliável para investidores autorizados | q6,q7 | value=20
+assignor_limit: — | Sem cedentes: devedora única emite os títulos
+term_max: n/d | Prazo dos títulos definido em cada instrumento de emissão
+allocation: ≥ 67% do PL em direitos creditórios | q8 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q9,q10
+sub_senior: 20% · subord./PL | q9 | basis=mez+jr/PL | value=20
+sub_mezz: 10% · subord./PL | q10 | basis=jr/PL | value=10
+sub_check: Diária, pela gestora | q9
+reserve: n/d | Valor da reserva de caixa não fixado no regulamento
+pdd: Manual de provisão para perdas da administradora | q22
+eval_triggers: Descumprimento de prestadores não sanado, entre outros | q11
+liquidation: Saída de prestadores sem substituição, entre outros | q12
+revolving: Revolvência durante todo o prazo da classe | q13
+amortization: n/d | Cronograma definido no ato de emissão de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,11% a.a. do PL; mín. R$ 14 mil/mês | q14
+mgmt_fee: 0,55% a.a. até R$ 500 mi de PL, regressiva; mín. R$ 20 mil/mês | q15
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: DI + 5,1481% a.a. (sênior da 7ª série) | q16
+target_mezz: n/d | Meta definida no ato de emissão de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Banco Daycoval | q17
+manager: Milênio Capital | q18
+custodian: Banco Daycoval | q19
+servicer: n/d | Agente de cobrança a contratar, não nomeado
+investors: Profissionais no primário; qualificados no secundário | q20
+duration: Indeterminado | q21
+real_collateral: Alienação fiduciária de veículos, cessão de recebíveis de cartão e fiança | q3,q4,q23
+leitura: Dívida corporativa da Turbi com garantia de veículos; subordinação sênior de 20% e sênior DI + 5,1481% a.a.

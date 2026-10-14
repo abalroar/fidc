@@ -1,0 +1,731 @@
+{
+ "schema_version": 1,
+ "cnpj": "48953864000154",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS ASAAS II - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T12:55:47Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "774314",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "05/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314"
+  },
+  "D2": {
+   "document_id": "395657",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "21/12/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=395657"
+  },
+  "D3": {
+   "document_id": "953821",
+   "kind": "Ata",
+   "title": "AGO/E",
+   "date": "25/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "URs de cartão da Asaas registradas, contra credenciadoras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 27,
+     "clause": "Anexo I, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "formalizados em formato de UR registrada no Sistema de Registro e cujo valor ofertado pela Cedente encontra-se livre para ser cedido à Classe, conforme identificado pelo Custodiante no Sistema de Registro mantido pela Entidade Registradora, os quais são provenientes da obrigação de pagamento pela(s) Devedora(s) à Cedente, conforme as regras dos Arranjos de Pagamento, e são decorrentes de Transações de Pagamento pelos Usuários para a aquisição de bens desconto das taxas que constituem a remuneração d"
+    }
+   ],
+   "legacy": {
+    "value": "Histórico: recebíveis de cartões formalizados em unidades de recebíveis registradas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Asaas Gestão Financeira Instituição de Pagamentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 95,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "nto realizadas junto aos Recebedores Credenciados. Significa a ASAAS GESTÃO FINANCEIRA INSTITUIÇÃO DE PAGAMENTOS S.A., sociedade anônima, com sede na Cidade de Joinville, Estado de Santa Catarina, na Avenida Rolf Wiest, n.º 277, Sala 820, Bom Retiro, CEP 89227-971, inscrita no CNPJ/MF sob o n.º 19.540.550/0001-21, que atua como Subcredenciadora, nos termos dos Contratos de Credenciamento. Significa a CERC CENTRAL DE RECEBÍVEIS S.A., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, n.º 37, 6º andar, Bela Vista, CEP 01311-902, inscrita no CNPJ/MF sob o n.º 23.399.607/0001-91. Significa a Câmara Interbancária de Pagamentos CIP. Significa o Conselho Monetário Nacional. Significa o Cadastro Nacional da Pessoa Jurídica, do Ministério da Fazenda."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Asaas Gestão Financeira",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 95,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "nto realizadas junto aos Recebedores Credenciados. Significa a ASAAS GESTÃO FINANCEIRA INSTITUIÇÃO DE PAGAMENTOS S.A., sociedade anônima, com sede na Cidade de Joinville, Estado de Santa Catarina, na Avenida Rolf Wiest, n.º 277, Sala 820, Bom Retiro, CEP 89227-971, inscrita no CNPJ/MF sob o n.º 19.540.550/0001-21, que atua como Subcredenciadora, nos termos dos Contratos de Credenciamento. Significa a CERC CENTRAL DE RECEBÍVEIS S.A., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, n.º 37, 6º andar, Bela Vista, CEP 01311-902, inscrita no CNPJ/MF sob o n.º 23.399.607/0001-91. Significa a Câmara Interbancária de Pagamentos CIP. Significa o Conselho Monetário Nacional. Significa o Cadastro Nacional da Pessoa Jurídica, do Ministério da Fazenda."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Credenciadoras Redecard, Cielo e Adyen",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 99,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "do mês imediatamente posterior à Data de Referência. Significa (i) a REDECARD S.A., sociedade por ações com sede na cidade de São Paulo, estado de São Paulo, na Rua Tenente Mauro de Miranda, n.º 36, Bloco D, 7º andar parte, Jabaquara, CEP 04345-030, inscrita no CNPJ/MF sob o n.º 01.425.787/0001-04, (ii) a CIELO S.A., sociedade com sede na cidade de Barueri, estado de São Paulo, na Alameda Xingu, nº 512, 21º ao 31º andar, Alphaville Industrial, CEP 06.455-030, inscrita no CNPJ/MF sob o nº 01.027.058/0001-91, e/ou (iii) a Adyen, acima qualificada, que atuam como Credenciadores, nos termos previstos nos Arranjos de Pagamento. Significa qualquer dia que não seja sábado, domingo, feriado nacional ou feriad"
+    },
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 26,
+     "clause": "Anexo I, cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "os os requisitos estabelecidos no parágrafo 3º do artigo 45 do Anexo Normativo II. Com relação especificamente à Adyen, o limite de concentração em relação a tal Devedora é de 20% (vinte por cento) do Patrimônio Líquido, conforme estabelecido no artigo 45 do Anexo Normativo II, e deverá ser observado. Para fins deste artigo e das demais disposições deste Anexo I-A, equiparam-se a uma Devedora as empresas integrantes do Grupo Econômico da Devedora. 2.7.1. As hipóteses de elevação do limite de 20% (vinte por cento) para aquisição de Direitos Creditórios de um mesmo Devedor de que trata o inciso I do § 3º do artigo 45 do Anexo Normativo II não são aplicáveis aos Direitos Creditórios de responsabilidade ou coobrigação de prestadores de serviços da Classe e de suas partes relacionadas tal como definidas pelas regras contábeis que tratam desse assunto. 2.8. A Classe não poderá investir em Ativos Financeiros de emissão ou que envolvam retenção de risco por parte da Administradora, da Gestora e/ou de suas respectivas partes relacionadas. 2.9. Ausência de Garantias. As aplicações da Classe não contam com garantia: (i) da Administradora; (ii) do Custodiante; (iii) da Gestora; (iv) da Cedente; (v) de qualquer mecanismo de seguro; ou (vi) do FGC. 2.10. Política de Voto."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Aquisição definitiva, sem regresso nem coobrigação do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 23,
+     "clause": "Anexo I, cl. 2.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 2.1.4. Inexistência de Direito de Regresso e Coobrigação. A Classe adquirirá Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta pelo adimplemento dos Direitos Creditórios e/ou solvência da(s) Devedora(s), observados cumulativamente, em qualquer caso: (i) os demais termos e condições do Regulamento e deste Anexo I-A; ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA (ii) os termos, condições e procedimentos previstos nos Contratos de Credenciamento, no Contrato de Cessão e nos respectivos Termos de Cessão, incluindo, sem limitar-se às hipóteses de Resolução de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios Elegíveis e atendimento aos Critérios de Elegibilidade definidos no Regulamento e neste Anexo I-A; e (iv) a Política de Investimento definida neste Capítulo. 2.1.5. Responsabilidade da Cedente em Relação aos Direitos Creditórios."
+    },
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 84,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "(x) Ausência de Responsabilidade da Cedente e de Terceiros pela Inadimplência dos Direitos Creditórios. A Cedente é responsável somente pela existência, validade e correta formalização dos respectivos Direitos Creditórios Cedidos, não assumindo, no Contrato de Cessão, quaisquer responsabilidades pelo seu pagamento ou pela solvência das Devedoras perante a Classe nos termos deste Anexo I-A. Dessa forma, o pagamento dos Direitos Creditórios Cedidos não conta com coobrigação ou garantia de quaisquer terceiros e, na hipótese de inadimplência, total ou parcial, por parte das Devedoras no pagamento dos Direitos Creditórios Cedidos Inadimplidos, poderá resultar em impacto decorrente do não pagamento dos valores correspondentes aos referidos Direitos Creditórios Elegíveis, acarretando prejuízos à Classe e, consequentemente, aos Cotistas; (xi) Alterações Fora do Controle da Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "UR onerada até 95%; créditos adimplentes, entre outros",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 27,
+     "clause": "Anexo I, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "mais do que 95% (noventa e cinco por cento) do seu valor de face cedida ou onerada à Classe ou a qualquer terceiro; (iii) os Direitos Creditórios deverão corresponder a uma UR disponível, livre e desembraçada e que não tenha sido previamente cedida ou onerada em benefício de um terceiro que não a própria Classe, conforme identificado pelo Custodiante no Sistema de Registro mantido pela Entidade Registradora;"
+    }
+   ],
+   "legacy": {
+    "value": "UR onerada≤95%; adimplentes, prazo 3–365 dias e média≤180; antes do vencimento sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2024, Anexo I, cl. 3.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Adyen ≤ 20% do PL; demais credenciadoras sem esse limite",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 26,
+     "clause": "Anexo I, cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "os os requisitos estabelecidos no parágrafo 3º do artigo 45 do Anexo Normativo II. Com relação especificamente à Adyen, o limite de concentração em relação a tal Devedora é de 20% (vinte por cento) do Patrimônio Líquido, conforme estabelecido no artigo 45 do Anexo Normativo II, e deverá ser observado. Para fins deste artigo e das demais disposições deste Anexo I-A, equiparam-se a uma Devedora as empresas integrantes do Grupo Econômico da Devedora. 2.7.1. As hipóteses de elevação do limite de 20% (vinte por cento) para aquisição de Direitos Creditórios de um mesmo Devedor de que trata o inciso I do § 3º do artigo 45 do Anexo Normativo II não são aplicáveis aos Direitos Creditórios de responsabilidade ou coobrigação de prestadores de serviços da Classe e de suas partes relacionadas tal como definidas pelas regras contábeis que tratam desse assunto. 2.8. A Classe não poderá investir em Ativos Financeiros de emissão ou que envolvam retenção de risco por parte da Administradora, da Gestora e/ou de suas respectivas partes relacionadas. 2.9. Ausência de Garantias. As aplicações da Classe não contam com garantia: (i) da Administradora; (ii) do Custodiante; (iii) da Gestora; (iv) da Cedente; (v) de qualquer mecanismo de seguro; ou (vi) do FGC. 2.10. Política de Voto."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Adyen≤20% PL; outras devedoras admitem exceção condicionada a requisitos auditados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Asaas",
+   "sources": [],
+   "legacy": {
+    "value": "Adyen≤20% PL; outras devedoras admitem exceção condicionada a requisitos auditados",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Faixas de prazo sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "UR onerada≤95%; adimplentes, prazo 3–365 dias e média≤180; antes do vencimento sênior",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 80% do PL em direitos creditórios (histórico)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 24,
+     "clause": "Anexo I, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "atividades, a Classe deverá ter alocado, no mínimo, 80% (oitenta por cento) do seu Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II. 2.2.1. Se mantido o enquadramento da Alocação Mínima Tributária e da Entidade de Investimento, a qual a Gestora de forma discricionária busca perseguir, os cotistas passarão a se sujeitar ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica, conforme definição disposta na Lei 14.754, e suas alterações, com a produção de efeitos completos a partir de 1º de janeiro de 202"
+    }
+   ],
+   "value": 80.0,
+   "legacy": {
+    "value": "Histórico: direitos creditórios≥80% PL após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2024, Anexo I, cl. 2.2"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 33,
+     "clause": "Anexo I, cl. 4.2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "resgate total das Cotas Seniores. 4.2.3 Relação Mínima de Subordinação. A Classe deverá observar a Relação Mínima de Subordinação de 15% (quinze por cento). Nos termos do Contrato de Cessão, o Cotista Subordinado compromete-se a integralizar, em até 2 (dois) Dias Úteis antes da Classe incorrer com o pagamento das despesas elencadas no CAPÍTULO VII REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO abaixo, Cotas Subordinadas em valor equivalente a tais despesas, de forma que, considerando pro forma o pagamento em questão, a Relação Mínima de Subordinação não fique desenquadrada. A verificação da Relação Mínima de Subordinação deverá ser desempenhada pela Gestora diariamente. 4.2.4 Cumprimento da Relação Mínima de Subordinação. Na hipótese de descumprimento da Relação Mínima de Subordinação, o Cotista Subordinado poderá, em querendo, subscrever Cotas Subordinadas em um montante necessário para atingir a Relação Mínima de Subordinação. Se o Cotista Subordinado não subscrever o valor necessário para cumprir a Relação Mínima de Subordinação, no prazo máximo de 5 (cinco) Dias Úteis contados do efetivo recebimento de notificação pelo Cotista Subordinado para tanto, tal evento deverá ser considerado um Evento de Avaliação."
+    }
+   ],
+   "legacy": {
+    "value": "Histórico: subordinadas / PL≥15%, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2024, Anexo I, cl. 4.2.3"
+   }
+  },
+  "sub_senior": {
+   "display": "15% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 33,
+     "clause": "Anexo I, cl. 4.2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "resgate total das Cotas Seniores. 4.2.3 Relação Mínima de Subordinação. A Classe deverá observar a Relação Mínima de Subordinação de 15% (quinze por cento). Nos termos do Contrato de Cessão, o Cotista Subordinado compromete-se a integralizar, em até 2 (dois) Dias Úteis antes da Classe incorrer com o pagamento das despesas elencadas no CAPÍTULO VII REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO abaixo, Cotas Subordinadas em valor equivalente a tais despesas, de forma que, considerando pro forma o pagamento em questão, a Relação Mínima de Subordinação não fique desenquadrada. A verificação da Relação Mínima de Subordinação deverá ser desempenhada pela Gestora diariamente. 4.2.4 Cumprimento da Relação Mínima de Subordinação. Na hipótese de descumprimento da Relação Mínima de Subordinação, o Cotista Subordinado poderá, em querendo, subscrever Cotas Subordinadas em um montante necessário para atingir a Relação Mínima de Subordinação. Se o Cotista Subordinado não subscrever o valor necessário para cumprir a Relação Mínima de Subordinação, no prazo máximo de 5 (cinco) Dias Úteis contados do efetivo recebimento de notificação pelo Cotista Subordinado para tanto, tal evento deverá ser considerado um Evento de Avaliação."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Histórico: subordinadas / PL≥15%, apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 33,
+     "clause": "Anexo I, cl. 4.2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "Subordinação de 15% (quinze por cento). Nos termos do Contrato de Cessão, o Cotista Subordinado compromete-se a integralizar, em até 2 (dois) Dias Úteis antes da Classe incorrer com o pagamento das despesas elencadas no CAPÍTULO VII REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO abaixo, Cotas Subordinadas em valor equivalente a tais despesas, de forma que, considerando pro forma o pagamento em questão, a Relação Mínima de Subordinação não fique desenquadrada."
+    }
+   ],
+   "legacy": {
+    "value": "Histórico: subordinadas / PL≥15%, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2024, Anexo I, cl. 4.2.3"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para a próxima amortização sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 50,
+     "clause": "Anexo I, cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "dos Ativos Financeiros reverterão em benefício dos Cotistas. 12.2. Reserva de Caixa. A Classe deverá estabelecer uma Reserva de Caixa, cujo valor será equivalente ao montante necessário para a realização da amortização da próxima parcela de Cotas Seniores, conforme o respectivo Suplemento. A referida Reserva de Caixa deverá ser constituída pela Administradora gradualmente ao longo do período de 30 (trinta) dias que antecede a respectiva Data de Amortização, sendo que a Reserva de Caixa deverá estar plenamente constituída com, no mínimo, 2 (dois) dias de antecedência da Data de Amortização em questão. 12.3. Cálculo do Valor dos Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "Histórico:3 meses de despesas; próxima amortização formadaD-30 e integral emD-2",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2024, Anexo I, cl. 12.2"
+   }
+  },
+  "pdd": {
+   "display": "Política de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 51,
+     "clause": "Anexo I, cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "onhecidas nos termos da legislação e regulamentação vigentes, conforme descrição contida no Manual da Administradora de Provisão para Perdas em Ativos de Crédito, disponível em sua página na rede mundial de computadores: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas- subsidiaria/. 12.3.1. Os Direitos Creditórios e os Ativos Financeiros que compõem a Carteira da Classe terão seus valores calculados conforme a metodologia de avaliação e precificação descrita no Manual de Apreçamento de Ativos da Administradora, disponível em sua página na rede mundial de computadores: https://ri.oliveiratrust.com.br/governanca- corporativa/estatuto-codigos-e-politicas-subsidiaria/. 12.3.2. As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros integrantes da Carteira serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489. Desta forma, o valor do saldo dos Direitos Creditórios e/ou Ativos Financeiros será reduzido pelo valor da provisão efetuada ou perda reconhecida. 12.3.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Assembleia de 25/07/2025 aprovou liquidação antecipada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "953821",
+     "kind": "Ata",
+     "title": "AGO/E",
+     "date": "25/07/2025",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821",
+     "excerpt": "REALIZADA EM 25 DE JULHO DE 2025 1. DATA, HORA E LOCAL DA ASSEMBLEIA: Aos 25 de julho de 2025, às 15:00 horas, realizada remotamente a partir da sede da OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela Comissão de Valores Mobiliários (“CVM”) para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio"
+    }
+   ],
+   "legacy": {
+    "value": "Assembleia 25/07/2025 aprovou liquidação antecipada até 31/07/2025",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Liquidação antecipada aprovada para julho de 2025",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "953821",
+     "kind": "Ata",
+     "title": "AGO/E",
+     "date": "25/07/2025",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821",
+     "excerpt": "REALIZADA EM 25 DE JULHO DE 2025 1. DATA, HORA E LOCAL DA ASSEMBLEIA: Aos 25 de julho de 2025, às 15:00 horas, realizada remotamente a partir da sede da OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela Comissão de Valores Mobiliários (“CVM”) para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio"
+    }
+   ],
+   "legacy": {
+    "value": "Assembleia 25/07/2025 aprovou liquidação antecipada até 31/07/2025",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "revolving": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Fundo em liquidação",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Liquidação: encargos e resgate integral das subordinadas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "953821",
+     "kind": "Ata",
+     "title": "AGO/E",
+     "date": "25/07/2025",
+     "page": 3,
+     "clause": "cl. 6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821",
+     "excerpt": "encerramento, é estimado, na presente data, no valor de R$ 48.000,00 (quarenta e oito mil reais) conforme descrição detalhada que consta do Anexo I à presente Ata. A Administradora informou aos Cotistas, ainda, que haverá a realização de auditoria de encerramento do Fundo, tendo sido o valor do referido serviço considerado no montante provisionado supracitado para fazer frente ao pagamento das despesas de encerramento informado acima, ficando desde já estabelecido que qualquer val"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidação: despesas e encargos; resgate integral de subordinadas; provisão de despesas R$ 48 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 25/07/2025, cl. 6"
+   }
+  },
+  "admin_fee": {
+   "display": "0,073% a.a. do PL (numeral diverge do extenso)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 44,
+     "clause": "Anexo I, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "Administração 7.1. Pelos serviços de administração fiduciária das Cotas, é devida pela Classe à Administradora uma Taxa de Administração equivalente a 0,073% (setenta e três centésimos por cento por cento) ao ano sobre o Patrimônio Líquido, a ser pago mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe, assegurado um valor mínimo mensal de R$ 7.250,00 (sete mil duzentos e cinquenta reais). 7.1.1. A Taxa de Administração será calculada e provisionada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, sobre o Patrimônio Líquido da ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA Classe do Dia Útil imediatamente anterior, e o pagamento ocorrerá no último Dia Útil de cada mês calendário, sendo o primeiro pagamento da Taxa de Administração devido no último Dia Útil do mês em que ocorrer a data da primeira integralização de Cotas. 7.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Histórico:0,073% a.a. PL, mínimo R$ 7,25 mil/mês; numeral diverge do extenso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2024, Anexo I, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,074% a.a. do PL (numeral diverge do extenso)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 45,
+     "clause": "Anexo I, cl. 7.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "de gestão da carteira e controladoria de Direitos Creditórios e Ativos Financeiros, é devida pela Classe à Gestora uma Taxa de Gestão equivalente a 0,074% (setenta e quatro centésimos por cento) ao ano sobre o Patrimônio Líquido, a ser pago mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe, assegurado um valor mínimo mensal de R$7.250,00(sete mil duzentos e cinquenta reais). 7.6.1. A Taxa de Gestão será calculada e provisionada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, sobre o Patrimônio Líquido da Classe do ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA Dia Útil imediatamente anterior, e o pagamento ocorrerá no último Dia Útil de cada mês calendário, sendo o primeiro pagamento da Taxa de Gestão devido no último Dia Útil do mês em que ocorrer a data da primeira integralização de Cotas. 7.6.2. A Gestora poderá estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pela Classe aos prestadores de serviços contratados pela Gestora e que não constituam encargos da Classe, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão. 7.7."
+    }
+   ],
+   "legacy": {
+    "value": "Histórico:0,074% a.a. PL, mínimo R$ 7,25 mil/mês; numeral diverge do extenso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2024, Anexo I, cl. 7.6"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 21,
+     "clause": "Anexo I, cl. 9.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "ecorrentes da aplicação deste Regulamento. Rio de Janeiro, 05 de novembro de 2024. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. ADMINISTRADORA OLIVEIRA TRUST SERVICER S.A. GESTOR ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA Este anexo é parte integrante do Regulamento do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA CAPÍTULO I - DA CLASSE 1.1. Forma de Constituição. A Classe é uma classe de Cotas, constituída sob a forma de condomínio fechado, regida pelo Regulamento do Fundo, pelo presente e os demais anexos ao Regulamento, seus respectivos Suplementos, disciplinada pela Resolução CVM 175/22 e seu Anexo Normativo II, e pelas demais disposições legais e regulamentares que lhe forem aplicáveis. 1.2. Prazo de Duração."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 21,
+     "clause": "Anexo I, cl. 9.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "ecorrentes da aplicação deste Regulamento. Rio de Janeiro, 05 de novembro de 2024. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. ADMINISTRADORA OLIVEIRA TRUST SERVICER S.A. GESTOR ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA Este anexo é parte integrante do Regulamento do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA CAPÍTULO I - DA CLASSE 1.1. Forma de Constituição. A Classe é uma classe de Cotas, constituída sob a forma de condomínio fechado, regida pelo Regulamento do Fundo, pelo presente e os demais anexos ao Regulamento, seus respectivos Suplementos, disciplinada pela Resolução CVM 175/22 e seu Anexo Normativo II, e pelas demais disposições legais e regulamentares que lhe forem aplicáveis. 1.2. Prazo de Duração."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança só se contratado",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 22,
+     "clause": "Anexo I, cl. 1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "os (conforme o caso), elaborados na forma dos Anexos I-D e I-E ao presente Anexo I-A. 1.5. Público-Alvo. A Classe é destinada a Investidores Autorizados que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira da Classe, e aceitem os riscos associados aos investimentos da Classe. As Cotas Subordinadas serão subscritas e integralizadas exclusivamente pelos Cotistas Subordinados. ANEXO I-A - DESCRITIVO DA CLASSE ÚNICA DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS II - RESPONSABILIDADE LIMITADA CAPÍTULO II - DA POLÍTICA DE INVESTIMENTO E COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe. O objetivo da Classe é proporcionar aos seus Cotistas a valorização das Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios detidos pela Cedente em face das Devedoras, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de Elegibilidade e às Condições de Cessão estabelecidos no Capítulo III deste Anexo I-A; e (ii) Ativos Financeiros, observados os índices de composição e diversificação da carteira da Classe, conforme estabelecidos neste Anexo I-A e na regulamentação vigente. 2.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; liquidação antecipada aprovada para julho 2025",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2024, Anexo I, cl. 1.5"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado (liquidação aprovada em julho de 2025)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "953821",
+     "kind": "Ata",
+     "title": "AGO/E",
+     "date": "25/07/2025",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821",
+     "excerpt": "REALIZADA EM 25 DE JULHO DE 2025 1. DATA, HORA E LOCAL DA ASSEMBLEIA: Aos 25 de julho de 2025, às 15:00 horas, realizada remotamente a partir da sede da OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela Comissão de Valores Mobiliários (“CVM”) para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; liquidação antecipada aprovada para julho 2025",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "URs de cartão da Asaas contra Redecard, Cielo e Adyen",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 27,
+     "clause": "Anexo I, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "formalizados em formato de UR registrada no Sistema de Registro e cujo valor ofertado pela Cedente encontra-se livre para ser cedido à Classe, conforme identificado pelo Custodiante no Sistema de Registro mantido pela Entidade Registradora, os quais são provenientes da obrigação de pagamento pela(s) Devedora(s) à Cedente, conforme as regras dos Arranjos de Pagamento, e são decorrentes de Transações de Pagamento pelos Usuários para a aquisição de bens desconto das taxas que constituem a remuneração d"
+    },
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 99,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "do mês imediatamente posterior à Data de Referência. Significa (i) a REDECARD S.A., sociedade por ações com sede na cidade de São Paulo, estado de São Paulo, na Rua Tenente Mauro de Miranda, n.º 36, Bloco D, 7º andar parte, Jabaquara, CEP 04345-030, inscrita no CNPJ/MF sob o n.º 01.425.787/0001-04, (ii) a CIELO S.A., sociedade com sede na cidade de Barueri, estado de São Paulo, na Alameda Xingu, nº 512, 21º ao 31º andar, Alphaville Industrial, CEP 06.455-030, inscrita no CNPJ/MF sob o nº 01.027.058/0001-91, e/ou (iii) a Adyen, acima qualificada, que atuam como Credenciadores, nos termos previstos nos Arranjos de Pagamento. Significa qualquer dia que não seja sábado, domingo, feriado nacional ou feriad"
+    }
+   ],
+   "legacy": {
+    "value": "Histórico: recebíveis de cartões formalizados em unidades de recebíveis registradas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "URs registradas em favor da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "774314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2024",
+     "page": 27,
+     "clause": "Anexo I, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+     "excerpt": "formalizados em formato de UR registrada no Sistema de Registro e cujo valor ofertado pela Cedente encontra-se livre para ser cedido à Classe, conforme identificado pelo Custodiante no Sistema de Registro mantido pela Entidade Registradora, os quais são provenientes da obrigação de pagamento pela(s) Devedora(s) à Cedente, conforme as regras dos Arranjos de Pagamento, e são decorrentes de Transações de Pagamento pelos Usuários para a aquisição de bens desconto das taxas que constituem a remuneração d"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "dilution": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Tratamento de cancelamentos não localizado em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "URs de cartão da Asaas com subordinação de 15%; liquidação antecipada aprovada em julho de 2025.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

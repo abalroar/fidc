@@ -1,0 +1,724 @@
+{
+ "schema_version": 1,
+ "cnpj": "48313595000161",
+ "name": "IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T08:20:25Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "976737",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "22/08/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737"
+  },
+  "D2": {
+   "document_id": "397798",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "21/01/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=397798"
+  },
+  "D3": {
+   "document_id": "1088380",
+   "kind": "Ata",
+   "title": "AGE",
+   "date": "13/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1088380"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas agro de produtos, insumos e máquinas; duplicatas e CPR-F",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 19,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "“Direitos Creditórios” Significam os direitos creditórios emitidos ou devidos por pessoas físicas e jurídicas que integrem a cadeia produtiva agroindustrial, inclusive relacionados com a produção, a comercialização, o beneficiamento ou a industrialização de: (i) produtos agropecuários, seus"
+    }
+   ],
+   "legacy": {
+    "value": "Agro: vendas de produtos, insumos, máquinas e implementos; duplicatas e CPR-F eletrônicas, performadas ou a performar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes do agronegócio (multicedente)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 19,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos."
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes da cadeia agroindustrial; Buriti gestora e Itaú Unibanco consultor especializado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Cedentes do agronegócio, com coobrigação total, parcial ou nenhuma",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 43,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "o caso, com previsão de cessão: (i) com coobrigação total do Cedente; (ii) coobrigação parcial do Cedente; (iii) sem coobrigação do Cedente, com a possibilidade de pagamento de preço complentar de cessão no caso de adimplemento dos Direitos Creditórios; ou (iv) sem coobrigação do Ceden te, e cujos termos vincularão os respectivos signatários, sucessores e cessionários, a qualquer título."
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes da cadeia agroindustrial; Buriti gestora e Itaú Unibanco consultor especializado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Clientes PF e PJ dos cedentes agro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 19,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas/jurídicas clientes dos cedentes agro e respectivos grupos econômicos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Coobrigação total, parcial ou ausente, conforme cada contrato",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 43,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "o caso, com previsão de cessão: (i) com coobrigação total do Cedente; (ii) coobrigação parcial do Cedente; (iii) sem coobrigação do Cedente, com a possibilidade de pagamento de preço complentar de cessão no caso de adimplemento dos Direitos Creditórios; ou (iv) sem coobrigação do Ceden te, e cujos termos vincularão os respectivos signatários, sucessores e cessionários, a qualquer título."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão definitiva com responsabilidade por existência, validade, formalização e lastro; resolução nos contratos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Adimplentes; duplicata ou CPR-F; prazo de até 540 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 44,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "(iii) Os Direitos Creditórios deverão ter prazo de vencimento máximo de 540 (quinhentos e quarenta) dias ou até o último Dia Útil do 45º (quadragésimo quinto) mês contado da 1ª Data de Integralização das Cotas, o que primeiro ocorrer; (iv) O prazo médio pro forma dos Direitos Creditórios deverá ser igual ou inferior a 270 (duzentos e setenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Adimplentes; duplicata/CPR-F; prazo 10–540 dias e média≤270; desconto mínimoDI+4,80% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/08/2025, Anexo VII"
+   }
+  },
+  "debtor_limit": {
+   "display": "Com PL ≥ R$ 100 mi: devedor ou grupo ≤ 10% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 45,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "superior a R$100.000.000.00 (cem milhões de reais), deverá ser respeitada a concentração de até 10% (dez por cento) do Patrimônio Líquido composto por Direitos Creditórios Adquiridos devidos pelos mesmos Devedores de mesmo Grupo Econômico (considerando matriz e filiais, conforme a raiz do CNPJ/MF); e (xi) Exclusivamente, a partir de quando o Patrimônio Líquido do Fundo for igual ou superior a R$100.000.000.00 (cem milhões de reais), os Di"
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "Com PL≥R$ 100 mi: devedor/grupo≤10% PL e top 10≤20% PL; cedente com atraso 90+≥15% excluído 2 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/08/2025, Anexo VII"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não fixado em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Com PL≥R$ 100 mi: devedor/grupo≤10% PL e top 10≤20% PL; cedente com atraso 90+≥15% excluído 2 anos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Prazo de até 540 dias; média ≤ 270",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 44,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "(iii) Os Direitos Creditórios deverão ter prazo de vencimento máximo de 540 (quinhentos e quarenta) dias ou até o último Dia Útil do 45º (quadragésimo quinto) mês contado da 1ª Data de Integralização das Cotas, o que primeiro ocorrer; (iv) O prazo médio pro forma dos Direitos Creditórios deverá ser igual ou inferior a 270 (duzentos e setenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Adimplentes; duplicata/CPR-F; prazo 10–540 dias e média≤270; desconto mínimoDI+4,80% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/08/2025, Anexo VII"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios (base anterior)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 42,
+     "clause": "Anexo VII, cl. 6.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "atividades, 50% (cinquenta por cento) de seu Patrimônio Líquido, no mínimo, em Direitos Creditórios Adquiridos, conforme a Alocação Mínima de Investimento, podendo a CVM, a seu exclusivo critério, prorrogar esse prazo por igual período, desde que o Administrador apresente motivos que justifiquem a prorrogação. Caberá ao Gestor informar ao Administrador os motivos que justifiquem a prorrogação. i."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Base anterior:≥50% PL em 90 dias; novas aquisições suspensas na liquidação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/08/2025, Anexo VII, cl. 6.7"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "REALIZADA EM 13 DE AGOSTO DE 2025. 01. DATA, HORA E LOCAL: Realizada aos 13 dias do mês de agosto de 2025, às 10hs, de forma não presencial, pela administradora do Fundo, a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., com sede na Avenida Brigadeiro Faria Lima, nº 1.355, 5º andar, Bairro Jardim Paulistano, Cidade de São Paulo, Estado de São Paulo, CEP 01.452-919 (“Administradora”). 02."
+    }
+   ],
+   "legacy": {
+    "value": "Índice de subordinação e razão de garantia excluídos pela assembleia de agosto 2025",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/08/2025, p. 1"
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice de subordinação excluído pela assembleia de agosto de 2025",
+   "sources": [],
+   "legacy": {
+    "value": "Índice de subordinação e razão de garantia excluídos pela assembleia de agosto 2025",
+    "decision": "regression",
+    "why": "Resposta anterior registra exclusão do índice"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Razão de garantia excluída pela assembleia de agosto de 2025",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Índices excluídos",
+   "sources": [],
+   "legacy": {
+    "value": "Índice de subordinação e razão de garantia excluídos pela assembleia de agosto 2025",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "≥ 1% do PL para despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 26,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "valor de, no mínimo, 1% (um por cento) do Patrimônio Líquido, a ser constituída quando da primeira 18 22c252a7-90fe-4d83-81f8-49a2dc538ebb integralização de Cotas Seniores, e controlada pelo Gestor para fins de cobertura dos encargos de"
+    }
+   ],
+   "legacy": {
+    "value": "Base contratual:≥1% PL para despesas; plano mantém despesas provisionadas antes de amortizar mezanino",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução do valor de recuperação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 59,
+     "clause": "Anexo VII, cl. 13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "no valor recuperável dos Ativos da Classe, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 13.5 Os Direitos Creditórios cedidos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 13.6 É obrigatória a divulgação, em notas explicativas às demonstrações contábeis anuais do Fundo e/ou da Classe, de informações que abranjam, no mínimo, (i) o montante, a natureza e as faixas de vencimento dos Ativos integrantes da carteira da Classe, caso aplicável, (ii) o mercado dos 51 22c252a7-90fe-4d83-81f8-49a2dc538ebb Ativos, segregado"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Liquidação aprovada após desenquadramento de inadimplência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1088380",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "13/11/2025",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1088380",
+     "excerpt": "REALIZADA EM 13 DE NOVEMBRO DE 2025. 01. DATA, HORA E LOCAL: Realizada aos 13 dias do mês de novembro de 2025, às 15:00 horas, de forma não presencial, pela administradora do Fundo, a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., com sede na Avenida Rebouças, nº 2.942, 7º ao 12º andares – Parte I, Pinheiros, na Cidade de São Paulo, Estado de São Paulo, CEP 05402-005 (“Administradora”). 02."
+    }
+   ],
+   "legacy": {
+    "value": "Liquidação aprovada 13/11/2025 após desenquadramento de inadimplência; plano com prazo até 07/05/2027",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Eventos de avaliação convertidos em liquidação, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 57,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "idação, na forma das disposições deste Regulamento. II. Eventos Liquidação 12.6 São considerados Eventos de Liquidação qualquer das seguintes ocorrências: (i) Se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação; 49 22c252a7-90fe-4d83-81f8-49a2dc538ebb (ii) Caso o Fundo torne-se insolvente, nos termos do Código Civil; (iii) Determinação da CVM, nos termos previstos no artigo 9º da RCVM 175; (iv) Cessação definitiva, a qualquer tempo e por qualquer motivo, da prestação dos serviços pelo Administrador, pelo Gestor, pelo Custodiante ou pelo Agente de Cobrança, sem que tenha havido sua efetiva substituição por outro prestador de serviços; e (v) Constatação de que o presente Regulamento foi considerado, em sua integralidade, inválido, ineficaz ou inexequível, conforme decisão judicial cujos efeitos não sejam suspensos no prazo legal, por qualquer medida. 12.6.1 A ocorrência de qualquer Evento de Liquidação ensejará imediatamente a Amortização das Cotas, nos termos do Artigo 9.29 deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "Liquidação aprovada 13/11/2025 após desenquadramento de inadimplência; plano com prazo até 07/05/2027",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "revolving": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Novas aquisições suspensas na liquidação",
+   "sources": [],
+   "legacy": {
+    "value": "Liquidação aprovada; excedente de caixa destinado à amortização mezanino após despesas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Plano de liquidação com prazo até 07/05/2027",
+   "sources": [],
+   "legacy": {
+    "value": "Plano: despesas/provisões; amortização integral mezanino com remuneração; liquidação e baixa do fundo",
+    "decision": "regression",
+    "why": "Resposta anterior refere-se a ata de assembleia"
+   }
+  },
+  "admin_fee": {
+   "display": "0,18% a.a. do PL; mín. R$ 16,2 mil/mês (IPCA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 34,
+     "clause": "Anexo VII, cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "reais, resultado da multiplicação do percentual de 0,18% (dezoito centésimos por cento) ao ano pelo valor, em reais, do Patrimônio Líquido, observado o valor mínimo mensal de R$16.200,00 (dezesseis 26 22c252a7-90fe-4d83-81f8-49a2dc538ebb mil e duzentos reais) (“Taxa de Administração”); (ii) ao Gestor, pelos serviços de gestão de Ativos, o montante total equivalente a 0,25% (vinte e cinco centésimos por cento) ao ano incidente s"
+    }
+   ],
+   "legacy": {
+    "value": "0,18% a.a. PL; mínimoR$ 16,2 mil/mês; IPCA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,25% a.a. do PL; mín. R$ 8 mil/mês (IPCA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 35,
+     "clause": "Anexo VII, cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "montante total equivalente a 0,25% (vinte e cinco centésimos por cento) ao ano incidente sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$8.000,00 (oito mil reais) (“Taxa de Gestão”); e (iii) ao Custodiante pelos serviços de Custódia de Ativos o montante total equivalente a 0,02% (dois centésimos por cento) ao ano incidente sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$1.800,00 (um mil e oitocentos reais). 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,25% a.a. PL; mínimoR$ 8 mil/mês; IPCA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "1ª sênior e 1ª mezanino:DI+3,50% a.a., conforme suplementos de agosto 2025",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "1ª sênior e 1ª mezanino:DI+3,50% a.a., conforme suplementos de agosto 2025",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 3,
+     "clause": "cl. 06",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "exandra Matos dos Reis Presidente Secretário(a) Administradora: SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Gestora: BURITI INVESTIMENTOS GESTORA DE RECURSOS LTDA. Corporativo | Interno 22c252a7-90fe-4d83-81f8-49a2dc538ebb LISTA DE PRESENÇA DA ASSEMBLEIA GERAL EXTRAORDINÁRIA DE COTISTAS DO IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CNPJ Nº 48.313.595/0001-61 Cotistas Assinatura AROEIRA HIGH YIELD FIC DE FIDC ITAU UNIBANCO S/A ITAU CREDITO ESTR AL Corporativo | Interno 22c252a7-90fe-4d83-81f8-49a2dc538ebb ANEXO II SUPLEMENTO DA 1ª EMISSÃO DE COTAS SENIORES DO IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS O presente documento constitui o suplemento referente à 1ª (primeira) emissão de Cotas Seniores do IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (“Cotas Seniores” e “Fundo” respectivamente), constituído sob a forma de condomínio fechado, disciplinado pela Resolução do Conselho Monetário Nacional nº 2.907, de 29"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Buriti Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 3,
+     "clause": "cl. 06",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "exandra Matos dos Reis Presidente Secretário(a) Administradora: SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Gestora: BURITI INVESTIMENTOS GESTORA DE RECURSOS LTDA. Corporativo | Interno 22c252a7-90fe-4d83-81f8-49a2dc538ebb LISTA DE PRESENÇA DA ASSEMBLEIA GERAL EXTRAORDINÁRIA DE COTISTAS DO IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CNPJ Nº 48.313.595/0001-61 Cotistas Assinatura AROEIRA HIGH YIELD FIC DE FIDC ITAU UNIBANCO S/A ITAU CREDITO ESTR AL Corporativo | Interno 22c252a7-90fe-4d83-81f8-49a2dc538ebb ANEXO II SUPLEMENTO DA 1ª EMISSÃO DE COTAS SENIORES DO IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS O presente documento constitui o suplemento referente à 1ª (primeira) emissão de Cotas Seniores do IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (“Cotas Seniores” e “Fundo” respectivamente), constituído sob a forma de condomínio fechado, disciplinado pela Resolução do Conselho Monetário Nacional nº 2.907, de 29"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "Buriti (gestora), como agente de cobrança",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 12,
+     "clause": "Anexo VII, cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "ordinadas, nos termos da regulamentação aplicável. “Agente de Cobrança” Significa o Gestor, ou seu sucessor a qualquer título, contratado para realizar, às expensas do Fundo, a cobrança extrajudicial e judicial dos Direitos Creditórios Inadimplidos, nos termos do Artigo 6.10 e seguintes deste Regulamento, de acordo com a Política de Cobrança e as disposições do Contrato de Cobrança. 4 22c252a7-90fe-4d83-81f8-49a2dc538ebb “Alocação Mínima de Investimento” Significa a alocação de, pelo menos, 50% (cinquenta por cento) do Patrimônio Líquido em Direito Creditórios. “Amortização” Significa a amortização das Cotas, pelo valor calculado de acordo com as disposições deste Regulamento e do"
+    },
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 3,
+     "clause": "cl. 06",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "exandra Matos dos Reis Presidente Secretário(a) Administradora: SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Gestora: BURITI INVESTIMENTOS GESTORA DE RECURSOS LTDA. Corporativo | Interno 22c252a7-90fe-4d83-81f8-49a2dc538ebb LISTA DE PRESENÇA DA ASSEMBLEIA GERAL EXTRAORDINÁRIA DE COTISTAS DO IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CNPJ Nº 48.313.595/0001-61 Cotistas Assinatura AROEIRA HIGH YIELD FIC DE FIDC ITAU UNIBANCO S/A ITAU CREDITO ESTR AL Corporativo | Interno 22c252a7-90fe-4d83-81f8-49a2dc538ebb ANEXO II SUPLEMENTO DA 1ª EMISSÃO DE COTAS SENIORES DO IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS O presente documento constitui o suplemento referente à 1ª (primeira) emissão de Cotas Seniores do IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (“Cotas Seniores” e “Fundo” respectivamente), constituído sob a forma de condomínio fechado, disciplinado pela Resolução do Conselho Monetário Nacional nº 2.907, de 29"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 29,
+     "clause": "Anexo VII, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "de Investimento prevista no Capítulo 7 abaixo; e (ii) Ativos Financeiros. 2.2. O Fundo é destinado a Investidores Profissionais, assim definidos nos termos do artigo 11 da Resolução CVM 30, que busquem retorno no médio e longo prazo de rentabilidade condizente com a Política de Investimento e que estejam dispostos a aceitar os riscos inerentes à aplicação nas Cotas, bem como o prazo de maturação do investimento. 2.3. A cada Dia Útil, desde que o Patrimônio Líquido do Fundo assim permita, e após o pagamento ou provisionamento das despesas e encargos do Fundo, será incorporado, ao valor de cada Cota, a título de distribuição dos resultados da carteira do Fundo relativos ao Dia Útil imediatamente anterior, o valor correspondente à valorização da carteira no período, observada a respectiva Meta de Remuneração. 2.4. A Meta de Remuneração não constitui promessa ou garantia de rentabilidade. 2.5. O Administrador não prestou quaisquer orientações ou aconselhamentos estratégicos para a constituição do Fundo, tampouco relacionados com aspectos sucessórios, tributários, patrimoniais ou de qualquer outra natureza. 2.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 30,
+     "clause": "Anexo VII, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "da nova classe/subclasse em questão perante os órgãos competentes. 3.4. O Fundo: (i) terá prazo de duração indeterminado, sendo que cada subsubclasse ou série de Cotas, conforme o caso, terá Prazo de Duração determinado, conforme descrito no respectivo Suplemento, observados: (a) as Amortizações; e (b) os Eventos de Liquidação; e (ii) será liquidado quando do Resgate de todas as suas Cotas. 3.5. O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 3.6. O patrimônio do Fundo será formado por 3 (três) subclasses de Cotas, conforme descrito abaixo: (i) As subclasses de Cotas Seniores são aquelas que não se subordinam às demais ou entre si para efeito de pagamento de Amortização, Remuneração e Resgate; (ii) As subclasses de Cotas Subordinadas Mezanino são aquelas que se subordinam às Cotas Seniores para efeito de pagamento de Amortização, Remuneração e Resgate, porém tem prioridade em relação às Cotas Subordinadas Júnior. Somente ocorrerá o Resgate das Cotas Subordinadas Mezanino após o Resgate das Cotas Seniores;"
+    }
+   ],
+   "legacy": {
+    "value": "Suplementos mantêm data passada 10/07/2025; plano posterior fixa liquidação até 07/05/2027",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "Duplicatas e CPR-F eletrônicas de vendas agro, performadas ou a performar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 19,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "“Direitos Creditórios” Significam os direitos creditórios emitidos ou devidos por pessoas físicas e jurídicas que integrem a cadeia produtiva agroindustrial, inclusive relacionados com a produção, a comercialização, o beneficiamento ou a industrialização de: (i) produtos agropecuários, seus"
+    }
+   ],
+   "legacy": {
+    "value": "Agro: vendas de produtos, insumos, máquinas e implementos; duplicatas e CPR-F eletrônicas, performadas ou a performar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Cessão com coobrigação total/parcial ou sem coobrigação; proteção varia por contrato",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "sacado_limit": {
+   "display": "Com PL ≥ R$ 100 mi: devedor ou grupo ≤ 10% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "976737",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/08/2025",
+     "page": 45,
+     "clause": "Anexo VII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+     "excerpt": "superior a R$100.000.000.00 (cem milhões de reais), deverá ser respeitada a concentração de até 10% (dez por cento) do Patrimônio Líquido composto por Direitos Creditórios Adquiridos devidos pelos mesmos Devedores de mesmo Grupo Econômico (considerando matriz e filiais, conforme a raiz do CNPJ/MF); e (xi) Exclusivamente, a partir de quando o Patrimônio Líquido do Fundo for igual ou superior a R$100.000.000.00 (cem milhões de reais), os Di"
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "Com PL≥R$ 100 mi: devedor/grupo≤10% PL e top 10≤20% PL; cedente com atraso 90+≥15% excluído 2 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/08/2025, Anexo VII"
+   }
+  }
+ },
+ "leitura": "Multicedente agro em liquidação, com índices de subordinação excluídos e prazo de até 540 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

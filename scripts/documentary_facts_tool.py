@@ -394,7 +394,8 @@ def compile_facts(cnpj: str, facts_path: Path, work: Path) -> dict:
     loose = [n for n in numbers_in(leitura) if not any(abs(n - v) < 1e-6 * max(1, abs(v)) for v in numbers_in(shown))]
     if loose:
         issues.append("leitura com número que não está nos fatos: " + ", ".join(f"{n:g}" for n in loose))
-    if fund_type == "FIC" and not parsed["lookthrough"]:
+    # Look-through is owed whenever the regulation names the investee; an unnamed one is recorded as such.
+    if fund_type == "FIC" and not parsed["lookthrough"] and facts.get("investee", {}).get("status") != "not_named":
         issues.append("FIC sem look-through")
     labels = {label: doc_id for doc_id, label in cache["labels"].items()}
     payload = {

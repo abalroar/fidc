@@ -1,0 +1,718 @@
+{
+ "schema_version": 1,
+ "cnpj": "37645417000111",
+ "name": "UBYFOL AGRO III FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO - RESP LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T08:18:30Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1301811",
+   "kind": "Anexo",
+   "title": "Anexo ao Regulamento",
+   "date": "25/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1301811"
+  },
+  "D2": {
+   "document_id": "1266403",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "13/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403"
+  },
+  "D3": {
+   "document_id": "1266328",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "28/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266328"
+  },
+  "D4": {
+   "document_id": "1053420",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1053420"
+  },
+  "D5": {
+   "document_id": "1050537",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "27/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1050537"
+  },
+  "D6": {
+   "document_id": "1016909",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "16/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016909"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de venda de insumos agrícolas da Uby Agroquímica",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 16,
+     "clause": "Anexo I, cl. 25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "lgada diariamente pela B3, no informativo diário disponível em sua página na Internet (http://www.cetip.com.br); 26. Cedente: Uby Agroquímica S.A., sociedade com sede na cidade de Uberaba, estado de Minas Gerais, na Rua Arnaldo Afonso de Melo, nº 101, galpão 1, Distrito Industrial II, CEP 38064-720, inscrita no CNPJ sob o nº 21.320.221/0001-17; 27. Classe: as classes de Cotas que vierem a ser emitidas pelo Fundo, cujas características estarão descritas nos respectivos Anexos Descritivos; 28. Código Civil: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; 29. Código de Processo Civil: a Lei nº 13.105, de 16 de março de 2015, conforme alterada; 30. Condições de Cessão: as condições de cessão de Direitos Creditórios ao Fundo, nos termos previstos em cada Anexo Descritivo; 31. Conta da Classe: a conta bancária mantida por cada uma das Classes que vierem a ser emitidas pelo Fundo, por meio dos seus Anexos Descritivos, mantida junto a uma Instituição Autorizada, que será utilizada para acolher depósitos a serem feitos pelos Devedores e para as demais movimentações de recursos pela Classe, inclusive para pagamento das obrigações da Classe; 32."
+    }
+   ],
+   "legacy": {
+    "value": "Duplicatas em reais; política agroindústria/comércio",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Uby Agroquímica",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 16,
+     "clause": "Anexo I, cl. 25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "lgada diariamente pela B3, no informativo diário disponível em sua página na Internet (http://www.cetip.com.br); 26. Cedente: Uby Agroquímica S.A., sociedade com sede na cidade de Uberaba, estado de Minas Gerais, na Rua Arnaldo Afonso de Melo, nº 101, galpão 1, Distrito Industrial II, CEP 38064-720, inscrita no CNPJ sob o nº 21.320.221/0001-17; 27. Classe: as classes de Cotas que vierem a ser emitidas pelo Fundo, cujas características estarão descritas nos respectivos Anexos Descritivos; 28. Código Civil: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; 29. Código de Processo Civil: a Lei nº 13.105, de 16 de março de 2015, conforme alterada; 30. Condições de Cessão: as condições de cessão de Direitos Creditórios ao Fundo, nos termos previstos em cada Anexo Descritivo; 31. Conta da Classe: a conta bancária mantida por cada uma das Classes que vierem a ser emitidas pelo Fundo, por meio dos seus Anexos Descritivos, mantida junto a uma Instituição Autorizada, que será utilizada para acolher depósitos a serem feitos pelos Devedores e para as demais movimentações de recursos pela Classe, inclusive para pagamento das obrigações da Classe; 32."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Uby Agroquímica, sem coobrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 16,
+     "clause": "Anexo I, cl. 25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "lgada diariamente pela B3, no informativo diário disponível em sua página na Internet (http://www.cetip.com.br); 26. Cedente: Uby Agroquímica S.A., sociedade com sede na cidade de Uberaba, estado de Minas Gerais, na Rua Arnaldo Afonso de Melo, nº 101, galpão 1, Distrito Industrial II, CEP 38064-720, inscrita no CNPJ sob o nº 21.320.221/0001-17; 27. Classe: as classes de Cotas que vierem a ser emitidas pelo Fundo, cujas características estarão descritas nos respectivos Anexos Descritivos; 28. Código Civil: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; 29. Código de Processo Civil: a Lei nº 13.105, de 16 de março de 2015, conforme alterada; 30. Condições de Cessão: as condições de cessão de Direitos Creditórios ao Fundo, nos termos previstos em cada Anexo Descritivo; 31. Conta da Classe: a conta bancária mantida por cada uma das Classes que vierem a ser emitidas pelo Fundo, por meio dos seus Anexos Descritivos, mantida junto a uma Instituição Autorizada, que será utilizada para acolher depósitos a serem feitos pelos Devedores e para as demais movimentações de recursos pela Classe, inclusive para pagamento das obrigações da Classe; 32."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 52,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "Artigo 1º Parágrafo Terceiro, do Anexo Descritivo deste Regulamento, os Direitos Creditórios não contarão com a coobrigação do Cedente ou com compromisso de recompra dos Direitos Creditórios elegíveis cedidos ao Fundo, por parte do Cedente, quando estes foram inadimplidos pelos Devedores. Assim, via de regra, o recebimento do valor dos Direitos Creditórios adquiridos pelo Fundo dependerá exclusivamente da solvência e do efetivo pagamento pelos respectivos Devedores, inexistindo, portanto, qualquer garantia, real ou fidejussória, de que o pagamento dos Direitos Creditórios será devidamente efetuado ou, caso o seja, de que será efetuado nos prazos avençados. Considerando que os Direitos Creditórios são a principal fonte de recursos para o cumprimento das obrigações do Fundo perante os Cotistas, o não pagamento, pelos Devedores, dos Direitos Creditórios adquiridos pelo Fundo, poderá comprometer o recebimento, pelos Cotistas, dos valores correspondentes as suas Cotas, sendo certo que o Fundo terá ação apenas contra os Devedores dos Direitos Creditórios inadimplidos . III."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Produtores e revendas clientes da Uby",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 16,
+     "clause": "Anexo I, cl. 25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "lgada diariamente pela B3, no informativo diário disponível em sua página na Internet (http://www.cetip.com.br); 26. Cedente: Uby Agroquímica S.A., sociedade com sede na cidade de Uberaba, estado de Minas Gerais, na Rua Arnaldo Afonso de Melo, nº 101, galpão 1, Distrito Industrial II, CEP 38064-720, inscrita no CNPJ sob o nº 21.320.221/0001-17; 27. Classe: as classes de Cotas que vierem a ser emitidas pelo Fundo, cujas características estarão descritas nos respectivos Anexos Descritivos; 28. Código Civil: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; 29. Código de Processo Civil: a Lei nº 13.105, de 16 de março de 2015, conforme alterada; 30. Condições de Cessão: as condições de cessão de Direitos Creditórios ao Fundo, nos termos previstos em cada Anexo Descritivo; 31. Conta da Classe: a conta bancária mantida por cada uma das Classes que vierem a ser emitidas pelo Fundo, por meio dos seus Anexos Descritivos, mantida junto a uma Instituição Autorizada, que será utilizada para acolher depósitos a serem feitos pelos Devedores e para as demais movimentações de recursos pela Classe, inclusive para pagamento das obrigações da Classe; 32."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação nem recompra pelo cedente na inadimplência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 52,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "Artigo 1º Parágrafo Terceiro, do Anexo Descritivo deste Regulamento, os Direitos Creditórios não contarão com a coobrigação do Cedente ou com compromisso de recompra dos Direitos Creditórios elegíveis cedidos ao Fundo, por parte do Cedente, quando estes foram inadimplidos pelos Devedores. Assim, via de regra, o recebimento do valor dos Direitos Creditórios adquiridos pelo Fundo dependerá exclusivamente da solvência e do efetivo pagamento pelos respectivos Devedores, inexistindo, portanto, qualquer garantia, real ou fidejussória, de que o pagamento dos Direitos Creditórios será devidamente efetuado ou, caso o seja, de que será efetuado nos prazos avençados. Considerando que os Direitos Creditórios são a principal fonte de recursos para o cumprimento das obrigações do Fundo perante os Cotistas, o não pagamento, pelos Devedores, dos Direitos Creditórios adquiridos pelo Fundo, poderá comprometer o recebimento, pelos Cotistas, dos valores correspondentes as suas Cotas, sendo certo que o Fundo terá ação apenas contra os Devedores dos Direitos Creditórios inadimplidos . III."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Prazo de 10 a 360 dias; devedor sem atraso relevante com a classe",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016909",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 79,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016909",
+     "excerpt": "(ii) os Direitos Creditórios deverão ter prazo de vencimento mínimo de 10 (dez) dias; (iii) os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo10–360 dias; vencimento antes do resgate; devedor sem atraso>5 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/10/2025, Anexo A"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limites por devedor definidos no anexo, sem trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Sem limite por cedente/partes relacionadas; limites por devedor no artigo19",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Uby Agroquímica",
+   "sources": [],
+   "legacy": {
+    "value": "Sem limite por cedente/partes relacionadas; limites por devedor no artigo19",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Prazo de até 360 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016909",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 79,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016909",
+     "excerpt": "(ii) os Direitos Creditórios deverão ter prazo de vencimento mínimo de 10 (dez) dias; (iii) os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo10–360 dias; vencimento antes do resgate; devedor sem atraso>5 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/10/2025, Anexo A"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016909",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 5,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016909",
+     "excerpt": "6. Alocação Mínima: A Classe deverá manter uma alocação superior a 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios, a ser monitorado pela Gestora; 7. Amortização Compulsória: Amortização extraordinária compulsória das Cotas Seniores e das Cotas Mezanino, que poderá ser realizada nos termos do Anexo Descritivo; 8."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC >50% PL após180 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 2,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "Classe, os quais dispõem sobre os Índice de Monitoramento; (iv) Deliberar sobre a alteração dos índices de Subordinação Mínima das Subclasses Mezanino e Sênior, que passam a ser: (i) de 10% (dez por cento) para 5% (cinco por cento) no caso da Subclasse Mezanino; e (ii) de 30% (trinta por cento) para 25% (vinte e cinco por cento) no caso da Subclasse Sênior, de modo que as definições passarão a vigorar nos seguintes termos, bem como na forma do Anexo III a esta ata; 1. Índice de Subordinação Mínima Mezanino: a relação mínima admitida entre (a) o valor total das Cotas Subordinadas Juniores em circulação; e (b) o Patrimônio Líquido, correspondente a, pelo menos, 5% (cinco por cento), a ser monitorado diariamente pela Gestora; 2. Índice de Subordinação Mínima Sênior: a relação mínima admitida entre (a) o valor total das Cotas Subordinadas em circulação; e (b) o Patrimônio Líquido, correspondente a, pelo menos, 25% (vinte e cinco por cento), a ser monitorado diariamente pela Gestora;"
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino+júnior/PL ≥30%; júnior/PL ≥10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/07/2026, cl. 5"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · subord./PL (reduzido de 30%)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 2,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "Classe, os quais dispõem sobre os Índice de Monitoramento; (iv) Deliberar sobre a alteração dos índices de Subordinação Mínima das Subclasses Mezanino e Sênior, que passam a ser: (i) de 10% (dez por cento) para 5% (cinco por cento) no caso da Subclasse Mezanino; e (ii) de 30% (trinta por cento) para 25% (vinte e cinco por cento) no caso da Subclasse Sênior, de modo que as definições passarão a vigorar nos seguintes termos, bem como na forma do Anexo III a esta ata; 1. Índice de Subordinação Mínima Mezanino: a relação mínima admitida entre (a) o valor total das Cotas Subordinadas Juniores em circulação; e (b) o Patrimônio Líquido, correspondente a, pelo menos, 5% (cinco por cento), a ser monitorado diariamente pela Gestora; 2. Índice de Subordinação Mínima Sênior: a relação mínima admitida entre (a) o valor total das Cotas Subordinadas em circulação; e (b) o Patrimônio Líquido, correspondente a, pelo menos, 25% (vinte e cinco por cento), a ser monitorado diariamente pela Gestora;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Mezanino+júnior/PL ≥30%; júnior/PL ≥10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/07/2026, cl. 5"
+   }
+  },
+  "sub_mezz": {
+   "display": "5% · júnior/PL (reduzido de 10%)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 2,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "Classe, os quais dispõem sobre os Índice de Monitoramento; (iv) Deliberar sobre a alteração dos índices de Subordinação Mínima das Subclasses Mezanino e Sênior, que passam a ser: (i) de 10% (dez por cento) para 5% (cinco por cento) no caso da Subclasse Mezanino; e (ii) de 30% (trinta por cento) para 25% (vinte e cinco por cento) no caso da Subclasse Sênior, de modo que as definições passarão a vigorar nos seguintes termos, bem como na forma do Anexo III a esta ata; 1. Índice de Subordinação Mínima Mezanino: a relação mínima admitida entre (a) o valor total das Cotas Subordinadas Juniores em circulação; e (b) o Patrimônio Líquido, correspondente a, pelo menos, 5% (cinco por cento), a ser monitorado diariamente pela Gestora; 2. Índice de Subordinação Mínima Sênior: a relação mínima admitida entre (a) o valor total das Cotas Subordinadas em circulação; e (b) o Patrimônio Líquido, correspondente a, pelo menos, 25% (vinte e cinco por cento), a ser monitorado diariamente pela Gestora;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Mezanino+júnior/PL ≥30%; júnior/PL ≥10%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Despesas e encargos estimados dos 2 meses seguintes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016909",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 84,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016909",
+     "excerpt": "ou da Classe Única, incluindo a Taxa de Administração e Taxa de Gestão, referentes aos 2 (dois) meses imediatamente seguintes. Os recursos utilizados para a composição da Reserva de Despesas e Encargos serão obrigatoriamente mantidos em Disponibilidades. Parágrafo Primeiro As Disponibilidades segregadas na Reserva de Despesas e Encargos não poderão ser utilizadas na composição da Reserva de Amortização."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas e encargos estimados dos próximos2 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Situações do anexo descritivo que interrompem aquisições",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 19,
+     "clause": "Anexo I, cl. 62",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "nome do Fundo ou da Classe, que poderá ser escolhido e substituído pela Administradora a qualquer tempo; 62. Eventos de Avaliação: as situações descritas em cada Anexo Descritivo, cuja ocorrência gerará a interrupção do processo de aquisição de Direitos Creditórios e o pagamento de amortizações de Cotas pela Classe em questão, podendo ser convertido em Evento de Liquidação, por deliberação da Assembleia Geral de Cotistas; 63. Eventos de Liquidação: as situações descritas em cada Anexo Descritivo, cuja ocorrência dará início ao processo de liquidação da Classe em questão; 64. Evento de Verificação do Patrimônio Líquido: as situações decorrentes da ocorrência de patrimônio líquido negativo e/ou do pedido ou da declaração judicial de insolvência de uma determinada Classe de Cotas e que demandam a adoção das medidas descritas no Capítulo XII; 65. Excesso de Cobertura: a situação caracterizada, em relação a cada Classe, pela apuração de excesso de subordinação, de acordo com as regras existentes para os Índices de Subordinação Mínima; 66. Fundo: o UBYFOL AGRO III FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO – RESPONSABILIDADE LIMITADA; 67."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Situações do anexo descritivo que dão início à liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 20,
+     "clause": "Anexo I, cl. 62",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "questão, podendo ser convertido em Evento de Liquidação, por deliberação da Assembleia Geral de Cotistas; 63. Eventos de Liquidação: as situações descritas em cada Anexo Descritivo, cuja ocorrência dará início ao processo de liquidação da Classe em questão; 64. Evento de Verificação do Patrimônio Líquido: as situações decorrentes da ocorrência de patrimônio líquido negativo e/ou do pedido ou da declaração judicial de insolvência de uma determinada Classe de Cotas e que demandam a adoção das medidas descritas no Capítulo XII; 65. Excesso de Cobertura: a situação caracterizada, em relação a cada Classe, pela apuração de excesso de subordinação, de acordo com as regras existentes para os Índices de Subordinação Mínima; 66. Fundo: o UBYFOL AGRO III FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO – RESPONSABILIDADE LIMITADA; 67."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 109,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "E DEMAIS ENCARGOS DA CLASSE ÚNICA DE COTAS Artigo 68º A Classe Única de Cotas pagará uma Taxa de Administração à Administradora, equivalente ao percentual de 0,20% (vinte centésimos por cento), ao ano, incidente sobre o valor do Patrimônio Líquido da Classe Única de Cotas, respeitado o valor mínimo mensal de R$ 13.000,00 (treze mil reais). Parágrafo Primeiro A Taxa de Administração é calculada e apropriada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao vencido, a ser corrigido anualmente pela variação acumulada do IPCA, a partir do 5º (quinto) Dia Útil do mês- calendário subsequente ao mês em que ocorrer a 1ª (primeira) Data da 1ª Integralização de Cotas. Artigo 69º A Classe Única de Cotas pagará uma Taxa de Gestão à Gestora, equivalente ao percentual de 1% (um por cento), ao ano, incidente sobre o valor do Patrimônio Líquido da Classe Única de Cotas, respeitado o valor mínimo mensal de R$ 25.000,00 (vinte e cinco mil reais). Parágrafo Primeiro Da mesma forma que a Taxa de Administração, a Taxa de Gestão é calculada e apropriada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e será paga mensalmente, até o 5º (quinto) Dia Útil do mês s"
+    }
+   ],
+   "legacy": {
+    "value": "0,17% a.a. PL; mínimo R$ 13 mil/mês; IPCA anual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/07/2026, Anexo I"
+   }
+  },
+  "mgmt_fee": {
+   "display": "1% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 109,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "mês em que ocorrer a 1ª (primeira) Data da 1ª Integralização de Cotas. Artigo 69º A Classe Única de Cotas pagará uma Taxa de Gestão à Gestora, equivalente ao percentual de 1% (um por cento), ao ano, incidente sobre o valor do Patrimônio Líquido da Classe Única de Cotas, respeitado o valor mínimo mensal de R$ 25.000,00 (vinte e cinco mil reais). Parágrafo Primeiro Da mesma forma que a Taxa de Administração, a Taxa de Gestão é calculada e apropriada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao vencido, a ser corrigido anualmente pela variação acumulada do IPCA, a partir do 5º (quinto) Dia Útil do mês-calendário subsequente ao mês em que ocorrer a 1ª (primeira) Data da 1ª Integralização de Cotas. Artigo 70º Adicionalmente à Taxa de Gestão, a Gestora fará jus à Taxa de Performance, correspondente a 20% (vinte por cento) da valorização das Cotas Subordinadas Juniores, que exceder meta de remuneração das Cotas Mezanino, após deduzidos os valores de todas as demais despesas do Fundo e da Classe Única de Cotas, inclusive a Taxa de Administração. Parágrafo Primeiro A Taxa de Performance será calculada apenas quando a Reserva de Liquidez prevista no Parágrafo Segundo do Art"
+    }
+   ],
+   "legacy": {
+    "value": "1% a.a. PL; mínimo R$ 25 mil/mês; IPCA anual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/07/2026, Anexo I"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de performance remetida ao anexo descritivo",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 13,
+     "clause": "Anexo I, cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "partes no que se refere à administração fiduciária do Fundo e a gestão da carteira do Fundo; 2. Administradora: a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016; 3. Agência Classificadora de Risco: a(s) agência(s) classificadora(s) de risco devidamente habilitada(s) para tanto pela CVM, contratada(s) pelo Fundo, que poderá(ão) ser escolhida(s) pela Gestora e ratificada(s) pela Administradora dentre as seguintes empresas: Standard & Poor’s Ratings do Brasil Ltda., Fitch Ratings Brasil Ltda., Austin Rating Serviços Financeiros Ltda. Moody’s América Latina Ltda. ou Liberum Ratings; 4. Agente de Cobrança: A Gestora, ou seu sucessor a qualquer título; 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Brave Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 20,
+     "clause": "Anexo I, cl. 66",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "undo: o UBYFOL AGRO III FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO – RESPONSABILIDADE LIMITADA; 67. Gestora: a Brave Gestora de Recursos Ltda., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Rua Olímpiadas, n° 194, conjunto 81, Vila Olímpia, CEP 04551- 000, inscrita no CNPJ sob o nº 35.704.148/0001-91, devidamente credenciada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 17.918, de 16 de junho de 2020; 68. Grupo Econômico: são considerados pertencentes ao mesmo grupo econômico, para os fins deste Regulamento, as pessoas naturais controladoras, as entidades por estas controladas, direta ou indiretamente, e demais entidades sob controle comum das pessoas mencionadas anteriormente, observado que, para os fins desta definição de Grupo Econômico, será caracterizado o controle quando uma entidade for titular de quotas ou ações representativas de 50% (cinquenta por cento) do capital social votante da entidade investida, mais 1 (uma) quota ou ação com direito a voto; 69."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 18,
+     "clause": "Anexo I, cl. 44",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "ra previamente a cada cessão dos Direitos Creditórios ao Fundo, nos termos do respectivo Anexo Descritivo; 46. Custodiante: a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016, 47. CVM: a Comissão de Valores Mobiliários; 48. Data da 1ª Integralização de Cotas: a data em que os recursos decorrentes da 1ª (primeira) integralização de determinada série de Cotas Seniores ou de determinada emissão de Cotas Subordinadas são colocados pelos investidores à disposição da Classe à qual pertençam, nos termos deste Regulamento e do respectivo Anexo Descritivo, a qual deverá ser, necessariamente, um Dia Útil; 49. Data de Amortização: Data de amortização das Cotas Seniores de determinada série ou das Cotas Mezanino de determinada Classe, conforme prevista no respectivo Apêndice. 50."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Brave (gestora), como agente de cobrança",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 13,
+     "clause": "Anexo I, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "in Rating Serviços Financeiros Ltda. Moody’s América Latina Ltda. ou Liberum Ratings; 4. Agente de Cobrança: A Gestora, ou seu sucessor a qualquer título; 5. Agente de Recebimento: Itaú Unibanco S.A., instituição financeira com sede na cidade de São Paulo, estado de São Paulo, na Praça Alfredo Egydio de Souza Aranha, nº 100, Torre Olavo Setúbal, CEP 04344902, inscrita no CNPJ sob o nº 60.701.190/0001-04, contratada para realizar a cobrança escritural dos boletos bancários para pagamento, pelos Devedores, dos respectivos Direitos Creditórios Cedidos, ou seu sucessor a qualquer título, o qual deverá ser obrigatoriamente uma Instituição Autorizada; 6. Alocação Mínima: A Classe deverá manter uma alocação superior a 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios, a ser monitorado pela Gestora; 7. Amortização Compulsória: Amortização extraordinária compulsória das Cotas Seniores e das Cotas Mezanino, que poderá ser realizada nos termos do Anexo Descritivo; 8. Amortização Extraordinária: Amortização extraordinária das Cotas Seniores, que poderá ser solicitada pelo Gestor e realizada nos termos do Artigo 56 º; 9."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 20,
+     "clause": "Anexo I, cl. 66",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "undo: o UBYFOL AGRO III FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO – RESPONSABILIDADE LIMITADA; 67. Gestora: a Brave Gestora de Recursos Ltda., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Rua Olímpiadas, n° 194, conjunto 81, Vila Olímpia, CEP 04551- 000, inscrita no CNPJ sob o nº 35.704.148/0001-91, devidamente credenciada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 17.918, de 16 de junho de 2020; 68. Grupo Econômico: são considerados pertencentes ao mesmo grupo econômico, para os fins deste Regulamento, as pessoas naturais controladoras, as entidades por estas controladas, direta ou indiretamente, e demais entidades sob controle comum das pessoas mencionadas anteriormente, observado que, para os fins desta definição de Grupo Econômico, será caracterizado o controle quando uma entidade for titular de quotas ou ações representativas de 50% (cinquenta por cento) do capital social votante da entidade investida, mais 1 (uma) quota ou ação com direito a voto; 69."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 47,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "seja específica ou genérica, e arquivada pela Administradora, ou, em caso de Assembleia Especial de Cotistas de classe destinada a investidores profissionais. Artigo 26º As deliberações da Assembleia Geral de Cotistas poderão ser tomadas mediante processo de consulta formal, sem necessidade de reunião dos Cotistas e formalizada por escrito, dirigida pela Administradora a cada Cotista, cujo prazo de resposta será de no mínimo 10 (dez) dias contados da data de postagem, se por meio eletrônico, ou de no mínimo 15 (quinze) dias, contado da consulta por meio físico, devendo constar da consulta todos os elementos informativos necessários ao exercício do direito de voto."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 13,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "a de distribuição de valores mobiliários, na forma da Lei nº 6.385, de 07 de dezembro de 1976, conforme alterada, com prazo de duração indeterminado, regido pelo presente Regulamento, pela Resolução do Conselho Monetário Nacional nº 2.907, de 29 de novembro de 2001, conforme alterada, pelo Anexo Normativo VI e, subsidiariamente, pelo Anexo Normativo II da Resolução CVM nº 175, pelos seus Anexos Descritivos, pelos seus Apêndices e pelas demais disposições legais e regulamentares aplicáveis. Artigo 2º Para o efeito do disposto neste Regulamento, considera-se: 1. Acordo Operacional: o instrumento particular firmado entre a Administradora e a Gestora, que regulará as atividades a serem desenvolvidas pelas partes no que se refere à administração fiduciária do Fundo e a gestão da carteira do Fundo; 2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Vendas a prazo de defensivos e fertilizantes da Uby Agroquímica",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1266403",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/07/2026",
+     "page": 16,
+     "clause": "Anexo I, cl. 25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+     "excerpt": "lgada diariamente pela B3, no informativo diário disponível em sua página na Internet (http://www.cetip.com.br); 26. Cedente: Uby Agroquímica S.A., sociedade com sede na cidade de Uberaba, estado de Minas Gerais, na Rua Arnaldo Afonso de Melo, nº 101, galpão 1, Distrito Industrial II, CEP 38064-720, inscrita no CNPJ sob o nº 21.320.221/0001-17; 27. Classe: as classes de Cotas que vierem a ser emitidas pelo Fundo, cujas características estarão descritas nos respectivos Anexos Descritivos; 28. Código Civil: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; 29. Código de Processo Civil: a Lei nº 13.105, de 16 de março de 2015, conforme alterada; 30. Condições de Cessão: as condições de cessão de Direitos Creditórios ao Fundo, nos termos previstos em cada Anexo Descritivo; 31. Conta da Classe: a conta bancária mantida por cada uma das Classes que vierem a ser emitidas pelo Fundo, por meio dos seus Anexos Descritivos, mantida junto a uma Instituição Autorizada, que será utilizada para acolher depósitos a serem feitos pelos Devedores e para as demais movimentações de recursos pela Classe, inclusive para pagamento das obrigações da Classe; 32."
+    }
+   ],
+   "legacy": {
+    "value": "Duplicatas em reais; política agroindústria/comércio",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos recebíveis não descritas em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Recebíveis de insumos da Uby Agroquímica sem coobrigação; subordinação de 25% (júnior ≥ 5%) e prazo até 360 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

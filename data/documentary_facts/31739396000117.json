@@ -1,0 +1,881 @@
+{
+ "schema_version": 1,
+ "cnpj": "31739396000117",
+ "name": "LF III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T07:41:39Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1146939",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "27/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939"
+  },
+  "D2": {
+   "document_id": "1088682",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "20/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1088682"
+  },
+  "D3": {
+   "document_id": "1015848",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "15/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1015848"
+  },
+  "D4": {
+   "document_id": "1015841",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "15/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1015841"
+  },
+  "D5": {
+   "document_id": "1010163",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "09/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010163"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de cartão da credenciadora Listo contra os emissores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 10,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "ficado na Resolução CMN nº 4.880, de 23 de dezembro de 2020. “Direitos Creditórios” são os direitos creditórios detidos pela Cedente em face dos Devedores, equivalentes ao valor total das Transações de Pagamento realizadas pelos Usuários com a utilização de Instrumentos de Pagamentos para a aquisição de bens ou serviços nos Estabelecimentos Credenciados, após o desconto das taxas que constituem a remuneração dos Devedores (Emissores) e das Bandeiras, bem como de outras eventuais retenções previstas nas regras do Arranjo de Pagamento (tais como Chargebacks), conforme aplicável. “Direitos Creditórios são os Direitos Creditórios Elegíveis, observados os Cedidos” Critérios de Elegibilidade e a Política de Investimento do Fundo, cedidos pela Cedente ao Fundo, nos termos do Contrato de Cessão e de cada Termo de Cessão. “Direitos Creditórios são os Direitos Creditó"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 6,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "Transações de Pagamento realizadas junto aos Estabelecimentos Credenciados. “Cedente” é a LISTO INSTITUIÇÃO DE PAGAMENTO LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima nº 1663, 8º andar, sala 05, Jardim Paulistano, CEP 01452-001, inscrita no, inscrita no CNP sob o nº 32.971.064/0001-26. “Cancelamento” significa qualquer evento relacionado a uma Transação de Pagamento que possa resultar na não realização do pagamento (exceto Chargeback), total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago, inclusive por meio de compensação. “Chargeback” é a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários e/ou Estabelecimentos Credenciados, que poderá resultar na não realização do repas"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de cartões devidos pelos emissores à credenciadora Listo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Listo Instituição de Pagamento (credenciadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 6,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "Transações de Pagamento realizadas junto aos Estabelecimentos Credenciados. “Cedente” é a LISTO INSTITUIÇÃO DE PAGAMENTO LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima nº 1663, 8º andar, sala 05, Jardim Paulistano, CEP 01452-001, inscrita no, inscrita no CNP sob o nº 32.971.064/0001-26. “Cancelamento” significa qualquer evento relacionado a uma Transação de Pagamento que possa resultar na não realização do pagamento (exceto Chargeback), total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago, inclusive por meio de compensação. “Chargeback” é a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários e/ou Estabelecimentos Credenciados, que poderá resultar na não realização do repas"
+    }
+   ],
+   "legacy": {
+    "value": "Listo Instituição de Pagamento; CNPJ32.971.064/0001-26",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/03/2026, Suplemento D"
+   }
+  },
+  "assignor": {
+   "display": "Listo Instituição de Pagamento",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 6,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "Transações de Pagamento realizadas junto aos Estabelecimentos Credenciados. “Cedente” é a LISTO INSTITUIÇÃO DE PAGAMENTO LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima nº 1663, 8º andar, sala 05, Jardim Paulistano, CEP 01452-001, inscrita no, inscrita no CNP sob o nº 32.971.064/0001-26. “Cancelamento” significa qualquer evento relacionado a uma Transação de Pagamento que possa resultar na não realização do pagamento (exceto Chargeback), total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago, inclusive por meio de compensação. “Chargeback” é a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários e/ou Estabelecimentos Credenciados, que poderá resultar na não realização do repas"
+    }
+   ],
+   "legacy": {
+    "value": "Listo Instituição de Pagamento; CNPJ32.971.064/0001-26",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/03/2026, Suplemento D"
+   }
+  },
+  "debtor": {
+   "display": "Emissores de cartões (bancos listados no regulamento)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 9,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "nome do Fundo, nos termos da cláusula 9 deste Regulamento. “Devedores” são os Emissores que fornecem os cartões para os Usuários de sua rede (sejam eles correntistas ou clientes de algum estabelecimento conveniado), verificam e asseguram a existência de saldo ou de limite de crédito para aprovação da Transação de Pagamento. 9 “Dia Útil” ou “Dias Úteis” Cada dia útil, para fins de operações praticadas no mercado financeiro, conforme especificado na Resolução CMN nº 4.880, de 23 de dezembro de 2020. “Direitos Creditórios” são os direitos creditórios detidos pela Cedente em face dos Devedores, equivalentes ao valor total das Transações de Pagamento realizadas pelos Usuários com a utilização de Instrumentos de Pagamentos para a aquisição de bens ou serviços nos Estabelecimentos Credenciados,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 36,
+     "clause": "Suplemento D, cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "ação dos Direitos Creditórios por Devedor deverá respeitar o seguinte percentual de concentração: Emissor Limite Relativo Individualmente, 100% (cem por ITAU UNIBANCO S.A. cento) do Patrimônio Líquido do Fundo. Individualmente, 100% (cem por BANCO BRADESCO S.A. cento) do Patrimônio Líquido do Fundo. Individualmente, 100% (cem por BANCO DO BRASIL S.A. cento) do Patrimônio Líquido do Fundo. Individualmente, 100% (cem por BANCO BRADESCARD S.A. cento) do Patrimônio Líquido do Fundo. Individualmente, 100% (cem por BANCO SANTANDER (BRASIL) S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Emissores dos instrumentos de pagamento, conforme limites individuais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Recompra e resolução de cessão limitadas a 1,50% do PL ao mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 13,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "recompra de determinados Direitos Creditórios e (b) o Patrimônio Líquido do Fundo. Como regra geral, o Índice de Recompra não deverá ultrapassar o montante equivalente a 1,50% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido do Fundo, verificado mensalmente. “Índice de Resolução de significa a razão entre (a) a soma do valor total Cessão” pago pela Cedente ao Fundo em decorrência da resolução da cessão de determinados Direitos Creditórios e (b) o Patrimônio Líquido do Fundo. Como regra geral, o Índice de Resolução de Cessão não deverá ultrapassar o montante equivalente a 1,50% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido do Fundo, verificado mensalmente. 13 “Índice de Subordinação” O Índice de Subordinação Sênior e o Índice de Subordinação Mezanino 1, quando referidos em conjunto. “Índice de Subordina"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 13,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "erminados Direitos Creditórios e (b) o Patrimônio Líquido do Fundo. Como regra geral, o Índice de Resolução de Cessão não deverá ultrapassar o montante equivalente a 1,50% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido do Fundo, verificado mensalmente. 13 “Índice de Subordinação” O Índice de Subordinação Sênior e o Índice de Subordinação Mezanino 1, quando referidos em conjunto. “Índice de Subordinação significa a razão entre (i) valor total das Cotas Mezanino 1” Subordinadas Júnior e das Cotas Mezanino C; e (ii) o valor total das Cotas Mezanino 1, que deverá ser equivalente a, no mínimo, 33,33% (trinta e três inteiros e trinta e três centésimos por cento). “Índice de Subordinação significa a razão entre (i) valor total das Cotas Sênior” Subordinadas Júnior e o valor total das Cotas Mezanino;"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão definitiva; índice de recompra ≤1,50% PL, verificação mensal",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Em reais, adimplentes, livres de ônus; até 720 dias; chip e PIN",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 43,
+     "clause": "Suplemento D, cl. 12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "à Administradora em até 5 (cinco) Dias Úteis a contar da sua identificação. 12. CRITÉRIOS DE ELEGIBILIDADE 12.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora ou por terceiro por ela subcontratado, nos termos do artigo 6.2.3 acima: (a) os Direitos Creditórios deverão ser expressos em moeda corrente nacional; (b) os Direitos Creditórios não poderão estar inadimplidos, quando de sua aquisição pelo Fundo; (c) os Direitos Creditórios deverão se encontrar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; 43 (d) o Devedor não poderá estar inadimplente há mais de 3 (três) Dias Úteis perante o Fundo; (e) os Direitos Creditórios não poderão ter prazo de vencimento superior a 720 (setecentos e vinte) dias; (f) a cessão dos Direitos Creditórios deve atender a Taxa Mínima de Cessão;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 44,
+     "clause": "Suplemento D, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "43 (d) o Devedor não poderá estar inadimplente há mais de 3 (três) Dias Úteis perante o Fundo; (e) os Direitos Creditórios não poderão ter prazo de vencimento superior a 720 (setecentos e vinte) dias; (f) a cessão dos Direitos Creditórios deve atender a Taxa Mínima de Cessão; e (g) os Direitos Creditórios deverão ser decorrentes de transações presenciais, por meio de transações realizadas via chip e PIN. 12.1.1 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora em cada Data da Oferta de Direitos Creditórios, previamente a cada Data de Aquisição. 12.1.2 Observados os termos e condições do presente Regulamento, a verificação pela Gestora do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 12.2 Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pelo Fundo, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou a Cedente, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Cessão. 12.2.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 44,
+     "clause": "Suplemento D, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "0 (setecentos e vinte) dias; (f) a cessão dos Direitos Creditórios deve atender a Taxa Mínima de Cessão; e (g) os Direitos Creditórios deverão ser decorrentes de transações presenciais, por meio de transações realizadas via chip e PIN. 12.1.1 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora em cada Data da Oferta de Direitos Creditórios, previamente a cada Data de Aquisição. 12.1.2 Observados os termos e condições do presente Regulamento, a verificação pela Gestora do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 12.2 Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pelo Fundo, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou a Cedente, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Cessão. 12.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Reais; adimplentes e livres de ônus; prazo≤720 dias; transações presenciais chip+PIN",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Grandes bancos até 100% do PL; Digio até 2,5%; outros pelo colchão subordinado",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 36,
+     "clause": "Suplemento D, cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "ação dos Direitos Creditórios por Devedor deverá respeitar o seguinte percentual de concentração: Emissor Limite Relativo Individualmente, 100% (cem por ITAU UNIBANCO S.A. cento) do Patrimônio Líquido do Fundo. Individualmente, 100% (cem por BANCO BRADESCO S.A. cento) do Patrimônio Líquido do Fundo. Individualmente, 100% (cem por BANCO DO BRASIL S.A. cento) do Patrimônio Líquido do Fundo. Individualmente, 100% (cem por BANCO BRADESCARD S.A. cento) do Patrimônio Líquido do Fundo. Individualmente, 100% (cem por BANCO SANTANDER (BRASIL) S.A."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 37,
+     "clause": "Suplemento D, cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "o) do Patrimônio Líquido do Fundo Individualmente, até 2,5% (dois e BANCO DIGIO S.A. meio por cento) do Patrimônio Líquido do Fundo. Individualmente, até 100% (cem por cento) do montante de Cotas BANCO SAFRA S.A. Mezanino e Cotas Subordinadas Júnior Individualmente, até 100% (cem por cento) do montante de Cotas BANCO COOPERATIVO SICREDI S.A. Mezanino e Cotas Subordinadas Júnior Individualmente, até 100% (cem PORTOSEG S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Limites por emissor: bancos listados até 100% PL; PAN10% PL; Digio2,5% PL; outros usam cotas subordinadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: a Listo",
+   "sources": [],
+   "legacy": {
+    "value": "Limites por emissor: bancos listados até 100% PL; PAN10% PL; Digio2,5% PL; outros usam cotas subordinadas",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 720 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 44,
+     "clause": "Suplemento D, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "43 (d) o Devedor não poderá estar inadimplente há mais de 3 (três) Dias Úteis perante o Fundo; (e) os Direitos Creditórios não poderão ter prazo de vencimento superior a 720 (setecentos e vinte) dias; (f) a cessão dos Direitos Creditórios deve atender a Taxa Mínima de Cessão; e (g) os Direitos Creditórios deverão ser decorrentes de transações presenciais, por meio de transações realizadas via chip e PIN. 12.1.1 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora em cada Data da Oferta de Direitos Creditórios, previamente a cada Data de Aquisição. 12.1.2 Observados os termos e condições do presente Regulamento, a verificação pela Gestora do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 12.2 Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pelo Fundo, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou a Cedente, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Cessão. 12.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Reais; adimplentes e livres de ônus; prazo≤720 dias; transações presenciais chip+PIN",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 4,
+     "clause": "Suplemento D, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "Administradora, em nome do Fundo, para prestar os serviços de escrituração das Cotas. “Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Cedidos. “ANBIMA” Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Apêndice” Apêndice descritivo de cada subclasse ou série de Cotas, elaborado conforme um dos modelos constantes nos Suplementos D a E deste Regulamento. “Arquivo de Envio” arquivo eletrônico em formato pré-acordado com o Custodiante, indicando os Direitos Creditórios ofertados ao Fundo, referentes às Transações de Pagamento liquidadas no dia imediatamente anterior por meio do Sistema Listo. “Arranjo de Pagamento” é o conjunto de regras e procedimentos estabelecidos pela Bandeira que disciplina a prestação de determinado serviço de pagamento ao público, tais como as atividades de emissão de Ins"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC ≥50% PL em180 dias; melhores esforços para67% tributários",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 14,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "cento). “Índice de Subordinação significa a razão entre (i) valor total das Cotas Sênior” Subordinadas Júnior e o valor total das Cotas Mezanino; e (ii) o Patrimônio Líquido do Fundo, que deverá ser equivalente a, no mínimo, 5% (cinco inteiros por cento). “Índice Referencial” Índice quantitativo utilizado para calcular a meta de valorização das Cotas Seniores ou das Cotas Mezanino de uma determinada série, conforme definido no respectivo Apêndice. “Instituições de Pagamento” são as pessoas jurídicas que, aderindo a um ou mais Arranjos de Pagamento, tenham como atividade principal ou acessória os serviços de pagamento estabelecidos na Instrução Normativa BACEN 210/21. “Instituições Financeiras Qualquer das seguintes instituições financeiras: Autorizadas” (a) Banco Bradesco S.A., (b) Banco Santander (Brasil) S.A., (c) Banco do Brasil S.A., (d) Caixa Econômica Federal, (e) Banco Itaú Unibanco S.A., ou (f) instituição com classificação de risco"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 14,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "Subordinadas Júnior e das Cotas Mezanino C; e (ii) o valor total das Cotas Mezanino 1, que deverá ser equivalente a, no mínimo, 33,33% (trinta e três inteiros e trinta e três centésimos por cento). “Índice de Subordinação significa a razão entre (i) valor total das Cotas Sênior” Subordinadas Júnior e o valor total das Cotas Mezanino; e (ii) o Patrimônio Líquido do Fundo, que deverá ser equivalente a, no mínimo, 5% (cinco inteiros por cento). “Índice Referencial” Índice quantitativo utilizado para calcular a meta de valorização das Cotas Seniores ou das Cotas Mezanino de uma determinada série, conforme definido no respectivo Apêndice. “Instituições de Pagamento” são as pessoas jurídicas que, aderindo a um ou mais Arranjos de Pagamento, tenham como atividade principal ou acessória os serviços de pagamento estabelecidos na Instrução Normativa BACEN 210/21. “Instituições Financeiras Qualquer das seguintes instituições financeiras: Autoriz"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: mezanino+júnior/PL ≥5%; mezanino1: (júnior+mezaninoC)/mezanino1 ≥33,33%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/03/2026, Suplemento D"
+   }
+  },
+  "sub_senior": {
+   "display": "5% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 14,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "cento). “Índice de Subordinação significa a razão entre (i) valor total das Cotas Sênior” Subordinadas Júnior e o valor total das Cotas Mezanino; e (ii) o Patrimônio Líquido do Fundo, que deverá ser equivalente a, no mínimo, 5% (cinco inteiros por cento). “Índice Referencial” Índice quantitativo utilizado para calcular a meta de valorização das Cotas Seniores ou das Cotas Mezanino de uma determinada série, conforme definido no respectivo Apêndice. “Instituições de Pagamento” são as pessoas jurídicas que, aderindo a um ou mais Arranjos de Pagamento, tenham como atividade principal ou acessória os serviços de pagamento estabelecidos na Instrução Normativa BACEN 210/21. “Instituições Financeiras Qualquer das seguintes instituições financeiras: Autorizadas” (a) Banco Bradesco S.A., (b) Banco Santander (Brasil) S.A., (c) Banco do Brasil S.A., (d) Caixa Econômica Federal, (e) Banco Itaú Unibanco S.A., ou (f) instituição com classificação de risco"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "Sênior: mezanino+júnior/PL ≥5%; mezanino1: (júnior+mezaninoC)/mezanino1 ≥33,33%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/03/2026, Suplemento D"
+   }
+  },
+  "sub_mezz": {
+   "display": "(Júnior + mezanino C)/mezanino 1 ≥ 33,33%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 14,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "Subordinadas Júnior e das Cotas Mezanino C; e (ii) o valor total das Cotas Mezanino 1, que deverá ser equivalente a, no mínimo, 33,33% (trinta e três inteiros e trinta e três centésimos por cento). “Índice de Subordinação significa a razão entre (i) valor total das Cotas Sênior” Subordinadas Júnior e o valor total das Cotas Mezanino; e (ii) o Patrimônio Líquido do Fundo, que deverá ser equivalente a, no mínimo, 5% (cinco inteiros por cento). “Índice Referencial” Índice quantitativo utilizado para calcular a meta de valorização das Cotas Seniores ou das Cotas Mezanino de uma determinada série, conforme definido no respectivo Apêndice. “Instituições de Pagamento” são as pessoas jurídicas que, aderindo a um ou mais Arranjos de Pagamento, tenham como atividade principal ou acessória os serviços de pagamento estabelecidos na Instrução Normativa BACEN 210/21. “Instituições Financeiras Qualquer das seguintes instituições financeiras: Autoriz"
+    }
+   ],
+   "basis": "jr/PL",
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração dos índices não explicitada",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior: mezanino+júnior/PL ≥5%; mezanino1: (júnior+mezaninoC)/mezanino1 ≥33,33%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa de ao menos 1 mês de despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 16,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "constituída pela Administradora conforme o artigo 20.2 deste Regulamento. “Reserva de Caixa” significa uma reserva de caixa equivalente a, no mínimo, 1 (um) mês de despesas ordinárias do Fundo, a ser constituída e controlada pela Administradora, para fins de cobertura dos encargos e despesas do Fundo, observado o disposto neste Regulamento. “Resolução BACEN 105/21” significa a Resolução do BACEN n° 105, de 9 de junho de 2021, conforme alterada, ou qualquer outra norma que venha a substitui-la. “Resolução CMN 4.282/13” significa a Resolução do CMN n° 4.282, de 4 de novembro de 2013, conforme alterada, ou qualquer outra norma que venha a substitui-la. “Resolução CVM nº 30/21” significa a Resolução CVM nº 30, de 11 de maio de 2021, conforme alterada, ou qualquer outra norma que venha a substituí-la. 16 “Resolução CVM nº 160/22” significa a Resolução CVM nº 160, de 13 de julho de 2022, con"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "PDD pela política da administradora, mantida atualizada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 22,
+     "clause": "Suplemento D, cl. 6.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "o mantida em uma outra instituição; (v) elaborar a metodologia de provisão de perdas dos Direitos Creditórios, mantendo a política de provisão para devedores duvidosos da Administradora atualizada e em conformidade com as boas práticas de mercado, a legislação, a regulamentação e a autorregulação aplicáveis, em especial, o Código ANBIMA e as Regras e Procedimentos ANBIMA; (w) elaborar a metodologia de apreçamento dos Ativos Financeiros de Liquidez, mantendo o manual de apreçamento de ativos da Administradora atualizado e em conformidade com as boas práticas de mercado, a legislação, a regulamentação e a autorregulação aplicáveis, em especial, o Código ANBIMA e as Regras e Procedimentos ANBIMA;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Renúncia ou falha de prestador não sanada em 5 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 88,
+     "clause": "Suplemento D, cl. 26.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "VENTOS DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 26.1 O Fundo poderá ser liquidado por deliberação da Assembleia. 26.2 São considerados Eventos de Avaliação: (a) renúncia da Administradora, Gestora ou Custodiante, nos termos deste Regulamento; (b) inobservância pela Administradora de seus deveres e obrigações previstos neste Regulamento, verificada pelo Cotista, desde que, notificada por Cotista para sanar ou justificar o descumprimento, a Administradora não o fizer no prazo de 5 (cinco) Dias Úteis, contados da data do recebimento da referida notificação; (c) caso haja falha do Banco Liquidante em transferir quaisquer valores à Conta do Fundo, nos termos do acordo celebrado com o Fundo, desde que não sanada no prazo de 3 (três) Dias Úteis, observado o respectivo prazo para transferência disposto no correspondente acordo celebrado com o Banco Liquidante; (d) inobservância pelo Custodiante dos deveres e das obrigações relativos (i) à cessão dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Ausência ou inexigibilidade de créditos por mais de 30 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 91,
+     "clause": "Suplemento D, cl. 26.2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "nais que venham a ser aprovadas pela Assembleia, as medidas previstas nos itens 26.2.1 (b) acima deverão ser cessadas. 26.3 São considerados Eventos de Liquidação: (a) se for deliberado que um Evento de Avaliação constitui Evento de Liquidação; (b) na hipótese de inexistência de Direitos Creditórios na carteira do Fundo ou na hipótese de inexigibilidade, por qualquer meio judicial, dos Direitos Creditórios Cedidos porventura existentes, por período superior a 30 (trinta) dias; e (c) não substituição da Administradora, nos termos deste Regulamento; (d) na hipótese de declaração da invalidade, nulidade ou ineficácia dos Contratos de Cessão por decisão judicial transitada em julgado e/ou decisão definitiva de autoridade governamental, que afete adversamente o Fundo, de maneira a prejudicar a sua continuidade;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência durante todo o prazo do fundo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 42,
+     "clause": "Suplemento D, cl. 11.1.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "lização dos Direitos Creditórios Cedidos, nos termos do artigo 295 do Código Civil e do respectivo Contrato de Cessão. 11.1.3.2 Será permitida a revolvência da carteira do Fundo, ou seja, a aquisição de novos Direitos Creditórios pelo Fundo com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração do Fundo, respeitada a ordem de alocação de recursos prevista no Capítulo 20 do presente Regulamento. 11.1.4 Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários, porém decorrentes de naturezas diversas e distintas, de forma que não é possível prever e, portanto, não há como fazer conter no presente Regulamento a descrição de todos os possível processos de originação ou da política de concessão de crédito adotada pela Cedente quando da originação dos Direitos Creditórios, tampouco os fatores de risco específicos associados a tais processos ou política."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência permitida durante a duração do fundo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. até R$ 500 mi de PL, regressiva até 0,13%; mín. R$ 25 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 27,
+     "clause": "Suplemento D, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "ão de serviços, se houver. 7. TAXA DE ADMINISTRAÇÃO, TAXA DE GESTÃO, TAXA MÁXIMA DE DISTRIBUIÇÃO E OUTRAS TAXAS 7.1 Pela prestação dos serviços de administração, gestão, custódia qualificada, controladoria e escrituração de Cotas do Fundo será devido pelo Fundo à Administradora uma remuneração calculada de acordo com os percentuais estabelecidos na tabela abaixo em forma de cascata, ou seja, o valor total devido será a somatória dos valores proporcionais apurado para cada faixa de Patrimônio Líquido, observado o pagamento do valor mínimo mensal de R$ 25.000,00 (vinte e cinco mil reais), atualizado anualmente pela variação positiva do IGP-M, a partir do mês de Dezembro de 2021, acrescida das taxas por eventos previstas no Suplemento A deste Regulamento. Faixa do Patrimônio Percentual ao ano Líquido Até R$500.000.000,00 0,20% De R$500.000.000,01 até 0,17% R$700.000.000,00 De R$700.000.000,01 até 0,15% R$1.000.000.000,00 A partir de R$1.000.000.000,01 0,13% 7.2 Pela prestação dos serviços de gestão da carteira do Fundo, será devido pelo Fundo à Gestora uma parcela da"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 27,
+     "clause": "Suplemento D, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "do mês de Dezembro de 2021, acrescida das taxas por eventos previstas no Suplemento A deste Regulamento. Faixa do Patrimônio Percentual ao ano Líquido Até R$500.000.000,00 0,20% De R$500.000.000,01 até 0,17% R$700.000.000,00 De R$700.000.000,01 até 0,15% R$1.000.000.000,00 A partir de R$1.000.000.000,01 0,13% 7.2 Pela prestação dos serviços de gestão da carteira do Fundo, será devido pelo Fundo à Gestora uma parcela da Taxa de Administração, especificada no Acordo Operacional celebrado entre o Fundo e a Gestora. 27 7.3 A remuneração de que trata o artigo 7.1 acima será calculada com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis e provisionada diariamente, tendo como base o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais:0,20%/0,17%/0,15%/0,13% a.a. PL; mínimo R$ 25 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "Parcela da taxa de administração, fixada em acordo operacional",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 27,
+     "clause": "Suplemento D, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "0,15% R$1.000.000.000,00 A partir de R$1.000.000.000,01 0,13% 7.2 Pela prestação dos serviços de gestão da carteira do Fundo, será devido pelo Fundo à Gestora uma parcela da Taxa de Administração, especificada no Acordo Operacional celebrado entre o Fundo e a Gestora. 27 7.3 A remuneração de que trata o artigo 7.1 acima será calculada com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis e provisionada diariamente, tendo como base o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior. A Taxa de Administração será paga pelo Fundo mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas, sendo vedada qualquer participação nos rendimentos auferidos pelo Fundo. 7.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Parcela da taxa conjunta; rateio no Acordo Operacional não acessível",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 28,
+     "clause": "Suplemento D, cl. 7.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "a, conforme a Resolução CVM nº 160/22. 7.8 Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 28 8. SUBSTITUIÇÃO DOS PRESTADORES DE SERVIÇOS ESSENCIAIS 8.1 A Administradora e a Gestora deverão ser substituídas nas hipóteses de (a) descredenciamento, por decisão da CVM, para o exercício profissional de administração de carteira de valores mobiliários, nas categorias de administrador fiduciário e gestor de recursos, respectivamente; (b) renúncia;"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido no apêndice de cada subclasse",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Finaxis CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 3,
+     "clause": "Suplemento D, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "em Direitos Creditórios” celebrado entre os Prestadores de Serviços Essenciais. “Administradora” FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.547, de 18 de outubro de 2001, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.842, Torre Norte, Térreo, Loja 8, Bela Vista, CEP 01310-923, inscrita no CNPJ sob o nº 03.317.692/0001-94, ou a sua sucessora a qualquer título. “Agência Classificadora de Agência classificadora de risco registrada na CVM Risco” contratada pela Gestora, em nome do Fundo, para prestar os serviços de classificação de risco das"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Petra Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 13,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "s21” é o Fundos21 – Módulo de Fundos administrado e operacionalizado pela B3. “Gestora” PETRA CAPITAL GESTÃO DE INVESTIMENTOS LTDA., sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 9.664, de 28 de dezembro de 2007, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.842, Torre Norte, térreo, conjunto 8, Sala Petra, Bela Vista, CEP 01310-200, inscrita no CNPJ sob o nº 09.204.714/0001-96, ou a sua sucessora a qualquer título. “Índice de Recompra” significa a razão entre (a) a soma do valor total pago pela Cedente ao Fundo em decorrência da recompra de determinados Direitos Creditórios e (b) o Patrimônio Líquido do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Finaxis",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 9,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "artigo 12.1 deste Regulamento. 8 “Custodiante” BANCO FINAXIS S.A., acima qualificado, ou o seu sucessor a qualquer título, contratado pela Administradora, em nome do Fundo, para prestar os serviços previstos no artigo 9.1.6.1 deste Regulamento. “CVM” Comissão de Valores Mobiliários. “Data da 1ª Integralização” Data da 1ª (primeira) integralização de Cotas de uma determinada subclasse ou série. “Data da Oferta” dia pretendido para a ocorrência da cessão. “Data de Amortização” é a respectiva data de amortização programada das Cotas de uma determinada subclasse ou série conforme cronograma definido no seu respectivo Apêndice, e na forma deste Regulamento. “Data de Aquisição” Cada data em que ocorrer a aquisição dos Direitos Creditórios pelo Fundo. “Data de Envio do Relatório Significa o 10º (décimo) Dia Útil de cada mês, em de Monitoramento"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no regulamento",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 19,
+     "clause": "Suplemento D, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "prazo de duração de cada subclasse ou série de Cotas será definido no respectivo Apêndice. 4. PÚBLICO-ALVO 4.1 As Cotas serão destinadas exclusivamente aos Investidores Profissionais. 5. PRESTADORES DE SERVIÇOS ESSENCIAIS 5.1 A administração fiduciária do Fundo será realizada pela Administradora. 5.2 A gestão do Fundo será realizada pela Gestora. 6. OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADES DOS PRESTADORES DE SERVIÇOS ESSENCIAIS 6.1 Obrigações da Administradora 6.1.1 A Administradora, observadas as limitações estabelecidas no Regulamento e na legislação e na regulamentação aplicáveis, tem poderes para praticar os atos necessários à administração do Fundo, na sua respectiva esfera de atuação. 6.1.2 Sem prejuízo de outras obrigações legais e regulamentares a que esteja sujeita, a Administradora obriga-se a: (a) cumprir as obrigações estabelecidas na regulamentação em vigor, em especial, nos artigos 104 e 106 da parte geral da Resolução CVM nº 175/22 e nos artigos 27, 30 e 31 do Anexo Normativo II à Resolução CVM nº 175/22;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 19,
+     "clause": "Suplemento D, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "amento. 3. PRAZO DE DURAÇÃO 3.1 O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado. 3.1.1 O prazo de duração de cada subclasse ou série de Cotas será definido no respectivo Apêndice. 4. PÚBLICO-ALVO 4.1 As Cotas serão destinadas exclusivamente aos Investidores Profissionais. 5. PRESTADORES DE SERVIÇOS ESSENCIAIS 5.1 A administração fiduciária do Fundo será realizada pela Administradora. 5.2 A gestão do Fundo será realizada pela Gestora. 6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Transações presenciais chip e PIN, devidas pelos emissores à Listo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 10,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "ficado na Resolução CMN nº 4.880, de 23 de dezembro de 2020. “Direitos Creditórios” são os direitos creditórios detidos pela Cedente em face dos Devedores, equivalentes ao valor total das Transações de Pagamento realizadas pelos Usuários com a utilização de Instrumentos de Pagamentos para a aquisição de bens ou serviços nos Estabelecimentos Credenciados, após o desconto das taxas que constituem a remuneração dos Devedores (Emissores) e das Bandeiras, bem como de outras eventuais retenções previstas nas regras do Arranjo de Pagamento (tais como Chargebacks), conforme aplicável. “Direitos Creditórios são os Direitos Creditórios Elegíveis, observados os Cedidos” Critérios de Elegibilidade e a Política de Investimento do Fundo, cedidos pela Cedente ao Fundo, nos termos do Contrato de Cessão e de cada Termo de Cessão. “Direitos Creditórios são os Direitos Creditó"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 44,
+     "clause": "Suplemento D, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "0 (setecentos e vinte) dias; (f) a cessão dos Direitos Creditórios deve atender a Taxa Mínima de Cessão; e (g) os Direitos Creditórios deverão ser decorrentes de transações presenciais, por meio de transações realizadas via chip e PIN. 12.1.1 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora em cada Data da Oferta de Direitos Creditórios, previamente a cada Data de Aquisição. 12.1.2 Observados os termos e condições do presente Regulamento, a verificação pela Gestora do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 12.2 Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pelo Fundo, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou a Cedente, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Cessão. 12.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de cartões devidos pelos emissores à credenciadora Listo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "Pagamentos na conta do fundo, movimentada pelo custodiante",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 7,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "Liquidante, para crédito das Transações de Pagamento liquidadas no âmbito da CIP (SLC). “Conta do Fundo” significa a conta bancária de titularidade do Fundo mantida junto ao Banco Finaxis S.A. ou às Instituições Financeiras Autorizadas, que será movimentada exclusivamente mediante instruções do Custodiante, observado que, se tal conta for mantida junto ao Banco Finaxis S.A., não poderá ser mantido em tal conta, após 2 (dois) Dias Úteis contados da 1ª Data de Integralização de Cotas, valor superior a R$100.000,00 (cem mil reais) ao final de cada Dia Útil. “Contrato de Cessão” significa o instrumento de contrato de cessão e aquisição de Direitos Creditórios, celebrado entre o Fundo, representado pela Gestora, e a Cedente, bem como seus respectivos aditamentos, que têm por objeto estabelecer os termos e condições da cessão dos Direitos Creditórios Elegíveis por parte da Cedente ao Fundo. “Coobrigação” (e termos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "dilution": {
+   "display": "Resolução de cessão e recompra limitadas a 1,50% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 13,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "erminados Direitos Creditórios e (b) o Patrimônio Líquido do Fundo. Como regra geral, o Índice de Resolução de Cessão não deverá ultrapassar o montante equivalente a 1,50% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido do Fundo, verificado mensalmente. 13 “Índice de Subordinação” O Índice de Subordinação Sênior e o Índice de Subordinação Mezanino 1, quando referidos em conjunto. “Índice de Subordinação significa a razão entre (i) valor total das Cotas Mezanino 1” Subordinadas Júnior e das Cotas Mezanino C; e (ii) o valor total das Cotas Mezanino 1, que deverá ser equivalente a, no mínimo, 33,33% (trinta e três inteiros e trinta e três centésimos por cento). “Índice de Subordinação significa a razão entre (i) valor total das Cotas Sênior” Subordinadas Júnior e o valor total das Cotas Mezanino;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1146939",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 13,
+     "clause": "Suplemento D",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1146939",
+     "excerpt": "recompra de determinados Direitos Creditórios e (b) o Patrimônio Líquido do Fundo. Como regra geral, o Índice de Recompra não deverá ultrapassar o montante equivalente a 1,50% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido do Fundo, verificado mensalmente. “Índice de Resolução de significa a razão entre (a) a soma do valor total Cessão” pago pela Cedente ao Fundo em decorrência da resolução da cessão de determinados Direitos Creditórios e (b) o Patrimônio Líquido do Fundo. Como regra geral, o Índice de Resolução de Cessão não deverá ultrapassar o montante equivalente a 1,50% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido do Fundo, verificado mensalmente. 13 “Índice de Subordinação” O Índice de Subordinação Sênior e o Índice de Subordinação Mezanino 1, quando referidos em conjunto. “Índice de Subordina"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de cartão chip e PIN da Listo contra grandes emissores; subordinação de 5% e até 720 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

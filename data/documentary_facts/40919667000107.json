@@ -1,0 +1,705 @@
+{
+ "schema_version": 1,
+ "cnpj": "40919667000107",
+ "name": "RECARGAPAY I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T12:48:30Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1118056",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056"
+  },
+  "D2": {
+   "document_id": "577066",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "28/12/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=577066"
+  },
+  "D3": {
+   "document_id": "574657",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "22/12/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574657"
+  },
+  "D4": {
+   "document_id": "393660",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "05/06/2020",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=393660"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Direitos de clientes e estabelecimentos contra a RecargaPay por transações",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 24,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "nde-se que o prazo é contado em dias corridos. Direitos Creditórios são os direitos creditórios detidos, de tempos em tempos, pelos Clientes Pagadores, incluindo transação SDWO; e pelos Estabelecimentos Comerciais Credenciados, em face da RecargaPay em razão de uma Transação de Pagamento, após o desconto das taxas que constituem a remuneração das Bandeiras, dos Emissores e da Adquirente da Operação, bem como de outras eventuais retenções previstas nas regras do Arranjo de Pagamento e/ou no respectivo contrato de credenciamento e adesão, conforme aplicável. Direitos Creditórios Cedidos são os Direitos Creditórios Elegíveis cedidos pelos Cedentes ao Fundo na forma e nos termos das"
+    }
+   ],
+   "legacy": {
+    "value": "Direitos de clientes pagadores contra RecargaPay por cash-in/transações de pagamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Clientes pagadores e estabelecimentos, representados pela RecargaPay",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 19,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "em Transações de Pagamento no referido sistema. Cedentes são: (i) os Clientes Pagadores que, representados pela RecargaPay na forma dos Termos e Condições de Uso RecargaPay por meio de cláusula mandato, cedem a totalidade ou parte de seus respectivos Direitos Creditórios Elegíveis ao Fundo, sendo as cessões formalizadas por meio da(s) Formalização(ões) Eletrônica(s) de Cessão (a(s) qual(is) inclui(em) cada Termo de Cessão e Instrumento de Aceite), nos termos dos Termos e Condições de Uso RecargaPay e das Condições Gerais de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Clientes pagadores/estabelecimentos; RecargaPay participa da plataforma e cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Clientes pagadores representados pela RecargaPay, entre outros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 19,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "em Transações de Pagamento no referido sistema. Cedentes são: (i) os Clientes Pagadores que, representados pela RecargaPay na forma dos Termos e Condições de Uso RecargaPay por meio de cláusula mandato, cedem a totalidade ou parte de seus respectivos Direitos Creditórios Elegíveis ao Fundo, sendo as cessões formalizadas por meio da(s) Formalização(ões) Eletrônica(s) de Cessão (a(s) qual(is) inclui(em) cada Termo de Cessão e Instrumento de Aceite), nos termos dos Termos e Condições de Uso RecargaPay e das Condições Gerais de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Clientes pagadores/estabelecimentos; RecargaPay participa da plataforma e cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "RecargaPay (devedora única)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "ão a mesma Data de Resgate das Cotas Seniores. Devedor é, em relação aos Direitos Creditórios, a RecargaPay. Dia Útil ou Dias Úteis são (i) com relação a qualquer obrigação do Fundo realizada por meio ou perante a B3, qualquer dia que não seja sábado ou domingo ou feriado nacional ou - 11 - Docusign Envelope ID: C0B3F191-9C4C-4287-A74F-08D6DD5035DA bancário ou aquele(s) dia(s) sem expediente na B3; e (ii) com relação a qualquer obrigação do Fundo que não seja realizada por meio ou perante a B3, qualquer dia que não seja sábado, domingo ou feriado declarado nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Aquisição definitiva, sem direito de regresso",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 39,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "recebimento sobre os Direitos Creditórios pela Classe. 4.2.5. Inexistência de Direito de Regresso e Coobrigação. A Classe adquirirá Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo e sem qualquer direito de regresso contra o respectivo Cedente e/ou coobrigação deste, observados, em qualquer caso: (i) os demais termos e condições do Regulamento e deste Anexo Descritivo; (ii) os termos, condições e procedimentos previstos nos Termos e Condições de Uso RecargaPay e nas Condições Gerais de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento às Condições de Cessão e aos Critérios de Elegibilidades definidos neste Anexo Descritivo; e (iv) a Política de Investimento definida neste Capítulo. 4.2.6. Responsabilidade dos Cedentes em Relação aos Direitos Creditórios. Os Cedentes não responderão pela solvência do Devedor, mas tão somente pela boa formalização, correta constituição, originação, validade, existência, liquidez e certeza dos Direitos Creditórios adquiridos pela Classe, nos termos das Condições Gerais de Cessão. 4.3."
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramento posterior não gera regresso, salvo má-fé/dolo e regras das condições gerais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Em reais; carteira sem inadimplidos; taxa mínima cobre benchmark e despesas",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 41,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "CAPÍTULO CINCO – CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 5.1. Critérios de Elegibilidade. Todos e quaisquer Direitos Creditórios adquiridos pela Classe deverão observar os seguintes critérios de elegibilidade em cada data de cessão (“Critérios de Elegibilidade”): (i) todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes, representados pela RecargaPay, à Classe, deverão ser devidos pela RecargaPay;"
+    }
+   ],
+   "legacy": {
+    "value": "BRL; carteira sem cedidos inadimplidos; taxa mínima de cessão cobre benchmark sênior e despesas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem o limite de 20% por devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 40,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "o além dos previstos neste Capítulo. 4.8.1. Limite de Concentração por Devedor. A Classe poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros de um mesmo devedor, ou de coobrigação de uma mesma Pessoa, sem a observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido, nos termos do parágrafo 7º do artigo 45 da Resolução CVM 175/22. - 28 - Docusign Envelope ID: C0B3F191-9C4C-4287-A74F-08D6DD5035DA 4.9. Nos termos do parágrafo 5º do artigo 30 do Anexo Normativo II da Resolução CVM 175/22, a Classe não poderá contratar quaisquer operações para a composição da carteira da Classe em que figurem como contrapartes a Administradora, a Gestora e/ou empresas controladoras, controladas, coligadas e/ou subsidiárias destas. 4.10 Segregação das Atividades da Administradora. A Administradora mantém mecanismos e sistemas de segregação das suas atividades relacionadas à administração de recursos de terceiros, nos termos da regulamentação em vigor. 4.11. Possibilidade de Realização de Operações que Coloquem em Risco o Patrimônio da Classe."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Aquisição por devedor/coobrigado dispensada do limite 20% do PL conforme classe",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não aplicável a clientes pulverizados",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisição por devedor/coobrigado dispensada do limite 20% do PL conforme classe",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "BRL; carteira sem cedidos inadimplidos; taxa mínima de cessão cobre benchmark sênior e despesas",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "Até 100% do PL em direitos creditórios elegíveis; mínimo regulatório",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 40,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "ividades da Classe, esta deverá ter alocado, no mínimo, 67% (sessenta e sete por cento) (“Alocação Mínima”), e, no máximo, 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 da Resolução CVM 175/22 e do artigo 19 da Lei nº 14.754, de 12 de dezembro de 2023, observadas as demais disposições contidas no Regulamento e no Anexo Descritivo. 4.5. Ativos Financeiros. A parcela do Patrimônio Líquido que não estiver alocada em Direitos Creditórios Elegíveis poderá ser aplicada em Ativos Financeiros. 4.6. Proibição de Realização de Operações com Derivativos. A Classe não poderá realizar operações em mercados de derivativos, exceto quando destinados à proteção de posições detidas à vista, até o limite dessas. 4.7. Percentuais de Composição e Diversificação da Carteira. Os percentuais de composição e diversificação da carteira da Classe indicados neste Capítulo serão observados pela Gestora, diariamente, com base no Patrimônio Líquido do Dia Útil imediatamente anterior. 4.8. Inexistência de Percentuais Adicionais de Composição da Carteira."
+    }
+   ],
+   "legacy": {
+    "value": "Direitos elegíveis 67–100% do PL após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 31,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "conjunto. Essenciais Razão de Subordinação é a proporção mínima obrigatória de 50% (cinquenta por cento) entre o valor da totalidade das Cotas Subordinadas da Classe em circulação e o valor do Patrimônio Líquido, a ser apurada diariamente pela Gestora. RecargaPay é a RECARGAPAY INSTITUIÇÃO DE PAGAMENTOS LTDA., sociedade empresária limitada, inscrita no CNPJ/MF sob o nº 11.275.560/0001-75, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, 4055, 9º andar, Itaim Bibi, CEP 04538-133. Registradora É a CIP S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥50%, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 31,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "conjunto. Essenciais Razão de Subordinação é a proporção mínima obrigatória de 50% (cinquenta por cento) entre o valor da totalidade das Cotas Subordinadas da Classe em circulação e o valor do Patrimônio Líquido, a ser apurada diariamente pela Gestora. RecargaPay é a RECARGAPAY INSTITUIÇÃO DE PAGAMENTOS LTDA., sociedade empresária limitada, inscrita no CNPJ/MF sob o nº 11.275.560/0001-75, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, 4055, 9º andar, Itaim Bibi, CEP 04538-133. Registradora É a CIP S.A."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Subordinadas / PL ≥50%, apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem mezanino descrito",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 31,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "conjunto. Essenciais Razão de Subordinação é a proporção mínima obrigatória de 50% (cinquenta por cento) entre o valor da totalidade das Cotas Subordinadas da Classe em circulação e o valor do Patrimônio Líquido, a ser apurada diariamente pela Gestora. RecargaPay é a RECARGAPAY INSTITUIÇÃO DE PAGAMENTOS LTDA., sociedade empresária limitada, inscrita no CNPJ/MF sob o nº 11.275.560/0001-75, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, 4055, 9º andar, Itaim Bibi, CEP 04538-133. Registradora É a CIP S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥50%, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "Despesas de ≥ 3 meses; reserva de aquisição para o dia útil seguinte",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 93,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "equivalente a, no mínimo, 3 (três) meses de despesas a ser calculada mensalmente, devendo ser constituída e controlada pela Administradora, para fins de cobertura de encargos e despesas da Classe, observado o disposto neste Anexo Descritivo. 22.3. Reserva de Aquisição."
+    }
+   ],
+   "legacy": {
+    "value": "Reserva despesas≥3 meses; reserva aquisição estimada para ofertas do DU seguinte",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Atraso da sênior; reservas e subordinação sem cura, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 86,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "monitoramento. CAPÍTULO DEZENOVE – EVENTOS DE AVALIAÇÃO 19.1. Eventos de Avaliação. São eventos de avaliação (“Eventos de Avaliação”): (i) caso o Fundo deixe de efetuar o pagamento: (a) integral de qualquer das Amortizações Programadas das Cotas Seniores, na respectiva Data de Amortização Programada, (b) integral dos resgates das Cotas Seniores, na respectiva Data de Resgate de Cotas Seniores, (c) do Benchmark Sênior nas respectivas datas de pagamento de Remuneração, e não regularizado no prazo de até 2 (dois) Dias Úteis; (ii) caso, a qualquer momento, não haja o cumprimento da Reserva de Despesas e/ou da Reserva de Aquisição, que não tenha sido regularizado no prazo de até 3 (três) Dias Úteis; (iii) caso a Classe deixe de atender à Razão de Subordinação, conforme disposto no Artigo 14.8.1 acima, após o Cotista Subordinado ter sido notificado pela Administradora para integralizar novas Cotas Subordinadas, em montante suficiente para o atendimento da Razão de Subordinação, e não ter efetuado tal integralização no prazo de 2 (dois) Dias Úteis;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 86,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "e/ou da Reserva de Aquisição, que não tenha sido regularizado no prazo de até 3 (três) Dias Úteis; (iii) caso a Classe deixe de atender à Razão de Subordinação, conforme disposto no Artigo 14.8.1 acima, após o Cotista Subordinado ter sido notificado pela Administradora para integralizar novas Cotas Subordinadas, em montante suficiente para o atendimento da Razão de Subordinação, e não ter efetuado tal integralização no prazo de 2 (dois) Dias Úteis;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: atraso sênior, reservas sem cura 3 DU, subordinação sem aporte 2 DU e insolvência operacional",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Anexo"
+   }
+  },
+  "liquidation": {
+   "display": "Impossibilidade de adquirir créditos elegíveis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 90,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "idação. São eventos que ensejam a liquidação antecipada do Fundo, a ser deliberada em Assembleia Geral (“Eventos de Liquidação”): (i) impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade especificados neste Anexo Descritivo; (ii) resilição do Contrato de Agente de Liquidação sem a consequente substituição por nova instituição prestadora dos serviços de agente de liquidação; (iii) se for deliberado em Assembleia Geral que um Evento de Avaliação constitui Evento de Liquidação; - 78 - Docusign Envelope ID: C0B3F191-9C4C-4287-A74F-08D6DD5035DA (iv) na hipótese de inexistência de Direitos Creditórios na carteira da Classe ou na hipótese de inexigibilidade, por qualquer meio judicial, dos Direitos Creditórios Cedidos porventura existentes, por período superior a 30 (trinta) dias; (v) não substituição da Administradora no prazo previsto no Artigo 2.4 e seguintes da parte geral deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: atraso sênior, reservas sem cura 3 DU, subordinação sem aporte 2 DU e insolvência operacional",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,18% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": ". Pelos serviços de administração fiduciária, controladoria e escrituração, será cobrada da Classe, como Taxa de Administração a ser paga à Administradora, o percentual de 0,18% (dezoito centésimos por cento) ao ano, calculados sobre o Patrimônio Líquido (“Taxa de Administração”), observado o valor mínimo mensal de (i) R$ 86.000,00 (oitenta e seis mil reais) para os 2 (dois) primeiros meses contados da Data da Primeira Integralização do Fundo; e (ii) R$ 46.000,00 (quarenta e seis mil reais) a partir do 3º (terceiro) mês inclusive. 7.4. Pagamento de Parcela da Taxa de Administração aos Prestadores de Serviço do Fundo. Nos termos do parágrafo 1º do artigo 118 da Resolução CVM 175/22, a Administradora poderá estabelecer que parcelas da Taxa de Administração sejam pagas diretamente pelo Fundo aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 7.5. Gestão."
+    }
+   ],
+   "legacy": {
+    "value": "0,18% a.a. sobre PL; mínimoR$ 86 mil/mês nos 2 primeiros meses eR$ 46 mil depois",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "10% da taxa de administração, até R$ 4 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "ela remuneração dos prestadores de serviço contratados pela Gestora (“Taxa de Gestão”). A Taxa de Gestão será equivalente a 10% (dez por cento) sobre a Taxa de Administração, limitada a R$4.000,00 (quatro mil reais) mensais. 7.6.2. Sem prejuízo do disposto no Artigo acima, são atribuições da Gestora: - 49 - Docusign Envelope ID: C0B3F191-9C4C-4287-A74F-08D6DD5035DA (i) aprovar a seleção final dos Direitos Creditórios a serem adquiridos pela Classe quanto aos Critérios de Elegibilidade e verificar se foi prestada declaração pela Cedente confirmando o atendimento às Condições de Cessão; (ii) calcular o preço de aquisição dos Direitos Creditórios Elegíveis a serem adquiridos pela Classe; (iii) monitorar as operações de aquisição de Direitos Creditórios Elegíveis pela Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "10% da taxa de administração; tetoR$ 4 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "CAPÍTULO 2 – PRESTADORES DE SERVIÇOS DO FUNDO 2.1 ADMINISTRAÇÃO. O Fundo é administrado pela GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório CVM nº 6.819, expedido em 17 de maio de 2002, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, 228, sala 913, inscrito no CNPJ/MF sob nº 27.652.684/0001-62."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "e sobre a movimentação da documentação relativa aos Direitos Creditórios. 2.2 GESTÃO. A gestão da carteira do Fundo é realizada pela GENIAL GESTÃO LTDA., sociedade com sede na Cidade e Estado de São Paulo, na Avenida Brigadeiro Faria Lima, 4 Docusign Envelope ID: C0B3F191-9C4C-4287-A74F-08D6DD5035DA nº 3400, conjunto 91 (parte), Itaim Bibi, CEP 04538-132, inscrita no CNPJ/MF sob o nº 22.119.959/0001-83, credenciada como administradora de carteira de valores mobiliários pela CVM conforme Ato Declaratório nº 14.519 de 05 de setembro de 2015 (“Gestora”). 2.2.1 A Gestora, observadas as limitações previstas neste Regulamento, na lei e na regulamentação aplicável, tem poderes para praticar os atos necessários à gestão da carteira do Fundo. 2.2.2 Incluem-se entre as obrigações da Gestora, aquelas dispostas nos artigos 84, 85, conforme aplicável, e 105 da Resolução CVM 175, bem como no parágrafo terceiro do artigo 27 e nos artigos 32 e 33 do Anexo Normativo II da Resolução CVM 175."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "efinidos no Artigo 5.1 deste Anexo Descritivo. Custodiante É a Administradora ou terceiro, devidamente habilitado e autorizado, para a prestação desse serviço, podendo, inclusive, ser parte relacionada. CVM é a Comissão de Valores Mobiliários. Data de Amortização é cada data de amortização programada das Cotas Programada Seniores e pagamento da Remuneração correspondente, conforme o cronograma definido no respectivo Apêndice e em consonância com o disposto neste Anexo Descritivo. Data de Emissão é a data de emissão de cada nova série de Cotas Seniores e/ou Subordinadas, conforme determinada em seu respectivo Apêndice. Data da Primeira é a data da primeir"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "CAPÍTULO 2 – PRESTADORES DE SERVIÇOS DO FUNDO 2.1 ADMINISTRAÇÃO. O Fundo é administrado pela GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório CVM nº 6.819, expedido em 17 de maio de 2002, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, 228, sala 913, inscrito no CNPJ/MF sob nº 27.652.684/0001-62."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 28,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "termos da Instrução CVM 476/09, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários; e (iii) estará automaticamente dispensada de registro perante a CVM, nos termos da Instrução - 16 - Docusign Envelope ID: C0B3F191-9C4C-4287-A74F-08D6DD5035DA CVM 476/09, e da análise da ANBIMA, conforme o Código ANBIMA. Parte Relacionada da é qualquer Afiliada da RecargaPay. RecargaPay Pagamentos de Produtos são os pagamentos feitos pelos Clientes Pagadores, por meio da utilização dos recursos aportados em sua Conta RecargaPay, os quais envolv"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "20 anos, prorrogável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "as demais disposições legais e regulamentares aplicáveis. 1.2 O Fundo é constituído com prazo de duração de 20 (vinte) anos, o qual poderá ser prorrogado por decisão da Assembleia Geral, ressalvadas as hipóteses de ocorrência de qualquer Evento de Liquidação, conforme definidas no Artigo 20.1 do Anexo Descritivo, e observados os limites previstos no presente Regulamento e no Anexo Descritivo (“Prazo de Duração”), sem prejuízo do estabelecimento de prazos distintos de duração para as Cotas Seniores, conforme determinado nos respectivos Apêndices. 1.2.1 O Prazo de Duração será automaticamente prorrogado por mais 20 (vinte) anos, exceto se a Assembleia Geral deliberar de maneira diversa, observados os termos do Capítulo Quinze do Anexo Descritivo. 1.2.2 Na hipótese de o Prazo de Duração encerrar-se em qualquer dia que não um Dia Útil, a liquidação do Fundo será efetuada no primeiro Dia Útil subsequente. 1.3 O Fundo possui uma única Classe de cotas, a qual é dividida em 2 (duas) subclasses, conforme disposto no Anexo Descritivo que compõe o Anexo I a este Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Saldos de transações de pagamento devidos pela RecargaPay",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 24,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "nde-se que o prazo é contado em dias corridos. Direitos Creditórios são os direitos creditórios detidos, de tempos em tempos, pelos Clientes Pagadores, incluindo transação SDWO; e pelos Estabelecimentos Comerciais Credenciados, em face da RecargaPay em razão de uma Transação de Pagamento, após o desconto das taxas que constituem a remuneração das Bandeiras, dos Emissores e da Adquirente da Operação, bem como de outras eventuais retenções previstas nas regras do Arranjo de Pagamento e/ou no respectivo contrato de credenciamento e adesão, conforme aplicável. Direitos Creditórios Cedidos são os Direitos Creditórios Elegíveis cedidos pelos Cedentes ao Fundo na forma e nos termos das"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1118056",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056",
+     "excerpt": "ão a mesma Data de Resgate das Cotas Seniores. Devedor é, em relação aos Direitos Creditórios, a RecargaPay. Dia Útil ou Dias Úteis são (i) com relação a qualquer obrigação do Fundo realizada por meio ou perante a B3, qualquer dia que não seja sábado ou domingo ou feriado nacional ou - 11 - Docusign Envelope ID: C0B3F191-9C4C-4287-A74F-08D6DD5035DA bancário ou aquele(s) dia(s) sem expediente na B3; e (ii) com relação a qualquer obrigação do Fundo que não seja realizada por meio ou perante a B3, qualquer dia que não seja sábado, domingo ou feriado declarado nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "Direitos de clientes pagadores contra RecargaPay por cash-in/transações de pagamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Mecanismo de trava não descrito em trecho contínuo",
+   "sources": []
+  },
+  "dilution": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Tratamento de cancelamentos não localizado em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Saldos de transações contra a RecargaPay como devedora única; subordinação de 50% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

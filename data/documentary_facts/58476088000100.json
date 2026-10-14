@@ -1,0 +1,608 @@
+{
+ "schema_version": 1,
+ "cnpj": "58476088000100",
+ "name": "SAGA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PRIVADO - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Outros",
+ "reviewed_at": "2026-10-14T12:58:41Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "852325",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "25/02/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325"
+  },
+  "D2": {
+   "document_id": "833533",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "07/02/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=833533"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Outros",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Notas comerciais de sociedades do Grupo Saga, subscritas no primário",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 64,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "IOS E DIREITOS CREDITÓRIOS INADIMPLIDOS 3.1. Originação e Aquisição dos Direitos Creditórios. Os Direitos Creditórios são originados pelos Devedores, por meio da emissão das Notas Comerciais, as quais serão subscritas e integralizadas pelo Fundo de forma primária. 3.2. A Classe adquirirá Direitos Creditórios em conformidade com as regras, condições e procedimentos estabelecidos neste Anexo Descritivo. 64 Confidencial | Compartilhamento Interno Docusign Envelope ID: 5FAA735C-699D-4161-9793-F858ED7AD961 3.3. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento e aos respectivos Critérios de Elegibilidade, cumulativamente, verificados em cada respectiva Data de Aquisição, ou seja, que sejam Direitos Creditórios Elegíveis. 3.4. Formalização da Aquisição dos Direitos Creditórios Elegíveis. 3.4.1. A aquisição de Direitos Creditórios Elegíveis à Classe será considerada formalizada após (i) o depósito das Notas Comerciais adquiridas pela Classe Única, junto a depositário central autorizado pela CVM ou pelo Banco Central do Brasil, nos termos deste Anexo Descritivo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 14,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "de Cotas ou até o 3º (terceiro) Dia Útil de cada mês, conforme o caso. “Devedores” Significa qualquer pessoa jurídica com sede no Brasil, integrante do Grupo Saga, que tenha emitido as Notas Comerciais subscritas 14 Confidencial | Compartilhamento Interno Docusign Envelope ID: 5FAA735C-699D-4161-9793-F858ED7AD961 pelo Fundo, observadas as características e condições descritas neste Anexo Descritivo. “Despesas do Fundo” Significa o somatório, em reais, de todos os custos, encargos e despesas do Fundo estimados pelo Administrador, conforme o caso, a serem incorridos periodicamente. “Dia Útil” Significa qualquer dia que não seja sábado, domingo, feriado declarado nacional ou quaisquer dias em que, por qualquer motivo, não haja expediente bancário na cidade de São Paulo, Estado de São Paulo, ou na praça em que o Custodiante é"
+    }
+   ],
+   "legacy": {
+    "value": "Notas comerciais emitidas por sociedades do Grupo Saga; subscrição primária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "Fundo subscreve títulos; não há originador de recebíveis",
+   "sources": [],
+   "legacy": {
+    "value": "Emissão primária pelos próprios devedores do Grupo Saga",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "Subscrição primária, sem cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Emissão primária pelos próprios devedores do Grupo Saga",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Empresas do Grupo Saga emissoras das notas comerciais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 14,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "de Cotas ou até o 3º (terceiro) Dia Útil de cada mês, conforme o caso. “Devedores” Significa qualquer pessoa jurídica com sede no Brasil, integrante do Grupo Saga, que tenha emitido as Notas Comerciais subscritas 14 Confidencial | Compartilhamento Interno Docusign Envelope ID: 5FAA735C-699D-4161-9793-F858ED7AD961 pelo Fundo, observadas as características e condições descritas neste Anexo Descritivo. “Despesas do Fundo” Significa o somatório, em reais, de todos os custos, encargos e despesas do Fundo estimados pelo Administrador, conforme o caso, a serem incorridos periodicamente. “Dia Útil” Significa qualquer dia que não seja sábado, domingo, feriado declarado nacional ou quaisquer dias em que, por qualquer motivo, não haja expediente bancário na cidade de São Paulo, Estado de São Paulo, ou na praça em que o Custodiante é"
+    }
+   ],
+   "legacy": {
+    "value": "Saga Brasil Administração e Participações; Saga Participações e controladas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Não aplicável a notas comerciais subscritas",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Notas comerciais em reais, vincendas, emitidas pelas devedoras",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 67,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "am, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Gestor, na Data de Aquisição: (i) as Notas Comerciais deverão ser emitidas pelos Devedores; (ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento mais longo das Cotas Seniores em circulação; (iv) os Direitos Creditórios não poderão estar vencidos quando de sua aquisição pelo Fundo; e (v) Os respectivos termos de emissão das Notas Comerciais deverão ser celebrados de acordo com os modelos previamente aprovados pelo Fundo, incluindo o número de séries, suas respectivas remunerações, periodicidade e percentuais de amortização por período. 4.1.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 67,
+     "clause": "Anexo, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "4. CRITÉRIOS DE ELEGIBILIDADE 4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Gestor, na Data de Aquisição: (i) as Notas Comerciais deverão ser emitidas pelos Devedores; (ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "Notas comerciais em reais, vincendas; vencimento até a última cota sênior; modelo aprovado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Concentração no Grupo Saga, devedor econômico único",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 14,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "de Cotas ou até o 3º (terceiro) Dia Útil de cada mês, conforme o caso. “Devedores” Significa qualquer pessoa jurídica com sede no Brasil, integrante do Grupo Saga, que tenha emitido as Notas Comerciais subscritas 14 Confidencial | Compartilhamento Interno Docusign Envelope ID: 5FAA735C-699D-4161-9793-F858ED7AD961 pelo Fundo, observadas as características e condições descritas neste Anexo Descritivo. “Despesas do Fundo” Significa o somatório, em reais, de todos os custos, encargos e despesas do Fundo estimados pelo Administrador, conforme o caso, a serem incorridos periodicamente. “Dia Útil” Significa qualquer dia que não seja sábado, domingo, feriado declarado nacional ou quaisquer dias em que, por qualquer motivo, não haja expediente bancário na cidade de São Paulo, Estado de São Paulo, ou na praça em que o Custodiante é"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Não há cedentes",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Vencimento limitado à última cota sênior, sem prazo fixo",
+   "sources": [],
+   "legacy": {
+    "value": "Notas comerciais em reais, vincendas; vencimento até a última cota sênior; modelo aprovado",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 90% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 6,
+     "clause": "Anexo IV, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "b o nº 02.150.453/0001-20. “Alocação Mínima de Significa a alocação de, pelo menos, 90% (noventa por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios Elegíveis. “Amortização de Principal” Significa, com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas Seniores, calculado nos termos deste Anexo Descritivo e do respectivo Apêndice, conforme aplicável. “Amortização Significa, a amortização extraordinária da parcela do valor de Extraordinária das Cotas principal e de juros das Cotas Subordinadas, conforme aplicável. Subordinadas” “Amortização Significa a amortização extraordinária da parcela do valor de Extraordinária das Cotas principal e de juros das Cotas Seniores, conforme aplicável, nos Seniores” termos da Cláusula 8.6. “ANBIMA” Significa a Associação Brasileira de Entidades dos Mercados Financeiro e de Capit"
+    }
+   ],
+   "value": 90.0,
+   "legacy": {
+    "value": "Direitos creditórios elegíveis ≥90% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 18,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "; e (ii) Índice de Subordinação. “Índice de Subordinação” Significa o resultado da razão entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 33,33% (trinta e três inteiros e trinta e três centésimos por cento). “Instituições Financeiras Significam quaisquer instituições financeiras autorizadas a Autorizadas” funcionar pelo Banco Central que tenham classificação de risco igual ou superior a “AAA (bra)”, ou equivalente na escala local atribuída pelas agências Standard & Poor’s, Fitch Ratings, Aaa pela Moody’s Investors Service, ou qualquer de suas representantes no Brasil. “Instrução CVM 489/11” Significa a Instrução CVM n° 489, de 14 de janeiro de 2011, conforme alterada e/ou qualquer normativo que venha a substitui- la. “Investidores Profissionais” Significam os investidores assim definidos de acordo com o artigo"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥33,33%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/02/2025, Anexo IV"
+   }
+  },
+  "sub_senior": {
+   "display": "33,33% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 18,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "; e (ii) Índice de Subordinação. “Índice de Subordinação” Significa o resultado da razão entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 33,33% (trinta e três inteiros e trinta e três centésimos por cento). “Instituições Financeiras Significam quaisquer instituições financeiras autorizadas a Autorizadas” funcionar pelo Banco Central que tenham classificação de risco igual ou superior a “AAA (bra)”, ou equivalente na escala local atribuída pelas agências Standard & Poor’s, Fitch Ratings, Aaa pela Moody’s Investors Service, ou qualquer de suas representantes no Brasil. “Instrução CVM 489/11” Significa a Instrução CVM n° 489, de 14 de janeiro de 2011, conforme alterada e/ou qualquer normativo que venha a substitui- la. “Investidores Profissionais” Significam os investidores assim definidos de acordo com o artigo"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 33.33,
+   "legacy": {
+    "value": "Subordinadas/PL ≥33,33%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Apurado pelo gestor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 18,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "; e (ii) Índice de Subordinação. “Índice de Subordinação” Significa o resultado da razão entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 33,33% (trinta e três inteiros e trinta e três centésimos por cento). “Instituições Financeiras Significam quaisquer instituições financeiras autorizadas a Autorizadas” funcionar pelo Banco Central que tenham classificação de risco igual ou superior a “AAA (bra)”, ou equivalente na escala local atribuída pelas agências Standard & Poor’s, Fitch Ratings, Aaa pela Moody’s Investors Service, ou qualquer de suas representantes no Brasil. “Instrução CVM 489/11” Significa a Instrução CVM n° 489, de 14 de janeiro de 2011, conforme alterada e/ou qualquer normativo que venha a substitui- la. “Investidores Profissionais” Significam os investidores assim definidos de acordo com o artigo"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥33,33%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/02/2025, Anexo IV"
+   }
+  },
+  "reserve": {
+   "display": "Reserva inicial e reserva mínima de custos e encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 23,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "“Reserva de Liquidez A reserva de liquidez a ser constituída e recomposta nos termos Inicial” deste Regulamento, equivalente a 6 (seis) meses de custos despesas e encargos do Fundo, a ser constituída e controlada pelo Gestor, para fins de cobertura dos encargos e despesas do Fundo, observado o disposto neste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Reserva inicial e reserva mínima de 3 meses de custos/despesas/encargos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/02/2025, Anexo IV"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 27,
+     "clause": "Anexo IV, cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "calculadas pelo Administrador, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas do Administrador, também disponível em seu site (www.oliveiratrust.com.br). 4.5. As demonstrações financeiras anuais do Fundo serão elaboradas conforme definido na Resolução CVM 175/22 e na Instrução CVM 489/11 e os valores de cada Direito Creditório adquirido e Ativo Financeiro, serão calculados de acordo com os parâmetros estabelecidos neste Capítulo 4. 5. CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS 5.1. Características das Cotas. As Cotas correspondem a frações ideais do patrimônio da Classe Única, cujas características, termos e condições estão previstos no Anexo Descritivo. 5.2. Todas as Cotas serão escriturais e nominativas e serão mantidas em conta de depósito em nome dos Cotistas pelo Escriturador, na qualidade de instituição responsável pela escrituração das Cotas ou junto ao mercado organizado autorizado pela CVM em que sejam depositadas, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de avaliação descritos no anexo, sem trecho contínuo",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "Eventos descritos no anexo descritivo da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 16,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "e avaliação descritos no Anexo Descritivo da Classe Única. “Eventos de Liquidação Significam quaisquer dos eventos de liquidação antecipada Antecipada” descritos no Anexo Descritivo da Classe Única. 16 Confidencial | Compartilhamento Interno Docusign Envelope ID: 5FAA735C-699D-4161-9793-F858ED7AD961 “Excesso de Spread Significa o valor financeiro do excesso de spread acumulado e a Acumulado a Apropriar” apropriar pelo Fundo, o qual será, caso possível e desde que observadas as disposições deste Regulamento, notadamente a Ordem de Alocação de Recursos, utilizado para o pagamento do Prêmio de Excesso de Spread. O Excesso de Spread, considerados os valores de um determinado Dia Útil, é equivalente ao maior valor entre: (i) 0 (zero);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Não aplicável a notas comerciais subscritas",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Modelo de apêndice sem calendário preenchido; cronograma fechado não identificado",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Taxa global de 0,22% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 110,
+     "clause": "Anexo, cl. 13.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "o valor correspondente a 0,22% (vinte e dois centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo (“Taxa Global de Remuneração”), provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada dia útil, pagáveis mensalmente, devida a primeira no último dia útil do mês em que ocorrer a primeira integralização de cotas do Fundo e as demais no último dia útil dos meses subsequentes."
+    }
+   ],
+   "legacy": {
+    "value": "Taxa global 0,22% a.a. PL; mínimo R$ 24,5 mil/mês; inclui gestão/custódia/controladoria/escrituração",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/02/2025, Anexo, cl. 13.4"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa global",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 110,
+     "clause": "Anexo, cl. 13.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "o valor correspondente a 0,22% (vinte e dois centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo (“Taxa Global de Remuneração”), provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada dia útil, pagáveis mensalmente, devida a primeira no último dia útil do mês em que ocorrer a primeira integralização de cotas do Fundo e as demais no último dia útil dos meses subsequentes."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 112,
+     "clause": "Anexo, cl. 13.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "ustodiante, o Agente de Controladoria e o Administrador. 13.11. Taxa de Performance. Não será cobrada dos Cotistas qualquer taxa de performance. 112 Confidencial | Compartilhamento Interno Docusign Envelope ID: 5FAA735C-699D-4161-9793-F858ED7AD961 13.12. Inexistência de Taxas Adicionais. Não serão cobradas taxas de ingresso ou de saída pelo Administrador. 13.13. Tendo em vista que a Classe não conta com distribuidores das Cotas que atuem de forma contínua, o Anexo Descritivo não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE. A remuneração dos distribuidores que sejam contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos das respectivas ofertas, conforme a Resolução CVM nº 160, de 13 de julho de 2022, e alterações posteriores. 14. ENCARGOS DA CLASSE 14.1."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 5,
+     "clause": "Anexo IV, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "ração fiduciária do Fundo e a gestão da carteira do Fundo. “Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade devidamente autorizada pela CVM a administrar fundos de investimento e gerir carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, inscrita no CNPJ sob o n° 36.113.876/0001-91, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, sala 201, CEP 22640-102, Barra da Tijuca. 5 Confidencial | Compartilhamento Interno Docusign Envelope ID: 5FAA735C-699D-4161-9793-F858ED7AD961 “Agência de Classificação Significa a agência classificadora de risco, autorizada a prestar tais de Risco” serviços junto à CVM, que poderá ser contratada pelo Fundo para a classif"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 17,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "negociação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a OLIVEIRA TRUST SERVICER S.A., sociedade com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, 2º Andar, Barra da Tijuca, CEP 22640- 102, inscrita no CNPJ sob o nº 02.150.453/0001-20, devidamente autorizada pela CVM para o exercício de atividade de administração de carteiras de títulos e valores mobiliários, conforme Ato Declaratório nº 7.446, de 13 de outubro de 2003. “Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por seu controlador, sociedades controladas, e demais sociedades consideradas como tais, bem como veículos de investimento do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança a ser contratado pelo gestor",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 6,
+     "clause": "Anexo IV, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "Fundo para a classificação de risco das Cotas, conforme aplicável. “Agente de Cobrança” Significa o prestador de serviços de cobrança que vier a ser contratado pelo Gestor para a prestação de serviços de cobrança dos Direitos Creditórios Inadimplidos adquiridos pela Classe Única. “Agente de Controladoria” Significa a OLIVEIRA TRUST SERVICER S.A., sociedade com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, 2º Andar, Barra da Tijuca, CEP 22640- 102, inscrita no CNPJ sob o nº 02.150.453/0001-20. “Alocação Mínima de Significa a alocação de, pelo menos, 90% (noventa por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios Elegíveis. “Amortização de Principal” Significa, com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cota"
+    }
+   ]
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 20,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "de duração do Fundo, nos termos da Resolução CVM 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários brasileiro; e (iii) poderá ser cancelada caso não haja a colocação dos respectivos montantes mínimos, conforme definidos no Anexo Descritivo. “Ônus” Qualquer ônus, encargo, gravame, penhor, alienação/cessão fiduciária, usufruto, fideicomisso, direito de garantia, security interest, arrendamento, opção, direito de preferência, bloqueio, arrolamento, penhora, arresto e/ou qualquer outra restrição que tenha o efeito prático similar a qualquer das expressões acima, incluindo de cunho fiscal."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, duração indeterminada; prazo das séries no apêndice",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado (séries com prazo próprio)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "852325",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/02/2025",
+     "page": 25,
+     "clause": "Anexo IV, cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+     "excerpt": "pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.3. O Fundo terá prazo de duração indeterminado, sendo que cada Classe ou Subclasse de Cotas, conforme o caso, poderá ter um prazo de duração específico, conforme venha a ser descrito no respectivo Anexo Descritivo e/ou Apêndice. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.4. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. 25 Confidencial | Compartilhamento Interno Docusign Envelope ID: 5FAA735C-699D-4161-9793-F858ED7AD961 2.5."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, duração indeterminada; prazo das séries no apêndice",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Notas comerciais do Grupo Saga subscritas no primário; subordinação de 33,33% e alocação mínima de 90%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

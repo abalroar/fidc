@@ -1,0 +1,812 @@
+{
+ "schema_version": 1,
+ "cnpj": "62588266000154",
+ "name": "VTK FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T08:08:46Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1002580",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "29/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580"
+  },
+  "D2": {
+   "document_id": "1126575",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "27/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126575"
+  },
+  "D3": {
+   "document_id": "993682",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "17/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993682"
+  },
+  "D4": {
+   "document_id": "992652",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "15/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992652"
+  },
+  "D5": {
+   "document_id": "987469",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "09/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=987469"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado e cartão INSS originadas pela Facta",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 80,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no instrumento de prestação de serviços firmado entre a Facta e a Dataprev. Certas regras devem ser observadas para a manutenção do convênio, cujo descumprimento poderá levar ao seu término. Alterações normativas, alheias ao controle do INSS, da Dataprev e da Facta, também podem afetar e/ou inviabilizar a manutenção do convênio. Além disso, após o término do seu prazo de vigência, o convênio precisará ser renovado pelo INSS, pela Dataprev e pela Facta, sem que haja qualquer obrigação de renovação do convênio nos termos outrora vigentes."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 111,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "quando a Classe for devedora. “Facta” FACTA FINANCEIRA S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO, instituição financeira com sede na cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua dos Andradas, nº 1.469, sala 701 e 701, Centro Histórico, CEP 90.020-011, inscrita no CNPJ sob o nº 15.581.638/0001-30. Docusign Envelope ID: 58AA139E-7296-46DE-97B7-ADC2E6D91C5B “Facta Intermediação” FACTA INTERMEDIAÇÃO DE NEGÓCIOS LTDA., sociedade limitada, com sede na Cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua dos Andradas, nº 1.409, 6º andar, Centro Histórico, CEP 90020-011, inscrita no CNPJ sob o nº 01.360.251/0001-40 \"Fato Relevante\" Qualquer fato que possa influir de modo ponderável no valor das Cotas ou na decisão dos investidores de adquirir, resgatar, alienar ou manter Cotas, observado o item 6.2.2 da parte geral do"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs Facta de crédito/cartão INSS; direitos cedidos conforme convênio",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Facta Financeira",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 111,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "quando a Classe for devedora. “Facta” FACTA FINANCEIRA S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO, instituição financeira com sede na cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua dos Andradas, nº 1.469, sala 701 e 701, Centro Histórico, CEP 90.020-011, inscrita no CNPJ sob o nº 15.581.638/0001-30. Docusign Envelope ID: 58AA139E-7296-46DE-97B7-ADC2E6D91C5B “Facta Intermediação” FACTA INTERMEDIAÇÃO DE NEGÓCIOS LTDA., sociedade limitada, com sede na Cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua dos Andradas, nº 1.409, 6º andar, Centro Histórico, CEP 90020-011, inscrita no CNPJ sob o nº 01.360.251/0001-40 \"Fato Relevante\" Qualquer fato que possa influir de modo ponderável no valor das Cotas ou na decisão dos investidores de adquirir, resgatar, alienar ou manter Cotas, observado o item 6.2.2 da parte geral do"
+    }
+   ],
+   "legacy": {
+    "value": "Facta, conforme contratos de endosso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Facta Financeira",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 111,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "quando a Classe for devedora. “Facta” FACTA FINANCEIRA S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO, instituição financeira com sede na cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua dos Andradas, nº 1.469, sala 701 e 701, Centro Histórico, CEP 90.020-011, inscrita no CNPJ sob o nº 15.581.638/0001-30. Docusign Envelope ID: 58AA139E-7296-46DE-97B7-ADC2E6D91C5B “Facta Intermediação” FACTA INTERMEDIAÇÃO DE NEGÓCIOS LTDA., sociedade limitada, com sede na Cidade de Porto Alegre, Estado do Rio Grande do Sul, na Rua dos Andradas, nº 1.409, 6º andar, Centro Histórico, CEP 90020-011, inscrita no CNPJ sob o nº 01.360.251/0001-40 \"Fato Relevante\" Qualquer fato que possa influir de modo ponderável no valor das Cotas ou na decisão dos investidores de adquirir, resgatar, alienar ou manter Cotas, observado o item 6.2.2 da parte geral do"
+    }
+   ],
+   "legacy": {
+    "value": "Facta, conforme contratos de endosso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Aposentados e pensionistas do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 80,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no instrumento de prestação de serviços firmado entre a Facta e a Dataprev. Certas regras devem ser observadas para a manutenção do convênio, cujo descumprimento poderá levar ao seu término. Alterações normativas, alheias ao controle do INSS, da Dataprev e da Facta, também podem afetar e/ou inviabilizar a manutenção do convênio. Além disso, após o término do seu prazo de vigência, o convênio precisará ser renovado pelo INSS, pela Dataprev e pela Facta, sem que haja qualquer obrigação de renovação do convênio nos termos outrora vigentes."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física; consignado/cartão INSS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Facta não responde pela solvência dos devedores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 77,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "Ausência de coobrigação da Facta ou de terceiros. A Facta não responde pelo pagamento dos Direitos Creditórios Adquiridos ou pela solvência dos Devedores. O pagamento dos Direitos Creditórios Adquiridos não conta com coobrigação ou garantia de quaisquer terceiros. Na hipótese de inadimplemento dos Direitos Creditórios Adquiridos, portanto, poderá haver um impacto negativo no patrimônio e na rentabilidade do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Facta não responde pela solvência dos devedores; sem coobrigação/garantia de terceiros",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Saldo por devedor ≤ R$ 120 mil; idade média dos devedores ≤ 68 anos",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 31,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "forma no Contrato de Endosso: (i) o saldo dos Direitos Creditórios devidos por um mesmo Devedor não poderá exceder R$ 120.000,00 (cento e vinte mil reais); (ii) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a média do fluxo de pagamento mensal dos Direitos Creditórios Adquiridos equivalente a, no mínimo, a 200 (duzentos) reais; (iii) os Direitos Creditórios não podem ser oriundos dos benefícios de Códigos INSS Vedados exceto para operações que possuírem cobertura de seguro para a integralidade do crédito em caso de morte ou perda do benefício, nos Códigos de Benefício da Previdência Social de nºs 87 e 88."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 32,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "lidade da exposição ao crédito; (v) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a idade média dos Devedores em menor ou igual a 68 (sessenta e oito) anos (neste item, não serão considerados para o cálculo da média de idade os contratos que possuírem cobertura de seguro para integralidade da exposição do crédito); (vi) a soma de (a) idade do Devedor; e (b) prazo de vencimento da CCB não seja superior a 80 (oitenta) anos, ressalvado os casos com Seguro Prestamista que cubra a integralidade da exposição do crédito, para os quais não deve haver limite de idade ao final do contrato; (vii) a carteira do Fundo deve ser composta por, no máximo, 60% (sessenta por cento) dos Devedores do sexo masculino, conforme indicado pela Cedente no Arquivo CNAB/Requisição de Oferta;"
+    }
+   ],
+   "legacy": {
+    "value": "Saldo/devedor ≤ R$ 120 mil; parcela média ≥ R$ 200; idade média ≤ 68; idade + prazo ≤ 80, com exceções de seguro",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor até R$ 120 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 31,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "forma no Contrato de Endosso: (i) o saldo dos Direitos Creditórios devidos por um mesmo Devedor não poderá exceder R$ 120.000,00 (cento e vinte mil reais); (ii) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a média do fluxo de pagamento mensal dos Direitos Creditórios Adquiridos equivalente a, no mínimo, a 200 (duzentos) reais; (iii) os Direitos Creditórios não podem ser oriundos dos benefícios de Códigos INSS Vedados exceto para operações que possuírem cobertura de seguro para a integralidade do crédito em caso de morte ou perda do benefício, nos Códigos de Benefício da Previdência Social de nºs 87 e 88."
+    }
+   ],
+   "legacy": {
+    "value": "Homens ≤ 60%; idade >61 ≤70%, >66 ≤50%, >71 ≤12,5%; exclusões de seguros conforme cláusula",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Facta",
+   "sources": [],
+   "legacy": {
+    "value": "Homens ≤ 60%; idade >61 ≤70%, >66 ≤50%, >71 ≤12,5%; exclusões de seguros conforme cláusula",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo combinado com idade; trecho sem limite isolado",
+   "sources": [],
+   "legacy": {
+    "value": "Saldo/devedor ≤ R$ 120 mil; parcela média ≥ R$ 200; idade média ≤ 68; idade + prazo ≤ 80, com exceções de seguro",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 101,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "Agente de Derivativos” Significa qualquer Instituição Autorizada. \"Alocação Mínima\" O percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. \"Amortização do Principal A amortização de parcela de principal do Valor Unitário de Emissão Sênior\" de cada Cota Sênior, observado o Regime de Caixa Docusign Envelope ID: 58AA139E-7296-46DE-97B7-ADC2E6D91C5B “Amortização do Principal A amortização de parcela de principal do Valor Unitário de Emissão Mezanino” de cada Cota Subordinada Mezanino, observado o Regime de Caixa \"Amortização por Excesso A amortização extraordinária das Cotas Subordinadas Junior, que de Cobertura\" poderá ser realizada exclusivamente nos termos previstos no Regulamento, em especial no item 12.4 do Anexo Descritivo da Classe e seguintes, observado o Regime de Caixa \"Amortização Pro Rata\" O regime de am"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "≥ 67% PL em direitos creditórios",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 26,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "Índice de Monitoramento Valor Índice de Subordinação Sênior mínimo 15% (quinze por cento), conforme previsto no item 8.3.4 abaixo Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme previsto no item 8.4.3 abaixo Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme Ajustado previsto no item 8.4.3 abaixo CAPÍTULO 4 – PAGAMENTO, COBRANÇA E CONCILIAÇÃO DOS DIREITOS CREDITÓRIOS 4.1 Os pagamentos dos Direitos Creditórios Adquiridos serão feitos pelos Devedores, prioritariamente, por meio de Consignação, de forma que serão depositados diretamente na Conta Vinculada e transferidos, mediante instruções do Custodiante, para a Conta da Classe, conforme operacional previsto no respectivo Contrato de Endosso. 4.2 Serão recebidos na Conta de Cobrança os recursos (a) decorrentes dos Repasses"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 26,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "conforme previsto no item 8.3.4 abaixo Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme previsto no item 8.4.3 abaixo Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme Ajustado previsto no item 8.4.3 abaixo CAPÍTULO 4 – PAGAMENTO, COBRANÇA E CONCILIAÇÃO DOS DIREITOS CREDITÓRIOS 4.1 Os pagamentos dos Direitos Creditórios Adquiridos serão feitos pelos Devedores, prioritariamente, por meio de Consignação, de forma que serão depositados diretamente na Conta Vinculada e transferidos, mediante instruções do Custodiante, para a Conta da Classe, conforme operacional previsto no respectivo Contrato de Endosso. 4.2 Serão recebidos na Conta de Cobrança os recursos (a) decorrentes dos Repasses Excepcionais; (b) decorrentes de Pré-Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior ≥ 15%; mezanino e mezanino ajustado ≥ 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "15% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 26,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "Índice de Monitoramento Valor Índice de Subordinação Sênior mínimo 15% (quinze por cento), conforme previsto no item 8.3.4 abaixo Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme previsto no item 8.4.3 abaixo Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme Ajustado previsto no item 8.4.3 abaixo CAPÍTULO 4 – PAGAMENTO, COBRANÇA E CONCILIAÇÃO DOS DIREITOS CREDITÓRIOS 4.1 Os pagamentos dos Direitos Creditórios Adquiridos serão feitos pelos Devedores, prioritariamente, por meio de Consignação, de forma que serão depositados diretamente na Conta Vinculada e transferidos, mediante instruções do Custodiante, para a Conta da Classe, conforme operacional previsto no respectivo Contrato de Endosso. 4.2 Serão recebidos na Conta de Cobrança os recursos (a) decorrentes dos Repasses"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Sênior ≥ 15%; mezanino e mezanino ajustado ≥ 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "5% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 26,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "conforme previsto no item 8.3.4 abaixo Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme previsto no item 8.4.3 abaixo Índice de Subordinação Mezanino mínimo 5% (cinco por cento), conforme Ajustado previsto no item 8.4.3 abaixo CAPÍTULO 4 – PAGAMENTO, COBRANÇA E CONCILIAÇÃO DOS DIREITOS CREDITÓRIOS 4.1 Os pagamentos dos Direitos Creditórios Adquiridos serão feitos pelos Devedores, prioritariamente, por meio de Consignação, de forma que serão depositados diretamente na Conta Vinculada e transferidos, mediante instruções do Custodiante, para a Conta da Classe, conforme operacional previsto no respectivo Contrato de Endosso. 4.2 Serão recebidos na Conta de Cobrança os recursos (a) decorrentes dos Repasses Excepcionais; (b) decorrentes de Pré-Pagamento;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração dos índices não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior ≥ 15%; mezanino e mezanino ajustado ≥ 5%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Despesas de 3 meses; acúmulo para remuneração sênior desde D-30",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "16 deste Regulamento, incluindo-se a Taxa de Administração, referentes aos 3 (três) meses subsequentes. 19.2 Adicionalmente, a Administradora deverá manter Reserva de Liquidez, por conta e ordem do Fundo, desde a 1ª Data de Integralização de Cotas, a partir de 30 (trinta) dias antes da Data de Pagamento, de acordo com o disposto nos itens abaixo: 19.2.1 Observada a ordem de alocação de recursos estabelecida no CAPÍTULO 13, a cada Dia Útil a Rese"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas: 3 meses; remuneração sênior: acumular D-30; derivativo: posição líquida devedora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Pré-pagamento e perdas over acima dos limites, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 65,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "(xxviii) caso o Índice de Pré-Pagamento seja maior a 20,00% (vinte por cento) em qualquer Data de Verificação; (xxix) caso o Índice de Perdas Over90 esteja acima de 3,5% (três inteiros e cinco centésimos por cento) (a) por 2 (dois) meses consecutivos; e/ou (ii) por 4 Docusign Envelope ID: 58AA139E-7296-46DE-97B7-ADC2E6D91C5B (quatro) meses alternados em um período de 12 (doze) meses; e/ou (xiv) caso, no 5 (quinto) Dia Útil apó"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 62,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "sembleia de Cotistas. CAPÍTULO 16– EVENTOS DE AVALIAÇÃO 16.1 São Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Monitoramento em até 10 (dez) Dias Úteis contados da Data de Envio do Relatório de Monitoramento; (ii) amortização de Cotas Subordinadas Júnior em desconformidade com este Anexo Descritivo; (iii) identificação de Inconsistência Relevante pela Gestora ou pelo Custodiante, conforme o caso;"
+    }
+   ],
+   "legacy": {
+    "value": "Pré-pagamento > 20%; Over90: 3,5% numeral e 3,05% por extenso; persistência 2 meses consecutivos ou 4 alternados",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação da assembleia ou determinação da CVM, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 67,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "interrompidas. CAPÍTULO 17– EVENTOS DE LIQUIDAÇÃO E LIQUIDAÇÃO DA CLASSE 17.1 São Eventos de Liquidação quaisquer das seguintes ocorrências: (i) caso seja deliberado, em Assembleia de Cotistas, nos termos da Resolução CVM 175; (ii) nos casos em que houver determinação da CVM, nos termos da Resolução CVM 175; (iii) caso, na hipótese de interrupção, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, pela Gestora ou pelo Custodiante ou na hipótese de renúncia da Administradora, da Gestora e/ou do Custodiante, em 180 (cento e oitenta) dias contados da realização da Assembleia de Cotistas para a deliberação a respeito da substituição do prestador de serviço, observados os procedimentos descritos neste Regulamento, ou, nos prazos estabelecidos neste Regulamento, o substituto escolhido não assuma efetivamente as funções da Administradora, da Gestora ou Custodiante,"
+    }
+   ],
+   "legacy": {
+    "value": "Pré-pagamento > 20%; Over90: 3,5% numeral e 3,05% por extenso; persistência 2 meses consecutivos ou 4 alternados",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "Carteira revolvente, com aquisições sucessivas da Facta",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "te durante o Período de Investimento, será permitida a aquisição de Direitos Creditórios de forma revolvente. 3.6 A cada aquisição de Direitos Creditórios, na respectiva Data de Aquisição e Pagamento, o Fundo pagará à Facta o Preço de Aquisição, o qual deverá garantir, considerada pro forma a transferência pretendida, que a Taxa de Endosso Mínima seja observada. 3.7 A parcela do Patrimônio Líquido não alocada em Direitos Creditórios deverá ser mantida em moeda corrente nacional ou aplicada nos seguintes Ativos Financeiros: Docusign Envelope ID: 58AA139E-7296-46DE-97B7-ADC2E6D91C5B (i) Letras Financeiras do Tesouro Nacional (LFT); (ii) operações compromissadas, com liquidez diária, lastreadas em títulos públicos federais, desde que tenham como contraparte qualquer das Instituições Autorizadas; (iii) certificados de depósito financeiro, com liquidez diária cujas rentabilidades sejam vinculadas às Taxa DI, emitidos por qualquer das Instituições Autorizadas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Pro rata; sequencial após desalavancagem ou liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 52,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "13.2 Durante o Período de Investimento e/ou Período de Carência; Amortização Pro Rata. Caso a Amortização Pro Rata esteja em curso, em qualquer data durante o Período de Investimento e/ou o Período de Carência, os recursos deverão ser alocados de acordo com a seguinte ordem: (i) recebimentos decorrentes da integralização das Cotas: a."
+    }
+   ],
+   "legacy": {
+    "value": "Pro rata inicialmente; sequencial após desalavancagem/liquidação, com possível realavancagem",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,056% a.a. na faixa inicial de PL, regressiva por faixa",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 46,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "Até R$ 500.000.000,00 0,056% (cinquenta e (quinhentos milhões de seis milésimos por reais) cento)% Entre R$500.000.000,00 (quinhentos milhões de 0,04% (quatro R$ 22.400,00 (vinte e reais) e centésimos por dois mil e quatrocentos"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas PL: 0,056% / 0,04% / 0,016% a.a.; mínimo R$ 22.400/mês; IGP-M e tributos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,014% a.a. na faixa inicial de PL, regressiva por faixa",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 46,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "0,014% (quatorze R$ 5.600,00 (cinco mil e (quinhentos milhões de milésimos por cento) seiscentos reais) reais) Entre 0,01% (um centésimo R$500.000.000,00 por cento)"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas PL: 0,014% / 0,01% / 0,004% a.a.; mínimo R$ 5.600/mês; IGP-M",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 48,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "a no Contrato de Cobrança. 10.3 TAXA DE INGRESSO OU SAÍDA. TAXA DE PERFORMANCE. Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas. CAPÍTULO 11– VALORAÇÃO DAS COTAS 11.1 As Cotas, independentemente da Subclasse ou série, serão valoradas pelo Custodiante em cada Dia Útil, conforme o disposto neste Capítulo. A valoração das Cotas ocorrerá a partir do Dia Útil seguinte à 1ª Data de Integralização de Cotas da respectiva série ou Subclasse, conforme o caso, sendo que a última valoração ocorrerá na respectiva Data de Resgate."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 101,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "35014.441968/2021-51\", celebrado entre a Facta e o INSS. \"Administradora\" A OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, segundo andar, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91. \"Agência Classificadora de Qualquer uma entre as seguintes agências de classificação de risco: Risco\" (a) Fitch Ratings, (b) Standard & Poor's, e (c) Moody's. \"Agentes de Cobrança\" A Facta Intermediação, a R.E."
+    }
+   ],
+   "legacy": {
+    "value": "Administração: Oliveira Trust DTVM; gestão: Oliveira Trust Servicer",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 19,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "Administradora OLIVEIRA TRUST SERVICER S.A. Gestora Docusign Envelope ID: 58AA139E-7296-46DE-97B7-ADC2E6D91C5B ANEXO I - ANEXO DESCRITIVO DA CLASSE ÚNICA DE COTAS DO VTK FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA AO REGULAMENTO DO VTK FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA CAPÍTULO 1 – CARACTERÍSTICAS GERAIS 1.1 DEFINIÇÕES. Todos os termos e expressões iniciados em letras maiúsculas utilizados no presente Anexo Descritivo da Classe têm o significado que lhes são atribuídos no Anexo II ao Regulamento, exceto se de outro modo expressamente especificado. 1.2 OBJETIVO."
+    }
+   ],
+   "legacy": {
+    "value": "Administração: Oliveira Trust DTVM; gestão: Oliveira Trust Servicer",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 101,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "35014.441968/2021-51\", celebrado entre a Facta e o INSS. \"Administradora\" A OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, segundo andar, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91. \"Agência Classificadora de Qualquer uma entre as seguintes agências de classificação de risco: Risco\" (a) Fitch Ratings, (b) Standard & Poor's, e (c) Moody's. \"Agentes de Cobrança\" A Facta Intermediação, a R.E."
+    }
+   ],
+   "legacy": {
+    "value": "Administração: Oliveira Trust DTVM; gestão: Oliveira Trust Servicer",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho localizável",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 20,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "constituído sob a forma de condomínio fechado. 1.6 PÚBLICO-ALVO DO FUNDO. A Classe é destinada exclusivamente a Investidores Qualificados que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceitem os riscos associados aos investimentos da Classe. 1.7 PRAZO DE DURAÇÃO. A Classe terá prazo de duração indeterminado, sendo que cada Subclasse terá o Prazo de Duração estipulado no respectivo Suplemento. Docusign Envelope ID: 58AA139E-7296-46DE-97B7-ADC2E6D91C5B 1.8 SUBCLASSES DE COTAS. As Cotas serão divididas em Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, conforme descritas no CAPÍTULO 8 deste Anexo Descritivo. 1.9 RESPONSABILIDADE DOS COTISTAS. A responsabilidade do Cotista está limitada ao valor por ele subscrito. 1.10 EXERCÍCIO SOCIAL."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "stimento em direitos creditórios constituído sob a forma de condomínio de natureza especial e com prazo de duração indeterminado, inscrito no CNPJ sob o nº 62.588.266/0001-54 (\"Fundo\"), regido pelo presente Regulamento, pela Lei nº 10.406, de 10 de janeiro de 2002 (\"Código Civil\"), pela Resolução do Conselho Monetário Nacional (\"CMN\") nº 2.907, de 29 de novembro de 2001, pela parte geral e o Anexo Normativo II da Resolução da Comissão de Valores Mobiliários (\"CVM\") nº 175, de 23 de dezembro de 2022, conforme alterada (\"Resolução CVM 175\") e pelas demais disposições legais e regulamentares aplicáveis. 1.2 O Fundo possui uma única classe de cotas, a qual possui subclasses, na forma do §3º, do artigo 5º, da Resolução CVM 175 e conforme disposto no Anexo Descritivo da Classe que compõe o Anexo I a este Regulamento, sem prejuízo da possibilidade de criação de novas classes de cotas, conforme previsto no item 5.1.4 abaixo. 1.3 Todos os termos e expressões iniciados em letras maiúsculas, utilizados na parte geral do Regulamento e"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Convênio da Facta com INSS e Dataprev",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 80,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no instrumento de prestação de serviços firmado entre a Facta e a Dataprev. Certas regras devem ser observadas para a manutenção do convênio, cujo descumprimento poderá levar ao seu término. Alterações normativas, alheias ao controle do INSS, da Dataprev e da Facta, também podem afetar e/ou inviabilizar a manutenção do convênio. Além disso, após o término do seu prazo de vigência, o convênio precisará ser renovado pelo INSS, pela Dataprev e pela Facta, sem que haja qualquer obrigação de renovação do convênio nos termos outrora vigentes."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "Idade média da carteira ≤ 68 anos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 32,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "lidade da exposição ao crédito; (v) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a idade média dos Devedores em menor ou igual a 68 (sessenta e oito) anos (neste item, não serão considerados para o cálculo da média de idade os contratos que possuírem cobertura de seguro para integralidade da exposição do crédito); (vi) a soma de (a) idade do Devedor; e (b) prazo de vencimento da CCB não seja superior a 80 (oitenta) anos, ressalvado os casos com Seguro Prestamista que cubra a integralidade da exposição do crédito, para os quais não deve haver limite de idade ao final do contrato; (vii) a carteira do Fundo deve ser composta por, no máximo, 60% (sessenta por cento) dos Devedores do sexo masculino, conforme indicado pela Cedente no Arquivo CNAB/Requisição de Oferta;"
+    }
+   ],
+   "legacy": {
+    "value": "Saldo/devedor ≤ R$ 120 mil; parcela média ≥ R$ 200; idade média ≤ 68; idade + prazo ≤ 80, com exceções de seguro",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  },
+  "installment_min": {
+   "display": "Parcela média ≥ R$ 200",
+   "status": "confirmed",
+   "unit": "brl",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002580",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 31,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+     "excerpt": "exceder R$ 120.000,00 (cento e vinte mil reais); (ii) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a média do fluxo de pagamento mensal dos Direitos Creditórios Adquiridos equivalente a, no mínimo, a 200 (duzentos) reais;"
+    }
+   ],
+   "value": 200.0,
+   "legacy": {
+    "value": "Saldo/devedor ≤ R$ 120 mil; parcela média ≥ R$ 200; idade média ≤ 68; idade + prazo ≤ 80, com exceções de seguro",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/09/2025, Anexo"
+   }
+  }
+ },
+ "leitura": "Consignado INSS da Facta com subordinação de 15% (júnior ≥ 5%) e devedor até R$ 120 mil.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

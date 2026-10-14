@@ -1,0 +1,48 @@
+# Chemical XIII FIDC Indústria Petroquímica (BEM DTVM; BRAM; cedente Braskem)
+type: Duplicatas/multicedente
+q1: * "é a Braskem e suas sucessoras"
+q2: * "são os compradores de Produtos cadastrados pela Cedente e constantes da Relação de Clientes"
+q3: * "Cedente é responsável pela originação, existência, correta constituição e formalização, liquidez e certeza dos Direitos Creditórios"
+q4: * "o somatório de Direitos Creditórios devido por cada Cliente individualmente considerado, em cada Data de Aquisição, poderá representar uma concentração máxima de até 3%"
+q5: * "Índice de Cobertura Média do Percentual de Inadimplência Sênior"
+q6: * "17.1 São considerados eventos de avaliação da Classe e, conforme o caso, do Fundo"
+q7: * "17.2 São considerados eventos de liquidação da Classe e, conforme o caso, do Fundo"
+q8: * "(i) Remuneração do Administrador: (a) 0,012% (doze milésimos por cento) ao ano"
+q9: * "(ii) Remuneração do Gestor: 0,05% (cinco centésimos por cento) ao ano, respeitando o valor mínimo mensal de R$ 20.000,00"
+q10: * "é a BEM - Distribuidora de Títulos e Valores Mobiliários Ltda."
+q11: * "é a BRAM – Bradesco Asset Management S.A."
+q12: * "é o Banco Bradesco S.A."
+q14: * "provisão para perdas, o cálculo do valor contábil dos Direitos Creditórios cedidos também deverá levar em consideração tal provisão"
+receivables: Vendas mercantis a prazo de produtos da Braskem, com nota fiscal | o1,q2
+originator: Braskem | q1
+assignor: Braskem e suas sucessoras | q1
+debtor: Clientes compradores cadastrados pela Braskem | q2
+recourse: Cedente responde pela existência, formalização, liquidez e certeza | q3
+eligibility: n/d | Critérios de elegibilidade sem trecho contínuo localizado
+debtor_limit: Por cliente: até 3% do PL | q4 | value=3
+sacado_limit: Por cliente: até 3% do PL | q4 | value=3
+assignor_limit: — | Cedente única: Braskem
+term_max: n/d | Prazo máximo não localizado em trecho contínuo
+allocation: ≥ 50% do PL em direitos creditórios | o21 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q5,q4
+sub_senior: Cobertura PL/sênior de 110% a 115%, conforme inadimplência média | q5 | basis=cobertura | value=none
+sub_mezz: Subordinação inicial da mezanino de 2% | q4 | value=none
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de pagamento e de despesas do mês seguinte | o33
+pdd: Provisão reduz o valor contábil dos créditos | q14
+eval_triggers: Inobservância de deveres do administrador, entre outros | q6
+liquidation: Não pagamento à sênior em até 3 dias úteis, entre outros | q7
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,012% a.a. mais componente adicional, com mínimos mensais | q8
+mgmt_fee: 0,05% a.a. do PL; mín. R$ 20 mil/mês | q9
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: BEM DTVM | q10
+manager: BRAM – Bradesco Asset Management | q11
+custodian: Banco Bradesco | q12
+servicer: Braskem (cedente atua como agente de cobrança) | q1
+investors: n/d | Público-alvo definido em cada oferta
+duration: n/d | Prazo de duração não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Recebíveis comerciais da Braskem com cliente ≤ 3% do PL; cobertura PL/sênior de 110% a 115%.

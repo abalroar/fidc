@@ -1,0 +1,547 @@
+{
+ "schema_version": 1,
+ "cnpj": "59357545000100",
+ "name": "VITAE FI EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "FIC",
+ "reviewed_at": "2026-10-14T07:51:58Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1002276",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FIC",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Cotas de outros FIDCs, com exposição indireta a direitos creditórios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 43,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "Classe deverá manter, após 180 (noventa) dias do início de suas atividades, no mínimo, 67% (sessenta e sete por cento) de seu Patrimônio Líquido em classes de cotas de outros fundos de investimento em direitos creditórios, nos termos da legislação vigente. Parágrafo Único A parcela do patrimônio não investida em Direitos Creditórios ou cotas deve ser aplicada em ativos financeiros de liquidez, conforme definidos no artigo 2º, inciso II, do Anexo Normativo II. Artigo 24. A Classe não poderá realizar operações com derivativos, nem mesmo com o objetivo exclusivo de proteger posições detidas a vista. Artigo 25. A Classe não poderá realizar aplicação de recursos na aquisição de Direitos Creditórios e Ativos de liquidez no exterior. Artigo 26."
+    }
+   ],
+   "legacy": {
+    "value": "FIC: investimento preponderante em cotas de outros FIDCs",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIC: originação ocorre nos fundos investidos",
+   "sources": []
+  },
+  "assignor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIC: cessões ocorrem nos fundos investidos",
+   "sources": []
+  },
+  "debtor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: devedores estão nos fundos investidos",
+   "sources": []
+  },
+  "recourse": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: coobrigação definida nos fundos investidos",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Cotas de classes de FIDC aderentes à política",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 43,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "Classe deverá manter, após 180 (noventa) dias do início de suas atividades, no mínimo, 67% (sessenta e sete por cento) de seu Patrimônio Líquido em classes de cotas de outros fundos de investimento em direitos creditórios, nos termos da legislação vigente. Parágrafo Único A parcela do patrimônio não investida em Direitos Creditórios ou cotas deve ser aplicada em ativos financeiros de liquidez, conforme definidos no artigo 2º, inciso II, do Anexo Normativo II. Artigo 24. A Classe não poderá realizar operações com derivativos, nem mesmo com o objetivo exclusivo de proteger posições detidas a vista. Artigo 25. A Classe não poderá realizar aplicação de recursos na aquisição de Direitos Creditórios e Ativos de liquidez no exterior. Artigo 26."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Uma mesma classe investida pode passar de 25% e chegar a 100% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 44,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "ativa detalhada identificando as partes envolvidas e os motivos da operação. Artigo 29. O investimento da Classe em cotas de uma mesma classe pode exceder 25% (vinte e cinco por cento) do Patrimônio Líquido da Classe, podendo atingir concentração de até 100% (cem por cento), nos termos do artigo 47 do Anexo Normativo II. Parágrafo Único Poderá ser investido até 100% (cem por cento em classes de cotas que contem com serviços da Administrador, Gestora, Consultoria Especializada ou suas partes relacionadas. Artigo 30. A Gestora poderá realizar o investimento nesta Classe em Direitos Creditórios, nos termos deste Anexo e da regulamentação aplicável. Parágrafo 1º São considerados como Direitos Creditórios Não-Padronizados os Direitos Creditórios que possuam ao menos uma das seguintes características: (a) Estejam vencidos e pendentes de pagamento quando da cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "FIC: cessões ocorrem nos fundos investidos",
+   "sources": []
+  },
+  "term_max": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: prazo dos créditos definido nos fundos investidos",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em cotas de outros FIDCs",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 43,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "Classe deverá manter, após 180 (noventa) dias do início de suas atividades, no mínimo, 67% (sessenta e sete por cento) de seu Patrimônio Líquido em classes de cotas de outros fundos de investimento em direitos creditórios, nos termos da legislação vigente. Parágrafo Único A parcela do patrimônio não investida em Direitos Creditórios ou cotas deve ser aplicada em ativos financeiros de liquidez, conforme definidos no artigo 2º, inciso II, do Anexo Normativo II. Artigo 24. A Classe não poderá realizar operações com derivativos, nem mesmo com o objetivo exclusivo de proteger posições detidas a vista. Artigo 25. A Classe não poderá realizar aplicação de recursos na aquisição de Direitos Creditórios e Ativos de liquidez no exterior. Artigo 26."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Cotas de outros FIDCs ≥67% PL; prazo diverge 180 e noventa dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "escritos, os quais deverão ser monitorados diariamente. (a) Índice de Subordinação Sênior: representado pela relação mínima a ser observada entre o valor das Cotas Seniores e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo de 50% (cinquenta por cento). Dessa forma, diariamente, a Classe deverá possuir, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Cotas Seniores. (b) Índice de Subordinação Mezanino: representado pela relação mínima a ser observada entre o valor das Cotas Subordinadas Mezanino e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo de 25% (vinte e cinco por cento). Dessa forma, diariamente, a Classe deverá possuir, no mínimo, 25% (vinte e cinco por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas Mezanino. Artigo 63."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "trimônio Líquido representado por Cotas Seniores. (b) Índice de Subordinação Mezanino: representado pela relação mínima a ser observada entre o valor das Cotas Subordinadas Mezanino e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo de 25% (vinte e cinco por cento). Dessa forma, diariamente, a Classe deverá possuir, no mínimo, 25% (vinte e cinco por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas Mezanino. Artigo 63. No caso de desenquadramento dos Índices de Subordinação da Classe, a Administradora comunicará a Gestora e os Cotistas para que seja realizado o necessário reenquadramento."
+    }
+   ],
+   "legacy": {
+    "value": "Sem piso atual; regras futuras descrevem seniores ≥50% PL e mezaninos ≥25% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "Índice fixa sênior ≥ 50% do PL (piso de sênior, não de subordinação)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "escritos, os quais deverão ser monitorados diariamente. (a) Índice de Subordinação Sênior: representado pela relação mínima a ser observada entre o valor das Cotas Seniores e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo de 50% (cinquenta por cento). Dessa forma, diariamente, a Classe deverá possuir, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Cotas Seniores. (b) Índice de Subordinação Mezanino: representado pela relação mínima a ser observada entre o valor das Cotas Subordinadas Mezanino e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo de 25% (vinte e cinco por cento). Dessa forma, diariamente, a Classe deverá possuir, no mínimo, 25% (vinte e cinco por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas Mezanino. Artigo 63."
+    }
+   ],
+   "legacy": {
+    "value": "Sem piso atual; regras futuras descrevem seniores ≥50% PL e mezaninos ≥25% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "Índice fixa mezanino ≥ 25% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "trimônio Líquido representado por Cotas Seniores. (b) Índice de Subordinação Mezanino: representado pela relação mínima a ser observada entre o valor das Cotas Subordinadas Mezanino e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo de 25% (vinte e cinco por cento). Dessa forma, diariamente, a Classe deverá possuir, no mínimo, 25% (vinte e cinco por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas Mezanino. Artigo 63. No caso de desenquadramento dos Índices de Subordinação da Classe, a Administradora comunicará a Gestora e os Cotistas para que seja realizado o necessário reenquadramento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "escritos, os quais deverão ser monitorados diariamente. (a) Índice de Subordinação Sênior: representado pela relação mínima a ser observada entre o valor das Cotas Seniores e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo de 50% (cinquenta por cento). Dessa forma, diariamente, a Classe deverá possuir, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Cotas Seniores. (b) Índice de Subordinação Mezanino: representado pela relação mínima a ser observada entre o valor das Cotas Subordinadas Mezanino e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo de 25% (vinte e cinco por cento). Dessa forma, diariamente, a Classe deverá possuir, no mínimo, 25% (vinte e cinco por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas Mezanino. Artigo 63."
+    }
+   ],
+   "legacy": {
+    "value": "Sem piso atual; regras futuras descrevem seniores ≥50% PL e mezaninos ≥25% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa não fixada no regulamento",
+   "sources": []
+  },
+  "pdd": {
+   "display": "Instrução CVM 489 e manual de PDD da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 24,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "ção das operações com Direitos Creditórios, para efeitos contábeis, bem como cálculo de provisão para perdas, seguirá o disposto na Instrução CVM n° 489, de 14 de janeiro de 2011, conforme alterada e o Manual de PDD da Administradora. Artigo 59. É obrigatória a divulgação, em notas explicativas às demonstrações contábeis Docusign Envelope ID: 5C572A80-D75A-4B93-A6B6-5043132A9703 anuais do Fundo e de sua Classe, de informações que abranjam, no mínimo: (a) o montante, a natureza e as faixas de vencimento dos Ativos integrantes da Carteira da Classe; (b) o mercado dos Ativos, segregados por tipo de Ativo, e; (c) os parâmetros utilizados na determinação desses valores. CAPÍTULOXIII. RESGATE Artigo 60. O resgate de Cotas poderão ser realizados: (i) em moeda corrente nacional, por meio de ordem de pagamento, débito e crédito na conta corrente do Fundo, Transferência Eletrônica Disponível – TED;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos remetidos ao anexo, sem lista localizada",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 30,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "ão da Administradora. Os demais procedimentos quanto a liquidação da Classe, Eventos de Avaliação, Eventos de Liquidação Antecipada seguem descritos no Anexo da Classe. CAPÍTULOXVII. ENCARGOS DO FUNDO Artigo 74. Constituem encargos do Fundo, além da Taxa de Administração e da Taxa de Gestão prevista neste Regulamento e no Anexo, que lhe podem ser debitadas diretamente: (a) Taxas, impostos ou contribuições federais, estaduais, municipais ou autárquicas, que recaiam ou venham a recair sobre os bens, direitos e obrigações do Fundo; (b) Despesas com o registro de documentos, impressão, expedição e publicação de relatórios e informações periódicas previstas na Resolução Docusign Envelope ID: 5C572A80-D75A-4B93-A6B6-5043132A9703 CVM Nº 175 e seus Anexos Normativos;"
+    }
+   ]
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos remetidos ao anexo, sem lista localizada",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 30,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "ão da Administradora. Os demais procedimentos quanto a liquidação da Classe, Eventos de Avaliação, Eventos de Liquidação Antecipada seguem descritos no Anexo da Classe. CAPÍTULOXVII. ENCARGOS DO FUNDO Artigo 74. Constituem encargos do Fundo, além da Taxa de Administração e da Taxa de Gestão prevista neste Regulamento e no Anexo, que lhe podem ser debitadas diretamente: (a) Taxas, impostos ou contribuições federais, estaduais, municipais ou autárquicas, que recaiam ou venham a recair sobre os bens, direitos e obrigações do Fundo; (b) Despesas com o registro de documentos, impressão, expedição e publicação de relatórios e informações periódicas previstas na Resolução Docusign Envelope ID: 5C572A80-D75A-4B93-A6B6-5043132A9703 CVM Nº 175 e seus Anexos Normativos;"
+    }
+   ]
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reinvestimento não detalhado no regulamento",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Amortizações definidas nos suplementos",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,05% a.a. do PL; mín. R$ 5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 41,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "da Classe. CAPÍTULO V. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇOS Artigo 13. A Taxa de Administração da Classe, a ser paga à Admintradora pelos serviços prestados à Classe, corresponde ao percentual anual de 0,05% (zero vírgula zero cinco por cento) ao ano a ser calculado sobre o valor total do Patrimônio Líquido da Classe, observado, ainda, o valor mínimo mensal de R$ 5.000,00 (cinco mil reais). Parágrafo 1º A Taxa de Administração deverá ser paga à Administradora, mensalmente, até o 5º Dia Útil do mes subsequente ao mês da prestação dos Docusign Envelope ID: 5C572A80-D75A-4B93-A6B6-5043132A9703 serviços, devendo ser calculada de forma linear e provisionada todo Dia Útil, à base 1/252 (um duzentos e cinquenta e dois avos). Parágrafo 2º A Taxa de Administração será reajustada anualmente, pela variação positiva do IPCA do período. Artigo 14."
+    }
+   ],
+   "legacy": {
+    "value": "0,05% a.a. PL; mínimo R$ 5 mil/mês; IPCA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,05% a.a. do PL; mín. R$ 5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 42,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "ualmente, pela variação positiva do IPCA do período. Artigo 14. A Taxa de Gestão da Classe, a ser paga à Gestora pelos serviços prestados à Classe, corresponde ao percentual anual de 0,05% (zero vírgula zero cinco por cento) ao ano a ser calculado sobre o valor total do Patrimônio Líquido da Classe, observado, ainda, o valor mínimo mensal de R$ 5.000,00 (cinco mil reais). Parágrafo 1º A Taxa de Gestão deverá ser paga à Administradora, mensalmente, até o 5º Dia Útil do mes subsequente ao mês da prestação dos serviços, devendo ser calculada de forma linear e provisionada todo Dia Útil, à base 1/252 (um duzentos e cinquenta e dois avos). Parágrafo 2º A Taxa de Gestão será reajustada anualmente, pela variação positiva do IPCA do período. Artigo 15. A remuneração da Consultora Especializada, caso venha a ser contratada, será encargo da Classe. Artigo 16."
+    }
+   ],
+   "legacy": {
+    "value": "0,05% a.a. PL; mínimo R$ 5 mil/mês; IPCA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta em branco no modelo de suplemento",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta em branco no modelo de suplemento",
+   "sources": []
+  },
+  "administrator": {
+   "display": "ID CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "zo de duração indeterminado. CAPÍTULOIII. ADMINISTRADORA E GESTORA Artigo 04. O Fundo é administrado pela ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada. Artigo 05. O Fundo é gerido pela VIA INVEST GESTORA DE RECURSOS LTDA, acima qualificada. CAPÍTULO IV. OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADES DOS PRESTADORES DE SERVIÇOS ESSENCIAIS Artigo 06. A Administradora, observadas as limitações estabelecidas neste Regulamento, Anexo e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo, nos limites de suas responsabilidades regulamentares, observadas as competências de responsabilidade privativa da Gestora, nos termos deste Regulamento, da Resolução CVM nº 175 e das demais regulamentações aplicáveis. Artigo 07."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Via Invest Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada. Artigo 05. O Fundo é gerido pela VIA INVEST GESTORA DE RECURSOS LTDA, acima qualificada. CAPÍTULO IV. OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADES DOS PRESTADORES DE SERVIÇOS ESSENCIAIS Artigo 06. A Administradora, observadas as limitações estabelecidas neste Regulamento, Anexo e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo, nos limites de suas responsabilidades regulamentares, observadas as competências de responsabilidade privativa da Gestora, nos termos deste Regulamento, da Resolução CVM nº 175 e das demais regulamentações aplicáveis. Artigo 07."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "ID CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "perante as demais classes; “Cotista(s)”: Os titulares de Cotas; “Custodiante”: ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada; “CVM”: A Comissão de Valores Mobiliários; “Dia Útil”: Qualquer dia que não seja sábado, domingo ou dias declarados como feriado nacional no Brasil ou na sede da Administradora. Caso as datas em que venham a ocorrer eventos nos termos do Regulamento não sejam Dias Úteis, conforme definição deste item, considerar-se-á como a data do referido evento o Dia Útil imediatamente seguinte; “Direitos Creditórios”: Tem o significado atribuído na Política de Investimento do Anexo deste Regulamento; “Escriturador”: ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIC: cobrança ocorre nos fundos investidos",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo definido no anexo e nos suplementos",
+   "sources": []
+  },
+  "duration": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo definido no anexo da classe",
+   "sources": []
+  },
+  "investee": {
+   "display": "Não nomeados: classes de FIDC aderentes à política",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "Regulamento não identifica as classes investidas",
+   "sources": []
+  },
+  "investee_share": {
+   "display": "≥ 67% do PL em cotas de FIDCs",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1002276",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 43,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+     "excerpt": "Classe deverá manter, após 180 (noventa) dias do início de suas atividades, no mínimo, 67% (sessenta e sete por cento) de seu Patrimônio Líquido em classes de cotas de outros fundos de investimento em direitos creditórios, nos termos da legislação vigente. Parágrafo Único A parcela do patrimônio não investida em Direitos Creditórios ou cotas deve ser aplicada em ativos financeiros de liquidez, conforme definidos no artigo 2º, inciso II, do Anexo Normativo II. Artigo 24. A Classe não poderá realizar operações com derivativos, nem mesmo com o objetivo exclusivo de proteger posições detidas a vista. Artigo 25. A Classe não poderá realizar aplicação de recursos na aquisição de Direitos Creditórios e Ativos de liquidez no exterior. Artigo 26."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "FIC gerido pela Via Invest com ≥ 67% em cotas de FIDCs; uma classe investida pode chegar a 100% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

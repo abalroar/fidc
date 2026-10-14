@@ -1,0 +1,798 @@
+{
+ "schema_version": 1,
+ "cnpj": "30659408000130",
+ "name": "PER FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T07:43:45Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1081706",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706"
+  },
+  "D2": {
+   "document_id": "975192",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "18/08/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975192"
+  },
+  "D3": {
+   "document_id": "888301",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "30/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=888301"
+  },
+  "D4": {
+   "document_id": "794832",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794832"
+  },
+  "D5": {
+   "document_id": "150449",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "22/05/2018",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=150449"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos multissetoriais: títulos, contratos, cartões e empréstimos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 10,
+     "clause": "cl. 9.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "9.13. As limitações da política de investimento, diversificação e composição dacarteira do Fundo prevista nesta cláusula 9 serão observadas diariamente, com base nopatrimônio líquido do Dia Útil imediatamente anterior. 10. DIREITOS CREDITÓRIOS 10.1."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos multissetoriais, títulos, contratos, transporte, cartões e empréstimos pessoais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Real Moto Peças (principal cedente) e demais cedentes aprovados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 51,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "Creditórios Cedidos, conforme descrita no Anexo III ao presente Regulamento. Principal Cedente A REAL MOTO PEÇAS LTDA., sociedade empresária limitada, inscrita no CNPJ/MF sob o nº 25.630.302/0001-74, com sede na Rua Rafael Rinaldi, nº 523, bairro Martins, na cidade de Uberlândia, estado de Minas Gerais, CEP 38400-384 e empresas que façam parte do seu grupo econômico. Regulamento O regulamento do Fundo. Reserva de Caixa A reserva para pagamento de despesas e encargos do Fundo, conforme prevista no item 17.2 do Regulamento. 51 Reserva de Amortização A reserva para pagamento de amortização e resgates das Cotas, conforme prevista no item 17.1 do Regulamento. Risco de Capital Exposição da Classe ao risco de seu"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 11,
+     "clause": "cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "bem como dos respectivos Devedores dos Direitos Creditórios. 11. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 11.1. Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade: a) Para todos os Direitos Creditórios: (i) não podem estar vencidos e pendentes de pagamento quando da sua cessão; (ii) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência. b) Para os Direitos Creditórios que não possuam a Principal Cedente como Devedora ou que tenham sido cedidos sem a coobrigação ou obrigação de recompra pela Principal Cedente: (i) as cedentes ou devedores devem ser aprovadas pela Gestora conforme Parecer de Crédito; e (ii) o prazo máximo das operações, individualmente, deverá ser de até 360 (trezentos e sessenta) dias. 11 11.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Real Moto Peças (principal) e cedentes aprovados pela gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 51,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "Creditórios Cedidos, conforme descrita no Anexo III ao presente Regulamento. Principal Cedente A REAL MOTO PEÇAS LTDA., sociedade empresária limitada, inscrita no CNPJ/MF sob o nº 25.630.302/0001-74, com sede na Rua Rafael Rinaldi, nº 523, bairro Martins, na cidade de Uberlândia, estado de Minas Gerais, CEP 38400-384 e empresas que façam parte do seu grupo econômico. Regulamento O regulamento do Fundo. Reserva de Caixa A reserva para pagamento de despesas e encargos do Fundo, conforme prevista no item 17.2 do Regulamento. 51 Reserva de Amortização A reserva para pagamento de amortização e resgates das Cotas, conforme prevista no item 17.1 do Regulamento. Risco de Capital Exposição da Classe ao risco de seu"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 11,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "devedores devem ser aprovadas pela Gestora conforme Parecer de Crédito; e (ii) o prazo máximo das operações, individualmente, deverá ser de até 360 (trezentos e sessenta) dias. 11 11.1.1. O enquadramento dos Direitos Creditórios que o Fundo pretender adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou terceiro por ela subcontrada, conforme permitido pela RCVM 175, no momento de cada cessão. 11.1.2. Caso, após a realização da cessão, seja verificado pela Gestora, no prazo delimitado no item 11.1.1, o desenquadramento dos Direitos Creditórios aos Critérios de Elegibilidade, as respectivas cedentes deverão proceder à recompra do título, que não deverá seguir compondo o patrimônio líquido do Fundo. 11.1.3. Observados os termos e as condições do presente Regulamento, passado o prazo assinalado no item 11.1.1 acima, a verificação pelo Custodiante e pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 11.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Devedores diversos; PJ fora de recuperação ou falência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 11,
+     "clause": "cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "bem como dos respectivos Devedores dos Direitos Creditórios. 11. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 11.1. Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade: a) Para todos os Direitos Creditórios: (i) não podem estar vencidos e pendentes de pagamento quando da sua cessão; (ii) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência. b) Para os Direitos Creditórios que não possuam a Principal Cedente como Devedora ou que tenham sido cedidos sem a coobrigação ou obrigação de recompra pela Principal Cedente: (i) as cedentes ou devedores devem ser aprovadas pela Gestora conforme Parecer de Crédito; e (ii) o prazo máximo das operações, individualmente, deverá ser de até 360 (trezentos e sessenta) dias. 11 11.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Coobrigação ou recompra da principal cedente, quando houver",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 11,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "devedores devem ser aprovadas pela Gestora conforme Parecer de Crédito; e (ii) o prazo máximo das operações, individualmente, deverá ser de até 360 (trezentos e sessenta) dias. 11 11.1.1. O enquadramento dos Direitos Creditórios que o Fundo pretender adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou terceiro por ela subcontrada, conforme permitido pela RCVM 175, no momento de cada cessão. 11.1.2. Caso, após a realização da cessão, seja verificado pela Gestora, no prazo delimitado no item 11.1.1, o desenquadramento dos Direitos Creditórios aos Critérios de Elegibilidade, as respectivas cedentes deverão proceder à recompra do título, que não deverá seguir compondo o patrimônio líquido do Fundo. 11.1.3. Observados os termos e as condições do presente Regulamento, passado o prazo assinalado no item 11.1.1 acima, a verificação pelo Custodiante e pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 11.2."
+    }
+   ],
+   "legacy": {
+    "value": "Recompra por desenquadramento detectado após cessão conforme prazo de validação; posterior sem regresso automático",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; devedor PJ fora de recuperação; fora da principal, até 360 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 11,
+     "clause": "cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "bem como dos respectivos Devedores dos Direitos Creditórios. 11. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 11.1. Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade: a) Para todos os Direitos Creditórios: (i) não podem estar vencidos e pendentes de pagamento quando da sua cessão; (ii) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência. b) Para os Direitos Creditórios que não possuam a Principal Cedente como Devedora ou que tenham sido cedidos sem a coobrigação ou obrigação de recompra pela Principal Cedente: (i) as cedentes ou devedores devem ser aprovadas pela Gestora conforme Parecer de Crédito; e (ii) o prazo máximo das operações, individualmente, deverá ser de até 360 (trezentos e sessenta) dias. 11 11.1.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 11,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "devedores devem ser aprovadas pela Gestora conforme Parecer de Crédito; e (ii) o prazo máximo das operações, individualmente, deverá ser de até 360 (trezentos e sessenta) dias. 11 11.1.1. O enquadramento dos Direitos Creditórios que o Fundo pretender adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou terceiro por ela subcontrada, conforme permitido pela RCVM 175, no momento de cada cessão. 11.1.2. Caso, após a realização da cessão, seja verificado pela Gestora, no prazo delimitado no item 11.1.1, o desenquadramento dos Direitos Creditórios aos Critérios de Elegibilidade, as respectivas cedentes deverão proceder à recompra do título, que não deverá seguir compondo o patrimônio líquido do Fundo. 11.1.3. Observados os termos e as condições do presente Regulamento, passado o prazo assinalado no item 11.1.1 acima, a verificação pelo Custodiante e pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 11.2."
+    }
+   ],
+   "legacy": {
+    "value": "Não vencidos; PJ fora de recuperação/falência; fora da principal cedente: prazo individual≤360 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Até 100% do PL em um mesmo devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 8,
+     "clause": "cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "nicial do Fundo, observar a Alocação Mínima de 50% (cinquenta por cento)do patrimônio líquido em Direitos Creditórios. 9.4. O Fundo poderá adquirir Direitos Creditórios e Ativos Financeiros de um mesmo Devedor, no limite de até 100% (cem por cento) de seu patrimônio líquido, observados os Critérios de Elegibilidade e Condições de Cessão, nos termos do inciso segundo, parágrafo 7º, do artigo 45 da RCVM 175. 9.5. O remanescente do patrimônio líquido, que não for aplicado em Direitos Creditórios, poderá ser mantido em moeda corrente nacional ou investido nos seguintes Ativos Financeiros, observado o inciso II, do artigo 2º, Anexo II, da RCVM 175: a) títulos públicos federais; b) ativos financeiros de renda fixa de emissão ou coobrigação de instituições financeiras; c) operações compromissadas lastreadas nos ativos referidos nas alíneas “a” e “b”; e d) cotas de classes que invistam exclusivamente nos ativos referidos nas alíneas “a” a “c”;. 9.6. É vedado ao Fundo realizar operações (a) de day trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de o Fundo possuir estoque ou posição anterior do mesmo Ativo Financeiro;"
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "Créditos sem principal cedente/coobrigação/recompra: cedente≤5% e top 5≤20% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 9.3"
+   }
+  },
+  "assignor_limit": {
+   "display": "Fora da principal cedente: cedente ≤ 5% e 5 maiores ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 13,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "respeitar taxas de mercado; (ii) a concentração máxima por cedente deve ser de 5% (cinco por cento) do patrimônio líquido do Fundo; (iii) a concentração máxima dos 5 (cinco) maiores cedentes deverá ser de 20% (vinte por cento) do patrimônio líquido do Fundo; e (iv) o prazo médio máximo das operações do estoque, quando analisadas em sua totalidade, deverá ser de até 121 (cento e vinte e um) dias. 11.2.1. O enquadramento dos Direitos Creditórios que o Fundo pretende adquirir às Condições de Cessão será verificado e validado pela Gestora acada cessão. Caso, após a realização da cessão, seja verificado pela Gestora o desenquadramento dos Direitos Creditórios às Condições de Cessão, as respectivas cedentes deverão proceder à recompra do título, que não deverá seguir compondo o patrimônio líquido do Fundo. 11.2.2. Observados os termos e as condições do presente Regulamento, passado o prazo assinalado no item 11.2.1. acima, a verificação pela Gestora do atendimento às Condições de Cessão será considerada como definitiva. 11.3."
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "Créditos sem principal cedente/coobrigação/recompra: cedente≤5% e top 5≤20% do PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Fora da principal cedente: até 360 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 11,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "devedores devem ser aprovadas pela Gestora conforme Parecer de Crédito; e (ii) o prazo máximo das operações, individualmente, deverá ser de até 360 (trezentos e sessenta) dias. 11 11.1.1. O enquadramento dos Direitos Creditórios que o Fundo pretender adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou terceiro por ela subcontrada, conforme permitido pela RCVM 175, no momento de cada cessão. 11.1.2. Caso, após a realização da cessão, seja verificado pela Gestora, no prazo delimitado no item 11.1.1, o desenquadramento dos Direitos Creditórios aos Critérios de Elegibilidade, as respectivas cedentes deverão proceder à recompra do título, que não deverá seguir compondo o patrimônio líquido do Fundo. 11.1.3. Observados os termos e as condições do presente Regulamento, passado o prazo assinalado no item 11.1.1 acima, a verificação pelo Custodiante e pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 11.2."
+    }
+   ],
+   "legacy": {
+    "value": "Não vencidos; PJ fora de recuperação/falência; fora da principal cedente: prazo individual≤360 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios após 90 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 8,
+     "clause": "cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "stabelecida. 9.3. O Fundo deverá, após 90 (noventa) dias contados da primeira Data de Subscrição Inicial do Fundo, observar a Alocação Mínima de 50% (cinquenta por cento)do patrimônio líquido em Direitos Creditórios. 9.4. O Fundo poderá adquirir Direitos Creditórios e Ativos Financeiros de um mesmo Devedor, no limite de até 100% (cem por cento) de seu patrimônio líquido, observados os Critérios de Elegibilidade e Condições de Cessão, nos termos do inciso segundo, parágrafo 7º, do artigo 45 da RCVM 175. 9.5. O remanescente do patrimônio líquido, que não for aplicado em Direitos Creditórios, poderá ser mantido em moeda corrente nacional ou investido nos seguintes Ativos Financeiros, observado o inciso II, do artigo 2º, Anexo II, da RCVM 175: a) títulos públicos federais; b) ativos financeiros de renda fixa de emissão ou coobrigação de instituições financeiras; c) operações compromissadas lastreadas nos ativos referidos nas alíneas “a” e “b”; e d) cotas de classes que invistam exclusivamente nos ativos referidos nas alíneas “a” a “c”;. 9.6."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios ≥50% do PL após 90 dias da primeira subscrição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 25,
+     "clause": "cl. 14.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": ".3.2.6. Fica a critério da Administradora a emissão de Cotas Subordinadas Júnior. 14.4. Índice de Subordinação 14.4.1. O Índice de Subordinação Subordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 30% (trinta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 14.4.2. O Índice de Subordinação Mezanino será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Júnior em circulação. 14.4.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na 25 Cláusula abaixo. 14.4.4."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 25,
+     "clause": "cl. 14.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "de 30% (trinta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 14.4.2. O Índice de Subordinação Mezanino será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Júnior em circulação. 14.4.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na 25 Cláusula abaixo. 14.4.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas, das Cotas Subordinada Mezanino e/ou das Cotas Subordinadas Junior, conforme o caso, serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula acima 14.4.5."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: subordinadas / PL ≥30%; júnior / PL ≥20% para proteção mezanino",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 14.4"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 25,
+     "clause": "cl. 14.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": ".3.2.6. Fica a critério da Administradora a emissão de Cotas Subordinadas Júnior. 14.4. Índice de Subordinação 14.4.1. O Índice de Subordinação Subordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 30% (trinta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 14.4.2. O Índice de Subordinação Mezanino será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Júnior em circulação. 14.4.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na 25 Cláusula abaixo. 14.4.4."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Sênior: subordinadas / PL ≥30%; júnior / PL ≥20% para proteção mezanino",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 14.4"
+   }
+  },
+  "sub_mezz": {
+   "display": "20% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 25,
+     "clause": "cl. 14.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "de 30% (trinta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 14.4.2. O Índice de Subordinação Mezanino será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Júnior em circulação. 14.4.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na 25 Cláusula abaixo. 14.4.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas, das Cotas Subordinada Mezanino e/ou das Cotas Subordinadas Junior, conforme o caso, serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula acima 14.4.5."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 25,
+     "clause": "cl. 14.4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Júnior em circulação. 14.4.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na 25 Cláusula abaixo. 14.4.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas, das Cotas Subordinada Mezanino e/ou das Cotas Subordinadas Junior, conforme o caso, serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula acima 14.4.5. Os respectivos Cotistas deverão responder à Administradora, com cópia para a Gestora, impreterivelmente até o 15º (décimo quinto) dia subsequente à data do recebimento da comunicação referida na Cláusula acima, informando por escrito se desejam integralizar, ou não, novas Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Junior, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: subordinadas / PL ≥30%; júnior / PL ≥20% para proteção mezanino",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 14.4.2"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para 60 dias de despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 31,
+     "clause": "cl. 17.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "imo Dia Útil de cada mês calendário, devendo ser equivalente ao maior valor entre (a) o total de despesas e encargos de responsabilidade do Fundo a serem incorridos no período de 60 (sessenta) dias contados da data de apuração. 17.2.2. O montante referente à Reserva de Caixa deverá ser mantido pela Administradora devidamente segregados no patrimônio do Fundo, em moeda corrente nacional ou em Ativos Financeiros de liquidez imediata. 17.2.3. Na hipótese de a Reserva de Caixa deixar de atender ao limite de enquadramento descrito no item 17.2.1 acima, a Administradora, por conta e ordem do Fundo, deverá destinar todos os recursos do Fundo, em moeda corrente nacional, para a recomposição da Reserva de Caixa, observada a ordem de alocação de recursos prevista na cláusula 24 deste Regulamento. 18. METODOLOGIA DE AVALIAÇÃO DO PATRIMÔNIO LÍQUIDO, DAS COTAS E DOS ATIVOS DO FUNDO 18.1. O patrimônio líquido equivale ao valor dos recursos em caixa acrescido do valor dos Direitos Creditórios Cedidos e dos Ativos Financeiros integrantes da carteira do Fundo, deduzidas as exigibilidades. 18.2. As Cotas terão seu valor calculado todo Dia Útil, nos termos descritos neste Regulamento. 18.3."
+    }
+   ],
+   "legacy": {
+    "value": "60 dias de despesas; amortização:25/50/100% desde D-10/D-5/D-2 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 17.2.1"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não descrito no regulamento",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Rebaixamento de rating ou renúncia de prestador, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 38,
+     "clause": "cl. 23.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "eliberação da Administradora. 37 23.2. São considerados Eventos de Avaliação quaisquer das seguintes hipóteses: a) se houver, rebaixamento da classificação de risco das Cotas Seniores em circulação, a qualquer tempo, em 2 (dois) níveis abaixo da classificação de risco originalmente atribuída ou 1 (um) nível abaixo da classificação de risco originalmente atribuída caso, nos últimos 12 (doze) meses, já tenha ocorrido um rebaixamento; b) renúncia da Administradora, da Gestora ou Agente de Cobrança, desde que nãosejam substituídos no prazo de 60 (sessenta) Dias Úteis contados da renúncia; c) descumprimento, pela Administradora, pela Gestora, pelo Agente de Cobrança e/ou pelo Custodiante, de seus deveres e obrigações estabelecidos neste Regulamento e nos demais documentos do Fundo, desde que não sanado no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação; d) não pagamento da amortização programada para as Cotas ou em desacordo com o Regulamento e/ou Suplemento de Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: cobertura<1, recompra>10% e dívida líquida/EBITDA cedente>3 x; liquidação: perdas>8% e insolvência cedente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 23.1"
+   }
+  },
+  "liquidation": {
+   "display": "Insolvência de prestador sem assembleia convocada, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 38,
+     "clause": "cl. 23.2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "ros, conforme o caso, sem prejuízo da implementação de eventuais ajustes aprovados pelos Cotistas na Assembleia Geral. 23.3. São considerados Eventos de Liquidação Antecipada quaisquer das seguintes hipóteses: 38 a) deliberação da Assembleia Geral de Cotistas pela liquidação do Fundo; b) caso seja deliberado em Assembleia Geral que um Evento de Avaliação constituium Evento de Liquidação Antecipada; c) caso haja um evento de insolvência da Administradora, Custodiante, Gestora ouAgente de Cobrança e não seja convocada Assembleia Geral em até 15 (quinze)Dias Úteis, contados da decretação da insolvência, para indicar um novo prestador ou se, em até 30 (trinta) dias úteis após a publicação da ata da referidaassembleia não for efetivada a substituição do prestador insolvente; d) a ocorrência de um Evento de Insolvência com relação à Principal Cedente; e) desenquadramento da Índice de Subordinação por mais de 15 (quinze) dias úteis;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: cobertura<1, recompra>10% e dívida líquida/EBITDA cedente>3 x; liquidação: perdas>8% e insolvência cedente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 23.2.3"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não trata de revolvência explicitamente",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Reserva de amortização antes de cada pagamento de sênior e mezanino",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 30,
+     "clause": "cl. 17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "e os resultados da carteira do Fundo assim permitirem. 17. RESERVA DE PAGAMENTO DE AMORTIZAÇÃO E RESERVA DE CAIXA 17.1. Observada a ordem de alocação de recursos prevista na cláusula 24 deste Regulamento, a Administradora deverá, na forma abaixo estabelecida, constituir a Reserva de Amortização, de modo a proporcionar liquidez para o pagamento das amortizações das Cotas Seniores e das Cotas Subordinadas Mezanino. Para tanto, salvo se já constituída a Reserva de Amortização, ocasião na qual as aquisições poderão ocorrer livremente, a Administradora deverá interromper a aquisição de novos Direitos Creditórios Elegíveis de forma parcial, de modo que: a) a partir de 10 (dez) Dias Úteis antes de cada data de pagamento de amortização ou resgate, o Fundo sempre mantenha em Ativos Financeiros com liquidez diária o equivalente a, no mínimo, 25% (vinte e cinco por cento) do valor futuro do pagamento do próximo resgate ou amortização; b) a partir de 5 (cinco) Dias Úteis antes de cada data de pagamento de amortização ou resgate, o Fundo sempre mantenha em Ativos Financeiros com liquidez diária o equivalente a, no mínimo, 50% (cinquenta por cento) do valor futuro do pagamento do próximo resgate ou amortização;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,25% a.a. até R$ 100 mi de PL, regressiva até 0,20%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 7,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "scrito, individualmente, abaixo (“Taxa de Remuneração”): a) Pelos serviços de administração e custódia (“Taxa de Administração”), uma remuneração equivalente a: (i) 0,25% a.a. (duzentos e cinquenta milésimos por cento ao ano), calculada sobre a parcela do Patrimônio Líquido do Fundo que esteja a até R$ 100.000.000,00 (cem milhões de reais); (ii) 0,230% a.a. (duzentos e trinta milésimos por cento ao ano), calculada sobrea parcela do Patrimônio Líquido do Fundo que esteja entre R$100.000.000,01 (cem milhões de reais e um centavo) e R$ 200.000.000,00(duzentos milhões de reais); e (iii) 0,200% a.a. (duzentos milésimos por cento ao ano) calculada sobre a parcela do Patrimônio Líquido do Fundo que esteja acima de R$ 200.000.000,01 (duzentos milhões de reais e um centavo); b) Pelos serviços de Gestão, uma remuneração (“Taxa de Gestão”) equivalente a: (i) 0,27% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais PL:0,25% atéR$ 100 mi;0,23% entre 100–200 mi;0,20% acima 200 mi; inclui custódia",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 8.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,27% a.a. antes da sênior; 0,50% a.a. depois",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 7,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "Fundo que esteja acima de R$ 200.000.000,01 (duzentos milhões de reais e um centavo); b) Pelos serviços de Gestão, uma remuneração (“Taxa de Gestão”) equivalente a: (i) 0,27% a.a. (vinte e sete centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, enquanto não houver integralização na subclasse de cotas sênior; e (ii) 0,50% a.a. (cinquenta centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, após o início da subclasse de cotas sênior. c) Tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe, o presente Regulamento não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE. A remuneração dos distribuidores que venham a ser contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos da respectiva oferta, conforme a Resolução CVM nº 160, de 13 de julho de 2022 (“Taxa Máxima de Distribuição”). 8.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,27% a.a. antes da integralização sênior;0,50% a.a. depois, sobre PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 8,
+     "clause": "cl. 8.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "tante total estabelecido no item 8.1. 8.4. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 9. POLÍTICA DE INVESTIMENTO 9.1. O Fundo tem como objetivo proporcionar aos Cotistas a valorização de suas Cotas, por meio da aplicação dos recursos do Fundo preponderantemente na aquisição de Direitos Creditórios. 9.1.1. Caracterizam-se como passíveis de cessão ao Fundo (a) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Cessão; e (b) todos e quaisquer direitos, garantias, privilégios, preferências e prerrogativasrelacionados aos referidos Direitos Creditórios. 9.2. Os Direitos Creditórios serão adquiridos pelo Fundo de acordo com a política de investimento, composição e diversificação da carteira do Fundo abaixo estabelecida. 9.3. O Fundo deverá, após 90 (noventa) dias contados da primeira Data de Subscrição Inicial do Fundo, observar a Alocação Mínima de 50% (cinquenta por cento)do patrimônio líquido em Direitos Creditórios. 9.4."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 2,
+     "clause": "cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "neste Regulamento. 3.2. O Fundo será destinado exclusivamente a Investidores Profissionais. 4. ADMINISTRADORA 4.1. O Fundo é administrado por SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A, instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Avenida Brigadeiro Faria Lima, nº 1355 – 5º andar, inscrita no CNPJ sob o nº 62.285.390/0001-40. 5. OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADES DA ADMINISTRADORA 5.1. A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo, bem como para exercer os direitos inerentes aos ativos de titularidade do Fundo, sem prejuízo dos direitos e obrigações da Gestora ou de terceiros contratados para prestação de serviços ao Fundo. 2 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Ghia Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 4,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "ão, originação, estruturação e/ou verificação de lastro de Direitos Creditórios e/ou Ativos Financeiros. 7.2. A gestão da carteira do Fundo compete à GHIA GESTÃO DE RECURSOS LTDA., sociedade empresária limitada com sede na cidade de Uberlândia, estado de Minas Gerais, na Avenida Rondon Pacheco, nº 4.600, Torre UBT, 8º andar – Tibery, inscrita no CNPJ/MF sob o nº 35.070.686/0001-71, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 18.295, de 07 de dezembro de 2021, doravante designada “Gestora”. 7.2.1 Sem prejuízo de outras atribuições impostas pela regulamentação em vigor, pelo presente Regulamento, pelo Contrato de Gestão, enquanto este for vigente, e pelo Acordo Operacional a ser formalizado, a Gestora é responsável pelas seguintes atividades: a) realizar a gestão profissional dos Direitos Creditórios e Ativos Financeiros integrantes da carteira do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "no momento de cada cessão de Direitos Creditórios ao Fundo. Custodiante A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, Avenida Brigadeiro Faria Lima, nº 1355 – 5º andar, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou seu sucessor a qualquer título. Consultoria Especializada Pessoa jurídica contratada, às expensas do Fundo, para prestar serviços técnicos especializados visando subsidiar a Gestora na análise, seleção, originação, estruturação e/ou verificação de lastro dos Direitos Creditórios e/ou Ativos Financeiros."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "PER Intermediação de Pagamentos e Negócios",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 6,
+     "clause": "cl. 7.3.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "este Regulamento aplicam-se, no que couber, à substituição do Custodiante, observando-se o previsto neste Regulamento. 7.4. A PER INTERMEDIAÇÃO DE PAGAMENTOS E NEGÓCIOS LTDA., com sede na cidade de Uberlândia, estado de São Paulo, na Avenida Rondon Pacheco,nº 4.600, 11º andar, sala 2, bairro Tibery, CEP 38405-142, inscrita no CNPJ/MF sob o nº 40.852.724/0001-88, foi contratada para, na qualidade de Agente de Cobrança, prestar ao Fundo os serviços que objetive a cobrança extraordinária dos Direitos Creditórios Cedidos que venham a ser inadimplidos pelos respectivos Devedores. 7.4.1. O Agente de Cobrança, visando a tutela dos interesses do Fundo, deverá adotar todo e qualquer mecanismo ou procedimento de cobrança nos termos da Política de Cobrança definida no Anexo III, sendo as despesas com esses incorridas pelo Fundo. 7.4.2. Adicionalmente ao procedimento de cobrança de que trata o Anexo III deste Regulamento, o Agente de Cobrança compromete-se, ainda, a elaborar e fornecer à Gestora, quinzenalmente ou sempre que solicitado, relatório gerencial analíticos e sintéticos relativos ao monitoramento da cobrança dos Direitos Creditórios. 7.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 2,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "terminado, podendo ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 3.2. O Fundo será destinado exclusivamente a Investidores Profissionais. 4. ADMINISTRADORA 4.1. O Fundo é administrado por SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A, instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Avenida Brigadeiro Faria Lima, nº 1355 – 5º andar, inscrita no CNPJ sob o nº 62.285.390/0001-40. 5. OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADES DA ADMINISTRADORA 5.1. A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo, bem como para exercer os direitos inerentes aos ativos de titularidade do Fundo, sem prejuízo dos direitos e obrigações da Gestora ou de terceiros contratados para prestação de serviços ao Fundo. 2 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 2,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "PRAZO DE DURAÇÃO E PÚBLICO-ALVO 3.1. O funcionamento do Fundo terá início na Data de Subscrição Inicial do Fundo. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 3.2. O Fundo será destinado exclusivamente a Investidores Profissionais. 4. ADMINISTRADORA 4.1. O Fundo é administrado por SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A, instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Avenida Brigadeiro Faria Lima, nº 1355 – 5º andar, inscrita no CNPJ sob o nº 62.285.390/0001-40. 5. OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADES DA ADMINISTRADORA 5.1."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Até 100% do PL em um mesmo devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1081706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/05/2025",
+     "page": 8,
+     "clause": "cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081706",
+     "excerpt": "nicial do Fundo, observar a Alocação Mínima de 50% (cinquenta por cento)do patrimônio líquido em Direitos Creditórios. 9.4. O Fundo poderá adquirir Direitos Creditórios e Ativos Financeiros de um mesmo Devedor, no limite de até 100% (cem por cento) de seu patrimônio líquido, observados os Critérios de Elegibilidade e Condições de Cessão, nos termos do inciso segundo, parágrafo 7º, do artigo 45 da RCVM 175. 9.5. O remanescente do patrimônio líquido, que não for aplicado em Direitos Creditórios, poderá ser mantido em moeda corrente nacional ou investido nos seguintes Ativos Financeiros, observado o inciso II, do artigo 2º, Anexo II, da RCVM 175: a) títulos públicos federais; b) ativos financeiros de renda fixa de emissão ou coobrigação de instituições financeiras; c) operações compromissadas lastreadas nos ativos referidos nas alíneas “a” e “b”; e d) cotas de classes que invistam exclusivamente nos ativos referidos nas alíneas “a” a “c”;. 9.6. É vedado ao Fundo realizar operações (a) de day trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de o Fundo possuir estoque ou posição anterior do mesmo Ativo Financeiro;"
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "Créditos sem principal cedente/coobrigação/recompra: cedente≤5% e top 5≤20% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/05/2025, cl. 9.3"
+   }
+  }
+ },
+ "leitura": "Multicedente ancorado na Real Moto Peças; subordinação de 30% (júnior ≥ 20%) e demais cedentes ≤ 5% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

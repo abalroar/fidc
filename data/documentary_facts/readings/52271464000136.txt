@@ -1,0 +1,52 @@
+# Kiwify FIDC Meios de Pagamento (Genial Investimentos; H2 Kapital; cedente Kiwify; devedora Redecard)
+type: Cartão/adquirência
+q16: * "“Gestora” Significa a H2 KAPITAL S.A."
+q1: * "Cedente” significa a Subcredenciadora"
+q2: * "“Subcredenciadora” significa a KIWIFY PAGAMENTOS, TECNOLOGIA E SERVIÇOS LTDA."
+q3: * "“Credenciadora” significa (i) a REDECARD S.A."
+q4: * "Devedor” significa a Credenciadora, na qualidade de devedora dos Direitos Creditórios"
+q5: * "Direitos Creditórios” significam os direitos creditórios performados, de tempos em tempos detidos pela Subcredenciadora em face da Credenciadora"
+q6: * "Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita limites de concentração"
+q7: * "Subordinação” significa a proporção entre o valor das Cotas Subordinadas Júnior do Fundo e o Patrimônio Líquido, que deverá ser equivalente a 6%"
+q8: * "São eventos de avaliação (“Eventos de Avaliação”): (i) caso a Classe deixe de efetuar o pagamento"
+q9: * "Eventos de Liquidação”): (i) nos casos em que houver determinação da CVM"
+q10: * "taxa de administração correspondente a 0,11% (onze centésimos por cento) ao ano calculado sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$20.000,00"
+q11: * "Administradora” significa a GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q12: * "Os serviços de custódia qualificada dos Direitos Creditórios e demais Ativos Financeiros do Fundo serão exercidos pela Administradora"
+q13: * "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas"
+q14: * "Chargeback” significa a contestação de Transação(ões) de Pagamento"
+receivables: Recebíveis de cartão da Kiwify (cursos e infoprodutos) contra a credenciadora | q5,q2
+card_receivables: Créditos performados da subcredenciadora Kiwify contra a Redecard | q5,q3
+originator: Kiwify Pagamentos (subcredenciadora) | q1,q2
+assignor: Kiwify Pagamentos | q2
+debtor: Redecard (credenciadora) | q3,q4
+recourse: Sem regresso pela solvência; cedente responde pela formalização | o12
+eligibility: n/d | Critérios de elegibilidade sem trecho contínuo localizado
+debtor_limit: Sem limites de concentração (classe para profissionais) | q6
+assignor_limit: — | Cedente única: Kiwify
+term_max: n/d | Prazo máximo não localizado em trecho contínuo
+allocation: Direitos creditórios entre 67% e 100% do PL | o25 | value=67
+quota_structure: Sênior / Subordinada júnior | q7
+sub_senior: 6% · júnior/PL | q7 | basis=jr/PL | value=6
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de despesas de ≥ 3 meses, apurada mensalmente | o38
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Atraso de amortização ou remuneração da sênior, entre outros | q8
+liquidation: Determinação da CVM ou falta de créditos elegíveis, entre outros | q9
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,11% a.a. do PL; mín. R$ 20 mil/mês | q10
+mgmt_fee: n/d | Taxa de gestão em faixas sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Genial Investimentos Corretora de Valores | q11
+manager: H2 Kapital | q16
+custodian: Genial Investimentos (a administradora) | q12,q11
+servicer: n/d | Agente de cobrança a contratar, não nomeado
+investors: Investidores profissionais | q6
+duration: Indeterminado | q13
+card_lock: n/d | Mecanismo de trava não descrito em trecho contínuo
+dilution: Chargeback definido no regulamento; sem reserva específica localizada | q14
+leitura: Recebíveis de cartão da Kiwify contra a Redecard; júnior ≥ 6% do PL e sem limite por devedor.

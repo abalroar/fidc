@@ -1,0 +1,56 @@
+# Angá FGTS III FIDC (Daycoval; Angá; cedente Banco BMG)
+type: FGTS
+q19: * "A relação equivalente a, no mínimo, 5% (cinco por cento) Subordinação entre"
+q18: * "A relação equivalente a, no mínimo, 10% (dez por cento) Subordinação Sênior"
+q1: * "“Cedente”: O Banco BMG S.A., instituição financeira com sede na Cidade e Estado de São Paulo"
+q2: * "“Direitos Creditórios”: Os direitos creditórios performados, representados pelas CCB, oriundos de operações de empréstimo pessoal para antecipação do Saque-Aniversário FGTS"
+q3: * "seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, na Data de Cessão"
+q4: * "rios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); (iii) os Direitos Creditórios deverão ter prazo máximo de 120"
+q5: * "a de emissão da CCB, o respectivo Devedor tinha, no mínimo, 18 (dezoito) anos de idade"
+q6: * "“Alocação Mínima”: O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido"
+q7: * "10.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à Administradora convocar uma Assembleia Especial"
+q8: * "11.1. A Classe A será liquidada única e exclusivamente nas seguintes hipóteses"
+q9: * "provisão para perdas na recuperação dos Direitos Creditórios Inadimplidos será realizado conforme conceitos definidos no Adendo IV"
+q10: * "a Classe A pagará à Administradora uma taxa de administração de acordo com as respectivas faixas de Patrimônio Líquido da Classe A"
+q11: * "taxa de gestão de 0,45% a.a. (quarenta e cinco décimos por cento ao ano)"
+q12: * "Prazo de Duração Indeterminado. BANCO DAYCOVAL S.A., instituição financeira autorizada pela CVM"
+q13: * "MINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro"
+q14: * "Custodiante A Administradora. Tesouraria, Serviços prestado pela Administradora"
+q15: * "Agente de Cobrança Quando contratado, será o Cedente"
+q16: * "destinada exclusivamente a investidores profissionais, conforme definidos no Artigo 11 da Resolução CVM nº 30"
+q17: * "A Classe A é constituída por até 3 (três) subclasses de Cotas, Subclasses quais sejam: Cotas Seniores, Cotas Mezanino e Cotas Subordinada Jú"
+receivables: CCBs de antecipação do saque-aniversário do FGTS, com cessão fiduciária | q2
+originator: Banco BMG | q1
+assignor: Banco BMG | q1
+debtor: Titulares de conta do FGTS com 18 anos ou mais | q5
+recourse: Cessão definitiva; desconformidade pode resolver a aquisição | o13
+eligibility: Devedor adimplente; CCB de até 120 meses, até a sênior mais longa | q3,q4
+debtor_limit: Saldo por devedor até R$ 120 mil | q4 | value=none
+assignor_limit: — | Cedente único: Banco BMG
+term_max: CCB de até 120 meses | q4
+allocation: ≥ 50% do PL em direitos creditórios | q6 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q17
+sub_senior: 10% · subord./PL | q18 | basis=mez+jr/PL | value=10
+sub_mezz: 5% · júnior/PL | q19 | basis=jr/PL | value=5
+sub_check: n/d | Periodicidade de apuração dos índices não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de caixa para 3 meses de despesas e reserva de liquidez | o40
+pdd: Provisão conforme adendo próprio do anexo descritivo | q9
+eval_triggers: Rebaixamento de rating, entre outros | q7
+liquidation: PL < R$ 1 mi por 3 meses, entre outros | q8
+revolving: n/d | Revolvência não detalhada em trecho localizável
+amortization: Ordem: encargos, reservas, sênior, mezanino e júnior | o54
+admin_fee: Percentual por faixa de PL; mín. R$ 12 mil/mês | q10
+mgmt_fee: 0,45% a.a. do PL | q11
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Banco Daycoval | q12
+manager: Angá Administração de Recursos | q13
+custodian: Banco Daycoval (a própria administradora) | q14,q12
+servicer: Banco BMG (cedente), quando contratado | q15,q1
+investors: Investidores profissionais | q16
+duration: Indeterminado | q12
+payroll: Cessão fiduciária do saque-aniversário com bloqueio na conta FGTS | o75
+age_limit: Devedor com no mínimo 18 anos na emissão | q5
+installment_min: n/d | Regulamento não fixa parcela mínima | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: CCBs de saque-aniversário FGTS do Banco BMG; subordinação de 10% (júnior ≥ 5%) e CCB de até 120 meses.

@@ -1,0 +1,701 @@
+{
+ "schema_version": 1,
+ "cnpj": "63505455000189",
+ "name": "IS GREEN SOLFÁCIL VII FINANCEIRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA LIM",
+ "fund_type": "Energia solar",
+ "reviewed_at": "2026-10-14T08:15:04Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1199536",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "14/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536"
+  },
+  "D2": {
+   "document_id": "1081141",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "13/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1081141"
+  },
+  "D3": {
+   "document_id": "1080151",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "03/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080151"
+  },
+  "D4": {
+   "document_id": "1077608",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "07/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077608"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Energia solar",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de financiamento de sistemas de energia solar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 113,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "fotovoltaicas, equipamentos e sistemas acessórios para a geração, armazenamento e utilização de energia solar, cuja aquisição e instalação é o objeto de financiamento por meio de CCB, sendo a instalação realizada por Integradores Solares (“Sistemas Solares”), com a adoção da Política de Originação e Concessão de Crédito constante no Anexo III do Regulamento e representados por CCBs; (iii) se o Devedor for pessoa jurídica, o Devedor deve ter sido constituído pelo menos 2 (dois) anos antes da data de emissão da CCB; (iv) o Devedor não poderá (a) estar sujeito a um Evento de Insolvência; ou (b) estar falecido; 113 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7 (v) o Direito Creditório seja livre e desembaraçado de quaisquer gravames ou ônus, disputas, pedidos de indenização ou outro questionamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Financiamento de sistemas solares, representado por CCBs.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Solfácil e instituições financeiras parceiras",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 5,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "aplicar seu framework próprio (“Framework Angá”), que será atualizado anualmente, bem como monitorar juntamente à Solfácil acerca da aderência dos requisitos e princípios estabelecidos para sua classificação como Fundo Verde. 2.2. O Fundo pode ser caracterizado como \"FIDC Verde\", conforme parecer independente (“Parecer Independente”) elaborado pelo Avaliador Independente, que comprova o alinhamento do Green Bond Framework, de setembro de 2023, da Solfácil (“Framework Solfácil”) com as regras emitidas pela International Capital Market Association (ICMA) e constantes do Green Bond Principles (GBP) versão de junho de 2022, com base em: (a) desempenho socioambiental avaliado; e (b) atendimento aos \"Green Bond Principles\". O Parecer Independente e todos os compromissos formalizados no documento serão disponibilizados na íntegra para os investidores em conjunto com os demais documentos do Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 113,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "fotovoltaicas, equipamentos e sistemas acessórios para a geração, armazenamento e utilização de energia solar, cuja aquisição e instalação é o objeto de financiamento por meio de CCB, sendo a instalação realizada por Integradores Solares (“Sistemas Solares”), com a adoção da Política de Originação e Concessão de Crédito constante no Anexo III do Regulamento e representados por CCBs; (iii) se o Devedor for pessoa jurídica, o Devedor deve ter sido constituído pelo menos 2 (dois) anos antes da data de emissão da CCB; (iv) o Devedor não poderá (a) estar sujeito a um Evento de Insolvência; ou (b) estar falecido; 113 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7 (v) o Direito Creditório seja livre e desembaraçado de quaisquer gravames ou ônus, disputas, pedidos de indenização ou outro questionamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Instituições financeiras emissoras das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 113,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "fotovoltaicas, equipamentos e sistemas acessórios para a geração, armazenamento e utilização de energia solar, cuja aquisição e instalação é o objeto de financiamento por meio de CCB, sendo a instalação realizada por Integradores Solares (“Sistemas Solares”), com a adoção da Política de Originação e Concessão de Crédito constante no Anexo III do Regulamento e representados por CCBs; (iii) se o Devedor for pessoa jurídica, o Devedor deve ter sido constituído pelo menos 2 (dois) anos antes da data de emissão da CCB; (iv) o Devedor não poderá (a) estar sujeito a um Evento de Insolvência; ou (b) estar falecido; 113 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7 (v) o Direito Creditório seja livre e desembaraçado de quaisquer gravames ou ônus, disputas, pedidos de indenização ou outro questionamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas e jurídicas que financiam sistemas solares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 113,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "fotovoltaicas, equipamentos e sistemas acessórios para a geração, armazenamento e utilização de energia solar, cuja aquisição e instalação é o objeto de financiamento por meio de CCB, sendo a instalação realizada por Integradores Solares (“Sistemas Solares”), com a adoção da Política de Originação e Concessão de Crédito constante no Anexo III do Regulamento e representados por CCBs; (iii) se o Devedor for pessoa jurídica, o Devedor deve ter sido constituído pelo menos 2 (dois) anos antes da data de emissão da CCB; (iv) o Devedor não poderá (a) estar sujeito a um Evento de Insolvência; ou (b) estar falecido; 113 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7 (v) o Direito Creditório seja livre e desembaraçado de quaisquer gravames ou ônus, disputas, pedidos de indenização ou outro questionamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas e jurídicas que financiam sistemas solares.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Desligamento remoto do sistema solar a partir do 7º dia de atraso",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 102,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "te a tal Direito Creditório Inadimplido, a partir do 7º (sétimo) dia após o vencimento da parcela da CCB, o Agente de Cobrança Extraordinária realizará o desligamento remoto dos Sistemas Solares, dentro da possibilidade do Agente de Cobrança Extraordinária, e poderá (i) caso o atraso persista até o 20º (vigésimo) dia contado do vencimento da parcela da CCB, levar o título representativo de referido Direito Creditório Inadimplido a protesto no competente cartório; (ii) caso, após 20 (vinte) dias contados do vencimento da parcela da CCB, não seja verificado o pagamento de quaisquer montantes devidos nos termos e prazos estabelecidos na respectiva CCB, entrar em contato com o respectivo Devedor para informá-lo sobre as Políticas de Renegociações e Descontos para o seu perfil; (iii) caso o atraso persista até o 30º (trigésimo) dia contado do vencimento da parcela da CCB, proceder com a negativação dos Devedores com pagamentos em aberto em serviços de proteção ao crédito; e/ou (iv) executar a respectiva Alienação Fiduciária de Equipamentos. 4."
+    }
+   ],
+   "legacy": {
+    "value": "Endosso definitivo; recompra/resolução e indenização condicionadas ao contrato de transferência.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "CCBs prefixadas em reais, adimplentes, com prazo médio limitado",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 113,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "6. Condições de Transferência e Critérios de Elegibilidade 6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta: (i) os Direitos Creditórios não podem estar relacionados às empresas prestadoras de serviços (“Integradore"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs prefixadas em reais, adimplentes; prazo médio ≤2.400 dias; original ≤126 meses; carência ≤185 dias; nominal PF R$ 350 mil/PJ R$ 700 mil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/05/2026, Anexo"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou grupo: até 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 31,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "ão de recursos da Classe Única em Direitos Creditórios e Ativos Financeiros de responsabilidade ou coobrigação de um mesmo Devedor (incluindo integrantes de seu respectivo Grupo Econômico), conforme aplicável, está limitada a 20% (vinte por cento) (ou a percentual maior, caso assim indicado no Anexo Definições Específicas da Classe) do Patrimônio Líquido da Classe Única, sem prejuízo dos Critérios de Elegibilidade e/ou das Condições de Transferência (se houver) relacionados à concentração por Devedor de Direitos Creditórios do mesmo Grupo Econômico. O limite aqui referido poderá ser aumentado quando se tratar de aplicações em: (i) títulos públicos federais; (ii) operações compromissadas lastreadas em títulos públicos federais; (iii) cotas de fundos que possuam como política de investimento a alocação exclusivo nos títulos que se referem os itens (i) e (ii); (iv) o Devedor ou coobrigado seja instituição financeira ou equiparada;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Limite nominal também agregado por devedor: PF R$ 350 mil/PJ R$ 700 mil; preço ≤104% do saldo contábil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/05/2026, Anexo"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por instituição parceira não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Limite nominal também agregado por devedor: PF R$ 350 mil/PJ R$ 700 mil; preço ≤104% do saldo contábil.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo original sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "CCBs prefixadas em reais, adimplentes; prazo médio ≤2.400 dias; original ≤126 meses; carência ≤185 dias; nominal PF R$ 350 mil/PJ R$ 700 mil.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 85,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "idade de Investimento” Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima - O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido Regulatório” a ser mantido em Direitos Creditórios. A Alocação Mínima - Entidade de Investimento e a Alocação Mínima - “Alocações Mínimas” Regulatório quando referidos em conjunto. Tem o significado que lhe é atribuído nos termos do item 10.6 do Anexo “Amortização de Principal” Descritivo e do Suplemento aplicável. A amortização extraordinária das Cotas Subordinadas Júnior, que poderá ser realizada exclusivamente nos termos previstos no Regulamento, em especial no item 11.6 do Anexo Descritivo e seus subitens."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50%/PL em DC; 67%/PL para enquadramento tributário.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/05/2026, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Mezanino B / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 118,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "1 5% Mezanino A Cotas Subordinadas 2 2,5% Mezanino B 118 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7"
+    }
+   ],
+   "legacy": {
+    "value": "Índices mínimos das subclasses: mezanino A 5%/PL; mezanino B 2,5%/PL; júnior 2%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/05/2026, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção sênior definida por índice de cobertura de 133,33%",
+   "sources": [],
+   "legacy": {
+    "value": "Índices mínimos das subclasses: mezanino A 5%/PL; mezanino B 2,5%/PL; júnior 2%/PL.",
+    "decision": "regression",
+    "why": "Resposta anterior lista apenas os índices das subclasses subordinadas"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A 5% do PL; mezanino B 2,5%; júnior 2%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 118,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "1 5% Mezanino A Cotas Subordinadas 2 2,5% Mezanino B 118 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Índices mínimos das subclasses: mezanino A 5%/PL; mezanino B 2,5%/PL; júnior 2%/PL.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "3 meses de despesas; reserva de MTM negativo limitada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 70,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "incluindo-se a Taxa de Administração, referentes aos 3 (três) meses subsequentes. 18.2. Caso aplicável, conforme especificado no Anexo Definições Específicas da Classe, observada a ordem de alocação de recursos prevista no CAPÍTULO 12 deste Anexo 70 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7 Descritivo, a Administradora também deverá manter a Reserva de MTM, por conta e or"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas futuras; reserva de MTM negativo limitada ao menor entre valor absoluto do MTM e 1% do nocional agregado.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/05/2026, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Política de provisão em anexo; faixa por atraso e renegociação exige aplicação ao contrato.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eval_triggers": {
+   "display": "Coberturas mínimas de 133,33%/111,11%/104,17%, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 120,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "“Patamar de Desalavancagem 133,33% 111,11% 104,17% 1” “Patamar de Desalavancagem 130,7% 110,0% 103,6% 2” “Patamar de Liberação de 136,0% 113,3% 106,3% Amortização Extraordinária” “Patamar de Desalavancagem de Atra"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 63,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "de voto na respectiva Assembleia de Cotistas. 15. EVENTOS DE AVALIAÇÃO 15.1. Sem prejuízo dos Eventos de Avaliação adicionais previstos no Anexo Definições Específicas da Classe, se houver, são Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Gestão em até 5 (cinco) Dias Úteis contados da Data de Envio do Relatório de Gestão; (ii) amortização de Cotas Subordinadas Júnior em desconformidade com este Anexo Descritivo e, se for o caso, com o Anexo Definições Específicas da Classe, 63 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7 exceto se os valores pagos incorretamente forem devolvidos à Classe, podendo a devolução ser realizada por meio de subscrição e integralização de novas cotas da Subclasse de Cotas Subordinadas Júnior no prazo de 3 (três) Dias Úteis contados da notificação enviada pela Administradora aos Cotistas detentores de Cotas Subordinadas Júnior;"
+    }
+   ],
+   "legacy": {
+    "value": "Cobertura sênior/A/B: 133,33%/111,11%/104,17%; atraso90 >15%; rolagem90 >1,6%; patamares adicionais por regime.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/05/2026, Anexo"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Cobertura sênior/A/B: 133,33%/111,11%/104,17%; atraso90 >15%; rolagem90 >1,6%; patamares adicionais por regime.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "Reinvestimento das receitas no período de revolvência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 115,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "6.1.1. Aquisições Durante o Período de Revolvência. Durante o Período de Revolvência, as aquisições de Direitos Creditórios ocorrerão de forma contínua e recorrente, podendo a Administradora, conforme orientação da Gestora, ajustar a frequência das Datas de Aquisição e Pagamento para assegurar o cumprimento da política de reinvestimento obrigatório. 6.2."
+    }
+   ],
+   "legacy": {
+    "value": "Reinvestimento obrigatório das receitas em ativos elegíveis durante período de revolvência; duração por série não preenchida.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Pro rata; sequencial após desalavancagem",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 51,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "forma, a realização das Amortizações de Cotas pretendidas; (b) “Valor das Cotas Subordinadas Mezanino A Target” significa o valor correspondente a 15% (quinze por cento) do Patrimônio Líquido considerando, pro forma, a realização das Amortizações de Cotas pretendidas;"
+    }
+   ],
+   "legacy": {
+    "value": "Pro rata sujeito a metas; desalavancagem aciona sequencial com prioridade sênior → mezanino A → B → júnior.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,10% a.a. do PL; mín. R$ 13 mil/mês (IPCA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 111,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "e controladora. A Taxa de Administração será de 0,10% a.a. (dez centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$ 13.000,00 (treze mil reais). (ii) Taxa Máxima de Custódia: A taxa máxima de custódia será devida pelo Fundo à Administradora pela prestação dos serviços de custódia. A Taxa de Custódia será de 0,02% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a./PL; mínimo R$ 13 mil/mês; IPCA positivo anual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 15 mil/mês (IPCA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 111,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "contratados pela Gestora. A Taxa de Gestão terá a seguinte composição: 0,20% a.a. vinte centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 15.000,00 (quinze mil reais)."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a./PL; mínimo R$ 15 mil/mês; IPCA positivo anual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 6,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "5 Docusign Envelope ID: 9C149298-C708-43B4-8F16-CDF81F8832E7 3.1. O Fundo é administrado pela GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., sociedade por ações, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, n° 228, sala 913 – Parte, Botafogo, CEP 22250-040, inscrita no CNPJ/MF sob o nº 27.652.684/0001-62, instituição financeira devidamente autorizada pela CVM através do Ato Declaratório nº 6.819, de 17 de maio de 2002, para exercer a atividade de administração de carteira de valores mobiliários. 3.2. A atividade de gestão profissional da Carteira será realizada pela ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade autorizada a administrar carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 9.837, de 14 de maio de 2008, com sede na Cidade São Paulo, Estado São Paulo, na Av. Magalhães De Castro, 4800, Torre Capital Building, 17º Andar, Cj. 174, Cidade Jardim, CEP 05676-120, inscrita no CNPJ/MF sob o nº 09.452.272/0001-05. 3.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 6,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "ara exercer a atividade de administração de carteira de valores mobiliários. 3.2. A atividade de gestão profissional da Carteira será realizada pela ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade autorizada a administrar carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 9.837, de 14 de maio de 2008, com sede na Cidade São Paulo, Estado São Paulo, na Av. Magalhães De Castro, 4800, Torre Capital Building, 17º Andar, Cj. 174, Cidade Jardim, CEP 05676-120, inscrita no CNPJ/MF sob o nº 09.452.272/0001-05. 3.3. A relação completa dos demais prestadores de serviços do Fundo está à disposição dos Cotistas no site da Administradora. 3.3.1. Os Prestadores de Serviços possuem, cada qual, atribuições e deveres próprios relacionados à prestação dos serviços para os quais foram contratados pelo Fundo e/ou pela Classe. 3.3.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo localizado",
+   "sources": []
+  },
+  "servicer": {
+   "display": "Agente de cobrança extraordinária, com desligamento remoto",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 102,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "te a tal Direito Creditório Inadimplido, a partir do 7º (sétimo) dia após o vencimento da parcela da CCB, o Agente de Cobrança Extraordinária realizará o desligamento remoto dos Sistemas Solares, dentro da possibilidade do Agente de Cobrança Extraordinária, e poderá (i) caso o atraso persista até o 20º (vigésimo) dia contado do vencimento da parcela da CCB, levar o título representativo de referido Direito Creditório Inadimplido a protesto no competente cartório; (ii) caso, após 20 (vinte) dias contados do vencimento da parcela da CCB, não seja verificado o pagamento de quaisquer montantes devidos nos termos e prazos estabelecidos na respectiva CCB, entrar em contato com o respectivo Devedor para informá-lo sobre as Políticas de Renegociações e Descontos para o seu perfil; (iii) caso o atraso persista até o 30º (trigésimo) dia contado do vencimento da parcela da CCB, proceder com a negativação dos Devedores com pagamentos em aberto em serviços de proteção ao crédito; e/ou (iv) executar a respectiva Alienação Fiduciária de Equipamentos. 4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 34,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "tura de conta de depósitos em seu nome junto ao Custodiante. 7.1.4. Somente Investidores Autorizados poderão adquirir as Cotas. 7.1.5. As Cotas terão Valor Unitário de Emissão previsto no Anexo Definições Específicas da Classe. 7.1.6. Após a respectiva 1ª Data de Integralização de Cotas (i) de cada série de Cotas Seniores ou de Cotas Subordinadas Mezanino, e (ii) das Cotas Subordinadas Júnior, as Cotas terão seu valor unitário apurado na forma do CAPÍTULO 10 deste Anexo Descritivo. 7.2. SÉRIES E SUBCLASSES DE COTAS. As Cotas Seniores e as Cotas Subordinadas Mezanino poderão ser divididas em séries com valores e prazos diferenciados para amortização, resgate e remuneração, conforme definição de seus Parâmetros de Pagamento no respectivo Suplemento, permanecendo inalterados os demais direitos e obrigações."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; prazos e remuneração de séries nos apêndices; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 4,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA é um fundo de investimento em direitos creditórios constituído sob a forma de condomínio de natureza especial e com prazo de duração indeterminado, inscrito no CNPJ/MF sob o no 63.505.455/0001-89 (“Fundo”), regido pelo presente regulamento (“Regulamento”), pela Lei nº 10.406, de 10 de janeiro de 2002 (“Código Civil”), pela Resolução do Conselho Monetário Nacional (“CMN”) nº 2.907, de 29 de novembro de 2001, pela parte geral e o Anexo Normativo II da Resolução da Comissão de Valores Mobiliários (“CVM”) nº 175, de 23 de dezembro de 2022, conforme alterada (“Resolução CVM 175”), e pelas demais disposições legais e regulamentares aplicáveis. 1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; prazos e remuneração de séries nos apêndices; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "real_collateral": {
+   "display": "Desligamento remoto dos sistemas solares em caso de atraso",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199536",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/05/2026",
+     "page": 102,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+     "excerpt": "te a tal Direito Creditório Inadimplido, a partir do 7º (sétimo) dia após o vencimento da parcela da CCB, o Agente de Cobrança Extraordinária realizará o desligamento remoto dos Sistemas Solares, dentro da possibilidade do Agente de Cobrança Extraordinária, e poderá (i) caso o atraso persista até o 20º (vigésimo) dia contado do vencimento da parcela da CCB, levar o título representativo de referido Direito Creditório Inadimplido a protesto no competente cartório; (ii) caso, após 20 (vinte) dias contados do vencimento da parcela da CCB, não seja verificado o pagamento de quaisquer montantes devidos nos termos e prazos estabelecidos na respectiva CCB, entrar em contato com o respectivo Devedor para informá-lo sobre as Políticas de Renegociações e Descontos para o seu perfil; (iii) caso o atraso persista até o 30º (trigésimo) dia contado do vencimento da parcela da CCB, proceder com a negativação dos Devedores com pagamentos em aberto em serviços de proteção ao crédito; e/ou (iv) executar a respectiva Alienação Fiduciária de Equipamentos. 4."
+    }
+   ],
+   "legacy": {
+    "value": "Equipamentos solares em alienação fiduciária; formalização e registro sujeitos às condições contratuais.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Financiamento solar via Solfácil com desligamento remoto no atraso; devedor ≤ 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

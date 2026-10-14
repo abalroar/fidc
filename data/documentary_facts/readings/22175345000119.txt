@@ -1,0 +1,51 @@
+# FIC FIDC Via Multicrédito (BTG Pactual DTVM; Wise Asset Management)
+type: FIC
+q1: * "Cotas dos Fundos-Alvo, as quais serão subscritas ou adquiridas pela Classe, no mercado primário ou secundário"
+q2: * "4.9 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá, para fins regulatórios, possuir parcela mínima de 85%"
+q3: * "mesmo FIDC, não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido da referida classe do Fundo"
+q4: * "125% (cento e vinte e cinco por cento). 3.1.1. O Índice de Subordinação Sênior será apurado todo Dia Útil pelo Administrador"
+q5: * "111,11% (cento e onze inteiros e onze por cento) 3.1.1. O Índice de Subordinação Mezanino será apurado todo Dia Útil"
+q6: * "Eventos de Avaliação: (i) inobservância pelo ADMINISTRADOR, pelo CUSTODIANTE e/ou pelo GESTOR"
+q7: * "Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação"
+q8: * "1,25% (um inteiro e vinte e cinco centésimos por cento) ao ano, apropriada diariamente"
+q9: * "Não será devido pela Classe o pagamento de Taxa de Performance"
+q10: * "BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários"
+q11: * "Wise Asset Management Ltda., sociedade devidamente autorizada pela CVM"
+q12: * "Banco BTG Pactual S.A., instituição financeira, com sede na Cidade e Estado do Rio de Janeiro"
+q13: * "prazo de duração do FUNDO que, para fins de esclarecimento, é indeterminado"
+q14: * "O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor"
+q15: * "Fundos Alvo”: são as cotas de emissão de Fundos Alvo"
+receivables: Cotas de FIDCs (fundos-alvo), com exposição indireta a direitos creditórios | q1,q15
+originator: — | FIC: originação ocorre nos fundos investidos
+assignor: — | FIC: cessões ocorrem nos fundos investidos
+debtor: — | FIC: devedores estão nos fundos investidos
+recourse: — | FIC: coobrigação definida nos fundos investidos
+eligibility: Cotas de FIDCs aderentes à política de investimento | q1
+debtor_limit: Cotas sênior de um mesmo FIDC ≤ 20% do PL | q3 | value=20
+assignor_limit: — | FIC: cessões ocorrem nos fundos investidos
+term_max: — | FIC: prazo dos créditos definido nos fundos investidos
+allocation: ≥ 85% do PL em cotas de fundos-alvo após 180 dias | q2 | value=85
+investee: Não nomeados: FIDCs que atendam à política de investimento | Regulamento não identifica os fundos-alvo
+investee_share: ≥ 85% do PL em cotas de fundos-alvo | q2 | value=85
+quota_structure: Sênior / Mezanino / Subordinada júnior | q4,q5
+sub_senior: PL/sênior ≥ 125% | q4 | basis=PL/sr | value=125
+sub_mezz: (PL)/(sênior + mezanino) ≥ 111,11% | q5 | basis=cobertura | value=none
+sub_check: Diária, pelo administrador | q4
+reserve: n/d | Reserva de caixa não fixada no regulamento
+pdd: PDD conforme Instrução CVM 489 | q14
+eval_triggers: Descumprimento de deveres por prestador, entre outros | q6
+liquidation: Saída do custodiante sem substituição, entre outros | q7
+revolving: n/d | Reinvestimento não detalhado em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Resgates e amortizações definidos nos apêndices | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Taxa global de 1,25% a.a. sobre a parcela júnior; mín. R$ 18.250/mês | q8
+mgmt_fee: Incluída na taxa global | q8
+perf_fee: Não prevista | Classe não paga taxa de performance | q9
+target_senior: n/d | Meta definida no apêndice de cada subclasse | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada subclasse | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: BTG Pactual Serviços Financeiros DTVM | q10
+manager: Wise Asset Management | q11
+custodian: Banco BTG Pactual | q12
+servicer: — | FIC: cobrança ocorre nos fundos investidos
+investors: Investidores qualificados | q12
+duration: Indeterminado | q13
+leitura: FIC de FIDCs com ≥ 85% em fundos-alvo; PL/sênior ≥ 125% e cota sênior de um FIDC ≤ 20% do PL.

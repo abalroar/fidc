@@ -1,0 +1,64 @@
+# iCred INSS III FIDC (Vert DTVM; Vert Gestora; credor original QI SCD; iCred intermediadora)
+type: Consignado público
+q1: D1 "são recebíveis vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS"
+q2: D1 "significa (a) a QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira com sede na cidade de São Paulo"
+q3: D1 "devem ser representados por CCB emitidas pelos Devedores em favor do Credor Original, mediante intermediação do Originador"
+q4: D1 "O Endossante é somente responsável pela existência e, caso previsto no respectivo Contrato de Transferência"
+q5: D1 "gera ao Fundo o direito de exigir a recompra dos Direitos Creditórios Transferidos pelo Endossante"
+q6: D1 "os Direitos Creditórios a serem transferidos não poderão estar vencidos na Data de Aquisição e Pagamento"
+q7: D1 "os Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do que 0,50%"
+q8: D1 "devem possuir no máximo 108 (cento e oito) parcelas"
+q9: D1 "a classe de cotas deve possuir parcela superior a 67% (sessenta e sete por cento) de seu patrimônio líquido representada por Direitos Creditórios"
+q10: D1 "e (ii) o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 14% (quatorze por cento) na Data de Início do Fundo"
+q11: D1 "deverá ser equivalente a, no mínimo, 4% (quatro por cento) na Data de Início do Fundo"
+q13: D1 "equivalente a 0,50% (cinquenta centésimos por cento) do Patrimônio Líquido, a qual será utilizada para as operações de Refinanciamento ou Renegociação"
+q14: D1 "a Reserva de Liquidez, conforme aplicável, a Reserva de Despesas e Encargos e a Reserva de MTM"
+q15: D1 "a provisão para devedores duvidosos não atingirá os demais créditos do mesmo Devedor"
+q16: D1 "são Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Gestão"
+q17: D1 "são Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: (i) caso seja deliberado, em Assembleia de Cotistas"
+q18: D1 "Até R$ 200.000.000,00 0,1000%"
+q19: D1 "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q20: D1 "é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q21: D1 "A gestão da carteira do Fundo é realizada pela VERT GESTORA DE RECURSOS FINANCEIROS LTDA."
+q22: D1 "serão prestados pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q23: D1 "As atividades de cobrança extraordinária dos Direitos Creditórios Inadimplidos serão exercidas pela ICRED SOLUÇÕES FINANCEIRAS S.A."
+q24: D1 "A Classe Única é destinada a Investidores Profissionais"
+q25: D1 "em regime fechado e com prazo de duração indeterminado"
+q26: D1 "o respectivo Devedor deve ter idade entre 18 (dezoito) e 76"
+q27: D1 "não deverá ser inferior a R$ 12,00 (doze reais)"
+q28: D1 "A iCred, fundos de investimento exclusivos da iCred e/ou suas Partes Relacionadas deverão, durante todo o prazo de duração do Fundo, deter, no mínimo, 100%"
+receivables: CCBs de consignado INSS, parcelas vincendas | q1
+originator: QI SCD como credor original, com intermediação da iCred | q2,q3,q23
+assignor: QI SCD e outras instituições aprovadas (endossantes) | q2
+debtor: Beneficiários do INSS de 18 a 76 anos | q1,q26
+recourse: Endossante responde pela existência; recompra em eventos contratuais | q4,q5
+eligibility: Não vencidos, em reais, devedor adimplente, até 108 parcelas | q6,q8
+debtor_limit: Por devedor: até 0,50% do PL | q7 | value=0.5
+assignor_limit: n/d | Limite por endossante não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Até 108 parcelas por CCB | q8
+allocation: > 67% do PL em direitos creditórios | q9 | value=67
+quota_structure: Sênior / Mezanino A e B / Júnior (júnior retida pela iCred) | q10,q11,q28
+sub_senior: 14% · subord./PL na largada (sobe a 15,5% ao ser atingido) | q10 | basis=mez+jr/PL | value=14
+sub_mezz: Mezanino B + júnior ≥ 4% do PL na largada | q11 | basis=jr/PL | value=4
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Liquidez de 0,50% do PL, despesas e encargos e reserva de MTM | q13,q14
+pdd: Provisão sem efeito vagão sobre outros créditos do devedor | q15
+eval_triggers: Relatório de gestão não divulgado, entre outros | q16
+liquidation: Avaliação convertida em liquidação pela assembleia, entre outros | q17
+revolving: n/d | Regra de revolvência não localizada em trecho contínuo
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Faixas a partir de 0,1000% a.a. do PL, com mínimo mensal | q18
+mgmt_fee: n/d | Taxa de gestão em tabela não lida em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+perf_fee: Não prevista | Regulamento afasta taxa de performance | q19
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Vert DTVM | q20
+manager: Vert Gestora | q21
+custodian: Vert DTVM | q22
+servicer: iCred Soluções Financeiras (cobrança extraordinária) | q23
+investors: Investidores profissionais | q24
+duration: Indeterminado | q25
+payroll: Consignação em benefício do INSS | q1
+age_limit: Devedor de 18 a 76 anos na aquisição | q26
+installment_min: Parcela mínima de R$ 12 | q27
+leitura: Consignado INSS da QI SCD via iCred; subordinação inicial de 14% e devedor ≤ 0,50% do PL.

@@ -1,0 +1,859 @@
+{
+ "schema_version": 1,
+ "cnpj": "65347578000164",
+ "name": "ICRED INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T13:08:24Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1324295",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "15/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295"
+  },
+  "D2": {
+   "document_id": "1325824",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "21/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1325824"
+  },
+  "D3": {
+   "document_id": "1325817",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "17/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1325817"
+  },
+  "D4": {
+   "document_id": "1324299",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "15/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324299"
+  },
+  "D5": {
+   "document_id": "1323741",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "18/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323741"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado INSS, parcelas vincendas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 180,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "Complementares 5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS, devidamente formalizados nos termos da legislação e regulamentação aplicável, oriundos de empréstimos Consignados conferidos pelo Credor Original aos Devedores. 5.2. Integram os Direitos Creditórios para todos os fins, mas a tanto não se limitando, todos os direitos (inclusive direitos reais de garantia), privilégios, preferências, prerrogativas, seguros e ações a eles relacionados, bem como reajustes monetários, juros e encargos. 5.3. Os Direitos Creditórios decorrem de operações de concessão de empréstimo Consignado e devem ser representados por CCB emitidas pelos Devedores em favor do Credor Original, mediante intermediação do Originador, cujo pagamento é feito por meio de Consignação. 5.4."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de empréstimos consignados INSS; parcelas vincendas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "QI SCD como credor original, com intermediação da iCred",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 211,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "item 9.8 deste Anexo Definições Específicas da Classe; (xiii) “Credor Original” significa (a) a QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, 215, 14º andar, CEP 05.425-020, inscrita no CNPJ sob o nº 32.402.502/0001-35; e (b) qualquer outra instituição financeira devidamente autorizada a atuar pelo BACEN, que tenha sido indicada pela Gestora e/ou pelo Originador, conforme o caso, e previamente aprovada pela Assembleia de Cotistas, nos termos deste Anexo Definições Específicas da Classe; (xiv) “Critérios de Elegibilidade” tem o significado que lhe é atribuído no item 6.1 deste Anexo Definições Específicas da Classe;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 180,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "5.3. Os Direitos Creditórios decorrem de operações de concessão de empréstimo Consignado e devem ser representados por CCB emitidas pelos Devedores em favor do Credor Original, mediante intermediação do Originador, cujo pagamento é feito por meio de Consignação. 5.4. Os Direitos Creditórios serão sempre adquiridos pelo Fundo, em cada Data de Aquisição e Pagamento, nos termos de cada Contrato de Transferência, mediante (i) a celebração, eletrônica, de Termo de Transferência no qual serão definidos, respectivamente, os Direitos Creditórios transferidos ao Fundo e o Preço de Aquisição correspondente; (ii) endosso em preto das CCB; e (iii) a transferência dos respectivos Direitos Creditórios, em conjunto com suas respectivas garantias, inclusive de alienações fiduciárias ou cessões fiduciárias, junto à Entidade Registradora. 5.4.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 170,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "10 de fevereiro de 2025 (“Custodiante”). 2.4. Agente de Cobrança Extraordinária. As atividades de cobrança extraordinária dos Direitos Creditórios Inadimplidos serão exercidas pela ICRED SOLUÇÕES FINANCEIRAS S.A., sociedade por ações com sede na cidade de Barueri, Estado de São Paulo, na Calçadas das Margaridas, 163, sala 02, Centro, CEP 06453-038, inscrita no CNPJ sob o nº 08.939.806/0001- 51 (“iCred” ou “Agente de Cobrança Extraordinária”), de acordo com os termos e condições do \"Contrato de Prestação de Serviços de Cobrança de Direitos Creditórios Inadimplidos, Consultoria Especializada e Outras Avenças\" a ser celebrado entre a Classe, representada pela Gestora, o Agente de Cobrança Extraordinária (atuando também na qualidade de Consultor Especializado), com interveniência anuência da Gestora e da Administradora, que regula a prestação de serviços de cobrança dos Direitos Creditórios Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E Inadimplidos, de consultoria especializada e moni"
+    }
+   ],
+   "legacy": {
+    "value": "QI SCD e demais instituições previamente aprovadas como credores originais/endossantes; iCred intermediadora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "QI SCD e outras instituições aprovadas (endossantes)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 211,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "item 9.8 deste Anexo Definições Específicas da Classe; (xiii) “Credor Original” significa (a) a QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, 215, 14º andar, CEP 05.425-020, inscrita no CNPJ sob o nº 32.402.502/0001-35; e (b) qualquer outra instituição financeira devidamente autorizada a atuar pelo BACEN, que tenha sido indicada pela Gestora e/ou pelo Originador, conforme o caso, e previamente aprovada pela Assembleia de Cotistas, nos termos deste Anexo Definições Específicas da Classe; (xiv) “Critérios de Elegibilidade” tem o significado que lhe é atribuído no item 6.1 deste Anexo Definições Específicas da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "QI SCD e demais instituições previamente aprovadas como credores originais/endossantes; iCred intermediadora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Beneficiários do INSS de 18 a 76 anos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 180,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "Complementares 5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS, devidamente formalizados nos termos da legislação e regulamentação aplicável, oriundos de empréstimos Consignados conferidos pelo Credor Original aos Devedores. 5.2. Integram os Direitos Creditórios para todos os fins, mas a tanto não se limitando, todos os direitos (inclusive direitos reais de garantia), privilégios, preferências, prerrogativas, seguros e ações a eles relacionados, bem como reajustes monetários, juros e encargos. 5.3. Os Direitos Creditórios decorrem de operações de concessão de empréstimo Consignado e devem ser representados por CCB emitidas pelos Devedores em favor do Credor Original, mediante intermediação do Originador, cujo pagamento é feito por meio de Consignação. 5.4."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 185,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "12,00 (doze reais); (2) na Data de Aquisição e Pagamento, o respectivo Devedor deve ter idade entre 18 (dezoito) e 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias (inclusive); (vii) a soma (a) da idade de cada um dos Devedores na Data de Aquisição e Pagamento dos respectivos Direitos Creditórios com (b) o prazo final, em dias corridos, do vencimento da última parcela da respectiva CCB não poderá ser superior a 80 (oitenta) anos, 11 (onze) meses e 29 (vinte e nove) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Beneficiários INSS; idade 18–76 anos 11 meses 29 dias; idade+prazo≤80 anos 11 meses 29 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 180"
+   }
+  },
+  "recourse": {
+   "display": "Endossante responde pela existência; recompra em eventos contratuais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "respondem pelo pagamento dos Direitos Creditórios Transferidos ou pela solvência dos Devedores. O Endossante é somente responsável pela existência e, caso previsto no respectivo Contrato de Transferência, pela correta formalização, certeza e legitimidade dos respectivos Direitos Creditórios Transferidos, de acordo com o previsto neste Regulamento, no respectivo Contrato de Transferência e na legislação vigente, observado o disposto no Anexo Definições Específicas da Classe. 3.16 A Administradora, a Gestora, o Custodiante, o Consultor Especializado (se houver), o Originador (se houver), os outros prestadores de serviços do Fundo, seus respectivos controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum não respondem pelo pagamento dos Direitos Creditórios Transferidos ou pela solvência dos Devedores. 3.17 Não existe, por parte do Fundo, da Administradora, da Gestora, do Consultor Especializado (se houver), do Originador (se houver), de quaisquer prestadores de serviços do Fundo ou de terceiros qualquer promessa ou garantia acerca da rentabil"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 180,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "5.4.1. O Contrato de Transferência preverá determinados eventos cuja ocorrência gera ao Fundo o direito de exigir a recompra dos Direitos Creditórios Transferidos pelo Endossante, ou de exigir a compra de tais Direitos Creditórios Transferidos pelo Credor Original ou pelo Originador, conforme o caso. 5.5. Para fins da verificação e da validação dos Critérios de Elegibilidade dos Documentos Comprobatórios e dos Documentos Complementares, considera- se que a Data de Aquisição e Pagamento será equivalente à Data de Oferta. Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E 5.6."
+    }
+   ],
+   "legacy": {
+    "value": "Recompra/compra por endossante, credor original ou originador conforme eventos do contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos, em reais, devedor adimplente, até 108 parcelas",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 184,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "quisição e Pagamento (“Critérios de Elegibilidade”): (i) os Direitos Creditórios a serem transferidos não poderão estar vencidos na Data de Aquisição e Pagamento; (ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E (iii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos; (iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do que 0,50% (cinquenta centésimos por cento) do Patrimônio Líquido;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 186,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "reitos Creditórios ofertados ao Fundo em uma determinada Data de Aquisição e Pagamento, devem possuir no máximo 108 (cento e oito) parcelas; (xiv) as CCB, correspondentes aos Direitos Creditórios ofertados ao Fundo em uma determinada Data de Aquisição e Pagamento, devem possuir, na respectiva data, uma taxa média de emissão, ponderada pelo Valor Presente Ajustado dos Direitos Creditórios, considerando pro forma a aquisição pelo Fundo, limitado à taxa-teto aplicável às operações de crédito consignado do INSS vigente na respectiva Data de Aquisição e Pagamento, conforme estabelecida por ato normativo ou deliberativo do Conselho Nacional de Previdência Social, ou órgão que o substitua, observada a obrigação da iCred de monitorar, de forma contínua, a taxa-teto aplicável às referidas operações de crédito Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-"
+    }
+   ],
+   "legacy": {
+    "value": "BRL; sem vencidos; CCB R$ 500–250 mil; parcela≥R$ 12; até 108 parcelas; idade média≤67 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 184"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: até 0,50% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 185,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "(iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do que 0,50% (cinquenta centésimos por cento) do Patrimônio Líquido; (v) o somatório do valor de face dos Direitos Creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$500,00 (quinhentos reais); (vi) o somatório do valor de face dos Direitos Creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser superior a R$ 250.000,00 (duzentos e cinquenta mil reais);"
+    }
+   ],
+   "value": 0.5,
+   "legacy": {
+    "value": "Devedor≤0,50% do PL; benefícios 87/88≤1,25%; masculino≤55% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 185"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por endossante não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor≤0,50% do PL; benefícios 87/88≤1,25%; masculino≤55% do PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Até 108 parcelas por CCB",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 186,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "reitos Creditórios ofertados ao Fundo em uma determinada Data de Aquisição e Pagamento, devem possuir no máximo 108 (cento e oito) parcelas; (xiv) as CCB, correspondentes aos Direitos Creditórios ofertados ao Fundo em uma determinada Data de Aquisição e Pagamento, devem possuir, na respectiva data, uma taxa média de emissão, ponderada pelo Valor Presente Ajustado dos Direitos Creditórios, considerando pro forma a aquisição pelo Fundo, limitado à taxa-teto aplicável às operações de crédito consignado do INSS vigente na respectiva Data de Aquisição e Pagamento, conforme estabelecida por ato normativo ou deliberativo do Conselho Nacional de Previdência Social, ou órgão que o substitua, observada a obrigação da iCred de monitorar, de forma contínua, a taxa-teto aplicável às referidas operações de crédito Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-"
+    }
+   ],
+   "legacy": {
+    "value": "BRL; sem vencidos; CCB R$ 500–250 mil; parcela≥R$ 12; até 108 parcelas; idade média≤67 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 186"
+   }
+  },
+  "allocation": {
+   "display": "> 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 99,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "co de concentração em Ativos Financeiros. Em até 180 (cento e oitenta) dias do início de suas atividades, a classe de cotas deve possuir parcela superior a 67% (sessenta e sete por cento) de seu patrimônio líquido representada por Direitos Creditórios podendo o Fundo manter até 33% (trinta e três por cento) de sua carteira aplicada em Ativos Financeiros. Alterações no cenário macroeconômico que possam comprometer a capacidade de pagamento, bem como alterações nas condições financeiras dos emissores dos Ativos Financeiros e/ou na percepção do mercado acerca de tais emissores, podem trazer impactos significativos aos preços e liquidez dos Ativos Financeiros, provocando perdas para o Fundo e para os Cotistas. Ademais, a falta de capacidade e/ou disposição de pagamento de qualquer dos emissores dos Ativos Financeiros acarretará perdas para o Fundo, podendo este, inclusive, incorrer em custos com o fim de recuperar os seus créditos."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Regulatório≥50% do PL após 180 dias; mínimo tributário próprio≥75% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 99"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A e B / Júnior (júnior retida pela iCred)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 189,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "Mezanino B e (b) das Cotas Subordinadas Mezanino A; e (ii) o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 14% (quatorze por cento) na Data de Início do Fundo. Na Data de Verificação em que o Índice de Subordinação referente à Subclasse de Cotas Subordinadas Mezanino A alcançar o valor de 15,5%(quinze inteiros e cinco décimos por Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E cento), este passará a ser o índice de Subordinação mínimo referente à Subclasse de Cotas Subordinadas Mezanino A. 2 Cotas O Índice de Subordinação referente à Subordinadas"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 190,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "Mezanino B; e (ii) o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 4% (quatro por cento) na Data de Início do Fundo. Na Data de Verificação em que o Índice de Subordinação referente à Subclasse de Cotas Subordinadas Mezanino B alcançar o valor de 5,5% (cinco inteiros e cinco décimos por cento), este passará a ser o índice de Subordinação mínimo referente à Subclasse de Cotas Subordinadas Mezanino B. 9.3. As Cotas Seniores e as Cotas Subordinadas Mezanino serão distribuídas por meio de oferta pública. 9.4. As Cotas Subordinadas Júnior serão objeto de colocação privada."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 190,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "io de oferta pública. 9.4. As Cotas Subordinadas Júnior serão objeto de colocação privada. A iCred, fundos de investimento exclusivos da iCred e/ou suas Partes Relacionadas deverão, durante todo o prazo de duração do Fundo, deter, no mínimo, 100% (cem por cento) das Cotas Subordinadas Júnior, as quais não poderão ser oneradas, alienadas ou dadas em garantia. 9.5. O Índice de Subordinação referente à Subclasse de Cotas Subordinadas Júnior, ou seja, a relação mínima entre o valor correspondente à totalidade das Cotas Subordinadas Júnior e o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 2,5% (dois e meio por cento) na Data de Início do Fundo. Na Data de Verificação em que o Índice de Subordinação referente à Subclasse de Cotas Subordinadas Júnior alcançar o valor de 4% (quatro por cento), este Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E passará a ser o Índice de Subordinação mínimo referente à Subclasse de Cotas Subordinadas Júnior. 9.6."
+    }
+   ],
+   "legacy": {
+    "value": "(A+B+júnior)/PL:14% inicial→15,5% quando atingido; (B+júnior)/PL:4%→5,5%; júnior/PL:2,5%→4%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 189"
+   }
+  },
+  "sub_senior": {
+   "display": "14% · subord./PL na largada (sobe a 15,5% ao ser atingido)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 189,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "Mezanino B e (b) das Cotas Subordinadas Mezanino A; e (ii) o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 14% (quatorze por cento) na Data de Início do Fundo. Na Data de Verificação em que o Índice de Subordinação referente à Subclasse de Cotas Subordinadas Mezanino A alcançar o valor de 15,5%(quinze inteiros e cinco décimos por Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E cento), este passará a ser o índice de Subordinação mínimo referente à Subclasse de Cotas Subordinadas Mezanino A. 2 Cotas O Índice de Subordinação referente à Subordinadas"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 14.0,
+   "legacy": {
+    "value": "(A+B+júnior)/PL:14% inicial→15,5% quando atingido; (B+júnior)/PL:4%→5,5%; júnior/PL:2,5%→4%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 189"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino B + júnior ≥ 4% do PL na largada",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 190,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "Mezanino B; e (ii) o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 4% (quatro por cento) na Data de Início do Fundo. Na Data de Verificação em que o Índice de Subordinação referente à Subclasse de Cotas Subordinadas Mezanino B alcançar o valor de 5,5% (cinco inteiros e cinco décimos por cento), este passará a ser o índice de Subordinação mínimo referente à Subclasse de Cotas Subordinadas Mezanino B. 9.3. As Cotas Seniores e as Cotas Subordinadas Mezanino serão distribuídas por meio de oferta pública. 9.4. As Cotas Subordinadas Júnior serão objeto de colocação privada."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 4.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "(A+B+júnior)/PL:14% inicial→15,5% quando atingido; (B+júnior)/PL:4%→5,5%; júnior/PL:2,5%→4%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Liquidez de 0,50% do PL, despesas e encargos e reserva de MTM",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 92,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "scritivo, a Gestora também deverá manter a Reserva de Liquidez, por conta e ordem do Fundo, equivalente a 0,50% (cinquenta centésimos por cento) do Patrimônio Líquido, a qual será utilizada para as operações de Refinanciamento ou Renegociação, nos termos do Anexo Definições Específicas da Classe. 17.3 Caso aplicável, conforme especificado no Anexo Definições Específicas da Classe, observada a ordem de alocação de recursos prevista no CAPÍTULO 11 deste Anexo Descritivo, a Gestora também deverá manter a Reserva de MTM, por conta e ordem do Fundo, equivalente ao valor a ser determinado mensalmente pela Gestora, sendo certo que: (i) caso o MTM Global das Operações de Derivativos referente ao fechamento do mês imediatamente anterior seja negativo para o Fundo (em caso de reversão das Operações de Derivativos o Fundo teria valores a pagar à Contraparte de Derivativos Autorizada), a Reserva de MTM corresponderá ao menor valor entre a (a) 2% (dois por cento) do Patrimônio Líquido;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 52,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "(iv) monitorar, nos termos previstos no Regulamento e neste Anexo Descritivo, a Reserva de Liquidez, conforme aplicável, a Reserva de Despesas e Encargos e a Reserva de MTM, conforme aplicável, e apurar, nos termos do CAPÍTULO 17 deste Anexo Descritivo e, se for o caso, do Anexo Definições Específicas da Classe, os valores a serem alocados para pagamento de despesas e encargos de responsabilidade do Fundo e da Classe Única e constituição ou recomposição da Reserva de Despesas e Encargos, da Reserva de Liquidez, conforme aplicável, e da Reserva de MTM, conforme aplicável; (v) calcular e monitorar, nos termos previstos neste Regulamento, os patamares exigidos com relação aos parâmetros abaixo: (a) Índice de Subordinação; (b) Alocações Mínimas; (c) Índice de Cobertura;"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de encargos; liquidez 0,50% do PL para refinanciamento/renegociação; reserva MTM aplicável",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 92"
+   }
+  },
+  "pdd": {
+   "display": "Provisão sem efeito vagão sobre outros créditos do devedor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 80,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": ") suportadas única e exclusivamente pelo Fundo e (b) reconhecidas no resultado do período e (ii) a provisão para devedores duvidosos não atingirá os demais créditos do mesmo Devedor, não ocorrendo o chamado “efeito vagão”, conforme Anexo VIII. 12.7 O Manual de Precificação e Provisionamento do Custodiante poderá ser consultado em sua página na rede mundial de computadores no endereço: https://www.vert-capital.com/compliance. CAPÍTULO 13 – ASSEMBLEIA DE COTISTAS 13.1 Sem prejuízo de outros requisitos e informações previstos na regulamentação vigente, são aplicáveis às Assembleias de Cotistas as disposições procedimentais previstas no CAPÍTULO 5 da parte geral do Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "Tabela atraso 0–30/31–60/61–90/91–120/>120:0%/20%/50%/80%/100%; validar glosa e política completa",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 80"
+   }
+  },
+  "eval_triggers": {
+   "display": "Relatório de gestão não divulgado, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 82,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "juízo dos Eventos de Avaliação adicionais previstos no Anexo Definições Específicas da Classe, se houver, são Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Gestão em até 5 (cinco) Dias Úteis contados da Data de Envio do Relatório de Gestão; (ii) amortização de Cotas Subordinadas Júnior em desconformidade com este Anexo Descritivo e, se for o caso, com o Anexo Definições Específicas da Classe, exceto se os valores pagos incorretamente sejam devolvidos à Classe, podendo a devolução ser realizada por meio de subscrição e integralização de novas Cotas Subordinadas Júnior no prazo de 3 (três) Dias Úteis contados da notificação Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E enviada pela Administradora aos Cotistas detentores de Cotas Subordinadas Júnior;"
+    }
+   ],
+   "legacy": {
+    "value": "Patamares de desalavancagem 1,00/0,98; perdas 5%; realavancagem 4%; liberação amortização 1,02, segundo índices próprios",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 82"
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida em liquidação pela assembleia, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 86,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "uízo dos Eventos de Liquidação adicionais previstos no Anexo Definições Específicas da Classe, se houver, são Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: (i) caso seja deliberado, em Assembleia de Cotistas, nos termos da Resolução CVM 175; (ii) nos casos em que houver determinação da CVM, nos termos da Resolução CVM 175; (iii) caso, na hipótese de interrupção, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, pela Gestora ou pelo Custodiante ou na hipótese de renúncia da Administradora, da Gestora e/ou do Custodiante, em 180 (cento e oitenta) dias contados da realização da Assembleia de Cotistas para a deliberação a respeito da substituição do prestador de serviço, observados os procedimentos descritos no Regulamento e neste Anexo Descritivo, ou, nos prazos estabelecidos em tais documentos, o substituto escolhido não assuma efetivamente as funções da Administradora, da Gestora ou do Custodiante, conforme o caso;"
+    }
+   ],
+   "legacy": {
+    "value": "Patamares de desalavancagem 1,00/0,98; perdas 5%; realavancagem 4%; liberação amortização 1,02, segundo índices próprios",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 86"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regra de revolvência não localizada em trecho contínuo",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Calendário fechado não identificado; anúncio traz cronograma da oferta, sem parâmetros completos de pagamento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Faixas a partir de 0,1000% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 175,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "Patrimônio Líquido Percentual (% a.a.) Até R$ 200.000.000,00 0,1000% De R$ 200.000.000,01 0,0500% a R$ 500.000.000,00 De R$ 500.000.000,01 0,0425% a R$ 800.000.000,00 Acima de R$ 800.000.000,00 0,0325% (b) para a participação e a implementação das decisões tomadas em reunião formal ou na Assembleia de Cotistas, o Fundo pagará à Administradora uma remuneração adicional equivalente a R$ 770,00 (setecentos e setenta reais) por hora- homem de trabalho dedicada a tais atividades, a ser paga em"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas a.a. sobre PL:0,1000%/0,0500%/0,0425%/0,0325%, cortesR$ 200/500/800 mi; mínimoR$ 12,5 mil/mês; IGP-M",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 175"
+   }
+  },
+  "mgmt_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de gestão em tabela não lida em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Mesmas faixas a.a.0,1000%/0,0500%/0,0425%/0,0325%; mínimoR$ 12,5 mil/mês; IGP-M",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento afasta taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 179,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "termos da regulamentação aplicável. 3.5. Taxa de Ingresso ou Saída. Taxa de Performance. Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas. 4. Comitê de Investimentos. 4.1. A Classe Única não contará com um comitê de investimentos. Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E 5. Direitos Creditórios, Documentos Comprobatórios e Documentos Complementares 5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS, devidamente formalizados nos termos da legislação e regulamentação aplicável, oriundos de empréstimos Consignados conferidos pelo Credor Original aos Devedores. 5.2."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "CAPÍTULO 2 – DOS PRESTADORES DE SERVIÇOS DO FUNDO 2.1 Administração. O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, n.º 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, conforme Ato Declaratório CVM nº 21.369 de 20 de outubro de 2023 (“Administradora”). 2.1.1 A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo. 2.1.2 Incluem-se entre as obrigações da Administradora aquelas dispostas nos artigos 82 e 83, conforme aplicáveis, 104 e 106 da parte geral da Resolução CVM 175 e nos artigos 30 e"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Vert Gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "movimentação da documentação relativa aos Direitos Creditórios. 2.2 Gestão. A gestão da carteira do Fundo é realizada pela VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade limitada com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2365, 11º andar, CEP 05407- 003, inscrita no CNPJ sob o nº 31.636.333/0001-35, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria gestor de recursos, por meio do Ato Declaratório CVM nº 17.249, de 11 de julho de 2019 (“Gestora”). Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E 2.2.1 A Gestora, observadas as limitações previstas neste Regulamento, na lei e na regulamentação aplicável, tem poderes para praticar os atos necessários à gestão da carteira do Fundo. 2.2.2 Incluem-se entre as obrigações da Gestora, aquelas dispostas nos artigos 84, 85, conforme aplicáveis, 105 e 106 da parte geral da Resolução CVM 175, bem como no p"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 170,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "2.3. Custodiante. Os serviços descritos no item 7.3 e subitens do Anexo Descritivo serão prestados pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, n.º 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 48.967.968/0001- 18, devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, conforme Ato Declaratório CVM nº 23.049 de 10 de fevereiro de 2025 (“Custodiante”). 2.4. Agente de Cobrança Extraordinária."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "iCred Soluções Financeiras (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 170,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "10 de fevereiro de 2025 (“Custodiante”). 2.4. Agente de Cobrança Extraordinária. As atividades de cobrança extraordinária dos Direitos Creditórios Inadimplidos serão exercidas pela ICRED SOLUÇÕES FINANCEIRAS S.A., sociedade por ações com sede na cidade de Barueri, Estado de São Paulo, na Calçadas das Margaridas, 163, sala 02, Centro, CEP 06453-038, inscrita no CNPJ sob o nº 08.939.806/0001- 51 (“iCred” ou “Agente de Cobrança Extraordinária”), de acordo com os termos e condições do \"Contrato de Prestação de Serviços de Cobrança de Direitos Creditórios Inadimplidos, Consultoria Especializada e Outras Avenças\" a ser celebrado entre a Classe, representada pela Gestora, o Agente de Cobrança Extraordinária (atuando também na qualidade de Consultor Especializado), com interveniência anuência da Gestora e da Administradora, que regula a prestação de serviços de cobrança dos Direitos Creditórios Docusign Envelope ID: C8CC6D79-7313-8423-82BE-7957874BF9AB 39FF7BC8-E6AF-8C4C-80AA-0F395745798E Inadimplidos, de consultoria especializada e moni"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 167,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "34 do Anexo Complementar V das Regras e Procedimentos ANBIMA. 1.2. Público-Alvo. A Classe Única é destinada a Investidores Profissionais, que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceitem os riscos associados aos investimentos da Classe Única. 1.3. Investidores Autorizados. Somente Investidores Autorizados que sejam Investidores Profissionais poderão adquirir as Cotas. 1.4. Prazo de Duração. A Classe Única terá prazo de duração indeterminado. 1.5. Exercício Social. O exercício social da Classe Única tem duração de 1 (um) ano e encerra-se em 31 de março de cada ano. 1.6. Valor Unitário de Emissão. As Cotas terão Valor Unitário de Emissão de R$ 1.000,00 (mil reais). 2. Prestadores de Serviços 2.1. Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "fundo de investimento em direitos creditórios constituído sob a forma de condomínio de natureza especial, em regime fechado e com prazo de duração indeterminado (“Fundo”), regido pelo presente Regulamento, pela Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada (“Código Civil”), pela Resolução do Conselho Monetário Nacional (“CMN”) nº 2.907, de 29 de novembro de 2001, pela parte geral e pelo Anexo Normativo II da Resolução da Comissão de Valores Mobiliários (“CVM”) nº 175, de 23 de dezembro de 2022, conforme alterada, em especial por seu Anexo Normativo II (“Resolução CVM 175” e “Anexo Normativo II”, respectivamente) e pelas demais disposições legais e regulamentares aplicáveis. 1.2 O Fundo possui uma única classe de cotas, a qual possui subclasses, na forma do §3º, do artigo 5º, da parte geral da Resolução CVM 175 e conforme disposto no Anexo Descritivo que compõe o Anexo I a este Regulamento, observadas ainda as disposições específicas previstas no Anexo Definições Específicas da Classe que compõe o Anexo VI a este Regulamento, sendo vedada a afetação ou a vin"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Consignação em benefício do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 180,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "Complementares 5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS, devidamente formalizados nos termos da legislação e regulamentação aplicável, oriundos de empréstimos Consignados conferidos pelo Credor Original aos Devedores. 5.2. Integram os Direitos Creditórios para todos os fins, mas a tanto não se limitando, todos os direitos (inclusive direitos reais de garantia), privilégios, preferências, prerrogativas, seguros e ações a eles relacionados, bem como reajustes monetários, juros e encargos. 5.3. Os Direitos Creditórios decorrem de operações de concessão de empréstimo Consignado e devem ser representados por CCB emitidas pelos Devedores em favor do Credor Original, mediante intermediação do Originador, cujo pagamento é feito por meio de Consignação. 5.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "Devedor de 18 a 76 anos na aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 185,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "12,00 (doze reais); (2) na Data de Aquisição e Pagamento, o respectivo Devedor deve ter idade entre 18 (dezoito) e 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias (inclusive); (vii) a soma (a) da idade de cada um dos Devedores na Data de Aquisição e Pagamento dos respectivos Direitos Creditórios com (b) o prazo final, em dias corridos, do vencimento da última parcela da respectiva CCB não poderá ser superior a 80 (oitenta) anos, 11 (onze) meses e 29 (vinte e nove) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "BRL; sem vencidos; CCB R$ 500–250 mil; parcela≥R$ 12; até 108 parcelas; idade média≤67 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 185"
+   }
+  },
+  "installment_min": {
+   "display": "Parcela mínima de R$ 12",
+   "status": "confirmed",
+   "unit": "brl",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324295",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/09/2026",
+     "page": 185,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+     "excerpt": "s Creditórios ofertados ao Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 12,00 (doze reais); (2) na Data de Aquisição e Pagamento, o respectivo Devedor deve ter idade entre 18 (dezoito) e 76 (setenta e seis) anos, 11 (onze) meses e 29 (vinte e nove) dias (inclusive); (vii) a soma (a) da idade de cada um dos Devedores na Data de Aquisição e Pagamento dos respectivos Direitos Creditórios com (b) o prazo final, em dias corridos, do vencimento da última parcela da respectiva CCB não poderá ser superior a 80 (oitenta) anos, 11 (onze) meses e 29 (vinte e nove) dias;"
+    }
+   ],
+   "value": 12.0,
+   "legacy": {
+    "value": "BRL; sem vencidos; CCB R$ 500–250 mil; parcela≥R$ 12; até 108 parcelas; idade média≤67 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/09/2026, p. 185"
+   }
+  }
+ },
+ "leitura": "Consignado INSS da QI SCD via iCred; subordinação inicial de 14% e devedor ≤ 0,50% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

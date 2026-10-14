@@ -1,0 +1,51 @@
+# FIDC Agibank II (Oliveira Trust; Oliveira Trust Servicer; endossante Banco Agibank)
+type: Consignado público
+q1: * "BANCO AGIBANK S"
+q2: * "Devedores é viabilizado pelo Convênio celebrado entre o Endossante e o INSS"
+q3: * "por Devedores, representados por CCBs emitidas em favor do Endossante ou de um Credor Original e cujo pagamento seja feito por meio de Consignação"
+q4: * "Subordinação mínimo 15% (quinze por cento), conforme previsto no item 8.4.3 abaixo Índice de Perdas Over90 máximo 3,5%"
+q5: * "São Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Monitoramento em até 10 (dez) Dias Úteis"
+q6: * "São Eventos de Liquidação quaisquer das seguintes ocorrências: (i) caso seja deliberado"
+q7: * "Taxa de Administração, Custódia e Controladoria do Fundo, o valor correspondente a 0,098% (noventa e oito milésimos por cento) ao ano"
+q8: * "Taxa de Gestão: A título de Taxa de Gestão do Fundo, o valor correspondente a 0,033%"
+q9: * "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q10: * "OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q11: * "OLIVEIRA TRUST SERVICER S.A."
+q12: * "destinada exclusivamente a Investidores Profissionais que busquem rentabilidade"
+q13: * "prazo de duração indeterminado"
+q14: * "revolvente, observado o disposto no CAPÍTULO 13 deste Anexo Descritivo. 3.6 A cada aquisição de Direitos Creditórios"
+receivables: CCBs de consignado INSS endossadas pelo Banco Agibank | q3
+originator: Banco Agibank (endossante) | q1
+assignor: Banco Agibank, por endosso das CCBs | q1,q3
+debtor: Beneficiários do INSS, de 18 a 79 anos na emissão | o10
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de endosso | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Até 108 parcelas; margem averbada e limites de idade média | o17
+debtor_limit: Saldo por devedor até R$ 150 mil, com limites por faixa etária | o20 | value=none
+assignor_limit: — | Endossante único: Banco Agibank
+term_max: Até 108 parcelas | o17
+allocation: n/d | Alocação mínima sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Subordinada (retida pelo grupo Agibank) | o30
+sub_senior: 15% · subord./PL | q4 | basis=jr/PL | value=15
+sub_mezz: — | Sem cota mezanino descrita
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: 3 meses de encargos; remuneração retida antes do pagamento | o40
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Perdas over 90 > 3,5%; relatório não divulgado em 10 dias úteis, entre outros | q4,q5
+liquidation: Deliberação da assembleia ou determinação da CVM, entre outros | q6
+revolving: Carteira revolvente, conforme o anexo descritivo | q14
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,098% a.a. até R$ 500 mi de PL, regressiva; com mínimo mensal | q7
+mgmt_fee: 0,033% a.a. até R$ 500 mi de PL, regressiva | q8
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q10
+manager: Oliveira Trust Servicer | q11
+custodian: Oliveira Trust DTVM | q10
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | q12
+duration: Indeterminado | q13
+payroll: Consignação INSS via convênio do Agibank e Dataprev | q2
+age_limit: Idade de 18 a 79 anos na emissão da CCB | o10
+installment_min: n/d | Regulamento fixa valor presente mínimo, sem parcela mínima localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Consignado INSS do Banco Agibank; subordinação de 15% retida pelo grupo e CCB de até 108 parcelas.

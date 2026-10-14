@@ -1,0 +1,642 @@
+{
+ "schema_version": 1,
+ "cnpj": "22175345000119",
+ "name": "FI EM COTAS DE FI EM DIREITOS CREDITÓRIOS VIA MULTICRÉDITO RESPONSABILIDADE LIMITADA",
+ "fund_type": "FIC",
+ "reviewed_at": "2026-10-14T07:51:03Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1199304",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "19/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FIC",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Cotas de FIDCs (fundos-alvo), com exposição indireta a direitos creditórios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 10,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "MPOSIÇÃO DA CARTEIRA Características dos Direitos Creditórios 4.1 Os Direitos Creditórios serão representados por Cotas dos Fundos-Alvo, as quais serão subscritas ou adquiridas pela Classe, no mercado primário ou secundário, em caráter definitivo, sempre de acordo com a Política de Investimentos. 4.1.1 É vedada a aquisição, pela Classe, de Cotas dos Fundos-Alvo emitidas por Fundos-Alvo cuja política de investimentos admita a aquisição de direitos creditórios não-padronizados, conforme definidos no artigo 2º, XIII, do Anexo Normativo II à Resolução CVM 175, observada a possibilidade de exposição indireta permitida, conforme disposto neste Regulamento. 4.1.2 Os Fundos-Alvo possuem ampla política de investimentos e natureza variada de direitos creditórios passíveis de aquisição, razão pela qual não é possível precisar os processos de origem dos Direitos Creditórios. 4.2 A subscrição ou a aquisição das Cotas dos Fundos-Alvo observará os procedimentos (i) da B3 ou de outra entidade autorizada à prestação dos serviços de depósito centralizado de valores mobiliários pela CVM, na qual as Cotas dos Fundos-Alvo venham a ser depositadas;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 37,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "Seniores, as Cotas Mezanino e as Cotas Subordinadas Júnior, quando referidas em conjunto e indistintamente; “Cotas de Fundos Alvo”: são as cotas de emissão de Fundos Alvo; “Cotistas Dissidentes”: os Cotistas dissidentes da decisão assemblear pela interrupção dos procedimentos de liquidação antecipada do FUNDO ou da Classe, conforme aplicável, que solicitem o resgate de suas respectivas Cotas, nos termos do item 10.4.1 deste Anexo; “Cotistas”: os titulares das Cotas, sendo que a condição de Cotista caracteriza-se pela abertura, pelo Agente Escriturador, de conta de depósito em nome do Cotista; “CPF”: Cadastro de Pessoas Físicas do Ministério da Fazenda; “Critérios de Elegibilidade”: os critérios de elegibilidade descritos no item 4.6 deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "FIC: cotas de fundos-alvo FIDC; exposição indireta aos direitos creditórios",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIC: originação ocorre nos fundos investidos",
+   "sources": []
+  },
+  "assignor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIC: cessões ocorrem nos fundos investidos",
+   "sources": []
+  },
+  "debtor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: devedores estão nos fundos investidos",
+   "sources": []
+  },
+  "recourse": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: coobrigação definida nos fundos investidos",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Cotas de FIDCs aderentes à política de investimento",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 10,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "MPOSIÇÃO DA CARTEIRA Características dos Direitos Creditórios 4.1 Os Direitos Creditórios serão representados por Cotas dos Fundos-Alvo, as quais serão subscritas ou adquiridas pela Classe, no mercado primário ou secundário, em caráter definitivo, sempre de acordo com a Política de Investimentos. 4.1.1 É vedada a aquisição, pela Classe, de Cotas dos Fundos-Alvo emitidas por Fundos-Alvo cuja política de investimentos admita a aquisição de direitos creditórios não-padronizados, conforme definidos no artigo 2º, XIII, do Anexo Normativo II à Resolução CVM 175, observada a possibilidade de exposição indireta permitida, conforme disposto neste Regulamento. 4.1.2 Os Fundos-Alvo possuem ampla política de investimentos e natureza variada de direitos creditórios passíveis de aquisição, razão pela qual não é possível precisar os processos de origem dos Direitos Creditórios. 4.2 A subscrição ou a aquisição das Cotas dos Fundos-Alvo observará os procedimentos (i) da B3 ou de outra entidade autorizada à prestação dos serviços de depósito centralizado de valores mobiliários pela CVM, na qual as Cotas dos Fundos-Alvo venham a ser depositadas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Cotas sênior de um mesmo FIDC ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 12,
+     "clause": "cl. 4.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "(“Limites de Concentração”): (i) os ativos alocados em cotas de subclasse sênior, de um mesmo FIDC, não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido da referida classe do Fundo; (ii) o total de ativos alocados em quotas subordinadas mezanino e/ou júnior nos FIDCs investidos deverão representar no máximo o somatório do valor do Patrimônio Líquido de quotas subordinadas mezanino e quotas subordinadas júnior do Fundo, ou seja, os recursos integralizados em quotas seniores no Fundo deverão ser utilizados para aplicar em quotas seniores dos FIDCs ou em Ativos Financeiros;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Cotas sênior de um FIDC ≤20% PL; subordinadas limitadas ao PL subordinado do FIC",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "FIC: cessões ocorrem nos fundos investidos",
+   "sources": [],
+   "legacy": {
+    "value": "Cotas sênior de um FIDC ≤20% PL; subordinadas limitadas ao PL subordinado do FIC",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: prazo dos créditos definido nos fundos investidos",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 85% do PL em cotas de fundos-alvo após 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 12,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "ariamente alocada em Ativos Financeiros de Liquidez. Limites de Concentração e Vedações para a Composição da Carteira 4.9 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá, para fins regulatórios, possuir parcela mínima de 85% (oitenta e cinco por cento) de seu patrimônio líquido representados por Cotas de Fundos Alvo conforme Anexo II da Resolução CVM 175. 4.10 As aplicações da Classe em Cotas de Fundos Alvo podem representar até 100% (cem por cento) do Patrimônio Líquido do Fundo, devendo respeitar os limites de concentração abaixo (“Limites de Concentração”): (i) os ativos alocados em cotas de subclasse sênior, de um mesmo FIDC, não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido da referida classe do Fundo;"
+    }
+   ],
+   "value": 85.0,
+   "legacy": {
+    "value": "Cotas de fundos-alvo ≥85% PL após180 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 43,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "pós a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 125% (cento e vinte e cinco por cento). 3.1.1. O Índice de Subordinação Sênior será apurado todo Dia Útil pelo Administrador. Verificado Excesso de Subordinação, desde que assim seja deliberado por maioria dos votos de seus titulares, as Cotas Subordinadas de cada Subclasse poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores – desde que: (i) seja observada a ordem de alocação de recursos definida no item 7.1 acima Anexo; (ii) não existam Obrigações da Classe vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação; (iv) existam suficientes Ativos Financeiros e/ou recursos disponíveis; e (vii) permaneçam atendidas todos os Índices de Subordinação. 3.1.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 44,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "ª Integralização de Cotas Subordinadas Mezanino, o Índice de Subordinação Mezanino deverá ser igual ou superior a 111,11% (cento e onze inteiros e onze por cento) 3.1.1. O Índice de Subordinação Mezanino será apurado todo Dia Útil pelo Administrador. 3.1.2. Verificado Excesso de Subordinação, desde que assim seja deliberado por maioria dos votos de seus titulares, as Cotas Subordinadas Júnior poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores e das Cotas Subordinadas Mezanino – desde que: (i) seja observada a ordem de alocação de recursos definida no item 7.1 acima Anexo; (ii) não existam BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 44 Anexo I ao Regulamento CLASSE ÚNICA DO FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS VIA MULTICRÉDITO RESPONSABILIDADE LIMITADA CNPJ nº 22.175.345/0001-19 Obrigações da Classe vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação;"
+    }
+   ],
+   "legacy": {
+    "value": "Razão sênior ≥125%; mezanino ≥111,11%; validar definição contratual do numerador",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/05/2026, cl. 3.1"
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 125%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 43,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "pós a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 125% (cento e vinte e cinco por cento). 3.1.1. O Índice de Subordinação Sênior será apurado todo Dia Útil pelo Administrador. Verificado Excesso de Subordinação, desde que assim seja deliberado por maioria dos votos de seus titulares, as Cotas Subordinadas de cada Subclasse poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores – desde que: (i) seja observada a ordem de alocação de recursos definida no item 7.1 acima Anexo; (ii) não existam Obrigações da Classe vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação; (iv) existam suficientes Ativos Financeiros e/ou recursos disponíveis; e (vii) permaneçam atendidas todos os Índices de Subordinação. 3.1.2."
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 125.0,
+   "legacy": {
+    "value": "Razão sênior ≥125%; mezanino ≥111,11%; validar definição contratual do numerador",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/05/2026, cl. 3.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "(PL)/(sênior + mezanino) ≥ 111,11%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 44,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "ª Integralização de Cotas Subordinadas Mezanino, o Índice de Subordinação Mezanino deverá ser igual ou superior a 111,11% (cento e onze inteiros e onze por cento) 3.1.1. O Índice de Subordinação Mezanino será apurado todo Dia Útil pelo Administrador. 3.1.2. Verificado Excesso de Subordinação, desde que assim seja deliberado por maioria dos votos de seus titulares, as Cotas Subordinadas Júnior poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores e das Cotas Subordinadas Mezanino – desde que: (i) seja observada a ordem de alocação de recursos definida no item 7.1 acima Anexo; (ii) não existam BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 44 Anexo I ao Regulamento CLASSE ÚNICA DO FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS VIA MULTICRÉDITO RESPONSABILIDADE LIMITADA CNPJ nº 22.175.345/0001-19 Obrigações da Classe vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação;"
+    }
+   ],
+   "basis": "cobertura",
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pelo administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 43,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "pós a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 125% (cento e vinte e cinco por cento). 3.1.1. O Índice de Subordinação Sênior será apurado todo Dia Útil pelo Administrador. Verificado Excesso de Subordinação, desde que assim seja deliberado por maioria dos votos de seus titulares, as Cotas Subordinadas de cada Subclasse poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores – desde que: (i) seja observada a ordem de alocação de recursos definida no item 7.1 acima Anexo; (ii) não existam Obrigações da Classe vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação; (iv) existam suficientes Ativos Financeiros e/ou recursos disponíveis; e (vii) permaneçam atendidas todos os Índices de Subordinação. 3.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Razão sênior ≥125%; mezanino ≥111,11%; validar definição contratual do numerador",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/05/2026, cl. 3.1"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa não fixada no regulamento",
+   "sources": []
+  },
+  "pdd": {
+   "display": "PDD conforme Instrução CVM 489",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 18,
+     "clause": "cl. 8.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "os Financeiros de Liquidez será reduzido pelo valor da provisão efetuada ou perda reconhecida. 8.2.1 O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Art. 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do ADMINISTRADOR ou, ainda, no manual do CUSTODIANTE. CAPÍTULO 9 – ASSEMBLEIA ESPECIAL DE COTISTAS 9.1 A Assembleia Especial de Cotistas desta Classe, se aplicável, é responsável por deliberar sobre as matérias específicas da referida Classe, na forma da Resolução CVM 175 e alterações posteriores. 9.1.1 Exceto se disposto de forma contrária, aplicam-se às Assembleias Especiais as disposições previstas na Parte Geral quanto à Assembleia Geral de Cotistas. 9.1.2 Os Cotistas que tenham sido chamados a integralizar as Cotas subscritas e que estejam inadimplentes na data da convocação da assembleia não têm direito a voto sobre a respectiva parcela subscrita e não integralizada. 9.1.3 O Cotista deve exercer o direito de voto no i"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Descumprimento de deveres por prestador, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 21,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "IDAÇÃO, E PROCEDIMENTOS DE LIQUIDAÇÃO ANTECIPADA Eventos de Avaliação 10.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) inobservância pelo ADMINISTRADOR, pelo CUSTODIANTE e/ou pelo GESTOR de seus deveres e obrigações previstos neste Regulamento, bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento da Classe, verificada pelo ADMINISTRADOR, pelo CUSTODIANTE e/ou pelo GESTOR ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o ADMINISTRADOR, o CUSTODIANTE e/ou o GESTOR, conforme o caso, não o sane no prazo de 10 (dez) Dias Úteis contados do recebimento da referida notificação; (ii) requerimento de recuperação judicial ou extrajudicial, decretação de falência, intervenção, liquidação extrajudicial, dissolução judicial ou extrajudicial ou regime de administração temporária do ADMINISTRADOR, GESTOR ou CUSTODIANTE;"
+    }
+   ],
+   "legacy": {
+    "value": "Falhas de prestadores; PL <R$ 1 mi após90 dias por90 dias; falta de cura da razão mínima",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/05/2026, cl. 10.1"
+   }
+  },
+  "liquidation": {
+   "display": "Saída do custodiante sem substituição, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 22,
+     "clause": "cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "% (noventa por cento) de seu Patrimônio Líquido. Eventos de Liquidação 10.3 As seguintes hipóteses são consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) na hipótese de resilição do Contrato de Custódia ou renúncia do CUSTODIANTE, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (iii) renúncia do ADMINISTRADOR ou GESTOR sem que a Assembleia Especial de Cotistas eficazmente nomeie instituição habilitada para substituí-lo, nos termos estabelecidos neste Regulamento; (iv) se o ADMINISTRADOR, o GESTOR ou o CUSTODIANTE perderem a qualificação técnica que as habilita a prestar os serviços objeto deste Regulamento; (v) por determinação da CVM, em caso de violação de normas legais ou regulamentares; (vi) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada para tal fim; (vii) intervenção ou liquidação extrajudicial do CUSTODIANTE, ADMINISTRADOR, ou GESTOR, sem a sua efetiva substituição nos termos deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Falhas de prestadores; PL <R$ 1 mi após90 dias por90 dias; falta de cura da razão mínima",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/05/2026, cl. 10.3"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reinvestimento não detalhado em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Reinvestimento em cotas de FIDC ou amortização a critério do gestor",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Resgates e amortizações definidos nos apêndices",
+   "sources": [],
+   "legacy": {
+    "value": "Apêndices: sem carência; resgate sênior/mezanino a partir do91ºdia após pedido",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Taxa global de 1,25% a.a. sobre a parcela júnior; mín. R$ 18.250/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 26,
+     "clause": "cl. 11.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "12 – TAXAS DE ADMINISTRAÇÃO, GESTÃO MÁXIMA DE DISTRIBUIÇÃO E MÁXIMA DE CUSTÓDIA 1,25% (um inteiro e vinte e cinco centésimos por cento) ao ano, apropriada diariamente na base de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se refere, incidente sobre a parcela do Patrimônio Líquido da Classe Taxa Global correspondente a Subclasse Subordinada Junior, observada remuneração mínima mensal de R$ 18.250,00 (dezoito mil e quinhentos e cinquenta reais), a ser corrigida anualmente, em janeiro de cada ano, pela variação positiva do IGP-M ou por índice distinto de correção monetária, desde que o valor seja inferior à correção pelo IGP-M.. Para consultar as taxas segregadas dos prestadores de serviço, acesse a Plataforma de Transparência de Taxas no endereço www.data.anbima.com/busca/transparencia-de-taxas-de-fundos. Taxa de Performance Não será devido pela Classe o pagamento de Taxa de Performance. BTG Pactual"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa global",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 26,
+     "clause": "cl. 11.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "12 – TAXAS DE ADMINISTRAÇÃO, GESTÃO MÁXIMA DE DISTRIBUIÇÃO E MÁXIMA DE CUSTÓDIA 1,25% (um inteiro e vinte e cinco centésimos por cento) ao ano, apropriada diariamente na base de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se refere, incidente sobre a parcela do Patrimônio Líquido da Classe Taxa Global correspondente a Subclasse Subordinada Junior, observada remuneração mínima mensal de R$ 18.250,00 (dezoito mil e quinhentos e cinquenta reais), a ser corrigida anualmente, em janeiro de cada ano, pela variação positiva do IGP-M ou por índice distinto de correção monetária, desde que o valor seja inferior à correção pelo IGP-M.. Para consultar as taxas segregadas dos prestadores de serviço, acesse a Plataforma de Transparência de Taxas no endereço www.data.anbima.com/busca/transparencia-de-taxas-de-fundos. Taxa de Performance Não será devido pela Classe o pagamento de Taxa de Performance. BTG Pactual"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Classe não paga taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 26,
+     "clause": "cl. 11.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "e Taxas no endereço www.data.anbima.com/busca/transparencia-de-taxas-de-fundos. Taxa de Performance Não será devido pela Classe o pagamento de Taxa de Performance. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - 26 b l Anexo I ao Regulamento CLASSE ÚNICA DO FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS VIA MULTICRÉDITO RESPONSABILIDADE LIMITADA CNPJ nº 22.175.345/0001-19 0,25% (zero vírgula vinte e cinco por cento) ao ano apropriada diariamente na base de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se Taxa Máxima de Custódia refere, incidente sobre o Patrimônio Líquido da Classe, a ser corrigida anualmente, em janeiro de cada ano, pela variação positiva do IGP-M ou por índice distinto de correção monetária, desde que o valor seja inferior à correção pelo IGP-M. Taxas de Ingresso e Saída Não serão co"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior CDI +2,50%; mezanino CDI +3,50% nos apêndices",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior CDI +2,50%; mezanino CDI +3,50% nos apêndices",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "otistas Prazo de Duração reunidos em assembleia geral de cotistas. BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade anônima, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 59.281.253/0001-23 e Administrador credenciada como administradora de carteira, de acordo com o Ato Declaratório CVM nº 8.695, de 20 de março de 2006 (“ADMINISTRADOR”). Wise Asset Management Ltda., sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteira de valores mobiliários, com sede na Cidade de São José dos Campos, Estado de São Paulo, na Avenida São João, 2.375 - Conjunto 605 - CEP 12.242-000, inscrita no CNPJ sob o n° 10.442.603/0001-05 (“GESTOR”), sendo o GESTOR e o ADMINISTRADOR, individualmente denominados como “Prestado"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Wise Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "Declaratório CVM nº 8.695, de 20 de março de 2006 (“ADMINISTRADOR”). Wise Asset Management Ltda., sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteira de valores mobiliários, com sede na Cidade de São José dos Campos, Estado de São Paulo, na Avenida São João, 2.375 - Conjunto 605 - CEP 12.242-000, inscrita no CNPJ sob o n° 10.442.603/0001-05 (“GESTOR”), sendo o GESTOR e o ADMINISTRADOR, individualmente denominados como “Prestador de Gestor Serviços Essenciais” e conjuntamente como “Prestadores de Serviços Essenciais”. Foro Aplicável Foro da Cidade de São Paulo, Estado de São Paulo. Encerramento do Último dia útil do mês de junho de cada ano. Exercício Social 1.2 Para fins do disposto neste Regulamento, os termos e expressões iniciados em letra maiúscula neste terão os significados a eles atribuídos no Glossário contido no Apenso I deste Regulamento, exceto"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 9,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "teira. Público-Alvo Investidores Qualificados. Banco BTG Pactual S.A., instituição financeira, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Custódia Torre Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração Subclasses Sênior, Mezanino e Subordinadas Júnior, nos termos do Capítulo 5. As Cotas não podem ser negociadas, exceto nas hipóteses previstas no Negociação item 5.7 deste Anexo. Cálculo do Valor da Cota Conforme Capítulo 6 deste Anexo. A distribuição de quaisquer ganhos e rendimentos do FUNDO aos Distribuição de Proventos Cotistas será feita exclusivamente mediante o resgate de Cotas,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIC: cobrança ocorre nos fundos investidos",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 9,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "teira. Público-Alvo Investidores Qualificados. Banco BTG Pactual S.A., instituição financeira, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Custódia Torre Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração Subclasses Sênior, Mezanino e Subordinadas Júnior, nos termos do Capítulo 5. As Cotas não podem ser negociadas, exceto nas hipóteses previstas no Negociação item 5.7 deste Anexo. Cálculo do Valor da Cota Conforme Capítulo 6 deste Anexo. A distribuição de quaisquer ganhos e rendimentos do FUNDO aos Distribuição de Proventos Cotistas será feita exclusivamente mediante o resgate de Cotas,"
+    }
+   ],
+   "legacy": {
+    "value": "Qualificados; resgates conforme subclasse",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 40,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "/ou por ato do ADMINISTRADOR, nos termos do Art. 52, inciso I, da Resolução CVM 175; “Prazo de Duração do FUNDO”: é o prazo de duração do FUNDO que, para fins de esclarecimento, é indeterminado; “Preço de Aquisição”: o preço de aquisição de cada Direito Creditório pago pela Classe aos Cedentes, em moeda corrente nacional; “Prestadores de Serviços Essenciais”: Significa o ADMINISTRADOR e o GESTOR; “Regulamento”: significa este regulamento do FUNDO, incluindo sua Parte Geral, eventuais Anexos, Apêndices e demais documentos que o integrem; “Representatividade”: significa, com relação a um determinado Devedor e/ou Cedente, o percentual do Patrimônio Líquido alocado em Direitos Creditórios devidos pelo mesmo Devedor e/ou cedidos pelo mesmo Cedente; “Reserva de Despesas”: é a parcela do Patrimônio Líquido a ser retida e destinada exclusivamente para pagamento dos Encargos, nos termos do item 7.1(ii) deste Anexo, e mantida exclusivamente em Ativos Financeiros de Liquidez; “Resolução CVM 160”: Resolução CVM nº 160, de 13 de julho de 2022, conforme alterada; “Resolução CVM 175”: Resolução CVM nº 175, de 23 de dezembro de 2022, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "Qualificados; resgates conforme subclasse",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "investee": {
+   "display": "Não nomeados: FIDCs que atendam à política de investimento",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "Regulamento não identifica os fundos-alvo",
+   "sources": []
+  },
+  "investee_share": {
+   "display": "≥ 85% do PL em cotas de fundos-alvo",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1199304",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/05/2026",
+     "page": 12,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+     "excerpt": "ariamente alocada em Ativos Financeiros de Liquidez. Limites de Concentração e Vedações para a Composição da Carteira 4.9 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá, para fins regulatórios, possuir parcela mínima de 85% (oitenta e cinco por cento) de seu patrimônio líquido representados por Cotas de Fundos Alvo conforme Anexo II da Resolução CVM 175. 4.10 As aplicações da Classe em Cotas de Fundos Alvo podem representar até 100% (cem por cento) do Patrimônio Líquido do Fundo, devendo respeitar os limites de concentração abaixo (“Limites de Concentração”): (i) os ativos alocados em cotas de subclasse sênior, de um mesmo FIDC, não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido da referida classe do Fundo;"
+    }
+   ],
+   "value": 85.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "FIC de FIDCs com ≥ 85% em fundos-alvo; PL/sênior ≥ 125% e cota sênior de um FIDC ≤ 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

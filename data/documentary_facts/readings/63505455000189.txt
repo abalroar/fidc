@@ -1,0 +1,45 @@
+# IS Green Solfácil VII Financeiro FIDC (Genial Investimentos; Angá; plataforma Solfácil)
+type: Energia solar
+q10: * "3.2. A atividade de gestão profissional da Carteira será realizada pela ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA."
+q1: * "ão de energia solar, cuja aquisição e instalação é o objeto de financiamento por meio de CCB"
+q2: * "o Agente de Cobrança Extraordinária realizará o desligamento remoto dos Sistemas Solares"
+q3: * "3.1. O Fundo é administrado pela GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q4: * "coobrigação de um mesmo Devedor (incluindo integrantes de seu respectivo Grupo Econômico), conforme aplicável, está limitada a 20%"
+q5: * "O percentual mínimo de 50%"
+q6: * "15.1. Sem prejuízo dos Eventos de Avaliação adicionais previstos no Anexo Definições Específicas da Classe, se houver, são Eventos de Avaliação"
+q7: * "constituído sob a forma de condomínio de natureza especial e com prazo de duração indeterminado"
+q8: * "7.1.4. Somente Investidores Autorizados"
+q9: * "monitorar juntamente à Solfácil acerca da aderência dos requisitos"
+receivables: CCBs de financiamento de sistemas de energia solar | q1
+originator: Solfácil e instituições financeiras parceiras | q9,q1
+assignor: Instituições financeiras emissoras das CCBs | q1
+debtor: Pessoas físicas e jurídicas que financiam sistemas solares | q1
+recourse: Desligamento remoto do sistema solar a partir do 7º dia de atraso | q2
+eligibility: CCBs prefixadas em reais, adimplentes, com prazo médio limitado | o17
+debtor_limit: Por devedor ou grupo: até 20% do PL | q4 | value=20
+assignor_limit: n/d | Limite por instituição parceira não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo original sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios | q5 | value=50
+quota_structure: Sênior / Mezanino A / Mezanino B / Subordinada júnior | o30
+sub_senior: n/d | Proteção sênior definida por índice de cobertura de 133,33% | why=Resposta anterior lista apenas os índices das subclasses subordinadas
+sub_mezz: Mezanino A 5% do PL; mezanino B 2,5%; júnior 2% | o30 | value=none
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: 3 meses de despesas; reserva de MTM negativo limitada | o40
+pdd: n/d | Critério de provisão não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: Coberturas mínimas de 133,33%/111,11%/104,17%, entre outros | o46,q6
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Reinvestimento das receitas no período de revolvência | o52
+amortization: Pro rata; sequencial após desalavancagem | o55
+admin_fee: 0,10% a.a. do PL; mín. R$ 13 mil/mês (IPCA) | o59
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 15 mil/mês (IPCA) | o62
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Genial Investimentos Corretora de Valores | q3
+manager: Angá Administração de Recursos | q10
+custodian: n/d | Custodiante não nomeado em trecho contínuo localizado
+servicer: Agente de cobrança extraordinária, com desligamento remoto | q2
+investors: Investidores autorizados | q8
+duration: Indeterminado | q7
+real_collateral: Desligamento remoto dos sistemas solares em caso de atraso | q2
+leitura: Financiamento solar via Solfácil com desligamento remoto no atraso; devedor ≤ 20% do PL.

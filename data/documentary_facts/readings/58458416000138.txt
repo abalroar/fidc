@@ -1,0 +1,63 @@
+# MT Consignado Privado II FIDC (Daycoval; Angá; endossante Parati; agente Tudo Serviços) — regulamento D2; D1 aprova amortização extraordinária
+type: Consignado privado
+q1: D2 "Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da Plataforma MT"
+q2: D2 "a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória"
+q3: D2 "Devedores é pago por meio de desconto na folha de pagamento feito pela Dataprev e pela CEF"
+q4: D2 "seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral"
+q5: D2 "mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00"
+q6: D2 "o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3%"
+q7: D2 "Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias"
+q8: D2 "o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses"
+q9: D2 "e para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios"
+q10: D2 "e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a, no mínimo, 30% (trinta por cento)"
+q11: D2 "Índice de Subordinação Mezanino”: significa a razão mínima admitida entre: (a) Patrimônio Líquido das Cotas Subordinadas Júnior"
+q12: D2 "provisão para perdas do ADMINISTRADOR, este último disponível na sua página"
+q13: D2 "Eventos de Avaliação: (i) em caso de regime de administração especial temporária - RAET"
+q14: D2 "Eventos de Liquidação: (i) caso seja deliberado em Assembleia de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação"
+q15: D2 "Revolvência 4.12 A Classe utilizará os recursos provenientes da integralização das Cotas"
+q16: D2 "Taxa de Administração (% a.a.) Patrimônio Líquido da Classe A 0,10%"
+q17: D2 "o GESTOR fará jus a uma Taxa de Gestão equivalente a 0,40% a.a."
+q18: D2 "12.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída"
+q19: D2 "administrador fiduciário, nos termos do Ato ADMINISTRADOR Declaratório CVM nº 17.552"
+q20: D1 "ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA. Gestor"
+q21: D2 "BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia"
+q22: D2 "significa a Tudo Serviços S.A., sociedade por ações com sede na Cidade de Eusébio"
+q23: D2 "Destinado exclusivamente a Investidores Profissionais"
+q24: D2 "Prazo de Duração Indeterminado"
+q25: D2 "coobrigação nem direito de regresso da Classe contra o Endossante"
+q26: D1 "A aprovação da amortização extraordinária das Cotas Seniores e das Cotas Subordinadas Mezanino para reenquadramento dos Índices de Subordinação"
+receivables: CCBs de consignado privado da Plataforma MT | q1,q3
+originator: Parati (endossante) | q2
+assignor: Parati Crédito, Financiamento e Investimento, por endosso | q2
+debtor: Empregados com desconto via Dataprev ou CEF | q3
+recourse: Sem coobrigação nem regresso, salvo má-fé, culpa ou dolo | q25
+eligibility: Devedor até 64 anos; prazo ponderado da carteira ≤ 30 meses | q4,q7,q8
+debtor_limit: Por devedor até R$ 100 mil; por empregador ≤ 3% do PL | q5,q6 | value=none
+assignor_limit: — | Endossante única: Parati
+term_max: Prazo ponderado da carteira de até 30 meses | q8
+allocation: ≥ 50% do PL em direitos creditórios | q9 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q10,q11
+sub_senior: 30% · subord./PL | q10 | basis=mez+jr/PL | value=30
+sub_mezz: 10% · júnior/PL | q11 | basis=jr/PL | value=10
+sub_check: Diária, pelo gestor; amortização extraordinária aprovada para reenquadrar | q10,q26
+reserve: n/d | Valor da reserva de caixa não localizado em trecho contínuo
+pdd: Manual de provisão para perdas do administrador | q12
+eval_triggers: Intervenção ou recuperação do endossante ou do agente, entre outros | q13
+liquidation: Saída do custodiante sem substituição, entre outros | q14
+revolving: Reinvestimento conforme política do contrato de endosso | q15
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,10% a.a. até R$ 300 mi de PL; 0,08% acima | q16
+mgmt_fee: 0,40% a.a. do PL | q17
+perf_fee: Não prevista | Regulamento veda taxa de performance | q18
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Banco Daycoval | q19,q21
+manager: Angá Administração de Recursos | q20
+custodian: Banco Daycoval | q21
+servicer: Tudo Serviços (agente de retenção e cobrança) | q22
+investors: Investidores profissionais | q23
+duration: Indeterminado | q24
+payroll: Desconto em folha via Dataprev ou CEF | q3
+age_limit: Devedor de até 64 anos na emissão da CCB | q7
+installment_min: n/d | Regulamento não fixa parcela mínima | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Consignado privado da Plataforma MT via Parati; subordinação de 30% (júnior ≥ 10%) e devedor até 64 anos.

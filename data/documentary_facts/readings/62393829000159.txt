@@ -1,0 +1,58 @@
+# FIDC Comerciais Medici I (QI CTVM; QI Gestão; consultora Crescera; devedoras BRF e Marfrig)
+type: Duplicatas/multicedente
+q1: D1 "Significa os direitos creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos"
+q2: D1 "Significa (i) a BRF, (ii) a Marfrig; (iii) as sociedades integrantes do Grupo Econômico da BRF"
+q3: D1 "Os Fornecedores que cedem Direitos Creditórios à Classe"
+q4: D1 "prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição; (c) o prazo mínimo do Direito Creditório deve ser de 7"
+q5: D1 "o prazo médio dos Direitos Creditórios integrantes da carteira não deverá exceder 110"
+q6: D1 "cuja Cedente seja uma sociedade integrante do Grupo Econômico de quaisquer das Devedoras não deverá superar 10%"
+q7: D1 "o Fundo poderá adquirir Recebíveis de Cartões de Crédito, limitados a 10%"
+q8: D1 "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q9: D1 "deverá, diariamente, representar o percentual mínimo de 5% (cinco por cento)"
+q10: D1 "O Índice de Subordinação deverá ser apurado em todo Dia Útil pela Administradora"
+q11: D1 "o total de despesas e encargos de responsabilidade da Classe a serem incorridos no período de 90"
+q12: D1 "deverá ser registrada uma provisão para perdas"
+q13: D1 "A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Avaliação: (a) rebaixamento da classificação de risco das Cotas Seniores"
+q14: D1 "A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Liquidação Antecipada: (a) deliberação da Assembleia Geral"
+q15: D1 "Será permitida a revolvência da carteira"
+q16: D1 "Mínimo Mensal Sobre o PL Até R$ 500 milhões 0,10%"
+q17: D1 "TAXA DE GESTÃO Taxa – Percentual Patrimônio Líquido (PL) Mínimo Mensal Sobre o PL Até R$ 500 milhões 0,04%"
+q18: D1 "A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM"
+q19: D1 "A QI GESTÃO DE RECURSOS LTDA."
+q20: D1 "A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada"
+q21: D1 "tendo em vista a Classe ser destinada a Investidores Profissionais"
+q22: D1 "A Classe terá prazo de duração indeterminado"
+q23: D1 "quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída"
+receivables: Recebíveis de fornecedores contra BRF e Marfrig; cartões até 10% do PL | q1,q2,q7
+originator: Fornecedores da BRF e da Marfrig | q3,q2
+assignor: Fornecedores das devedoras (múltiplos cedentes) | q3
+debtor: BRF, Marfrig e sociedades de seus grupos com aval da controladora | q2
+recourse: n/d | Coobrigação dos cedentes não definida em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Performados, prazo de 7 a 365 dias e prazo médio ≤ 110 dias | q4,q5
+debtor_limit: — | Devedoras restritas a BRF, Marfrig e seus grupos
+sacado_limit: — | Sacadas restritas a BRF, Marfrig e seus grupos
+assignor_limit: Cedentes do grupo das devedoras: até 10% do PL | q6 | value=10
+term_max: Até 365 dias da aquisição | q4
+allocation: > 50% do PL em direitos creditórios | q8 | value=50
+quota_structure: Sênior / Subordinada | q9
+sub_senior: 5% · subord./PL | q9 | basis=jr/PL | value=5
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária, pela administradora | q10
+reserve: Menor entre despesas de 90 dias e percentual do PL | q11
+pdd: Provisão por redução no valor recuperável | q12
+eval_triggers: Rebaixamento do rating sênior, entre outros | q13
+liquidation: Deliberação em assembleia ou avaliação convertida, entre outros | q14
+revolving: Revolvência permitida | q15
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Faixas a partir de 0,10% a.a. do PL, com mínimo mensal | q16
+mgmt_fee: Faixas a partir de 0,04% a.a. do PL, com mínimo mensal | q17
+perf_fee: Não prevista | Regulamento veda outras taxas, como a de performance | q23
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: QI CTVM | q18
+manager: QI Gestão | q19
+custodian: QI CTVM | q20
+servicer: n/d | Agente de cobrança não nomeado; consultora é a Crescera
+investors: Investidores profissionais | q21
+duration: Indeterminado | q22
+leitura: Recebíveis de fornecedores de BRF e Marfrig; subordinação de 5% e prazo médio ≤ 110 dias.

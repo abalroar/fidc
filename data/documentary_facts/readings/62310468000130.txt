@@ -1,0 +1,59 @@
+# MT INSS Receivables VI FIDC (BTG Pactual DTVM; BTG Asset; endossante Parati; Plataforma MT)
+type: Consignado público
+q1: D1 "(i) os Direitos Creditórios MT deverão consistir em CCB, emitidas eletronicamente por um Devedor em favor de um Endossante"
+q2: D1 "Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede no município de Vitória"
+q3: D1 "Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS"
+q4: D1 "seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Gestor"
+q5: D1 "prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB"
+q6: D1 "mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00"
+q7: D1 "a relação mínima admitida entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe, que deverá ser de 20%"
+q8: D1 "a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe, que, a partir da 1ª"
+q9: D1 "significa a reserva a ser constituída e reestabelecida pelo Administrador, conforme Ordem de Alocação de Recursos"
+q10: D1 "provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado"
+q11: D1 "Eventos de Avaliação: (i) em caso de regime de administração especial temporária - RAET"
+q12: D1 "Eventos de Liquidação: caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento"
+q13: D1 "4.14 Durante o Período de Investimento, os recursos recebidos pela Classe em razão da emissão de novas cotas"
+q14: D1 "nos seguintes moldes: o valor correspondente à 0,05% (cinco centésimos por cento) por ano"
+q15: D1 "12.4 Pelos serviços de gestão da Carteira da Classe, o Gestor fará jus"
+q16: D1 "12.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída"
+q17: D1 "BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS"
+q18: D1 "BTG Pactual Asset Management S.A. Distribuidora de Títulos e Valores Mobiliários, instituição financeira"
+q19: D1 "inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciado como custodiante"
+q20: D1 "Público-Alvo Investidores Profissionais"
+q21: D1 "prazo de duração indeterminado; (v) (vi) deverão ser subscritas e integralizadas"
+q22: D1 "Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro"
+receivables: CCBs de consignado INSS da Plataforma MT, com taxa prefixada | q1,q3
+originator: Parati (endossante MT) | q2
+assignor: Parati Crédito, Financiamento e Investimento, por endosso | q2
+debtor: Aposentados e pensionistas do INSS | q3
+recourse: n/d | Recompra e resolução regidas pelo contrato de endosso
+eligibility: CCB até 96 parcelas, com idade e benefício elegíveis | q4,q5
+debtor_limit: Saldo por devedor: R$ 60 mil acima de 61 anos; R$ 120 mil abaixo | q6 | value=none
+assignor_limit: — | Endossante única: Parati
+term_max: Até 96 parcelas | q5
+allocation: n/d | Alocação mínima não localizada em trecho contínuo
+quota_structure: Sênior / Mezanino / Subordinada júnior | q7,q8
+sub_senior: 20% · subord./PL | q7 | basis=mez+jr/PL | value=20
+sub_mezz: 5% · júnior/PL | q8 | basis=jr/PL | value=5
+sub_check: n/d | Periodicidade de apuração dos índices não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de liquidez para custos da classe | q9
+pdd: PDD conforme Instrução CVM 489 e manual do administrador | q10
+eval_triggers: Intervenção no endossante, entre outros | q11
+liquidation: Saída do custodiante sem substituição, entre outros | q12
+revolving: Reinvestimento no período de investimento | q13
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,05% a.a. do PL | q14
+mgmt_fee: 0,30% a.a. do PL, menor acima de R$ 900 mi | q15
+perf_fee: Não prevista | Regulamento veda taxa de performance | q16
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: BTG Pactual Serviços Financeiros DTVM | q17
+manager: BTG Pactual Asset Management DTVM | q18
+custodian: Banco BTG Pactual | q19,q22
+servicer: n/d | Agente de retenção e cobrança não nomeado em trecho localizável
+investors: Investidores profissionais | q20
+duration: Indeterminado | q21
+payroll: Consignação na folha de benefícios do INSS e Dataprev | q1,q3
+age_limit: Faixas de idade por espécie de benefício | q4
+installment_min: n/d | Regulamento não fixa parcela mínima
+leitura: Consignado INSS da Parati pela Plataforma MT; subordinação de 20% (júnior ≥ 5%) e CCB de até 96 parcelas.
