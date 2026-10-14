@@ -1,0 +1,51 @@
+# Cartão de Compra Supplier FIDC (Oliveira Trust; Oliveira Trust Servicer; cedentes Supplier e Banco Ourinvest)
+type: Cartão/adquirência
+q14: * "g) o prazo médio de vencimento das parcelas dos Direitos Creditórios de propriedade da Classe Única"
+q13: * "devido pelo respectivo Titular, resultar em um valor igual ou inferior a: (i) 1.25%"
+q12: * "14.8. Enquanto existirem Cotas Seniores em Circulação, a Razão de Garantia Sênior deverá ser equivalente a, no máximo, 80%"
+q1: * "Cedentes”: (i) Banco Ourinvest S.A.; e/ou (ii) Supplier; e/ou (iii) qualquer empresa pertencente ao grupo econômico da Supplier"
+q2: * "“Titular”: pessoa física ou jurídica titular do Cartão, devidamente credenciada por um dos Cedentes"
+q3: * "Direitos Creditórios são pagos pelos Titulares, no curso ordinário do Programa de Securitização, por meio de Demonstrativos de Pagamento"
+q4: * "Alocação Mínima de Investimento = 67%"
+q5: * "Administradora”: é a Oliveira Trust"
+q6: * "Gestora”: é a Oliveira Trust Servicer S.A."
+q7: * "Custodiante”: é a Oliveira Trust; 52)"
+q8: * "Oliveira Trust”: é a Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A."
+q9: * "investidores profissionais, nos termos da Resolução CVM nº 30, de 11 de maio de 2021"
+q10: * "prazo de duração de 30 (trinta) anos, o qual poderá ser prorrogado por decisão da Assembleia Geral"
+q11: * "Eventos de Liquidação”: eventos que ensejam a liquidação automática da Classe Única"
+receivables: Cartão de compra e financiamento comercial a titulares PF e PJ | o1,q2
+card_receivables: Faturas do cartão de compra Supplier pagas pelos titulares | q3,q2
+originator: Supplier e Banco Ourinvest (cedentes do programa) | q1
+assignor: Banco Ourinvest, Supplier ou empresas do grupo Supplier | q1
+debtor: Titulares PF ou PJ do cartão | q2
+recourse: Sem regresso nem coobrigação dos cedentes e da Supplier | o11
+eligibility: Prazo médio da carteira ≤ 80 dias, entre outros critérios | q14
+debtor_limit: Titular sem seguro até 1.25% do PL (como grafado); com seguro, 2% | q13 | value=none
+assignor_limit: n/d | Limite por cedente não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo máximo por crédito não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 67% do PL em direitos creditórios | q4 | value=67
+quota_structure: Sênior / Mezanino I / Mezanino II / Subordinada | q12,o25
+sub_senior: Razão de garantia sênior ≤ 80% (sênior/PL ajustado) | q12 | basis=mez+jr/PL | value=20
+sub_mezz: n/d | Limites das mezaninos definidos por razões de garantia próprias, sem trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+sub_check: n/d | Periodicidade de apuração das razões não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Caixa para encargos de 3 meses; liquidez de 3% dos direitos creditórios | o33
+pdd: n/d | Critério de provisão não descrito em trecho localizável
+eval_triggers: Rebaixamento de rating ou insolvência de estabelecimento relevante, entre outros | o39
+liquidation: Eventos de liquidação automática listados no regulamento | q11
+revolving: n/d | Aquisição rotativa sem regra localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Ordem de pagamentos sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,10% a.a. até R$ 70 mi + 0,075% sobre o excedente | o47
+mgmt_fee: 0,10% a.a. até R$ 70 mi + 0,075% sobre o excedente | o50
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Oliveira Trust DTVM | q5,q8
+manager: Oliveira Trust Servicer | q6
+custodian: Oliveira Trust DTVM | q7,q8
+servicer: n/d | Agente de cobrança não nomeado em trecho localizável
+investors: Investidores profissionais | q9
+duration: 30 anos, prorrogável | q10
+card_lock: Titulares pagam por demonstrativos de pagamento do programa | q3
+dilution: n/d | Tratamento de cancelamentos não localizado em trecho contínuo
+leitura: Cartão de compra Supplier com sênior ≤ 80% do PL e titular sem seguro ≤ 1,25% do PL.
