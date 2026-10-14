@@ -97,9 +97,13 @@ def _peer_index(signature: tuple) -> dict:
             value = fact.get("value")
             if value is None or fact.get("status") != "confirmed":
                 continue
-            unit = _unit_kind(fact.get("display", ""))
-            index.setdefault((fund_type, row_id, unit), []).append((payload["cnpj"], float(value)))
+            index.setdefault((fund_type, row_id, _peer_unit(fact)), []).append((payload["cnpj"], float(value)))
     return index
+
+
+def _peer_unit(fact: dict) -> str:
+    # PL/sênior ratios (≥ 100%) are not comparable with subordination shares of the PL.
+    return "pl_sr" if fact.get("basis") == "PL/sr" else _unit_kind(fact.get("display", ""))
 
 
 def _unit_kind(display: str) -> str:
@@ -410,8 +414,7 @@ def build_view(portfolio: Any) -> BasketView:
 
 def _peer_values(peers: dict, column: Column, row_id: str) -> list[float]:
     fact = column.facts.get(row_id) or {}
-    unit = _unit_kind(fact.get("display", ""))
-    return [v for cnpj, v in peers.get((column.fund_type, row_id, unit), []) if cnpj != column.cnpj]
+    return [v for cnpj, v in peers.get((column.fund_type, row_id, _peer_unit(fact)), []) if cnpj != column.cnpj]
 
 
 def _peer_cell(peers: dict, column: Column, row_id: str) -> str:
@@ -421,8 +424,8 @@ def _peer_cell(peers: dict, column: Column, row_id: str) -> str:
     values = _peer_values(peers, column, row_id)
     if len(values) < 3:
         return "pares insuficientes" if values or column.facts.get(row_id, {}).get("value") is not None else ""
-    unit = _unit_kind((column.facts.get(row_id) or {}).get("display", ""))
-    fmt = (lambda v: f"{v:g}%".replace(".", ",")) if unit == "pct" else (lambda v: f"{v:,.0f}".replace(",", "."))
+    unit = _peer_unit(column.facts.get(row_id) or {})
+    fmt = (lambda v: f"{v:g}%".replace(".", ",")) if unit in {"pct", "pl_sr"} else (lambda v: f"{v:,.0f}".replace(",", "."))
     return f"mediana {fmt(statistics.median(values))} ({fmt(min(values))}–{fmt(max(values))}), n={len(values)}"
 
 
