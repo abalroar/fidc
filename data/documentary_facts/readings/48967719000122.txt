@@ -1,0 +1,50 @@
+# Soulpay FIDC (Singulare; Bless Capital; cedente Soulpay; devedora Redecard)
+type: Cartão/adquirência
+q1: * "Cedente SOULPAY SOLUÇÕES DE PAGAMENTOS LTDA."
+q2: * "Devedora(s) REDECARD INSTITUIÇÃO DE PAGAMENTO S.A."
+q3: * "o total de Direitos Creditórios da Carteira do Fundo não poderá ter vencimento superior a 365 (trezentos e sessenta e cinco) dias"
+q4: * "Decorridos 390 (trezentos e noventa) dias do início das atividades do Fundo, este deverá ter alocado, no mínimo 80%"
+q5: * "O Fundo deverá observar o Índice de Subordinação de 105,26%"
+q6: * "Administradora SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q7: * "Gestora BLESS CAPITAL GESTORA DE RECURSOS LTDA"
+q8: * "Custodiante SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., qualificada acima"
+q9: * "Agente de Cobrança SOULPAY SOLUÇÕES DE PAGAMENTOS LTDA."
+q10: * "que sejam enquadrados como Investidores Qualificados e como Investidores Profissionais"
+q11: * "em classe única de cotas, com prazo de duração indeterminado"
+q12: * "a alteração do respectivo domicílio bancário para a Conta do Fundo no Sistema de Registro"
+q13: * "Índice de Diluição O equivalente à razão entre (i) a soma dos Cancelamentos"
+receivables: Recebíveis de cartão de crédito presencial devidos à subcredenciadora | o1
+card_receivables: URs de cartão da Soulpay contra a Redecard | o1,q2
+originator: Soulpay Soluções de Pagamentos | q1
+assignor: Soulpay Soluções de Pagamentos | q1
+debtor: Redecard Instituição de Pagamento | q2
+recourse: Sem coobrigação; resolução da cessão em déficit de liquidação | o12,o11
+eligibility: Adimplentes, em reais; até 365 dias e prazo médio ≤ 180 dias | q3
+debtor_limit: Mesmo devedor: até 20% do PL, ressalvadas exceções da norma | o18 | value=20
+assignor_limit: — | Cedente única: a Soulpay
+term_max: Até 365 dias; prazo médio ponderado ≤ 180 dias | q3
+allocation: ≥ 80% do PL em direitos creditórios após 390 dias | q4 | value=80
+quota_structure: Sênior / Subordinada | q5
+sub_senior: PL/sênior ≥ 105,26% (subordinadas ≥ 5% do PL) | q5 | basis=PL/sr | value=105.26
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração do índice não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Liquidez para 3 meses de despesas; caixa para a próxima amortização | o36
+pdd: Manual de provisão da administradora | o39
+eval_triggers: Resolução de cessão > 1,20% do PL; diluição > 1,40%, entre outros | o42
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Reinvestimento em novos créditos permitido | o48
+amortization: n/d | Cronograma definido no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,35% a.a. do PL, inclui custódia; com mínimo mensal | o54
+mgmt_fee: 0,25% a.a. do PL; com mínimo mensal | o57
+perf_fee: n/d | Regulamento não menciona taxa de performance
+target_senior: n/d | Meta definida no suplemento de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Singulare CTVM | q6
+manager: Bless Capital Gestora de Recursos | q7
+custodian: Singulare CTVM | q8
+servicer: Soulpay Soluções de Pagamentos | q9
+investors: Investidores profissionais | q10
+duration: Indeterminado | q11
+card_lock: Domicílio bancário das URs alterado para a conta do fundo no registro | q12
+dilution: Índice de diluição monitorado; acima de 1,40% é evento de avaliação | q13,o42
+leitura: URs de cartão da Soulpay contra a Redecard; subordinadas ≥ 5% do PL e prazo até 365 dias.
