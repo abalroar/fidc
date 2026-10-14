@@ -1,0 +1,703 @@
+{
+ "schema_version": 1,
+ "cnpj": "52271464000136",
+ "name": "KIWIFY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T12:49:06Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1155755",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "18/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755"
+  },
+  "D2": {
+   "document_id": "1072777",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "29/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072777"
+  },
+  "D3": {
+   "document_id": "1022282",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "28/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1022282"
+  },
+  "D4": {
+   "document_id": "1020157",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "23/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1020157"
+  },
+  "D5": {
+   "document_id": "844911",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "18/02/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=844911"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de cartão da Kiwify (cursos e infoprodutos) contra a credenciadora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "ue o prazo é contado em dias corridos. “Direitos Creditórios” significam os direitos creditórios performados, de tempos em tempos detidos pela Subcredenciadora em face da Credenciadora, originários de Transações de Pagamento realizadas pelos Compradores dos Infoprodutores com a utilização de Instrumentos de Pagamento, à vista ou parceladas, para a aquisição de cursos e/ou outros conteúdos oferecidos pelo Infoprodutores na Plataforma Kiwify aos Compradores dos Infoprodutores, conforme aplicável, após o desconto das taxas que constituem a remuneração das Bandei"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 26,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "tas Subordinadas que integram a Classe. “Subcredenciadora” significa a KIWIFY PAGAMENTOS, TECNOLOGIA E SERVIÇOS LTDA., inscrita no CNPJ/MF sob o nº 36.149.947/0001-06 que (i) habilita recebedores para a aceitação de Instrumentos de Pagamento emitido por Instituições de Pagamento ou por instituição financeira (Emissor) participante de um mesmo Arranjo de Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos Kiwify contra credenciadora; cartões na compra de cursos e conteúdos digitais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Kiwify Pagamentos (subcredenciadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "utilizado em Transações de Pagamento. “Cedente” significa a Subcredenciadora. 7 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF “Chargeback” significa a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Compradores dos Infoprodutores, Estabelecimentos Comerciais, Bandeiras, Emissores, Credenciadora e/ou Subcredenciadora, que poderá resultar na não realização do pagamento ou no estorno do(s) crédito(s) correspondente(s) efetuado(s) da Cedente. “Classe”"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 26,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "tas Subordinadas que integram a Classe. “Subcredenciadora” significa a KIWIFY PAGAMENTOS, TECNOLOGIA E SERVIÇOS LTDA., inscrita no CNPJ/MF sob o nº 36.149.947/0001-06 que (i) habilita recebedores para a aceitação de Instrumentos de Pagamento emitido por Instituições de Pagamento ou por instituição financeira (Emissor) participante de um mesmo Arranjo de Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Kiwify como subcredenciadora e cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Kiwify Pagamentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 26,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "tas Subordinadas que integram a Classe. “Subcredenciadora” significa a KIWIFY PAGAMENTOS, TECNOLOGIA E SERVIÇOS LTDA., inscrita no CNPJ/MF sob o nº 36.149.947/0001-06 que (i) habilita recebedores para a aceitação de Instrumentos de Pagamento emitido por Instituições de Pagamento ou por instituição financeira (Emissor) participante de um mesmo Arranjo de Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Kiwify como subcredenciadora e cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Redecard (credenciadora)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "ssoas Físicas do Ministério da Fazenda. “Credenciadora” significa (i) a REDECARD S.A., sociedade por ações com sede na cidade de São Paulo, estado de São Paulo, na Rua Tenente Mauro de Miranda, n.º 36, Bloco D, 7º andar – parte, Jabaquara, CEP 04345-030, inscrita no CNPJ/MF sob o n.º 01.425.787/0001-04; (ii) a CIELO S.A - INSTITUIÇÃO DE PAGAMENTO, sociedade por ações com sede 10 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF na cidade de Barueri, estado de São Paulo, na Alameda Xingu n."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "12 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF “Devedor” significa a Credenciadora, na qualidade de devedora dos Direitos Creditórios. “Dia Útil ou Dias Úteis” significa (i) com relação a qualquer obrigação do Fundo realizada por meio ou perante a B3, qualquer dia que não seja sábado ou domingo ou feriado nacional ou bancário ou aquele(s) dia(s) sem expediente na B3; e (ii) com relação a qualquer obrigação do Fundo que não seja realizada por meio ou perante a B3, qualquer dia que não seja sábado, domingo ou feriado declarado nacional."
+    }
+   ],
+   "legacy": {
+    "value": "Credenciadora responsável pelo repasse das transações",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso pela solvência; cedente responde pela formalização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 67,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "4.1.6. Inexistência de Direito de Regresso e Coobrigação. A Classe adquirirá Direitos Creditórios e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Regulamento; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão, conforme aplicáveis;"
+    }
+   ],
+   "legacy": {
+    "value": "Sem regresso/coobrigação da cedente pela solvência; responde pela constituição e formalização",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "list",
+   "reason": "Critérios de elegibilidade sem trecho contínuo localizado",
+   "sources": []
+  },
+  "debtor_limit": {
+   "display": "Sem limites de concentração (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 68,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "Tributação Periódica nos termos da Lei 14.754. 4.4. Limite de Concentração por Devedor. Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita limites de concentração de sua carteira por devedor, emissor ou tipo de Direito Creditório, nos termos do Artigo 45, §7º, inciso II da resolução CVM Resolução CVM 175/22. 4.5. Ativos Financeiros. A parcela do Patrimônio Líquido da Classe que não estiver alocada em Direitos Creditórios Cedidos poderá ser aplicada em Ativos Financeiros. 4.6. Operações com Derivativos. A Classe não poderá realizar operações em mercados de derivativos. 4.7. Percentuais de Composição e Diversificação da Carteira. Os percentuais de composição e diversificação da carteira da Classe indicados neste Capítulo serão 68 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF observados pela Administradora, diariamente, com base no Patrimônio Líquido da Classe do Dia Útil imediatamente anterior. 4.8."
+    }
+   ],
+   "legacy": {
+    "value": "Classe profissional dispensada de limites por devedor/emissor/tipo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Kiwify",
+   "sources": [],
+   "legacy": {
+    "value": "Classe profissional dispensada de limites por devedor/emissor/tipo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": []
+  },
+  "allocation": {
+   "display": "Direitos creditórios entre 67% e 100% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 68,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "da Classe, esta deverá ter alocado, no mínimo, 67% (sessenta e sete por cento) (“Alocação Mínima”) e, no máximo, 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios Cedidos, observadas as demais disposições contidas neste Regulamento. 4.2."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Direitos creditórios 67%–100% PL após 90 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/03/2026, p. 68"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 18,
+     "clause": "cl. 20.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "ior a 4% (quatro por cento). “Índice de Subordinação” significa a proporção entre o valor das Cotas Subordinadas Júnior do Fundo e o Patrimônio Líquido, que deverá ser equivalente a 6% (seis por cento). “Infoprodutores” significam os Estabelecimentos Comerciais que tenham aderido e anuído aos Termos de Uso Kiwipay para fins de oferta de cursos e/ou outros tipos de conteúdos disponibilizados por meio da Plataforma Kiwify aos Compradores dos Infoprodutores. “Instituição Autorizada” Qualquer das seguintes instituições financeiras: (a) Banco Bradesco S.A., (b) Banco Santander (Brasil) S.A., (c) Banco do Brasil S.A., (d) Caixa Econô"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL≥6% enquanto houver sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/03/2026, cl. 20.1"
+   }
+  },
+  "sub_senior": {
+   "display": "6% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 18,
+     "clause": "cl. 20.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "ior a 4% (quatro por cento). “Índice de Subordinação” significa a proporção entre o valor das Cotas Subordinadas Júnior do Fundo e o Patrimônio Líquido, que deverá ser equivalente a 6% (seis por cento). “Infoprodutores” significam os Estabelecimentos Comerciais que tenham aderido e anuído aos Termos de Uso Kiwipay para fins de oferta de cursos e/ou outros tipos de conteúdos disponibilizados por meio da Plataforma Kiwify aos Compradores dos Infoprodutores. “Instituição Autorizada” Qualquer das seguintes instituições financeiras: (a) Banco Bradesco S.A., (b) Banco Santander (Brasil) S.A., (c) Banco do Brasil S.A., (d) Caixa Econô"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 6.0,
+   "legacy": {
+    "value": "Júnior / PL≥6% enquanto houver sênior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Júnior / PL≥6% enquanto houver sênior",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas de ≥ 3 meses, apurada mensalmente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 122,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "Classe para o período de 3 (três) meses, a ser calculada mensalmente, devendo ser 122 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF constituída e controlada pela Administradora, para fins de cobertura de encargos e despesas da Classe, observado o disposto neste Regulamento. 21.3. Reserva de Amortização."
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de despesas≥3 meses, apuração mensal",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Atraso de amortização ou remuneração da sênior, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 111,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "ordinária. CAPÍTULO DEZOITO – EVENTOS DE AVALIAÇÃO 18.1. Eventos de Avaliação. São eventos de avaliação (“Eventos de Avaliação”): (i) caso a Classe deixe de efetuar o pagamento: (a) integral de qualquer das Amortizações Programadas ou pagamento de Remuneração das Cotas Seniores, na respectiva Data de Amortização Programada ou Data de Amortização da Remuneração, e não regularizado no prazo de até 2 (dois) Dias Úteis; e (b) amortização integral das Cotas Seniores, na respectiva Data de Amortização Final; (ii) caso no Dia Útil imediatamente anterior a qualquer Data de Amortização Programada das Cotas Seniores, o valor dos recursos segregados na Reserva de Amortização não corresponda, no mínimo, ao valor da próxima Amortização Programada, conforme disposto no respectivo Apêndice;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou falta de créditos elegíveis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 117,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "ão. São eventos que ensejam a liquidação antecipada da Classe, a ser deliberada em Assembleia Especial (“Eventos de Liquidação”): (i) nos casos em que houver determinação da CVM, nos termos previstos no artigo 8º, §§ 3º e 4º, da Resolução CVM nº 175/22; (ii) impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade especificados no Regulamento; (iii) se for deliberado em Assembleia Especial que um Evento de Avaliação constitui Evento de Liquidação; (iv) na hipótese de inexistência de Direitos Creditórios na carteira da Classe ou na hipótese de inexigibilidade, por qualquer meio judicial, dos Direitos Creditórios Cedidos porventura existentes, por período superior a 60 (sessenta) dias; 117 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF (v) no caso de decretação de intervenção, liquidação, falência, Regime de Administração Especial Temporária (RAET) da Subcredenciadora e/ou da Administradora;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,11% a.a. do PL; mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 89,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "custódia qualificada dos Direitos Creditórios Cedidos e Ativos Financeiros da carteira, conforme o caso, taxa de administração correspondente a 0,11% (onze centésimos por cento) ao ano calculado sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$20.000,00 (vinte mil reais), o que for maior (“Taxa de Administração”). 7.2. Pagamento da Taxa de Administração. A remuneração de que trata o item 7.3 será paga pelo Fundo mensalmente, no 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas, sendo vedada qualquer participação nos resultados auferidos pelo Fundo, inclusive, sem limitação, cobrança de qualquer taxa de performance. Os referidos valores dispostos no item acima serão atualizados a cada período de 12 (doze) meses, contado da data de início das atividades do Fundo ou na menor periodicidade admitida em lei, pelo IPCA. 7.3. Pagamento de Parcela da Taxa de Administração aos Prestadores de Serviço do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "0,11% a.a. PL; mínimo R$ 20 mil/mês; controladoria e escrituração incluídas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de gestão em faixas sem trecho contínuo localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Faixas proporcionais 0,30%/0,25%/0,20% a.a. PL (250/400 mi); mínimo R$ 35 mil/mês",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "de Cotas” de determinada classe ou Série de Cotas. “Administradora” significa a GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., sociedade por ações, devidamente autorizada pela CVM a administrar carteira de valores mobiliários, conforme Ato Declaratório CVM nº 6.819, de 17 de maio de 2002, com endereço na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Praia de Botafogo, nº 228, Sala 913 – Parte, Botafogo, CEP 22.250- 040, inscrita no CNPJ/MF sob o nº 27.652.684/0001-62. “Afiliadas” significa, em relação a uma determinada Pessoa, qualquer Pessoa (i) controlada direta"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "H2 Kapital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "administrado e operacionalizado pela B3. “Gestora” Significa a H2 KAPITAL S.A., instituição devidamente autorizada pela CVM para prestação dos serviços de administração de carteira de títulos e valores mobiliários através do Ato Declaratório nº 18.819, expedido em 08 de junho de 2021, inscrita no CNPJ/MF sob o nº 40.297.139/0001-63, com sede na cidade de São Paulo, estado de São Paulo, na Rua Fidêncio Ramos, n° 223, 7º andar, conj."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 40,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "tratação ou substituição realizada. 4.5. DO CUSTODIANTE 4.5.1. Custódia do Fundo. Os serviços de custódia qualificada dos Direitos Creditórios e demais Ativos Financeiros do Fundo serão exercidos pela Administradora. 4.5.2. Atribuições do Custodiante. Sem prejuízo dos demais deveres e obrigações definidos na Resolução CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) realizar, trimestralmente ou em periodicidade compatível com o prazo médio ponderado dos direitos creditórios da carteira, o que for maior, o custodiante dos direitos creditórios deve verificar a existência, integridade e titularidade do lastro dos direitos creditórios que ingressaram na carteira no período a título de 40 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF substituição, assim como o lastro dos direitos creditórios vencidos e não pagos no mesmo período;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "de Cotas” de determinada classe ou Série de Cotas. “Administradora” significa a GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., sociedade por ações, devidamente autorizada pela CVM a administrar carteira de valores mobiliários, conforme Ato Declaratório CVM nº 6.819, de 17 de maio de 2002, com endereço na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Praia de Botafogo, nº 228, Sala 913 – Parte, Botafogo, CEP 22.250- 040, inscrita no CNPJ/MF sob o nº 27.652.684/0001-62. “Afiliadas” significa, em relação a uma determinada Pessoa, qualquer Pessoa (i) controlada direta"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança a contratar, não nomeado",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 68,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "Tributação Periódica nos termos da Lei 14.754. 4.4. Limite de Concentração por Devedor. Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita limites de concentração de sua carteira por devedor, emissor ou tipo de Direito Creditório, nos termos do Artigo 45, §7º, inciso II da resolução CVM Resolução CVM 175/22. 4.5. Ativos Financeiros. A parcela do Patrimônio Líquido da Classe que não estiver alocada em Direitos Creditórios Cedidos poderá ser aplicada em Ativos Financeiros. 4.6. Operações com Derivativos. A Classe não poderá realizar operações em mercados de derivativos. 4.7. Percentuais de Composição e Diversificação da Carteira. Os percentuais de composição e diversificação da carteira da Classe indicados neste Capítulo serão 68 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF observados pela Administradora, diariamente, com base no Patrimônio Líquido da Classe do Dia Útil imediatamente anterior. 4.8."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 32,
+     "clause": "cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "1. O funcionamento do Fundo terá início na primeira 1ª Data de Integralização de Cotas. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas em conformidade com o disposto neste Regulamento. 3.2. O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 4. CAPÍTULO QUATRO – DOS PRESTADORES DE SERVIÇOS ESSENCIAIS, OBRIGAÇÕES E RESPONSABILIDADES 4.1. DA ADMINISTRADORA 4.1.1. Administração do Fundo. O Fundo será administrado pela GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., sociedade por ações, devidamente autorizada pela CVM a administrar carteira de valores mobiliários, conforme Ato Declaratório CVM nº 6.819, de 17 de maio de 2002, com endereço na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Praia de Botafogo, nº 228, Sala 913 – Parte, Botafogo, CEP 22.250-040, inscrita no CNPJ/MF sob o nº 27.652.684/0001-62. 4.1.2. Poderes da Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Créditos performados da subcredenciadora Kiwify contra a Redecard",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "ue o prazo é contado em dias corridos. “Direitos Creditórios” significam os direitos creditórios performados, de tempos em tempos detidos pela Subcredenciadora em face da Credenciadora, originários de Transações de Pagamento realizadas pelos Compradores dos Infoprodutores com a utilização de Instrumentos de Pagamento, à vista ou parceladas, para a aquisição de cursos e/ou outros conteúdos oferecidos pelo Infoprodutores na Plataforma Kiwify aos Compradores dos Infoprodutores, conforme aplicável, após o desconto das taxas que constituem a remuneração das Bandei"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "ssoas Físicas do Ministério da Fazenda. “Credenciadora” significa (i) a REDECARD S.A., sociedade por ações com sede na cidade de São Paulo, estado de São Paulo, na Rua Tenente Mauro de Miranda, n.º 36, Bloco D, 7º andar – parte, Jabaquara, CEP 04345-030, inscrita no CNPJ/MF sob o n.º 01.425.787/0001-04; (ii) a CIELO S.A - INSTITUIÇÃO DE PAGAMENTO, sociedade por ações com sede 10 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF na cidade de Barueri, estado de São Paulo, na Alameda Xingu n."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos Kiwify contra credenciadora; cartões na compra de cursos e conteúdos digitais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Mecanismo de trava não descrito em trecho contínuo",
+   "sources": []
+  },
+  "dilution": {
+   "display": "Chargeback definido no regulamento; sem reserva específica localizada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1155755",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/03/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+     "excerpt": "7 Docusign Envelope ID: DD8282DA-53D2-4EE1-9E04-15A3856127FF “Chargeback” significa a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Compradores dos Infoprodutores, Estabelecimentos Comerciais, Bandeiras, Emissores, Credenciadora e/ou Subcredenciadora, que poderá resultar na não realização do pagamento ou no estorno do(s) crédito(s) correspondente(s) efetuado(s) da Cedente. “Classe” significa a classe única do Fundo, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no respectivo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de cartão da Kiwify contra a Redecard; júnior ≥ 6% do PL e sem limite por devedor.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
