@@ -1,0 +1,61 @@
+# Sifra LP FIDC (QI CTVM; Orram; consultorias Sifra, OPS, Opinião)
+type: Duplicatas/multicedente
+q26: * "(i) O prazo médio ponderado da carteira de Direitos de Crédito não poderá exceder 24 (vinte e quatro) meses"
+q1: * "o Fundo aplicará suas disponibilidades na aquisição de Direitos de Crédito originados por operações realizadas nos segmentos comercial"
+q2: * "Cedentes – significam as pessoas jurídicas atuantes nos segmentos comercial, industrial, imobiliário, financeiro"
+q3: * "Devedores – significa os devedores dos Direitos de Crédito, considerando seus controladores"
+q4: * "Artigo 25 As operações de aquisição de Direitos de Crédito pelo Fundo poderão contar com coobrigação dos Cedentes"
+q5: * "(i) Os Cedentes dos Direitos de Crédito devem ser pessoas jurídicas com inscrição no CNPJ/ME"
+q6: * "Limites de concentração por Devedor: (i) O valor correspondente ao somatório do valor presente de Direitos de Crédito"
+q7: * "(b) Limites de concentração por Cedente: (i) O valor correspondente ao somatório do valor presente"
+q8: * "(ii) O prazo máximo de cada operação não poderá exceder 48 (quarenta e oito) meses"
+q9: * "Artigo 8 O Fundo deverá manter, no mínimo, 67% (sessenta e sete por cento)"
+q10: * "Artigo 60 O Fundo deverá ter, no mínimo, 30% (trinta por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas"
+q11: * "Artigo 61 Na hipótese de desenquadramento do Índice de Subordinação por 5 (cinco) Dias Úteis consecutivos"
+q12: * "Artigo 70 O Gestor, exclusivamente com os recursos do Fundo"
+q13: * "Artigo 80 São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências"
+q14: * "Artigo 81 São considerados Eventos de Liquidação do Fundo quaisquer das seguintes ocorrências"
+q15: * "Taiii: parcela da Taxa ao Administrador e ao Custodiante"
+q16: * "TAi: parcela da Taxa devida ao Gestor correspondente ao percentual estabelecido na tabela abaixo"
+q17: * "denominada Taxa de Performance, correspondente a 30% (trinta por cento)"
+q18: * "Rentabilidade Alvo das Cotas Seniores – significa o parâmetro de rentabilidade a ser buscado pelo Fundo"
+q19: * "Administrador – significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q20: * "Gestor – significa a ORRAM GESTÃO DE RECURSOS LTDA."
+q21: * "Custodiante – significa o Administrador"
+q22: * "Agentes de Cobrança - significa a Sifra Serviços de Crédito Ltda."
+q23: * "Artigo 3 O Fundo é destinado a Investidores Qualificados"
+q24: * "Artigo 2 O Fundo terá prazo de duração indeterminado"
+q25: * "(b) TAii: parcela da Taxa devida às Empresas de Consultoria Especializada"
+receivables: Créditos comerciais, industriais, imobiliários e de serviços a prazo | q1
+originator: Cedentes PJ selecionados pela Sifra e demais consultorias | q2,q25
+assignor: Pessoas jurídicas de diversos segmentos (multicedente) | q2
+debtor: Devedores dos créditos cedidos, consolidados por grupo | q3
+recourse: Coobrigação dos cedentes admitida, com responsabilidade solidária | q4
+eligibility: Cedente PJ; créditos não vencidos; taxa média da carteira DI + 5% a.a. | q5
+debtor_limit: Por devedor: 10% do PL (garantia I) ou 7% (garantias II e III) | q6 | value=10
+sacado_limit: Por devedor: 10% do PL (garantia I) ou 7% (garantias II e III) | q6 | value=10
+assignor_limit: Por cedente: até 10% do PL (garantia I), menor nas demais | q7 | value=10
+term_max: Operação de até 48 meses; prazo médio da carteira ≤ 24 meses | q8,q26
+allocation: ≥ 67% do PL em direitos de crédito | q9 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q10
+sub_senior: 30% · subord./PL | q10 | basis=mez+jr/PL | value=30
+sub_mezz: Júnior ≥ 25% do PL | q10 | basis=jr/PL | value=25
+sub_check: Diária; desenquadramento por 5 dias úteis aciona aporte | q10,q11
+reserve: Maior entre 90 dias de despesas e 1% do PL | q12
+pdd: n/d | Critério de provisão não descrito no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: Inadimplência > 10% da carteira; reserva fora por 10 dias úteis, entre outros | q13
+liquidation: Saída das consultorias especializadas; resgate total, entre outros | q14
+revolving: n/d | Regulamento não trata de revolvência explicitamente
+amortization: n/d | Cronograma definido no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,235% a.a. do PL (administração e custódia), IPCA | q15
+mgmt_fee: 0,30% a.a. na faixa inicial de PL; 0,25% e 0,20% nas seguintes | q16
+perf_fee: 30% do que a júnior exceder 120% do DI | q17
+target_senior: Percentual da Taxa DI, definido no regulamento | q18
+target_mezz: n/d | Rentabilidade alvo da mezanino definida no suplemento
+administrator: QI CTVM | q19
+manager: Orram Gestão de Recursos | q20
+custodian: QI CTVM (o próprio administrador) | q21,q19
+servicer: Sifra Serviços de Crédito | q22
+investors: Investidores qualificados | q23
+duration: Indeterminado | q24
+leitura: Multicedente com coobrigação e garantias; subordinação de 30% (júnior ≥ 25%) e devedor ≤ 10% do PL.

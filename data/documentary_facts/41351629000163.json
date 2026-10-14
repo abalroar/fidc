@@ -1,0 +1,800 @@
+{
+ "schema_version": 1,
+ "cnpj": "41351629000163",
+ "name": "SIFRA LP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:49:08Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1296708",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "18/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708"
+  },
+  "D2": {
+   "document_id": "1184961",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "11/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1184961"
+  },
+  "D3": {
+   "document_id": "1184962",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "11/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1184962"
+  },
+  "D4": {
+   "document_id": "198310",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "19/07/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=198310"
+  },
+  "D5": {
+   "document_id": "198304",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "17/02/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=198304"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos comerciais, industriais, imobiliários e de serviços a prazo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "Política de Exercício do Direito de Voto Pelo Fundo Artigo 6 Paraa consecução de seu objetivo, o Fundo aplicará suas disponibilidades na aquisição de Direitos de Crédito originados por operações realizadas nos segmentos comercial, industrial, imobiliário e/ou de prestação de serviços, com pagamento a prazo, que atendam aos Critérios de Elegibilidade previstos neste Regulamento. Parágrafo Único - O Fundo não poderá aplicar seus recursos em Direitos de Crédito cedidos, originados, ou, ainda, de emissão ou coobrigação do Administrador, das Empresas de Consultoria Especializada, do Gestor,do Custodiante, e de partes a eles relacionadas. Artigo 7 O Gestor e as Empresas de Consultoria Especializada, conforme o caso, previamente à aquisição dos Direitos de Crédito pelo Fundo deverão observar os seguintes limites para a composição de sua Carteira, sem prejuízo da observância de outros limites de concentração estabelecidos nos artigos subsequentes: (a) Até 20% (vinte por cento) do Patrimônio Líquido do Fundo poderá ser composto por Direitosde Crédito a Performar;"
+    }
+   ],
+   "legacy": {
+    "value": "Direitos de crédito com garantias diferenciadas; parcela a performar até 20%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 2"
+   }
+  },
+  "originator": {
+   "display": "Cedentes PJ selecionados pela Sifra e demais consultorias",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "Vila Yara, inscritano CNPJ/ME sob o n° 60.746.948/0001-12; Carteira – significa a carteira de investimentos do Fundo; Cedentes – significam as pessoas jurídicas atuantes nos segmentos comercial, industrial, imobiliário, financeiro e/ou de prestação de serviços, que cederão Direitos de Crédito ao Fundo, nos termos dos respectivos Contratos de Cessão, considerando seus controladores, sociedades por eles direta ou indiretamente controladas, suas coligadas ou outras sociedades sob controle comum; Classe – Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas neste Regulamento; CMN – significa o Conselho Monetário Nacional; CNPJ/ME– significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Economia; Código Civil – significa a Lei nº 10.406, de 10.01.2002, conforme alterada; Comitê de Crédito – significa o comitê de crédito da Sifra Serviços de Crédito; Contrato de Cessão – significa o contratode promessade cessão e aquisiçãode Direitos de Crédito e outras avenças, celebrado entre o Fundo e o Cedente;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 20,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "0,30% Entre 300,01 e 750,00 0,25% Acima de 750,01 0,20% (b) TAii: parcela da Taxa devida às Empresas de Consultoria Especializada, nos termos dos respectivos contratos, a partir da primeira integralização de cotas será equivalente ao percentual de 3% (três por cento), sobre o valor de aquisição dos títulos que ingressarem na carteira de Direitos de Créditos durante o mês imediatamente anterior a data do pagamento, devida às Empresas de Consultoria na seguinte proporção: 38% (trinta e oito por cento) para a OPS, 15% (quinze por cento) para a Opinião Assessoria, 42% (quarenta e dois por cento) para a Sifra Serviços de Crédito e 5% (cinco por cento) para a Sifra S/A, nos termos do Contrato de Consultoria, a partir da primeira integralização de Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Pessoas jurídicas de diversos segmentos (multicedente)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "Vila Yara, inscritano CNPJ/ME sob o n° 60.746.948/0001-12; Carteira – significa a carteira de investimentos do Fundo; Cedentes – significam as pessoas jurídicas atuantes nos segmentos comercial, industrial, imobiliário, financeiro e/ou de prestação de serviços, que cederão Direitos de Crédito ao Fundo, nos termos dos respectivos Contratos de Cessão, considerando seus controladores, sociedades por eles direta ou indiretamente controladas, suas coligadas ou outras sociedades sob controle comum; Classe – Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas neste Regulamento; CMN – significa o Conselho Monetário Nacional; CNPJ/ME– significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Economia; Código Civil – significa a Lei nº 10.406, de 10.01.2002, conforme alterada; Comitê de Crédito – significa o comitê de crédito da Sifra Serviços de Crédito; Contrato de Cessão – significa o contratode promessade cessão e aquisiçãode Direitos de Crédito e outras avenças, celebrado entre o Fundo e o Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos créditos cedidos, consolidados por grupo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 58,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "e Cotas representativas do patrimônio do Fundo; Depositário – significa o Custodiante ou terceiro por ele contratado; Devedores – significa os devedores dos Direitos de Crédito, considerando seus controladores, sociedades por eles direta ou indiretamente controladas, suas coligadas ou outras sociedades sob controle comum; Devedores Solidários – significa os devedores que se obrigam, por meio do respectivo Contrato de Cessão ou Termo de Adesão ao Contrato de Cessão, como devedor e principal pagador, garantindo em favor do Fundo, o pontual e integral pagamento de todos os Direitosde Crédito cedidos ao Fundo nos termos do Contratode Cessão; Dia Útil - significa qualquer dia que não seja sábado, domingo ou dias declarados como feriados de âmbito federal no Brasil e na sede do Custodiante. Caso as datas em que venham a ocorrer eventos nos termos deste Regulamento não forem Dia Útil, conforme definição deste Regulamento considerar-se-á como a data do referido evento o Dia Útil imediatamente seguinte; Direitos de Crédito – significa os Direitosde Crédito Performados ou os Direitosde Crédito a Performar realizados nos segmentos comercial, industrial, imobiliário e/ou de prestação de serviços, com pagamento a prazo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Coobrigação dos cedentes admitida, com responsabilidade solidária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "eza e correta formalização dos Direitos de Crédito, bem como pela existência e validade dos Documentos Comprobatórios. Artigo 25 As operações de aquisição de Direitos de Crédito pelo Fundo poderão contar com coobrigação dos Cedentes, caso em que os Cedentes coobrigados responderão solidariamente pela solvência dos Devedores dos Direitosde Crédito por eles cedidos. Artigo 26 Os Direitos de Crédito serão adquiridos pelo Fundo, juntamente com todos os direitos, privilégios, preferências, prerrogativas, seguros, garantias e ações assegurados aos titulares de tais Direitos de Crédito, livres e desembaraçados de quaisquer ônus, encargos ou gravames, nos termos dos Contratos de Cessão, observadas as disposições dos respectivos Documentos Comprobatórios. Artigo 27 O Fundo poderá adquirir Direitos de Crédito cujos respectivos pagamentos por partede seus Devedores possamser realizadosao Fundo anteriormente às suas respectivas datas de vencimento. Parágrafo Único - Não será admitida a concessão de descontos para este pagamento antecipado de Direitos de Crédito que não aqueles já previamente estabelecidos para os Direitos de Crédito nos seus respectivos Documentos Comprobatórios quando de sua aquisição pelo Fundo. Capítulo VI – Política de Cobrança Artigo 28 A cobrança e o recebimento,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Cedente PJ; créditos não vencidos; taxa média da carteira DI + 5% a.a.",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "ivamente,aos seguintes Critériosde Elegibilidade: (a) Em relação a todos os Direitosde Crédito: (i) Os Cedentes dos Direitos de Crédito devem ser pessoas jurídicas com inscrição no CNPJ/ME; (ii) A taxa média da carteirade Direitos de Crédito a vencer do Fundo, incluindo os Direitos de Créditoa serem cedidos, deveráser igual a taxa DI + 5,00% a.a.; (iii) Os Direitos de Crédito não poderão estar vencidos e inadimplidos quando da sua cessão para o Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: 10% do PL (garantia I) ou 7% (garantias II e III)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "imites de concentração, os quais serão calculados considerando a cessão proforma, no momentoda cessão: (a) Limites de concentração por Devedor: (i) O valor correspondente ao somatório do valor presente de Direitos de Crédito de titularidade do Fundo que contarão com Garantia I, cedidos por cada Devedor, será limitado a 10% (dez por cento) do Patrimônio Líquido do Dia Útil imediatamente anterior, incluindo neste percentual a exposição do Fundo ao respectivo Grupo Econômico na condição de Devedor dos Direitos de Crédito em conjunto; (ii) O valor correspondente ao somatório do valor presente de Direitos de Crédito de titularidade do Fundo que contarão com Garantia II e Garantia III, respeitados os percentuais previstos no Artigo 7 acima, cedidos por cada Devedor, será limitado a 7% (sete por cento) do Patrimônio Líquido do Dia Útil imediatamente anterior, incluindo neste percentual a exposição do Fundo ao respectivo Grupo Econômico na condição de Devedor dos Direitos de Crédito em conjunto;"
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "Devedor/grupo 10%/PL com GarantiaI,7% comII/III; top 5 cedentes≤30%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 4"
+   }
+  },
+  "assignor_limit": {
+   "display": "Por cedente: até 10% do PL (garantia I), menor nas demais",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "do Fundo ao respectivo Grupo Econômico na condição de Devedor dos Direitos de Crédito em conjunto. (b) Limites de concentração por Cedente: (i) O valor correspondente ao somatório do valor presente de Direitos de Crédito de titularidade do Fundo que contarão com Garantia I, cedidos por cada Cedente, será limitado a 10% (dez por cento) do Patrimônio Líquido do Dia Útil imediatamente anterior, incluindo neste percentual a exposição do Fundo ao respectivo Grupo Econômico na condição de Cedente dos Direitos de Crédito em conjunto; (ii) O valor correspondente ao somatório do valor presente de Direitos de Crédito de titularidade do Fundo que contarão com Garantia II e Garantia III, respeitados os percentuais previstos no Artigo 7 acima, cedidos por cada Cedente, será limitado a 7% (sete por cento) do Patrimônio Líquido do Dia Útil imediatamente anterior, incluindo neste percentual a exposição do Fundo ao respectivo Grupo Econômico na condição de Cedente dos Direitos de Crédito em conjunto;"
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "Devedor/grupo 10%/PL com GarantiaI,7% comII/III; top 5 cedentes≤30%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 4"
+   }
+  },
+  "term_max": {
+   "display": "Operação de até 48 meses; prazo médio da carteira ≤ 24 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "e quatro) meses, calculado, pro forma, antes de qualquer aquisição pretendida pelo Fundo; (ii) O prazo máximo de cada operação não poderá exceder 48 (quarenta e oito) meses, calculado, pro forma, antes de qualquer aquisição pretendida pelo Fundo; (iii) A operação que exceder 30 (trinta) meses, deverá contar com Garantia III, respeitados os limites estabelecidos neste Regulamento; e (iv) As operações com taxas pré-fixadas não poderão ultrapassar o prazo médio de 180 (cento e oitenta) dias. Parágrafo Único: O atendimento das Condições de Cessão pelos Direitos de Crédito será verificado pela Sifra Serviços de Crédito, quando da seleção dos Direitos de Crédito. Artigo 18 Os Direitos de Crédito passíveis de aquisição pelo Fundo devem atender, cumulativamente,aos seguintes Critériosde Elegibilidade: (a) Em relação a todos os Direitosde Crédito: (i) Os Cedentes dos Direitos de Crédito devem ser pessoas jurídicas com inscrição no CNPJ/ME;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "irá Direitos de Crédito que atendam, na data da respectiva cessão ao Fundo, às seguintes Condições de Cessão: (i) O prazo médio ponderado da carteira de Direitos de Crédito não poderá exceder 24 (vinte e quatro) meses, calculado, pro forma, antes de qualquer aquisição pretendida pelo Fundo; (ii) O prazo máximo de cada operação não poderá exceder 48 (quarenta e oito) meses, calculado, pro forma, antes de qualquer aquisição pretendida pelo Fundo; (iii) A operação que exceder 30 (trinta) meses, deverá contar com Garantia III, respeitados os limites estabelecidos neste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos de crédito",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "de Direitosde Crédito pelo Fundo, sendo a verificação após a aquisição realizada pela Administradora e/ou Custodiante. Artigo 8 O Fundo deverá manter, no mínimo, 67% (sessenta e sete por cento) do seu Patrimônio Líquido aplicado em Direitosde Crédito. Parágrafo Primeiro - O Administrador poderá solicitar para a CVM, sem a necessidade de aprovação pelos Cotistas em Assembleia Geral de Cotistas de Cotistas, a prorrogação do prazo mencionado no caput por igual período, apresentando para a CVM motivos que justifiquem mencionada prorrogação. Parágrafo Segundo - Realizada a solicitação mencionada no Parágrafo Primeiro acima, o Administrador deverá comunicar aos Cotistas sobre a solicitação realizada. Artigo 9 O Gestor e as Empresas de Consultoria Especializada, conforme o caso, para a composição da carteira de Direitos de Crédito Performados do Fundo deverão observar, ainda, os seguintes limites de concentração, os quais serão calculados considerando a cessão proforma, no momentoda cessão: (a) Limites de concentração por Devedor: (i) O valor correspondente ao somatório do valor presente de Direitos de Crédito de titularidade do Fundo que contarão com Garantia I, cedidos por cada Devedor, será limitado a 10%"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL em direitos de crédito.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 29,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "Seniores ou das Cotas Subordinadas Mezanino. Capítulo XIII – Subordinação Artigo 60 O Fundo deverá ter, no mínimo, 30% (trinta por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas (“Índice de Subordinação Sênior”), sendo 25% (vinte e cinco por cento) do seu Patrimônio Líquido, no mínimo, representado por Cotas Subordinadas Juniores. Ba Parágrafo Único – Os percentuais referidos acima deverão ser apurados diariamente pelo Administrador. Artigo 61 Na hipótese de desenquadramento do Índice de Subordinação por 5 (cinco) Dias Úteis consecutivos, o Administrador deverá (i) notificar imediatamente os detentores de Cotas Subordinadas Júnior, para responderem, por escrito, no prazo de 02 (dois) Dias Úteis, a contar do recebimento da notificação, se desejam ou não integralizar novas Cotas Subordinadas; (ii) interromper qualquer aquisição de Direitos de Crédito, até que a Subordinação seja restabelecida. Parágrafo Primeiro - Na hipótese de os Cotistas subordinados desejarem integralizar novas Cotas Subordinadas Junior, o Administrador deliberará pela emissão de tais Cotas sem a necessidade de autorização de quaisquer Cotistas ou de realização de Assembleia Geral de Cotistas."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥25%/PL, apuração diária.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 29"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 29,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "Seniores ou das Cotas Subordinadas Mezanino. Capítulo XIII – Subordinação Artigo 60 O Fundo deverá ter, no mínimo, 30% (trinta por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas (“Índice de Subordinação Sênior”), sendo 25% (vinte e cinco por cento) do seu Patrimônio Líquido, no mínimo, representado por Cotas Subordinadas Juniores. Ba Parágrafo Único – Os percentuais referidos acima deverão ser apurados diariamente pelo Administrador. Artigo 61 Na hipótese de desenquadramento do Índice de Subordinação por 5 (cinco) Dias Úteis consecutivos, o Administrador deverá (i) notificar imediatamente os detentores de Cotas Subordinadas Júnior, para responderem, por escrito, no prazo de 02 (dois) Dias Úteis, a contar do recebimento da notificação, se desejam ou não integralizar novas Cotas Subordinadas; (ii) interromper qualquer aquisição de Direitos de Crédito, até que a Subordinação seja restabelecida. Parágrafo Primeiro - Na hipótese de os Cotistas subordinados desejarem integralizar novas Cotas Subordinadas Junior, o Administrador deliberará pela emissão de tais Cotas sem a necessidade de autorização de quaisquer Cotistas ou de realização de Assembleia Geral de Cotistas."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥25%/PL, apuração diária.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 29"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 25% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 29,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "Seniores ou das Cotas Subordinadas Mezanino. Capítulo XIII – Subordinação Artigo 60 O Fundo deverá ter, no mínimo, 30% (trinta por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas (“Índice de Subordinação Sênior”), sendo 25% (vinte e cinco por cento) do seu Patrimônio Líquido, no mínimo, representado por Cotas Subordinadas Juniores. Ba Parágrafo Único – Os percentuais referidos acima deverão ser apurados diariamente pelo Administrador. Artigo 61 Na hipótese de desenquadramento do Índice de Subordinação por 5 (cinco) Dias Úteis consecutivos, o Administrador deverá (i) notificar imediatamente os detentores de Cotas Subordinadas Júnior, para responderem, por escrito, no prazo de 02 (dois) Dias Úteis, a contar do recebimento da notificação, se desejam ou não integralizar novas Cotas Subordinadas; (ii) interromper qualquer aquisição de Direitos de Crédito, até que a Subordinação seja restabelecida. Parágrafo Primeiro - Na hipótese de os Cotistas subordinados desejarem integralizar novas Cotas Subordinadas Junior, o Administrador deliberará pela emissão de tais Cotas sem a necessidade de autorização de quaisquer Cotistas ou de realização de Assembleia Geral de Cotistas."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária; desenquadramento por 5 dias úteis aciona aporte",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 29,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "Seniores ou das Cotas Subordinadas Mezanino. Capítulo XIII – Subordinação Artigo 60 O Fundo deverá ter, no mínimo, 30% (trinta por cento) do seu Patrimônio Líquido representado por Cotas Subordinadas (“Índice de Subordinação Sênior”), sendo 25% (vinte e cinco por cento) do seu Patrimônio Líquido, no mínimo, representado por Cotas Subordinadas Juniores. Ba Parágrafo Único – Os percentuais referidos acima deverão ser apurados diariamente pelo Administrador. Artigo 61 Na hipótese de desenquadramento do Índice de Subordinação por 5 (cinco) Dias Úteis consecutivos, o Administrador deverá (i) notificar imediatamente os detentores de Cotas Subordinadas Júnior, para responderem, por escrito, no prazo de 02 (dois) Dias Úteis, a contar do recebimento da notificação, se desejam ou não integralizar novas Cotas Subordinadas; (ii) interromper qualquer aquisição de Direitos de Crédito, até que a Subordinação seja restabelecida. Parágrafo Primeiro - Na hipótese de os Cotistas subordinados desejarem integralizar novas Cotas Subordinadas Junior, o Administrador deliberará pela emissão de tais Cotas sem a necessidade de autorização de quaisquer Cotistas ou de realização de Assembleia Geral de Cotistas."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 29,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "a Parágrafo Único – Os percentuais referidos acima deverão ser apurados diariamente pelo Administrador. Artigo 61 Na hipótese de desenquadramento do Índice de Subordinação por 5 (cinco) Dias Úteis consecutivos, o Administrador deverá (i) notificar imediatamente os detentores de Cotas Subordinadas Júnior, para responderem, por escrito, no prazo de 02 (dois) Dias Úteis, a contar do recebimento da notificação, se desejam ou não integralizar novas Cotas Subordinadas; (ii) interromper qualquer aquisição de Direitos de Crédito, até que a Subordinação seja restabelecida. Parágrafo Primeiro - Na hipótese de os Cotistas subordinados desejarem integralizar novas Cotas Subordinadas Junior, o Administrador deliberará pela emissão de tais Cotas sem a necessidade de autorização de quaisquer Cotistas ou de realização de Assembleia Geral de Cotistas. Nesse caso, o processo de integralização de novas Cotas Subordinadas Junior deverá ser concluído dentro de até 05 (cinco) Dias Úteis contados da data do envio da notificação referida no caputdeste Artigo. Parágrafo Segundo – Na hipótese de os Cotistas subordinados: (i) não responderem tempestivamente a notificação enviada pelo Administrador, conforme previsto no caput deste Artigo;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥25%/PL, apuração diária.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 29"
+   }
+  },
+  "reserve": {
+   "display": "Maior entre 90 dias de despesas e 1% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 31,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "ntos serão efetuados em moeda corrente nacional ou, nas hipóteses previstas neste Regulamento, em Direitos de Crédito. Artigo 70 O Gestor, exclusivamente com os recursos do Fundo, constituiráuma Reserva de Caixa, representada por Recursos Livres, cujo valor deverá ser apurado pelo Administrador e monitorado pelo Gestor em todo último Dia Útil de cada mês, definido pelo total de despesas e encargos de responsabilidade do Fundo a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou, no mínimo, 1% (um por cento) do Patrimônio Líquidodo Fundona mesma data, dos dois o maior. Parágrafo Único – Os valores segregados na Reserva de Caixa somente poderão ser utilizados pelo Fundo no pagamento de despesas e encargos de responsabilidade do Fundo. Artigo 71 O Gestor deverá calcular, diariamente, o Índice de Liquidez da Carteira a ser apurado, de acordo com a seguinte fórmula: DC Recursos Livres + ( ) Índice de Líquidez= 1,20 VP onde: DC: corresponde ao valor atribuído ao somatório dos Direitos de Crédito"
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre 90 dias de despesas/encargos e 1%/PL; índice liquidez 1,20 com fórmula própria.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 31"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não descrito no regulamento",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Inadimplência > 10% da carteira; reserva fora por 10 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 34,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "quando os Cotistas assim deliberarem em Assembleia Geral de Cotistas de Cotistas especialmente convocada para tal fim. Artigo 80 São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências: (a) Não restabelecimento da Subordinação dentrodo prazo estabelecido no Artigo 60 deste Regulamento; (b) Apuraçãodo Índicede Inadimplência superiora 10% (dez por cento) dacarteira de Direitos de Crédito do Fundo; (c) Desenquadramento da Reservade Caixa por prazo superior a 10 (dez)Dias Úteis; (d) Desenquadramento dos limites de concentração por Cedente e por Devedor estabelecidos no Artigo 9 deste Regulamento por prazo superiora 15 (quinze) Dias Úteis; (e) Impossibilidade, por qualquer motivo, de aquisição de Direitos de Crédito que preenchamos Critérios de Elegibilidade por prazo superior a 30 (trinta)Dias Úteis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Saída das consultorias especializadas; resgate total, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 35,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "undo previstos no presente Capítulo, independentemente da realização de nova Assembleia Geral de Cotistas de Cotistas. Artigo 81 São considerados Eventos de Liquidação do Fundo quaisquer das seguintes ocorrências: (a) Deliberaçãoda Assembleia Geral de Cotistas de Cotistas pela liquidação do Fundo; (b) Deliberação da Assembleia Geral de Cotistas de Cotistas de que um Evento de Avaliação constitui Evento de Liquidação; (c) Cessação ou renúncia pelas Empresas de Consultoria Especializada, a qualquer tempo e por qualquer motivo, da prestação dos serviços descritos neste Regulamento e nos respectivos contratos celebrado com o Fundo; e (d) Resgate total das Cotas do Fundo. Parágrafo Primeiro - Na ocorrência de qualquer dos Eventos de Liquidação, independentemente de qualquer procedimento adicional, o Administrador deverá: (a) interromper imediatamente a aquisição de novos Direitos de Crédito; (b) notificar os Cotistas; (c) dar início aos procedimentosde liquidação antecipada do Fundo descritos neste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não trata de revolvência explicitamente",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Despesas → reserva → sênior → mezanino → júnior → novos direitos.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,235% a.a. do PL (administração e custódia), IPCA",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 21,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "ara a Sifra S/A, nos termos do Contrato de Consultoria, a partir da primeira integralização de Cotas; (c) Taiii: parcela da Taxa ao Administrador e ao Custodiante, cobrada a partir da primeira integralização de Cotas, será equivalente ao valor correspondente a 0,235% ao ano sobre o valor do Patrimônio Líquido do Fundo, a ser paga mensalmente e apurada a cada Dia Útil, à razão de 1/252 (um duzentos e cinquenta e dois avos) reajustado anualmente pelo IPCA (“Taxa de Administração”). Parágrafo Primeiro – Tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe, o presente Regulamento não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE."
+    }
+   ],
+   "legacy": {
+    "value": "Componente administração/custódia 0,235% a.a./PL; totalTA agrega gestão e consultoria.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,30% a.a. na faixa inicial de PL; 0,25% e 0,20% nas seguintes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 20,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "rmula: TAtotal = TAi + TAii+ TAiii Onde: TAtotal: Taxa de Administração. (a) TAi: parcela da Taxa devida ao Gestor correspondente ao percentual estabelecido na tabela abaixo, aplicado de acordo com a respectiva faixa do Patrimônio Líquido do Fundo, , a ser paga mensalmente e apurada a cada Dia Útil à razão de 1/252 (um duzentos e cinquenta e dois avos) reajustada anualmente pelo IPCA (“Taxa de Gestão”): Faixa de PL (R$MM) Taxa de Gestão (% a.a.) Até 300,00 0,30% Entre 300,01 e 750,00 0,25% Acima de 750,01 0,20% (b) TAii: parcela da Taxa devida às Empresas de Consultoria Especializada, nos termos dos respectivos contratos, a partir da primeira integralização de cotas será equivalente ao percentual de 3% (três por cento), sobre o valor de aquisição dos títulos que ingressarem na carteira de Direitos de Créditos durante o mês imediatamente anterior a data do pagamento, devida às Empresas de Consultoria na seguinte proporção: 38% (trinta e oito por cento) para a OPS, 15% (quinze por cento) para a Opinião Assessoria, 42% (quarenta e dois por cento) para"
+    }
+   ],
+   "legacy": {
+    "value": "0,30%/0,25%/0,20% a.a. por faixas PL R$ 300/750 mi; componente deTA.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 20"
+   }
+  },
+  "perf_fee": {
+   "display": "30% do que a júnior exceder 120% do DI",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 21,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "rtigo 46 Além das Taxas serão cobradas do Fundo uma remuneração baseada na rentabilidade das Cotas Subordinadas Júnior, denominada Taxa de Performance, correspondente a 30% (trinta por cento) do valor da rentabilidade das Cotas Subordinadas Júnior que exceder a 120% (cento e vinte por cento) da Taxa DI, em cada período de apuração, já deduzidas as rentabilidades das Cotas Seniores e das Cotas Subordinadas Mezanino, bem como todas as demais despesas do Fundo, inclusive a Taxa de Administração. Parágrafo Primeiro - A Taxa de Performance será dividida entre as Empresas de Consultoria Especializada na seguinte proporção: 38% (trinta e oito por cento) para a OPS, 15% (quinze por cento) para a Opinião Assessoria, 42% (quarenta e dois por cento) para a Sifra Serviços de Crédito e 5% (cinco por cento) para a Sifra S/A. Parágrafo Segundo- A Taxa de Performance será calculada e provisionada pelo Custodiante, diariamente por Dia Útil, e paga diretamente pelo Fundo a cada trimestre civil, até o 5º (quinto) Dia Útil subsequente ao encerramento de cada trimestre. Parágrafo Terceiro – Considerando que a Taxa de Performance prevista neste Artigo é calculada e provisionada diariamente, na eventualidade da ocorrência de resgates no decorrer do trimestre, a Taxa de Performance será calc"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_senior": {
+   "display": "Percentual da Taxa DI, definido no regulamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "ignifica conjuntamente a Rentabilidade Alvo das Cotas Seniores e a Rentabilidade Alvo das Cotas Subordinadas Mezanino; Rentabilidade Alvo das Cotas Seniores – significa o parâmetro de rentabilidade a ser buscado pelo Fundo para remuneraras Cotas Seniores, correspondente a um percentual da Taxa DI, estando a remuneração de mencionada subclasse de Cotas limitada ao seu respectivo percentual definido neste Regulamento; Rentabilidade Alvo das Cotas Subordinadas Mezanino – significa o parâmetro de rentabilidade a ser buscado pelo Fundo para remunerar as Cotas Subordinadas Mezanino, correspondente a um percentual da Taxa DI, estando a remuneração de mencionada subclasse de Cotas limitadaao seu respectivo percentual definido neste Regulamento; Reserva de Caixa – significa a reserva para pagamento de despesas e encargos do Fundo, constituída de acordo com disposto no Artigo 69 deste Regulamento, que será calculada pelo Administrador; Resolução CMN nº 2.907/01 – significa a Resolução do CMN nº 2.907/01, a qual autoriza a constituição e o funcionamento de fundos de investimento em direitos creditórios e de fundosde aplicaçãoem cotas de fundosde investimentoem direitos creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Rentabilidade alvo da mezanino definida no suplemento",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 55,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "ANEXO I - DEFINIÇÕES Acordo Operacional - É o acordo feito entre Administradora e Gestora. Administrador – significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Avenida Rebouças, nº 2.942, 7° ao 12º andar – Parte I, Pinheiros, na Cidade de São Paulo, Estado de São Paulo, inscrita no CNPJ sob o nº 62.285.390/0001- 40, ou sua sucessora a qualquer título; Agência Classificadora de Risco - significa a Liberum Ratings Serviços Financeiros Ltda.;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Orram Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 60,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "significa operações com Domicílio Simples, devidamente formalizadas, em garantia do pagamento dos Direitos de Crédito. Gestor – significa a ORRAM GESTÃO DE RECURSOS LTDA., com sede na Rua dos Pinheiros, 870 conj. 201 e 202 Ed. Torre 2000, Pinheiros, CEP 05422-011, na Cidade de São Paulo, Estado de São Paulo, inscrita no CNPJ/ME sob o nº 33.459.864/0001-25, devidamente autorizada e habilitada pela CVM para o exercício profissional de administração de carteira de valores mobiliários; Grupo Econômico – significa o conjunto de pessoas jurídicas que: (i) estejam sob o mesmo controle que o Cedente; (ii) sejam controladas, de modo direto ou indireto, pelo Cedente; (i) sejam controladoras, de modo direto ou indireto, do Cedente; ou (iv) filiais do Cedente ou inscritasno CNPJ/ME sob número com a mesma raiz que o Cedente; Índice de Inadimplência – significa a maior média móvel dos 03 (três) meses do índice de perda efetiva, considerando o período antecedente de 12 (doze) meses."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM (o próprio administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 58,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "amento, os quais serão verificados previamente em cada cessão pela Sifra Serviços de Crédito e validados pela Gestora; Custodiante – significa o Administrador; CVM – significa a Comissão de Valores Mobiliários; Data de Amortização/Resgate – significa a data em que as Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior serão amortizadas/resgatadas, conforme estabelecido no Regulamento; Data de Subscrição Inicial – significa a data em que ocorrer a 1ª (primeira) subscrição de Cotas representativas do patrimônio do Fundo; Depositário – significa o Custodiante ou terceiro por ele contratado; Devedores – significa os devedores dos Direitos de Crédito, considerando seus controladores, sociedades por eles direta ou indiretamente controladas, suas coligadas ou outras sociedades sob controle comum; Devedores Solidários – significa os devedores que se obrigam, por meio do respectivo Contrato de Cessão ou Termo de Adesão ao Contrato de Cessão, como devedor e principal pagador, garantindo em favor do Fundo, o pontual e integral pagamento de todos os Direitosde Crédito cedidos ao Fundo nos termos do Contratode Cessão;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 55,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "ANEXO I - DEFINIÇÕES Acordo Operacional - É o acordo feito entre Administradora e Gestora. Administrador – significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Avenida Rebouças, nº 2.942, 7° ao 12º andar – Parte I, Pinheiros, na Cidade de São Paulo, Estado de São Paulo, inscrita no CNPJ sob o nº 62.285.390/0001- 40, ou sua sucessora a qualquer título; Agência Classificadora de Risco - significa a Liberum Ratings Serviços Financeiros Ltda.;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Sifra Serviços de Crédito",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 55,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "ucessora a qualquer título; Agência Classificadora de Risco - significa a Liberum Ratings Serviços Financeiros Ltda.; Agentes de Cobrança - significa a Sifra Serviços de Crédito Ltda., com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Doutor Eduardo de Souza Aranha, nº 153, conjunto 21, Vila Nova Conceição, inscrita no CNPJ/ME sob o nº 08.260.999/0001-10, a Opinião Assessoria e Consultoria Ltda., com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Doutor Eduardo de Souza Aranha, nº 153, conjunto 11, Vila Nova Conceição, inscrita no CNPJ/ME sob o nº 04.674.069/0001-51 e a Sifra S/A, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Doutor Eduardo de Souza Aranha, nº 153, conjunto 31, Vila Nova Conceição, inscrita no CNPJ/ME sob o nº 03.729.970/0001-10; ANBIMA – significa a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; Assembleia Geral de Cotistas de Cotistas – significa a Assembleia Geral de Cotistas de Cotistas do Fundo; Ativos Financeiros – significa os ativos financeiros nos quais os Recursos Livres podem ser investidos; Auditor Independente – significa a empresa de auditoria independente responsável por auditar as demonstrações financeiras do Fundo; B3 – significa a B3 S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "e ser compatível com o prazo de duração do Fundo. Capítulo II – Público-Alvo e Objetivo do Fundo Artigo 3 O Fundo é destinado a Investidores Qualificados. Parágrafo Único- O investimento nas CotasSeniores e nas Cotas SubordinadasMezanino do Fundo não é adequado a investidores que: (i) necessitem de liquidez em prazo inferior ao prazo estabelecido neste Regulamento para pagamento do valor de amortização/resgate; e (ii) não estejam dispostos a correr risco de créditode empresasdo setor privado. Artigo 4 O objetivodo Fundo é proporcionar aos seus Cotistas, observadasua política de investimento, de composição e de diversificação de sua Carteira, dispostas neste Regulamento, a valorização de suas Cotas por meio da aquisição pelo Fundo: (i) de Direitos de Crédito que atendam aos Critérios de Elegibilidade estabelecidos neste Regulamento, com ou sem coobrigação dos respectivos Cedentes, juntamente com todos os direitos, privilégios, preferências, prerrogativas e ações assegurados aos titulares de tais Direitos de Crédito;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "otistas e obtenção dos registros específicos para cada nova classe/subclasse em questão perante os órgãos competentes. Artigo 2 O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral de Cotistas em conformidade com o disposto neste Regulamento, e ainda, nas hipóteses expressamente previstas na RCVM 175. Parágrafo Primeiro - O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. Capítulo II – Público-Alvo e Objetivo do Fundo Artigo 3 O Fundo é destinado a Investidores Qualificados. Parágrafo Único- O investimento nas CotasSeniores e nas Cotas SubordinadasMezanino do Fundo não é adequado a investidores que: (i) necessitem de liquidez em prazo inferior ao prazo estabelecido neste Regulamento para pagamento do valor de amortização/resgate;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Por devedor: 10% do PL (garantia I) ou 7% (garantias II e III)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1296708",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/08/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296708",
+     "excerpt": "imites de concentração, os quais serão calculados considerando a cessão proforma, no momentoda cessão: (a) Limites de concentração por Devedor: (i) O valor correspondente ao somatório do valor presente de Direitos de Crédito de titularidade do Fundo que contarão com Garantia I, cedidos por cada Devedor, será limitado a 10% (dez por cento) do Patrimônio Líquido do Dia Útil imediatamente anterior, incluindo neste percentual a exposição do Fundo ao respectivo Grupo Econômico na condição de Devedor dos Direitos de Crédito em conjunto; (ii) O valor correspondente ao somatório do valor presente de Direitos de Crédito de titularidade do Fundo que contarão com Garantia II e Garantia III, respeitados os percentuais previstos no Artigo 7 acima, cedidos por cada Devedor, será limitado a 7% (sete por cento) do Patrimônio Líquido do Dia Útil imediatamente anterior, incluindo neste percentual a exposição do Fundo ao respectivo Grupo Econômico na condição de Devedor dos Direitos de Crédito em conjunto;"
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "Devedor/grupo 10%/PL com GarantiaI,7% comII/III; top 5 cedentes≤30%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/08/2026, p. 4"
+   }
+  }
+ },
+ "leitura": "Multicedente com coobrigação e garantias; subordinação de 30% (júnior ≥ 25%) e devedor ≤ 10% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
