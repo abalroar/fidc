@@ -1,0 +1,51 @@
+# iFood Pago Crédito I FIDC (Genial Investimentos; Genial Gestão; endossantes MovilePay e IF parceira)
+type: Crédito pessoal
+q1: * "“Endossante” significa (i) a MovilePay, e/ou (ii) uma Instituição Financeira Parceira"
+q2: * "“MovilePay” significa uma das empresas abaixo individualmente e/ou conjuntamente, conforme o caso: (i) ZOOP TECNOLOGIA & INSTITUIÇÃO DE PAGAMENTO S"
+q3: * "“Devedores” significam pessoas físicas ou jurídicas que possuam uma Conta Digital do Devedor e que emitam uma CCB em favor da Instituição Financeira Parceira"
+q4: * "coobrigação do Endossante. O Endossante, seus controladores, sociedades por eles direta ou indiretamente controladas"
+q5: * "Oferta de Direitos Creditórios: (i) os Direitos Creditórios não poderão ter data de vencimento posterior ao vencimento das Cotas Seniores"
+q6: * "as CCBs deverão ter prazo máximo de (a) 24 (vinte e quatro) meses a contar da data de sua respectiva aquisição pelo Fundo"
+q7: * "mesmo devedor, ou de coobrigação de uma mesma pessoa ou entidade, em montante igual ou superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo"
+q8: * "equivalente a, no mínimo, (i) 25% (vinte e cinco por cento), entre a Data de Início do Fundo e a data indicada no item (ii) seguinte; e (ii) 35%"
+q9: * "São Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Monitoramento"
+q10: * "São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: (i) a ocorrência de Eventos de Insolvência em relação à MovilePay"
+q11: * "Taxa de Gestão equivalente a 10% (dez por cento) calculados sobre a Taxa de Administração, limitado a R$4.000,00"
+q12: * "taxa de performance, taxa de ingresso ou taxa de saída"
+q13: * "4.1.1. O Fundo é administrado pelo GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q14: * "valores mobiliários são prestados pela GENIAL GESTÃO LTDA"
+q15: * "“Custodiante” significa a Administradora"
+q16: * "destinada a Investidores Qualificados que busquem rentabilidade, no longo prazo"
+q17: * "prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e Série ou Subclasse de Cotas Subordinadas Mezanino terá o Prazo de Duração"
+receivables: CCBs de crédito a clientes com conta digital iFood Pago | q3
+originator: MovilePay (Zoop) e instituição financeira parceira | q1,q2
+assignor: MovilePay ou instituição financeira parceira, por endosso | q1
+debtor: Pessoas físicas ou jurídicas com conta digital, emitentes das CCBs | q3
+recourse: Endosso sem coobrigação do endossante | q4
+eligibility: Vencimento até o da série sênior; CCB de até 24 meses com aval | q5,q6
+debtor_limit: Por devedor: limite de 20% do PL da norma | q7 | value=20
+assignor_limit: n/d | Limite por endossante não localizado em trecho contínuo
+term_max: CCB de até 24 meses (com aval ou devedor solidário) | q6
+allocation: n/d | Alocação mínima regulatória sem percentual em trecho contínuo
+quota_structure: Sênior / Mezanino / Subordinada júnior | q8,q17
+sub_senior: 25%, subindo a 35% conforme a júnior · subord./PL | q8 | basis=mez+jr/PL | value=25
+sub_mezz: n/d | Índice de subordinação mezanino sem percentual em trecho contínuo
+sub_check: Diária, pelo custodiante | q8
+reserve: Despesas ordinárias estimadas dos 3 meses seguintes | o41
+pdd: n/d | Política de provisão em complemento, sem trecho contínuo
+eval_triggers: Falta do relatório de monitoramento em 15 dias úteis, entre outros | q9
+liquidation: Insolvência da MovilePay ou da instituição parceira, entre outros | q10
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Faixas de PL a partir de 0,13% a.a., com mínimo mensal | o61
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês | q11
+perf_fee: Não prevista | Regulamento veda taxa de performance | q12
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Genial Investimentos Corretora de Valores | q13
+manager: Genial Gestão | q14
+custodian: Genial Investimentos (a administradora) | q15,q13
+servicer: n/d | Agente de cobrança extraordinária não nomeado em trecho contínuo
+investors: Investidores qualificados | q16
+duration: Indeterminado | q17
+leitura: CCBs de clientes do iFood Pago via MovilePay sem coobrigação; subordinação de 25% (35% conforme a júnior).
