@@ -1,0 +1,729 @@
+{
+ "schema_version": 1,
+ "cnpj": "43866348000179",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS OPEA AGRO SUMITOMO CHEMICAL RESP LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T13:01:18Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "741138",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "17/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138"
+  },
+  "D2": {
+   "document_id": "741139",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "17/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139"
+  },
+  "D3": {
+   "document_id": "1098853",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "23/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1098853"
+  },
+  "D4": {
+   "document_id": "1010694",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "10/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010694"
+  },
+  "D5": {
+   "document_id": "867358",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "27/03/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=867358"
+  },
+  "D6": {
+   "document_id": "701050",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "11/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701050"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Notas promissórias, CPR-F, CDCA e vendas de insumos da Sumitomo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 70,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "pagos na aquisição dos Contratos de Derivativos descritos no Anexo II do Regulamento. “Direitos Creditórios” Significam os recebíveis provenientes de (i) Notas Promissórias a serem emitidas por Distribuidores de Insumos; (ii) CPR-F a serem emitidas por Produtores, Cooperativas ou, ainda, Distribuidores, nos termos da legislação aplicável; (iii) CDCA a serem emitidos por Distribuidores; e (iv) os Direitos Creditórios Distribuidores e os Direitos Creditórios Sumitomo, cedidos nos termos dos respectivos Contratos de Cessão. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Adquiridos” Classe. “Direitos Creditórios Significam os direitos creditórios evidenciados por notas Distribuidores” fiscais eletrônicas, representativos de operações de compra e venda a prazo de Insumos, detidas pelos Distribuidores contra Devedores, desde que acompanhadas dos respectivos canhotos de entrega, que sejam cedidas por Distribuidores que sejam previamente indicados pelo Originador e aprovados pelo Gestor, observad"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos agro Sumitomo: venda a prazo de insumos; também distribuidores/produtores conforme instrumento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Sumitomo Chemical Brasil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 84,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "cterísticas e os direitos, estarão descritos no respectivo Apêndice. “Sumitomo” Significa a SUMITOMO CHEMICAL BRASIL INDÚSTRIA QUÍMICA S.A., sociedade por ações com sede na Avenida Parque Sul, nº 2.138, I Distrito Industrial, Pajucara, CEP - 82 - 61939-000, na Cidade de Maracanaú, Estado do Ceará, inscrita no CNPJ sob o nº 07.467.822/0001-26. “Taxa Máxima de Significa a taxa a que o Custodiante terá direito pela Custódia” prestação de seus serviços de custódia, calculada conforme previsto neste Anexo Descritivo. “Terceiros Fornecedores” Significa os terceiros fornecedores aprovados pelo Originador e pelo Gestor, após prévia anuência dos Cotistas, nos termos dos Termos e Condições Gerais de Cessão e Aquisição, com os quais os Devedores comercializam Insumos, inclusive mediante pagamento a prazo, conforme a política de vendas do Originador. “Termo de Cessão” Significa cada termo de cessão de Direitos C"
+    }
+   ],
+   "legacy": {
+    "value": "Sumitomo e distribuidores cedentes previstos na política",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Sumitomo e distribuidores cedentes aprovados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 61,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "s mobiliários, nos termos da Lei nº 11.076, de 30 de dezembro de 2004. “Cedentes” Significa (i) a Sumitomo, cujas cessões não contarão com coobrigação; e/ou (ii) quaisquer dos Distribuidores Cedentes, estes últimos quando indicados pelo Originador e aprovados pelo Gestor, cujas cessões sempre contarão com coobrigação. “Classe” ou “Classe Significa, quando utilizado neste Anexo Descritivo, a Única” presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Júnior, a qual será destinada exclusivamente à Sumitomo, e que deverá observar a Proporção de Cotas, sem a intermediação de instituições financeiras integrantes do sistema brasileiro de distribuição de valores mobiliários. “Condições de Cessão” Significam as condições de cessão a serem verificadas e validadas pelo Gestor e/ou pelos Agentes de Formalização e Cobrança, conforme o caso, em cada Data de Aquisição, conforme estabelecidas no item 5.5 deste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Sumitomo e distribuidores cedentes previstos na política",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Produtores, cooperativas e distribuidores de insumos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 70,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "pagos na aquisição dos Contratos de Derivativos descritos no Anexo II do Regulamento. “Direitos Creditórios” Significam os recebíveis provenientes de (i) Notas Promissórias a serem emitidas por Distribuidores de Insumos; (ii) CPR-F a serem emitidas por Produtores, Cooperativas ou, ainda, Distribuidores, nos termos da legislação aplicável; (iii) CDCA a serem emitidos por Distribuidores; e (iv) os Direitos Creditórios Distribuidores e os Direitos Creditórios Sumitomo, cedidos nos termos dos respectivos Contratos de Cessão. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Adquiridos” Classe. “Direitos Creditórios Significam os direitos creditórios evidenciados por notas Distribuidores” fiscais eletrônicas, representativos de operações de compra e venda a prazo de Insumos, detidas pelos Distribuidores contra Devedores, desde que acompanhadas dos respectivos canhotos de entrega, que sejam cedidas por Distribuidores que sejam previamente indicados pelo Originador e aprovados pelo Gestor, observad"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sumitomo sem coobrigação; distribuidores cedentes sempre com coobrigação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 61,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "s mobiliários, nos termos da Lei nº 11.076, de 30 de dezembro de 2004. “Cedentes” Significa (i) a Sumitomo, cujas cessões não contarão com coobrigação; e/ou (ii) quaisquer dos Distribuidores Cedentes, estes últimos quando indicados pelo Originador e aprovados pelo Gestor, cujas cessões sempre contarão com coobrigação. “Classe” ou “Classe Significa, quando utilizado neste Anexo Descritivo, a Única” presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Júnior, a qual será destinada exclusivamente à Sumitomo, e que deverá observar a Proporção de Cotas, sem a intermediação de instituições financeiras integrantes do sistema brasileiro de distribuição de valores mobiliários. “Condições de Cessão” Significam as condições de cessão a serem verificadas e validadas pelo Gestor e/ou pelos Agentes de Formalização e Cobrança, conforme o caso, em cada Data de Aquisição, conforme estabelecidas no item 5.5 deste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Vencimento até 420 dias, entre outros critérios",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 98,
+     "clause": "Anexo IV, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "ginação, conforme aplicável, aos seguintes Critérios de Elegibilidade: Com relação aos Direitos Creditórios (i) o prazo máximo de vencimento de cada Direito Creditório não poderá exceder 420 (quatrocentos e vinte dias) dias corridos; (ii) os Direitos Creditórios com prazo superior a 360 (trezentos e sessenta) dias corridos, contados da respectiva Data de Aquisição, devem estar limitados a 10% (dez por cento) do Patrimônio Líquido da Classe. O limite aqui previsto será de até 25% (vinte e cinco por cento) durante os primeiros 15 (quinze) dias após a 1ª Data de Integralização de Cotas; (iii) deverão ter data de vencimento de, pelo menos, 30 (trinta) dias anteriores à última Data de Resgate Esperada das Cotas Seniores em circulação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor e grupo econômico: até 5% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 102,
+     "clause": "Anexo IV, cl. 5.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "itórios devidos de um mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), devem estar limitados a 5% (cinco por cento) do Patrimônio Líquido da Classe; e (xxii) o respectivo Devedor (considerado individualmente ou em conjunto com as demais integrantes do seu Grupo Econômico) não seja devedor de qualquer Direito Creditório de titularidade da Classe vencido e não pago (“Inadimplência”). 5.6. Nos termos previstos neste Anexo Descritivo, nos Contratos de Cessão e em consonância aos Termos e Condições Gerais de Cessão e Aquisição, o Agente de Formalização estará encarregado de verificar e validar o cumprimento pelos Direitos Creditórios às Condições de Cessão elencadas acima, com base em informações e/ou declarações a serem fornecidas pelo Originador, exceto com relação às Condições de Cessão indicadas nos itens 5.5 (viii), (xviii), (xix), (xx), (xxi) e (xxii) acima, as quais serão verificadas pelo Gestor. - 100 - CAPÍTULO SEXTO – POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6.1."
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado em trecho contínuo",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Até 420 dias por direito creditório",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 98,
+     "clause": "Anexo IV, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "ginação, conforme aplicável, aos seguintes Critérios de Elegibilidade: Com relação aos Direitos Creditórios (i) o prazo máximo de vencimento de cada Direito Creditório não poderá exceder 420 (quatrocentos e vinte dias) dias corridos; (ii) os Direitos Creditórios com prazo superior a 360 (trezentos e sessenta) dias corridos, contados da respectiva Data de Aquisição, devem estar limitados a 10% (dez por cento) do Patrimônio Líquido da Classe. O limite aqui previsto será de até 25% (vinte e cinco por cento) durante os primeiros 15 (quinze) dias após a 1ª Data de Integralização de Cotas; (iii) deverão ter data de vencimento de, pelo menos, 30 (trinta) dias anteriores à última Data de Resgate Esperada das Cotas Seniores em circulação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 57,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "inscrita no CNPJ sob o nº 26.154.713/0001-01. “Alocação Mínima de Significa a alocação de, pelo menos, 67% (sessenta e sete Investimento” por cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis. “Amortização de Significa, com relação a cada Data de Pagamento, a Principal” amortização de parcela do valor de principal das Cotas, calculado nos termos deste Anexo Descritivo e do respectivo Apêndice, conforme aplicável, acrescida de eventual Amortização Extraordinária de Principal. “Amortização Significa, na hipótese em que (i) o regime de amortização Extraordinária de em curso seja o regime de Amortização Pro Rata; (ii) a Principal” média da composição da Carteira da Classe nos últimos 6 (seis) meses anteriores a determinada Data de Pagamento (exclusive), contida no Período de Investimento, não compreenda, no mínimo, 50% (cinquenta por cento) de Direitos Creditórios Adquiridos;"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "DC ≥67% PL, conforme definição de alocação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada Mezanino / Subordinada Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 83,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "integralizadas, na Data da Emissão, que observará os seguintes critérios: (i) a proporção total das Cotas Seniores deverá corresponder a, no máximo, 85% (oitenta e cinco por cento) do valor total das Cotas da Classe subscritas e integralizadas, (ii) a proporção total das Cotas Subordinadas Mezanino deverá corresponder a, no máximo, 10% (dez por cento) do valor total das Cotas da Classe subscritas e integralizadas, e (iii) a proporção total das Cotas Subordinadas Júnior deverá corresponder a, no mínimo, 5% (cinco por cento) do valor total das Cotas da Classe subscritas e integralizadas, observado que em qualquer data posterior à Data de Emissão esta proporção deverá observar o valor atualizado das Cotas em substituição do valor total das Cotas subscritas e integralizadas. “Relação Mínima” Significa a razão entre (i) o valor total das Cotas Seniores e Cotas Subordinadas Mezanino e (ii) o Patrimônio"
+    },
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 83,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "es e Cotas Subordinadas Mezanino e (ii) o Patrimônio Líquido da Classe. Até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no máximo, a 95% (noventa e cinco por cento). “Remuneração” Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe aos Cotistas em tal data, conforme o caso, calculada nos termos deste Anexo Descritivo. “Reserva de Liquidez” Significa a reserva de liquidez da Classe a ser constituída e mantida pelo Gestor nos termos do Capítulo Décimo Primeiro deste Anexo Descritivo, para (i) cobrir as Despesas da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior≤85% cotas; mezanino≤10%; júnior≥5%; sênior+mezanino/PL ≤95%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 17/09/2024, Anexo IV"
+   }
+  },
+  "sub_senior": {
+   "display": "Sênior ≤ 85% das cotas integralizadas",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 83,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "integralizadas, na Data da Emissão, que observará os seguintes critérios: (i) a proporção total das Cotas Seniores deverá corresponder a, no máximo, 85% (oitenta e cinco por cento) do valor total das Cotas da Classe subscritas e integralizadas, (ii) a proporção total das Cotas Subordinadas Mezanino deverá corresponder a, no máximo, 10% (dez por cento) do valor total das Cotas da Classe subscritas e integralizadas, e (iii) a proporção total das Cotas Subordinadas Júnior deverá corresponder a, no mínimo, 5% (cinco por cento) do valor total das Cotas da Classe subscritas e integralizadas, observado que em qualquer data posterior à Data de Emissão esta proporção deverá observar o valor atualizado das Cotas em substituição do valor total das Cotas subscritas e integralizadas. “Relação Mínima” Significa a razão entre (i) o valor total das Cotas Seniores e Cotas Subordinadas Mezanino e (ii) o Patrimônio"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Sênior≤85% cotas; mezanino≤10%; júnior≥5%; sênior+mezanino/PL ≤95%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 17/09/2024, Anexo IV"
+   }
+  },
+  "sub_mezz": {
+   "display": "Sênior + mezanino ≤ 95% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 83,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "es e Cotas Subordinadas Mezanino e (ii) o Patrimônio Líquido da Classe. Até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no máximo, a 95% (noventa e cinco por cento). “Remuneração” Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe aos Cotistas em tal data, conforme o caso, calculada nos termos deste Anexo Descritivo. “Reserva de Liquidez” Significa a reserva de liquidez da Classe a ser constituída e mantida pelo Gestor nos termos do Capítulo Décimo Primeiro deste Anexo Descritivo, para (i) cobrir as Despesas da Classe;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior≤85% cotas; mezanino≤10%; júnior≥5%; sênior+mezanino/PL ≤95%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de liquidez para despesas e meta de amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 83,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "al data, conforme o caso, calculada nos termos deste Anexo Descritivo. “Reserva de Liquidez” Significa a reserva de liquidez da Classe a ser constituída e mantida pelo Gestor nos termos do Capítulo Décimo Primeiro deste Anexo Descritivo, para (i) cobrir as Despesas da Classe; e (ii) pagamento da Meta de Amortização, conforme e se aplicável, durante o Período de Liquidez. “Resgate” Significa o último pagamento de Amortização de Principal de uma série ou Subclasse de Cotas. - 81 - “RQ” Significa, em um determinado Dia Útil, a soma das Meta de Remuneração ponderada de cada uma das Cotas, considerando a representatividade de cada uma delas com relação ao Patrimônio Líquido da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de liquidez cobre despesas e meta de amortização no período definido",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "PDD pelo manual da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 17,
+     "clause": "Anexo IV, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "4.2. O Administrador constituirá provisão para créditos de liquidação duvidosa para direitos creditórios adquiridos, de acordo com os termos estabelecidos no manual de provisão para perdas por redução no valor de recuperação ou provisão para perdas com devedores duvidosos, disponível em https://vortx.com.br/static/assets/manuais/Z4%20- %20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf. 4.3. As demonstrações financeiras anuais do Fundo serão elaboradas conforme definido na Instrução CVM 489/11 e os valores de cada direito creditório adquirido e ativo financeiro serão calculados de acordo com os parâmetros estabelecidos neste Capítulo 4. 5. CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS 5.1. Características das Cotas. As Cotas correspondem a frações ideais do patrimônio da Classe Única, cujas características, termos e condições estão previstos no Anexo Descritivo. 5.1.1. Somente Investidores Autorizados poderão adquirir as Cotas. 5.2. Todas as Cotas serão escriturais e serão mantidas em conta de depósito em nome dos respectivos Cotistas pelo Administrador, na qualidade de instituição responsável pela escrituração das Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Violação de declarações do originador, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 134,
+     "clause": "Anexo IV, cl. 12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "UNDO – EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA 12. Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) violação das declarações, obrigações e garantias do Originador no âmbito dos Termos e Condições Gerais de Cessão e Aquisição, no Contrato de Cessão Sumitomo ou demais documentos integrantes da Classe e que não sejam sanadas pelo Originador ou Cedente em até 5 (cinco) Dias Úteis a contar do recebimento, pelo Originador e/ou Cedente, conforme o caso, de notificação enviada pelo Administrador nesse sentido; (ii) caso ocorra a aquisição de Direitos Creditórios que não sejam sanadas pelo Originador, Custodiante, Administrador, Gestor ou Cedente em até 5 (cinco) Dias Úteis a contar do recebimento da notificação, representando, pelo menos, 2% (dois por cento) do Patrimônio Líquido, em desconformidade com as Condições de Cessão e Critérios de Elegibilidade estabelecidos neste Anexo Descritivo; (iii) a não recomposição da Reserva de Liquidez, observadas as disposições do Capítulo Décimo e item 11 acima, que não seja sanada em até 5 (cinco) Dias Úteis contados da caracterização do referido evento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Evento de avaliação convertido ou remuneração sênior não paga, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 137,
+     "clause": "Anexo IV, cl. 12.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "e Capítulo Décimo Segundo. 12.6. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe quaisquer das seguintes ocorrências: (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; - 135 - (ii) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura; (iii) caso o Regulamento, este Anexo Descritivo, o Acordo Operacional, os Termos e Condições Gerais de Cessão e Aquisição, o Contrato de Cessão Sumitomo e/ou qualquer documento acessório previsto nestes contratos, sejam considerados nulos, inválidos ou ineficazes, no todo ou em parte, ou venham a ser contestados judicial, extrajudicialmente ou administrativamente pelo Originador ou qualquer autoridade governamental, e desde que referida ocorrência não seja sanada em até 10 (dez) Dias Úteis a partir da data do seu acontecimento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regra de revolvência não localizada em trecho contínuo",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,30% a.a. do PL, mínimo R$ 20 mil, e implantação de R$ 10 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 166,
+     "clause": "Anexo IV, cl. 14.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "onal ao patrimônio líquido de cada Classe e terá a seguinte composição: (i) pelo serviço de Administração do Fundo, será pago ao Administrador o valor correspondente a 0,30% (trinta centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$ 20.000,00 (vinte mil reais) contados da Data da Primeira Integralização (“Taxa de Administração Específica”); (ii) parcela única de R$ 10.000,00 (dez mil reais) será devida ao Administrador na Data da Primeira Integralização, pelos serviços de implantação do Fundo; - 164 - (iii) pela prestação dos serviços de custódia e controladoria dos ativos integrantes da carteira da Classe será devido ao Agente de Controladoria o equivalente a 0,10% (dez centésimos por cento) ao ano, incidentes sobre o Patrimônio Líquido do Fundo. A taxa de custódia será paga diretamente ao Agente de Controladoria, debitada da Taxa de Administração Específica, não constituindo encargo adicional para o Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "0,30% a.a. PL; mínimo R$ 20 mil/mês; adicional único R$ 10 mil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,30% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 168,
+     "clause": "Anexo IV, cl. 14.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "tais atividades. - 165 - 14.12. Taxa de Gestão. A taxa de gestão será devida pelo Fundo ao Gestor em decorrência da prestação dos serviços de gestão da carteira a remuneração anual equivalente a 0,30% (trinta centésimos por cento), pagos mensalmente até dia 3º (terceiro) Dia Útil, aplicado sobre o Patrimônio Líquido e líquidos de impostos, observado o valor mínimo de R$15.000,00 (quinze mil reais) contados da 1ª Data de Integralização de Cotas. O valor mínimo será corrigido pela variação positiva do IPCA ou, na sua falta, pelo índice que vier a substituí-lo. 14.13. As remunerações descritas nos itens 14.11 e 14.12 acima serão mensalmente pagas pelo Fundo no último Dia Útil de cada mês da prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas, sendo vedada qualquer participação nos resultados auferidos pelo Fundo, inclusive, sem limitação, cobrança de qualquer taxa de performance. Os valores expressos em reais dispostos nos itens 14.11 e 14.12 acima serão atualizados a cada período de 12 (doze) meses, contado da data de início das atividades do Fundo ou na menor periodicidade admitida em lei, pela variação positiva do IPCA ou, na sua falta, pelo índice que vier a substituí-lo. 14.14."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 5,
+     "clause": "Anexo IV, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "lização de Cotas de Integralização de Cotas” determinada subclasse ou série de Cotas. “Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, Conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016. “Agência de Significa a FITCH RATINGS BRASIL LTDA., agência Classificação de Risco” classificadora de risco com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida Barão de Tefe, nº 27, Sala 601, CEP 20220-460, inscrita no CNPJ sob -3- o nº 01.813.375/0001-33, responsável pela classificação de risco das cotas da subclasse sênior da Classe Única, caso aplicável. “Agente de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Opea Gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 11,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "egociação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA., com sede na cidade de São Paulo, Estado de São Paulo, na Rua Hungria, nº 1.240, 6º andar, conjunto 62, Jardim Europa, CEP 01455-000, inscrita no CNPJ sob o nº 36.196.900/0001- 01, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 19.365, de 7 de dezembro de 2021, na qualidade de gestor da Carteira. “IGP-M” Significa o Índice Geral de Preços do Mercado – IGP-M, calculado e divulgado pela Fundação Getúlio Vargas (FGV). “Índices de Significam os índices de monitoramento a serem calculados Monitoramento” e verificados nas Datas de Verificação pelo Gestor, conforme o caso, nos termos do Anexo Descritivo. “Instituições Financeiras Significam quaisquer instituições financeiras autorizadas a Autoriza"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 66,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "de” pelo Gestor, em cada Data de Aquisição, conforme descritos no item 5.1 deste Anexo Descritivo. “Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, Conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da - 64 - Carteira, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios. “D”: Significa o valor expresso na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculado a partir da fração abaixo, observado, em todo o caso, o mínimo de 1% (um por cento) ao ano: 𝐷𝐺 + 2.5𝐷𝐴 𝐷= 𝑃𝑎𝑡𝑟𝑖𝑚ô𝑛𝑖𝑜 𝐿í𝑞𝑢𝑖𝑑𝑜 “DA” Si"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agentes de cobrança não nomeados em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 12,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "realizada durante o prazo de duração do Fundo, nos termos da Resolução CVM 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema - 10 - de distribuição de valores mobiliários brasileiro; (iii) será realizada sob o rito de registro automático de distribuição, nos termos da Resolução CVM 160/22; e (iv) poderá ser cancelada caso não haja a colocação do montante mínimo das respectivas Subclasses, em sua respectiva proporção, conforme assim definidos no Anexo Descritivo da Classe Única e nos respectivos Apêndices. “Ordem de Alocação de Tem seu significado atribuído no respectivo Anexo Recursos” Descritivo. “Patrimônio Líquido” Significa o patrimônio líquido da Classe Única, correspondente à diferença entre (i) o valor agregado dos ativos da Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 15,
+     "clause": "Anexo IV, cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "mbro de 2001, conforme alterada, e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.3. O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral das Cotas de todas as suas Classes, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.4. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características - 13 - e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. 3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "CPR-F de produtores e CDCA de distribuidores de insumos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 70,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "pagos na aquisição dos Contratos de Derivativos descritos no Anexo II do Regulamento. “Direitos Creditórios” Significam os recebíveis provenientes de (i) Notas Promissórias a serem emitidas por Distribuidores de Insumos; (ii) CPR-F a serem emitidas por Produtores, Cooperativas ou, ainda, Distribuidores, nos termos da legislação aplicável; (iii) CDCA a serem emitidos por Distribuidores; e (iv) os Direitos Creditórios Distribuidores e os Direitos Creditórios Sumitomo, cedidos nos termos dos respectivos Contratos de Cessão. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Adquiridos” Classe. “Direitos Creditórios Significam os direitos creditórios evidenciados por notas Distribuidores” fiscais eletrônicas, representativos de operações de compra e venda a prazo de Insumos, detidas pelos Distribuidores contra Devedores, desde que acompanhadas dos respectivos canhotos de entrega, que sejam cedidas por Distribuidores que sejam previamente indicados pelo Originador e aprovados pelo Gestor, observad"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos agro Sumitomo: venda a prazo de insumos; também distribuidores/produtores conforme instrumento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "Penhor agrícola ou alienação fiduciária de lavoura nas CPR-F",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "741138",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "17/09/2024",
+     "page": 77,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+     "excerpt": "vinte) dias antes do vencimento das respectivas Notas Promissórias. “Garantias Produtores” Significam as garantias que deverão ou poderão, conforme aplicável, ser cedularmente constituídas pelos Produtores em benefício da Classe, nos termos das CPR-F, para assegurar o pontual e integral pagamento da CPR-F, quais sejam (i) de penhor agrícola cedular de até 2º grau sobre as lavouras de sua propriedade, constituído na respectiva CPR-F, desde que o montante empenhado, agregando-se os penhores de 1º e 2º grau, não ultrapasse o Limite de Capacidade Produtiva; (ii) alienação fiduciária de lavoura, nos termos do artigo 8º, §1º, da Lei nº 8.929/94, da Lei n° 9.514 de 20 de novembro de 1997, conforme alterada, e da Lei n° 4.728 de 14 de julho de 1965, conforme alterada, sobre as lavouras presentes no(s) imóvel(is) de propriedade ou utilizados pelos respectivos Produtores; (iii) alienação fiduciária de bem imóvel;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Crédito agro da Sumitomo via CPR-F e CDCA; sênior ≤ 85% das cotas e devedor ≤ 5% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

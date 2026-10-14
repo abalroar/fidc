@@ -1,0 +1,56 @@
+# FIDC Opea Agro Sumitomo Chemical (Vórtx; Opea Gestora; originador Sumitomo Chemical Brasil)
+type: Agro/FIAGRO
+q1: D1 "Direitos Creditórios” Significam os recebíveis provenientes de (i) Notas Promissórias a serem emitidas por Distribuidores de Insumos"
+q2: D1 "Significa a SUMITOMO CHEMICAL BRASIL INDÚSTRIA QUÍMICA S.A."
+q3: D1 "Significa (i) a Sumitomo, cujas cessões não contarão com coobrigação"
+q4: D1 "o prazo máximo de vencimento de cada Direito Creditório não poderá exceder 420"
+q5: D1 "devem estar limitados a 5% (cinco por cento) do Patrimônio Líquido da Classe"
+q6: D1 "67% (sessenta e sete"
+q7: D1 "a proporção total das Cotas Seniores deverá corresponder a, no máximo, 85%"
+q8: D1 "Até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no máximo, a 95%"
+q9: D1 "Significa a reserva de liquidez da Classe a ser constituída e mantida pelo Gestor"
+q10: D1 "Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) violação das declarações"
+q11: D1 "são considerados Eventos de Liquidação Antecipada da Classe quaisquer das seguintes ocorrências"
+q12: D1 "será pago ao Administrador o valor correspondente a 0,30%"
+q13: D1 "A taxa de gestão será devida pelo Fundo ao Gestor em decorrência da prestação dos serviços de gestão da carteira a remuneração anual equivalente a 0,30%"
+q14: D1 "Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo"
+q15: D1 "Significa a OPEA GESTORA DE RECURSOS LTDA."
+q16: D1 "será destinada exclusivamente a Investidores Profissionais"
+q17: D1 "O Fundo terá prazo de duração indeterminado"
+q18: D1 "Significam as garantias que deverão ou poderão, conforme aplicável, ser cedularmente constituídas pelos Produtores"
+q19: D1 "de acordo com os termos estabelecidos no manual de provisão para perdas"
+q20: D1 "Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+receivables: Notas promissórias, CPR-F, CDCA e vendas de insumos da Sumitomo | q1
+agro_backing: CPR-F de produtores e CDCA de distribuidores de insumos | q1
+originator: Sumitomo Chemical Brasil | q2
+assignor: Sumitomo e distribuidores cedentes aprovados | q3
+debtor: Produtores, cooperativas e distribuidores de insumos | q1
+recourse: Sumitomo sem coobrigação; distribuidores cedentes sempre com coobrigação | q3
+eligibility: Vencimento até 420 dias, entre outros critérios | q4
+debtor_limit: Por devedor e grupo econômico: até 5% do PL | q5 | value=5
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo
+term_max: Até 420 dias por direito creditório | q4
+allocation: ≥ 67% do PL em direitos creditórios elegíveis | q6 | value=67
+quota_structure: Sênior / Subordinada Mezanino / Subordinada Júnior | q7,q8
+sub_senior: Sênior ≤ 85% das cotas integralizadas | q7 | basis=mez+jr/PL | value=15
+sub_mezz: Sênior + mezanino ≤ 95% do PL | q8 | basis=jr/PL | value=5
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de liquidez para despesas e meta de amortização | q9
+pdd: PDD pelo manual da administradora | q19
+eval_triggers: Violação de declarações do originador, entre outros | q10
+liquidation: Evento de avaliação convertido ou remuneração sênior não paga, entre outros | q11
+revolving: n/d | Regra de revolvência não localizada em trecho contínuo
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,30% a.a. do PL, mínimo R$ 20 mil, e implantação de R$ 10 mil | q12
+mgmt_fee: 0,30% a.a. do PL | q13
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Vórtx DTVM | q14
+manager: Opea Gestora | q15
+custodian: Vórtx DTVM | q20
+servicer: n/d | Agentes de cobrança não nomeados em trecho contínuo
+investors: Investidores profissionais | q16
+duration: Indeterminado | q17
+collateral: Penhor agrícola ou alienação fiduciária de lavoura nas CPR-F | q18
+leitura: Crédito agro da Sumitomo via CPR-F e CDCA; sênior ≤ 85% das cotas e devedor ≤ 5% do PL.
