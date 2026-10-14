@@ -861,6 +861,82 @@ def _render_period_selector(
     return period
 
 
+def render_period_toolbar(*, state_prefix: str):
+    """Period controls for the portfolio toolbar.
+
+    Presets stay one click away; a custom loaded interval lives in the
+    "Ajustar período" popover, which the page also uses for the displayed
+    window. Returns (period, popover, trailing column for page actions).
+    """
+    end_month = current_default_end_month()
+    max_options = _period_month_options(end_month, months_back=59)
+    preset_labels = tuple(f"{value}M" for value in PERIOD_PRESET_OPTIONS)
+    default_label = f"{DEFAULT_PRESET_MONTHS}M"
+    custom_key = f"{state_prefix}_show_custom"
+    preset_key = f"{state_prefix}_period_preset"
+    last_key = f"{state_prefix}_last_preset"
+    applied_key = f"{state_prefix}_custom_applied"
+    st.session_state.setdefault(custom_key, False)
+    custom = bool(st.session_state[custom_key]) and applied_key in st.session_state
+    if custom:
+        # A custom interval is active: no preset is highlighted.
+        st.session_state[preset_key] = None
+    else:
+        st.session_state[custom_key] = False
+        st.session_state[preset_key] = normalize_single_selection(
+            st.session_state.get(preset_key) or st.session_state.get(last_key), preset_labels, default=default_label,
+        )
+
+    def _on_preset_change() -> None:
+        value = st.session_state.get(preset_key)
+        if value:
+            st.session_state[custom_key] = False
+            st.session_state[last_key] = value
+        elif not st.session_state.get(custom_key):
+            # Clicking the active preset again keeps it selected.
+            st.session_state[preset_key] = st.session_state.get(last_key, default_label)
+
+    preset_col, adjust_col, action_col = st.columns([5, 1.6, 1.2], vertical_alignment="center")
+    with preset_col:
+        st.segmented_control(
+            "Janela móvel", options=preset_labels, key=preset_key, label_visibility="collapsed",
+            selection_mode="single", width="stretch", on_change=_on_preset_change,
+        )
+    if custom:
+        start_applied, end_applied = st.session_state[applied_key]
+        period = build_custom_period(start_month=start_applied, end_month=end_applied)
+    else:
+        selected = st.session_state.get(preset_key) or default_label
+        period = build_preset_period(end_month=end_month, months=int(str(selected).removesuffix("M")))
+    with adjust_col:
+        adjust = st.popover("Ajustar período", icon=":material/tune:", width="stretch")
+    with adjust:
+        st.markdown("**Período carregado**")
+        st.caption("Intervalo consultado nos informes. Os presets ao lado continuam disponíveis.")
+        start_index = max_options.index(period.start_month) if period.start_month in max_options else 0
+        start_month = st.selectbox(
+            "Competência inicial", options=max_options, index=start_index,
+            key=f"{state_prefix}_period_start_month", format_func=_format_month_option_label,
+        )
+        end_candidates = [value for value in max_options if value >= start_month]
+        end_index = end_candidates.index(period.end_month) if period.end_month in end_candidates else len(end_candidates) - 1
+        end_month_selected = st.selectbox(
+            "Competência final", options=end_candidates, index=end_index,
+            key=f"{state_prefix}_period_end_month", format_func=_format_month_option_label,
+        )
+        if st.button("Aplicar intervalo", key=f"{state_prefix}_btn_apply_custom", type="primary", width="stretch"):
+            st.session_state[applied_key] = (start_month, end_month_selected)
+            st.session_state[custom_key] = True
+            st.rerun()
+        if custom and st.button(
+            "Voltar à janela móvel", key=f"{state_prefix}_btn_preset", icon=":material/arrow_back:", width="stretch",
+        ):
+            # The next run restores the last preset before the control is drawn.
+            st.session_state[custom_key] = False
+            st.rerun()
+    return period, adjust, action_col
+
+
 def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
     MAX_SLOTS = 4
     if period is None:

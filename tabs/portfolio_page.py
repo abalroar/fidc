@@ -374,7 +374,11 @@ _SECTION_DEPENDENCIES: dict[str, tuple[str, ...]] = {}
 _GROUP_ORDER = ("Contexto e risco", "Monitoramento e governança")
 
 
-def render_portfolio_center_page(period: ImePeriodSelection) -> None:
+def render_portfolio_center_page(period: ImePeriodSelection | None = None, *, period_renderer=None) -> None:
+    """``period_renderer`` draws the period toolbar after the entity title.
+
+    It returns (period, "Ajustar período" popover, trailing toolbar column).
+    """
     st.html(
         "\n".join(
             (
@@ -393,6 +397,9 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
     )
     if selected_portfolio is None:
         return
+    adjust_popover = toolbar_actions = None
+    if period_renderer is not None:
+        period, adjust_popover, toolbar_actions = period_renderer()
     _restore_portfolio_widget_choices(selected_portfolio.id)
 
     selected_sections = _render_workflow_selector()
@@ -435,6 +442,7 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
                     selected_portfolio=selected_portfolio,
                     period=period,
                     selected_sections=selected_sections,
+                    adjust_popover=adjust_popover,
                 )
             finally:
                 loading_surface.empty()
@@ -515,12 +523,13 @@ def _render_portfolio_analysis_surface(
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
+    adjust_popover: Any = None,
 ) -> bool:
     with st.container(key="portfolio_analysis"):
         st.html(analytical_components_css("portfolio_analysis") + _PORTFOLIO_ANALYSIS_POLISH_CSS)
         return _render_portfolio_analysis_content(
             selected_portfolio=selected_portfolio, period=period,
-            selected_sections=selected_sections,
+            selected_sections=selected_sections, adjust_popover=adjust_popover,
         )
 
 
@@ -529,6 +538,7 @@ def _render_portfolio_analysis_content(
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
+    adjust_popover: Any = None,
 ) -> bool:
     # Documents can be opened before any multi-year financial preload. This
     # keeps documentary diligence usable for baskets without an IME cache and
@@ -584,18 +594,28 @@ def _render_portfolio_analysis_content(
     # panel empty even though the portfolio values themselves are available.
     calculation_outputs = analysis.outputs
     with header_slot:
-        # Scope picker, display window and settings share one control row.
+        # Period line first; a basket adds its scope and fund choices below it.
+        period_line_slot = st.empty()
         multi_scope = len(analysis.scopes) > 1
-        header_columns = st.columns([2, 3, 1] if multi_scope else [5, 1], vertical_alignment="bottom")
-        scope_column = header_columns[0] if multi_scope else header_slot
-        context_column, history_column = header_columns[-2:]
-    with history_column:
-        display_settings = st.popover("Exibição", help="Meses e fundos exibidos; o período solicitado permanece selecionado.")
-        with display_settings:
-            display_outputs = somatorio_tab._render_loaded_period_window(
-                calculation_outputs, show_caption=False,
-                control_label="Histórico exibido", state_namespace=selected_portfolio.id,
-            )
+        if multi_scope:
+            scope_column, funds_column, _ = st.columns([2, 1.3, 3], vertical_alignment="bottom")
+        else:
+            scope_column = funds_column = header_slot
+    # The displayed window is a period setting: it joins the loaded interval in
+    # the toolbar's "Ajustar período" popover when the page provides one.
+    if adjust_popover is not None:
+        window_host = adjust_popover
+    else:
+        with header_slot:
+            window_host = st.popover("Exibição", help="Meses exibidos; o período solicitado permanece selecionado.")
+    with window_host:
+        if adjust_popover is not None:
+            st.divider()
+            st.markdown("**Recorte exibido**")
+        display_outputs = somatorio_tab._render_loaded_period_window(
+            calculation_outputs, show_caption=False,
+            control_label="Histórico exibido", state_namespace=selected_portfolio.id,
+        )
     # Preserve the producer's snapshot reference separately from the selected
     # historical window. The financial filtering rules remain unchanged.
     context = build_portfolio_presentation_context(
@@ -625,17 +645,16 @@ def _render_portfolio_analysis_content(
         load_errors=analysis.load_errors,
         reference_context=context,
     )
-    with context_column:
-        text, help_text = _period_line(
-            context=context, display_outputs=display_outputs, fund_count=len(selected_portfolio.funds),
-        )
-        st.caption(text, help=help_text)
+    text, help_text = _period_line(
+        context=context, display_outputs=display_outputs, fund_count=len(selected_portfolio.funds),
+    )
+    period_line_slot.caption(text, help=help_text)
     with header_slot:
         _render_analysis_coverage_alert(analysis=coverage_analysis, selected_portfolio=selected_portfolio)
 
     if len(analysis.scopes) > 1:
-        with display_settings:
-            st.caption("Fundos da comparação")
+        # Which funds enter the comparison is a choice about the entity.
+        with funds_column, st.popover("Fundos exibidos", icon=":material/filter_list:", width="stretch"):
             selected_scopes = _render_scope_selector(scopes=analysis.scopes, portfolio_id=selected_portfolio.id)
     else:
         selected_scopes = analysis.scopes
