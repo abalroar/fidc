@@ -1,0 +1,53 @@
+# Bayer CropCredit II FIAGRO (Oliveira Trust; Farmtech Gestão; cadeia Bayer)
+type: Agro/FIAGRO
+q1: * "4.16. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente"
+q2: * "os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias, com exceção de até 20%"
+q3: * "atório do valor presente dos Direitos Creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 3%"
+q4: * "A Quantidade Mínima de Devedores não poderá ser inferior a 50 (cinquenta) Devedores"
+q5: * "O Índice de Subordinação Sênior compreende a razão entre o somatório do valor das Cotas Subo"
+q6: * "5.26. O Índice de Subordinação Mezanino compreende a razão entre o somatório do valor das Cotas Subordinadas Júnior e o Patrimônio Líquido"
+q7: * "Fundo pagará pelos serviços de administração custódia e escrituração dos Direitos Creditórios adquiridos uma taxa de administração equivalente a 0,1125%"
+q8: * "ços de gestão, a Gestora fará jus a uma remuneração equivalente a 0,26%"
+q9: * "Não será cobrada taxa de performance do Fundo"
+q10: * "Custodiante a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q11: * "Administrador FARMTECH GESTÃO DE RECURSOS LTDA."
+q12: * "Público-Alvo Investidores Profissionais. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q13: * "Prazo de Duração A Classe I terá prazo de duração indeterminado"
+q14: * "considera-se sempre revolvente, observada a Ordem de Alocação de Recursos"
+q15: * "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador"
+q16: * "A reserva a ser constituída pela Classe I, a ser recomposta mensalmente, para o pagamento de desp"
+q17: * "rdinação não sanado no respectivo prazo de cura constitui um Evento de Avaliação"
+receivables: Agro: notas fiscais XML, CPR-F e títulos emitidos em favor da classe | o1
+originator: Emissores dos títulos da cadeia de insumos agrícolas | o1
+assignor: n/d | Cedentes não nomeados no regulamento; títulos emitidos a favor da classe
+debtor: Produtores e empresas do agro; mínimo de 50 devedores | q4
+recourse: Sem regresso por desenquadramento posterior, salvo culpa ou dolo | o7
+eligibility: ≥ 30 dias; devedor adimplente; vence 30 dias antes do resgate sênior | q1
+debtor_limit: Devedor ≤ 3% do PL, exceto especiais; ≥ 50 devedores | q3,q4
+assignor_limit: Não previsto | Regulamento limita por devedor
+term_max: Até 360 dias; até 20% do PL com prazo maior | q2
+allocation: ≥ 50% do PL em direitos creditórios | o20 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q5,q6
+sub_senior: 15% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 1,5% · jr/PL | q6 | basis=jr/PL
+sub_check: Monitorados pela gestora; sem cura no prazo é evento de avaliação | q17
+reserve: Reserva de despesas recomposta mensalmente; reserva de pagamentos | q16,o36
+pdd: Manual de provisão para perdas da administradora | q15
+eval_triggers: Subordinação sem cura; atraso 90 e 180 dias acima dos tetos, entre outros | q17,o42
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído | why=Resposta anterior lista eventos de avaliação, registrados na linha própria
+revolving: Sempre revolvente, pela ordem de alocação | q14
+amortization: n/d | Prazos e metas definidos nos apêndices | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,1125% a.a. até R$ 100 mi; 0,075% acima; mín. R$ 14,25 mil/mês | q7,o53
+mgmt_fee: 0,26% a.a. do PL | q8
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: n/d | Meta de remuneração definida nos apêndices, fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta de remuneração definida nos apêndices, fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Oliveira Trust DTVM | q12
+manager: Farmtech Gestão de Recursos | q11
+custodian: Oliveira Trust DTVM | q10
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais | q12
+duration: Indeterminado | q13
+agro_backing: Notas fiscais e CPR-F da cadeia de insumos | o1
+collateral: n/d | Garantias dos títulos não descritas no texto extraído
+leitura: Cadeia de insumos agro com 15% de subordinação (júnior ≥ 1,5%), devedor ≤ 3% do PL e mínimo de 50 devedores.
