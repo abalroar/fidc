@@ -1,0 +1,52 @@
+# Seller II FIDC (Oliveira Trust; Oliveira Trust Servicer; Mercado Pago)
+type: Cartão/adquirência
+q1: * "“Cedentes” significam os Estabelecimentos Comerciais (com relação aos Direitos Creditórios Estabelecimentos Comerciais) e o Mercado"
+q2: * "“Devedor” significa o Mercado Pago, na qualidade de devedor dos Direitos Creditórios"
+q3: * "2. A Classe Única somente poderá adquirir Direitos Creditórios Estabelecimentos Comerciais que atendam"
+q4: * "erão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias"
+q5: * "8.8. Índice de Subordinação. A relação mínima entre o valor correspondente à totalidade das Cotas Subordinadas Juniores"
+q6: * "A Taxa de Administração terá a seguinte composição: (i) 0,075%"
+q7: * "Taxa de Gestão terá a seguinte composição. (i) 0,075%"
+q8: * "“Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q9: * "“Gestora” significa a OLIVEIRA TRUST SERVICER S.A."
+q10: * "“Custodiante” significa a Administradora"
+q11: * "3.22. Revolvência: observada a ordem de aplicação de recursos"
+q12: * "vos Financeiros de responsabilidade ou coobrigação de um mesmo devedor sem a observância do artigo 45"
+q13: * "classe fechada, de responsabilidade limitada, com prazo de duração indeterminado"
+q14: * "Cotas Seniores da 1ª Série: automático, destinada a investidores profissionais"
+q15: * "as Cotas Seniores possuirão como rentabilidade alvo o Índice Referencial da respectiva Série"
+receivables: Recebíveis de vendas no Mercado Pago e créditos sub-rogados do Mercado Crédito | q1,q2
+originator: Estabelecimentos comerciais do Mercado Pago e Mercado Crédito | q1
+assignor: Estabelecimentos comerciais e Mercado Crédito | q1
+debtor: Mercado Pago, como credenciador ou subcredenciador | q2
+recourse: Cedentes não respondem pela solvência do devedor; resolução por vícios | o10,o9
+eligibility: Em reais; vincendos; devedor adimplente; prazo ≤ 365 dias | q3,q4
+debtor_limit: Devedor único (Mercado Pago), dispensado do limite legal por devedor | q12
+assignor_limit: Não previsto | Cedentes pulverizados; limite é sobre o devedor
+term_max: Até 365 dias da aquisição | q4
+allocation: ≥ 50% do PL em direitos elegíveis | o24 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q5,q15
+sub_senior: 33,3% · jr/PL | q5 | basis=jr/PL
+sub_mezz: 33,3% · jr/PL (mesmo índice júnior) | q5 | basis=jr/PL
+sub_check: Índice de subordinação apurado sobre o PL | q5
+reserve: Despesas de 3 meses; reserva integral da amortização antes do pagamento | o43,o42
+pdd: n/d | Critério de provisão não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: Reservas, subordinação, cobertura, lastro e obrigações do Mercado Pago | o51
+liquidation: Pagamento de cotas não sanado em 2 DU; lastro inexigível, entre outros | o55
+revolving: Revolvência admitida, pela ordem de aplicação de recursos | q11
+amortization: Encargos e reservas, depois sênior, mezanino e júnior | o60
+admin_fee: 0,075% a.a. até R$ 200 mi, regressiva até 0,02% acima de R$ 1 bi | q6,o64
+mgmt_fee: 0,075% a.a. até R$ 200 mi, mais 0,05% na faixa seguinte | q7
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Índice referencial definido no apêndice de cada série
+target_mezz: n/d | Índice referencial definido no apêndice da mezanino
+administrator: Oliveira Trust DTVM | q8
+manager: Oliveira Trust Servicer | q9
+custodian: Oliveira Trust DTVM (a administradora) | q10,q8
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais | q14
+duration: Indeterminado; prazo próprio por série | q13
+card_receivables: Recebíveis de transações capturadas pelo Mercado Pago | q2
+card_lock: n/d | Mecanismo de trava e domicílio não localizado no texto extraído | why=Resposta anterior trata de garantias, não de trava de domicílio
+dilution: Chargeback com risco específico; resolução por vícios | o9
+leitura: Recebíveis de lojistas do Mercado Pago, devedor único Mercado Pago, com júnior mínima de 33,3% do PL.
