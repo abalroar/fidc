@@ -1,0 +1,872 @@
+{
+ "schema_version": 1,
+ "cnpj": "58458416000138",
+ "name": "MT CONSIGNADO PRIVADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado privado",
+ "reviewed_at": "2026-10-14T07:59:28Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1279108",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "06/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1279108"
+  },
+  "D2": {
+   "document_id": "982232",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/08/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232"
+  },
+  "D3": {
+   "document_id": "1237489",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "01/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237489"
+  },
+  "D4": {
+   "document_id": "1155573",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "07/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155573"
+  },
+  "D5": {
+   "document_id": "1022317",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "04/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1022317"
+  },
+  "D6": {
+   "document_id": "1013022",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "09/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013022"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado privado",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado privado da Plataforma MT",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 7,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "Os Direitos Creditórios serão adquiridos pela Classe sempre de acordo com a Política de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da Plataforma MT e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a Política de Crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação. 4.3 Os Direitos Creditórios deverão contar com Documentos Comprobatórios que evidenciem sua existência, validade e exequibilidade perante os respectivos Devedores. Critérios de Elegibilidade 4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, o"
+    },
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 30,
+     "clause": "cl. 15.1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "de dos Direitos Creditórios. (ii) Risco operacional da Dataprev e da CEF: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pela Dataprev e pela CEF, conforme aplicável. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo a Dataprev e/ou a CEF. Nesse caso, a Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (iii) Risco de validação das informações para conciliação e reconciliação dos Direitos Creditórios adquiridos pela Classe: as informações para conciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os empregados cujas folhas de pagamento serão sujeitas a desconto no mês, nos valores acordados ao efetuar a Consignação, CONFIDENCIAL e qualquer glosa será enviada pela CEF ao Endossante, que efetuará a conciliação e, posteriormente, enviará as informações ao CUSTODIANTE."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de consignado privado pela Plataforma MT",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Parati (endossante)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "ção CVM 175; e (ii) no Capítulo 3 da Parte Geral e no Capítulo 3 do Anexo, ambos deste Regulamento; “Endossante”: a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91; \"Entidade Registradora\": instituição autorizada pelo BACEN para realizar as atividades de registro de Direitos Creditórios e as atividades de constituição, alteração e desconstituição de ônus e gravames sobre ativos financeiros registrados, se aplicável; “Escrituração”: significa a escrituração da Consignação a ser realizada pelo Empregador, junto ao eSocial, após recebimento de notificação comunicando-o da contratação, pelo Devedor, do empréstimo a ser pago por Consignação; “Eventos de Avaliação”: os eventos de avaliação descritos no item 10.1 deste Anexo; “Eventos de Liquidação”: os eventos de liquidação descritos no item 10.3 deste Anexo; “FUNDO”: significa o MT CONSIGNADO PRIVADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Parati Crédito, Financiamento e Investimento, por endosso",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "ção CVM 175; e (ii) no Capítulo 3 da Parte Geral e no Capítulo 3 do Anexo, ambos deste Regulamento; “Endossante”: a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91; \"Entidade Registradora\": instituição autorizada pelo BACEN para realizar as atividades de registro de Direitos Creditórios e as atividades de constituição, alteração e desconstituição de ônus e gravames sobre ativos financeiros registrados, se aplicável; “Escrituração”: significa a escrituração da Consignação a ser realizada pelo Empregador, junto ao eSocial, após recebimento de notificação comunicando-o da contratação, pelo Devedor, do empréstimo a ser pago por Consignação; “Eventos de Avaliação”: os eventos de avaliação descritos no item 10.1 deste Anexo; “Eventos de Liquidação”: os eventos de liquidação descritos no item 10.3 deste Anexo; “FUNDO”: significa o MT CONSIGNADO PRIVADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Empregados com desconto via Dataprev ou CEF",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 30,
+     "clause": "cl. 15.1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "de dos Direitos Creditórios. (ii) Risco operacional da Dataprev e da CEF: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pela Dataprev e pela CEF, conforme aplicável. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo a Dataprev e/ou a CEF. Nesse caso, a Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (iii) Risco de validação das informações para conciliação e reconciliação dos Direitos Creditórios adquiridos pela Classe: as informações para conciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os empregados cujas folhas de pagamento serão sujeitas a desconto no mês, nos valores acordados ao efetuar a Consignação, CONFIDENCIAL e qualquer glosa será enviada pela CEF ao Endossante, que efetuará a conciliação e, posteriormente, enviará as informações ao CUSTODIANTE."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física com averbação privada; idade ≤ 64a11m29d",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, cl. 15.1.5"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação nem regresso, salvo má-fé, culpa ou dolo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 8,
+     "clause": "cl. 4.4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "Creditório, conforme previsto no Contrato de Endosso, após seu endosso à Classe, não haverá coobrigação nem direito de regresso da Classe contra o Endossante, o ADMINISTRADOR, o CUSTODIANTE, o GESTOR e/ou o Agente de Retenção/Cobrança, exceto em caso de má-fé, culpa ou dolo comprovado, observadas as responsabilidades de cada parte, conforme estabelecidas no Contrato de Endosso, no Regulamento neste Anexo e/ou nos demais instrumentos celebrados entre si e/ou junto à Classe, conforme o caso, observado o disposto na regulamentação aplicável. 4.4.5. A formalização de cada aquisição de Direitos Creditórios pela Classe deverá incluir: (i) o endosso eletrônico em preto de cada CCB representativa do respectivo Direito Creditório em favor da Classe; (ii) a celebração do Contrato de Endosso e, adicionalmente, dos respectivos Termos de Endosso; e (iii) o registro de cada uma das CCB em Entidade Registradora. 4.4.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Devedor até 64 anos; prazo ponderado da carteira ≤ 30 meses",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 7,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "de Elegibilidade 4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais); (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 7,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses; (vi) os Direitos Creditórios adquiridos deverão atender ao Preço Mínimo de Compra, conforme definido neste Anexo 4.4.1. Todos os Documentos Comprobatórios deverão ser disponibilizados pelo Endossante e/ou pelo Agente de Retenção/Cobrança à empresa especializada contratada pelo CUSTODIANTE para a guarda dos Documentos Comprobatórios, na data de aquisição do respectivo Direito Creditório pela Classe, sujeito à resolução do respectivo endosso, de acordo com os termos do Contrato de Endosso. 4.4.2."
+    },
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 7,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "da respectiva CCB; (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses; (vi) os Direitos Creditórios adquiridos deverão atender ao Preço Mínimo de Compra, conforme definido neste Anexo 4.4.1. Todos os Documentos Comprobatórios deverão ser disponibilizados pelo Endossante e/ou pelo Agente de Retenção/Cobrança à empresa especializada contratada pelo CUSTODIANTE para a guarda dos Documentos Comprobatórios, na data de aquisição do respectivo Direito Creditório pela Classe, sujeito à resolução do respectivo endosso, de acordo com os termos do Contrato de Endosso. 4.4.2."
+    }
+   ],
+   "legacy": {
+    "value": "CCB prefixada/adimplente; duration média ≤ 30 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor até R$ 100 mil; por empregador ≤ 3% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 7,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "série de Cotas Seniores de prazo mais longo; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais); (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses; (vi) os Direitos Creditórios adquiridos deverão atender ao Preço Mínimo de Compra, conforme definido neste Anexo 4.4.1."
+    },
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 7,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "deverá exceder R$ 100.000,00 (cem mil reais); (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses; (vi) os Direitos Creditórios adquiridos deverão atender ao Preço Mínimo de Compra, conforme definido neste Anexo 4.4.1."
+    }
+   ],
+   "legacy": {
+    "value": "Por devedor ≤ R$ 100 mil; por empregador ≤ 3% do PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Endossante única: Parati",
+   "sources": [],
+   "legacy": {
+    "value": "Por devedor ≤ R$ 100 mil; por empregador ≤ 3% do PL",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Prazo ponderado da carteira de até 30 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 7,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "da respectiva CCB; (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses; (vi) os Direitos Creditórios adquiridos deverão atender ao Preço Mínimo de Compra, conforme definido neste Anexo 4.4.1. Todos os Documentos Comprobatórios deverão ser disponibilizados pelo Endossante e/ou pelo Agente de Retenção/Cobrança à empresa especializada contratada pelo CUSTODIANTE para a guarda dos Documentos Comprobatórios, na data de aquisição do respectivo Direito Creditório pela Classe, sujeito à resolução do respectivo endosso, de acordo com os termos do Contrato de Endosso. 4.4.2."
+    }
+   ],
+   "legacy": {
+    "value": "CCB prefixada/adimplente; duration média ≤ 30 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 9,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "em Direitos Creditórios, nos termos da Resolução CMN 5.111 e da Lei 14.754/23 (“Alocação Mínima Tributária”); e para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM 175 (“Alocação Mínima Regulatória” e, conjuntamente com Alocação Mínima Tributária, “Alocação Mínima”). 4.8 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Ativos Financeiros de Liquidez devidos por um mesmo devedor e/ou de responsabilidade ou coobrigação de devedores de um mesmo Grupo Econômico e/ou de um mesmo devedor, individualmente considerado, ainda que devidos e/ou de responsabilidade ou coobrigação dos Prestadores de Serviço Essenciais, outros prestadores de serviço da Classe, e/ou suas Partes Relacionadas. 4.9 Até 100% (cem por cento) da parcela do Patrimônio Líquido da Classe investido em Ativos Financeiros de Liquidez poderá ser alocado em Ativos Financeiros de Liquidez de emissão ou que envolvam retenção de risco por parte do ADMINISTRADOR, GESTOR, e/ou suas partes relacionadas. 4.10 A Classe poderá adquirir Direitos Creditórios end"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50% regulatório e 67% tributário do PL após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, cl. 4.7"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": ") Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a, no mínimo, 30% (trinta por cento); “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto; “Instituições Autorizadas Ativos de Liquidez”: qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.; (iii) Caixa Econômica Federal; (iv) Banco do Brasil S.A.; (v) Banco Santander (Brasil) S.A.; (vi) Banco BTG Pactual S.A.; ou (vii) Parati Crédito, Financiamento e Investimento S.A.; “Instituições Autorizadas Derivativos”: as instituições financeiras, com nota de classificação de risco (rating) igual ou superior à \"AA\" pela Fitch Ratings e \"AA\" pela Moodys; “Instrução CVM 489”: Instrução nº 489 da CVM, de 14 de janeiro de 2011, conforme alterada; “Investidores Profissionais”: os investidores considerados profissionais, nos termos do Art. 11 da Resolução CVM 30; \"Justa Causa\": terá o significado que lhe é atribuído no Contrato de Serviços MT; “ “Lei nº 10.931”: a Lei nº 10.931, de 02 de agosto de 2004, conforme alterada;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "cação. Para todos os efeitos, não são considerados os cancelamentos descritos no código de defesa do consumidor; “Índice de Subordinação Mezanino”: significa a razão mínima admitida entre: (a) Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a, no mínimo, 10% (dez por cento); “Índice de Subordinação Sênior”: significa a razão mínima admitida entre: (a) Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a, no mínimo, 30% (trinta por cento); “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto; “Instituições Autorizadas Ativos de Liquidez”: qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.; (iii) Caixa Econômica Federal; (iv) Banco do Brasil S.A.; (v) Banco Santander (Brasil) S.A.; (vi) Banco BTG Pactual S.A.; ou (vii) Parati Crédito, Financiamento e Investimento S.A.;"
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 30%; júnior/PL ≥ 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, p. 39"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": ") Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a, no mínimo, 30% (trinta por cento); “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto; “Instituições Autorizadas Ativos de Liquidez”: qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.; (iii) Caixa Econômica Federal; (iv) Banco do Brasil S.A.; (v) Banco Santander (Brasil) S.A.; (vi) Banco BTG Pactual S.A.; ou (vii) Parati Crédito, Financiamento e Investimento S.A.; “Instituições Autorizadas Derivativos”: as instituições financeiras, com nota de classificação de risco (rating) igual ou superior à \"AA\" pela Fitch Ratings e \"AA\" pela Moodys; “Instrução CVM 489”: Instrução nº 489 da CVM, de 14 de janeiro de 2011, conforme alterada; “Investidores Profissionais”: os investidores considerados profissionais, nos termos do Art. 11 da Resolução CVM 30; \"Justa Causa\": terá o significado que lhe é atribuído no Contrato de Serviços MT; “ “Lei nº 10.931”: a Lei nº 10.931, de 02 de agosto de 2004, conforme alterada;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 30%; júnior/PL ≥ 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, p. 39"
+   }
+  },
+  "sub_mezz": {
+   "display": "10% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "cação. Para todos os efeitos, não são considerados os cancelamentos descritos no código de defesa do consumidor; “Índice de Subordinação Mezanino”: significa a razão mínima admitida entre: (a) Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a, no mínimo, 10% (dez por cento); “Índice de Subordinação Sênior”: significa a razão mínima admitida entre: (a) Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a, no mínimo, 30% (trinta por cento); “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto; “Instituições Autorizadas Ativos de Liquidez”: qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.; (iii) Caixa Econômica Federal; (iv) Banco do Brasil S.A.; (v) Banco Santander (Brasil) S.A.; (vi) Banco BTG Pactual S.A.; ou (vii) Parati Crédito, Financiamento e Investimento S.A.;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pelo gestor; amortização extraordinária aprovada para reenquadrar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": ") Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a, no mínimo, 30% (trinta por cento); “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto; “Instituições Autorizadas Ativos de Liquidez”: qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.; (iii) Caixa Econômica Federal; (iv) Banco do Brasil S.A.; (v) Banco Santander (Brasil) S.A.; (vi) Banco BTG Pactual S.A.; ou (vii) Parati Crédito, Financiamento e Investimento S.A.; “Instituições Autorizadas Derivativos”: as instituições financeiras, com nota de classificação de risco (rating) igual ou superior à \"AA\" pela Fitch Ratings e \"AA\" pela Moodys; “Instrução CVM 489”: Instrução nº 489 da CVM, de 14 de janeiro de 2011, conforme alterada; “Investidores Profissionais”: os investidores considerados profissionais, nos termos do Art. 11 da Resolução CVM 30; \"Justa Causa\": terá o significado que lhe é atribuído no Contrato de Serviços MT; “ “Lei nº 10.931”: a Lei nº 10.931, de 02 de agosto de 2004, conforme alterada;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1279108",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "06/08/2026",
+     "page": 2,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1279108",
+     "excerpt": "prêmio exclusivamente sobre os valores objeto de amortizações extraordinárias. RESOLVEM DELIBERAR SOBRE: 1. A aprovação da amortização extraordinária das Cotas Seniores e das Cotas Subordinadas Mezanino para reenquadramento dos Índices de Subordinação, conforme montante disponível no caixa da Classe na data da amortização; 2. A amortização prevista no presente item acima abrangerá todas as Cotas Seniores, na proporção do valor total das Cotas Seniores de cada série em circulação, e todas as Cotas Subordinadas Mezanino, na proporção do valor total das Cotas Subordinadas Mezanino de todas as emissões que estejam em circulação; e 3."
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 30%; júnior/PL ≥ 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, p. 39"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor da reserva de caixa não localizado em trecho contínuo",
+   "sources": []
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 14,
+     "clause": "cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "o calculadas pelo ADMINISTRADOR, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas do ADMINISTRADOR, este último disponível na sua página na rede mundial de computadores, por meio link https://www.daycoval.com.br/investimentos/mercado- capitais/politicas-manuais-documentos 8.3 Caso os Direitos Creditórios Inadimplidos, bem como eventuais multas sejam, de alguma forma, recuperados após o provisionamento ou contabilização de perdas acima referido, tais valores serão destinados exclusiva e integralmente à Carteira da Classe, e o CUSTODIANTE deverá então reverter a provisão ou os prejuízos, conforme o caso. 8.4 Caso haja alteração da tabela de provisão e perdas dos Direitos Creditórios e dos Ativos Financeiros integrantes da Carteira da Classe, bem como da determinação do valor dos ativos e do Patrimônio Líquido da Classe, o ADMINISTRADOR deverá informar ao GESTOR em até 3 (três) Dias Úteis da respectiva modificação. 8.5 Todos os valores que a Classe receber a qualquer momento, incluindo multas, indenizações ou valores compensatórios, serão incorporados a seu Patrimônio Líquido. CAPÍTULO 9 – ASSEMBLEIA ESPECIAL DE COTISTAS 9.1"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Intervenção ou recuperação do endossante ou do agente, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 16,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "NTECIPADA Eventos de Avaliação 10.1 A partir do conhecimento do GESTOR, as seguintes hipóteses são consideradas Eventos de Avaliação: (i) em caso de regime de administração especial temporária - RAET, conforme aplicável, intervenção, recuperação judicial ou extrajudicial ou liquidação extrajudicial do Endossante e/ou do Agente de Retenção/Cobrança; (ii) em caso de desenquadramento de qualquer dos Índices de Subordinação, após realizados os procedimento previstos neste Anexo; (iii) não cumprimento, pelo Endossante, de qualquer de suas obrigações estabelecidas no Contrato de Endosso ou neste Anexo, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossante, de notificação, por escrito, enviada pelo ADMINISTRADOR, informando-o da ocorrência do respectivo evento;"
+    }
+   ],
+   "legacy": {
+    "value": "Perdas estoque > 15% e rentabilidade júnior negativa em 2 verificações",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, cl. 10.1"
+   }
+  },
+  "liquidation": {
+   "display": "Saída do custodiante sem substituição, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 18,
+     "clause": "cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "nto. Eventos de Liquidação 10.3 A partir do conhecimento do GESTOR, as seguintes hipóteses serão consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) na hipótese de resilição do Contrato de Custódia ou renúncia do CUSTODIANTE, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (iii) renúncia do ADMINISTRADOR sem que a Assembleia Especial de Cotistas eficazmente nomeie instituição habilitada para substituí-lo, nos termos estabelecidos neste Regulamento; (iv) por determinação da CVM, em caso de violação de normas legais ou regulamentares; (v) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada CONFIDENCIAL para tal fim; (vi) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial, conforme aplicável, do CUSTODIANTE, ADMINISTRADOR, ou GESTOR, sem a sua efetiva substituição nos termos deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Perdas estoque > 15% e rentabilidade júnior negativa em 2 verificações",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, cl. 10.3"
+   }
+  },
+  "revolving": {
+   "display": "Reinvestimento conforme política do contrato de endosso",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 10,
+     "clause": "cl. 4.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "11 É vedada à Classe aplicar recursos de seu Patrimônio Líquido na aquisição de Direitos Creditórios no exterior. Revolvência 4.12 A Classe utilizará os recursos provenientes da integralização das Cotas para investir em Direitos Creditórios e Ativos Financeiros de Liquidez, de acordo com a Política de Investimento estabelecida no Contrato de Endosso, sendo permitida a aquisição de novos Direitos Creditórios com os recursos decorrentes do pagamento dos Direitos Creditórios integrantes da carteira da Classe, desde que respeitados os Critérios de Elegibilidade e a ordem de alocação prevista neste Anexo. Obrigação de Recompra e Opção de Venda 4.13 A Classe tem o direito de vender Direitos Creditórios ao Agente de Retenção/Cobrança e/ou ao Endossante e o Agente de Retenção/Cobrança e/ou o Endossante tem o dever de adquiri-los (opção de venda e obrigação de recompra, respectivamente), se as respectivas declarações, garantias e determinadas obrigações não forem atendidas pelo Agente de Retenção/Cobrança e/ou pelo Endossante, de acordo com os termos, condições, formalidades e preços detalhados no Contrato de Endosso. Outras disposições relativas à Política de Investimentos 4.14 A Class"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior: amortização principal de 0% até 08/04/2026",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,10% a.a. até R$ 300 mi de PL; 0,08% acima",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 24,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "va do IGP- M sempre em janeiro de cada ano, em periodicidade não inferior a 1 (um) ano. Taxa de Administração (% a.a.) Patrimônio Líquido da Classe A 0,10% Até R$ 300.000.000,00 (inclusive) 0,08% Acima de R$ 300.000.000,00 (exclusive) 12.1.1 A Taxa de Administração será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe do Dia Útil imediatamente anterior. 12.1.2 O ADMINISTRADOR poderá estabelecer que parcelas da Taxa de Administração sejam pagas diretamente pela Classe aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 12.2 Será acrescido à remuneração do ADMINISTRADOR o valor correspondente a R$ 850,00 (oitocentos e cinquenta reais) mensais por cada subclasse de Cotas existente na Classe. 12.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 12.4 Pelos serviços de gestão, o GESTOR fará jus a uma Taxa de"
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a. até R$ 300 mi; 0,08% acima; mínimo R$ 10,25 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, cl. 12.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,40% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 24,
+     "clause": "cl. 12.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "e ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 12.4 Pelos serviços de gestão, o GESTOR fará jus a uma Taxa de Gestão equivalente a 0,40% a.a. (quarenta centésimos por cento ao ano) por ano sobre o Patrimônio Líquido da Classe, a ser pago mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço. 12.4.1 A Taxa de Gestão será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe do Dia Útil imediatamente CONFIDENCIAL anterior. 12.4.2 O GESTOR poderá estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pela Classe aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão. 12.4.3 O pagamento da Taxa de Gestão deverá ser realizado líquido de deduções e retenções fiscais de qualquer natureza, bem como quaisquer majorações das alíquotas dos tributos já existentes."
+    }
+   ],
+   "legacy": {
+    "value": "0,40% a.a. do PL, acrescida de tributos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 24,
+     "clause": "cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "dente a R$ 850,00 (oitocentos e cinquenta reais) mensais por cada subclasse de Cotas existente na Classe. 12.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 12.4 Pelos serviços de gestão, o GESTOR fará jus a uma Taxa de Gestão equivalente a 0,40% a.a. (quarenta centésimos por cento ao ano) por ano sobre o Patrimônio Líquido da Classe, a ser pago mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço. 12.4.1 A Taxa de Gestão será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe do Dia Útil imediatamente CONFIDENCIAL anterior. 12.4.2 O GESTOR poderá estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pela Classe aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão. 12.4.3 O pagamento da Taxa de Gestão deverá ser realizado líquido de deduções e retenções fiscais de qu"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "2ª emissão da 1ª série sênior: DI + 3,00% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "2ª emissão da 1ª série sênior: DI + 3,00% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "ício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato ADMINISTRADOR Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título (“ADMINISTRADOR”). ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, conjunto 174, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº 09.452.272/0001-05, devidamente autorizada pela CVM para o exercício da GESTOR atividade de administração de carteiras de títulos e valores mobiliários, na categoria de gestor, nos termos do Ato Declaratório nº 9.837, de 14 de maio de 2008, ou a sua sucessora a qualquer título (“GESTOR” e, quando referido"
+    },
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 5,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "Público-Alvo Destinado exclusivamente a Investidores Profissionais. BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade Custódia e Tesouraria de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração Sênior, Mezanino e Subordinadas Júnior, nos termos do Capítulo 5 e respectivos Subclasses Apêndices. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o Emissão e Regime de regime de distribuição, seguirão o disposto neste Anexo, nos Suplementos e/ou Distribuição de Cotas no instrumento que aprova a emissão de Cotas. Capital Autori"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1279108",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "06/08/2026",
+     "page": 2,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1279108",
+     "excerpt": "BANCO DAYCOVAL S.A. Administradora ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA. Gestor"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 5,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "Público-Alvo Destinado exclusivamente a Investidores Profissionais. BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade Custódia e Tesouraria de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração Sênior, Mezanino e Subordinadas Júnior, nos termos do Capítulo 5 e respectivos Subclasses Apêndices. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o Emissão e Regime de regime de distribuição, seguirão o disposto neste Anexo, nos Suplementos e/ou Distribuição de Cotas no instrumento que aprova a emissão de Cotas. Capital Autori"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Tudo Serviços (agente de retenção e cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 35,
+     "clause": "cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "ada pela Assembleia Especial; “Agente da Conta Vinculada”: significa o Endossante; “Agente de Retenção/Cobrança”: significa a Tudo Serviços S.A., sociedade por ações com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, CEP 61.760-000, inscrita no CNPJ sob nº 27.852.506/0001-85; “Agente Escriturador”: O ADMINISTRADOR, o qual se encontra devidamente habilitado pela CVM para prestar os serviços de escrituração das Cotas, ou seu sucessor a qualquer título; \"Alocação Mínima\": tem o significado que lhe é atribuído no item 4.7; \"Alocação Mínima Regulatória\": tem o significado que lhe é atribuído no item 4.7; \"Alocação Mínima Tributária\": tem o significado que lhe é atribuído no item 4.7; “Amortização”: significa cada uma das amortizações ordinárias de Cotas; “Amortização Extraordinária”: amortização extraordinária das Cotas Seniores e/ou das Cotas Subordinadas Mezanino, conforme deliberado pela Assembleia Especial de Cotistas, para reestabelecer os Índices de Subordinação, nos termos do item 5.5 do Anexo; \"ANBIMA\": Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; \"Código ANBIMA\": Código ANBIMA de Regulação e Melhores Práticas para Administração de Recursos de Terceiros;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 5,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "segurança, rentabilidade e liquidez dos títulos integrantes de sua carteira. Público-Alvo Destinado exclusivamente a Investidores Profissionais. BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade Custódia e Tesouraria de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração Sênior, Mezanino e Subordinadas Júnior, nos termos do Capítulo 5 e respectivos Subclasses Apêndices. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o Emissão e Regime de regime de distribuiçã"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 5,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "características da classe A de cotas do FUNDO estão descritas abaixo: Tipo de Condomínio Fechado. Prazo de Duração Indeterminado. Classe de Investimento Não. em Cotas Tipo “Financeiro”. Classificação ANBIMA Foco de atuação “Créditos Consignados”. O objetivo da classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade, estabelecidos no item 4.4 abaixo, e (ii) Ativos Financeiros de Liquidez, observados todos os limites Objetivo de composição e diversificação da Carteira da Classe, estabelecidos neste Regulamento e na regulamentação aplicável. O objetivo da Classe não representa, sob qualquer hipótese, promessa, garantia ou sugestão do FUNDO ou de seus Prestadores de Serviços Essenciais quanto à"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 2ª emissão/1ª série: 05/04/2030, principal final 100% do saldo",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, cl. 1.2"
+   }
+  },
+  "payroll": {
+   "display": "Desconto em folha via Dataprev ou CEF",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 30,
+     "clause": "cl. 15.1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "de dos Direitos Creditórios. (ii) Risco operacional da Dataprev e da CEF: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pela Dataprev e pela CEF, conforme aplicável. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo a Dataprev e/ou a CEF. Nesse caso, a Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (iii) Risco de validação das informações para conciliação e reconciliação dos Direitos Creditórios adquiridos pela Classe: as informações para conciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os empregados cujas folhas de pagamento serão sujeitas a desconto no mês, nos valores acordados ao efetuar a Consignação, CONFIDENCIAL e qualquer glosa será enviada pela CEF ao Endossante, que efetuará a conciliação e, posteriormente, enviará as informações ao CUSTODIANTE."
+    }
+   ],
+   "legacy": {
+    "value": "Consignação averbada; garantias finais no contrato de endosso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "Devedor de até 64 anos na emissão da CCB",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "982232",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/08/2025",
+     "page": 7,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+     "excerpt": "cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses; (vi) os Direitos Creditórios adquiridos deverão atender ao Preço Mínimo de Compra, conforme definido neste Anexo 4.4.1. Todos os Documentos Comprobatórios deverão ser disponibilizados pelo Endossante e/ou pelo Agente de Retenção/Cobrança à empresa especializada contratada pelo CUSTODIANTE para a guarda dos Documentos Comprobatórios, na data de aquisição do respectivo Direito Creditório pela Classe, sujeito à resolução do respectivo endosso, de acordo com os termos do Contrato de Endosso. 4.4.2."
+    }
+   ],
+   "legacy": {
+    "value": "CCB prefixada/adimplente; duration média ≤ 30 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/08/2025, cl. 4.4"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Regulamento não fixa parcela mínima",
+   "sources": [],
+   "legacy": {
+    "value": "CCB prefixada/adimplente; duration média ≤ 30 meses",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Consignado privado da Plataforma MT via Parati; subordinação de 30% (júnior ≥ 10%) e devedor até 64 anos.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
