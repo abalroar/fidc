@@ -1,0 +1,766 @@
+{
+ "schema_version": 1,
+ "cnpj": "62393829000159",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS COMERCIAIS MEDICI I - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T13:04:51Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1287845",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845"
+  },
+  "D2": {
+   "document_id": "1242434",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "08/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242434"
+  },
+  "D3": {
+   "document_id": "1088530",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "14/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1088530"
+  },
+  "D4": {
+   "document_id": "1074623",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "31/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074623"
+  },
+  "D5": {
+   "document_id": "1300278",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "25/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1300278"
+  },
+  "D6": {
+   "document_id": "1300277",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "25/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1300277"
+  },
+  "D7": {
+   "document_id": "1089672",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "21/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089672"
+  },
+  "D8": {
+   "document_id": "1089671",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "16/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089671"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de fornecedores contra BRF e Marfrig; cartões até 10% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "Resolução CMN nº 4.880, de 23 de dezembro de 2020. “Direitos Creditórios Cedidos”: Significa os Direitos Creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras integrantes da carteira da Classe. “Direitos Creditórios Não Significa os direitos creditórios definidos no artigo Padronizados”: 2º, XIII c/c §1º, I, do Anexo Normativo II da Resolução CVM 175. “Direitos Creditórios”: Significa os direitos creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras, representados por Documentos Comprobatórios. “Documentos Significam os seguintes documentos: Complementares”: (a) documentos cadastrais dos Fornecedores;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "ta da primeira subscrição e integralização de Cotas. “Devedoras”: Significa (i) a BRF, (ii) a Marfrig; (iii) as sociedades integrantes do Grupo Econômico da BRF identificadas no Anexo III a este Regulamento, condicionado a existência de aval da BRF e (iv) as sociedades integrantes do Grupo Econômico da Marfrig identificadas no Anexo III a este Regulamento, condicionado a existência de aval da Marfrig. “Dia Útil”: Cada dia útil, para fins de operações praticadas no mercado financeiro, conforme especificado na Resolução CMN nº 4.880, de 23 de dezembro de 2020. “Direitos Creditórios Cedidos”: Significa os Direitos Creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras integrantes da carteira da Cla"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 52,
+     "clause": "Anexo, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "ante do Grupo Econômico de quaisquer das Devedoras não deverá superar 10% (dez por cento) do Patrimônio Líquido; (k) o Fundo poderá adquirir Recebíveis de Cartões de Crédito, limitados a 10% (dez por cento) do Patrimônio Líquido do Fundo (l) o Fundo poderá adquirir Recebível de Cartão de Crédito com um prazo máximo de cada ativo de 30 dias corridos; (m) após o 1º (primeiro) mês contado do início das atividades da Classe sob a gestão da atual Gestora, a taxa média mínima de cessão do Direito Creditório à Classe deverá ser de Taxa DI + 2% a.a. (dois inteiros por cento ao ano), calculada por cessão, de acordo com seguinte fórmula, considerando, para tanto, as cessões realizadas no período compreendido entre o Dia Útil imediatamente anterior à data de cálculo e o 15º (décimo quinto) Dia Útil anterior à data de cálculo: Taxa média mínima = ∑ Txn/N 10.1.1. O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora ou pelo prestador de serviços por ela subcontratado na respectiva Data de Aquisição. 10.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis comerciais performados de fornecedores; admite cartões até 10% do PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Fornecedores da BRF e da Marfrig",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "3 “Cedentes”: Os Fornecedores que cedem Direitos Creditórios à Classe. “Chaves de Acesso Conjunto de dígitos que identificam univocamente Eletrônico”: uma nota fiscal eletrônica e facultam a verificação da sua autorização e conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda – SEFAZ da circunscrição dos Fornecedores na rede mundial de computadores. “Classe”: Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no Anexo Descritivo. “CMN”: Significa o Conselho Monetário Nacional. “CNPJ”: Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Consultora Especializada”: A CRESCERA ECOSYSTEM S.A., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "ta da primeira subscrição e integralização de Cotas. “Devedoras”: Significa (i) a BRF, (ii) a Marfrig; (iii) as sociedades integrantes do Grupo Econômico da BRF identificadas no Anexo III a este Regulamento, condicionado a existência de aval da BRF e (iv) as sociedades integrantes do Grupo Econômico da Marfrig identificadas no Anexo III a este Regulamento, condicionado a existência de aval da Marfrig. “Dia Útil”: Cada dia útil, para fins de operações praticadas no mercado financeiro, conforme especificado na Resolução CMN nº 4.880, de 23 de dezembro de 2020. “Direitos Creditórios Cedidos”: Significa os Direitos Creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras integrantes da carteira da Cla"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Fornecedores das devedoras (múltiplos cedentes)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "3 “Cedentes”: Os Fornecedores que cedem Direitos Creditórios à Classe. “Chaves de Acesso Conjunto de dígitos que identificam univocamente Eletrônico”: uma nota fiscal eletrônica e facultam a verificação da sua autorização e conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda – SEFAZ da circunscrição dos Fornecedores na rede mundial de computadores. “Classe”: Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no Anexo Descritivo. “CMN”: Significa o Conselho Monetário Nacional. “CNPJ”: Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Consultora Especializada”: A CRESCERA ECOSYSTEM S.A., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "BRF, Marfrig e sociedades de seus grupos com aval da controladora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "ta da primeira subscrição e integralização de Cotas. “Devedoras”: Significa (i) a BRF, (ii) a Marfrig; (iii) as sociedades integrantes do Grupo Econômico da BRF identificadas no Anexo III a este Regulamento, condicionado a existência de aval da BRF e (iv) as sociedades integrantes do Grupo Econômico da Marfrig identificadas no Anexo III a este Regulamento, condicionado a existência de aval da Marfrig. “Dia Útil”: Cada dia útil, para fins de operações praticadas no mercado financeiro, conforme especificado na Resolução CMN nº 4.880, de 23 de dezembro de 2020. “Direitos Creditórios Cedidos”: Significa os Direitos Creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras integrantes da carteira da Cla"
+    }
+   ],
+   "legacy": {
+    "value": "BRF, Marfrig e sociedades listadas dos grupos com aval da respectiva controladora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação dos cedentes não definida em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Cedentes respondem pela existência/certeza/exigibilidade; sem obrigação de solvência das devedoras",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Performados, prazo de 7 a 365 dias e prazo médio ≤ 110 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 51,
+     "clause": "Anexo, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "pelos Fornecedores às Devedoras, representados por Documentos Comprobatórios; (b) prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição; (c) o prazo mínimo do Direito Creditório deve ser de 7 (sete) dias contados da Data de Aquisição; (d) o Direito Creditório deve vencer até o 15º (décimo quinto) dia que antecede a data de vencimento das Cotas Seniores em circulação cujo prazo seja o mais longo; 51 (e) o Direito Creditório deve ser performado e não passível de qualquer discussão entre a Cedente e a Devedora; (f) o Direito Creditório deve ser representado em moeda corrente nacional e seu valor de face não deve estar sujeito a variação cambial; (g) o Direito Creditório deve estar amparado pelos Documentos Comprobatórios; (h) o Direito Creditório deve ser devido por uma das Devedoras; (i) considerada pro forma a cessão pretendida, o prazo médio dos Direitos Creditórios integrantes da carteira não deverá exceder 110 (cento e dez) dias;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 52,
+     "clause": "Anexo, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "(h) o Direito Creditório deve ser devido por uma das Devedoras; (i) considerada pro forma a cessão pretendida, o prazo médio dos Direitos Creditórios integrantes da carteira não deverá exceder 110 (cento e dez) dias; (j) considerada pro forma a cessão pretendida, o valor dos Direitos Creditórios integrantes da carteira cuja Cedente seja uma sociedade integrante do Grupo Econômico de quaisquer das Devedoras não deverá superar 10% (dez por cento) do Patrimônio Líquido; (k) o Fundo poderá adquirir Recebíveis de Cartões de Crédito, limitados a 10% (dez por cento) do Patrimônio Líquido do Fundo (l) o Fundo poderá adquirir Recebível de Cartão de Crédito com um prazo máximo de cada ativo de 30 dias corridos; (m) após o 1º (primeiro) mês contado do início das atividades da Classe sob a gestão da atual Gestora, a taxa média mínima de cessão do Direito Creditório à Classe deverá ser de Taxa DI + 2% a.a. (dois inteiros por cento ao ano), calculada por cessão, de acordo com seguinte fórmula, considerando, para tanto, as cessões realizadas no período compreendido entre o Dia Útil imediatamente anterior à data de cálculo e o 15º (décimo quinto) Dia Útil anterior à data de cálculo: Taxa média mínima = ∑ Txn/N 10.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Performados BRL; 7–365 dias; prazo médio≤110; vencimento até D-15 do resgate; cartões até 30 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 10.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Devedoras restritas a BRF, Marfrig e seus grupos",
+   "sources": [],
+   "legacy": {
+    "value": "Cedentes ligados às devedoras ≤10% do PL; cartões≤10%; devedoras BRF/Marfrig e grupos específicos",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedentes do grupo das devedoras: até 10% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 52,
+     "clause": "Anexo, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "dez) dias; (j) considerada pro forma a cessão pretendida, o valor dos Direitos Creditórios integrantes da carteira cuja Cedente seja uma sociedade integrante do Grupo Econômico de quaisquer das Devedoras não deverá superar 10% (dez por cento) do Patrimônio Líquido; (k) o Fundo poderá adquirir Recebíveis de Cartões de Crédito, limitados a 10% (dez por cento) do Patrimônio Líquido do Fundo (l) o Fundo poderá adquirir Recebível de Cartão de Crédito com um prazo máximo de cada ativo de 30 dias corridos; (m) após o 1º (primeiro) mês contado do início das atividades da Classe sob a gestão da atual Gestora, a taxa média mínima de cessão do Direito Creditório à Classe deverá ser de Taxa DI + 2% a.a. (dois inteiros por cento ao ano), calculada por cessão, de acordo com seguinte fórmula, considerando, para tanto, as cessões realizadas no período compreendido entre o Dia Útil imediatamente anterior à data de cálculo e o 15º (décimo quinto) Dia Útil anterior à data de cálculo: Taxa média mínima = ∑ Txn/N 10.1.1. O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora ou pelo prestador de serviços por ela subcontratado na respectiva Data de Aquisição. 10.1.2."
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "Cedentes ligados às devedoras ≤10% do PL; cartões≤10%; devedoras BRF/Marfrig e grupos específicos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 365 dias da aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 51,
+     "clause": "Anexo, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "pelos Fornecedores às Devedoras, representados por Documentos Comprobatórios; (b) prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição; (c) o prazo mínimo do Direito Creditório deve ser de 7 (sete) dias contados da Data de Aquisição; (d) o Direito Creditório deve vencer até o 15º (décimo quinto) dia que antecede a data de vencimento das Cotas Seniores em circulação cujo prazo seja o mais longo; 51 (e) o Direito Creditório deve ser performado e não passível de qualquer discussão entre a Cedente e a Devedora; (f) o Direito Creditório deve ser representado em moeda corrente nacional e seu valor de face não deve estar sujeito a variação cambial; (g) o Direito Creditório deve estar amparado pelos Documentos Comprobatórios; (h) o Direito Creditório deve ser devido por uma das Devedoras; (i) considerada pro forma a cessão pretendida, o prazo médio dos Direitos Creditórios integrantes da carteira não deverá exceder 110 (cento e dez) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Performados BRL; 7–365 dias; prazo médio≤110; vencimento até D-15 do resgate; cartões até 30 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 10.1"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "de Investimento e aos Critérios de Elegibilidade. 8.2. Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 8.2.1. A Gestora buscará, de forma discricionária, o enquadramento da Classe à Alocação Mínima para Fins Tributários, de modo que a Classe se sujeite ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica, nos termos 45 da Lei 14.754 e da Resolução CMN 5.111. 8.2.2. Observadas as disposições da Lei 14.754, a sujeição da Classe ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica está condicionada, além da observância à Alocação Mínima para Fins Tributários, ao enquadramento do Fundo como “entidade de investimento”, conforme a definição na Resolução CMN 5.111. Não é possível garantir que todos os requisitos previstos na Lei 14.754 e na Resolução CMN 5.111 serão sempre atendidos, de modo que os rendimentos das aplicações no Fundo poderão sujeitar-se à tributação periódica de que trata a seção II do capítulo II da Lei 14.754. 8.2.3."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos >50% do PL em 180 dias; objetivo fiscal tratado separadamente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 8.2"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 40,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "rvada, a partir de 14 de outubro de 2025, entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 5% (cinco por cento). Isso significa que, a partir de 14 de outubro de 2025, no mínimo, 5% (cinco por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação, observado o disposto no item 5.1.1 abaixo. 5.1.1. No período de até 90 (noventa) dias contados a partir de 14 de outubro de 2025, o Índice de Subordinação poderá ser reduzido até 3% (três por cento), sem que isso seja considerado um desenquadramento do Índice de Subordinação. Caso dentro deste período o Índice de Subordinação seja desenquadrado abaixo do limite de 3% (três por cento), as providências previstas 40 no item 5.3 abaixo deverão ser adotadas para que o Índice de Subordinação seja enquadrado no limite de, no mínimo, de 5% (cinco por cento). 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥5%; tolerância 3% apenas nos 90 dias após 14/10/2025",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "5% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 40,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "rvada, a partir de 14 de outubro de 2025, entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 5% (cinco por cento). Isso significa que, a partir de 14 de outubro de 2025, no mínimo, 5% (cinco por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação, observado o disposto no item 5.1.1 abaixo. 5.1.1. No período de até 90 (noventa) dias contados a partir de 14 de outubro de 2025, o Índice de Subordinação poderá ser reduzido até 3% (três por cento), sem que isso seja considerado um desenquadramento do Índice de Subordinação. Caso dentro deste período o Índice de Subordinação seja desenquadrado abaixo do limite de 3% (três por cento), as providências previstas 40 no item 5.3 abaixo deverão ser adotadas para que o Índice de Subordinação seja enquadrado no limite de, no mínimo, de 5% (cinco por cento). 5.2."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "Subordinadas / PL ≥5%; tolerância 3% apenas nos 90 dias após 14/10/2025",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 5.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária, pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 41,
+     "clause": "Anexo, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "otadas para que o Índice de Subordinação seja enquadrado no limite de, no mínimo, de 5% (cinco por cento). 5.2. O Índice de Subordinação deverá ser apurado em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada no item 5.3 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, os Cotistas titulares das Cotas Subordinadas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto no item 5.2 acima. 5.3.1. Na hipótese de desenquadramento do Índice de Subordinação, os Cotistas titulares das Cotas Subordinadas poderão, mas não estarão obrigados a, aprovar uma nova emissão de Cotas Subordinadas para reenquadramento do Índice de Subordinação, em até 30 (trinta) dias corridos do recebimento da comunicação referida no item 5.3 acima, integralizando-as em moeda corrente nacional. 5.3.2."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥5%; tolerância 3% apenas nos 90 dias após 14/10/2025",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 5.2"
+   }
+  },
+  "reserve": {
+   "display": "Menor entre despesas de 90 dias e percentual do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 53,
+     "clause": "Anexo, cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "torado pela Gestora em todo último Dia Útil de cada mês do calendário, devendo ser equivalente ao menor valor entre (a) o total de despesas e encargos de responsabilidade da Classe a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 1% (um por cento) do Patrimônio Líquido na data de apuração. 11.3. O montante referente à Reserva de Caixa deverá ser mantido pela Administradora de forma devidamente segregada no Patrimônio Líquido, em moeda corrente nacional, ou em Ativos Financeiros de Liquidez imediata. 11.4. Na hipótese de a Reserva de Caixa deixar de atender ao limite de enquadramento descrito no item 11.3 acima, a Administradora, por conta e ordem, deverá destinar todos os recursos da Classe, em moeda corrente nacional, para a recomposição da Reserva de Caixa, observada a ordem de alocação de recursos prevista no Capítulo 12 abaixo. 53 12. ORDEM DE ALOCAÇÃO DOS RECURSOS 12.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Provisão por redução no valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 55,
+     "clause": "Anexo, cl. 13.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "489, sempre que houver evidência de redução no valor recuperável dos Ativos, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 13.7. É obrigatória a divulgação, em notas explicativas às demonstrações contábeis anuais do Fundo e/ou da Classe, de informações que abranjam, no mínimo, (i) o montante, a natureza e as faixas de vencimento dos Ativos integrantes da carteira, caso aplicável; (ii) o mercado dos Ativos, segregados por tipo de Ativo; e (iii) os parâmetros utilizados na determinação desses valores. 14. DA RESPONSABILIDADE DOS COTISTAS E PATRIMÔNIO LÍQUIDO NEGATIVO 14.1. A responsabilidade de cada Cotista está limitada ao valor por ele subscrito, nos termos do artigo 1.368-D, inciso I, do Código Civil e da Resolução CVM 175. 14.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rebaixamento do rating sênior, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 61,
+     "clause": "Anexo, cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "vocada especialmente para esse fim, ou, caso não existam Cotas em circulação, por deliberação da Administradora. 16.2. A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Avaliação: (a) rebaixamento da classificação de risco das Cotas Seniores em circulação (i) a qualquer tempo, em 2 (dois) níveis abaixo da classificação de risco originalmente atribuída; ou (ii) após uma única revisão de classificação de risco ou após 2 (duas) revisões consecutivas, em 2 (dois) níveis abaixo da classificação de risco originalmente atribuída; (b) desenquadramento da carteira de Ativos por mais de 30 (trinta) (quinze) dias consecutivos, consoante os limites aplicáveis à Classe, nos termos do Regulamento, deste Anexo Descritivo e das disposições legais e regulatórias em vigor; (c) desenquadramento da Alocação Mínima para Fins Tributários, não sanado no período de 30 (trinta) dias contados da sua verificação; (d) realização de amortização de Cotas em desacordo com o previsto neste Anexo Descritivo; (e) verificação de Patrimônio Líquido Negativo; (f) desenquadramento do Índice de Subordinação por um período superior ao previsto no Capítulo 5 acima;"
+    }
+   ],
+   "legacy": {
+    "value": "Inadimplemento >5% do PL sem cura em 10 DU; cross default/acceleration ≥US$150 mi; rating e controle",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 16.2"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação em assembleia ou avaliação convertida, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 64,
+     "clause": "Anexo, cl. 16.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "juízo da implementação de eventuais ajustes aprovados pelos Cotistas na Assembleia Geral de Cotistas em questão. 16.6. A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Liquidação Antecipada: (a) deliberação da Assembleia Geral de Cotistas pela liquidação da Classe; 64 (b) deliberação, em Assembleia Geral de Cotistas, de que um Evento de Avaliação constitui um Evento de Liquidação Antecipada; ou (c) renúncia da Administradora, sem que uma nova instituição assuma suas funções no prazo de até 60 (sessenta) dias. 16.6.1. A Gestora deverá monitorar a ocorrência dos Eventos de Liquidação Antecipada e, imediatamente comunicar a Administradora quando da ocorrência, para as providências definidas abaixo. 16.7. Na hipótese de ocorrência de qualquer Evento de Liquidação Antecipada, a Administradora, imediatamente, (a) suspenderá o pagamento de amortização ou resgate das Cotas, se houver; (b) interromperá a aquisição de Direitos Creditórios e de Ativos Financeiros de Liquidez; e (c) convocará a Assembleia Geral de Cotistas para deliberar os procedimentos de liquidação da Classe. 16.8."
+    }
+   ],
+   "legacy": {
+    "value": "Inadimplemento >5% do PL sem cura em 10 DU; cross default/acceleration ≥US$150 mi; rating e controle",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 16.6"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 9.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "ireitos Creditórios serão adquiridos pela Classe sem coobrigação dos respectivos Cedentes ou de terceiros. 9.5. Será permitida a revolvência da carteira, ou seja, a aquisição de novos Direitos Creditórios pela Classe com recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração da Classe, respeitada a ordem de alocação de recursos prevista no Capítulo 12 do Anexo Descritivo. 9.6. A Administradora, a Gestora, a Consultoria Especializada, esta última caso contratada, seus respectivos controladores, sociedades por elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum não são solidários entre si, não respondendo pelo pagamento dos Direitos Creditórios Cedidos, pela solvência das Devedoras ou pela existência, autenticidade, correta formalização e liquidez dos Direitos Creditórios Cedidos, sem prejuízo das obrigações e responsabilidades da Administradora e da Gestora nos termos do Regulamento e deste Anexo Descritivo. Recebimento Ordinário, Política de Crédito e Política de Cobrança dos Direitos Creditórios 49 9.7."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Despesas; reserva; sênior; subordinada; novas aquisições",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Faixas a partir de 0,10% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 43,
+     "clause": "Anexo, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "Taxa – Percentual Patrimônio Líquido (PL) Mínimo Mensal Sobre o PL Até R$ 500 milhões 0,10% De R$ 500 milhões - R$ 1 bilhão (inclusive) 0,05% De R$ 1 bilhão (exclusive)- R$ 2 bilhões 0,05% (inclusive) De R$ 2 bilhões (exclusive)- R$ 3 bilhões 0,04% (inclusive) R$ 16.500,00 De R$ 3 bilhões (exclusive)- R$ 4 bilhões 0,04% (inclusive) De R$ 4 bilhões (exclusive)- R$ 5 bilhões 0,03% (inclusive) Acima de R$ 5 bilhões 0,02% 43 7.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 7.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas sobre PL:0,10/0,05/0,05/0,04/0,04/0,03/0,02%; cortesR$ 0,5/1/2/3/4/5 bi; mínimo R$ 16,5 mil/mês; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Faixas a partir de 0,04% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 44,
+     "clause": "Anexo, cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": ".2. A Taxa de Gestão corresponderá ao valor calculado conforme a tabela abaixo: TAXA DE GESTÃO Taxa – Percentual Patrimônio Líquido (PL) Mínimo Mensal Sobre o PL Até R$ 500 milhões 0,04% De R$ 500 milhões - R$ 1 bilhão 0,03% (inclusive) De R$ 1 bilhão (exclusive)- R$ 2 0,02% bilhões (inclusive) De R$ 2 bilhões (exclusive)- R$ 3 0,02% R$ 5.000,00 bilhões (inclusive) De R$ 3 bilhões (exclusive)- R$ 4 0,01% bilhões (inclusive) De R$ 4 bilhões (exclusive)- R$ 5 0,01% bilhões (inclusive) Acima de R$ 5 bilhões 0,01% 7.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 7.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas sobre PL:0,04/0,03/0,02/0,02/0,01/0,01/0,01%; mínimo R$ 5 mil/mês; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/08/2026, Anexo, cl. 7.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda outras taxas, como a de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "Classe, de acordo com a Política de Investimento descrita neste Anexo Descritivo. 7.8. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 8. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 8.1. A Classe tem como objetivo proporcionar aos Cotistas a valorização das Cotas de suas respectivas titularidades por meio da aplicação dos recursos da Classe preponderantemente na aquisição de Direitos Creditórios. 8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade. 8.2. Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 8.2.1. A Gestora buscará, de forma discricionária, o enquadramento da Classe à Alocação Mínima para Fins Tributários, de modo que a Classe se sujeite ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica, nos termos 45 da Lei 14.754 e da Resolução CMN 5.111. 8.2.2."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. “Administradora”: A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte I, Pinheiros, CEP 05402-500, , inscrita no CNPJ sob o nº 62.285.390/0001-40, ou sua sucessora a qualquer título. “Agência de Classificação de É a Fitch Ratings Brasil Ltda., agência de classificação Risco”: de risco contratada pela Gestora, em nome do Fundo, para realizar a avaliação de risco das Cotas, nos termos dispostos neste Regulamento. “Alocação Mínima para Fins Percentual mínimo de 67% (sessenta e sete por Tributários”: cento) do Patrimônio Líquido a ser mantido em"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "QI Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "itórios Comerciais Medici I – Responsabilidade Limitada. “Gestora”: A QI GESTÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Pinheiros, CEP 05402-500, , inscrita no CNPJ sob o nº 52.332.058/0001-36, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 21.743, de 5 de fevereiro de 2024. 7 “Grupo Econômico”: Com relação a uma Pessoa, o grupo constituído por tal Pessoa, pelos seus controladores (inclusive pertencentes ao grupo de controle) e pelas Pessoas, direta ou indiretamente, controladas, coligadas ou sob control"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "nforme previstos no Capítulo 10 do Anexo Descritivo. “Custodiante”: A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada. “CVM”: A Comissão de Valores Mobiliários. “Data de Aquisição”: Cada data em que ocorrer a aquisição dos Direitos Creditórios pela Classe. “Data de Pagamento”: Cada data de pagamento da remuneração e/ou da amortização de principal das Cotas, conforme previstas no Regulamento, no Anexo Descritivo e nos respectivos Suplementos. 5 “Data de Subscrição Inicial”: A data da primeira subscrição e integralização de Cotas. “Devedoras”: Significa (i) a BRF, (ii) a Marfrig;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado; consultora é a Crescera",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 25,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "o registro de Direitos Creditórios, incluindo as relativas à contratação da Entidade Registradora; (u) tendo em vista a Classe ser destinada a Investidores Profissionais, despesas relacionadas à contratação da Consultora Especializada e do Agente de Cobrança; e (v) tendo em vista a Classe ser destinada a Investidores Profissionais, despesas relacionadas: (i) contratação de plataformas de assinaturas eletrônicas; (ii) contratação de certificadoras, estando estas despesas definidas em propostas a serem firmadas pelo Fundo; (w) tendo em vista a Classe ser destinada a Investidores Profissionais, despesas relacionadas: (i) a verificação trimestral de existência e da integridade dos Documentos Comprobatórios dos Direitos Creditórios substituídos ou inadimplidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1287845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/08/2026",
+     "page": 35,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845",
+     "excerpt": "2.1. A Classe é exclusivamente destinada a Investidores Profissionais. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada por deliberação da Assembleia Geral de Cotistas em conformidade com o disposto no Regulamento e neste Anexo Descritivo. 4. DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS Características Gerais 4.1. As Cotas correspondem a frações ideais do Patrimônio Líquido e somente serão resgatadas em virtude do término do prazo de duração Classe ou em virtude da liquidação do Fundo. 4.2. Todas as Cotas de uma mesma Subclasse terão iguais prioridades de amortização, resgate e distribuição dos rendimentos da carteira, bem como direitos de voto, observadas e as demais disposições deste Anexo Descritivo. 35 4.3. As Cotas serão escriturais e mantidas em contas de depósito em nome dos respectivos Cotistas. 4.4. A qualidade de Cotista caracteriza-se pela abertura da conta de depósito em seu nome. 4.5. Somente os Investidores Profissionais poderão adquirir as Cotas. 4.5.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sacadas restritas a BRF, Marfrig e seus grupos",
+   "sources": [],
+   "legacy": {
+    "value": "Cedentes ligados às devedoras ≤10% do PL; cartões≤10%; devedoras BRF/Marfrig e grupos específicos",
+    "decision": "revised",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Recebíveis de fornecedores de BRF e Marfrig; subordinação de 5% e prazo médio ≤ 110 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
