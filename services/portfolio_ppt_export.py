@@ -17,7 +17,8 @@ import pandas as pd
 from pptx import Presentation
 from pptx.chart.data import CategoryChartData
 from pptx.dml.color import RGBColor
-from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_TICK_LABEL_POSITION, XL_MARKER_STYLE, XL_TICK_MARK
+from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION, XL_TICK_LABEL_POSITION, XL_MARKER_STYLE, XL_TICK_MARK
+from pptx.enum.dml import MSO_LINE_DASH_STYLE
 from pptx.enum.text import MSO_AUTO_SIZE, MSO_ANCHOR, PP_ALIGN
 from pptx.oxml.xmlchemy import OxmlElement
 from pptx.util import Pt
@@ -26,29 +27,31 @@ from services.portfolio_ppt_style import DEFAULT_STYLE, SNAPSHOT_SERIES_KEYS, Po
 
 
 def build_portfolio_pptx_bytes(*, style: PortfolioPptStyle = DEFAULT_STYLE,
-                               presentation_context=None, export_warnings=(), **inputs: Any) -> bytes:
-    from services.portfolio_ppt_content import SlideSpec, TableBlock, build_portfolio_deck_spec
-    from services.presentation_text import public_document_text
+                               presentation_context=None, export_warnings=(),
+                               table_placement: str = "inline", section_dividers: str = "auto",
+                               **inputs: Any) -> bytes:
+    """Compose the portfolio deck.
 
+    ``table_placement``: ``"inline"`` puts each theme's series right after its
+    charts (pre-read); ``"appendix"`` moves every series table to an appendix
+    in the same theme order (live presentation).
+    ``section_dividers``: ``"auto"`` adds dividers only to long decks,
+    ``"always"`` or ``"never"`` force the choice.
+    """
+    from services.portfolio_ppt_content import build_portfolio_deck_spec
+
+    reference_lines = ()
     if presentation_context is not None:
         inputs.setdefault("dashboard_summary_competencia", presentation_context.common_position)
-    spec = build_portfolio_deck_spec(**inputs)
-    reference_rows = []
+        reference_lines = tuple(presentation_context.reference_lines())
+    spec = build_portfolio_deck_spec(**inputs, table_placement=table_placement,
+                                     reference_lines=reference_lines, export_warnings=tuple(export_warnings))
     if presentation_context is not None:
-        reference_rows.extend({"Referência": line.partition(": ")[0], "Contexto": line.partition(": ")[2] or line}
-                              for line in presentation_context.reference_lines())
         spec = replace(spec, metadata=(*spec.metadata,
             f"Posição comum: {presentation_context.common_position}. Última observada: {presentation_context.latest_observed}."))
-    reference_rows.extend({"Referência": "Parte indisponível", "Contexto": public_document_text(warning)}
-                          for warning in export_warnings)
-    if reference_rows:
-        slide = SlideSpec("Referências", spec.context,
-                          (TableBlock("Escopo, cortes e cobertura", pd.DataFrame(reference_rows)),),
-                          "CVM · Informe Mensal · Fundos.NET/B3", kind="appendix")
-        spec = replace(spec, slides=(*spec.slides, slide))
     if export_warnings:
-        spec = replace(spec, metadata=(*spec.metadata, "Cobertura parcial. Partes indisponíveis identificadas no anexo."))
-    return render_portfolio_deck(spec, style=style)
+        spec = replace(spec, metadata=(*spec.metadata, "Cobertura parcial. Partes indisponíveis identificadas em Referências e cobertura."))
+    return render_portfolio_deck(spec, style=style, section_dividers=section_dividers)
 
 
 def _number(value: object) -> float | None:
@@ -60,6 +63,8 @@ def _number(value: object) -> float | None:
 
 
 def _br(value: float, decimals: int) -> str:
+    if round(value, decimals) == 0:
+        value = 0.0  # never "-0,0"
     return f"{value:,.{decimals}f}".replace(",", "_").replace(".", ",").replace("_", ".")
 
 
@@ -163,43 +168,67 @@ def _cover(prs, spec, style):
     slide.notes_slide.notes_text_frame.text = content
 
 
+_NUMERIC_TOKENS = {"number", "money", "money_value", "percent", "integer"}
+
+
+def _is_numeric_column(block, column) -> bool:
+    token = block.formats.get(column, "text").split(":")[0]
+    return (column in set(getattr(block, "numeric_columns", ())) or token in _NUMERIC_TOKENS
+            or bool(re.fullmatch(r"[a-z]{3}/\d{2}", str(column))))
+
+
 def _table_widths(block, width: float, style) -> list[float]:
+    """Natural widths: about 56–110pt per numeric column and the label column
+    sized by its text. Narrow tables are not stretched to the slide width;
+    only wrapping text columns absorb free space."""
     columns = list(block.frame.columns)
     if len(columns) == 1:
         return [width]
-    numeric = set(getattr(block, "numeric_columns", ()))
-    numeric.update(column for column, fmt in block.formats.items()
-                   if fmt.split(":")[0] in {"number", "money", "money_value", "percent", "integer"})
     if getattr(block, "snapshot_history", None):
-        # Snapshot: labels, value, comparisons, history.
-        if len(columns) == 5:
-            return [width * fraction for fraction in (.31, .18, .16, .16, .19)]
-    weights = []
+        fractions = {5: (.31, .18, .16, .16, .19), 4: (.36, .20, .20, .24), 3: (.44, .26, .30)}.get(len(columns))
+        if fractions:
+            return [width * fraction for fraction in fractions]
+    size = style.table_min_size if getattr(block, "compact", False) else style.table_size
+    weights, wants = [], []
     for index, column in enumerate(columns):
         values = [str(column), *[format_cell(v, block.formats.get(column, "text")) for v in block.frame[column]]]
         length = max((len(value) for value in values), default=10)
         if index == 0:
-            weights.append(min(225, max(120, length * 4.7)))
-        elif column in numeric or re.search(r"[a-z]{3}/\d{2}$", str(column)):
-            weights.append(min(125, max(49, length * 5.0)))
+            natural = length * size * .50 + 14
+            weights.append(min(225, max(110, natural)))
+        elif _is_numeric_column(block, column):
+            natural = length * size * .56 + 14
+            weights.append(min(110, max(56, natural)))
         else:
-            weights.append(min(450, max(115, length * 4.8)))
-    if all(column in numeric or re.search(r"[a-z]{3}/\d{2}$", str(column)) for column in columns[1:]):
-        first = min(weights[0], width * .30)
-        others = weights[1:]
-        return [first, *[(width - first) * value / sum(others) for value in others]]
-    return [width * value / sum(weights) for value in weights]
+            natural = length * size * .49 + 14
+            weights.append(min(450, max(115, natural)))
+        wants.append(max(0.0, natural - weights[-1]))
+    total = sum(weights)
+    if total > width:
+        if all(_is_numeric_column(block, column) for column in columns[1:]):
+            first = min(weights[0], width * .30)
+            others = weights[1:]
+            return [first, *[(width - first) * value / sum(others) for value in others]]
+        return [width * value / total for value in weights]
+    spare = width - total
+    hungry = [index for index, want in enumerate(wants) if want > 0 and (index == 0 or not _is_numeric_column(block, columns[index]))]
+    if hungry:
+        need = sum(wants[index] for index in hungry)
+        for index in hungry:
+            weights[index] += spare * min(1.0, need / spare) * wants[index] / need
+    return weights
 
 
 def _table_layout(block, width: float, style, *, compact=False):
+    compact = compact or getattr(block, "compact", False)
     size = style.table_min_size if compact or len(block.frame.columns) > 11 else style.table_size
     widths = _table_widths(block, width, style)
-    header_height = max(26, max(len(_lines(col, w, size)) for col, w in zip(block.frame.columns, widths)) * (size + 3) + 10)
+    header_height = max(24, max(len(_lines(col, w, size)) for col, w in zip(block.frame.columns, widths)) * (size + 3) + 8)
     heights = []
     for _, row in block.frame.iterrows():
         lines = max(len(_lines(format_cell(value, block.formats.get(col, "text")), w, size))
                     for col, value, w in zip(block.frame.columns, row, widths))
-        height = max(22 if not compact else 18, lines * (size + 3) + 7)
+        height = max(17 if size <= 10 else 21, lines * (size + 3) + 4)
         if getattr(block, "snapshot_history", None):
             height = max(39, height)
         heights.append(height)
@@ -226,9 +255,10 @@ def _borders(cell, style, *, header=False):
 
 def _table(slide, block, x, y, width, *, style, compact=False):
     widths, header_h, heights, size = _table_layout(block, width, style, compact=compact)
+    width = sum(widths)
     if block.title:
         _text(slide, block.title, x, y, width, 19, size=style.section_size, bold=True, style=style)
-        y += 25
+        y += 22
     table = slide.shapes.add_table(len(block.frame) + 1, len(block.frame.columns),
                                    Pt(x), Pt(y), Pt(width), Pt(header_h + sum(heights))).table
     table.first_row = table.horz_banding = table.vert_banding = False
@@ -286,7 +316,7 @@ def _table(slide, block, x, y, width, *, style, compact=False):
                     _sparkline(slide, data, hx, offset_y + 6, hw, height - 12, style,
                                key=SNAPSHOT_SERIES_KEYS.get(label, label))
             offset_y += height
-    return header_h + sum(heights) + (25 if block.title else 0)
+    return header_h + sum(heights) + (22 if block.title else 0)
 
 
 def _sparkline(slide, values, x, y, w, h, style, *, key=""):
@@ -358,60 +388,89 @@ def _chart_gaps(chart):
         main.append(gaps)
 
 
-def _endpoint_positions(endpoints, lo, hi, plot_y, plot_h, label_h=27):
-    """Repel labels in a dedicated right lane; retain their series identity."""
-    ordered = sorted(((index, plot_y + plot_h * (hi - value) / (hi - lo))
-                      for index, value in endpoints), key=lambda item: item[1])
-    output = {}
-    last = plot_y - label_h
-    for index, natural in ordered:
-        y = max(natural - label_h / 2, last + label_h)
-        output[index] = y
-        last = y
-    if ordered:
-        excess = max(0, last + label_h - (plot_y + plot_h))
-        for index in output:
-            output[index] -= excess
-    return output
+def _axis_cap(values):
+    """Cap the axis when one or two spikes flatten the rest of the series
+    (e.g. a coverage ratio over a near-zero denominator). Outliers follow the
+    Tukey far-out fence and must be at least 1.5× the highest regular value."""
+    finite = sorted(v for v in values if v is not None)
+    if len(finite) < 8:
+        return None
+    q1, q3 = finite[len(finite) // 4], finite[(3 * len(finite)) // 4]
+    fence = q3 + 3 * (q3 - q1)
+    outliers = [v for v in finite if v > fence]
+    regular = [v for v in finite if v <= fence]
+    if not outliers or len(outliers) > 2 or not regular or regular[-1] <= 0 or outliers[0] < 1.5 * regular[-1]:
+        return None
+    _, upper, _, _ = _axis_bounds([regular[0], regular[-1] * 1.1])
+    return upper
 
 
-def _chart(slide, block, x, y, width, height, style):
-    _text(slide, block.title, x, y, width, 22, size=style.section_size, bold=True, style=style)
+def _chart_notes(block):
+    """Sentences printed above the plot: constant series, empty series and a
+    capped axis. They are computed before drawing so paired panels can share
+    one band and start their plots at the same height."""
     series = [(s, [_number(v) for v in s.values]) for s in block.series]
-    variable = [(s, vals) for s, vals in series if len({_br(v, s.decimals) for v in vals if v is not None}) > 1]
-    constant = [(s, vals) for s, vals in series if vals and any(v is not None for v in vals)
-                and len({_br(v, s.decimals) for v in vals if v is not None}) == 1]
-    missing = [s for s, vals in series if not any(v is not None for v in vals)]
-    subtitle_lines = []
-    for spec, vals in constant:
+    variable = [(s, vals) for s, vals in series
+                if s.reference or len({_br(v, s.decimals) for v in vals if v is not None}) > 1
+                or (block.kind == "bar" and any(v is not None for v in vals))]
+    lines = []
+    for spec, vals in series:
+        if spec.reference or (spec, vals) in variable:
+            continue
         valid = [v for v in vals if v is not None]
-        value = _br(valid[0], spec.decimals) + ("%" if spec.unit == "%" else " " + spec.unit)
-        qualifier = ("1 observação válida" if len(valid) == 1 else
-                     "Constante nas observações disponíveis" if any(v is None for v in vals) else
-                     "Constante à precisão exibida")
-        subtitle_lines.append(f"{spec.label}: {value}. {qualifier}.")
-    if missing:
-        subtitle_lines.append("Sem dados: " + ", ".join(s.label for s in missing) + ".")
-    if subtitle_lines:
-        text_height = len(_lines("\n".join(subtitle_lines), width, 10)) * 13
-        _text(slide, "\n".join(subtitle_lines), x, y + 26, width, text_height,
+        suffix = "%" if spec.unit == "%" else " " + spec.unit
+        if not valid:
+            lines.append(f"Sem dados: {spec.label}.")
+        else:
+            qualifier = ("1 observação válida" if len(valid) == 1 else
+                         "constante nas observações disponíveis" if any(v is None for v in vals) else "constante no período")
+            lines.append(f"{spec.label}: {_br(valid[0], spec.decimals)}{suffix}, {qualifier}.")
+    cap = None
+    if block.kind == "line":
+        drawn = [v for s, vals in variable if not s.reference for v in vals if v is not None]
+        cap = _axis_cap(drawn)
+        if cap is not None:
+            peaks = [(v, block.categories[i], s) for s, vals in variable if not s.reference
+                     for i, v in enumerate(vals) if v is not None and v > cap]
+            text = "; ".join(f"{_br(v, s.decimals)}{'%' if s.unit == '%' else ''} em {month}" for v, month, s in peaks)
+            lines.append(f"Eixo limitado a {_br(cap, 0)}{'%' if block.unit == '%' else ''} para legibilidade; pico de {text}.")
+    return variable, lines, cap
+
+
+def _band_height(lines, width):
+    return len(_lines("\n".join(lines), width, 10)) * 13 + 4 if lines else 0
+
+
+def _kpi(slide, block, x, y, width, height, style):
+    _text(slide, block.title, x, y, width, 22, size=style.section_size, bold=True, style=style)
+    lines = _lines(block.text, width, 13)
+    _text(slide, "\n".join(lines), x, y + 30, width, min(height - 30, len(lines) * 18),
+          size=13, color=style.muted, style=style)
+
+
+def _chart(slide, block, x, y, width, height, style, *, band=None):
+    _text(slide, block.title, x, y, width, 22, size=style.section_size, bold=True, style=style)
+    variable, lines, cap = _chart_notes(block)
+    own_band = _band_height(lines, width)
+    if lines:
+        _text(slide, "\n".join(_lines("\n".join(lines), width, 10)), x, y + 24, width, own_band,
               size=10, color=style.muted, style=style)
-        y += text_height + 6
-        height -= text_height + 6
-    if not variable:
+    band = own_band if band is None else max(band, own_band)
+    if not [s for s, _ in variable if not s.reference]:
         return
-    chart_y = y + 27
-    chart_h = height - 60
-    label_w = min(120, width * .27)
-    plot_chart_w = width - label_w
+    chart_y = y + 26 + band
+    chart_h = height - 26 - band
+    if block.kind == "bar":
+        _bar_chart(slide, block, variable, x, chart_y, width, chart_h, style)
+        return
     data = CategoryChartData()
     # Hierarchical native categories keep month positions tied to the data and
     # show each year once on the second axis row.
     parsed_categories = [str(label).split("/") for label in block.categories]
     hierarchical = bool(parsed_categories) and all(len(parts) == 2 for parts in parsed_categories)
     if hierarchical:
-        year_category = None
         previous_year = None
+        year_category = None
         for month, year in parsed_categories:
             year = "20" + year if len(year) == 2 else year
             if year != previous_year:
@@ -422,11 +481,28 @@ def _chart(slide, block, x, y, width, height, style):
         data.categories = list(block.categories)
     for spec, vals in variable:
         data.add_series(spec.label, vals)
-    chart = slide.shapes.add_chart(XL_CHART_TYPE.LINE, Pt(x), Pt(chart_y), Pt(plot_chart_w), Pt(chart_h), data).chart
-    chart.has_legend = chart.has_title = False
+    # The plot fills the column; only a narrow lane on the right is kept for
+    # the end values.
+    chart = slide.shapes.add_chart(XL_CHART_TYPE.LINE, Pt(x), Pt(chart_y), Pt(width), Pt(chart_h), data).chart
+    chart.has_title = False
+    drawn = [s for s, _ in variable]
+    chart.has_legend = len(drawn) > 1
+    if chart.has_legend:
+        chart.legend.position = XL_LEGEND_POSITION.TOP
+        chart.legend.include_in_layout = False
+        chart.legend.font.size = Pt(10)
+        chart.legend.font.name = style.font
+        chart.legend.font.color.rgb = _rgb(style.muted)
     chart.font.name, chart.font.size = style.font, Pt(style.chart_size)
-    values = [v for _, vals in variable for v in vals if v is not None]
+    values = [v for s, vals in variable if not s.reference for v in vals if v is not None]
+    references = [v for s, vals in variable if s.reference for v in vals if v is not None]
+    if cap is not None:
+        values = [v for v in values if v <= cap]
+    if references and cap is None:
+        values = [*values, *references]
     lo, hi, major_unit, tick_decimals = _axis_bounds(values)
+    if cap is not None:
+        hi = max(hi, cap)
     axis = chart.value_axis
     axis.minimum_scale, axis.maximum_scale = lo, hi
     axis.major_unit = major_unit
@@ -435,6 +511,7 @@ def _chart(slide, block, x, y, width, height, style):
     axis.tick_labels.font.color.rgb = _rgb(style.muted)
     number_format = "[$-416]0" + ("." + "0" * tick_decimals if tick_decimals else "")
     axis.tick_labels.number_format = number_format + ('"%"' if block.unit == "%" else "")
+    axis.tick_labels.number_format_is_linked = False
     axis.has_major_gridlines = True
     axis.major_gridlines.format.line.color.rgb = _rgb(style.grid)
     axis.major_gridlines.format.line.width = Pt(.5)
@@ -448,45 +525,97 @@ def _chart(slide, block, x, y, width, height, style):
     chart.category_axis.format.line.fill.background()
     chart.category_axis.major_tick_mark = chart.category_axis.minor_tick_mark = XL_TICK_MARK.NONE
     _chart_gaps(chart)
+    label_lane = 52.0
+    top = 30.0 if chart.has_legend else 6.0
+    _chart_layout(chart, 42 / width, top / chart_h, max(.3, 1 - (42 + label_lane) / width), max(.3, 1 - (top + 34) / chart_h))
     for native, (spec, _) in zip(chart.series, variable):
-        native.format.line.color.rgb = _rgb(series_color(spec.key, style))
-        native.format.line.width = Pt(style.line_width)
+        native.format.line.color.rgb = _rgb(style.muted if spec.reference else series_color(spec.key, style))
+        native.format.line.width = Pt(1.0 if spec.reference else style.line_width)
+        if spec.reference:
+            native.format.line.dash_style = MSO_LINE_DASH_STYLE.DASH
         native.marker.style = XL_MARKER_STYLE.NONE
         native.smooth = False
-    plot_y, plot_h = chart_y + chart_h * .04, chart_h * .90
     endpoints = [(index, next(v for v in reversed(vals) if v is not None))
-                 for index, (_, vals) in enumerate(variable)]
+                 for index, (spec, vals) in enumerate(variable)
+                 if not spec.reference and any(v is not None for v in vals)]
+    span = (hi - lo) or 1
     for index, endpoint in endpoints:
         spec, vals = variable[index]
-        suffix = "%" if spec.unit == "%" else (" " + spec.unit if spec.unit else "")
-        short_label = _short_series_label(spec.label)
-        label = _br(endpoint, spec.decimals) + suffix + "\n" + short_label
+        if cap is not None and endpoint > cap:
+            continue
+        # Value and short unit only; the legend names the series.
+        label = _br(endpoint, spec.decimals) + ("%" if spec.unit == "%" else "")
         last_index = max(i for i, v in enumerate(vals) if v is not None)
         if last_index < len(vals) - 1:
-            label += " (" + str(block.categories[last_index]) + ")"
-        # A native point label stays part of the editable chart. Close final
-        # values use opposite sides of the points to retain both names.
+            label += f" ({block.categories[last_index]})"
         native_label = chart.series[index].points[last_index].data_label
         native_label.position = XL_DATA_LABEL_POSITION.RIGHT
         close = [other_index for other_index, other in endpoints
-                 if other_index != index and abs(other - endpoint) / (hi - lo) < .10]
+                 if other_index != index and abs(other - endpoint) / span < .08]
         if close:
-            native_label.position = XL_DATA_LABEL_POSITION.ABOVE if index < min(close) else XL_DATA_LABEL_POSITION.BELOW
+            # Close final values: the higher one above, the lower one below.
+            others = [dict(endpoints)[other] for other in close]
+            higher = endpoint > max(others) or (endpoint == max(others) and index < min(close))
+            native_label.position = XL_DATA_LABEL_POSITION.ABOVE if higher else XL_DATA_LABEL_POSITION.BELOW
         native_label.has_text_frame = True
         frame = native_label.text_frame
         frame.clear()
         frame.word_wrap = False
-        frame.margin_left = frame.margin_right = frame.margin_top = frame.margin_bottom = 0
-        for line_index, line in enumerate(label.split("\n")):
-            paragraph = frame.paragraphs[0] if not line_index else frame.add_paragraph()
-            paragraph.space_before = paragraph.space_after = Pt(0)
-            run = paragraph.add_run()
-            run.text = line
-            run.font.name, run.font.size, run.font.bold = style.font, Pt(style.chart_size), True
-            run.font.color.rgb = _rgb(series_color(spec.key, style))
+        paragraph = frame.paragraphs[0]
+        run = paragraph.add_run()
+        run.text = label
+        run.font.name, run.font.size, run.font.bold = style.font, Pt(style.chart_size), True
+        run.font.color.rgb = _rgb(series_color(spec.key, style))
     # Native hierarchical labels remain horizontal, including narrow plots.
     for body in chart._chartSpace.xpath(".//c:catAx/c:txPr/a:bodyPr"):
         body.set("rot", "0")
+
+
+def _bar_chart(slide, block, variable, x, y, width, height, style):
+    data = CategoryChartData()
+    data.categories = list(block.categories)
+    for spec, vals in variable:
+        data.add_series(spec.label, vals)
+    chart = slide.shapes.add_chart(XL_CHART_TYPE.BAR_CLUSTERED, Pt(x), Pt(y), Pt(width), Pt(height), data).chart
+    chart.has_title = False
+    chart.has_legend = len(variable) > 1
+    if chart.has_legend:
+        chart.legend.position = XL_LEGEND_POSITION.TOP
+        chart.legend.include_in_layout = False
+        chart.legend.font.size = Pt(10)
+        chart.legend.font.name = style.font
+    chart.font.name, chart.font.size = style.font, Pt(style.chart_size)
+    plot = chart.plots[0]
+    plot.gap_width = 60
+    plot.overlap = -10
+    plot.has_data_labels = True
+    labels = plot.data_labels
+    labels.number_format = '[$-416]0.0"%"'
+    labels.number_format_is_linked = False
+    labels.position = XL_DATA_LABEL_POSITION.OUTSIDE_END
+    labels.font.size = Pt(10)
+    labels.font.name = style.font
+    values = [v for _, vals in variable for v in vals if v is not None]
+    lo, hi, major_unit, _ = _axis_bounds([min(0, *values), max(0, *values) * 1.18 or 1])
+    axis = chart.value_axis
+    axis.minimum_scale, axis.maximum_scale, axis.major_unit = lo, hi, major_unit
+    axis.visible = False
+    axis.has_major_gridlines = False
+    category = chart.category_axis
+    category.reverse_order = True  # first series on top, as in the table
+    category.tick_labels.font.size = Pt(10)
+    category.tick_labels.font.name = style.font
+    category.format.line.color.rgb = _rgb(style.grid)
+    category.major_tick_mark = XL_TICK_MARK.NONE
+    colors = {"return_12m": style.orange, "cdi_12m": "8B9199"}
+    for native, (spec, _) in zip(chart.series, variable):
+        native.format.fill.solid()
+        native.format.fill.fore_color.rgb = _rgb(colors.get(spec.key, style.muted))
+        for index, category in enumerate(block.categories):
+            if str(category).startswith("CDI"):
+                point = native.points[index]
+                point.format.fill.solid()
+                point.format.fill.fore_color.rgb = _rgb("8B9199")
 
 
 def _short_series_label(label):
@@ -523,11 +652,28 @@ def _table_chunks(block, style, width=None, height=None):
     # Repeat the identity column when a dense matrix needs another page.
     mostly_numeric = all(column in block.numeric_columns or block.formats.get(column, "text").split(":")[0] in {"number", "money", "money_value", "percent", "integer"}
                          for column in columns[1:])
-    max_columns = style.month_columns + 1 if len(columns) > 10 or mostly_numeric else 5
+    max_columns = style.month_columns + 1 if len(columns) > 10 or mostly_numeric else 7
     while max_columns > 2 and not _fits_horizontally(replace(block, frame=block.frame.loc[:, columns[:max_columns]]), width, style):
         max_columns -= 1
-    groups = [columns] if len(columns) <= max_columns else [[columns[0], *columns[i:i + max_columns - 1]]
-              for i in range(1, len(columns), max_columns - 1)]
+    if len(columns) <= max_columns:
+        groups = [columns]
+    else:
+        # Even groups (7 + 6, never 12 + 1); the identity column repeats.
+        body = columns[1:]
+        count = math.ceil(len(body) / (max_columns - 1))
+        size = math.ceil(len(body) / count)
+        groups = [[columns[0], *body[i:i + size]] for i in range(0, len(body), size)]
+    yielded = 0
+
+    def continued(segment):
+        # A table that goes on in another place says so; two pieces of the
+        # same table never repeat the same subtitle.
+        nonlocal yielded
+        yielded += 1
+        if yielded > 1 and segment.title and not segment.title.endswith("(cont.)"):
+            return replace(segment, title=f"{segment.title} (cont.)")
+        return segment
+
     for cols in groups:
         selected = replace(block, frame=block.frame.loc[:, cols])
         start = 0
@@ -536,19 +682,19 @@ def _table_chunks(block, style, width=None, height=None):
             for candidate_end in range(start + 1, len(selected.frame) + 1):
                 candidate = replace(selected, frame=selected.frame.iloc[start:candidate_end])
                 widths, header_h, heights, _ = _table_layout(candidate, width, style)
-                if header_h + sum(heights) + (25 if block.title else 0) <= height:
+                if header_h + sum(heights) + (22 if block.title else 0) <= height:
                     end = candidate_end
                 else:
                     break
             if end > start:
-                yield replace(selected, frame=selected.frame.iloc[start:end])
+                yield continued(replace(selected, frame=selected.frame.iloc[start:end]))
                 start = end
             else:
                 # Split clauses too long for one page using that page's actual
                 # column widths. Re-measuring a segment avoids height drift.
                 single = replace(selected, frame=selected.frame.iloc[start:start + 1])
                 widths, header_h, _, _ = _table_layout(single, width, style)
-                available = height - header_h - (25 if block.title else 0)
+                available = height - header_h - (22 if block.title else 0)
                 row = selected.frame.iloc[start]
                 chunks = [textwrap.wrap(format_cell(value, selected.formats.get(col, "text")),
                                        max(12, int((w - 12) / (style.table_size * .49) * max(1, int(available / 15) - 3))),
@@ -557,35 +703,98 @@ def _table_chunks(block, style, width=None, height=None):
                 for part in range(max(map(len, chunks))):
                     values = [pieces[part] if part < len(pieces) else "" for pieces in chunks]
                     values[0] = str(row.iloc[0]) if part else values[0]
-                    yield replace(selected, frame=pd.DataFrame([values], columns=cols), formats={})
+                    yield continued(replace(selected, frame=pd.DataFrame([values], columns=cols), formats={}))
                 start += 1
         if selected.frame.empty:
-            yield selected
+            yield continued(selected)
 
 
-def render_portfolio_deck(spec, *, style=DEFAULT_STYLE) -> bytes:
-    from services.portfolio_ppt_content import ChartBlock, TableBlock, TextBlock
+#: Decks longer than this get section dividers in ``section_dividers="auto"``.
+DIVIDER_MIN_SLIDES = 24
+#: ...and only before sections with at least this many slides.
+DIVIDER_MIN_SECTION = 3
+SECTION_DIVIDER_MODES = ("auto", "always", "never")
+
+
+def _divider(prs, label, size, style):
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide.background.fill.solid()
+    slide.background.fill.fore_color.rgb = _rgb(style.white)
+    _text(slide, label, style.margin, 228, style.content_width, 40, size=30, bold=True, style=style)
+    _text(slide, f"{size} slides", style.margin, 276, style.content_width, 20, size=13, color=style.muted, style=style)
+    slide.notes_slide.notes_text_frame.text = f"Divisória de seção: {label}."
+
+
+def _draw_panels(prs, page, blocks, style):
+    from services.portfolio_ppt_content import ChartBlock, TableBlock
+
+    slide = _header(prs, page, style)
+    width = style.content_width if len(blocks) == 1 else (style.content_width - style.gap) / 2
+    height = style.content_bottom - style.content_top
+    # Paired plots share the note band, so both start at the same height and
+    # have the same plot height.
+    band = max([_band_height(_chart_notes(block)[1], width) for block in blocks if isinstance(block, ChartBlock)], default=0)
+    for index, block in enumerate(blocks):
+        x = style.margin + index * (width + style.gap)
+        if isinstance(block, ChartBlock):
+            _chart(slide, block, x, style.content_top, width, height, style, band=band)
+        elif isinstance(block, TableBlock):
+            _table(slide, block, x, style.content_top, width, style=style, compact=True)
+        else:
+            _kpi(slide, block, x, style.content_top, width, height, style)
+
+
+def _draw_flow(prs, page, blocks, style):
+    """Stack the blocks of one theme in reading order; a new slide only when
+    the next piece does not fit, and continuations say "(cont.)"."""
+    from services.portfolio_ppt_content import ChartBlock, TableBlock
+
+    slide = None
+    y = style.content_top
+    for block in blocks:
+        if isinstance(block, ChartBlock):
+            _draw_panels(prs, page, (block,), style)
+            slide = None
+            continue
+        if isinstance(block, TableBlock):
+            for segment in _table_chunks(block, style):
+                _, header_h, rows, _ = _table_layout(segment, style.content_width, style)
+                height = header_h + sum(rows) + (22 if segment.title else 0)
+                if slide is None or y + height > style.content_bottom:
+                    slide = _header(prs, page, style)
+                    y = style.content_top
+                _table(slide, segment, style.margin, y, style.content_width, style=style)
+                y += height + 8
+            continue
+        lines = _lines(block.text, style.content_width, style.table_size)
+        for start in range(0, len(lines), 22):
+            visible = lines[start:start + 22]
+            height = len(visible) * 14 + (22 if block.title else 0)
+            if slide is None or y + height > style.content_bottom:
+                slide = _header(prs, page, style)
+                y = style.content_top
+            if block.title:
+                title = block.title if start == 0 else f"{block.title} (cont.)"
+                _text(slide, title, style.margin, y, style.content_width, 22, size=style.section_size, bold=True, style=style)
+                y += 22
+            _text(slide, "\n".join(visible), style.margin, y, style.content_width, len(visible) * 14,
+                  size=style.table_size, color=style.muted if page.kind == "appendix" else style.text, style=style)
+            y += len(visible) * 14 + 12
+
+
+def _render(spec, style, dividers=None):
+    from services.portfolio_ppt_content import TextBlock
 
     prs = Presentation()
     prs.slide_width, prs.slide_height = Pt(style.width), Pt(style.height)
     prs.core_properties.title = spec.title
     prs.core_properties.author = "Toma Conta"
     _cover(prs, spec, style)
-    pages = []
-    for page in spec.slides:
-        if pages and page.kind == "appendix" and (page.title, page.context, page.source) == (pages[-1].title, pages[-1].context, pages[-1].source):
-            pages[-1] = replace(pages[-1], blocks=(*pages[-1].blocks, *page.blocks), notes=(*pages[-1].notes, *page.notes))
-        elif pages and page.kind == "content" and page.title == "Rentabilidade" == pages[-1].title:
-            previous = pages[-1]
-            if not previous.context.startswith(spec.context):
-                entity = previous.context.split(" · ")[0]
-                previous = replace(previous, context=spec.context,
-                                   blocks=tuple(replace(block, title=f"{entity} · {block.title}") if isinstance(block, TableBlock) else block for block in previous.blocks))
-            entity = page.context.split(" · ")[0]
-            pages[-1] = replace(previous, blocks=(*previous.blocks, *(replace(block, title=f"{entity} · {block.title}") if isinstance(block, TableBlock) else block for block in page.blocks)), notes=(*previous.notes, *page.notes))
-        else:
-            pages.append(page)
-    for page in pages:
+    counts = []
+    for index, page in enumerate(spec.slides):
+        if dividers and index in dividers:
+            _divider(prs, *dividers[index], style)
+        before = len(prs.slides._sldIdLst)
         blocks = []
         for block in page.blocks:
             if (blocks and isinstance(block, TextBlock) and isinstance(blocks[-1], TextBlock)
@@ -593,150 +802,35 @@ def render_portfolio_deck(spec, *, style=DEFAULT_STYLE) -> bytes:
                 blocks[-1] = replace(blocks[-1], text=f"{blocks[-1].text}\n{block.text}")
             else:
                 blocks.append(block)
-        charts = [block for block in blocks if isinstance(block, ChartBlock)]
-        tables = [block for block in blocks if isinstance(block, TableBlock)]
-        texts = [block for block in blocks if isinstance(block, TextBlock)]
-        if page.title == "Ficha documental" and len(tables) == 2 and len(tables[0].frame) == 1:
-            position = tables[0]
-            values = position.frame.iloc[0]
-            position = replace(position, frame=pd.DataFrame({"Posição documental": list(position.frame.columns), "Informação": list(values)}), formats={}, numeric_columns=())
-            clauses = tables[1]
-            left_w = style.content_width * .66
-            right_w = style.content_width - left_w - style.gap
-            _, lh, lr, _ = _table_layout(clauses, left_w, style)
-            _, rh, rr, _ = _table_layout(position, right_w, style)
-            table_h = max(lh + sum(lr) + 25, rh + sum(rr) + 25)
-            text_h = sum(len(_lines(block.text, style.content_width, 10)) * 13 + 12 for block in texts)
-            if table_h + text_h <= style.content_bottom - style.content_top:
-                slide = _header(prs, page, style)
-                _table(slide, clauses, style.margin, style.content_top, left_w, style=style)
-                _table(slide, position, style.margin + left_w + style.gap, style.content_top, right_w, style=style)
-                y = style.content_top + table_h + 10
-                for block in texts:
-                    height = len(_lines(block.text, style.content_width, 10)) * 13
-                    _text(slide, block.text, style.margin, y, style.content_width, height,
-                          size=10, color=style.muted, style=style)
-                    y += height + 12
-                continue
-        if not charts and (tables or texts):
-            # Pack compatible blocks in reading order. Horizontal validation
-            # precedes packing, so financial digits and month names stay whole.
-            slide = None
-            y = style.content_top
-            for block in blocks:
-                if isinstance(block, TableBlock):
-                    segments = list(_table_chunks(block, style))
-                    for segment in segments:
-                        _, header_h, rows, _ = _table_layout(segment, style.content_width, style)
-                        height = header_h + sum(rows) + (25 if segment.title else 0)
-                        if slide is None or y + height > style.content_bottom:
-                            slide = _header(prs, page, style)
-                            y = style.content_top
-                        _table(slide, segment, style.margin, y, style.content_width, style=style)
-                        y += height + 12
-                else:
-                    lines = _lines(block.text, style.content_width, style.table_size)
-                    for start in range(0, len(lines), 22):
-                        visible = lines[start:start + 22]
-                        height = len(visible) * 14 + (25 if block.title else 0)
-                        if slide is None or y + height > style.content_bottom:
-                            slide = _header(prs, page, style)
-                            y = style.content_top
-                        if block.title:
-                            _text(slide, block.title, style.margin, y, style.content_width, 22,
-                                  size=style.section_size, bold=True, style=style)
-                            y += 25
-                        _text(slide, "\n".join(visible), style.margin, y, style.content_width, len(visible) * 14,
-                              size=style.table_size, color=style.muted if page.kind == "appendix" else style.text, style=style)
-                        y += len(visible) * 14 + 12
-            continue
-        # A short constant observation or documentary absence shares its slide
-        # with the table/plot it qualifies.
-        if len(tables) == 1 and texts and not charts:
-            _, head, row_heights, _ = _table_layout(tables[0], style.content_width, style)
-            table_h = head + sum(row_heights) + (25 if tables[0].title else 0)
-            text_heights = [len(_lines(t.text, style.content_width, style.table_size)) * 14 + (25 if t.title else 0) for t in texts]
-            if table_h + sum(text_heights) + 12 * len(texts) <= style.content_bottom - style.content_top:
-                slide = _header(prs, page, style)
-                _table(slide, tables[0], style.margin, style.content_top, style.content_width, style=style)
-                y = style.content_top + table_h + 12
-                for block, text_h in zip(texts, text_heights):
-                    if block.title:
-                        _text(slide, block.title, style.margin, y, style.content_width, 22,
-                              size=style.section_size, bold=True, style=style)
-                        y += 25
-                    _text(slide, block.text, style.margin, y, style.content_width, text_h,
-                          size=style.table_size, color=style.muted, style=style)
-                    y += text_h + 12
-                continue
-        if len(charts) == 1 and texts and not tables:
-            text_h = sum(len(_lines(t.text, style.content_width, 11)) * 14 + 25 for t in texts)
-            if text_h <= 90:
-                slide = _header(prs, page, style)
-                plot_h = style.content_bottom - style.content_top - text_h - 12
-                _chart(slide, charts[0], style.margin, style.content_top, style.content_width, plot_h, style)
-                y = style.content_top + plot_h + 12
-                for block in texts:
-                    _text(slide, block.title, style.margin, y, style.content_width, 20,
-                          size=style.section_size, bold=True, style=style)
-                    y += 25
-                    height = len(_lines(block.text, style.content_width, 11)) * 14
-                    _text(slide, block.text, style.margin, y, style.content_width, height,
-                          size=11, color=style.muted, style=style)
-                    y += height + 6
-                continue
-        # Common thematic composition: two aligned plots and a compact matrix.
-        can_pair = len(charts) == 2 and len(tables) <= 1 and not texts and all(len(c.series) <= style.chart_series_limit for c in charts)
-        if can_pair and tables:
-            _, head, rows, _ = _table_layout(tables[0], style.content_width, style, compact=True)
-            can_pair = head + sum(rows) + (25 if tables[0].title else 0) <= 192
-        if can_pair:
-            slide = _header(prs, page, style)
-            half = (style.content_width - style.gap) / 2
-            chart_height = 173 if tables else 330
-            for index, chart in enumerate(charts):
-                _chart(slide, chart, style.margin + index * (half + style.gap), style.content_top,
-                       half, chart_height, style)
-            if tables:
-                _table(slide, tables[0], style.margin, style.content_top + chart_height + 8,
-                       style.content_width, style=style, compact=True)
-            continue
-        # Combine thin compatible tables vertically before allocating another slide.
-        if tables and not charts and not texts:
-            heights = []
-            for block in tables:
-                _, header_h, rows, _ = _table_layout(block, style.content_width, style)
-                heights.append(header_h + sum(rows) + (25 if block.title else 0))
-            if sum(heights) + style.gap * (len(tables) - 1) <= style.content_bottom - style.content_top:
-                slide = _header(prs, page, style)
-                y = style.content_top
-                for block, height in zip(tables, heights):
-                    _table(slide, block, style.margin, y, style.content_width, style=style)
-                    y += height + style.gap
-                continue
-        for block in blocks:
-            if isinstance(block, TableBlock):
-                for segment in _table_chunks(block, style):
-                    slide = _header(prs, replace(page, blocks=(segment,)), style)
-                    _table(slide, segment, style.margin, style.content_top, style.content_width, style=style)
-            elif isinstance(block, ChartBlock):
-                for start in range(0, len(block.series), style.chart_series_limit):
-                    selected = replace(block, series=block.series[start:start + style.chart_series_limit])
-                    slide = _header(prs, replace(page, blocks=(selected,)), style)
-                    _chart(slide, selected, style.margin, style.content_top, style.content_width,
-                           style.content_bottom - style.content_top, style)
-            elif isinstance(block, TextBlock):
-                lines = _lines(block.text, style.content_width, style.table_size)
-                max_lines = 24
-                for start in range(0, len(lines), max_lines):
-                    slide = _header(prs, replace(page, blocks=(block,)), style)
-                    top = style.content_top
-                    if block.title:
-                        _text(slide, block.title, style.margin, top, style.content_width, 24,
-                              size=style.section_size, bold=True, style=style)
-                        top += 32
-                    _text(slide, "\n".join(lines[start:start + max_lines]), style.margin, top,
-                          style.content_width, style.content_bottom - top, size=style.table_size, style=style)
+        if page.layout == "panels" and len(blocks) <= 2:
+            _draw_panels(prs, page, blocks, style)
+        else:
+            _draw_flow(prs, page, blocks, style)
+        counts.append(len(prs.slides._sldIdLst) - before)
+    return prs, counts
+
+
+def _section_dividers(spec, counts, mode):
+    if mode == "never" or (mode == "auto" and 1 + sum(counts) <= DIVIDER_MIN_SLIDES):
+        return {}
+    groups = []
+    for index, (page, count) in enumerate(zip(spec.slides, counts)):
+        label = getattr(page, "section", "")
+        if groups and groups[-1][0] == label:
+            groups[-1][2] += count
+        else:
+            groups.append([label, index, count])
+    # Short sections do not need a divider.
+    return {index: (label, size) for label, index, size in groups if label and size >= DIVIDER_MIN_SECTION}
+
+
+def render_portfolio_deck(spec, *, style=DEFAULT_STYLE, section_dividers="auto") -> bytes:
+    if section_dividers not in SECTION_DIVIDER_MODES:
+        raise ValueError(f"section_dividers deve ser um de {SECTION_DIVIDER_MODES}.")
+    prs, counts = _render(spec, style)
+    dividers = _section_dividers(spec, counts, section_dividers)
+    if dividers:
+        prs, _ = _render(spec, style, dividers)
     stream = BytesIO()
     prs.save(stream)
     return stream.getvalue()

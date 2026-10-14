@@ -1016,7 +1016,14 @@ def _render_unified_portfolio_download(
             value=False, key=f"portfolio_ppt_conclusions::{selected_portfolio.id}",
             help="Acrescenta um slide com destaques e pontos de atenção calculados pelas regras do app.",
         )
-    signature = download_context_signature(signature, include_conclusions)
+        table_placement = st.radio(
+            "Tabelas das séries",
+            options=("inline", "appendix"),
+            format_func={"inline": "Logo após os gráficos de cada tema", "appendix": "Em apêndice, na ordem dos temas"}.get,
+            key=f"portfolio_ppt_table_placement::{selected_portfolio.id}",
+            help="Junto dos gráficos favorece a leitura prévia; em apêndice deixa a apresentação ao vivo mais curta.",
+        )
+    signature = download_context_signature(signature, include_conclusions, table_placement)
     namespace = f"portfolio::{selected_portfolio.id}"
     store = current_download_store(st.session_state, namespace=namespace, signature=signature)
     # Rentabilidade uses this same cached resolver. Its realized CDI rates and
@@ -1052,7 +1059,7 @@ def _render_unified_portfolio_download(
         return _prepare_complete_portfolio_pptx(
             analysis=analysis, selected_portfolio=selected_portfolio, period=period,
             return_inputs=return_inputs, return_inputs_error=return_inputs_error,
-            include_conclusions=include_conclusions,
+            include_conclusions=include_conclusions, table_placement=table_placement,
         )
 
     render_on_demand_download(
@@ -1240,6 +1247,7 @@ def _prepare_complete_portfolio_pptx(
     *, analysis: PortfolioAnalysisData, selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection, return_inputs: Any = None,
     return_inputs_error: str | None = None, include_conclusions: bool = False,
+    table_placement: str = "inline",
 ):
     """Compose the requested portfolio once, using the existing analytical results."""
     from services.fidc_analytical_slide import build_slide_data
@@ -1299,7 +1307,7 @@ def _prepare_complete_portfolio_pptx(
         requested_period_label=period.label,
         monthly_cdi_rates_by_fund=monthly_cdi, benchmark_spreads_by_fund=spreads,
         presentation_context=context, export_warnings=tuple(warnings),
-        include_conclusions=include_conclusions,
+        include_conclusions=include_conclusions, table_placement=table_placement,
     )
     return PreparedDownload(data=payload, warnings=tuple(warnings))
 
