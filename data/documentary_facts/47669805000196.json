@@ -1,0 +1,769 @@
+{
+ "schema_version": 1,
+ "cnpj": "47669805000196",
+ "name": "GONN FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T01:18:06Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1046752",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "06/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752"
+  },
+  "D2": {
+   "document_id": "349439",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "03/08/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=349439"
+  },
+  "D3": {
+   "document_id": "1046757",
+   "kind": "Ata",
+   "title": "AGE",
+   "date": "06/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046757"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Crédito pessoal digital da Plataforma 99, em CCBs",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 109,
+     "clause": "Apêndice, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "Companhia utilizará a Plataforma 99 que permite aos seus usuários pessoa física interessados realizar todo o processo de concessão de Crédito junto às Instituições Financeiras Parceiras de forma eletrônica. 4."
+    }
+   ],
+   "legacy": {
+    "value": "Crédito pessoal digital da Plataforma 99, representado por CCBs",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Instituições parceiras e 99 Pay (correspondentes bancários)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1046757",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "06/11/2025",
+     "page": 2,
+     "clause": "cl. 6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046757",
+     "excerpt": "c. aprovar a inclusão da 99PAY c. to approve the inclusion of SOCIEDADE DE CRÉDITO 99PAY SOCIEDADE DE CRÉDITO DIRETO S.A., (“99Pay SCD”) na DIRETO S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras parceiras e 99 Pay; entrada da 99 Pay SCD condicionada à auditoria/aprovação do sênior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Endossantes das CCBs, sem coobrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 34,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "“Termos de Endosso” Significa, em conjunto, cada termo de endosso sem coobrigação dos Direitos Creditórios, que serão assinados eletronicamente pelo (Terms of Endorsement) respectivo Endossante e pelo Fundo, na forma dos Contratos de Endosso, por meio do qual serão identificados os Direitos Creditórios Adquiridos em cada Data de Aquisição e Pagamento. “Termos e Condições” Significa os Termos e Condições de Uso da Plataforma 99."
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras parceiras e 99 Pay; entrada da 99 Pay SCD condicionada à auditoria/aprovação do sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Anexo VIII"
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas de 20 a 70 anos, usuárias da plataforma",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 109,
+     "clause": "Apêndice, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "com idade entre 20 (inclusive) e 70 (inclusive); (2) poderão ou não ter suas informações disponibilizadas pelo Cadastro Positivo (“Banco de Dados”); e (3) não poderão ter restrições relacionadas ao seu histórico de consumo, crédito e pagamentos, identificadas através de ferramentas de análise de crédito disponíveis no mercado, tais como Serasa e Boa Vista (“Bureau”). 5."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas residentes no Brasil,20–70 anos, usuários da Plataforma 99",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Apêndice, cl. 4"
+   }
+  },
+  "recourse": {
+   "display": "Endosso sem coobrigação; sem regresso por fato superveniente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 40,
+     "clause": "Anexo VIII, cl. 7.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "não obrigará sua venda pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Endossantes, o Administrador, o Gestor, o Custodiante, o Agente de Cobrança, a Companhia ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. 7.3. Sujeito aos termos e condições deste Regulamento, a verificação do atendimento, pelos Direitos Creditórios Ofertados, aos Critérios de Elegibilidade em conjunto pelo Gestor e pelo Custodiante será considerada definitiva. 7.4."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 34,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "“Termos de Endosso” Significa, em conjunto, cada termo de endosso sem coobrigação dos Direitos Creditórios, que serão assinados eletronicamente pelo (Terms of Endorsement) respectivo Endossante e pelo Fundo, na forma dos Contratos de Endosso, por meio do qual serão identificados os Direitos Creditórios Adquiridos em cada Data de Aquisição e Pagamento. “Termos e Condições” Significa os Termos e Condições de Uso da Plataforma 99."
+    }
+   ],
+   "legacy": {
+    "value": "Endosso em cada aquisição; desenquadramento posterior não exige alienação/regresso, salvo culpa ou dolo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "CCB ≤ R$ 15 mil; prazo ≤ 18 meses; taxa fixa; devedor adimplente",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 40,
+     "clause": "Anexo VIII, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "(iii) as CCBs deverão ter valor nominal máximo de até R$15.000,00 (quinze mil reais); (iv) o prazo máximo de vencimento original de cada Direito Creditório deverá ser de 18 (dezoito) meses contados a partir da respectiva data de emissão; (v) o Direito Creditório preveja uma taxa de desconto equivalente a, no máximo, 13% (treze por cento) ao mês;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 40,
+     "clause": "Anexo VIII, cl. 6.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "omunicação de quaisquer inconsistências. CAPÍTULO SETE – DOS CRITÉRIOS DE ELEGIBILIDADE E DAS CONDIÇÕES DE AQUISIÇÃO 7.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade, cumulativamente: (i) a taxa de juros dos Direitos Creditórios deve ser uma taxa fixa e constante durante o prazo do Direito Creditório, sujeito a aplicação de juros de mora; (ii) o respectivo Devedor não deve estar em atraso ou inadimplente com o Fundo, conforme o caso, em relação a qualquer Direito Creditório, na Data de Aquisição e Pagamento; (iii) as CCBs deverão ter valor nominal máximo de até R$15.000,00 (quinze mil reais); (iv) o prazo máximo de vencimento original de cada Direito Creditório deverá ser de 18 (dezoito) meses contados a partir da respectiva data de emissão; (v) o Direito Creditório preveja uma taxa de desconto equivalente a, no máximo, 13% (treze por cento) ao mês; (vi) o Preço de Compra dos Direitos Creditórios deve corresponder a, no máximo, 100% (cem inteiros por cento) do valor devido e não pago da CCB; e (vii) o Direito Creditório seja representado em Reais e possa ser pago exclusivamente nessa moeda. 7.2."
+    }
+   ],
+   "legacy": {
+    "value": "CCB≤R$ 15 mil, prazo original≤18 meses, taxa fixa; adimplente perante fundo; desconto≤13% a.m.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Anexo VIII, cl. 7.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Limites por perfil: novos usuários ≤ 65%, entre outros",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 114,
+     "clause": "Apêndice, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "de 65% (sessenta e cinco por cento) dos Direitos Creditórios Ajustados consistam em Direitos Creditórios concedidos a Devedores na Plataforma 99 pela primeira vez. 3. Máximo de 2,5% (dois vírgula cinco por cento) dos Direitos Creditórios Ajustados consistam em Direitos Creditórios concedidos a Devedores que sejam estudantes. 4. Máximo de 5% (cinco por cento) dos Direitos Creditórios Ajustados consistam em Direitos Creditórios com prazo de vencimento original superior a 12 (doze) meses. 5."
+    }
+   ],
+   "value": 65.0,
+   "legacy": {
+    "value": "Direitos ajustados: novos usuários≤65% após 12 meses; estudantes 2,5%; prazo>12 meses 5%; estado principal 50%, top 5 estados 80%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Apêndice, cl. 2"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por perfil e estado, não por endossante",
+   "sources": [],
+   "legacy": {
+    "value": "Direitos ajustados: novos usuários≤65% após 12 meses; estudantes 2,5%; prazo>12 meses 5%; estado principal 50%, top 5 estados 80%",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Prazo original até 18 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 40,
+     "clause": "Anexo VIII, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "(iii) as CCBs deverão ter valor nominal máximo de até R$15.000,00 (quinze mil reais); (iv) o prazo máximo de vencimento original de cada Direito Creditório deverá ser de 18 (dezoito) meses contados a partir da respectiva data de emissão; (v) o Direito Creditório preveja uma taxa de desconto equivalente a, no máximo, 13% (treze por cento) ao mês;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB≤R$ 15 mil, prazo original≤18 meses, taxa fixa; adimplente perante fundo; desconto≤13% a.m.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Anexo VIII, cl. 7.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 9,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, no mínimo, 50% (cinquenta por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios. (Minimum Investment Allocation) “Amortização” Significa a amortização das Cotas em Circulação nos termos do Capítulo Doze, do Capítulo Quatorze e do Capítulo Dezenove deste (Amortization) Regulamento, resultando, em relação às Cotas detidas por cada Cotista, um pagamento parcia"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50% PL em direitos creditórios; prazo 180 dias, sujeito à prorrogação CVM",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Anexo VIII"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior (cotista único) / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 31,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "não pode ser Afiliada ao Gestor. “Regulamento” Significa este regulamento do Fundo. (By-laws) “Relação Mínima de Significa a razão entre (i) a soma do valor total das Cotas Subordinação” Subordinadas Júnior em Circulação; e (ii) o Patrimônio Líquido do Fundo, equivalente a, no mínimo, 35% (trinta e cinco por cento). (Minimum Subordination Ratio) A Relação Mínima de Subordinação será apurada pelo Gestor nos termos deste Regulamento. “Relatório de Tem o significado que lhe é atribuído na Cláusula 17.9(x) Acompanhamento” (Monitoring Report) “Relatório de Discrepâncias” Significa o relatório a ser apresentado pelo Gestor caso este identifique quaisquer discrepâncias entre os cálculos realizados por (Discrepancy Report) ele e os cálculos disponibilizados pela Companhia por meio do Relatório 99. “Relatório 99” Significa o relatório/planilha de informações sobre os Direitos 27 (99 Report) Creditórios Adquiridos e respectivo re"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 30,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "Plataforma 99, 65% (sessenta e cinco por cento), e/ou (ii) com relação a parcela da Base de Captação para Cotista Sênior referente a Direitos Creditórios para Fins de Enquadramento, decorrentes de CCBs emitidas por novos Devedores da Plataforma 99, 50% (cinquenta por cento), e/ou (iii) com relação a parcela da Base de Captação para Cotista Sênior"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL≥35%; senioridade limitada à base de captação ponderada 65% recorrentes/50% novos/0% atrasados 15+",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Anexo VIII"
+   }
+  },
+  "sub_senior": {
+   "display": "35% · jr/PL; base de captação ponderada por perfil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 31,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "não pode ser Afiliada ao Gestor. “Regulamento” Significa este regulamento do Fundo. (By-laws) “Relação Mínima de Significa a razão entre (i) a soma do valor total das Cotas Subordinação” Subordinadas Júnior em Circulação; e (ii) o Patrimônio Líquido do Fundo, equivalente a, no mínimo, 35% (trinta e cinco por cento). (Minimum Subordination Ratio) A Relação Mínima de Subordinação será apurada pelo Gestor nos termos deste Regulamento. “Relatório de Tem o significado que lhe é atribuído na Cláusula 17.9(x) Acompanhamento” (Monitoring Report) “Relatório de Discrepâncias” Significa o relatório a ser apresentado pelo Gestor caso este identifique quaisquer discrepâncias entre os cálculos realizados por (Discrepancy Report) ele e os cálculos disponibilizados pela Companhia por meio do Relatório 99. “Relatório 99” Significa o relatório/planilha de informações sobre os Direitos 27 (99 Report) Creditórios Adquiridos e respectivo re"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 30,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "Plataforma 99, 65% (sessenta e cinco por cento), e/ou (ii) com relação a parcela da Base de Captação para Cotista Sênior referente a Direitos Creditórios para Fins de Enquadramento, decorrentes de CCBs emitidas por novos Devedores da Plataforma 99, 50% (cinquenta por cento), e/ou (iii) com relação a parcela da Base de Captação para Cotista Sênior"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 35.0,
+   "legacy": {
+    "value": "Júnior / PL≥35%; senioridade limitada à base de captação ponderada 65% recorrentes/50% novos/0% atrasados 15+",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Anexo VIII"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Apurada em cada data de cálculo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 31,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "não pode ser Afiliada ao Gestor. “Regulamento” Significa este regulamento do Fundo. (By-laws) “Relação Mínima de Significa a razão entre (i) a soma do valor total das Cotas Subordinação” Subordinadas Júnior em Circulação; e (ii) o Patrimônio Líquido do Fundo, equivalente a, no mínimo, 35% (trinta e cinco por cento). (Minimum Subordination Ratio) A Relação Mínima de Subordinação será apurada pelo Gestor nos termos deste Regulamento. “Relatório de Tem o significado que lhe é atribuído na Cláusula 17.9(x) Acompanhamento” (Monitoring Report) “Relatório de Discrepâncias” Significa o relatório a ser apresentado pelo Gestor caso este identifique quaisquer discrepâncias entre os cálculos realizados por (Discrepancy Report) ele e os cálculos disponibilizados pela Companhia por meio do Relatório 99. “Relatório 99” Significa o relatório/planilha de informações sobre os Direitos 27 (99 Report) Creditórios Adquiridos e respectivo re"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL≥35%; senioridade limitada à base de captação ponderada 65% recorrentes/50% novos/0% atrasados 15+",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Anexo VIII"
+   }
+  },
+  "reserve": {
+   "display": "1 mês de despesas e 1 mês de benchmark sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 32,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "“Reserva de Benchmark” Significa a reserva a ser constituída pelo Administrador, que será monitorada pelo Gestor nos termos deste Regulamento, equivalente, (Benchmark Reserve) em cada Data de Cálculo, ao valor estimado para o pagamento integral de 1 (um) mês de Benchmark Sênior."
+    }
+   ],
+   "legacy": {
+    "value": "1 mês de despesas +1 mês de benchmark sênior; sem chamadas de capital até recomposição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Metodologia por devedor da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 45,
+     "clause": "Anexo VIII, cl. 9.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "o, todo Dia Útil, pelo Custodiante de acordo com o disposto nas normas contábeis regulamentares pertinentes. 9.6. A provisão para perdas e perdas efetivas em relação aos Direitos Creditórios devidos por um Devedor específico deverá ser calculada observada a metodologia disponível no site do Administrador. CAPÍTULO DEZ – CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS Características Gerais das Cotas 10.1. As Cotas correspondem a frações ideais do patrimônio do Fundo e são divididas em subclasses e séries. Existirá apenas 1 (uma) subclasse de Cota Sênior e 1 (uma) subclasse de Cotas Subordinadas Júnior. As características e direitos de cada subclasse e série de Cotas, bem como as condições de emissão, subscrição, integralização, amortização e resgate correspondentes estão descritas nos respectivos Apêndices. 10.1.1. As Cotas do Fundo serão escriturais e serão mantidas em conta de depósito em nome dos Cotistas junto ao Custodiante, e a titularidade das Cotas será comprovada por extrato emitido pelo Custodiante. 10.1.2. As Cotas somente serão resgatadas na Data de Resgate. Todas as Cotas de uma mesma série terão taxas, prazos e direitos de voto iguais, observado o disposto neste Regulamento. 10.1.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 45,
+     "clause": "Anexo VIII, cl. 9.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "9.6. A provisão para perdas e perdas efetivas em relação aos Direitos Creditórios devidos por um Devedor específico deverá ser calculada observada a metodologia disponível no site do Administrador. CAPÍTULO DEZ – CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS Características Gerais das Cotas 10.1. As Cotas correspondem a frações ideais do patrimônio do Fundo e são divididas em subclasses e séries."
+    }
+   ],
+   "legacy": {
+    "value": "Metodologia por devedor disponível no site do administrador; tabela percentual não consta da cláusula",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eval_triggers": {
+   "display": "Rolagem 30+ > 7% ou inadimplência 15+ > 14% reduz o adiantamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 116,
+     "clause": "Apêndice, cl. 12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "(i) o Índice de Rolagem 30+ for maior que 7,0% (sete por cento); ou (ii) o Índice de Inadimplência 15+ for maior que 14% (quatorze por cento). Eventos de Amortização Antecipada (i) se a Assembleia Geral de Cotistas determinar que um Evento de Depreciação Cambial resultará na Amortização Antecipada de Cotas nos termos do Capítulo Onze do Regulamento; (ii) em qualquer Data de Cálculo, caso o Índice de Rolagem 30+ for maior que 8,0% (oito por cento);"
+    }
+   ],
+   "legacy": {
+    "value": "Rolagem 30+>7% ou inadimplência 15+>14% reduz advance rate; rolagem>8% acelera e>9% avalia",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Apêndice, cl. 12"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados separadamente no trecho lido",
+   "sources": [],
+   "legacy": {
+    "value": "Rolagem 30+>7% ou inadimplência 15+>14% reduz advance rate; rolagem>8% acelera e>9% avalia",
+    "decision": "regression",
+    "why": "Resposta anterior trata de gatilhos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "Aquisições até a data limite do apêndice; suspensas em eventos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 79,
+     "clause": "Anexo VIII, cl. 19.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "(v) uma vez resgatada a totalidade da Cota Sênior, pagamento da Amortização das Cotas Subordinadas Júnior. 19.4. Na ocorrência de um Evento Qualificado, o Administrador deverá proceder com o resgate e/ou Amortização Antecipada da Cota Sênior do Fundo, conforme datas e valores estabelecidos na Assembleia Geral de Cotistas que tiver deliberado o respectivo evento. 75 19.5."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisições até data limite do apêndice; suspensas nos eventos e durante amortização antecipada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Despesas, benchmark sênior, reservas, júnior e aquisições; após eventos, sênior primeiro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 79,
+     "clause": "Anexo VIII, cl. 19.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "(v) uma vez resgatada a totalidade da Cota Sênior, pagamento da Amortização das Cotas Subordinadas Júnior. 19.4. Na ocorrência de um Evento Qualificado, o Administrador deverá proceder com o resgate e/ou Amortização Antecipada da Cota Sênior do Fundo, conforme datas e valores estabelecidos na Assembleia Geral de Cotistas que tiver deliberado o respectivo evento. 75 19.5."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas; benchmark e reenquadramento sênior; cobrança; reservas; júnior; aquisições. Após eventos: principal sênior antes do júnior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,10% a.a. do PL mais faixas regressivas; mín. R$ 27 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 77,
+     "clause": "Anexo VIII, cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "ão fiduciária, controladoria e processamento dos ativos e passivos, gestão e distribuição das cotas, o equivalente a somatória dos seguintes percentuais, observado o valor mínimo mensal de R$ 27.000,00 (vinte e sete mil reais): (i) 0,10% (dez centésimos por cento) ao ano calculado sobre o Patrimônio Líquido do Fundo; e (ii) o percentual ao ano aplicado sobre cada faixa do Patrimônio Líquido do Fundo, inclusive, conforme indicado na tabela abaixo: Patrimônio Líquido: % ao ano calculado sobre o Patrimônio Líquido De R$0,00 a R$500.000.000,00 0,11% a.a. De R$500.000.000,01 a R$1.000.000.000,00 0,09% a.a. A partir de R$1.000.000.000,01 0,07% a.a. 18.2. Pelos serviços de custódia qualificada, o Fundo pagará uma Taxa de Custódia ao Custodiante, equivalente ao percentual de 0,05% (cinco centésimos por cento) ao ano calculado sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 3.000,00 (três mil reais). 18.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 77,
+     "clause": "Anexo VIII, cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "mínimo mensal de R$ 27.000,00 (vinte e sete mil reais): (i) 0,10% (dez centésimos por cento) ao ano calculado sobre o Patrimônio Líquido do Fundo; e (ii) o percentual ao ano aplicado sobre cada faixa do Patrimônio Líquido do Fundo, inclusive, conforme indicado na tabela abaixo: Patrimônio Líquido: % ao ano calculado sobre o Patrimônio Líquido De R$0,00 a R$500.000.000,00 0,11% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a. PL +faixas 0,11/0,09/0,07% atéR$ 500 mi/1 bi/acima; mínimoR$ 27 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/11/2025, Anexo VIII, cl. 18.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "10% da taxa de administração, até R$ 4 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 77,
+     "clause": "Anexo VIII, cl. 18.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "ao ano calculado sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 3.000,00 (três mil reais). 18.3. Pelos serviços de gestão, o Fundo pagará uma Taxa de Gestão equivalente ao percentual de 10% (dez por cento) ao ano calculado sobre a Taxa de Administração, limitado ao valor máximo de R$ 4.000,00 (quatro mil reais). 18.3.1. O Gestor não receberá qualquer remuneração dos Devedores e Ativos Financeiros adquiridos pelo Fundo ou de suas respectivas Afiliadas relacionada à aquisição dos Direitos Creditórios e Ativos Financeiros ou à prestação de serviços ao Fundo, conforme identificados na Cláusula 17.9 acima, seja diretamente ou por meio de qualquer uma de suas Afiliadas, incluindo, mas não se limitando a comissões pela intermediação de operações e remunerações por qualquer tipo de serviço prestado, e qualquer benefício ou vantagem que possa alcançar a este respeito deve ser transferido para o Fundo. 18.4. A Taxa de Administração não inclui despesas com publicação de convocações de Assembleia Geral de Cotistas, bem como despesas relacionadas à contratação de especialistas. 18.5. O Administrador não cobrará taxa de entrada, taxa de desempenho ou taxa de saída. 18.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark do apêndice sênior em formato bilíngue, sem taxa no trecho lido",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Banco Genial",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 8,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "eement, as Guaranty Adicionais\" Agreements, e a Letter Agreement. (Additional Biding Agreements) “Administrador” Significa o BANCO GENIAL S.A., instituição financeira devidamente organizada e validamente existente de acordo com as leis da (Administrator) República Federativa do Brasil, com sede na Cidade do Rio de Janeiro Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 907, Botafogo, CEP 22.250-040, inscrita no CNPJ/MF sob o nº 45.246.410/0001-55, prestadora de serviços responsável pela administração do Fundo, autorizada pela CVM para o exercício profissional da administração da carteira de valores mobiliários, por meio do Ato Declaratório nº 15.455, de 13 de janeiro de 2017, incluindo qualquer um de seus sucessores, conforme podem ser indicados de acordo com este Regulamento. “Afiliadas” Significa, com relação a qualquer Pessoa, qualquer outra Pessoa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 25,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "itos geralmente aceitos na jurisdição de organização dessa Pessoa. (Applicable GAAP) “Gestor” Significa a GENIAL GESTÃO LTDA., sociedade limitada constituída de acordo com as leis da República Federativa do Brasil, com sede na (Manager) Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.400, conjunto 91 parte, inscrita no CNPJ/MF sob o nº 22.119.959/0001-83, empresa autorizada pela CVM para o exercício profissional de administração de carteira de valores mobiliários, para os ativos incluídos na Carteira, por meio do Ato Declaratório No. 14.519, de 30 de setembro de 2015, e qualquer outra instituição que a suceda, conforme poderá ser nomeada de tempos em tempos nos termos deste Regulamento. “Garantidor BR” Significa a 99 Tecnologia Ltda. (Guarantor BR) 21"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Genial (o administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 16,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "panhia com pelo menos 3 (três) dias de antecedência da Data de Cálculo correspondente. “Custodiante” Significa o Administrador, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela controladoria do Fundo, (Custodian) custódia qualificada dos ativos integrantes da Carteira do Fundo, 12 escrituração das Cotas e guarda dos Documentos Comprobatórios, conforme Resolução CVM 175. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Integralização” Significa a data em que ocorrer a integralização da Cota Sênior subscrita, seja total ou parcial, ou da eventual nova cota sênior emitida (Capitalization Date) pelo Fundo, nos termos da Cláusula 10.14.2, em decorrência de cada Chamada de Capital. “Data de Aquisição e Significa cada data em que o Fundo efetivamente adquirir e pagar o Pagamento” Preço de Compra ao respectivo Endossante. (Date of Acquisi"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 8,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "eement, as Guaranty Adicionais\" Agreements, e a Letter Agreement. (Additional Biding Agreements) “Administrador” Significa o BANCO GENIAL S.A., instituição financeira devidamente organizada e validamente existente de acordo com as leis da (Administrator) República Federativa do Brasil, com sede na Cidade do Rio de Janeiro Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 907, Botafogo, CEP 22.250-040, inscrita no CNPJ/MF sob o nº 45.246.410/0001-55, prestadora de serviços responsável pela administração do Fundo, autorizada pela CVM para o exercício profissional da administração da carteira de valores mobiliários, por meio do Ato Declaratório nº 15.455, de 13 de janeiro de 2017, incluindo qualquer um de seus sucessores, conforme podem ser indicados de acordo com este Regulamento. “Afiliadas” Significa, com relação a qualquer Pessoa, qualquer outra Pessoa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais; sênior de investidor único",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 36,
+     "clause": "Anexo VIII, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "II. CAPÍTULO TRÊS–PÚBLICO-ALVO 3.1. Sem prejuízo do disposto na cláusula 10.8 abaixo, a participação no Fundo é aberta à Investidores Profissionais que busque rentabilidade de longo prazo, disposto a fazer investimentos compatíveis com a Política de Investimento e que aceite os riscos associados aos investimentos do Fundo, sendo certo que a Cota Sênior é destinada à um único Investidor 32 Profissional. 3.2. Não haverá valor mínimo de aplicação inicial e/ou de manutenção de investimentos no Fundo, exceto conforme estabelecido neste Regulamento. CAPÍTULO QUATRO- OBJETIVO DE INVESTIMENTO 4.1. O objetivo do Fundo é proporcionar rendimento de longo prazo aos Cotistas através da aquisição de Direitos Creditórios em conformidade com a Política de Investimento, conforme descrita no Capítulo Cinco do presente Regulamento. 4.2. O Fundo buscará atingir, para a Cota Sênior, um parâmetro de rentabilidade equivalente ao Benchmark Sênior e quaisquer Rendimentos Adicionais. 4.3. As disposições da Cláusula 4.2 acima são meras metas de rentabilidade a serem perseguidas pelo Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 36,
+     "clause": "Anexo VIII, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "CAPÍTULO TRÊS–PÚBLICO-ALVO 3.1. Sem prejuízo do disposto na cláusula 10.8 abaixo, a participação no Fundo é aberta à Investidores Profissionais que busque rentabilidade de longo prazo, disposto a fazer investimentos compatíveis com a Política de Investimento e que aceite os riscos associados aos investimentos do Fundo, sendo certo que a Cota Sênior é destinada à um único Investidor 32 Profissional. 3.2."
+    }
+   ],
+   "legacy": {
+    "value": "Investidores profissionais; única cota sênior destinada a um único investidor",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1046752",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/11/2025",
+     "page": 36,
+     "clause": "Anexo VIII, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046752",
+     "excerpt": "s nos termos da legislação aplicável. 1.2. O funcionamento do Fundo terá início na primeira Data de Integralização. O Fundo não terá prazo de duração determinado e, consequentemente, poderá ser liquidado por deliberação da Assembleia Geral de Cotistas. As Datas de Pagamento e as Datas de Resgate de cada subclasse e série de Cotas serão definidas no Apêndice correspondente. 1.3. Para os fins do disposto no “Código de Regulação e Melhores Práticas para Administração de Recursos de Terceiros” e nos termos das “Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros”, ambos editados pela ANBIMA e em vigor desde 30 de novembro de 2023, o Fundo será classificado como “Fundo de Investimento em Direitos Creditórios”, tipo “Financeiro”, com foco de atuação em “Crédito Pessoal”. 1.4. Os Cotistas de cada subclasse e série do Fundo terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18 da Resolução CVM nº 175 e do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO DOIS– COMPOSIÇÃO DO PATRIMÔNIO DO FUNDO 2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Investidores profissionais; única cota sênior destinada a um único investidor",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Crédito pessoal digital da 99 com júnior mínima de 35% do PL e sênior de investidor único; gatilhos por rolagem.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
