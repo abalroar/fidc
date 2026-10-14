@@ -1,0 +1,833 @@
+{
+ "schema_version": 1,
+ "cnpj": "37294759000134",
+ "name": "GALLERIA HOME EQUITY FIDC",
+ "fund_type": "Imobiliário",
+ "reviewed_at": "2026-10-14T01:56:17Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1245602",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "10/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1245602"
+  },
+  "D2": {
+   "document_id": "1088669",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "14/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1088669"
+  },
+  "D3": {
+   "document_id": "1071893",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "29/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1071893"
+  },
+  "D4": {
+   "document_id": "1066936",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "19/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066936"
+  },
+  "D5": {
+   "document_id": "1245765",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "06/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1245765"
+  },
+  "D6": {
+   "document_id": "1243617",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "10/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1243617"
+  },
+  "D7": {
+   "document_id": "1240525",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "06/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240525"
+  },
+  "D8": {
+   "document_id": "1238470",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "01/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238470"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Imobiliário",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de home equity com CCI; também LFs e cotas subordinadas de securitizações",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 96,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "erar-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte. “Direitos (i) os Direitos Creditórios de Home Equity; (ii) os Direitos Creditórios Creditórios” representados por Letras Financeiras, emitidas por qualquer dos Emissores Autorizados; (iii) Direitos Creditórios representados por CRI de Home Equity de classe subordinada; e/ou (iv) Direitos Creditórios representados por qualquer veículo de securitização de Home Equity de classe subordinada “Direitos Os Direitos Creditórios que tenham sido adquiridos pelo Fundo. Creditórios Cedidos” “Direitos Os Direitos Creditórios Cedidos vencidos e não pagos pelos Devedores na Creditórios respectiva data de vencimento. Inadimplidos” \"Direitos Os direitos creditórios decorrentes de cada empréstimo com garantia Creditórios de imobiliária, conforme formalizado mediante a emissão de uma CCB por um Home Equity\" Devedor, garantido pela respectiva Alienação Fiduciária de Imóvel, os quais, incluindo a totalidade dos respectivos acessórios, tais como atualização monetária, juros remuneratórios, encargos moratórios, multas, penalidades,"
+    },
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 38,
+     "clause": "Anexo I, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "umulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios: 5.4. Critérios de Elegibilidade dos Direitos Creditórios de Home Equity: I. a respectiva CCB deverá ser garantida por Alienação Fiduciária de Imóvel, e estar representada por uma CCI; II. os Direitos Creditórios de Home Equity devem ser ofertados em sua integralidade; III. os Direitos Creditórios de Home Equity devem ser expressos em moeda corrente nacional; e IV. o respectivo Devedor não deverá ser a Administradora, a Gestora, o Custodiante, os Credores, a Galleria Bank ou uma de suas respectivas partes relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto. 5.5. Critérios de Elegibilidade das Letras Financeiras: a Classe somente poderá adquirir Letras Financeiras que, na Data de Oferta de Direitos Creditórios, tenha um prazo de duração restante de, no máximo, 3 (três) anos, cujas rentabilidades sejam vinculadas à Taxa DI, emitidos por qualquer dos Emissores Autorizados. 5.6."
+    }
+   ],
+   "legacy": {
+    "value": "CCB/CCI de home equity; Letras Financeiras e cotas subordinadas de securitizações admitidas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "BMP, Grupo Galleria e outras instituições credoras",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 94,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "O titular de Cotas da Classe. “CPF” O Cadastro de Pessoas Físicas do Ministério da Fazenda. “Credores” O BMP, o Grupo Galleria e/ou outras instituições financeiras que atendam às condições previstas no item 4.5. deste Regulamento. “CRI de Home Os certificados de recebíveis imobiliários emitidos por uma securitizadora Equity” com lastro em Direitos Creditórios de Home Equity alienados pela Classe, nos termos do item 3.13 do Anexo. “Critérios de Os critérios para seleção dos Direitos Creditórios a serem adquiridos pela Elegibilidade” Classe, que serão verificados pela Gestora ou por terceiro por esta contratado, nos termos do capítulo 5 do Anexo. “CSLL” A Contribuição Social sobre o Lucro Líquido. “Custodiante” A Administradora, na qualidade de custodiante do Fundo. “Custo de Significa 18% (dezoito por cento) Recuperação” \"CVM\" A Comissão de Valores Mobiliários. “Data de Cada data em que seja apropriada a Rentabilidade ao Valor Principal de Apropriação de Referência, nos termos do item 0 do Anexo e conforme previsto no Remunera"
+    }
+   ],
+   "legacy": {
+    "value": "Galleria Bank na estrutura de originação; Credores financeiros aprovados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "BMP, Grupo Galleria e outras instituições credoras",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 94,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "O titular de Cotas da Classe. “CPF” O Cadastro de Pessoas Físicas do Ministério da Fazenda. “Credores” O BMP, o Grupo Galleria e/ou outras instituições financeiras que atendam às condições previstas no item 4.5. deste Regulamento. “CRI de Home Os certificados de recebíveis imobiliários emitidos por uma securitizadora Equity” com lastro em Direitos Creditórios de Home Equity alienados pela Classe, nos termos do item 3.13 do Anexo. “Critérios de Os critérios para seleção dos Direitos Creditórios a serem adquiridos pela Elegibilidade” Classe, que serão verificados pela Gestora ou por terceiro por esta contratado, nos termos do capítulo 5 do Anexo. “CSLL” A Contribuição Social sobre o Lucro Líquido. “Custodiante” A Administradora, na qualidade de custodiante do Fundo. “Custo de Significa 18% (dezoito por cento) Recuperação” \"CVM\" A Comissão de Valores Mobiliários. “Data de Cada data em que seja apropriada a Rentabilidade ao Valor Principal de Apropriação de Referência, nos termos do item 0 do Anexo e conforme previsto no Remunera"
+    }
+   ],
+   "legacy": {
+    "value": "Galleria Bank na estrutura de originação; Credores financeiros aprovados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas ou jurídicas donas dos imóveis em garantia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 96,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "Passivo)^(Estimativa de Prazo de Recuperação / 12) Cálculo de responsabilidade da Gestora “Devedores” Os devedores dos Direitos Creditórios Cedidos, incluindo (a) no caso de Direitos Creditórios de Home Equity, as pessoas físicas e/ou jurídicas, conforme identificadas por seus respectivos números de inscrição no cadastro de pessoa física (CPF) ou cadastro nacional de pessoal jurídica – CNPJ, caracterizadas como devedores fiduciantes, que sejam titulares dos imóveis sujeitos à Alienação Fiduciária de Imóvel, e que tenham contratado os empréstimos por meio da emissão de CCBs; (b) no caso de Letras Financeiras, os Emissores Autorizados de Letras Financeiras; e (c) no caso de CRI de Home Equity de classe subordinada, as companhias securitizadoras emissoras dos CRI de Home Equity de classe subordinada. “Dia Útil” Cada dia útil, para fins de operações praticadas no mercado financeiro brasileiro, conforme especificados na Resolução do Conselho Monetário Nacional nº 4.880, de 23 de dezembro de 2020, conforme aditada de tempos em tempos."
+    }
+   ],
+   "legacy": {
+    "value": "Tomadores PF/PJ de home equity e emissores de Letras Financeiras",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Alienação fiduciária do imóvel e seguros MIP e DFI obrigatórios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 38,
+     "clause": "Anexo I, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "umulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios: 5.4. Critérios de Elegibilidade dos Direitos Creditórios de Home Equity: I. a respectiva CCB deverá ser garantida por Alienação Fiduciária de Imóvel, e estar representada por uma CCI; II. os Direitos Creditórios de Home Equity devem ser ofertados em sua integralidade; III. os Direitos Creditórios de Home Equity devem ser expressos em moeda corrente nacional; e IV. o respectivo Devedor não deverá ser a Administradora, a Gestora, o Custodiante, os Credores, a Galleria Bank ou uma de suas respectivas partes relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto. 5.5. Critérios de Elegibilidade das Letras Financeiras: a Classe somente poderá adquirir Letras Financeiras que, na Data de Oferta de Direitos Creditórios, tenha um prazo de duração restante de, no máximo, 3 (três) anos, cujas rentabilidades sejam vinculadas à Taxa DI, emitidos por qualquer dos Emissores Autorizados. 5.6."
+    },
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 35,
+     "clause": "Anexo I, cl. 5.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "e quarenta) parcelas; d) sistema de amortização price ou sac; e) LTV máximo de 60% (sessenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre apartamentos residenciais ou casas em condomínio fechado, e de 50% (cinquenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre outros tipos de imóveis; f) os contratos obrigatoriamente devem possuir os seguros MIP (Morte e Invalidez Permanente) e DFI (Danos Físicos ao Imóvel); g) valor mínimo de mercado do imóvel alienado avaliado pelo Laudo de Avaliação: R$200.000,00 (duzentos mil reais); e h) a CCB não poderá ser garantida por Alienação Fiduciária de Imóvel sobre os tipos de imóveis vedados descritos no Apenso I-H; III. considerando pro forma (como se já tivesse ocorrido) a aquisição dos Direitos Creditórios de Home Equity ofertados, a média ponderada do LTV do conjunto dos Direitos Creditórios de Home Equity integrantes da carteira da Classe deverá ser menor ou igual a 45% (quarenta e cinco por cento); IV."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão definitiva; desenquadramento posterior não cria regresso automático, ressalvados culpa/fraude",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "CCB com alienação fiduciária e CCI; 36 a 240 parcelas; LTV até 60%",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 38,
+     "clause": "Anexo I, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "umulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios: 5.4. Critérios de Elegibilidade dos Direitos Creditórios de Home Equity: I. a respectiva CCB deverá ser garantida por Alienação Fiduciária de Imóvel, e estar representada por uma CCI; II. os Direitos Creditórios de Home Equity devem ser ofertados em sua integralidade; III. os Direitos Creditórios de Home Equity devem ser expressos em moeda corrente nacional; e IV. o respectivo Devedor não deverá ser a Administradora, a Gestora, o Custodiante, os Credores, a Galleria Bank ou uma de suas respectivas partes relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto. 5.5. Critérios de Elegibilidade das Letras Financeiras: a Classe somente poderá adquirir Letras Financeiras que, na Data de Oferta de Direitos Creditórios, tenha um prazo de duração restante de, no máximo, 3 (três) anos, cujas rentabilidades sejam vinculadas à Taxa DI, emitidos por qualquer dos Emissores Autorizados. 5.6."
+    },
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 35,
+     "clause": "Anexo I, cl. 5.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "ência de principal: 03 (três) meses; e c) quantidade de parcelas mínimo e máximo do crédito: igual ou maior que 36 (trinta e seis) parcelas e menor ou igual a 240 (duzentos e quarenta) parcelas; d) sistema de amortização price ou sac; e) LTV máximo de 60% (sessenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre apartamentos residenciais ou casas em condomínio fechado, e de 50% (cinquenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre outros tipos de imóveis; f) os contratos obrigatoriamente devem possuir os seguros MIP (Morte e Invalidez Permanente) e DFI (Danos Físicos ao Imóvel); g) valor mínimo de mercado do imóvel alienado avaliado pelo Laudo de Avaliação: R$200.000,00 (duzentos mil reais); e h) a CCB não poderá ser garantida por Alienação Fiduciária de Imóvel sobre os tipos de imóveis vedados descritos no Apenso I-H; III."
+    },
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 35,
+     "clause": "Anexo I, cl. 5.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "e quarenta) parcelas; d) sistema de amortização price ou sac; e) LTV máximo de 60% (sessenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre apartamentos residenciais ou casas em condomínio fechado, e de 50% (cinquenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre outros tipos de imóveis; f) os contratos obrigatoriamente devem possuir os seguros MIP (Morte e Invalidez Permanente) e DFI (Danos Físicos ao Imóvel); g) valor mínimo de mercado do imóvel alienado avaliado pelo Laudo de Avaliação: R$200.000,00 (duzentos mil reais); e h) a CCB não poderá ser garantida por Alienação Fiduciária de Imóvel sobre os tipos de imóveis vedados descritos no Apenso I-H; III. considerando pro forma (como se já tivesse ocorrido) a aquisição dos Direitos Creditórios de Home Equity ofertados, a média ponderada do LTV do conjunto dos Direitos Creditórios de Home Equity integrantes da carteira da Classe deverá ser menor ou igual a 45% (quarenta e cinco por cento); IV."
+    }
+   ],
+   "legacy": {
+    "value": "Home equity: LTV ≤ 60% para apartamentos/condomínios, ≤ 50% demais; LTV médio ≤ 45%; prazo 36–240 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I, cl. 5.2"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: menor entre R$ 5 mi e 2% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 36,
+     "clause": "Anexo I, cl. 5.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "1ª série de Cotas Seniores, o saldo dos Direitos Creditórios de Home Equity integrantes da carteira da Classe devidos por um mesmo Devedor não poderá exceder o menor valor entre R$5.000.000,00 (cinco milhões de reais) ou 2% (dois por cento) do Patrimônio Líquido da Classe; VII. considerando pro forma (como se já tivesse ocorrido) a aquisição dos Direitos Creditórios de Home Equity ofertados, o total de Direitos Creditórios de Home Equity integrantes da carteira da Classe deverá respeitar os seguintes limites máximos de concentração com relação à carteira de Direitos Creditórios Cedidos, levando-se em consideração o número de parcelas dos respectivos Empréstimos, a partir da data de emissão da respectiva CCB: # Parcelas % Carteira Mínimo de 90% (noventa por Até 180 parcelas, inclusive cento) De 181 a 240 parcelas Máximo de 10% (dez por cento) VIII. as parcelas dos Direitos Creditórios de Home Equity não estejam vencidas na respectiva Data de Aquisição e Pagamento; IX."
+    }
+   ],
+   "value": 2.0,
+   "legacy": {
+    "value": "Devedor: menor de R$ 5 mi e 2% PL; ≥ 90% dos créditos com prazo ≤ 180 meses; LF ≤ 3 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I, cl. 5.1.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por credor não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor: menor de R$ 5 mi e 2% PL; ≥ 90% dos créditos com prazo ≤ 180 meses; LF ≤ 3 anos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Até 240 parcelas mensais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 35,
+     "clause": "Anexo I, cl. 5.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "ência de principal: 03 (três) meses; e c) quantidade de parcelas mínimo e máximo do crédito: igual ou maior que 36 (trinta e seis) parcelas e menor ou igual a 240 (duzentos e quarenta) parcelas; d) sistema de amortização price ou sac; e) LTV máximo de 60% (sessenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre apartamentos residenciais ou casas em condomínio fechado, e de 50% (cinquenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre outros tipos de imóveis; f) os contratos obrigatoriamente devem possuir os seguros MIP (Morte e Invalidez Permanente) e DFI (Danos Físicos ao Imóvel); g) valor mínimo de mercado do imóvel alienado avaliado pelo Laudo de Avaliação: R$200.000,00 (duzentos mil reais); e h) a CCB não poderá ser garantida por Alienação Fiduciária de Imóvel sobre os tipos de imóveis vedados descritos no Apenso I-H; III."
+    }
+   ],
+   "legacy": {
+    "value": "Home equity: LTV ≤ 60% para apartamentos/condomínios, ≤ 50% demais; LTV médio ≤ 45%; prazo 36–240 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I, cl. 5.1.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 89,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "edores que garante os Fiduciária de empréstimos que compõem os Direitos Creditórios de Home Equity. Imóvel” “Alocação Mínima” O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido Tributária” a ser mantido em direitos creditórios, conforme definido pela Resolução CMN 5.111 ou aquela que venha a substituí-la. “Amortização de Tem o significado que lhe é atribuído nos termos do item 8.3 do Anexo e do Principal” Suplemento aplicável. “Amortização A amortização extraordinária das Cotas Subordinadas Júnior, que poderá ser Extraordinária” realizada exclusivamente nos termos previstos no Regulamento, em especial no item 0 do Anexo e seus subitens."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios ≥ 50% PL; alocação tributária e ativos elegíveis exigem reconciliação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 107,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "emento. “Meta de Com relação a cada série de Cotas Seniores ou subclasse de Cotas Rentabilidade” Subordinadas Mezanino, a meta de rentabilidade das Cotas, determinada em seu respectivo Suplemento. “Parâmetros da As informações mínimas referentes à oferta de Cotas, a serem incluídas no Oferta” respectivo Suplemento, conforme determinado pela Gestora em conjunto com o coordenador líder de cada distribuição pública de Cotas, quais sejam: (a) montante de Cotas; (b) quantidade de Cotas; (c) montante mínimo da oferta; (d) forma de distribuição; (e) forma de integralização; (f) prazo de distribuição; e (g) ágio ou deságio sobre valores atualizados das Cotas, para efeitos de subscrição de Cotas, sendo certo que se esta informação não constar do Suplemento, nenhum ágio ou deságio será aplicável para efeitos de subscrição de Cotas. “Parâmetros de As informações mínimas referentes ao cronograma de pagamento de Cotas, Pagamento” a serem incluídas no respectivo Suplemento: (a) Datas de Pagamento; (b) Meta de Rentabilidade;"
+    }
+   ],
+   "legacy": {
+    "value": "PL/cotas seniores ≥ 105%; índices de cobertura sênior/mezanino ≥ 1, 00",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I"
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 105%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 110,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "egulamento do Fundo, conforme aditado ou alterado de tempos em tempos. “Relação Mínima” A razão mínima admitida entre o Patrimônio Líquido e o somatório do valor das Cotas Seniores em circulação, equivalente a 105% (cento e cinco por cento), conforme apurada pelo Custodiante em cada Dia Útil. \"Relatório de O relatório contendo as informações previstas no item 2.4., III, do Anexo. Gestão\" “Remuneração” O valor calculado de acordo com o item 8.2. do Anexo. “Remuneração Significa o resultado da média ponderada das Metas de Rentabilidade das média do Passivo” classes Seniores e Subordinadas Mezaninos em circulação, levando em consideração o saldo devedor de cada uma dessas classes para fins de ponderação. Cálculo de responsabilidade da Gestora Reserva de A reserva a ser constituída em Disponibilidades pela Administradora para o Amortização” pagamento de amortização do Fundo para o próximo evento de pagamento, nos termos previstos Anexo, a ser verificada como segue: .i) 15 Dias Úteis antes do próximo evento, reserva igual ou superior a 30% do valor do próximo evento de pagamento;"
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 105.0,
+   "legacy": {
+    "value": "PL/cotas seniores ≥ 105%; índices de cobertura sênior/mezanino ≥ 1, 00",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice da mezanino definido por fórmula de cobertura e suplemento",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária, pelo custodiante",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 110,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "egulamento do Fundo, conforme aditado ou alterado de tempos em tempos. “Relação Mínima” A razão mínima admitida entre o Patrimônio Líquido e o somatório do valor das Cotas Seniores em circulação, equivalente a 105% (cento e cinco por cento), conforme apurada pelo Custodiante em cada Dia Útil. \"Relatório de O relatório contendo as informações previstas no item 2.4., III, do Anexo. Gestão\" “Remuneração” O valor calculado de acordo com o item 8.2. do Anexo. “Remuneração Significa o resultado da média ponderada das Metas de Rentabilidade das média do Passivo” classes Seniores e Subordinadas Mezaninos em circulação, levando em consideração o saldo devedor de cada uma dessas classes para fins de ponderação. Cálculo de responsabilidade da Gestora Reserva de A reserva a ser constituída em Disponibilidades pela Administradora para o Amortização” pagamento de amortização do Fundo para o próximo evento de pagamento, nos termos previstos Anexo, a ser verificada como segue: .i) 15 Dias Úteis antes do próximo evento, reserva igual ou superior a 30% do valor do próximo evento de pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "PL/cotas seniores ≥ 105%; índices de cobertura sênior/mezanino ≥ 1, 00",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas e encargos em disponibilidades",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 111,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": ". “Reserva de A reserva a ser constituída em Disponibilidades pela Administradora para o Despesas e pagamento de despesas e encargos do Fundo, nos termos previstos Anexo. Encargos” “Resolução CMN nº A Resolução CMN nº 2.907, de 29 de novembro de 2021, conforme em vigor. 2.907/01” “Resolução CMN nº É a Resolução CMN nº 5.111, de 21 de dezembro de 2023, conforme em 5.111” vigor. “Seguradora” A seguradora contratada para a manutenção do seguro obrigatório do imóvel sujeito à Alienação Fiduciária de Imóvel. “Sistema de A plataforma independente de gestão de financiamentos. Controle Imobiliário” “Sobretaxa Com relação às Cotas Subordinadas Mezanino cujas Metas de Rentabilidade Mezanino\" sejam vinculadas à Taxa DI acrescida a determinada sobretaxa, a sobretaxa a ser acrescentada à Taxa DI para determinação das Metas de Rentabilidade, conforme definição do respectivo Suplemento. “Sobretaxa Sênior” Com relação às séries de Cotas Seniores cujas Metas de Rentabilidade sejam vinculadas à Taxa DI, a sobretaxa a ser acrescentada à Taxa DI para determinação das Metas de Rentabilidade"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas; reserva de amortização: 30%/60%/100% a 15/10/5 dias úteis",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regime de provisão não descrito em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Escala por atraso: 0, 5% em 1–15 dias até 100% acima de 181 dias",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falta do relatório de gestão por 15 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 58,
+     "clause": "Anexo I, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "ia de tais eventos antes de considerá-los efetivos. 10. EVENTOS DE AVALIAÇÃO 10.1. São Eventos de Avaliação: I. não divulgação pela Administradora, do Relatório de Gestão, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Gestão o envio do referido relatório não seja sanado pela Gestora;; II. a Agência Classificadora de Risco não divulgar a atualização trimestral da classificação de risco referente às Cotas Seniores e Cotas Subordinadas Mezanino, se houver, por prazo igual ou superior a 90 (noventa) dias, sem a substituição da Agência Classificadora de Risco; III. amortização de Cotas Subordinadas Júnior em montantes agregados superiores aos definidos no presente Regulamento, desde que os valores pagos em excesso em tal amortização não sejam devolvidos à Classe, inclusive, mas não se limitando, mediante a emissão e integralização de novas Cotas Subordinadas Júnior no prazo de 10 (dez) Dias Úteis contados da notificação de tal amortização em desacordo com o Regulamento enviada pela Administradora aos Cotistas detentores de Cotas Subordinadas Júnior; IV."
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramentos, falhas de reserva, cobrança e prestadores geram eventos; prazos de cura específicos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou prestador não substituído, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 61,
+     "clause": "Anexo I, cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "II, III e IV acima deverão ser interrompidas. 11. EVENTOS DE LIQUIDAÇÃO ANTECIPADA E LIQUIDAÇÃO DA CLASSE 11.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: I. caso seja deliberado, em Assembleia Especial, que um Evento de Avaliação configura um Evento de Liquidação Antecipada; II. nos casos em que houver determinação da CVM, nos termos previstos na Resolução CVM nº 175; III. caso, na hipótese de renúncia da Administradora, da Gestora e/ou do Custodiante, em 120 (cento e vinte) dias contados da realização da Assembleia Especial para a deliberação sobre a sua substituição, não seja definido um substituto para o referido prestador de serviço, observados os procedimentos e prazos estabelecidos neste Regulamento, o substituto escolhido não assuma efetivamente as funções da Administradora, da Gestora ou Custodiante, conforme o caso; IV. caso o Patrimonio Líquido seja verificado, na Data de Verificação, como inferior à soma da Cota Sênior e/ou Cota Mezanino; e V."
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramentos, falhas de reserva, cobrança e prestadores geram eventos; prazos de cura específicos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não trata de revolvência explicitamente",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisições admitidas conforme fase e ordem de recursos; saída/amortização por suplemento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "Pro rata; vira sequencial após evento de desalavancagem",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 55,
+     "clause": "Anexo I, cl. 9.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "o será Amortização Pro Rata, ou Amortização Sequencial. 9.4.1. A partir da 1ª Data de Integralização de Cotas, o regime de amortização será a Amortização Pro Rata. Tal regime permanecerá em curso até que ocorra um Evento de Desalavancagem ou um Evento de Aceleração de Vencimento. 9.4.2. Após a ocorrência de um Evento de Desalavancagem, o regime de amortização aplicável será a Amortização Sequencial. Tal regime permanecerá em curso até (a) a 1ª Data de Pagamento posterior à ocorrência de um Evento de Realavancagem e em que nenhum Evento de Aceleração de Vencimento tenha sido verificado ou nenhum Evento de Liquidação Antecipada esteja em curso, caso em que o regime voltará a ser o de Amortização Pro Rata, ou (b) que todas as Cotas sejam resgatadas caso tenha ocorrido algum Evento de Aceleração de Vencimento. 9.4.3. Configura um Evento de Desalavancagem, a ser verificado pela Gestora em cada Data de Verificação, caso existam Cotas Seniores ou Cotas Subordinadas Mezanino em circulação, e informado imediatamente à Administradora, cada um dos eventos abaixo: I."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos → reservas → sênior → mezanino → aquisições; sequência varia por fase",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,25% a.a. do PL; mín. R$ 20 mil/mês, mais custódia de até 0,03%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 12,
+     "clause": "Anexo I, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "atividade de controladoria do Fundo será exercida pela Administradora. 4. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇOS 4.1. A Administradora receberá taxa de administração mensal equivalente a 0,25% (vinte e cinco centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido, pelos serviços de administração e controladoria do Fundo, observado o valor mínimo mensal de R$20.000,00 (vinte mil reais). 4.2. O Fundo pagará ao Custodiante, o percentual máximo de 0,03% (três centésimos por cento) incidentes sobre a respectiva faixa do Patrimônio Líquido em cada data de apuração, observado o valor mínimo mensal de R$ 3.000,00 (três mil reais), valor que compõem a Taxa de Administração, adicionalmente ao item 4.1. 4.3. O Fundo pagará à Gestora, pelos serviços de gestão da carteira da Classe do Fundo, o equivalente a uma remuneração de 0,25% (vinte e cinco centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$10.000,00 (dez mil reais). 4.4."
+    }
+   ],
+   "legacy": {
+    "value": "0, 25% a.a./PL; mínimo R$ 20 mil/mês; IPCA anual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I, cl. 4"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,25% a.a. do PL; mín. R$ 10 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 12,
+     "clause": "Anexo I, cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "mensal de R$ 3.000,00 (três mil reais), valor que compõem a Taxa de Administração, adicionalmente ao item 4.1. 4.3. O Fundo pagará à Gestora, pelos serviços de gestão da carteira da Classe do Fundo, o equivalente a uma remuneração de 0,25% (vinte e cinco centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$10.000,00 (dez mil reais). 4.4. As Taxas de Administração e de Gestão previstas neste capítulo serão calculadas e provisionadas diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e devido no 2º (segundo) Dia Útil de cada mês. 4.5. Os valores fixos e montantes mínimos das Taxas de Administração e de Gestão previstos neste capítulo serão atualizados a cada período de 12 (doze) meses a contar da Data de Início do Fundo, ou na menor periodicidade admitida em lei, pela variação acumulada do IPCA, observado que os tributos (ISS, PIS, COFINS, CSLL e IRRF e outros que porventura venham a incidir) incidentes sobre todas as remunerações descritas neste capítulo, serão acrescidos às referidas remunerações com base nas alíquotas vigentes nas respectivas datas de pagamento das Taxas de Administração e de Gestão. 4.6."
+    }
+   ],
+   "legacy": {
+    "value": "0, 25% a.a./PL; mínimo R$ 10 mil/mês; IPCA anual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/06/2025, Anexo I, cl. 4.2"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de rentabilidade definida no suplemento de cada série",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 107,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "emento. “Meta de Com relação a cada série de Cotas Seniores ou subclasse de Cotas Rentabilidade” Subordinadas Mezanino, a meta de rentabilidade das Cotas, determinada em seu respectivo Suplemento. “Parâmetros da As informações mínimas referentes à oferta de Cotas, a serem incluídas no Oferta” respectivo Suplemento, conforme determinado pela Gestora em conjunto com o coordenador líder de cada distribuição pública de Cotas, quais sejam: (a) montante de Cotas; (b) quantidade de Cotas; (c) montante mínimo da oferta; (d) forma de distribuição; (e) forma de integralização; (f) prazo de distribuição; e (g) ágio ou deságio sobre valores atualizados das Cotas, para efeitos de subscrição de Cotas, sendo certo que se esta informação não constar do Suplemento, nenhum ágio ou deságio será aplicável para efeitos de subscrição de Cotas. “Parâmetros de As informações mínimas referentes ao cronograma de pagamento de Cotas, Pagamento” a serem incluídas no respectivo Suplemento: (a) Datas de Pagamento; (b) Meta de Rentabilidade;"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 9ª série: IPCA + 11, 70% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de rentabilidade definida no suplemento de cada subclasse",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 9ª série: IPCA + 11, 70% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 3,
+     "clause": "Anexo I, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "observado o Prazo de Duração estipulado nos respectivos Suplementos. 2. DOS PRESTADORES DE SERVIÇOS ESSENCIAIS 2.1. O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, n.º 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20/10/2023. 2.2. A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo, sem prejuízo dos direitos e obrigações de terceiros contratados para prestação de serviços ao Fundo. 2.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Vert Gestora de Recursos Financeiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1245602",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "10/07/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1245602",
+     "excerpt": "do seu contrato social, na qualidade de administradora fiduciária (“Administradora”), em conjunto com a VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade autorizada pela Comissão de Valores Mobiliários (CVM) para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, por meio do Ato Declaratório nº 17.249, de 11 de julho de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, CEP 05407-003, inscrita no CNPJ sob o nº 31.636.333/0001- 35, na qualidade de gestora profissional dos Direitos Creditórios e dos Ativos Financeiros integrantes da carteira da Classe do Fundo (“Gestora” e, em conjunto com a Administradora, as “Prestadoras de Serviços Essenciais”) do GALLERIA HOME EQUITY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS, fundo de investimento em direitos creditórios constituído sob a forma de condomínio fechado, inscrito no CNPJ sob o nº 37.294.759/0001-34, regido pela Resolução CVM nº 175, de 23 de dezembro de 2022, conforme alterada (“Resolução CVM 175”), pe"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vert DTVM (a própria administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 94,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "tratado, nos termos do capítulo 5 do Anexo. “CSLL” A Contribuição Social sobre o Lucro Líquido. “Custodiante” A Administradora, na qualidade de custodiante do Fundo. “Custo de Significa 18% (dezoito por cento) Recuperação” \"CVM\" A Comissão de Valores Mobiliários. “Data de Cada data em que seja apropriada a Rentabilidade ao Valor Principal de Apropriação de Referência, nos termos do item 0 do Anexo e conforme previsto no Remuneração no respectivo Suplemento. Principal” “Data de Aquisição Cada data em que ocorra a celebração de Termos de Aquisição e pagamento e Pagamento” do respectivo Preço de Aquisição a um Credor, com relação a cada aquisição de Direitos Creditórios pela Classe."
+    },
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 3,
+     "clause": "Anexo I, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "observado o Prazo de Duração estipulado nos respectivos Suplementos. 2. DOS PRESTADORES DE SERVIÇOS ESSENCIAIS 2.1. O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, n.º 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20/10/2023. 2.2. A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo, sem prejuízo dos direitos e obrigações de terceiros contratados para prestação de serviços ao Fundo. 2.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Galleria Bank (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 88,
+     "clause": "Anexo I, cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "de classificação de risco, ou sua sucessora a qualquer título. “Agente de A Galleria Bank, ou seu respectivo sucessor a qualquer título, contratado para Cobrança realizar a cobrança dos Direitos Creditórios Inadimplidos, nos termos do Extraordinária” Contrato de Cobrança. \"Agente de A CERTIFICADORA DE CRÉDITOS IMOBILIÁRIOS E PARTICIPAÇÕES S.A., Cobrança sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Rua Doutor Eduardo de Souza Aranha nº 99, 13º andar, CEP 04543-120, bairro Extraordinária Vila Nova Conceição, inscrita no CNPJ sob o nº 15.761.956/0001-83, com Alternativo\" seus atos constitutivos arquivados na JUCESP sob o NIRE nº 35300519124, ou seu respectivo sucessor a qualquer título, ou terceiro especializado, prestador de serviço cuja contratação pelo Fundo, se não prevista e autorizada no Contrato de Cobrança, seja aprovada pela Gestora, conforme aprovação prévia da Assembleia de Cotistas, para a prestação dos serviços de cobrança dos Direitos Creditórios Inadimplidos,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Qualificados ou profissionais, conforme suplemento",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 105,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "dias. “Investidores Os investidores autorizados a adquirir as Cotas, os quais deverão se Autorizados” enquadrar no conceito de investidores qualificados ou investidores profissionais, conforme definido no respectivo Suplemento da oferta. “IPCA” O Índice Nacional de Preços ao Consumidor Amplo -IPCA, divulgado pelo Instituto Brasileiro de Geografia e Estatística – IBGE. “IRRF” O Imposto de Renda Retido na Fonte. “ISS” O Imposto Sobre Serviços. \"Justa Causa\" Para os fins de que trata este Regulamento, será considerada justa causa do Agente de Cobrança Extraordinária: (i) a comprovação por meio de decisão judicial transitada em julgado de que o Agente de Cobrança Extraordinária, atuou com dolo, má-fé e/ou culpa ou cometeu fraude no desempenho de suas funções e responsabilidades nos termos deste Regulamento, do Contrato de Cobrança ou do Contrato de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; investidores autorizados conforme suplemento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 3,
+     "clause": "Anexo I, cl. 1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "ritivo a este Regulamento. 1.5. O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado, sendo que para cada série de Cotas Seniores e subclasse de Cotas Subordinadas Mezanino, deverá ser observado o Prazo de Duração estipulado nos respectivos Suplementos. 2. DOS PRESTADORES DE SERVIÇOS ESSENCIAIS 2.1. O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, n.º 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20/10/2023. 2.2. A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo, sem prejuízo dos direitos e obrigações de terceiros contratados para prestação de serviços ao Fundo. 2.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; investidores autorizados conforme suplemento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "real_collateral": {
+   "display": "Alienação fiduciária de imóveis, LTV até 60%, com seguros MIP e DFI",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 38,
+     "clause": "Anexo I, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "umulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios: 5.4. Critérios de Elegibilidade dos Direitos Creditórios de Home Equity: I. a respectiva CCB deverá ser garantida por Alienação Fiduciária de Imóvel, e estar representada por uma CCI; II. os Direitos Creditórios de Home Equity devem ser ofertados em sua integralidade; III. os Direitos Creditórios de Home Equity devem ser expressos em moeda corrente nacional; e IV. o respectivo Devedor não deverá ser a Administradora, a Gestora, o Custodiante, os Credores, a Galleria Bank ou uma de suas respectivas partes relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto. 5.5. Critérios de Elegibilidade das Letras Financeiras: a Classe somente poderá adquirir Letras Financeiras que, na Data de Oferta de Direitos Creditórios, tenha um prazo de duração restante de, no máximo, 3 (três) anos, cujas rentabilidades sejam vinculadas à Taxa DI, emitidos por qualquer dos Emissores Autorizados. 5.6."
+    },
+    {
+     "doc": "id927443",
+     "document_id": "927443",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/06/2025",
+     "page": 35,
+     "clause": "Anexo I, cl. 5.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927443",
+     "excerpt": "e quarenta) parcelas; d) sistema de amortização price ou sac; e) LTV máximo de 60% (sessenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre apartamentos residenciais ou casas em condomínio fechado, e de 50% (cinquenta por cento) para CCBs cuja Alienação Fiduciária de Imóvel é constituída sobre outros tipos de imóveis; f) os contratos obrigatoriamente devem possuir os seguros MIP (Morte e Invalidez Permanente) e DFI (Danos Físicos ao Imóvel); g) valor mínimo de mercado do imóvel alienado avaliado pelo Laudo de Avaliação: R$200.000,00 (duzentos mil reais); e h) a CCB não poderá ser garantida por Alienação Fiduciária de Imóvel sobre os tipos de imóveis vedados descritos no Apenso I-H; III. considerando pro forma (como se já tivesse ocorrido) a aquisição dos Direitos Creditórios de Home Equity ofertados, a média ponderada do LTV do conjunto dos Direitos Creditórios de Home Equity integrantes da carteira da Classe deverá ser menor ou igual a 45% (quarenta e cinco por cento); IV."
+    }
+   ],
+   "legacy": {
+    "value": "Alienação fiduciária de imóveis; seguros MIP/DFI exigidos nas hipóteses",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Home equity com alienação fiduciária de imóvel e LTV ≤ 60%; PL/sênior ≥ 105% e devedor ≤ R$ 5 mi.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
