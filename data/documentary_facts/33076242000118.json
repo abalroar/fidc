@@ -1,0 +1,671 @@
+{
+ "schema_version": 1,
+ "cnpj": "33076242000118",
+ "name": "WORKCAP AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T08:19:55Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1060211",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211"
+  },
+  "D2": {
+   "document_id": "1340277",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "05/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1340277"
+  },
+  "D3": {
+   "document_id": "1332614",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "28/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1332614"
+  },
+  "D4": {
+   "document_id": "928244",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "16/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928244"
+  },
+  "D5": {
+   "document_id": "358329",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "28/09/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=358329"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de vendas de insumos agrícolas da Albaugh",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 54,
+     "clause": "cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "Suplemento; “Carteira”: a carteira de investimentos da Classe, formada por Direitos Creditórios e Ativos Financeiros; “Cedente”: a ALBAUGH AGRO BRASIL LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Alexandre Dumas, nº 2.220, 7º andar, conjuntos 71 a 74, Chácara Santo Antônio, CEP 04717-004, inscrita no CNPJ/MF sob o nº 01.789.121/0001-27, que cede e cederá para a Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios; “Classe”: é a classe única de cotas do FUNDO, denominada CLASSE ÚNICA DO WORKCAP AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA; “CNPJ”: Cadastro Nacional da Pessoa Jurídica; “Código Civil”: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; “Código de Processo Civil”: a Lei nº 13.105, de 16 de março de 2015, conforme alterada;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 12,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "de Elegibilidade 4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição e Pagamento: (i) o respectivo Devedor, identificado por seu CNPJ/MF, ou pelo seu CPF/MF, conforme o caso, não deverá apresentar na respectiva Data de Aquisição e Pagamento de Direitos Creditórios pela Classe, valores vencidos e não pagos referentes a Direitos Creditórios cedidos à Classe; (ii) o prazo máximo dos Direitos Creditórios deverá ser de 360 (trezentos e sessenta) dias, contados a partir da respectiva data da aquisição do Direito Creditório Elegível pela Classe e não poderão ter vencimento dentro do período de 30 (trinta) dias anteriores à Data de Resgate das Cotas Seniores;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis comerciais originados pelaAlbaugh Agro Brasil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Albaugh Agro Brasil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 54,
+     "clause": "cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "Suplemento; “Carteira”: a carteira de investimentos da Classe, formada por Direitos Creditórios e Ativos Financeiros; “Cedente”: a ALBAUGH AGRO BRASIL LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Alexandre Dumas, nº 2.220, 7º andar, conjuntos 71 a 74, Chácara Santo Antônio, CEP 04717-004, inscrita no CNPJ/MF sob o nº 01.789.121/0001-27, que cede e cederá para a Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios; “Classe”: é a classe única de cotas do FUNDO, denominada CLASSE ÚNICA DO WORKCAP AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA; “CNPJ”: Cadastro Nacional da Pessoa Jurídica; “Código Civil”: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; “Código de Processo Civil”: a Lei nº 13.105, de 16 de março de 2015, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "Albaugh Agro Brasil Ltda.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Albaugh Agro Brasil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 54,
+     "clause": "cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "Suplemento; “Carteira”: a carteira de investimentos da Classe, formada por Direitos Creditórios e Ativos Financeiros; “Cedente”: a ALBAUGH AGRO BRASIL LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Alexandre Dumas, nº 2.220, 7º andar, conjuntos 71 a 74, Chácara Santo Antônio, CEP 04717-004, inscrita no CNPJ/MF sob o nº 01.789.121/0001-27, que cede e cederá para a Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios; “Classe”: é a classe única de cotas do FUNDO, denominada CLASSE ÚNICA DO WORKCAP AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA; “CNPJ”: Cadastro Nacional da Pessoa Jurídica; “Código Civil”: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; “Código de Processo Civil”: a Lei nº 13.105, de 16 de março de 2015, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "Albaugh Agro Brasil Ltda.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Ao menos 50 devedores do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 60,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "s objeto de operações de venda e compra mercantil a prazo pelo Cedente aos Devedores; “Quantidade Mínima de Devedores”: é quantidade mínima de Devedores de Direitos Creditórios adquiridos pela Classe, que deverá ser equivalente a 50 (cinquenta) Devedores e apurada mensalmente; “Rabobank”: é o Banco Rabobank International Brasil S.A., instituição financeira, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Nações Unidas, 12.995 – 7º andar, inscrita no CNPJ/MF sob o nº 01.023.570/000160, o qual atuará como coordenador, distribuidor e estruturador da primeira emissão de Cotas Seniores; “Razão de Garantia”: significa o total de Cotas Subordinadas em relação ao Patrimônio Líquido da Classe, que deverá ser de, no mínimo, 20% (vinte por cento) durante todo o prazo de duração das Cotas Seniores; “Regulamento”: significa este regulamento do FUNDO, incluindo sua Parte Geral, eventuais Anexos, Apêndices, Suplementos e demais documentos que o integrem; “Renegociação”: significa qualquer alteração em termos e condições originais dos Direitos Creditórios que implique em alteração no valor, prazo, e/ou na necessidade de aditamento ou substituição de Documentos Comprobatórios ou Documentos Adicionais relacionados ao referido Direito Creditório. O termo “Renegociar” será interpretado da mesma forma;"
+    }
+   ],
+   "legacy": {
+    "value": "Devedores egrupos econômicos dos recebíveis daAlbaugh",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Recompra mensal≤ 6% pela fórmula doglossário; resolução≤ 4%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Prazo de até 360 dias da aquisição, entre outros critérios",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 12,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "de Elegibilidade 4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição e Pagamento: (i) o respectivo Devedor, identificado por seu CNPJ/MF, ou pelo seu CPF/MF, conforme o caso, não deverá apresentar na respectiva Data de Aquisição e Pagamento de Direitos Creditórios pela Classe, valores vencidos e não pagos referentes a Direitos Creditórios cedidos à Classe; (ii) o prazo máximo dos Direitos Creditórios deverá ser de 360 (trezentos e sessenta) dias, contados a partir da respectiva data da aquisição do Direito Creditório Elegível pela Classe e não poderão ter vencimento dentro do período de 30 (trinta) dias anteriores à Data de Resgate das Cotas Seniores;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 12,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "cidos e não pagos referentes a Direitos Creditórios cedidos à Classe; (ii) o prazo máximo dos Direitos Creditórios deverá ser de 360 (trezentos e sessenta) dias, contados a partir da respectiva data da aquisição do Direito Creditório Elegível pela Classe e não poderão ter vencimento dentro do período de 30 (trinta) dias anteriores à Data de Resgate das Cotas Seniores; (iii) os Direitos Creditórios deverão ter sido originados há, no mínimo, 10 (dez) dias completos anteriores à data da cessão; (iv) os Direitos Creditórios deverão ter seu vencimento, no mínimo, após 15 (quinze) dias da Data de Aquisição e Pagamento dos Direitos Creditórios pela Classe; (v) os Direitos Creditórios deverão ser originados e expressos em moeda corrente nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "Originação≥ 10 dias; vencimento≥ 15 dias após aquisição; lastro emreais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/12/2025, cl. 4.4"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por grupo econômico: até 2% do PL (especial até 5%)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 59,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "maneira pro forma, em cada Data de Aquisição e Pagamento; “Limite de Concentração por Grupo Econômico e/ou indivíduo”: é o limite máximo de 2% (dois por cento) de concentração por Grupo Econômico e/ou Indivíduo devedor de Direito Creditório integrante da Carteira da Classe do Patrimônio Líquido da Classe, que deve ser observado pelo CUSTODIANTE, calculado de maneira pro forma, em cada Data de Aquisição e Pagamento; “Limite de Concentração por Grupo Econômico Especial“: é o limite máximo de 5% (cinco por cento) de concentração por Grupo Econômico Especial devedor de Direito Creditório integrante da Carteira da Classe do Patrimônio Líquido da Classe, que deve ser observado pelo CUSTODIANTE, calculado de maneira pro forma, em cada Data de Aquisição e Pagamento; “Liquidação Antecipada”: significa a liquidação antecipada da Classe, que ocorrerá caso aprovada mediante deliberação da Assembleia de Cotistas quando da verificação de um Evento de Avaliação; “MDA”: é o Módulo de Distribuição de Ativos, ambiente de distribuição primária de títulos e valores mobiliários, administrado e operacionalizado pela B3;"
+    }
+   ],
+   "value": 2.0,
+   "legacy": {
+    "value": "Grupo≤ 2% PL; grupo especial≤ 5%; top 5≤ 17% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/12/2025, p. 59"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Albaugh Agro",
+   "sources": [],
+   "legacy": {
+    "value": "Grupo≤ 2% PL; grupo especial≤ 5%; top 5≤ 17% PL",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 360 dias da aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 12,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "cidos e não pagos referentes a Direitos Creditórios cedidos à Classe; (ii) o prazo máximo dos Direitos Creditórios deverá ser de 360 (trezentos e sessenta) dias, contados a partir da respectiva data da aquisição do Direito Creditório Elegível pela Classe e não poderão ter vencimento dentro do período de 30 (trinta) dias anteriores à Data de Resgate das Cotas Seniores; (iii) os Direitos Creditórios deverão ter sido originados há, no mínimo, 10 (dez) dias completos anteriores à data da cessão; (iv) os Direitos Creditórios deverão ter seu vencimento, no mínimo, após 15 (quinze) dias da Data de Aquisição e Pagamento dos Direitos Creditórios pela Classe; (v) os Direitos Creditórios deverão ser originados e expressos em moeda corrente nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "Originação≥ 10 dias; vencimento≥ 15 dias após aquisição; lastro emreais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/12/2025, cl. 4.4"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 53,
+     "clause": "cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "s mobiliários, nos termos do Ato Declaratório CVM nº 11.590, de 21 de março de 2011; “Alocação Mínima de Investimento”: é a razão entre o valor contábil dos Direitos Creditórios Cedidos à Classe e o Patrimônio Líquido, que deverá ser de 50% (cinquenta por cento); “Amortização Extraordinária”: é a amortização extraordinária das Cotas efetivamente subscritas e integralizadas exclusivamente para fins de enquadramento do patrimônio à Alocação Mínima de Investimento, à Razão de Garantia e/ou à observância da política de investimento da Classe conforme prevista no Capítulo 5 deste Anexo; “Amortização Programada”: a amortização das Cotas Seniores realizada nas respectivas Datas de Amortização Programadas para as Cotas Seniores, conforme cronograma definido nos respectivos Suplementos, e na forma deste Anexo; “Amortização”: significa uma Amortização Programada e/ou uma Amortização Extraordinária, quando referidas indistintamente; “Anexos”: tem o significado atribuído no Art. 3, inciso IV, da Resolução CVM 175, Parte Geral; “Apêndice”: cada um dos apêndices que integram este Anexo, descritivos de cada Subclasse de Cotas ou de aspectos aplicáveis ao FUNDO;"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Regulatório≥ 50% PL; tributário≥ 67% carteira; ambos após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/12/2025, cl. 16.2"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 61,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "qual atuará como coordenador, distribuidor e estruturador da primeira emissão de Cotas Seniores; “Razão de Garantia”: significa o total de Cotas Subordinadas em relação ao Patrimônio Líquido da Classe, que deverá ser de, no mínimo, 20% (vinte por cento) durante todo o prazo de duração das Cotas Seniores; “Regulamento”: significa este regulamento do FUNDO, incluindo sua Parte Geral, eventuais Anexos, Apêndices, Suplementos e demais documentos que o integrem; “Renegociação”: significa qualquer alteração em termos e condições originais dos Direitos Creditórios que implique em alteração no valor, prazo, e/ou na necessidade de aditamento ou substituição de Documentos Comprobatórios ou Documentos Adicionais relacionados ao referido Direito Creditório. O termo “Renegociar” será interpretado da mesma forma; “Reserva de Caixa”: é a parcela do Patrimônio Líquido da Classe alocado em ativos financeiros equivalente ao valor projetado pelo ADMINISTRADOR para a próxima Amortização Programada a ser acumulada com, no mínimo, 30 (trinta) dias de antecedência em relação ao próximo pagamento de amortização de Cotas Seniores devido pela Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Cotas subordinadas≥ 20% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/12/2025, p. 61"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 61,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "qual atuará como coordenador, distribuidor e estruturador da primeira emissão de Cotas Seniores; “Razão de Garantia”: significa o total de Cotas Subordinadas em relação ao Patrimônio Líquido da Classe, que deverá ser de, no mínimo, 20% (vinte por cento) durante todo o prazo de duração das Cotas Seniores; “Regulamento”: significa este regulamento do FUNDO, incluindo sua Parte Geral, eventuais Anexos, Apêndices, Suplementos e demais documentos que o integrem; “Renegociação”: significa qualquer alteração em termos e condições originais dos Direitos Creditórios que implique em alteração no valor, prazo, e/ou na necessidade de aditamento ou substituição de Documentos Comprobatórios ou Documentos Adicionais relacionados ao referido Direito Creditório. O termo “Renegociar” será interpretado da mesma forma; “Reserva de Caixa”: é a parcela do Patrimônio Líquido da Classe alocado em ativos financeiros equivalente ao valor projetado pelo ADMINISTRADOR para a próxima Amortização Programada a ser acumulada com, no mínimo, 30 (trinta) dias de antecedência em relação ao próximo pagamento de amortização de Cotas Seniores devido pela Classe;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Cotas subordinadas≥ 20% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Cotas subordinadas≥ 20% PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Aquisições param se a reserva não cobrir a próxima amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 25,
+     "clause": "cl. 7.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "a de Amortização, o ADMINISTRADOR deverá interromper a aquisição de Direitos Creditórios do Cedente, caso a Reserva de Caixa não possua saldo equivalente, no mínimo, ao valor da próxima Amortização Programada, devendo reiniciar os procedimentos de aquisição de Direitos Creditórios após o pagamento integral da respectiva Amortização Programada e a recomposição da Reserva de Caixa. 7.6 Em cada Data de Amortização a amortização das Cotas e a distribuição dos resultados da Classe deverão observar a seguinte ordem de prioridade: (i) primeiro, na medida necessária para o pagamento das taxas e despesas incorridas pela Classe, os valores recebidos na Conta Autorizada da Classe serão retidos e pagos aos respectivos beneficiários nas respectivas datas de vencimento; (ii) segundo, na medida necessária para a manutenção da Reserva de Despesa, os valores recebidos na Conta Autorizada da Classe ficarão retidos na mesma, em valor equivalente à Reserva de Despesa;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Provisão escalonada por faixa de atraso do devedor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 27,
+     "clause": "cl. 9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "dência de redução no valor recuperável dos ativos do Fundo: Provisionamento sobre os valores Faixa de Atraso do Devedor/Grupo devidos pelo respectivo Econômico Devedor/Grupo Econômico 0,5% (cinquenta centésimos por de 6 (seis) a 15 (quinze) dias cento) de 16 (dezesseis) a 30 (trinta) dias 1,0% (um inteiro por cento) de 31 (trinta e um) a 60 (sessenta) dias 3,0% (três inteiros por cento) de 61 (sessenta e um) a 90 (noventa) dias 10,0% (dez inteiros por cento) de 91 (noventa e um) a 120 (cento e vinte) 25,0% (vinte e cinco por cento) dias de 121 (cento e vinte e um) dias a 150 50,0% (cinquenta inteiros por (cento e cinquenta) dias cento) de 151 (cento e cinquenta e um) dias a"
+    }
+   ],
+   "legacy": {
+    "value": "Tabela por atraso: 0, 5% em 6–15 dias; 10% em 61–90; 100% acima de 181 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/12/2025, cl. 9.2"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falta de pagamento de amortização programada, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 30,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "E LIQUIDAÇÃO ANTECIPADA Eventos de Avaliação e de Liquidação da Classe 11.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) caso a Classe deixe de efetuar o pagamento: (a) integral de qualquer das Amortizações Programadas das Cotas Seniores, na respectiva Data de Amortização Programada, (b) integral dos Resgates das Cotas Seniores, na respectiva Data de Resgate de Cotas Seniores, e/ou (c) do Benchmark Sênior nas respectivas datas, e não regularizado no prazo de até 1 (um) Dia Útil; (ii) não observância, pelo CUSTODIANTE, ADMINISTRADOR, GESTOR e/ou pelo Cedente, dos deveres e obrigações não pecuniárias dispostas abaixo e estabelecidos nos Documentos da Securitização, conforme o caso ou a ocorrência de qualquer dos seguintes eventos: a) resilição de qualquer dos Documentos da Securitização por qualquer pessoa, sem que outras pessoas assumam integralmente as atribuições ali estabelecidas no prazo de até 5 (cinco) dias, com exceção de rescisão (1) de qualquer dos Documentos da Securitização pelo Cedente, hipótese na qual este item não estará sujeito a qualquer prazo de cura, ou (2) do Contrato de Cessão, hipótese que constituirá evento de Liquidação Antecipada automática da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso> 30/60/90 dias limitado a 18%/12%/5% PL; repasse/recompra≤ 6%; resolução≤ 4%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/12/2025, cl. 11.1"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Atraso> 30/60/90 dias limitado a 18%/12%/5% PL; repasse/recompra≤ 6%; resolução≤ 4%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "Recursos dos créditos podem comprar novos direitos creditórios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 16,
+     "clause": "cl. 4.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "disponibilizados aos Cotistas por meio de envio de relatórios diários. Revolvência da Carteira de Direitos Creditórios 4.13 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo Cedente e/ou desinvestimento de Ativo Recuperado, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios e/ou destinados à Amortização das Cotas, conforme decisão do GESTOR e desde que observada a ordem de alocação de recursos definida no item 8.1 abaixo. Resolução da Cessão, dos Procedimentos de Cobrança e da Obrigação do Cedente de Recompra dos Direitos Creditórios 4.14 A resolução da cessão será obrigatória, e o Cedente terá a obrigação, de adquirir, em moeda corrente nacional, qualquer Direito Creditório Cedido à Classe ou Direito Creditório Inadimplido, nas hipóteses previstas abaixo: (i) da aquisição pela Classe de Direitos Creditórios que tenham sido cedidos em desacordo com os Critérios de Elegibilidade; (ii) de aquisição de Direitos Creditórios Cedidos durante um período em que se tenha verificado a ocorrência de Evento de Avaliação, conforme definido neste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Conforme suplemento; não individualizado emcronograma fechado",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de administração não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "0, 20% a.a./PL; pacote fiduciário, escrituração, custódia/controladoria",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 44,
+     "clause": "cl. 14.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "e Gestão: A taxa de gestão será devida pelo Fundo ao GESTOR pela prestação dos serviços de gestão de Carteira. A Taxa de Gestão será equivalente a 0,20% (vinte centésimos por cento) ao ano, incidentes sobre o Patrimônio Líquido do Fundo (“Taxa de Gestão”). 14.2.1 A Taxa de Gestão do Fundo, terá valor mínimo de R$45.000,00 (quarenta e cinco mil reais) mensais, e será atualizada a cada período de 12 (doze) meses a contar de 1º de fevereiro de 2025, ou, na menor periodicidade admitida em lei, pela variação acumulada do IGP-M. 14.3 Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 14.4 A Taxa de Administração e a Taxa de Gestão serão calculadas e provisionadas todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 14.4.1 A Taxa de Administração será paga mensalmente ao ADMINISTRADOR e a Taxa de G"
+    }
+   ],
+   "legacy": {
+    "value": "0, 20% a.a./PL; mínimoR$ 45 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/12/2025, cl. 14.2"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Finaxis CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "deliberado pelos cotistas reunidos em assembleia geral de cotistas. FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Avenida Paulista, 1842, loja 8, Torre Norte, Bela Vista, CEP 01310-923, na cidade de São Paulo, Estado de São ADMINISTRADOR Paulo, inscrita no CNPJ sob o nº 03.317.692/0001-94, autorizada pela CVM a administrar fundos de investimento, nos termos do Ato Declaratório CVM nº 6.547, de 18 de outubro de 2001. (“ADMINISTRADOR”). B.OND CAPITAL LTDA, pessoa jurídica de direito privado, com sede na Cidade de São Paulo, Estado de São Paulo, na R."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "B.OND Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "aratório CVM nº 6.547, de 18 de outubro de 2001. (“ADMINISTRADOR”). B.OND CAPITAL LTDA, pessoa jurídica de direito privado, com sede na Cidade de São Paulo, Estado de São Paulo, na R. Enxovia, 472, 8º andar, Vila São Francisco, CEP 04711-030, inscrita no CNPJ nº 54.641.866/0001- 00, devidamente autorizado pela CVM para o exercício profissional de GESTOR carteiras de valores mobiliários, nos termos do Ato Declaratório n.º 22.398, de 9 de agosto de 2024, (“GESTOR”) e, quando referido conjuntamente e indistintamente com o ADMINISTRADOR, os “Prestadores de Serviços Essenciais”). Foro central da Cidade de São Paulo, Estado de São Paulo. Foro Aplicável Encerramento do Último dia útil do mês de dezembro cada ano. Exercício Social 1.2 Este regulamento é composto por esta parte geral, um ou mais anexos, conforme o número de classes aqui previsto e respectivos apêndices relativos a cada subclasse de cotas, conforme aplicável (respectivamente, “Regulamento”, “Parte Geral”, “Anexos”"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 9,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "uanto à segurança, rentabilidade e liquidez dos títulos componentes de sua carteira. Público-Alvo Investidores Profissionais. BANCO FINAXIS S.A., instituição financeira com sede na Rua Pasteur, 463, 11º andar, Água Verde, CEP 80250-104, na cidade Custódia de Curitiba, Estado do Paraná, inscrita no CNPJ sob o nº 11.758.741/0001-52, autorizada pela CVM para prestar os serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 11.590, de 21 de março de 2011 (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração Subclasses Sênior e Subordinadas Júnior, nos termos do Capítulo 5. O valor de cada emissão de Cotas, volume e valor unitário da Cota, Emissão e Regime de bem como o regime de distribuição seguirão o disposto no Distribuição de Cotas instrumento que aprova a emissão de Cotas, que disporá acerca da eventual existência de direito de"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; público conforme oferta",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo de duração não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; público conforme oferta",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "agro_backing": {
+   "display": "Vendas a prazo de defensivos da Albaugh Agro a produtores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1060211",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/12/2025",
+     "page": 54,
+     "clause": "cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+     "excerpt": "Suplemento; “Carteira”: a carteira de investimentos da Classe, formada por Direitos Creditórios e Ativos Financeiros; “Cedente”: a ALBAUGH AGRO BRASIL LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Alexandre Dumas, nº 2.220, 7º andar, conjuntos 71 a 74, Chácara Santo Antônio, CEP 04717-004, inscrita no CNPJ/MF sob o nº 01.789.121/0001-27, que cede e cederá para a Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios; “Classe”: é a classe única de cotas do FUNDO, denominada CLASSE ÚNICA DO WORKCAP AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA; “CNPJ”: Cadastro Nacional da Pessoa Jurídica; “Código Civil”: a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; “Código de Processo Civil”: a Lei nº 13.105, de 16 de março de 2015, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis comerciais originados pelaAlbaugh Agro Brasil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Recebíveis de defensivos da Albaugh com ao menos 50 devedores; subordinação de 20% e grupo ≤ 2% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
