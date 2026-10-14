@@ -243,7 +243,7 @@ class BasketView:
 def _short_name(name: str, fallback: str) -> str:
     try:
         from services.fund_name_display import short_fund_name
-        return short_fund_name(name or fallback, max_length=24) or fallback
+        return short_fund_name(name or fallback, max_length=36) or fallback
     except Exception:  # noqa: BLE001
         return (name or fallback)[:24]
 

@@ -1178,7 +1178,7 @@ def _format_metric_value(value: object, unit: str) -> str:
     if unit == "R$ bruto":
         return _format_brl(float(numeric))
     if unit == "R$ MM":
-        return f"R$ {_format_decimal(float(numeric), 1)} MM"
+        return f"R$ {_format_decimal(float(numeric), 1)} mm"
     if unit == "ratio":
         return f"{_format_decimal(float(numeric) * 100.0, 2)}%"
     if unit == "%":
@@ -1189,9 +1189,9 @@ def _format_metric_value(value: object, unit: str) -> str:
 def _format_brl(value: float) -> str:
     abs_value = abs(value)
     if abs_value >= 1_000_000_000_000:
-        return f"R$ {_format_decimal(value / 1_000_000_000_000, 1)} bi"
+        return f"R$ {_format_decimal(value / 1_000_000_000_000, 1)} tri"
     if abs_value >= 1_000_000:
-        return f"R$ {_format_decimal(value / 1_000_000, 1)} MM"
+        return f"R$ {_format_decimal(value / 1_000_000, 1)} mm"
     if abs_value >= 1_000:
         return f"R$ {_format_decimal(value / 1_000, 1)} mil"
     return f"R$ {_format_decimal(value, 0)}"

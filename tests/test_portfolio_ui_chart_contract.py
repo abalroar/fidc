@@ -85,7 +85,8 @@ def test_maturity_horizontal_preserves_all_a_vencer_values_and_existing_total():
     assert bar["encoding"]["x"]["title"] == "R$ mm"
     assert bar["encoding"]["y"]["field"] == "faixa"
     assert "y2" not in bar["encoding"] and bar["encoding"]["color"]["legend"] is None
-    assert len(_rows(spec, bar)) == 5
+    assert len(_rows(spec, bar)) == 4  # buckets only; the total is in the title
+    assert spec["title"]["text"].startswith("Total informado (parcial): R$ ")
     pd.testing.assert_frame_equal(frame, before)
 
 
@@ -260,3 +261,35 @@ def test_portfolio_duration_domain_tracks_robbin_range_and_keeps_valid_zero():
     zero_spec = ime._duration_line_chart(frame,portfolio_mode=True).to_dict(validate=True)
     assert zero_spec['layer'][0]['encoding']['y']['scale']['domain'][0] == 0.
     assert _rows(zero_spec,zero_spec['layer'][0])[0]['duration_days'] == 0.
+
+
+def _fund_monitor(name: str, start: str) -> pd.DataFrame:
+    dates = pd.date_range(start, periods=3, freq="MS")
+    return pd.DataFrame({
+        "competencia": dates.strftime("%m/%Y"), "competencia_dt": dates,
+        "fund_name": [name] * 3, "duration_days": [400.0, 410.0, 420.0],
+    })
+
+
+def test_duration_axis_is_chronological_and_each_series_has_its_own_colour():
+    consolidated = _fund_monitor("Consolidado", "2026-02-01")
+    funds = {str(index): _fund_monitor(f"FIDC {letter}", "2025-09-01" if index else "2026-02-01")
+             for index, letter in enumerate("ABCDE")}
+    spec = visuals.duration_chart(consolidated, funds, portfolio_mode=True).to_dict(validate=True)
+    line = spec["layer"][0]["encoding"]
+    assert line["x"]["sort"] == ["set/25", "out/25", "nov/25", "fev/26", "mar/26", "abr/26"]
+    colours = line["color"]["scale"]["range"]
+    assert len(colours) == 6 and len(set(colours)) == 6
+
+
+def test_small_percent_axes_keep_neighbouring_ticks_distinct():
+    from services.chart_number_format import span_decimals
+
+    assert span_decimals([0.05, 0.13], minimum=1) == 2
+    assert span_decimals([0.2, 14.6], minimum=1) == 1
+    assert span_decimals([300.0, 800.0]) == 0
+    frame = _monitor()
+    frame["roll_61_90_m3_pct"] = [0.08, 0.10, 0.13]
+    spec = visuals.roll_rates_chart(frame, portfolio_mode=True).to_dict(validate=True)
+    assert "',.2f'" in spec["layer"][0]["encoding"]["y"]["axis"]["labelExpr"]
+    assert {row["valor_fmt"] for row in _rows(spec, spec["layer"][0]) if row["valor"] is not None} == {"0,08%", "0,10%", "0,13%"}

@@ -59,7 +59,7 @@ class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
         self.assertEqual("12,00%", checks.loc[0, "Valor IME"])
         self.assertEqual("72,00%", checks.loc[1, "Valor IME"])
         self.assertEqual("R$ 0", checks.loc[2, "Valor IME"])
-        self.assertEqual("R$ 1,5 MM", checks.loc[3, "Valor IME"])
+        self.assertEqual("R$ 1,5 mm", checks.loc[3, "Valor IME"])
         self.assertEqual("125,00%", checks.loc[4, "Valor IME"])
         self.assertEqual("8,20%", checks.loc[5, "Valor IME"])
 

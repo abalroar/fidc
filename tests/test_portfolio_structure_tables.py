@@ -80,7 +80,7 @@ def test_compact_comparison_preserves_values_and_exact_fund_identity(count: int)
     assert refined.rows == legacy.rows
     assert len(refined.rows) == len(_COCKPIT_METRICS)
     assert all(len(row) == count + 2 for row in refined.rows)
-    assert refined.rows[0][2:5] == ["R$ 1,2 MM", "R$ 0", "-"]
+    assert refined.rows[0][2:5] == ["R$ 1,2 mm", "R$ 0", "-"]
     assert refined.identities == [
         item["display_name"]
         for _section in dict.fromkeys(metric.section for metric in _COCKPIT_METRICS)
