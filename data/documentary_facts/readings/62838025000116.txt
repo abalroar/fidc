@@ -1,0 +1,62 @@
+# Endurance FIDC (Intrag; Kanastra; cedentes PagueVeloz e Serasa)
+type: Cartão/adquirência
+q1: * "6.4 A estratégia da Classe é a alocação em “Direitos Creditórios”, assim considerados os direitos creditórios performados, devidamente representados por URs de Cartões"
+q2: * "“Cedentes” significam, exclusivamente, as seguintes Subcredenciadoras: (i) PagueVeloz Instituição de Pagamento Ltda."
+q3: * "Para fins da Classe, serão, exclusivamente, as seguintes Credenciadoras: (i) Cielo S.A."
+q4: * "9.1 Haverá a resolução da cessão dos Direitos Creditórios nas hipóteses e regras previstas a seguir"
+q5: * "7.8 Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender integralmente aos seguintes Critérios de Elegibilidade"
+q6: * "(i) No máximo, 60% (sessenta por cento) do Patrimônio Líquido da Classe deverá ser composto por Direitos Creditórios de um único Devedor"
+q7: * "6.2 A Classe deverá alocar, para fins regulatórios, no mínimo, 50% (cinquenta por cento)"
+q8: * "16.7 A subordinação mínima admitida na Classe é de 10% (dez por cento)"
+q9: * "formação de reserva equivalente ao montante estimado dos Encargos a serem incorridos por 3 (três) meses calendário"
+q10: * "18.1 São considerados eventos de avaliação da Classe (“Eventos de Avaliação”) quaisquer das seguintes ocorrências"
+q11: * "18.5 São considerados eventos de liquidação da Classe (“Eventos de Liquidação”), quaisquer das seguintes ocorrências"
+q12: * "6.3 A Classe poderá reinvestir os recursos recebidos em decorrência do pagamento de Direitos Creditórios"
+q13: * "as Cotas Sênior terão seus valores de principal investido e rendimentos amortizados mensalmente, de forma linear, pelos 06 (seis) meses seguintes"
+q14: * "a Classe pagará ao Administrador uma taxa de administração (“Taxa de Administração”) equivalente a 0,033%"
+q15: * "19.3 Pela prestação dos serviços de gestão, o Fundo pagará ao Gestor uma taxa de gestão"
+q16: * "19.11 A Classe não cobra Taxa de Performance"
+q17: * "uma rentabilidade correspondente ao CDI, acrescido de 0,80% a.a."
+q18: * "“Administrador” significa a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q19: * "“Gestor” significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA."
+q20: * "“Custodiante dos Direitos Creditórios” significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA."
+q21: * "“Agentes de Cobrança” significam, em conjunto, os Cedentes"
+q22: * "6.5 Considerando que a Classe é destinada exclusivamente a Investidores Profissionais"
+q23: * "terá prazo de duração indeterminado, sendo que a sua eventual liquidação deverá ser objeto de prévia deliberação"
+q24: * "“Custodiante” significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q25: * "“Cancelamento” ou “Chargeback” significa (i) qualquer evento relacionado a uma transação de pagamento"
+receivables: URs de cartão performadas, devidas pelas credenciadoras às subcredenciadoras | q1
+card_receivables: URs de cartão de subcredenciadoras contra Cielo, Redecard, Pagseguro e Getnet | q1,q3
+originator: PagueVeloz IP e Serasa (subcredenciadoras) | q2
+assignor: PagueVeloz IP e Serasa, exclusivamente | q2
+debtor: Credenciadoras Cielo, Redecard, Pagseguro e Getnet | q3
+recourse: Resolução da cessão por inexistência ou vício do crédito, entre outras | q4
+eligibility: Vencimento até 24 meses da aquisição, entre outros critérios | q5
+debtor_limit: Por credenciadora: até 60% do PL; Redecard sem limite | q6 | value=60
+assignor_limit: Não previsto | Limite definido apenas por devedor (credenciadora)
+term_max: Vencimento até 24 meses da aquisição | q5
+allocation: ≥ 50% do PL em direitos creditórios; gestor busca 67% | q7 | value=50
+quota_structure: Sênior / Subordinada júnior | q8,q13
+sub_senior: 10% · subord./PL | q8 | basis=jr/PL | value=10
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração do índice não explicitada no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de caixa para 3 meses de encargos | q9
+pdd: n/d | Regulamento não descreve critério próprio de provisão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: DC < 50% do PL por mais de 15 dias após 180 dias, entre outros | q10
+liquidation: PL diário < R$ 1 mi por 90 dias, entre outros | q11
+revolving: Reinvestimento dos recebimentos em novos direitos creditórios | q12
+amortization: Sênior em 6 parcelas mensais lineares a partir de 15/07/2029 | q13
+admin_fee: 0,033% a.a. do PL; mín. R$ 15 mil/mês (IPC/FIPE) | q14
+mgmt_fee: 0,030% a.a. até R$ 500 mi de PL; 0,025% acima; mín. R$ 15 mil/mês | q15
+perf_fee: Não prevista | Classe não cobra taxa de performance | q16
+target_senior: CDI + 0,80% a.a. | q17
+target_mezz: — | Sem cota mezanino
+administrator: Intrag DTVM | q18
+manager: Kanastra Administração de Recursos | q19
+custodian: Limine Trust DTVM; Kanastra custodia os direitos creditórios | q24,q20
+servicer: Cedentes, como agentes de cobrança | q21
+investors: Investidores profissionais | q22
+duration: Indeterminado | q23
+card_lock: n/d | Regulamento não descreve trava de domicílio das URs | why=Resposta anterior sem trecho localizável no regulamento vigente
+dilution: Chargeback definido; sem reserva de diluição específica | q25
+leitura: URs de cartão de PagueVeloz e Serasa contra credenciadoras; júnior ≥ 10% e sênior CDI + 0,80% a.a.

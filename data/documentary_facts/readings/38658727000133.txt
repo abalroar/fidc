@@ -1,0 +1,58 @@
+# Fornecedores Madeira Madeira I FIDC (Vert; H2 Kapital; devedora MadeiraMadeira)
+type: Duplicatas/multicedente
+q1: * "Artigo 3º Os Direitos Creditórios a serem adquiridos pelo Fundo serão representados pelos Contratos Comerciais"
+q2: * "de Direitos Creditórios devidos pela Devedora a seus Fornecedores"
+q3: * "40. Devedora: Significa a MADEIRAMADEIRA COMÉRCIO ELETRÔNICO S.A."
+q4: * "Direitos Creditórios não contarão com a coobrigação dos Cedentes ou com compromisso de recompra"
+q5: * "I. os Direitos Creditórios deverão ser provenientes do pagamento devido pela Devedora aos Cedentes"
+q6: * "5. Alocação Mínima: Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido"
+q7: * "as Cotas ora emitidas serão divididas em subclasses de Cotas Seniores e Cotas Subordinadas"
+q8: * "Artigo 33º O Fundo deverá observar o Índice de Subordinação de, no mínimo, 136,36%"
+q9: * "Artigo 35º Caso o Índice de Subordinação seja inferior ao percentual definido no Artigo 33º acima por 10 (dez) Dias Úteis consecutivos"
+q10: * "72. Reserva de Caixa: a reserva que poderá ser constituída no âmbito de cada Classe para cobrir as despesas ordinárias"
+q11: * "na hipótese de eventual renegociação e/ou refinanciamento de Direitos Creditórios nos termos acima mencionados, a Gestora deverá considerar"
+q12: * "Artigo 52º São considerados Eventos de Avaliação da Classe de Cotas"
+q13: * "III. pedido ou requerimento de falência, recuperação judicial ou extrajudicial pela Devedora; IV. caso o Patrimônio Líquido seja"
+q14: * "Parágrafo Primeiro A Classe de Cotas poderá realizar a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros"
+q16: * "i) A Administradora receberá do Fundo a remuneração mensal equivalente a 0,10% (dez centésimos por cento) ao ano"
+q17: * "i) Taxa anual incidente sobre o Patrimônio Líquido do FIDC será de 0,30%"
+q18: * "Artigo 60º A Gestora não fará jus a Taxa de Performance"
+q19: * "2. Administradora: A VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q20: * "54. Gestora: a H2 KAPITAL S.A."
+q21: * "36. Custodiante: a VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q22: * "4. Agente de Cobrança: significa a Gestora ou terceiro contratado pela Gestora"
+q23: * "Parágrafo Segundo A Classe de Cotas destina-se a investidores qualificados"
+q24: * "A Classe de Cotas é uma classe de cotas fechada, com prazo de duração indeterminado"
+receivables: Créditos de fornecedores contra a MadeiraMadeira (contratos comerciais) | q1,q3
+originator: Fornecedores da devedora (cedentes) | q2
+assignor: Fornecedores da devedora, cedendo sem coobrigação | q2,q4
+debtor: MadeiraMadeira Comércio Eletrônico (devedora única) | q3
+recourse: Sem coobrigação dos cedentes; risco é a solvência da devedora | q4
+eligibility: Em reais, não vencidos na cessão; prazos por faixa até 180 dias | q5
+debtor_limit: Sem limite: devedora única é a MadeiraMadeira | q3
+sacado_limit: Sem limite: sacado único é a MadeiraMadeira | q3
+assignor_limit: Não previsto | Regulamento não limita concentração por cedente
+term_max: Vencimento até 180 dias; ≤ 35% do PL entre 120 e 180 dias | q5
+allocation: ≥ 67% do PL em direitos creditórios | q6 | value=67
+quota_structure: Sênior / Subordinada | q7
+sub_senior: PL/sênior ≥ 136,36% | q8 | basis=PL/sr | value=136.36
+sub_mezz: — | Sem cota mezanino
+sub_check: Mensal; abaixo do mínimo por 10 dias úteis aciona procedimentos | q8,q9
+reserve: Reserva de caixa para 3 meses de despesas ordinárias | q10
+pdd: Renegociação mantém vencimentos originais para fins de provisão | q11
+eval_triggers: Falha de prestador não sanada em 5 dias úteis, entre outros | q12
+liquidation: Falência ou recuperação da devedora; PL < R$ 1 mi por 90 dias | q13
+revolving: Reinvestimento dos recebimentos em novos créditos elegíveis | q14
+amortization: n/d | Cronograma definido no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,10% a.a. do PL; mín. R$ 13 mil/mês (IPCA) | q16
+mgmt_fee: 0,30% a.a. do PL; mín. R$ 25 mil/mês | q17
+perf_fee: Não prevista | Gestora não faz jus a taxa de performance | q18
+target_senior: n/d | Índice referencial definido no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Vert DTVM | q19
+manager: H2 Kapital | q20
+custodian: Vert DTVM | q21
+servicer: Gestora ou terceiro por ela contratado | q22
+investors: Investidores qualificados | q23
+duration: Indeterminado | q24
+leitura: Risco único da MadeiraMadeira via fornecedores, sem coobrigação; PL/sênior ≥ 136,36% e prazo até 180 dias.

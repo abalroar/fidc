@@ -1,0 +1,808 @@
+{
+ "schema_version": 1,
+ "cnpj": "62838025000116",
+ "name": "ENDURANCE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T01:28:53Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1058234",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "10/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+  },
+  "D2": {
+   "document_id": "1056017",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "22/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056017"
+  },
+  "D3": {
+   "document_id": "1052452",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "02/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1052452"
+  },
+  "D4": {
+   "document_id": "1032846",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "10/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1032846"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "URs de cartão performadas, devidas pelas credenciadoras às subcredenciadoras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 25,
+     "clause": "Anexo, cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "estabelecida no item 14 deste Anexo, abaixo. Origem, Natureza e Processo de Originação dos Direitos Creditórios 6.4 A estratégia da Classe é a alocação em “Direitos Creditórios”, assim considerados os direitos creditórios performados, devidamente representados por URs de Cartões, constituídos a partir de transações de pagamento realizadas no âmbito de Arranjos de Pagamento, nas quais as Subcredenciadoras figurem como credoras perante as Credenciadoras, em decorrência do repasse dos valores líquidos correspondentes às transações de pagamento efetuadas por Estabelecimentos Comerciais oriundos da aquisição de bens ou serviços por seus respectivos usuários finais, mediante o uso de Instrumentos de Pagamento emitidos por Emissores de Cartões. 6.5 Considerando que a Classe é destinada exclusivamente a Investidores Profissionais, a Classe poderá adquirir Direitos Creditórios de um único Devedor ou de empresas pertencentes ao mesmo grupo econômico, conforme facultado pelo art. 52, I, do Anexo Normativo II da Resolução CVM nº 175, devendo observar o seguinte limite de concentração (“Limites de Concentração”): (i) No máximo, 60% (sessenta por cento) do Patrimônio Líquido da Classe deverá ser composto por Direitos Creditórios de um único Devedor."
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis performados de cartões representados por URs",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "PagueVeloz IP e Serasa (subcredenciadoras)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 3,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "ilizado em transações de pagamento. “CDI”: Certificado de Depósito Interbancário, conforme cálculo realizado pela B3. “Cedentes” significam, exclusivamente, as seguintes Subcredenciadoras: (i) PagueVeloz Instituição de Pagamento Ltda., inscrita no CNPJ sob o nº 03.816.413/0001-37 (“PagueVeloz”); e (ii) Serasa S.A., inscrita no CNPJ sob o nº 62.173.620/0133-20 (“Serasa”). “Classe” significa a classe única de Cotas do Fundo. “CMN” significa o Conselho Monetário Nacional. “CNPJ” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Cobrança Judicial e/ou Extrajudicial” é a cobrança judicial e/ou extrajudicial, conforme o caso, dos Direitos Creditórios vencidos e não pagos que será realizada pelos Agentes de Cobrança e/ou outros terceiros contratados pelo Gestor, conforme aplicável. 3 “Condições de Cessão” significam as condições mínimas a serem verificadas, pelo Gestor ou por terceiro por ele contratado e sob sua responsabilidade, para a cessão dos Direitos Creditórios pelo Cedente à Classe nos termos do item 7.9 do Anexo. “Código ANBIMA de Administração e Gestão de Recursos de Terceiros” significa o Código ANBIMA de Administração e Gestão de Recursos de Terceiros, conforme alte"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes exclusivos: PagueVeloz IP (03.816.413/0001-37) e Serasa (62.173.620/0133-20)",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/12/2025, cl. 1.1"
+   }
+  },
+  "assignor": {
+   "display": "PagueVeloz IP e Serasa, exclusivamente",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 3,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "ilizado em transações de pagamento. “CDI”: Certificado de Depósito Interbancário, conforme cálculo realizado pela B3. “Cedentes” significam, exclusivamente, as seguintes Subcredenciadoras: (i) PagueVeloz Instituição de Pagamento Ltda., inscrita no CNPJ sob o nº 03.816.413/0001-37 (“PagueVeloz”); e (ii) Serasa S.A., inscrita no CNPJ sob o nº 62.173.620/0133-20 (“Serasa”). “Classe” significa a classe única de Cotas do Fundo. “CMN” significa o Conselho Monetário Nacional. “CNPJ” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Cobrança Judicial e/ou Extrajudicial” é a cobrança judicial e/ou extrajudicial, conforme o caso, dos Direitos Creditórios vencidos e não pagos que será realizada pelos Agentes de Cobrança e/ou outros terceiros contratados pelo Gestor, conforme aplicável. 3 “Condições de Cessão” significam as condições mínimas a serem verificadas, pelo Gestor ou por terceiro por ele contratado e sob sua responsabilidade, para a cessão dos Direitos Creditórios pelo Cedente à Classe nos termos do item 7.9 do Anexo. “Código ANBIMA de Administração e Gestão de Recursos de Terceiros” significa o Código ANBIMA de Administração e Gestão de Recursos de Terceiros, conforme alte"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes exclusivos: PagueVeloz IP (03.816.413/0001-37) e Serasa (62.173.620/0133-20)",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/12/2025, cl. 1.1"
+   }
+  },
+  "debtor": {
+   "display": "Credenciadoras Cielo, Redecard, Pagseguro e Getnet",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "cada mês. “Devedores” significam os emissores, devedores e/ou garantidores dos Direitos Creditórios, conforme o caso. Para fins da Classe, serão, exclusivamente, as seguintes Credenciadoras: (i) Cielo S.A. - Instituição de Pagamento, inscrita no CNPJ nº 01.027.058/0001-91; (ii) Redecard Instituição de Pagamento S.A., inscrita no CNPJ sob o nº 01.425.787/0001-04 (“Redecard”); (iii) Pagseguro Internet Instituição de Pagamento S.A., inscrita no CNPJ sob o nº 08.561.701/0001-01; e (iv) Getnet Adquirência e Serviços para Meios de Pagamento S.A. – Instituição de Pagamento, inscrita no CNPJ sob o nº 10.440.482/0001-54. “Devedor Inadimplente – Cedentes” significa, em determinada Data de Aquisição, o Devedor que se encontre em mora no cumprimento de obrigações pecuniárias e/ou não pecuniárias perante o Cedente, por período superior a 05 (cinco) Dias Úteis, contado da data em que tal inadimplemento for formalmente identificado pelo Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "Credenciadoras Cielo, Redecard, PagSeguro e Getnet; lista exclusiva do regulamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Resolução da cessão por inexistência ou vício do crédito, entre outras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 30,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "Fundo Garantidor de Créditos – FGC. 9 RESOLUÇÃO DE CESSÃO E COBRANÇA DOS DIREITOS CREDITÓRIOS Resolução de Cessão 9.1 Haverá a resolução da cessão dos Direitos Creditórios nas hipóteses e regras previstas a seguir (“Resolução de Cessão”): (i) inexistência dos Direitos Creditórios por qualquer motivo, incluindo, sem limitação, em virtude de má formalização ou vício dos respectivos Documentos Comprobatórios, na forma do artigo 295 do Código Civil Brasileiro, incluindo qualquer inconsistência superveniente que seja averiguada a qualquer momento dos dados e/ou descrição dos Direitos Creditórios cedidos em relação aos Documentos Comprobatórios; (ii) aquisição, pela Classe, de Direito Creditório que venha a ser reclamado por terceiro comprovadamente titular de ônus, gravame ou encargo constituído sobre tal Direito Creditório previamente à sua aquisição pela Classe; (iii) aquisição, pela Classe, de Direitos Creditórios em desacordo com os Critérios de Elegibilidade ou em virtude de declaração falsa ou incorreta ou imprecisa realizada pelo Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Vencimento até 24 meses da aquisição, entre outros critérios",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 28,
+     "clause": "Anexo, cl. 7.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "aos Critérios de Elegibilidade e Condições de Cessão, conforme verificados nas respectivas datas de aquisição. 7.8 Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender integralmente aos seguintes Critérios de Elegibilidade: (i) a Classe somente poderá adquirir Direitos Creditórios cuja data de vencimento seja menor ou igual a 24 (vinte e quatro) meses contados da Data de Aquisição (“Prazo Máximo de Vencimento”); (ii) a Classe somente poderá adquirir Direitos Creditórios cuja aquisição não resulte no desenquadramento do Índice de Liquidez; 28 (iii) os Direitos Creditórios não poderão estar vencidos e/ou contar com qualquer parcela inadimplida na Data de Aquisição pela Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "URs e contratos/termos de cessão; lastro integral validado antes da aquisição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Por credenciadora: até 60% do PL; Redecard sem limite",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 25,
+     "clause": "Anexo, cl. 6.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "I da Resolução CVM nº 175, devendo observar o seguinte limite de concentração (“Limites de Concentração”): (i) No máximo, 60% (sessenta por cento) do Patrimônio Líquido da Classe deverá ser composto por Direitos Creditórios de um único Devedor. Em caráter excepcional, o Limite de Concentração previsto neste item 6.5(i) não se aplicará quando o Devedor for a Redecard, hipótese em que a concentração poderá ultrapassar o referido percentual até a totalidade do Patrimônio Líquido da Classe. 6.5.1 Nos termos do artigo 287 do Código Civil e conforme estabelecido neste Anexo, a cessão, por quaisquer Cedente, de Direitos Creditórios à Classe abrangerá não somente os Direitos Creditórios como também tudo o que os Direitos Creditórios representam e todos os direitos acessórios a eles atrelados, inclusive, sem limitação, reajustes monetários, juros e encargos, bem como todos os direitos, ações e garantias assegurados à respectiva Cedente por força dos Direitos Creditórios, nos termos dos respectivos Documentos Comprobatórios dos Direitos Creditórios. 6.5.2 A cessão dos Direitos Creditórios será irrevogável e irretratável, com a transferência da plena titularidade para a Classe,"
+    }
+   ],
+   "value": 60.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Limite definido apenas por devedor (credenciadora)",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Vencimento até 24 meses da aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 28,
+     "clause": "Anexo, cl. 7.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "aos Critérios de Elegibilidade e Condições de Cessão, conforme verificados nas respectivas datas de aquisição. 7.8 Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender integralmente aos seguintes Critérios de Elegibilidade: (i) a Classe somente poderá adquirir Direitos Creditórios cuja data de vencimento seja menor ou igual a 24 (vinte e quatro) meses contados da Data de Aquisição (“Prazo Máximo de Vencimento”); (ii) a Classe somente poderá adquirir Direitos Creditórios cuja aquisição não resulte no desenquadramento do Índice de Liquidez; 28 (iii) os Direitos Creditórios não poderão estar vencidos e/ou contar com qualquer parcela inadimplida na Data de Aquisição pela Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "URs e contratos/termos de cessão; lastro integral validado antes da aquisição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios; gestor busca 67%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 25,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "24 Alocação Mínima 6.2 A Classe deverá alocar, para fins regulatórios, no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios. Adicionalmente, o Gestor buscará manter, no mínimo, 67% (sessenta e sete por cento) do Patrimônio Líquido em Direitos Creditórios, conforme definido pela Resolução CMN nº 5.111/23. 6.2.1 Os investimentos da Classe estarão sujeitos aos requisitos de composição e de diversificação estabelecidos pelas normas regulamentares em vigor, sempre observado o disposto neste item 6. Revolvência 6.3 A Classe poderá reinvestir os recursos recebidos em decorrência do pagamento de Direitos Creditórios em novas aquisições de Direitos Creditórios nos termos deste item 6, observada a ordem de pagamento estabelecida no item 14 deste Anexo, abaixo. Origem, Natureza e Processo de Originação dos Direitos Creditórios 6.4 A estratégia da Classe é a alocação em “Direitos Creditórios”, assim considerados os direitos creditórios performados, devidamente representados por URs de Cartões, constituídos a partir de transações de pagamento realizadas no âmbito de Arran"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50% PL; gestor busca 67% para enquadramento tributário",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 39,
+     "clause": "Anexo, cl. 16.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "s pelos Prestadores de Serviços Essenciais, passam a fazer parte integrante deste Anexo. Índice de Subordinação 16.7 A subordinação mínima admitida na Classe é de 10% (dez por cento), o que corresponde a uma representatividade mínima de 10% (dez por cento) do Patrimônio Líquido em Cotas Subordinadas Júnior a ser observada pelo Gestor, observado o previsto no item 16.7.1 abaixo. 16.7.1 De forma excepcional, nos primeiros 30 (trinta) dias, contados a partir data da primeira aquisição de Direitos Creditórios pela Classe (exclusive), o Índice de Subordinação poderá ser correspondente a uma representatividade mínima de 9% (nove por cento) do Patrimônio Líquido em Cotas Subordinadas Júnior a ser observada pelo Gestor 16.8 Caso o índice indicado no âmbito do Índice de Subordinação seja inferior ao percentual definido neste Anexo, por 7 (sete) dias consecutivos, serão adotados os seguintes procedimentos, de forma que o percentual mínimo indicado no item 16.7 sejam reestabelecidos: (i) O Gestor comunicará, imediatamente, tal ocorrência aos Cotistas detentores de Cotas Subordinadas Júnior, através do envio de correspondência ou de correio eletrônico, pela"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 56,
+     "clause": "Anexo, cl. 5.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "partir do 43º (quadragésimo terceiro) mês contado da data primeira aquisição de Direitos Creditórios pela Classe, as Cotas Sênior terão seus valores de principal investido e rendimentos amortizados mensalmente, de forma linear, pelos 06 (seis) meses seguintes, estritamente conforme tabela abaixo (“Amortizações Programadas Sênior”). Parcela de Data de Pagamento da Pagamento de Amortização Amortização Remuneração 1ª 15/07/2029 56 2ª 15/08/2029 Mensal, sendo o primeiro pagamento em 15/01/2026 e 3ª 15/09/2029 o último em 15/12/2029. 4ª 15/10/2029 5ª 15/11/2029 6ª 15/12/2029 (“Última Amortização Sênior”) 5.5 Resgate das Cotas Sênior."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior ≥ 10% PL; excepcionalmente 9% nos primeiros 30 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/12/2025, Anexo, cl. 16.6"
+   }
+  },
+  "sub_senior": {
+   "display": "10% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 39,
+     "clause": "Anexo, cl. 16.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "s pelos Prestadores de Serviços Essenciais, passam a fazer parte integrante deste Anexo. Índice de Subordinação 16.7 A subordinação mínima admitida na Classe é de 10% (dez por cento), o que corresponde a uma representatividade mínima de 10% (dez por cento) do Patrimônio Líquido em Cotas Subordinadas Júnior a ser observada pelo Gestor, observado o previsto no item 16.7.1 abaixo. 16.7.1 De forma excepcional, nos primeiros 30 (trinta) dias, contados a partir data da primeira aquisição de Direitos Creditórios pela Classe (exclusive), o Índice de Subordinação poderá ser correspondente a uma representatividade mínima de 9% (nove por cento) do Patrimônio Líquido em Cotas Subordinadas Júnior a ser observada pelo Gestor 16.8 Caso o índice indicado no âmbito do Índice de Subordinação seja inferior ao percentual definido neste Anexo, por 7 (sete) dias consecutivos, serão adotados os seguintes procedimentos, de forma que o percentual mínimo indicado no item 16.7 sejam reestabelecidos: (i) O Gestor comunicará, imediatamente, tal ocorrência aos Cotistas detentores de Cotas Subordinadas Júnior, através do envio de correspondência ou de correio eletrônico, pela"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "Júnior ≥ 10% PL; excepcionalmente 9% nos primeiros 30 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/12/2025, Anexo, cl. 16.6"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração do índice não explicitada no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Júnior ≥ 10% PL; excepcionalmente 9% nos primeiros 30 dias",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para 3 meses de encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 37,
+     "clause": "Anexo, cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "sse, obrigatoriamente, na seguinte ordem de preferência: (i) pagamento dos Encargos; (ii) formação de reserva equivalente ao montante estimado dos Encargos a serem incorridos por 3 (três) meses calendário subsequentes àquele em que for efetuado o respectivo provisionamento (“Reserva de Caixa”); (iii) a reserva a ser constituída em Disponibilidades pelo Administrador, para o pagamento das Operações com Derivativos. Caso o MTM Global das Operações com Derivativos referente ao fechamento do mês imediatamente anterior seja negativo para a Classe (em caso de reversão das Operações com Derivativos a Classe teria valores a pagar à Contraparte de Derivativos Autorizada), a Reserva de MTM corresponderá ao valor absoluto MTM Global das Operações com Derivativos referente ao fechamento do mês imediatamente anterior; e (ii) caso o MTM Global das Operações com Derivativos referente ao fechamento do mês imediatamente anterior seja positivo para a Classe (em caso de reversão das Operações com Derivativos a Classe teria valores a receber da Contraparte de Derivativos Autorizada), a Reserva de MTM será zero (“Reserva de MTM”);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não descreve critério próprio de provisão",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "DC < 50% do PL por mais de 15 dias após 180 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 42,
+     "clause": "Anexo, cl. 17.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "ponsabilidade pelas obrigações ou dívidas contraídas pela Classe. 18 EVENTOS DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 18.1 São considerados eventos de avaliação da Classe (“Eventos de Avaliação”) quaisquer das seguintes ocorrências: (i) caso, após 180 (cento e oitenta) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 15 (quinze) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (ii) caso exista decretação de intervenção, liquidação, falência, regime de administração especial temporária (ERA) de qualquer Devedor ou Cedente; (iii) descredenciamento, destituição, ou renúncia do Administrador, do Gestor, do consultor especializado (se houver), do Custodiante, do Custodiante dos Direitos Creditórios, das Entidades Registradoras ou do Escriturador, sem que tenha sido convocada Assembleia de Cotistas para decidir sobre a sua substituição; (iv) ocorrência de Patrimônio Líquido negativo após a alienação dos Direitos Creditórios e dos Ativos Financeiros integrantes da carteira da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "DC/PL < 50% por > 15 dias após 180 dias; insolvência, trocas de prestadores e descumprimentos sem cura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "PL diário < R$ 1 mi por 90 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 45,
+     "clause": "Anexo, cl. 18.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "erá instalada e deliberará normalmente, podendo inclusive decidir pela configuração de um Evento de Liquidação. 18.5 São considerados eventos de liquidação da Classe (“Eventos de Liquidação”), quaisquer das seguintes ocorrências: (i) se após 90 (noventa) dias do início de atividades, a Classe mantiver, a qualquer tempo, Patrimônio Líquido diário inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90 (noventa) dias consecutivos; (ii) caso os Cotistas, observado o disposto neste item 18 do Anexo, venham a deliberar que um Evento de Avaliação constitui um Evento de Liquidação nos termos do item 18.2 acima; (iii) decretação de falência, intervenção, liquidação, recuperação judicial ou extrajudicial do Administrador, do Gestor, do consultor especializado (se houver), do Custodiante, do Custodiante dos Direitos Creditórios, das Entidades Registradoras, de qualquer Cedente ou do Escriturador, sem que tenha sido convocada Assembleia de Cotistas para, conforme o caso, decidir sobre a sua substituição;"
+    }
+   ],
+   "legacy": {
+    "value": "DC/PL < 50% por > 15 dias após 180 dias; insolvência, trocas de prestadores e descumprimentos sem cura",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/12/2025, Anexo, cl. 18.4"
+   }
+  },
+  "revolving": {
+   "display": "Reinvestimento dos recebimentos em novos direitos creditórios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 25,
+     "clause": "Anexo, cl. 6.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "stabelecidos pelas normas regulamentares em vigor, sempre observado o disposto neste item 6. Revolvência 6.3 A Classe poderá reinvestir os recursos recebidos em decorrência do pagamento de Direitos Creditórios em novas aquisições de Direitos Creditórios nos termos deste item 6, observada a ordem de pagamento estabelecida no item 14 deste Anexo, abaixo. Origem, Natureza e Processo de Originação dos Direitos Creditórios 6.4 A estratégia da Classe é a alocação em “Direitos Creditórios”, assim considerados os direitos creditórios performados, devidamente representados por URs de Cartões, constituídos a partir de transações de pagamento realizadas no âmbito de Arranjos de Pagamento, nas quais as Subcredenciadoras figurem como credoras perante as Credenciadoras, em decorrência do repasse dos valores líquidos correspondentes às transações de pagamento efetuadas por Estabelecimentos Comerciais oriundos da aquisição de bens ou serviços por seus respectivos usuários finais, mediante o uso de Instrumentos de Pagamento emitidos por Emissores de Cartões. 6.5 Considerando que a Classe é destinada exclusivamente a Investidores Profissionais, a Classe poderá adquirir Direitos Creditórios de um único Devedor ou de empresas pertencentes ao mesmo g"
+    }
+   ],
+   "legacy": {
+    "value": "Reinvestimento permitido, observada ordem de pagamentos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Sênior em 6 parcelas mensais lineares a partir de 15/07/2029",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 56,
+     "clause": "Anexo, cl. 5.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "partir do 43º (quadragésimo terceiro) mês contado da data primeira aquisição de Direitos Creditórios pela Classe, as Cotas Sênior terão seus valores de principal investido e rendimentos amortizados mensalmente, de forma linear, pelos 06 (seis) meses seguintes, estritamente conforme tabela abaixo (“Amortizações Programadas Sênior”). Parcela de Data de Pagamento da Pagamento de Amortização Amortização Remuneração 1ª 15/07/2029 56 2ª 15/08/2029 Mensal, sendo o primeiro pagamento em 15/01/2026 e 3ª 15/09/2029 o último em 15/12/2029. 4ª 15/10/2029 5ª 15/11/2029 6ª 15/12/2029 (“Última Amortização Sênior”) 5.5 Resgate das Cotas Sênior."
+    }
+   ],
+   "legacy": {
+    "value": "Principal somente a partir do 43º mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,033% a.a. do PL; mín. R$ 15 mil/mês (IPC/FIPE)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 46,
+     "clause": "Anexo, cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "Taxa de Administração 19.1 Pela administração do Fundo e da Classe, nela compreendida as atividades do Administrador, a Classe pagará ao Administrador uma taxa de administração (“Taxa de Administração”) equivalente a 0,033% 46 a.a. (zero virgula zero trinta e três por cento ao ano) sobre o Patrimônio Líquido da Classe, observado o valor mínimo mensal de 15.000,00 (quinze mil reais) corrigido anualmente, a contar da data de início da Classe do Fundo, pela variação do IPC/FIPE ou por qualquer outro índice que venha a substituí-lo. 19.1.1 Considerando que a Classe não poderá realizar investimentos em cotas de outros fundos de investimento, a Taxa de Administração aplicável à Classe corresponderá ao limite máximo da taxa de administração (“Taxa Máxima de Administração”) previsto para esta, nos termos da regulamentação aplicável. 19.2 Os custos com a contratação de terceiros para os serviços (i) de tesouraria, controle e processamento dos Ativos Financeiros integrantes da carteira da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "0,033% a.a. PL; mínimo R$ 15 mil/mês; IPC/FIPE",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,030% a.a. até R$ 500 mi de PL; 0,025% acima; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 47,
+     "clause": "Anexo, cl. 19.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "e; e (ii) previstos nos termos da regulamentação aplicável, serão suportados pelo Administrador. Taxa de Gestão 19.3 Pela prestação dos serviços de gestão, o Fundo pagará ao Gestor uma taxa de gestão (“Taxa de Gestão”) equivalente a (i) enquanto o Patrimônio Líquido da Classe for até 500.000.000,00 (quinhentos milhões de reais) será de 0,030% a.a (zero virgula zero trinta por cento ao ano) sobre o Patrimônio Líquido da Classe; (ii) enquanto o Patrimônio Líquido da Classe for acima de R$ 500.000.000,00 (quinhentos mil reais) será de 0,025% a.a (zero vírgula zero vinte e cinco por cento ao ano), observando o mínimo mensal de R$ 15.000,00 (quinze mil reais). 19.3.1 Considerando que a Classe não poderá realizar investimentos em cotas de outros fundos de investimento, a Taxa de Gestão aplicável à Classe corresponderá ao limite máximo da taxa de gestão (“Taxa Máxima de Gestão”) previsto para esta, nos termos da regulamentação aplicável. 19.3.2 Para fins de elucidação, os valores devidos ao Gestor a título de Taxa de Gestão serão pagos de forma que o Gestor receba, em termos líquidos, o montante integral contratado, livre e desembaraçado de quaisquer tr"
+    }
+   ],
+   "legacy": {
+    "value": "0,030% a.a. até R$ 500 mi; 0,025% acima; mínimo R$ 15 mil/mês; implementação R$ 45 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/12/2025, Anexo, cl. 19.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Classe não cobra taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 48,
+     "clause": "Anexo, cl. 19.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "não realizará investimento em cotas de emissão de outras classes de fundos de investimento. Taxa de Performance 19.11 A Classe não cobra Taxa de Performance. 20 ASSEMBLEIA DE COTISTAS 20.1 O Administrador convocará os Cotistas, com antecedência mínima estabelecida na regulamentação aplicável, por correspondência e/ou correio eletrônico, para deliberar sobre assuntos do Fundo e/ou da Classe, conforme aplicável. A presença de todos os Cotistas supre a convocação por correspondência e/ou por correio eletrônico e dispensa a observância dos prazos acima indicados. 20.2 A convocação da Assembleia de Cotistas, da qual constarão o dia, a hora e o local em que será realizada a Assembleia de Cotistas, bem como a ordem do dia, deverá enumerar, expressamente, todas as matérias a serem deliberadas, não se admitindo que sob a rubrica de assuntos gerais haja matérias que dependam de deliberação da Assembleia de Cotistas. 20.3 O Administrador disponibilizará, na mesma data de convocação (podendo ser mantidas até a data da Assembleia de Cotistas), (i) em sua página na rede mundial de computadores, (ii) no Sistema de Envio de Documentos disponível na página da CVM na rede mundial de co"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "CDI + 0,80% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 56,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "voto. 4 RENTABILIDADE ALVO 4.1 A Classe visa proporcionar a seus Cotistas detentores de Cotas Sênior uma rentabilidade correspondente ao CDI, acrescido de 0,80% a.a. (oito décimos por cento ao ano). 4.2 O disposto neste item não constitui promessa de rendimentos, estabelecendo meramente critérios e preferências para distribuição de rendimentos entre as Cotas das diferentes Classes existentes. Portanto, as Cotas auferirão rendimentos somente se os resultados da carteira da Classe assim permitirem. 5 APLICAÇÕES, AMORTIZAÇÕES E DISTRIBUIÇÃO 5.1 Aplicações das Cotas Sênior. As aplicações ocorrerão nos termos item 10 do Anexo. 5.2 Os recursos aportados serão convertidos em Cotas escriturais, nominativas e correspondentes a frações ideais do Patrimônio Líquido. 5.3 O investidor será considerado Cotista a partir da inscrição do seu nome no registro de Cotistas, que pode se dar inclusive por meio de sistemas informatizados. 5.4 Amortização Programada das Cotas Sênior."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior CDI + 0,80% a.a.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior CDI + 0,80% a.a.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "Intrag DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "tribuídos no presente item 1.1, aplicáveis, conforme o caso, tanto às suas formas no singular quanto no plural: “Administrador” significa a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade empresária limitada com sede na cidade de São Paulo, estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.500, 4º andar, inscrita no CNPJ sob o nº 62.418.140/0001-31, devidamente credenciada para a atividade de administração de carteiras de valores mobiliários, conforme Ato Declaratório expedido pela CVM nº 2.528, de 29 de julho de 1993. “Agência de Classificação de Risco” significa a agência classificadora de risco, devidamente registrada na CVM, contratada pelo Gestor, em nome da Classe, para prestar os serviços de classificação de risco das Cotas, quando aplicável. “Agentes de Cobrança” significam, em conjunto, os Cedentes, enquanto prestadores de serviços contratados pelo Gestor em nome da Classe, para cobrar e receber Direitos Creditórios vencidos e não pagos pelos Devedores, conforme os termos e condições do Contrato de Prestação de Serviços de Cobrança. “Alocação Mínima” significa o montante que a Classe deverá alocar, para fins regulatórios, de no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "Administração Intrag; gestão/custódia de DC Kanastra; custódia de valores mobiliários Limine Trust",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "manager": {
+   "display": "Kanastra Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "derar os termos definidos “Fundo” e “Classe” como tendo o mesmo significado, quando tais termos se referirem à Classe. “Gestor” significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA., pessoa jurídica de direito privado, com sede na cidade de Uberlândia, estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, Sala 802, Bairro Sul, CEP 38.411-848, inscrita no CNPJ sob o nº 44.870.662/0001-98, devidamente credenciada pela CVM para o exercício da atividade de gestão de carteiras de valores mobiliários, nos termos do Ato Declaratório CVM nº 19.724, de 07 de abril de 2022. “Índice de Liquidez” significa o índice de liquidez apurado pelo Gestor conforme fórmula abaixo: (Valor Presente à Taxa DI das Projeções de Fluxo de Caixa dos Direitos Creditórios) x Fator de Ponderação dos Direitos Creditórios + valor das Disponibilidades - N x (Estimativa de Despesas e Encargos + Reserva de MTM) _______________________________________________________________________________________________ Valor Presente à Taxa DI das Projeções de Pagamento das Cotas Sênior e das Cotas Subordinadas Júnior até o N - ésimo Mês Onde: Valor presente à Taxa"
+    }
+   ],
+   "legacy": {
+    "value": "Administração Intrag; gestão/custódia de DC Kanastra; custódia de valores mobiliários Limine Trust",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "custodian": {
+   "display": "Limine Trust DTVM; Kanastra custodia os direitos creditórios",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "sua responsabilidade, para que os Direitos Creditórios possam ser adquiridos pela Classe, conforme definidos no Anexo. “Custodiante” significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., com sede na cidade de São Paulo, Estado de São Paulo, Avenida Doutor Cardoso de Melo, nº 1184 – 9º andar, conjunto 91, inscrita no CNPJ sob o nº 24.361.690/0001-72, devidamente autorizada à prestação dos serviços de administração de carteiras de valores mobiliários através do Ato Declaratório CVM nº 16.206, de 08 de maio de 2018, responsável pelos serviços de custódia e controle dos valores mobiliários integrantes da carteira da Classe, nos termos da Resolução CVM nº 32, de 19 de maio de 2021, conforme alterada, não abrangendo os serviços previstos na Seção IV do Anexo Normativo II da Resolução CVM nº 175. “Custodiante dos Direitos Creditórios” significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA., com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, sala 802, Jardim Sul. “CVM” significa a Comissão de Valores Mobiliários. “Data da Resolução” tem o significado que lhe é atribuído no item 9.1(v) do Anexo. “Data de Amortização” significa cada data de amortização programada das Cotas, conforme o cronograma definido no respectivo Apêndice e em con"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "21, conforme alterada, não abrangendo os serviços previstos na Seção IV do Anexo Normativo II da Resolução CVM nº 175. “Custodiante dos Direitos Creditórios” significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA., com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, sala 802, Jardim Sul. “CVM” significa a Comissão de Valores Mobiliários. “Data da Resolução” tem o significado que lhe é atribuído no item 9.1(v) do Anexo. “Data de Amortização” significa cada data de amortização programada das Cotas, conforme o cronograma definido no respectivo Apêndice e em consonância com o disposto neste Regulamento. “Data de Aquisição” significa cada data de aquisição dos Direitos Creditórios do Cedente pela Classe com a sua consequente cessão à Classe e transferência nas Entidades Registradoras. “Data de Pagamento” significa a data do efetivo pagamento pela Classe ao Cedente em decorrência da cessão dos Direitos Creditórios e transferência nas Entidades Registradoras, que deverá ocorrer na Data de Aquisição, mas nunca em momento anterior a ela. “Data de Verificação” significa todo o 5º (quinto) Dia Útil de cada mês. “Devedores” significam os emissores, devedores e/ou garantidores dos Direitos Creditórios, conforme o caso. Para fins da Classe, serão, exclusivamente"
+    }
+   ],
+   "legacy": {
+    "value": "Administração Intrag; gestão/custódia de DC Kanastra; custódia de valores mobiliários Limine Trust",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "servicer": {
+   "display": "Cedentes, como agentes de cobrança",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "ratada pelo Gestor, em nome da Classe, para prestar os serviços de classificação de risco das Cotas, quando aplicável. “Agentes de Cobrança” significam, em conjunto, os Cedentes, enquanto prestadores de serviços contratados pelo Gestor em nome da Classe, para cobrar e receber Direitos Creditórios vencidos e não pagos pelos Devedores, conforme os termos e condições do Contrato de Prestação de Serviços de Cobrança. “Alocação Mínima” significa o montante que a Classe deverá alocar, para fins regulatórios, de no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios. Adicionalmente, o Gestor buscará manter, no mínimo, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe em direitos creditórios, conforme definido pela Resolução CMN nº 5.111/23. “Amortização Extraordinária” tem o significado que lhe é atribuído no item 11.2 do Anexo. “Amortizações Programadas Sênior” tem o significado que lhe é atribuído no item 5.4 do Apêndice A do Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 25,
+     "clause": "Anexo, cl. 6.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "seus respectivos usuários finais, mediante o uso de Instrumentos de Pagamento emitidos por Emissores de Cartões. 6.5 Considerando que a Classe é destinada exclusivamente a Investidores Profissionais, a Classe poderá adquirir Direitos Creditórios de um único Devedor ou de empresas pertencentes ao mesmo grupo econômico, conforme facultado pelo art. 52, I, do Anexo Normativo II da Resolução CVM nº 175, devendo observar o seguinte limite de concentração (“Limites de Concentração”): (i) No máximo, 60% (sessenta por cento) do Patrimônio Líquido da Classe deverá ser composto por Direitos Creditórios de um único Devedor."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 19,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "FUNDO 6.1 O Fundo iniciará suas atividades na data da primeira aquisição de Direitos Creditórios pela Classe e terá prazo de duração indeterminado, sendo que a sua eventual liquidação deverá ser objeto de prévia deliberação em Assembleia Geral, observado o disposto no item 6.2 abaixo (“Prazo de Duração do Fundo”). 6.2 Tendo em vista que o Fundo possui uma única classe de cotas, a Classe, o Prazo de Duração do Fundo coincidirá com o prazo de duração da Classe. Para fins de esclarecimento, uma vez resgatada a totalidade das Cotas Sênior e das Cotas Subordinadas Júnior, a Classe e o Fundo serão considerados, para todos os fins de direito, como definitivamente encerrados. 7 EXERCÍCIO SOCIAL 7.1 O exercício social do Fundo terá a duração de 1 (um) ano, encerrando-se no último dia do mês de março de cada ano. 8 ENCARGOS 8.1 Sem prejuízo dos encargos expressamente indicados na regulamentação, constituem encargos do Fundo e/ou da Classe, conforme aplicável, as seguintes despesas (“Encargos”): (i) taxas, impostos ou contribuições federais, estaduais, municipais ou autárquicas, que recaiam ou venham a recair sobre os bens, direitos e obrigações do Fundo e/ou da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Última amortização sênior: 15/12/2029",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "URs de cartão de subcredenciadoras contra Cielo, Redecard, Pagseguro e Getnet",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 25,
+     "clause": "Anexo, cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "estabelecida no item 14 deste Anexo, abaixo. Origem, Natureza e Processo de Originação dos Direitos Creditórios 6.4 A estratégia da Classe é a alocação em “Direitos Creditórios”, assim considerados os direitos creditórios performados, devidamente representados por URs de Cartões, constituídos a partir de transações de pagamento realizadas no âmbito de Arranjos de Pagamento, nas quais as Subcredenciadoras figurem como credoras perante as Credenciadoras, em decorrência do repasse dos valores líquidos correspondentes às transações de pagamento efetuadas por Estabelecimentos Comerciais oriundos da aquisição de bens ou serviços por seus respectivos usuários finais, mediante o uso de Instrumentos de Pagamento emitidos por Emissores de Cartões. 6.5 Considerando que a Classe é destinada exclusivamente a Investidores Profissionais, a Classe poderá adquirir Direitos Creditórios de um único Devedor ou de empresas pertencentes ao mesmo grupo econômico, conforme facultado pelo art. 52, I, do Anexo Normativo II da Resolução CVM nº 175, devendo observar o seguinte limite de concentração (“Limites de Concentração”): (i) No máximo, 60% (sessenta por cento) do Patrimônio Líquido da Classe deverá ser composto por Direitos Creditórios de um único Devedor."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "cada mês. “Devedores” significam os emissores, devedores e/ou garantidores dos Direitos Creditórios, conforme o caso. Para fins da Classe, serão, exclusivamente, as seguintes Credenciadoras: (i) Cielo S.A. - Instituição de Pagamento, inscrita no CNPJ nº 01.027.058/0001-91; (ii) Redecard Instituição de Pagamento S.A., inscrita no CNPJ sob o nº 01.425.787/0001-04 (“Redecard”); (iii) Pagseguro Internet Instituição de Pagamento S.A., inscrita no CNPJ sob o nº 08.561.701/0001-01; e (iv) Getnet Adquirência e Serviços para Meios de Pagamento S.A. – Instituição de Pagamento, inscrita no CNPJ sob o nº 10.440.482/0001-54. “Devedor Inadimplente – Cedentes” significa, em determinada Data de Aquisição, o Devedor que se encontre em mora no cumprimento de obrigações pecuniárias e/ou não pecuniárias perante o Cedente, por período superior a 05 (cinco) Dias Úteis, contado da data em que tal inadimplemento for formalmente identificado pelo Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis performados de cartões representados por URs",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não descreve trava de domicílio das URs",
+   "sources": [],
+   "legacy": {
+    "value": "Aplicações sem garantia de prestadores, terceiros, seguros ou FGC",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "dilution": {
+   "display": "Chargeback definido; sem reserva de diluição específica",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1058234",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/12/2025",
+     "page": 3,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+     "excerpt": "e segurança, nos termos da legislação e regulamentação aplicável. “Brasil” significa a República Federativa do Brasil “Cancelamento” ou “Chargeback” significa (i) qualquer evento relacionado a uma transação de pagamento que possa resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago pelos Devedores (inclusive por meio de compensação), ou (ii) contestação, de acordo com as regras de um Arranjo de Pagamento, de uma transação de pagamento, seja no todo ou em parte, por parte do respectivo usuário-final ou Estabelecimento Comercial, Bandeira ou Emissor, conforme o caso, que poderá resultar na não realização do repasse ou no estorno do crédito correspondente efetuado no âmbito do Arranjo de Pagamento. “Cartão” significa o Instrumento de Pagamento apresentado sob a forma de cartão plástico ou virtual, com funções de crédito, dotado de número próprio, código de segurança, nome do portador do Instrumento de Pagamento, prazo de validade e logomarca das Bandeiras, marcas, nomes ou logomarcas, sendo o instrumento utilizado em transações de pagamento. “CDI”: Certificado de Depósito Interbancário, conforme cálculo realizado pela B3. “Cedentes” significam, exclusivamente, as seguintes Subcredenciadoras: (i) PagueVeloz Insti"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "URs de cartão de PagueVeloz e Serasa contra credenciadoras; júnior ≥ 10% e sênior CDI + 0,80% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
