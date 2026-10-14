@@ -1,56 +1,54 @@
-# portado de 08417544000165 (34408539000104)
+# Pravaler Crédito Universitário III FIDC (Oliveira Trust; Pravaler; cedentes instituições de ensino)
 type: Educacional
-q1: * "Direitos Creditórios são oriundos de contratos de financiamento de serviços educacionais"
-q2: * "Cedentes” Cedentes Instituições de Ensino e Cedentes Bancos"
-q3: * "Devedores” Os alunos das Instituições de Ensino que tenham valores a"
-q4: * "Cedente é somente responsável, na Data de Aquisição e Pagamento, pela existência, autenticidade e correta formalização"
-q5: * "seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios: (a) os Direitos Creditórios não estejam vencidos"
-q6: * "mesmo Devedor não poderá ser superior ao menor dos seguintes valores contábeis: o equivalente a 0,5%"
-q7: * "Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios"
-q8: * "Razão de Garantia Limiar de Desalavancagem, Razão de Garantia Limiar de Realavancagem e Razão de Garantia Limiar de Amortização Extraordinária"
-q9: * "valor estimado para as despesas e os encargos referentes a 1 (um) mês de atividade do Fundo"
-q10: * "Provisão para perdas esperadas A provisão é reconhecida sempre que houver evidência de redução no valor"
-q11: * "São Eventos de Avaliação: (a) não divulgação, pela Gestora, de relatório mensal"
-q12: * "São Eventos de Liquidação Antecipada: (a) se houver renúncia da Gestora ou descredenciamento desta pela CVM"
-q13: * "Taxa de Administração em montante equivalente ao somatório dos itens “a” e “b” abaixo"
-q14: * "(b) pelos serviços de Controladoria e Gestão: (i) 0,27% (vinte e sete centésimos por cento) ao ano"
+q1: * "Direitos Creditórios são oriundos de contratos de confissão de dívida, cédulas de crédito bancário e/ou outro tipo de instrumento financeiro"
+q2: * "Cedentes” As instituições de ensino superior ou instituições que, direta ou indiretamente, controlem"
+q3: * "seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios (“Critérios de Elegibilidade”): (a) os Devedores deverão ser pessoas físicas"
+q4: * "mesmo devedor, ou de coobrigação de uma mesma pessoa, desde que limitado a 20% (vinte por cento) do Patrimônio Líquido"
+q5: * "observar um percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios"
+q6: * "Razão de Subordinação Sênior” A razão entre (i) o somatório do valor total das Cotas Subordinadas em circulação"
+q7: * "Razão de Subordinação Mezanino” A razão entre (i) o somatório do valor total das Cotas Subordinadas Juniores em circulação"
+q8: * "deverá ser em montante equivalente às despesas e encargos projetados para os 3 (três) meses subsequentes"
+q9: * "provisão para Devedores duvidosos atingirá todos os Direitos Creditórios Cedidos devidos por um mesmo Devedor"
+q10: * "(a) a renúncia ou cessação definitiva, a qualquer tempo, por qualquer motivo, da prestação de serviços pelo Custodiante"
+q11: * "Eventos de Liquidação quaisquer das seguintes hipóteses: (a) caso seja deliberado, em Assembleia Geral"
+q12: * "observada a ordem de alocação de recursos disposta no presente Regulamento, será admitida a revolvência"
+q13: * "Taxa de Administração equivalente a: 0,17% (dezessete centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo"
+q14: * "a qual será equivalente: ao montante de 0,05% a.a. (cinco centésimos por cento ao ano)"
 q15: * "taxa de performance, taxa de ingresso ou taxa de saída"
-q16: * "Administradora” Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A."
-q17: * "Gestora” Pravaler S.A., sociedade autorizada pela CVM"
-q18: * "Custodiante” Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A."
-q19: * "Agente de Cobrança Extraordinária” A Gestora, ou sua respectiva sucessora a qualquer título"
-q20: * "destinada exclusivamente a investidores profissionais, conforme definidos no artigo 9º-A da Instrução CVM nº 539"
-q21: * "prazo de duração de 20 (vinte) anos a contar da data de registro do Fundo junto à CVM"
-q22: * "Índice de Atraso Superior a 60 Dias supere o percentual de 12% (doze por cento)"
-receivables: Financiamento estudantil de serviços educacionais | q1
-originator: Instituições de ensino e bancos cedentes, com originação Pravaler | q2,q17
-assignor: Instituições de ensino e bancos (cedentes) | q2
-debtor: Alunos das instituições de ensino, com devedores solidários | q3
-recourse: Cedente responde só por existência, autenticidade e formalização | q4
-eligibility: Créditos não vencidos na cessão, entre outros critérios | q5
-debtor_limit: Por devedor: menor entre 0,5% do PL e R$ 800 mil | q6 | value=0.5
+q16: * "administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q17: * "gerido pela PRAVALER S.A., sociedade autorizada pela CVM"
+q18: * "Custodiante” OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q19: * "destinado exclusivamente a Investidores Profissionais, conforme definidos no artigo 11"
+q20: * "prazo de duração indeterminado, observado que cada Emissão de Cotas do Fundo terá o Prazo de Duração"
+receivables: Confissões de dívida e CCBs de financiamento estudantil | q1
+originator: Instituições de ensino superior e afiliadas (cedentes) | q2
+assignor: Instituições de ensino superior e afiliadas | q2
+debtor: Alunos pessoas físicas | q3
+recourse: n/d | Recompra e resolução regidas pelos contratos de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Devedor pessoa física; créditos não vencidos, entre outros | q3
+debtor_limit: Por devedor ou coobrigado: até 20% do PL | q4 | value=20
 assignor_limit: n/d | Limite por cedente não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
 term_max: n/d | Prazo máximo dos contratos não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
-allocation: ≥ 50% do PL em direitos creditórios | q7 | value=50
-quota_structure: Sênior / Mezanino / Subordinada júnior | q8
-sub_senior: Razão de garantia base de 100%, com limiares de 102% e 101% | q8 | basis=cobertura | value=none
-sub_mezz: n/d | Proteção da mezanino definida pela razão de garantia e apêndices
-sub_check: n/d | Periodicidade de apuração não localizada
-reserve: Reserva de despesas para 1 mês de atividade | q9
-pdd: Provisão para perdas esperadas sobre ativos ao custo amortizado | q10
-eval_triggers: Atraso acima de 60 dias superior a 12%, entre outros | q22,q11
-liquidation: Renúncia ou descredenciamento da gestora, entre outros | q12
-revolving: n/d | Novas aquisições suspensas em eventos, sem regra própria localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
-amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
-admin_fee: 0,23% a.a. até R$ 300 mi de PL, regressiva até 0,15%; mín. R$ 25 mil/mês | q13
-mgmt_fee: Controladoria e gestão: 0,27% a.a. até R$ 300 mi de PL | q14
+allocation: ≥ 67% do PL em direitos creditórios após 180 dias | q5 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q6,q7
+sub_senior: 10% · subord./PL | q6 | basis=mez+jr/PL | value=10
+sub_mezz: 6% · júnior/PL | q7 | basis=jr/PL | value=6
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de despesas para 3 meses | q8
+pdd: PDD com efeito vagão sobre todos os créditos do devedor | q9
+eval_triggers: Saída de prestador sem substituição, entre outros | q10
+liquidation: Deliberação de que evento de avaliação é de liquidação, entre outros | q11
+revolving: Revolvência admitida, conforme ordem de alocação | q12
+amortization: n/d | Cronograma definido no apêndice de cada emissão | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,17% a.a. do PL | q13
+mgmt_fee: 0,05% a.a. do PL | q14
 perf_fee: Não prevista | Regulamento veda taxa de performance | q15
-target_senior: n/d | Meta definida no apêndice de cada série
-target_mezz: n/d | Meta definida no apêndice de cada série
+target_senior: n/d | Meta definida no apêndice de cada emissão | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada emissão | why=Resposta anterior sem trecho localizável no regulamento vigente
 administrator: Oliveira Trust DTVM | q16
 manager: Pravaler | q17
 custodian: Oliveira Trust DTVM | q18
-servicer: Pravaler (gestora), na cobrança extraordinária | q19,q17
-investors: Investidores profissionais | q20
-duration: 20 anos do registro, prorrogável | q21
-leitura: Crédito estudantil da Pravaler com devedor ≤ 0,5% do PL; razão de garantia base de 100%.
+servicer: n/d | Agente de cobrança extraordinária não nomeado em trecho localizável
+investors: Investidores profissionais | q19
+duration: Indeterminado | q20
+leitura: Crédito estudantil de instituições de ensino com subordinação de 10% (júnior ≥ 6%) e devedor ≤ 20% do PL.
