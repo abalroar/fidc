@@ -1,0 +1,690 @@
+{
+ "schema_version": 1,
+ "cnpj": "65873297000145",
+ "name": "ARCELORMITTAL VÉRTICE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS COMERCIAIS - RESP LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T13:06:55Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1226438",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "20/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438"
+  },
+  "D2": {
+   "document_id": "1159272",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "10/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159272"
+  },
+  "D3": {
+   "document_id": "1155908",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "07/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155908"
+  },
+  "D4": {
+   "document_id": "1155038",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "06/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155038"
+  },
+  "D5": {
+   "document_id": "1154591",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "31/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1154591"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Notas fiscais de fornecedores contra a ArcelorMittal Brasil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "o CVM 175. “Direitos Creditórios” Significam os direitos creditórios performados, decorrentes das Notas Fiscais, devidos pelas Devedoras, representativos de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras, representados pelos Documentos Comprobatórios. “Dívida Financeira” Significa, com relação a uma Pessoa, em bases consolidadas, qualquer valor devido, no Brasil ou no exterior, em decorrência de (i) empréstimos, mútuos, financiamentos ou outras dívidas financeiras, incluindo arrendamento mercantil, leasing financeiro, títulos de renda fixa, debêntures, letras de câmbio, notas promissóri"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "conjuntamente. “AMB” Significa a ARCELORMITTAL BRASIL S.A., sociedade anônima com sede na Cidade de Belo Horizonte, Estado de Minas Gerais, na Avenida Carandaí, 1.115, 24º andar, Bairro Funcionários, CEP 30.130-915, inscrita no CNPJ sob o nº 17.469.701/0001-77. “Assembleia de Cotistas” Significa a Assembleia Geral de Cotistas ou Assembleia Especial de Cotistas, sem distinção. “Assembleia Especial de Significa a assembleia de Cotistas para a qual são Cotistas” convocados somente os Cotistas de determinada Classe ou Subclasse. “Assembleia Geral de Significa a assembleia para a qual são convocados todos Cotistas” os Cotistas do Fundo. “Ativos Financeiros de Significam os ativos indicados no item 8.3 do Anexo"
+    }
+   ],
+   "legacy": {
+    "value": "Notas fiscais de fornecedores por vendas/serviços às devedoras",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Fornecedores da ArcelorMittal Brasil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "conforme definida no respectivo Apêndice. “Cedentes” Significam os Fornecedores que cedem Direitos Creditórios à Classe. “Chaves de Acesso Significa o conjunto de 44 (quarenta e quatro) dígitos que Eletrônico” identificam univocamente uma nota fiscal eletrônica e facultam a verificação da sua autorização e conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda – SEFAZ da circunscrição dos Fornecedores na rede mundial de computadores. “Classe” Significa a classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no Anexo Descritivo. “CMN” Significa o Conselho Monetário Nacional. “CNPJ”"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "conjuntamente. “AMB” Significa a ARCELORMITTAL BRASIL S.A., sociedade anônima com sede na Cidade de Belo Horizonte, Estado de Minas Gerais, na Avenida Carandaí, 1.115, 24º andar, Bairro Funcionários, CEP 30.130-915, inscrita no CNPJ sob o nº 17.469.701/0001-77. “Assembleia de Cotistas” Significa a Assembleia Geral de Cotistas ou Assembleia Especial de Cotistas, sem distinção. “Assembleia Especial de Significa a assembleia de Cotistas para a qual são Cotistas” convocados somente os Cotistas de determinada Classe ou Subclasse. “Assembleia Geral de Significa a assembleia para a qual são convocados todos Cotistas” os Cotistas do Fundo. “Ativos Financeiros de Significam os ativos indicados no item 8.3 do Anexo"
+    }
+   ],
+   "legacy": {
+    "value": "Fornecedores que cedem os créditos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Fornecedores das devedoras (múltiplos cedentes)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "conforme definida no respectivo Apêndice. “Cedentes” Significam os Fornecedores que cedem Direitos Creditórios à Classe. “Chaves de Acesso Significa o conjunto de 44 (quarenta e quatro) dígitos que Eletrônico” identificam univocamente uma nota fiscal eletrônica e facultam a verificação da sua autorização e conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda – SEFAZ da circunscrição dos Fornecedores na rede mundial de computadores. “Classe” Significa a classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no Anexo Descritivo. “CMN” Significa o Conselho Monetário Nacional. “CNPJ”"
+    }
+   ],
+   "legacy": {
+    "value": "Fornecedores que cedem os créditos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "ArcelorMittal Brasil e suas controladas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "o” Significa o 5º (quinto) Dia Útil de cada mês. “Devedoras” Significam a (i) AMB e/ou (ii) sociedades controladas, direta ou indiretamente, pela AMB. “Dia Útil” Significa qualquer dia que não seja sábado, domingo, dia declarado como feriado nacional ou dias em que, por qualquer motivo, não haja expediente bancário nacional ou na praça em que o Custodiante é sediado, ressalvados os casos cujos pagamentos devam ser realizados por meio da B3, hipótese em que somente será considerado Dia Útil qualquer dia que não seja sábado, domingo ou dia declarado como feriado nacional. Caso as datas em que venham a ocorrer eventos nos termos deste Regulamento não sejam Dia Útil, conforme"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "conjuntamente. “AMB” Significa a ARCELORMITTAL BRASIL S.A., sociedade anônima com sede na Cidade de Belo Horizonte, Estado de Minas Gerais, na Avenida Carandaí, 1.115, 24º andar, Bairro Funcionários, CEP 30.130-915, inscrita no CNPJ sob o nº 17.469.701/0001-77. “Assembleia de Cotistas” Significa a Assembleia Geral de Cotistas ou Assembleia Especial de Cotistas, sem distinção. “Assembleia Especial de Significa a assembleia de Cotistas para a qual são Cotistas” convocados somente os Cotistas de determinada Classe ou Subclasse. “Assembleia Geral de Significa a assembleia para a qual são convocados todos Cotistas” os Cotistas do Fundo. “Ativos Financeiros de Significam os ativos indicados no item 8.3 do Anexo"
+    }
+   ],
+   "legacy": {
+    "value": "ArcelorMittal Brasil e subsidiárias, conforme relação contratual",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação dos cedentes não definida em trecho contínuo",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Vincendos, performados, livres de ônus e disputa, entre outros",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 41,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "10. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 10.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes critérios (“Critérios de Elegibilidade”): (i) o Direito Creditório ofertado não poderá estar vencido e não pago na respectiva Data de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos e performados; totalidade da NF-e; livres de ônus e disputa; cedente solvente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Devedoras restritas à ArcelorMittal Brasil e controladas",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado em trecho contínuo",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Vincendos e performados; totalidade da NF-e; livres de ônus e disputa; cedente solvente",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL para fins tributários",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "nvelope ID: 2B1FEE19-4E46-8877-81F6-F25B6124F6DA “Alocação Mínima para Significa o percentual mínimo de 67% (sessenta e sete por Fins Tributários” cento) do Patrimônio Líquido da Classe a ser mantido em “direitos creditórios”, conforme a definição na Resolução CMN nº 5.111, de 21 de dezembro de 2023, para fins de sujeição da Classe ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. “Anexo Descritivo” Significa o anexo descritivo da Classe, nos termos do Anexo I ao presente Regulamento, do qual constam as regras específicas aplicáveis à Classe e respectivas Subclasses, conforme anexo ao presente Regulamento. “Anexos” Significam todos os anexos ao presente Regulamento,"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67% PL para fins tributários após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 20/05/2026, p. 3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 34,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "o mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 12% (doze por cento). Isso significa que, no mínimo, 12% (doze por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 5.2. O Índice de Subordinação deverá ser apurado em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada no item 5.3 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, os Cotistas titulares das Cotas Subordinadas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto no item 5.2 acima. 5.3.1."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥12%; verificação diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 20/05/2026, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "12% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 34,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "o mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 12% (doze por cento). Isso significa que, no mínimo, 12% (doze por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 5.2. O Índice de Subordinação deverá ser apurado em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada no item 5.3 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, os Cotistas titulares das Cotas Subordinadas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto no item 5.2 acima. 5.3.1."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 12.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥12%; verificação diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária, pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 34,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "da Classe deve ser representado por Cotas Subordinadas em circulação. 5.2. O Índice de Subordinação deverá ser apurado em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada no item 5.3 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, os Cotistas titulares das Cotas Subordinadas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto no item 5.2 acima. 5.3.1."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥12%; verificação diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 20/05/2026, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "Menor entre despesas de 90 dias e percentual do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 42,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "ela Administradora e monitorado pela Gestora em todo último Dia Útil de cada mês do calendário, devendo ser equivalente ao menor valor entre (i) o total de despesas e encargos de responsabilidade da Classe a serem incorridos no período de 90 (noventa) dias contados 42 Docusign Envelope ID: 2B1FEE19-4E46-8877-81F6-F25B6124F6DA da data de apuração ou (ii) 1% (um por cento) do Patrimônio Líquido na data de apuração. 11.3. O montante referente à Reserva de Caixa deverá ser mantido pela Administradora de forma devidamente segregada no Patrimônio Líquido, em moeda corrente nacional, ou em Ativos Financeiros de Liquidez imediata. 11.4. Na hipótese de a Reserva de Caixa deixar de atender ao limite de enquadramento descrito no item 11.3 acima, a Administradora, por conta e ordem, deverá destinar todos os recursos da Classe, em moeda corrente nacional, para a recomposição da Reserva de Caixa, observada a ordem de alocação de recursos prevista no Capítulo 12 abaixo. 12."
+    }
+   ],
+   "legacy": {
+    "value": "MENOR entre despesas de 90 dias e 1% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 20/05/2026, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "Provisão por redução no valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 44,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "evidência de redução no valor recuperável dos Ativos, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 13.7. É obrigatória a divulgação, em notas explicativas às demonstrações contábeis anuais do Fundo e/ou da Classe, de informações que abranjam, no mínimo, (i) o montante, a natureza e as faixas de vencimento dos Ativos integrantes da carteira, caso aplicável; (ii) o mercado dos Ativos, segregados por tipo de Ativo; e (iii) os parâmetros utilizados na determinação desses valores. 14. DA RESPONSABILIDADE DOS COTISTAS E PATRIMÔNIO LÍQUIDO NEGATIVO 14.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rebaixamento do rating sênior, se houver, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "48 Docusign Envelope ID: 2B1FEE19-4E46-8877-81F6-F25B6124F6DA 16.2. A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Avaliação: (i) caso seja contratada Agência de Classificação de Risco para atribuição de classificação de risco (rating) para as Cotas Seniores, rebaixamento da classificação de risco das Cotas Seniores em circulação a qualquer tempo, em 2 (dois) níveis abaixo da classificação de risco originalmente atribuída; (ii) desenquadramento da carteira de Ativos por mais de 30 (trinta) dias consecutivos, consoante os limites aplicáveis à Classe, nos termos do Regulamento, deste Anexo Descritivo e das disposições legais e regulatórias em vigor; (iii) aquisição de Direitos Creditórios em desacordo com a política de investimento, composição e diversificação da carteira do Fundo, incluindo os Critérios de Elegibilidade e às Condições de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação em assembleia ou avaliação convertida, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 51,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "Assembleia Geral de Cotistas em questão. 16.6. A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Liquidação Antecipada: (i) deliberação da Assembleia Geral de Cotistas pela liquidação da Classe; 51 Docusign Envelope ID: 2B1FEE19-4E46-8877-81F6-F25B6124F6DA (ii) deliberação, em Assembleia Geral de Cotistas, de que um Evento de Avaliação constitui um Evento de Liquidação Antecipada;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 40,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "lasse sem coobrigação dos respectivos Cedentes ou de terceiros. 9.5. Será permitida a revolvência da carteira, ou seja, a aquisição de novos Direitos Creditórios pela Classe com recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração da Classe, respeitada a ordem de alocação de recursos prevista no Capítulo 12 do Anexo Descritivo. 9.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Despesas → reserva → sênior → subordinada → novas aquisições",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,25% a.a. do PL em faixas, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 35,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "contraprestação aos serviços de administração fiduciária, tesouraria, controladoria e custódia, o Fundo pagará à Administradora uma taxa de administração equivalente a 0,25% (vinte e cinco centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo até R$ 200.000.000,00 (duzentos milhões de reais), acrescido de 0,15% (quinze centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo que exceder R$ 200.000.000,00 (duzentos milhões de reais), observado o montante mínimo mensal de R$ 20.000,00 (vinte mil reais) (“Taxa de Administração”). 7.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,25% a.a. até R$ 200 mi +0,15% no excedente; mínimo R$ 20 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 20/05/2026, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,05% a.a. do PL em faixas, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 36,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "6.000,00 (seis mil reais). 7.3. Em contraprestação aos serviços de gestão profissional da Carteira, a Classe pagará à Gestora uma taxa de gestão de 0,05% a.a. (cinco centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo até R$ 200.000.000,00 (duzentos milhões de reais), acrescido de 0,03% (três centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo que exceder R$ 200.000.000,00 (duzentos milhões de reais), com mínimo mensal de R$ 4.000,00 (quatro mil reais) (“Taxa de Gestão”). 7.3.1. Adicionalmente, será acrescido à remuneração da Gestora o valor de R$ 25.000,00 (vinte e cinco mil reais), pagos em parcela única, devidos na data da primeira integralização de Cotas do Fundo. 7.3.2. Aplicam-se à Taxa de Gestão os dispostos nos itens 7.1.4 a 7.1.6 acima. 7.4."
+    }
+   ],
+   "legacy": {
+    "value": "0,05% a.a. até R$ 200 mi +0,03% no excedente; mínimo R$ 4 mil/mês; implantação R$ 25 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 20/05/2026, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda outras taxas, como a de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 37,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "mento descrita neste Anexo Descritivo. 7.8. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 8. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 8.1. A Classe tem como objetivo proporcionar aos Cotistas a valorização das Cotas de suas respectivas titularidades por meio da aplicação dos recursos da Classe preponderantemente na aquisição de Direitos Creditórios. 8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, à Política de Investimento, aos Critérios de Elegibilidade e às Condições de Cessão. 8.2. A Classe deve atingir a Alocação Mínima Regulatória em até 180 (cento e oitenta) dias do início de suas atividades, nos termos do artigo 44 do Anexo Normativo II da Resolução CVM 175. 8.2.1."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "Significa a data da primeira integralização de Cotas. “Administradora” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, sala 201, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91, ou sua sucessora a qualquer título. “Agência de Classificação Significa a agência de classificação de risco contratada pela de Risco”"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "Ratings do Brasil Ltda. “Agente de Controladoria” Significa a OLIVEIRA TRUST SERVICER S.A., sociedade por ações com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, sala 202, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20. “Alocação Mínima Significa o enquadramento do percentual mínimo de 50% Regulatória” (cinquenta por cento) do Patrimônio Líquido que deverá ser alocado em Direitos Creditórios Cedidos. 2 Docusign Envelope ID: 2B1FEE19-4E46-8877-81F6-F25B6124F6DA “Alocação Mínima para Significa o percentual mínimo de 67% (sessenta e sete por Fins Tributários” c"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "Anexo Descritivo. “Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada, ou sua sucessora a qualquer título. 4 Docusign Envelope ID: 2B1FEE19-4E46-8877-81F6-F25B6124F6DA “CVM” Significa a Comissão de Valores Mobiliários. “Data de Aquisição” Significa cada data em que ocorrer a aquisição dos Direitos Creditórios pela Classe. \"Data de Envio do Relatório Significa 2 (dois) Dias Úteis após cada Data de Verificação. de Monitoramento\" “Data de Pagamento” Significa cada data de pagamento da remuneração e/ou da amortização de principal das Cotas, conforme previstas no Regulamento, no Anexo Descritivo e nos respectivos Ap"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança extraordinária não nomeado",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 22,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "contratação da Entidade Registradora, caso aplicável; (xxi) tendo em vista a Classe ser destinada a Investidores Profissionais, despesas relacionadas à contratação do agente de cobrança extraordinária, se for o caso; (xxii) tendo em vista a Classe ser destinada a Investidores Profissionais, despesas relacionadas com: (a) contratação de plataformas de assinaturas eletrônicas; (b) contratação de certificadoras, estando estas despesas definidas em propostas a serem firmadas pelo Fundo; e (c) caso aplicável, à manutenção da Plataforma utilizada para antecipação de recebíveis a Fornecedores das Devedoras; (xxiii) tendo em vista a Classe ser destinada a Investidores Profissionais, despesas relacionadas com: (a) a verificação trimestral de existência e da integridade dos Documentos Comprobatórios dos Direitos Creditórios substituídos ou inadimplidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1226438",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/05/2026",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226438",
+     "excerpt": "destinada a Investidores Profissionais. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada por deliberação da Assembleia Geral de Cotistas em conformidade com o disposto no Regulamento e neste Anexo Descritivo. 4. DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS Características Gerais 4.1. As Cotas correspondem a frações ideais do Patrimônio Líquido e somente serão resgatadas em virtude do término do prazo de duração Classe ou em virtude da liquidação do Fundo. 4.2. Todas as Cotas de uma mesma Subclasse terão iguais prioridades de amortização, resgate e distribuição dos rendimentos da carteira, bem como direitos de voto, observadas e as demais disposições deste Anexo Descritivo. 4.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sacadas restritas à ArcelorMittal Brasil e controladas",
+   "sources": []
+  }
+ },
+ "leitura": "Notas de fornecedores da ArcelorMittal Brasil; subordinação de 12% com apuração diária.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,55 @@
+# ArcelorMittal Vértice FIDC Comerciais (Oliveira Trust; Oliveira Trust Servicer; devedora ArcelorMittal Brasil)
+type: Duplicatas/multicedente
+q1: D1 "Significam os direitos creditórios performados, decorrentes das Notas Fiscais, devidos pelas Devedoras"
+q2: D1 "Significam a (i) AMB e/ou (ii) sociedades controladas, direta ou indiretamente, pela AMB"
+q3: D1 "Significa a ARCELORMITTAL BRASIL S.A., sociedade anônima com sede na Cidade de Belo Horizonte"
+q4: D1 "Significam os Fornecedores que cedem Direitos Creditórios à Classe"
+q5: D1 "ercentual mínimo de 67% (sessenta e sete por"
+q6: D1 "a qual deverá, diariamente, representar o percentual mínimo de 12%"
+q7: D1 "O Índice de Subordinação deverá ser apurado em todo Dia Útil pela Administradora"
+q8: D1 "devendo ser equivalente ao menor valor entre (i) o total de despesas e encargos de responsabilidade da Classe a serem incorridos no período de 90"
+q9: D1 "deverá ser registrada uma provisão para perdas"
+q10: D1 "seguintes hipóteses constituirá Evento de Avaliação: (i) caso seja contratada Agência de Classificação de Risco"
+q11: D1 "seguintes hipóteses constituirá Evento de Liquidação Antecipada: (i) deliberação da Assembleia Geral de Cotistas pela liquidação da Classe"
+q12: D1 "Será permitida a revolvência da carteira"
+q13: D1 "o Fundo pagará à Administradora uma taxa de administração equivalente a 0,25%"
+q14: D1 "a Classe pagará à Gestora uma taxa de gestão de 0,05% a.a."
+q15: D1 "quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída"
+q16: D1 "Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira"
+q17: D1 "Significa a OLIVEIRA TRUST SERVICER S.A."
+q18: D1 "Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada"
+q19: D1 "tendo em vista a Classe ser destinada a Investidores Profissionais"
+q20: D1 "A Classe terá prazo de duração indeterminado"
+receivables: Notas fiscais de fornecedores contra a ArcelorMittal Brasil | q1,q3
+originator: Fornecedores da ArcelorMittal Brasil | q4,q3
+assignor: Fornecedores das devedoras (múltiplos cedentes) | q4
+debtor: ArcelorMittal Brasil e suas controladas | q2,q3
+recourse: n/d | Coobrigação dos cedentes não definida em trecho contínuo
+eligibility: Vincendos, performados, livres de ônus e disputa, entre outros | o14
+debtor_limit: — | Devedoras restritas à ArcelorMittal Brasil e controladas
+sacado_limit: — | Sacadas restritas à ArcelorMittal Brasil e controladas
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 67% do PL para fins tributários | q5 | value=67
+quota_structure: Sênior / Subordinada | q6
+sub_senior: 12% · subord./PL | q6 | basis=jr/PL | value=12
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária, pela administradora | q7
+reserve: Menor entre despesas de 90 dias e percentual do PL | q8
+pdd: Provisão por redução no valor recuperável | q9
+eval_triggers: Rebaixamento do rating sênior, se houver, entre outros | q10
+liquidation: Deliberação em assembleia ou avaliação convertida, entre outros | q11
+revolving: Revolvência permitida | q12
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,25% a.a. do PL em faixas, com mínimo mensal | q13
+mgmt_fee: 0,05% a.a. do PL em faixas, com mínimo mensal | q14
+perf_fee: Não prevista | Regulamento veda outras taxas, como a de performance | q15
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q16
+manager: Oliveira Trust Servicer | q17
+custodian: Oliveira Trust DTVM | q18
+servicer: n/d | Agente de cobrança extraordinária não nomeado
+investors: Investidores profissionais | q19
+duration: Indeterminado | q20
+leitura: Notas de fornecedores da ArcelorMittal Brasil; subordinação de 12% com apuração diária.
