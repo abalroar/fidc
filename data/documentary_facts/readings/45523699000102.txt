@@ -1,0 +1,53 @@
+# Vixtra FIDC (Singulare; Contea Capital)
+type: Duplicatas/multicedente
+q18: * "ivos Financeiros com liquidez diária o equivalente a, no mínimo, 50% (cinquenta por cento) do valor futuro do pagamento do próximo resgate"
+q17: * "9.3 O Fundo deverá, após 90 (noventa) dias contados da primeira Data de Subscrição Inicial do Fundo, observar a Alocação Mínima de 67%"
+q1: * "11.1 Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento"
+q2: * "Direitos Creditórios por Devedor Até R$ 99.999.999,99 Até R$ 2.500.000,00 A partir de R$ 100.000.000,00 Até 2,5% do Patrimônio Líquido"
+q3: * "O Fundo poderá adquirir Direitos Creditórios e Ativos Financeiros de um mesmo Devedor ou de coobrigação de uma mesma pessoa ou entidade, no limite de até 20%"
+q4: * "14.4 Índice de Subordinação O Fundo terá como Razão de Garantia o percentual mínimo de 150%"
+q5: * "Administradora A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q6: * "teira do Fundo compete à CONTEA CAPITAL GESTAO DE RECURSOS LTDA."
+q7: * "Custodiante A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q8: * "0,32% R$ 15.000,00 (até R$5MM ou até o 6º mês, o que ocorrer 1º)"
+q9: * "Remuneração Mínima Mensal 0,25% R$ 15.000,00"
+q10: * "Remuneração alvo: CDI + 3,00% (três por cento) ao ano"
+q11: * "O Fundo será destinado exclusivamente a Investidores Qualificados"
+q12: * "O Fundo terá prazo de duração indeterminado"
+q13: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q14: * "radas dos Cotistas quaisquer outras taxas, tais como taxa de performance"
+q15: * "23.1 O Fundo poderá ser liquidado por deliberação da Assembleia Geral de Cotistas"
+q16: * "10.6 A Gestora é responsável pela análise do Cedente e seleção dos Direitos Creditórios"
+receivables: Créditos comerciais; notas comerciais podem ter garantia de Bill of Lading | o1
+originator: Cedentes diversos, analisados pela gestora | q16
+assignor: Cedentes diversos | q16
+debtor: Devedores dos créditos comerciais cedidos | q2
+recourse: n/d | Coobrigação definida em cada contrato de cessão
+eligibility: Título ≥ R$ 100; vencimento de 7 a 270 dias; não vencidos | q1,o12
+debtor_limit: Devedor até R$ 2,5 mi (PL < R$ 100 mi) ou 2,5% do PL; teto legal 20% | q2,q3
+assignor_limit: Não previsto | Regulamento limita por devedor, não por cedente
+term_max: De 7 a 270 dias | q1
+allocation: ≥ 67% do PL em direitos creditórios após 90 dias | q17 | value=67
+quota_structure: Sênior / Mezanino A e B / Júnior | q4
+sub_senior: 33,34% · (mez.+jr.)/PL; razão de garantia ≥ 150% | q4 | basis=mez+jr/PL
+sub_mezz: Mez. B + júnior ≥ 16,67% do PL | q4 | basis=jr/PL | value=16.67
+sub_check: Razão de garantia monitorada pela gestora | q4
+reserve: Liquidez ≥ 50% do próximo resgate sênior/mezanino, 100% a partir de D-15 | q18
+pdd: Perda por redução ao valor recuperável | q13
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído
+liquidation: Por deliberação da assembleia, inclusive após evento de avaliação | q15
+revolving: n/d | Regulamento não trata de revolvência no texto extraído
+amortization: Sênior 3ª série: juros mensais; principal do 13º ao 48º mês | q10
+admin_fee: 0,32% a.a. do PL (inclui custódia); mín. a partir de R$ 15 mil/mês | q8
+mgmt_fee: 0,25% a.a. do PL; mín. a partir de R$ 15 mil/mês | q9
+perf_fee: Não prevista | Regulamento veda taxa de performance | q14
+target_senior: CDI + 3,00% a.a. (3ª série sênior) | q10
+target_mezz: n/d | Sobretaxa da mezanino em suplemento fora do acervo | why=Resposta anterior também não encontrou a sobretaxa preenchida
+administrator: Singulare CTVM | q5
+manager: Contea Capital Gestão de Recursos | q6
+custodian: Singulare CTVM | q7
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores qualificados | q11
+duration: Indeterminado | q12
+sacado_limit: Devedor até R$ 2,5 mi (PL < R$ 100 mi) ou 2,5% do PL | q2
+leitura: Crédito comercial com 33,34% de subordinação (razão de garantia de 150%) e devedor ≤ 2,5% do PL; sênior CDI + 3%.
