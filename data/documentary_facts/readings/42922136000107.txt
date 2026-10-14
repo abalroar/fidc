@@ -1,0 +1,56 @@
+# Monee I / Maree I FIDC (QI CTVM; Valora; originadora Maree)
+type: Crédito pessoal
+q1: * "Direitos Creditórios: os Direitos Creditórios oriundos (i) de operações de empréstimo; (ii) de Operações de Pagamento com Cartões"
+q2: * "Originadora: é a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA."
+q3: * "Contrato de Endosso: cada Contrato de Promessa de Endosso de Direitos Creditórios sem Coobrigação"
+q4: * "Devedores: são as pessoas naturais ou jurídicas, devedoras dos Direitos Creditórios"
+q5: * "não contarão com a coobrigação da ORIGINADORA. 5.8. A Classe poderá utilizar os recursos financeiros originados na carteira"
+q6: * "a Classe e seus Cotistas não terão qualquer direito de regresso contra a ADMINISTRADORA"
+q7: * "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar"
+q8: * "limite máximo de concentração por Devedor ou coobrigado será de 20% (vinte por cento) do Patrimônio Líquido desta Classe"
+q9: * "no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis"
+q10: * "são pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação entre os titulares de Cotas"
+q11: * "Reserva de Caixa: é a reserva constituída para pagamento de encargos e despesas da Classe"
+q12: * "13.4 A ADMINISTRADORA constituirá provisão para créditos de liquidação duvidosa"
+q13: * "II - desenquadramento da Reserva de Caixa por um prazo superior a 30 (trinta) Dias Úteis consecutivos"
+q14: * "III. caso a ORIGINADORA encerre suas atividades, por qualquer motivo; IV. Após 90 (noventa) dias"
+q15: * "Taxa de Administração (a.a.) Patrimônio Líquido 0,25% Até R$ 1.000.000.000,00 (inclusive)"
+q16: * "a GESTORA fará jus a uma remuneração equivalente a 0,20% a.a. (vinte centésimos por cento)"
+q17: * "taxa de performance, ingresso e/ou saída"
+q18: * "ADMINISTRADORA: QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q19: * "GESTORA: VALORA RENDA FIXA ESTRUTURADOS LTDA"
+q20: * "Agente de Cobrança: é a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA., responsável pela cobrança ordinária"
+q21: * "destina-se exclusivamente a Investidores Qualificados e/ou Investidores Profissionais"
+q22: * "3.1. O prazo de duração desta Classe é indeterminado"
+receivables: CCBs de empréstimo e recebíveis de pagamentos com cartão | q1
+originator: Maree Instituição de Pagamento | q2
+assignor: Endossantes das CCBs, por contrato de endosso sem coobrigação | q3
+debtor: Pessoas naturais ou jurídicas tomadoras | q4
+recourse: Sem coobrigação da originadora; regresso só por má-fé, culpa ou dolo | q5,q6
+eligibility: CCB com todas as parcelas a vencer, prefixadas e mensais; devedor adimplente | q7
+debtor_limit: Por devedor ou coobrigado: até 20% do PL | q8 | value=20
+assignor_limit: Não previsto | Regulamento limita apenas por devedor ou coobrigado
+term_max: n/d | Regulamento não fixa prazo máximo das CCBs | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | q9 | value=50
+quota_structure: Classe única; cotas pari passu, sem subordinação | q10
+sub_senior: — | Cotas pari passu, sem subordinação
+sub_mezz: — | Sem cota mezanino
+sub_check: — | Sem índice de subordinação
+reserve: Reserva de caixa para encargos e despesas da classe | q11
+pdd: Provisão pelo manual de provisionamento da administradora | q12
+eval_triggers: Reserva de caixa desenquadrada por mais de 30 dias úteis, entre outros | q13
+liquidation: Originadora encerra atividades; PL < R$ 1 mi por 90 dias | q14
+revolving: Revolvência com recursos da carteira | q5
+amortization: n/d | Amortizações definidas nos suplementos de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,25% a.a. até R$ 1 bi de PL, regressiva até 0,20% | q15
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 30 mil/mês | q16
+perf_fee: Não prevista | Regulamento veda taxa de performance | q17
+target_senior: Sem meta de rentabilidade definida | q10
+target_mezz: — | Sem cota mezanino
+administrator: QI CTVM | q18
+manager: Valora Renda Fixa Estruturados | q19
+custodian: n/d | Custodiante não nomeado no regulamento
+servicer: Maree Instituição de Pagamento (cobrança ordinária) | q20
+investors: Investidores qualificados e profissionais | q21
+duration: Indeterminado | q22
+leitura: Crédito pessoal e recebíveis de cartão da Maree em cotas pari passu; por devedor até 20% do PL.

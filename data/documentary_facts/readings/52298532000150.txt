@@ -1,0 +1,50 @@
+# IOX Real FIDC (QI CTVM; M8 Partners; IOX Securitizadora)
+type: Duplicatas/multicedente
+q1: * "os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilid"
+q2: * "ativos de responsabilidade ou coobrigação de um mesmo Devedor está limitada a 20%"
+q3: * "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q4: * "“Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q5: * "“Gestora” A M8 PARTNERS GESTORA DE RECURSOS LTDA."
+q6: * "“Agente de Cobrança” A IOX SECURITIZADORA S.A."
+q7: * "A Classe terá prazo de duração indeterminado"
+q8: id1337986 "da Taxa DI, acrescida de uma sobretaxa de 4% a.a."
+q9: id1337986 "da Taxa DI, acrescida de uma sobretaxa de 5% a.a."
+q10: * "A Taxa de Administração da Classe, referente aos serviços de administração, escrituração, controladoria e custódia, corresponderá ao percentual de 0,55%"
+q11: * "A Taxa de Gestão da Classe corresponderá ao percentual de 1,00%"
+q12: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q13: * "“Consultora Especializada” A IOX SECURITIZADORA S/A."
+q14: * "a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 1%"
+q15: id1337986 "Prazo de Duração e Data de Resgate: 48 (quarenta e oito) meses"
+receivables: Títulos e contratos industriais, comerciais, agro, financeiros e de serviços | o1
+originator: Cedentes diversos, selecionados com a consultora IOX Securitizadora | q13
+assignor: Cedentes diversos | o1
+debtor: Devedores diversos; até 20% do PL por devedor | q2
+recourse: n/d | Regime de coobrigação depende de cada contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Critérios do anexo verificados na data de aquisição | q1
+debtor_limit: Devedor/grupo ≤ 20% do PL | q2
+assignor_limit: Não previsto | Anexo limita por devedor, não por cedente
+term_max: n/d | Prazo máximo não localizado no anexo extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: > 50% do PL em direitos creditórios | q3 | value=50
+quota_structure: Sênior / Mezanino / Júnior | o25
+sub_senior: 30% · (mez.+jr.)/PL | o25 | basis=mez+jr/PL
+sub_mezz: 20% · jr/PL | o25 | basis=jr/PL
+sub_check: Diária | o25
+reserve: Caixa: maior entre 90 dias de despesas e 1% do PL; reserva de amortização | q14
+pdd: Perda por redução ao valor recuperável | q12
+eval_triggers: Rating rebaixado, desenquadramento > 15 DU, PL negativo, subordinação | o43
+liquidation: n/d | Lista de eventos de liquidação não localizada no anexo extraído | why=Resposta anterior descreve eventos de avaliação, registrados na linha própria
+revolving: n/d | Ordem de alocação não detalhada no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: Mezanino 3: 48 meses, amortização mensal do 25º ao 48º mês | q15
+admin_fee: 0,55% do PL; mín. R$ 15,5 mil/mês; inclui custódia | o54,q10
+mgmt_fee: 1,00% do PL; mín. R$ 25 mil/mês | o57,q11
+perf_fee: Não prevista | Anexo da classe não prevê taxa de performance
+target_senior: DI + 4% a.a. (série sênior mais recente) | q8
+target_mezz: DI + 5% a.a. (3ª série mezanino) | q9
+administrator: QI CTVM | q4
+manager: M8 Partners Gestora de Recursos | q5
+custodian: QI CTVM (custódia na taxa de administração) | q10,q4
+servicer: IOX Securitizadora (cobrança extraordinária) | q6
+investors: Investidores qualificados | o71
+duration: Indeterminado | q7
+sacado_limit: Devedor/grupo ≤ 20% do PL | q2
+leitura: Multicedente com 30% de subordinação e júnior ≥ 20%; sênior a DI + 4% e taxas de 0,55% + 1,00% do PL.

@@ -1,0 +1,44 @@
+# GONN FIDC (Banco Genial; Genial Gestão; crédito pessoal da Plataforma 99)
+type: Crédito pessoal
+q1: * "Relação Mínima de Significa a razão entre (i) a soma do valor total das Cotas Subordinação” Subordinadas Júnior em Circulação"
+q2: * "7.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aquisição e Pagamento"
+q3: * "18.3. Pelos serviços de gestão, o Fundo pagará uma Taxa de Gestão equivalente ao percentual de 10% (dez por cento) ao ano calculado sobre a Taxa de Administração"
+q4: * "atória dos seguintes percentuais, observado o valor mínimo mensal de R$ 27.000,00 (vinte e sete mil reais): (i) 0,10%"
+q5: * "“Administrador” Significa o BANCO GENIAL S.A."
+q6: * "“Gestor” Significa a GENIAL GESTÃO LTDA."
+q7: * "“Custodiante” Significa o Administrador, na qualidade de custodiante dos ativos integrantes da Carteira"
+q8: * "a participação no Fundo é aberta à Investidores Profissionais"
+q9: * "O Fundo não terá prazo de duração determinado"
+q10: * "A provisão para perdas e perdas efetivas em relação aos Direitos Creditórios devidos por um Devedor específico deverá ser calculada"
+receivables: Crédito pessoal digital da Plataforma 99, em CCBs | o1
+originator: Instituições parceiras e 99 Pay (correspondentes bancários) | o4
+assignor: Endossantes das CCBs, sem coobrigação | o13
+debtor: Pessoas físicas de 20 a 70 anos, usuárias da plataforma | o10
+recourse: Endosso sem coobrigação; sem regresso por fato superveniente | o12,o13
+eligibility: CCB ≤ R$ 15 mil; prazo ≤ 18 meses; taxa fixa; devedor adimplente | o16,q2
+debtor_limit: Limites por perfil: novos usuários ≤ 65%, entre outros | o19
+assignor_limit: Não previsto | Regulamento limita por perfil e estado, não por endossante
+term_max: Prazo original até 18 meses | o16
+allocation: ≥ 50% do PL em direitos creditórios | o26 | value=50
+quota_structure: Sênior (cotista único) / Júnior | q1,o29
+sub_senior: 35% · jr/PL; base de captação ponderada por perfil | q1,o29 | basis=jr/PL | value=35
+sub_mezz: — | Sem cota mezanino
+sub_check: Apurada em cada data de cálculo | q1
+reserve: 1 mês de despesas e 1 mês de benchmark sênior | o39
+pdd: Metodologia por devedor da administradora | q10,o41
+eval_triggers: Rolagem 30+ > 7% ou inadimplência 15+ > 14% reduz o adiantamento | o44
+liquidation: n/d | Eventos de liquidação não localizados separadamente no trecho lido | why=Resposta anterior trata de gatilhos de avaliação, registrados na linha própria
+revolving: Aquisições até a data limite do apêndice; suspensas em eventos | o53
+amortization: Despesas, benchmark sênior, reservas, júnior e aquisições; após eventos, sênior primeiro | o53
+admin_fee: 0,10% a.a. do PL mais faixas regressivas; mín. R$ 27 mil/mês | q4,o58
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês | q3
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Benchmark do apêndice sênior em formato bilíngue, sem taxa no trecho lido
+target_mezz: — | Sem cota mezanino
+administrator: Banco Genial | q5
+manager: Genial Gestão | q6
+custodian: Banco Genial (o administrador) | q7,q5
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais; sênior de investidor único | q8,o73
+duration: Indeterminado | q9
+leitura: Crédito pessoal digital da 99 com júnior mínima de 35% do PL e sênior de investidor único; gatilhos por rolagem.

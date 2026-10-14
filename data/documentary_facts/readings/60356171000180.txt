@@ -1,0 +1,54 @@
+# portado de 57609282000146 (60356171000180)
+type: Cartão/adquirência
+q1: D1 "Os Direitos Creditórios são oriundos do pagamento devido pelos Devedores à Cedente"
+q2: D1 "Grupo 1” Signif icam (i) o Itaú Unibanco S.A. e Entidades do Respectivo Grupo"
+q3: D1 "os Direitos Creditórios devidos por Devedores Grupo 3 não poderão representar mais do que"
+q4: D1 "2% (dois por cento) do Patrimônio Líquido da Classe A, considerando-se os Devedores Grupo 4 individualmente"
+q5: D1 "das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias"
+q6: D1 "Será considerado Evento de Liquidação da Classe A qualquer dos seguintes eventos"
+q7: D1 "caso os Índices de Subordinação Mínimos sejam descumpridos e não saneados pelos Cotistas Subordinados Júnior"
+q8: id1204286 "Senior Série 1 23/04/2030 DI + 0,95% ao ano"
+q9: id1204286 "Mezanino 1 Série 1 23/04/2030 DI + 1,70% ao ano"
+q10: D1 "Signif ica a BTG PACTUAL SERVIÇOS FINANCEIR"
+q11: D1 "Classe A é destinada a Investidores Autorizados"
+q12: D1 "Classe A deverão ser amortizadas em cada Data de Amortização Programada durante o Período de Amortização"
+q13: D1 "s Cotistas taxas de perf ormance, de ingresso ou de saída"
+q14: id1204286 "Mezanino 2 Série 1 23/04/2030 DI + 4,99% ao ano"
+q15: D1 "ao menos 52,5% (cinquenta e dois inteiros e cinco décimos por"
+q16: D1 "equivalente a, no mínimo, 15,75% (quinze inteiros e setenta e cinco"
+q17: D1 "equivalente a, no mínimo, 16% (dezesseis por cento)"
+receivables: Recebíveis de transações de cartão do sistema CloudWalk | q1
+originator: CloudWalk (credenciadora) | c8
+assignor: CloudWalk (cedente única) | c8
+debtor: Emissores em 4 grupos; Grupo 1 com Itaú, Bradesco, BB e outros grandes | c11,q2
+recourse: Sem regresso nem coobrigação da cedente | o14
+eligibility: Moeda nacional; devedor adimplente; vencimento ≥ 7 dias | o17,q5
+debtor_limit: G1+caixa ≥ 52,5% do PL; G2 ≤ 15% cada; G3 ≤ 4%; G4 ≤ 2% | q15,c22,q3,q4
+assignor_limit: Cedente única (CloudWalk) | c8
+term_max: Mínimo 7 dias; máximo de 365 dias ou vencimento da sênior | q5
+allocation: ≥ 50% do PL em direitos creditórios | c29 | value=50
+quota_structure: Sênior / Mezanino A e B / Júnior (Grupo CloudWalk) | c34,c75
+sub_senior: 15,5% · (mez.+jr.)/PL; ramp-up 15,75%; alvo 16% | o35,q16,q17 | basis=mez+jr/PL
+sub_mezz: n/d | Índices das mezaninos A e B em branco ([=]%) nos suplementos 5 e 6
+sub_check: Diária pelo custodiante; júnior tem 11 DU para recompor | c36,q7
+reserve: Amortização 30 dias e remuneração 15 dias antes; despesas de 3 meses | o44,o45
+pdd: Manual de provisão para perdas da administradora | c49
+eval_triggers: Falhas de pagamento, reservas, subordinação e prestadores | o51
+liquidation: Compras inviáveis, subordinação não recomposta, prestadores e insolvência | q6,q7
+revolving: Revolvência permitida | o59
+amortization: Sênior e mezanino por cronograma dos apêndices | q12
+admin_fee: 0,02% a.a. do PL; mín. R$ 15 mil/mês | o65
+mgmt_fee: 0,06% a.a. do PL; mín. R$ 7 mil/mês | o69
+perf_fee: Não prevista | Regulamento veda cobrança de taxa de performance da classe | q13
+target_senior: DI + 0,95% a.a. (séries 1 e 2, relatório de rating) | q8
+target_mezz: Mez. 1: DI + 1,70%; Mez. 2: DI + 4,99% (relatório de rating) | q9,q14
+administrator: BTG Pactual Serviços Financeiros DTVM | q10
+manager: BTG Pactual Asset Management | c80
+custodian: Banco BTG Pactual | c81
+servicer: CloudWalk (cobrança extraordinária) | c82
+investors: Investidores autorizados | q11
+duration: Indeterminado; séries com prazo próprio | c88
+card_receivables: Transações em arranjos de pagamento das bandeiras | q1,c90
+card_lock: Conta centralizadora da cedente, de movimentação restrita | c93
+dilution: Cancelamentos e chargebacks; gestor monitora o índice | c95,c97
+leitura: Cartão CloudWalk com sênior protegida por 15,5% de mez.+jr.; mezaninos A/B com índices em branco no regulamento.

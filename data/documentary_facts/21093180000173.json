@@ -1,0 +1,667 @@
+{
+ "schema_version": 1,
+ "cnpj": "21093180000173",
+ "name": "FIPER FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T01:18:56Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1343197",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "06/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197"
+  },
+  "D2": {
+   "document_id": "1343193",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "06/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343193"
+  },
+  "D3": {
+   "document_id": "523464",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "14/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=523464"
+  },
+  "D4": {
+   "document_id": "275044",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "09/03/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=275044"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Faturas, acordos e CCBs de cartões de crédito Vuon Card",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "transações de pagamento realizadas por clientes pessoas físicas portadores de cartões de crédito emitidos pela Vuon Card que configurem Direitos Creditórios de Faturas, Direitos Creditórios de Acordos e Direitos Creditórios CCBs. 7.2 A cessão ou endosso dos Direitos Creditórios à Classe será realizada com todos os direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados à Cedente ou Endossante, nos termos da legislação aplicável e observarão os procedimentos descritos a seguir: (i) a Cedente ou Endossante encaminhará à Gestora as informações a respeito dos Direitos Creditórios que pretende ceder ou endossar inclusive os respectivos Termos de Cessão e Termos de Endosso, conforme aplicável, mediante comunicação eletrônica ou no âmbito de plataforma tecnológica a ser contratada com esta finalidade, conforme seja definida no Contrato de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "Faturas, acordos e CCBs de compras parceladas/cartões Vuon",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Vuon Card (emissora dos cartões)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "transações de pagamento realizadas por clientes pessoas físicas portadores de cartões de crédito emitidos pela Vuon Card que configurem Direitos Creditórios de Faturas, Direitos Creditórios de Acordos e Direitos Creditórios CCBs. 7.2 A cessão ou endosso dos Direitos Creditórios à Classe será realizada com todos os direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados à Cedente ou Endossante, nos termos da legislação aplicável e observarão os procedimentos descritos a seguir: (i) a Cedente ou Endossante encaminhará à Gestora as informações a respeito dos Direitos Creditórios que pretende ceder ou endossar inclusive os respectivos Termos de Cessão e Termos de Endosso, conforme aplicável, mediante comunicação eletrônica ou no âmbito de plataforma tecnológica a ser contratada com esta finalidade, conforme seja definida no Contrato de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "Vuon Card; endossante conforme CCB e contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Cedentes e endossantes não sujeitos a intervenção ou recuperação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 25,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "controle comum. 8.5 Além dos Critérios de Elegibilidade indicados na Cláusula 8.1 acima, a Classe só poderá adquirir Direitos Creditórios cedidos por Cedentes ou Endossantes que não estejam sob intervenção, administração especial, liquidação falência ou recuperação judicial ou extrajudicial (“Condição de Cessão”), a ser declarada pela Cedente e/ou pela Endossante, conforme o caso, para que seja verificada pela Gestora na data de aquisição de cada Direito Creditório. 9 PROCEDIMENTOS DE ARRECADAÇÃO DOS DIREITOS CREDITÓRIOS CEDIDOS OU ENDOSSADOS À CLASSE 9.1 Nos termos do Contrato de Cobrança, a CIB - CONSULTORIA, ADMINISTRAÇÃO E PARTICIPAÇÕES S.A., com sede na Rua Tabapuã, nº 841, 6º andar, sala 612, Itaim Bibi, na Cidade de São Paulo, Estado de São Paulo, Brasil, CEP 04533-013, inscrita no CNPJ sob o nº 07.271.850/0001-73 e a SDB COMÉRCIO DE ALIMENTOS LTDA., com sede na Rua Tabapuã, nº 841, 6º andar, sala 601, Itaim Bibi, na Cidade de São Paulo, Estado de São Paulo, Brasil, CEP 04533-013, inscrita no CNPJ s"
+    }
+   ],
+   "legacy": {
+    "value": "Vuon Card; endossante conforme CCB e contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas portadoras de cartões Vuon",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "transações de pagamento realizadas por clientes pessoas físicas portadores de cartões de crédito emitidos pela Vuon Card que configurem Direitos Creditórios de Faturas, Direitos Creditórios de Acordos e Direitos Creditórios CCBs. 7.2 A cessão ou endosso dos Direitos Creditórios à Classe será realizada com todos os direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados à Cedente ou Endossante, nos termos da legislação aplicável e observarão os procedimentos descritos a seguir: (i) a Cedente ou Endossante encaminhará à Gestora as informações a respeito dos Direitos Creditórios que pretende ceder ou endossar inclusive os respectivos Termos de Cessão e Termos de Endosso, conforme aplicável, mediante comunicação eletrônica ou no âmbito de plataforma tecnológica a ser contratada com esta finalidade, conforme seja definida no Contrato de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas portadoras de cartões Vuon",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cessão e endosso regidos pelos contratos, fora do texto lido",
+   "sources": [],
+   "legacy": {
+    "value": "Transferência definitiva; cedente responde por existência/veracidade/formalização",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Com lastro documental; vencidos ou a vencer; prazo ≤ 24 meses",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 24,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "onsabilidade do Custodiante. 8 CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) sejam representados por Documentos Comprobatórios, nos termos do procedimento de verificação de lastro; (ii) estejam vencidos ou a vencer no momento de aquisição pela Classe; Docusign Envelope ID: 46A49829-B8AE-874A-82A9-793441EA3FE1 (iii) tenham prazo de vencimento em até no máximo de 24 (vinte e quatro) meses; (iv) sejam representados em moeda corrente nacional; (v) tenham valores acima de R$ 1,00 (um real);"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos formalizados em reais, com custódia/registro; vencimento até 24 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Até 20% do PL por devedor; cedente até 100% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 21,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "observar o limite de até 20% (vinte por cento) de seu Patrimônio Líquido para adquirir Direitos Creditórios Elegíveis e Ativos Financeiros de um mesmo Devedor, ou de coobrigação de uma mesma Pessoa, podendo o Fundo adquirir 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios de um mesmo Cedente, nos termos permitidos pela regulamentação aplicável. Não há limite de concentração por emissor ou por modalidade de Ativo Financeiro para os investimentos em Ativos Financeiros realizados nos termos da Cláusula 6.4 acima. 6.6 A Gestora deverá manter os recursos correspondentes à Reserva de Caixa, aplicados em Ativos Financeiros."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor/coobrigado: até 20% PL; cedente: até 100% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente pode chegar a 100% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 21,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "observar o limite de até 20% (vinte por cento) de seu Patrimônio Líquido para adquirir Direitos Creditórios Elegíveis e Ativos Financeiros de um mesmo Devedor, ou de coobrigação de uma mesma Pessoa, podendo o Fundo adquirir 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios de um mesmo Cedente, nos termos permitidos pela regulamentação aplicável. Não há limite de concentração por emissor ou por modalidade de Ativo Financeiro para os investimentos em Ativos Financeiros realizados nos termos da Cláusula 6.4 acima. 6.6 A Gestora deverá manter os recursos correspondentes à Reserva de Caixa, aplicados em Ativos Financeiros."
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "Devedor/coobrigado: até 20% PL; cedente: até 100% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo"
+   }
+  },
+  "term_max": {
+   "display": "Até 24 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 24,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "onsabilidade do Custodiante. 8 CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) sejam representados por Documentos Comprobatórios, nos termos do procedimento de verificação de lastro; (ii) estejam vencidos ou a vencer no momento de aquisição pela Classe; Docusign Envelope ID: 46A49829-B8AE-874A-82A9-793441EA3FE1 (iii) tenham prazo de vencimento em até no máximo de 24 (vinte e quatro) meses; (iv) sejam representados em moeda corrente nacional; (v) tenham valores acima de R$ 1,00 (um real);"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos formalizados em reais, com custódia/registro; vencimento até 24 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "> 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 20,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "onados aos referidos Direitos Creditórios. 6.3 Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 67% (sessenta e sete por cento) de seu Patrimônio Líquido representada por Direitos Creditórios (“Alocação Mínima”). 6.4 A parcela do Patrimônio Líquido da Classe que não estiver alocada em Direitos Creditórios poderá ser mantida em moeda corrente nacional ou aplicada nos ativos financeiros abaixo relacionados (“Ativos Financeiros”): (i) títulos públicos federais; (ii) ativos financeiros da renda fixa de emissões de instituições financeiras de primeira linha; (iii) operações compromissadas lastreadas nos títulos mencionados nos itens (i) e (ii) acima;"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Direitos creditórios > 67% PL até 180 dias do início",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 32,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "deverá, diariamente, representar o percentual mínimo de 125% (cento e vinte e cinco por cento). Isso significa que, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 11.2 O Índice de Subordinação das Cotas Subordinadas Júnior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Júnior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 125% (cento e vinte e cinco por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 32,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 11.2 O Índice de Subordinação das Cotas Subordinadas Júnior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Júnior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 125% (cento e vinte e cinco por cento). Isso significa que, no mínimo, 20% (vinte por cento) do Patrimônio Líquido das Subclasses Subordinadas deve ser representado por Cotas Subordinadas Júnior em circulação. 11.3 Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 11.4 abaixo. 11.4 Na hipótese de desenquadramento de qualquer Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas, das Cotas Subordinada"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥ 20% PL; júnior ≥ 20% patrimônio subordinado",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 32,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "deverá, diariamente, representar o percentual mínimo de 125% (cento e vinte e cinco por cento). Isso significa que, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 11.2 O Índice de Subordinação das Cotas Subordinadas Júnior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Júnior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 125% (cento e vinte e cinco por cento)."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Subordinadas ≥ 20% PL; júnior ≥ 20% patrimônio subordinado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 20% do patrimônio subordinado",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 32,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 11.2 O Índice de Subordinação das Cotas Subordinadas Júnior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Júnior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 125% (cento e vinte e cinco por cento). Isso significa que, no mínimo, 20% (vinte por cento) do Patrimônio Líquido das Subclasses Subordinadas deve ser representado por Cotas Subordinadas Júnior em circulação. 11.3 Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 11.4 abaixo. 11.4 Na hipótese de desenquadramento de qualquer Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas, das Cotas Subordinada"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 32,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "deverá, diariamente, representar o percentual mínimo de 125% (cento e vinte e cinco por cento). Isso significa que, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 11.2 O Índice de Subordinação das Cotas Subordinadas Júnior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Júnior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 125% (cento e vinte e cinco por cento)."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥ 20% PL; júnior ≥ 20% patrimônio subordinado",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor da reserva de caixa não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Maior entre 90 dias de despesas e 1% PL; amortização: 30% em D–30 e 100% em D–15",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "PDD por perdas esperadas, conforme manual da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 35,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "observada a ordem de alocação de recursos prevista na Cláusula 12 acima. 13.6 A Administradora e o Custodiante constituirão provisão para devedores duvidosos (PDD) com base em perdas esperadas, nos termos da Instrução CVM nº 489/11 e da metodologia prevista no manual de provisão para perdas em ativos de crédito da Administradora. 14 ASSEMBLEIAS ESPECIAIS DE COTISTAS 14.1 Sem prejuízo do disposto nas condições gerais deste Regulamento, estão sujeitas exclusivamente à aprovação da maioria representativa da respectiva participação dos Cotistas Subordinados Júnior na Classe, excluídos do cômputo os Cotistas Seniores e Subordinados Mezanino, as deliberações relativas às seguintes matérias: (i) analisar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas da Classe e deliberar sobre suas demonstrações contábeis;"
+    }
+   ],
+   "legacy": {
+    "value": "PDD por atraso: 1% até 15 dias; 3% até 30; 10% até 60; 60% até 90; 100% após 360",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Rating, desenquadramento > 15 dias úteis, PL negativo, insolvência, repasse atrasado e falhas de prestadores",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Rating, desenquadramento > 15 dias úteis, PL negativo, insolvência, repasse atrasado e falhas de prestadores",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não detalhada no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisições sucessivas sujeitas a elegibilidade, reservas e amortizações",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos das séries",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos → reservas → sênior → mezanino → júnior; aquisição conforme saldo",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Faixas sobre o PL; mín. R$ 17 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 17,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "milhões de reais e um centavo), o valor correspondente a 0,09% (nove centésimos por cento) ao ano sobre o Patrimônio Líquido; observado o valor mínimo mensal de R$ 17.000,00 (dezessete mil reais) (“Taxa de Administração”): 4.1.1 A Taxa de Administração será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe do Dia Útil imediatamente anterior. 4.1.2 Será devido à Administradora, adicionalmente, o valor correspondente a R$ 2.000,00 (dois mil reais) mensais a título de remuneração pelo serviço de escrituração das Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "0, 15% /0, 10% /0, 09% a.a. por faixas de PL; mínimoR$ 17 mil/mês + serviços",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Faixas sobre o PL; mín. R$ 17 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 18,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "milhões de reais e um centavo), o valor correspondente a 0,09% (nove centésimos por cento) ao ano sobre o Patrimônio Líquido; observado o valor mínimo mensal de R$ 17.000,00 (dezessete mil reais) (“Taxa de Gestão”). 4.2.1 A Taxa de Gestão será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe do Dia Útil imediatamente anterior. 4.2.2 Adicionalmente, será devido à Gestora: (i) R$5.000,00 (cinco mil reais) mensais a título de remuneração pelos serviços de verificação do lastro dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "0, 15% /0, 10% /0, 09% a.a. por faixas de PL; mínimoR$ 17 mil/mês + lastro/registro",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/10/2026, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark sênior definido em suplemento, fora do acervo",
+   "sources": [],
+   "legacy": {
+    "value": "Júnior residual; spread sênior/mezanino remetido a suplementos não individualizados",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark mezanino definido em suplemento, fora do acervo",
+   "sources": [],
+   "legacy": {
+    "value": "Júnior residual; spread sênior/mezanino remetido a suplementos não individualizados",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "DOS PRESTADORES DE SERVIÇOS DA ADMINISTRADORA E DO CUSTODIANTE 1.1 Os serviços de administração e custódia serão realizados pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, sala 201, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91 (“Administradora” e “Custodiante”). 1.2 A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração fiduciária do Fundo, incluindo, mas não se limitando, a contratação da custódia dos valores mobiliários e dos Ativ"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "o lastro dos direitos creditórios. DA GESTORA 1.10 A atividade de gestão da carteira será realizada pela OLIVEIRA TRUST SERVICER S.A., sociedade devidamente autorizada pela CVM para administração de carteiras de valores mobiliários por meio do Ato Declaratório n.º 7.446, de 13 de outubro de 2003, inscrita no CNPJ sob o nº 02.150.453/0001- 20, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, sala 202, Barra da Tijuca, CEP 22640-102 (“Gestora” e, em conjunto com a Administradora, “Prestadores de Serviços Essenciais”). 1.11 A Gestora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à gestão profissional dos Ativos integrantes da carteira do Fundo, sem prejuízo dos direitos e obrigações da Administradora e de terceiros contratados para prestação de serviços ao Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "DOS PRESTADORES DE SERVIÇOS DA ADMINISTRADORA E DO CUSTODIANTE 1.1 Os serviços de administração e custódia serão realizados pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, sala 201, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91 (“Administradora” e “Custodiante”). 1.2 A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração fiduciária do Fundo, incluindo, mas não se limitando, a contratação da custódia dos valores mobiliários e dos Ativ"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; investidores profissionais",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1343197",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/10/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343197",
+     "excerpt": "conta de depósito em seu nome. PRAZO DE DURAÇÃO 4.8 O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas em conformidade com o disposto neste Regulamento. 4.9 O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 5 DAS DESPESAS E ENCARGOS DO FUNDO 5.1 Constituem encargos do Fundo as despesas descritas no artigo 117 da Parte Geral da Resolução CVM 175, que lhe podem ser debitadas diretamente, assim como de sua Classe de cotas, sem prejuízo de outras despesas previstas em regulamentações específicas. 5.2 Quaisquer despesas não previstas como encargos do Fundo, na forma da regulamentação aplicável, correm por conta do Prestador de Serviço Essencial que a tiver contratado. 6 ALTERAÇÃO DE REGULAMENTO, ASSEMBLEIA DE COTISTAS, CONVOCAÇÃO, INSTALAÇÃO E DELIB"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Cartões Vuon Card (faturas, acordos e CCBs) com 20% de subordinação; cedente pode concentrar 100% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

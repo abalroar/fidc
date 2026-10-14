@@ -1,0 +1,65 @@
+# portado de 62626409000175 (62627051000103)
+type: Cartão/adquirência
+q201: * "Direitos Creditórios serão originados pelo Cedente e devidos pelos Devedores, em observância às regras dos Arranjos de Pagamento"
+q202: * "“Emissores” significam as instituições financeiras ou instituições de pagamento listadas no Complemento III"
+q203: * "Ausência de coobrigação do Cedente ou de terceiros. O Cedente não responde"
+q204: * "O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade"
+q205: * "“Alocação Mínima” significa o percentual mínimo de 50% (cinquenta por cento)"
+q206: * "composta por, no mínimo, 67% (sessenta e sete por cento) em Direitos Creditórios, após o prazo de 180"
+q207: * "Cotas Subordinadas Juniores em circulação e o Patrimônio Líquido, equivalente a 3%"
+q208: * "O manual de precificação e provisionamento da Administradora pode ser consultado"
+q209: * "a revolvência dos Direitos Creditórios, desde que respeitado o disposto neste Regulamento"
+q210: * "a remuneração de 0,039% (trinta e nove milésimos por cento) ao ano sobre o Patrimônio Líquido"
+q211: * "Taxa de Gestão como remuneração ao Gestor pelos serviços de gestão fiduciária equivalente a 0,016%"
+q212: * "“Administradora” significa a BEM DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q213: * "“Gestor” significa o BANCO BRADESCO S.A."
+q214: * "“Custodiante” significa a o BANCO BRADESCO S.A."
+q215: * "significa o Cedente ou terceiro contratado pelo Gestor, em"
+q102: * "Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada"
+q109: * "Subclasse” significam as subclasses de Cotas da Classe do Fundo, as"
+q111: * "Reserva de Amortização” significa com relação a cada Data de Cálculo,"
+q112: * "Reserva de Despesas e significa a reserva, a ser constituída em"
+q115: * "Amortização Sequencial” significa o critério de alocação dos recursos do Fundo"
+q122: * "Investidores Profissionais” significam os investidores considerados profissionais, nos termos do artigo"
+q123: * "Prazo de Duração” significa o prazo de duração de cada Série"
+q124: * "Arranjo de Pagamento” significa cada conjunto de regras e procedimentos estabelecidos"
+q125: * "domicílio bancário do titular do respectivo Direito Creditório ou Direito Creditório"
+q126: * "Conta Vinculada”, conforme aditado de tempos em tempos, celebrados entre o"
+q127: * "Conta Centralizadora do Cedente que estavam em vigor anteriormente à data"
+q1: * "18.1. São Eventos de Avaliação"
+q2: * "19.1. São Eventos de Liquidação"
+receivables: Recebíveis de transações de cartão cedidos pela SumUp | q201,q102
+originator: SumUp Instituição de Pagamento Brasil (credenciadora) | q102
+assignor: SumUp Instituição de Pagamento Brasil (cedente único) | q102
+debtor: Emissores listados no complemento, autorizados pelo BACEN | q202
+recourse: Sem coobrigação do cedente ou de terceiros | q203
+eligibility: Moeda nacional; vencimento ≤ 360 dias; transações de crédito | q204
+debtor_limit: n/d | Limite por emissor não localizado no regulamento
+assignor_limit: Cedente único (SumUp) | q102
+term_max: Até 360 dias entre aquisição e vencimento | q204
+allocation: ≥ 50% do PL em direitos cedidos; 67% após 180 dias | q205,q206 | value=50
+quota_structure: Sênior / Júnior | q109
+sub_senior: 3% · jr/PL | q207 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Frequência de apuração e cura do índice não localizadas
+reserve: Reservas de amortização e de despesas e encargos | q111,q112
+pdd: Manual de provisionamento da administradora | q208
+eval_triggers: Rating sênior sem atualização por 90 dias ou rebaixado 3 níveis | q1
+liquidation: Falta de créditos elegíveis; AGC; CVM; fim da prestação de serviços | q2
+revolving: Revolvência permitida | q209
+amortization: Por metas da série; sequencial após evento de liquidação | q115
+admin_fee: 0,039% a.a. do PL; mín. R$ 13 mil/mês (custódia à parte) | q210
+mgmt_fee: 0,016% a.a. do PL; mín. R$ 5.333,33/mês | q211
+perf_fee: Não prevista | Regulamento: não há taxa de performance
+target_senior: n/d | Sobretaxa sobre a Taxa DI definida no apêndice de cada série; não localizada no acervo
+target_mezz: — | Sem cota mezanino
+administrator: BEM DTVM | q212
+manager: Banco Bradesco | q213
+custodian: Banco Bradesco | q214
+servicer: Cedente (SumUp) ou terceiro contratado pelo gestor | q215,q102
+investors: Profissionais | q122
+duration: Por série | q123
+card_receivables: Transações em arranjos de pagamento, com registro | q124,q125
+card_lock: Domicílio na conta do fundo; conta vinculada do cedente | q125,q126
+dilution: Cancelamentos e chargebacks cobertos por depósito do cedente | q127
+leitura: Recebíveis de cartão da SumUp, cedente único, com júnior mínima de 3% do PL; gestão e custódia Bradesco.

@@ -1,0 +1,69 @@
+# portado de 50473039000102 (63572282000111)
+type: Cartão/adquirência
+q101: * "direitos creditórios decorrentes de Transações de Pagamento realizadas entre um Estabelecimento"
+q102: * "originados no âmbito da operação de pagamento com sub-rogação, nos termos"
+q103: * "Cedentes” significa os Estabelecimentos Comerciais (com relação aos Direitos Creditórios dos"
+q104: * "Devedor” significa o MERCADO PAGO INSTITUIÇÃO DE PAGAMENTO LTDA., sociedade limitada,"
+q105: * "Coobrigação dos Cedentes. Os Cedentes não respondem pelo pagamento dos Direitos"
+q106: * "Devedor não poderá estar inadimplente em relação ao Fundo na respectiva"
+q107: * "365 (trezentos e sessenta e cinco) dias, contados da respectiva Data"
+q108: * "20% (vinte por cento) do Patrimônio Líquido, uma vez que os"
+q109: * "50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de"
+q110: * "Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo"
+q111: * "Subclasse Sênior” significa a subclasse de Cotas, cujas principais características e"
+q112: * "Mezanino” Cotas Seniores para fins de remuneração e/ou amortização, mas não"
+q113: * "10% (dez por cento) (“Índice de Subordinação”). 8.8.1 A totalidade das"
+q114: * "apurado todo Dia Útil, observado o disposto na legislação vigente, assim"
+q115: * "desenquadramento do Índice de Subordinação, por 10 (dez) dias consecutivos contados"
+q116: * "3 (três) meses de despesas ordinárias da Classe Única, assim entendidas"
+q117: * "100% (cem por cento) constituída em até 10 (dez) dias antes"
+q118: * "Eventos de Liquidação. Caracterizam eventos que ensejam a liquidação antecipada da"
+q119: * "Revolvência: observada a ordem de alocação de recursos prevista no Artigo"
+q120: * "amortização das Cotas e a distribuição dos rendimentos do Fundo deverão"
+q121: * "0,075% (setenta e cinco milésimos por cento) ao ano, incidente sobre"
+q122: * "0,02% (dois centésimos por cento) ao ano, incidente sobre a parcela"
+q123: * "meta de Remuneração será determinada por meio da apropriação diária, sob"
+q124: * "Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS"
+q125: * "Gestora” significa a OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente"
+q126: * "Custodiante” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS"
+q127: * "amortização das Cotas seguem descritos no Capítulo Dez deste Anexo Descritivo"
+q128: * "PRAZO DE DURAÇÃO E COMPOSIÇÃO DO PATRIMÔNIO 2.1 Denominação, Forma de"
+q129: * "Registradora” significa a entidade autorizada pelo BACEN a prestar o serviço"
+q130: * "domicílios bancários, os quais podem impactar a liquidação dos Direitos Creditórios"
+q131: * "Chargeback” significa, exclusivamente com relação aos Direitos Creditórios dos Estabelecimentos Comerciais,"
+q132: * "Cancelamento” significa, exclusivamente com relação aos Direitos Creditórios dos Estabelecimentos Comerciais,"
+receivables: Recebíveis de vendas no Mercado Pago e créditos sub-rogados do Mercado Crédito | q101,q102
+originator: Estabelecimentos comerciais do Mercado Pago e Mercado Crédito | q103,q102
+assignor: Estabelecimentos comerciais e Mercado Crédito | q103
+debtor: Mercado Pago Instituição de Pagamento | q104
+recourse: Sem coobrigação dos cedentes | q105
+eligibility: Devedor adimplente; créditos não vencidos; prazo ≤ 365 dias | q106,q107
+debtor_limit: Sem limite de 20% do PL (cotistas profissionais) | q108
+assignor_limit: Não previsto | Regulamento não limita concentração por cedente
+term_max: Até 365 dias da aquisição | q107
+allocation: ≥ 50% do PL em direitos elegíveis (67% para fins tributários) | q109,q110 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q111,q112
+sub_senior: 10% · júnior/PL | q113 | basis=jr/PL
+sub_mezz: n/d | Índice próprio da mezanino não localizado no regulamento
+sub_check: Diária; 10 dias de desenquadramento geram avaliação | q114,q115
+reserve: Liquidez de 3 meses de despesas; caixa para a próxima amortização | q116,q117
+pdd: n/d | Critério de PDD remetido à regulamentação e ao manual; sem regra própria localizada | why=O "100%" da leitura anterior não tem fonte localizável
+eval_triggers: Índice de subordinação desenquadrado por 10 dias, entre outros | q115
+liquidation: Pagamento das cotas não feito em 2 DU; avaliação convertida pela AGC | q118
+revolving: Revolvência permitida, conforme ordem de alocação | q119
+amortization: Encargos e reservas → sênior → mezanino → júnior | q120
+admin_fee: 0,075% a.a. até R$ 200 mi; 0,05% acima | q121
+mgmt_fee: 0,02% a.a. sobre o PL acima de R$ 1 bi (faixas) | q122
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: DI + spread da série (5ª série) | q123
+target_mezz: n/d | Índice referencial da mezanino definido no apêndice; taxa não localizada
+administrator: Oliveira Trust DTVM | q124
+manager: Oliveira Trust Servicer | q125
+custodian: Oliveira Trust DTVM | q126
+servicer: n/d | Agente de cobrança não nomeado no regulamento
+investors: Profissionais | q127
+duration: Indeterminado | q128
+card_receivables: Transações no arranjo fechado do Mercado Pago, com registro | q101,q129
+card_lock: Liquidação na conta arrecadação da classe | q130
+dilution: Cancelamentos e chargebacks dos lojistas definidos em contrato | q131,q132
+leitura: Recebíveis de lojistas do Mercado Pago, devedor único Mercado Pago, com júnior mínima de 10% do PL.

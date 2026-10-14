@@ -1,0 +1,710 @@
+{
+ "schema_version": 1,
+ "cnpj": "57107628000108",
+ "name": "GTCS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-13T20:21:55Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "910187",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "16/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187"
+  },
+  "D2": {
+   "document_id": "792036",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "29/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792036"
+  },
+  "D3": {
+   "document_id": "732915",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "02/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732915"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de empréstimo pessoal, acordos e notas comerciais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 11,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "Direitos Creditórios são os Direitos Creditórios CCB, os Direitos Creditórios Acordos e os Direitos Creditórios NC, considerados em conjunto. Direitos Creditórios CCB são os direitos creditórios, detidos originalmente pelas Endossantes contra os Devedores, por meio da emissão de CCBs."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs e acordos; créditos em reais com documentação comprobatória",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Amel Administradora (clientes pessoa física)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 10,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "Devedores são (i) com relação aos Direitos Creditórios CCB e aos Direitos Creditórios Acordos, os clientes pessoa física da Amel Administradora que tenham contratado um empréstimo pessoal; e (ii) com relação aos Direitos Creditórios NC, os respectivos emissores das Notas Comerciais."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Endossantes: Amel, Edmil ou Zipdin SCD",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 12,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "i Mendes- MG, CEP: 37110-000, CNPJ/MF nº 21.545.371/0001- 29. Endossantes é, conforme o caso, (i) a Amel Administradora; (ii) a Edmil; ou (iii) a ZIPDIN SOLUÇÕES DIGITAIS SOCIEDADE DE CRÉDITO DIRETO S/A, sociedade de crédito direto com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Bandeira Paulista, nº 530, sala 51, Itaim Bibi, CEP: 04.532-001, inscrita no CNPJ/MF sob o nº 37.414.009/0001-59. Entidade Registradora significa a entidade autorizada pelo BACEN a prestar o serviço de registro de direitos creditórios e que poderá ser contratada pela Administradora, em nome do Fundo, para realização do registro de direitos creditórios que sejam passíveis de registro, desde que seja comprovada a existência de um ambiente interoperável entre a entidade registradora contratada e as demais entidades registradora autorizadas pelo BACEN para realização do registro da me"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Clientes pessoa física da Amel; emissores das notas comerciais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 10,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "Devedores são (i) com relação aos Direitos Creditórios CCB e aos Direitos Creditórios Acordos, os clientes pessoa física da Amel Administradora que tenham contratado um empréstimo pessoal; e (ii) com relação aos Direitos Creditórios NC, os respectivos emissores das Notas Comerciais."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Endosso sem direito de regresso nem coobrigação do endossante",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 36,
+     "clause": "Anexo, cl. 3.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "qualquer direito de regresso contra o respectivo Endossante e/ou coobrigação deste, observados, em qualquer caso: (i) os demais termos e condições deste Regulamento; (ii) os termos, condições e procedimentos previstos no Contrato de Endosso; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos Critérios de Elegibilidade e às Condições de Endosso definidos neste Regulamento; e (iv) a Política de Investimento definida neste Capítulo. 3.1.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Documentação disponível; prazo ≤ 24 meses; em reais",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 38,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "onível no website https://h2kapital.com.br/ CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE ENDOSSO 4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso; (ii) os Direitos Creditórios CCB e os Direitos Creditórios Acordos terão prazo de vencimento máximo de 24 (vinte e quatro) meses; (iii) sejam representados em moeda corrente nacional; e (iv) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora. 4.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo máximo de 24 meses; créditos denominados em reais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Anexo não fixa limite de concentração por devedor",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Anexo não fixa limite de concentração por endossante",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Até 24 meses (CCBs e acordos)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 38,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "onível no website https://h2kapital.com.br/ CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE ENDOSSO 4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso; (ii) os Direitos Creditórios CCB e os Direitos Creditórios Acordos terão prazo de vencimento máximo de 24 (vinte e quatro) meses; (iii) sejam representados em moeda corrente nacional; e (iv) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora. 4.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo máximo de 24 meses; créditos denominados em reais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "> 67% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 36,
+     "clause": "Anexo, cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "esta deverá possuir parcela superior a 67% (sessenta e sete por cento) (“Alocação Mínima”) de seu Patrimônio Líquido representada por Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II da Resolução CVM 175/22. 3.3. A parcela do Patrimônio Líquido da Classe Única que não estiver alocada em Direitos Creditórios Elegíveis poderá ser aplicada nos ativos financeiros abaixo relacionados (“Ativos Financeiros”): a) letras Financeiras do Tesouro Nacional (LFT);"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "DC >67% PL em até 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/05/2025, Anexo, cl. 3.2"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 53,
+     "clause": "Anexo, cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "A Classe Única possuirá 3 (três) Subclasses de Cotas: (a) subclasse de Cotas subordinadas júnior (“Cotas Subordinadas Júnior”); (b) subclasse de Cotas subordinadas"
+    }
+   ],
+   "legacy": {
+    "value": "1ª emissão júnior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "70% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 58,
+     "clause": "Anexo, cl. 9.18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "alores a receber, menos as exigibilidades referentes às despesas da Classe Única e provisões (“Patrimônio Líquido”). 9.19. O Índice de Subordinação será correspondente à razão entre (a) o valor total das Cotas Subordinadas e (b) o valor do Patrimônio Líquido da Classe Única, calculada diariamente pela Gestora, a qual deverá representar o percentual mínimo de 70% (setenta por cento). 9.20. O Índice de Subordinação Júnior será correspondente à razão entre (a) o valor total das Cotas Subordinadas Júnior e (b) o valor do Patrimônio Líquido da Classe Única, calculada diariamente pela Gestora, a qual deverá representar o percentual mínimo de 10% (dez por cento). 9.20.1. Na hipótese de desenquadramento do Índice de Subordinação ou do Índice de Subordinação Júnior, conforme o caso, os respectivos Cotistas titulares de Cotas Subordinadas, serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto nas Cláusulas 9.19 e 9.20 acima. 9.20.2."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 70.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "10% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 58,
+     "clause": "Anexo, cl. 9.18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "alores a receber, menos as exigibilidades referentes às despesas da Classe Única e provisões (“Patrimônio Líquido”). 9.19. O Índice de Subordinação será correspondente à razão entre (a) o valor total das Cotas Subordinadas e (b) o valor do Patrimônio Líquido da Classe Única, calculada diariamente pela Gestora, a qual deverá representar o percentual mínimo de 70% (setenta por cento). 9.20. O Índice de Subordinação Júnior será correspondente à razão entre (a) o valor total das Cotas Subordinadas Júnior e (b) o valor do Patrimônio Líquido da Classe Única, calculada diariamente pela Gestora, a qual deverá representar o percentual mínimo de 10% (dez por cento). 9.20.1. Na hipótese de desenquadramento do Índice de Subordinação ou do Índice de Subordinação Júnior, conforme o caso, os respectivos Cotistas titulares de Cotas Subordinadas, serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto nas Cláusulas 9.19 e 9.20 acima. 9.20.2."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela gestora; reenquadramento em até 30 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 58,
+     "clause": "Anexo, cl. 9.18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "alores a receber, menos as exigibilidades referentes às despesas da Classe Única e provisões (“Patrimônio Líquido”). 9.19. O Índice de Subordinação será correspondente à razão entre (a) o valor total das Cotas Subordinadas e (b) o valor do Patrimônio Líquido da Classe Única, calculada diariamente pela Gestora, a qual deverá representar o percentual mínimo de 70% (setenta por cento). 9.20. O Índice de Subordinação Júnior será correspondente à razão entre (a) o valor total das Cotas Subordinadas Júnior e (b) o valor do Patrimônio Líquido da Classe Única, calculada diariamente pela Gestora, a qual deverá representar o percentual mínimo de 10% (dez por cento). 9.20.1. Na hipótese de desenquadramento do Índice de Subordinação ou do Índice de Subordinação Júnior, conforme o caso, os respectivos Cotistas titulares de Cotas Subordinadas, serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto nas Cláusulas 9.19 e 9.20 acima. 9.20.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 58,
+     "clause": "Anexo, cl. 9.20.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "a, no mínimo, o necessário para reenquadramento do Índice de Subordinação ou do Índice de Subordinação Júnior, conforme o caso, em até 30 (trinta) dias do recebimento da comunicação inicial pela Administradora referida na Cláusula 9.20.1 acima, integralizando-as em moeda corrente nacional e/ou mediante a dação em pagamento de Direitos Creditórios. 9.20.3. Caso os Cotistas não realizem o aporte adicional de recursos em montante suficiente para que a Classe seja reenquadrada no Índice de Subordinação ou no Índice de Subordinação Júnior, conforme o caso, a Administradora deverá adotar os procedimentos definidos neste Anexo. 9.20.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "Despesas ordinárias estimadas de 1 mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 15,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "Reserva de Caixa significa uma reserva de caixa equivalente a, no mínimo, 1 (um) mês de despesas ordinárias da Classe Única, a ser constituída e controlada pela Gestora, para fins de cobertura dos encargos e despesas da Classe Única."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas ordinárias estimadas de 1 mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução ao valor recuperável, pela metodologia do anexo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 69,
+     "clause": "Anexo, cl. 15.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 15.6. Os Direitos Creditórios Transferidos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 15.7."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Renúncia de prestador, queda de 50% nas aquisições e outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 63,
+     "clause": "Anexo, cl. 11.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "EVENTOS DE AVALIAÇÃO 12.1. São eventos de avaliação (“Eventos de Avaliação”): (i) renúncia da Administradora ou da Gestora à administração, gestão do Fundo, respectivamente, nos termos deste Regulamento; (ii) inobservância pela Administradora de seus deveres e obrigações previstos neste Regulamento, verificada pelos Cotistas e/ou Custodiante, desde que, notificada pelo Custodiante ou por Cotistas que representem mais de 5% (cinco por cento) das Cotas emitidas pela Classe Única para sanar ou justificar o descumprimento, a Administradora não o fizer no prazo de 5 (cinco) Dias Úteis, contados da data do recebimento da referida notificação; (iii) inobservância pelo Custodiante dos deveres e das obrigações previstos neste Regulamento e no respectivo contrato de custódia, desde que, se notificado pela Administradora para sanar ou justificar o descumprimento, o Custodiante não o fizer no prazo de 5 (cinco) Dias Úteis, contados da data do recebimento da referida notificação; (iv) inobservância pela Gestora dos deveres e das obrigações previstos neste Regulamento e no respectivo acordo operacional, desde que, se notificada pela Administradora para sanar ou justificar o descumprimento, a Gestora não o fizer no prazo de 5 (cinco) Dias Úteis, contados da data do recebimento da referida notificação;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 64,
+     "clause": "Anexo, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "Creditórios Elegíveis pelo Fundo seja 50% (cinquenta por cento) inferior em comparação com o último trimestre; (xi) na hipótese de serem realizados pagamentos de amortização ou resgate de Cotas Subordinadas em desacordo com o disposto neste Regulamento, desde que não sanados em até 5 (cinco) Dias Úteis, a contar de sua identificação pela Administradora, Gestora, Custodiante e/ou Cotista; e (xii) ausência de repasse à Conta Autorizada da Classe Única dos pagamentos relativos aos Direitos Creditórios Transferidos da Classe Única, que perdure por um período superior a 5 (cinco) Dias Úteis, a contar da data na qual o repasse deveria ter sido realizado."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Por assembleia, inclusive após evento de avaliação ou renúncia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 65,
+     "clause": "Anexo, cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "São eventos que ensejam a liquidação antecipada da Classe Única, a ser deliberada em Assembleia Especial da Classe Única (“Eventos de Liquidação”): (i) deliberação da Assembleia"
+    },
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 65,
+     "clause": "Anexo, cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "(ii) se for deliberado que um Evento de Avaliação constitui Evento de Liquidação; (iii) renúncia da Administradora, sem que uma nova instituição assuma suas funções no prazo de até 60 (sessenta) dias; (iv) na hipótese de inexistência de Direitos Creditórios na carteira da Classe Única ou na hipótese de inexigibilidade em decorrência de ordem judicial e/ou de qualquer autoridade governamental, dos Direitos Creditórios Transferidos porventura existentes, por período superior a 60 (sessenta) dias; (v) na hipótese de declaração da invalidade, nulidade ou ineficácia do Contrato de Endosso por ordem judicial e/ou por qualquer autoridade governamental, que afete adversamente a Classe Única, de maneira a prejudicar a sua continuidade; e/ou (vi) não substituição dos prestadores de serviço do Fundo, no caso de renúncia e/ou destituição do respectivo prestador de serviço, nos termos estipulados neste Regulamento e nos respectivos contratos de prestação de serviço. 13.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não trata de reinvestimento ou revolvência",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Despesas e reservas precedem pagamentos sênior e subordinados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 56,
+     "clause": "Anexo, cl. 9.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "Resgate e Amortização das Cotas 9.9. O resgate de Cotas será efetuado sem a cobrança de qualquer taxa e/ou despesa não prevista neste Regulamento. 9.10. As Cotas Seniores da Classe Única somente poderão ser resgatadas na respectiva Data de Resgate, ou em casos de liquidação antecipada, nos termos dos Suplementos e deste Regulamento, conforme aplicável. As Cotas Subordinadas Mezanino apenas serão resgatadas após o resgate integral das Cotas Seniores da Classe Única."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas e reservas precedem pagamentos sênior e subordinados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 20 mil/mês, inclui custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 62,
+     "clause": "Anexo, cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "0,20% a.a. sobre o Patrimônio Líquido da Classe, com valor mínimo mensal de R$ 20.000,00 (vinte mil reais reais) (“Taxa de Administração”). 11.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um inteiro e duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 11.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. PL; mínimo R$ 20 mil/mês; inclui custódia/controladoria",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,40% a.a. do PL; mín. R$ 40 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 62,
+     "clause": "Anexo, cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "11.2. Pelos serviços de Gestão, a Taxa de Gestão corresponderá a 0,40% a.a. sobre o Patrimônio Líquido da Classe, com valor mínimo mensal de R$ 40.000,00 (quarenta mil reais) (“Taxa de Gestão”). Será concedido desconto na taxa de gestão de R$ 3.000,00 (três mil reais) nos 6 primeiros meses de operação. 11.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um inteiro e duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil."
+    }
+   ],
+   "legacy": {
+    "value": "0,40% a.a. PL; mínimo R$ 40 mil/mês; desconto R$ 3 mil nos 6 primeiros meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/05/2025, Anexo, cl. 11.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark sênior fica no suplemento de cada série, em branco no modelo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark mezanino fica no suplemento, em branco no modelo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 4,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "Administradora é a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "H2 Kapital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 20,
+     "clause": "Anexo IV, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "legíveis transferidos à Classe Única não exclui a responsabilidade da Administradora. GESTORA 7.1. O Fundo será gerido pela H2 KAPITAL S.A., gestora de fundos de investimento devidamente autorizada pela CVM para o exercício profissional de administração de carteira de títulos e valores mobiliários por meio do Ato Declaratório nº 18.819, de 08 de junho de 2021, com sede na Rua Fidêncio Ramos, nº 223, 7º andar, conj. 74, Vila Olímpia, CEP 04.551-010, Cidade de São Paulo, Estado de São Paulo inscrita no CNPJ/MF sob o nº 40.297.139/0001-63 (“Gestora”), que prestará os serviços referentes à gestão de liquidez da carteira da Classe Única, resgate e amortizações, bem como a aquisição, arrecadação e gestão de Direitos Creditórios. 7.2. A Gestora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à gestão profissional dos Ativos integrantes da carteira da Classe Única, sem prejuízo dos direitos e obrigações da Administradora e de terceiros contratados para prestação de serviços ao Fundo. 7.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 10,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "o 4.1Erro! Fonte de referência não e ncontrada. do Anexo da Classe Única. Custodiante é a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada. CVM é a Comissão de Valores Mobiliários. Devedores são (i) com relação aos Direitos Creditórios CCB e aos Direitos Creditórios Acordos, os clientes pessoa física da Amel Administradora que tenham contratado um empréstimo pessoal;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Amel Administradora e Edmil (agentes de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 4,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "neste Regulamento e se assim estabelecido no respectivo Suplemento. Agentes de Cobrança São a Amel Administradora e a Edmil, abaixo qualificadas. Agente de Registro é a BAUK TECH LTDA., sociedade inscrita no CNPJ/MF sob o nº 46.957.257/0001-37, com sede na Rua Girassol, nº 925, Sala 19, Vila Madalena, São Paulo/SP, CEP 05433-002, prestador de serviços contratado para realizar, em nome da Classe, o registro dos Direitos Creditórios em nome do Fundo perante as Entidades Registradoras. Amel Administradora é a AMEL ADMINISTRADORA DE CARTÕES S.A., com sede na Rua Jose Pereira Gambogi, 486, cidade de Elói Mendes, Estado de MG, CEP 37110-000, inscrita no CNPJ/MF sob o nº 34.267.327/0001-46. Alocação Mínima tem seu significado atribuído no Artigo 3.2 do Anexo da Classe Única. Amortização Acelerada é o cronograma de amortização das Cotas que será adotado nos termo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 35,
+     "clause": "Anexo, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "e será regida pelo Regulamento, pelo presente Anexo e respectivos Suplementos. PÚBLICO-ALVO 2.1. As Cotas Seniores, as Cotas Mezanino e as Cotas Subordinadas emitidas pela Classe Única somente poderão ser subscritas e integralizadas por Investidores Profissionais. POLÍTICA DE INVESTIMENTO E COMPOSIÇÃO DA CARTEIRA 3.1. O objetivo da Classe Única é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de Elegibilidade e às Condições de Endosso estabelecidos neste Regulamento; e (ii) Ativos Financeiros, observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecidos neste Regulamento. 3.1.1. Os Direitos Creditórios são oriundos de (i) com relação aos Direitos Creditórios CCB, operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "910187",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/05/2025",
+     "page": 18,
+     "clause": "Anexo IV, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+     "excerpt": "2.1. O Fundo, constituído com prazo de duração indeterminado, disciplinado pela Resolução CVM 175/22, pela Resolução n° 2.907, de 29 de novembro de 2001, do Conselho Monetário Nacional, conforme alterada (“CMN”) e demais disposições legais e regulamentares aplicáveis à espécie, será regido pelo presente Regulamento, seus Anexos e Suplementos, conforme o disposto abaixo. 2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Crédito pessoal de clientes da Amel com subordinação mínima de 70% do PL (sênior até 30%) e júnior ≥ 10%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

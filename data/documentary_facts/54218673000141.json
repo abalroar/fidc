@@ -1,0 +1,855 @@
+{
+ "schema_version": 1,
+ "cnpj": "54218673000141",
+ "name": "CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-13T20:07:12Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1268268",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268"
+  },
+  "D2": {
+   "document_id": "644981",
+   "kind": "Instrumento de emissão",
+   "title": "Outros Documentos",
+   "date": "25/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644981"
+  },
+  "D3": {
+   "document_id": "643434",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "22/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=643434"
+  },
+  "D4": {
+   "document_id": "643240",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "22/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=643240"
+  },
+  "D5": {
+   "document_id": "640906",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "15/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=640906"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de transações de cartão do sistema CloudWalk (InfinitePay)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 29,
+     "clause": "Anexo I, cl. 2.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "e diversificação da carteira da Classe A, conforme estabelecidos neste Anexo. 2.1.1. Origem dos Direitos Creditórios. Os Direitos Creditórios são oriundos do pagamento devido pelos Devedores à Cedente, decorrentes de Transações de Pagamento realizadas por Usuários-Finais, operacionalizadas pelo Sistema CloudWalk, conforme descrição a seguir: (i) os Estabelecimentos Credenciados, de tempos em tempos, realizam a prestação de serviços e venda de bens e produtos aos Usuários-Finais, os quais podem utilizar Instrumentos de Pagamento de qualquer Bandeira emitidos por um dos Devedores, operacionalizados pelo Sistema CloudWalk, gerando, assim, as Transações de Pagamento; (ii) de acordo com a regulamentação vigente, referidas Transações de Pagamento geram múltiplas relações de crédito, sendo as mais relevantes para fins da operação da Classe A: (a) o crédito do Emissor em face do Usuário-Final;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "CloudWalk (credenciadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 95,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "o significado que lhe é atribuído no item 4.1.1 do Anexo. “Cedente” Significa a CloudWalk que, de tempos em tempos, nos termos do Contrato de Cessão, cede seus respectivos Direitos Creditórios Elegíveis à Classe A. “Chargeback” Significa a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários-Finais, Estabelecimentos Credenciados, Bandeiras e/ou Emissores, que poderá resultar na não realização do repasse ou no estorno do(s) crédito(s) correspondente(s) efetuado(s) à Cedente. “CloudWalk” Significa a Cloudwalk Instituição de Pagamento e Serviços Ltda., sociedade limitada com sede no município de São Paulo, Estado de São Paulo, na Rua Eugênio de Medeiros, nº 303, conjunto 1501C, Pinheiros, CEP 05.425-000, i"
+    }
+   ],
+   "legacy": {
+    "value": "Cloud Walk, como credenciadora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "CloudWalk (cedente única)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 95,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "o significado que lhe é atribuído no item 4.1.1 do Anexo. “Cedente” Significa a CloudWalk que, de tempos em tempos, nos termos do Contrato de Cessão, cede seus respectivos Direitos Creditórios Elegíveis à Classe A. “Chargeback” Significa a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários-Finais, Estabelecimentos Credenciados, Bandeiras e/ou Emissores, que poderá resultar na não realização do repasse ou no estorno do(s) crédito(s) correspondente(s) efetuado(s) à Cedente. “CloudWalk” Significa a Cloudwalk Instituição de Pagamento e Serviços Ltda., sociedade limitada com sede no município de São Paulo, Estado de São Paulo, na Rua Eugênio de Medeiros, nº 303, conjunto 1501C, Pinheiros, CEP 05.425-000, i"
+    }
+   ],
+   "legacy": {
+    "value": "Cloud Walk, como credenciadora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Itaú, Bradesco, BB, Santander e Caixa (e respectivos grupos)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 99,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "ão aos quais os Direitos Creditórios Cedidos se referem. “Devedores” Significam (i) o Banco Itaú Unibanco S.A e Entidades do Respectivo Grupo; (ii) o Banco Bradesco S.A e Entidades do Respectivo Grupo; (iii) o Banco do Brasil S.A. e Entidades do Respectivo Grupo; (iv) o Banco Santander do Brasil S.A. e Entidades do Respectivo Grupo; e (v) a Caixa Econômica Federal e Entidades do Respectivo Grupo. “Direito de Recompra Tem o significado atribuído no item 13.8 deste Equivalente ao Montante Anexo. Sênior” “Direito de Recompra de Tem o significado atribuído no item Erro! Fonte Inadimplidos” de referência não encontrada. deste Anexo. “Direito de Recompra Parcial” Tem o significado atribuído no item Erro! Fonte de referência não encontrada."
+    }
+   ],
+   "legacy": {
+    "value": "Emissores dos instrumentos de pagamento; grupos de elegibilidade previstos no anexo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso nem coobrigação da cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 30,
+     "clause": "Anexo I, cl. 2.1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "itórios Elegíveis e todos e quaisquer direitos, prerrogativas, acessórios, ações, coobrigações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos Critérios de Elegibilidade e às Condições de Cessão definidos neste Anexo; e (iv) a Política de Investimento definida neste Capítulo. 32 ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO 2.1.6. Responsabilidade da Cedente em Relação aos Direitos Creditórios. A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Resolução por vício, inelegibilidade, chargeback/cancelamento não coberto; demais recompras conforme contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Modalidade crédito; devedor adimplente; vencimento ≥ 7 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 33,
+     "clause": "Anexo I, cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "ireitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (iii) os Devedores deverão estar adimplentes com relação a todos os pagamentos devidos à Classe A em virtude dos Direitos Creditórios Cedidos à Classe A; (iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que for menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; e 3.3. Verificação dos Critérios de Elegibilidade. O Gestor e/ou terceiro por ele contratado, será a instituição responsável por verificar e validar o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade nas operações de aquisição de Direitos Creditórios pela Classe A. 3.3.1. Responsabilidade do Gestor em Relação aos Direitos Creditórios."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 33,
+     "clause": "Anexo I, cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "eniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que for menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; e 3.3. Verificação dos Critérios de Elegibilidade. O Gestor e/ou terceiro por ele contratado, será a instituição responsável por verificar e validar o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade nas operações de aquisição de Direitos Creditórios pela Classe A. 3.3.1. Responsabilidade do Gestor em Relação aos Direitos Creditórios. Independente da obrigação do Gestor de realizar a verificação dos Critérios de Elegibilidade com relação à integralidade dos Direitos Creditórios adquiridos, o Gestor não responderá pela boa formalização, existência, validade e eficácia dos Direitos Creditórios que não estejam confirmados nos relatórios diários disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 35 ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO 3.4. Verificação Definitiva."
+    }
+   ],
+   "legacy": {
+    "value": "Transações em moeda nacional; devedores adimplentes; validação na aquisição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite de 20% do PL quando o devedor é instituição financeira",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 31,
+     "clause": "Anexo I, cl. 2.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "posição da carteira da Classe A não apresentará requisitos de diversificação além dos previstos neste Capítulo. 2.10. Limite de Concentração por Devedor. Exceto se previsto de forma diversa no Apêndice, a Classe A poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros dos Devedores, ou de coobrigação de uma mesma Pessoa, sem a observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido caso os Devedores sejam instituições 33 ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO financeiras, nos termos do §3º, I, (b), artigo 45, do Anexo Normativo II, da Resolução CVM 175. 2.10.1. A Classe A poderá realizar operações nas quais a Administradora, o Gestor, o Custodiante ou seus controladores diretos ou indiretos, sociedades, direta ou indiretamente, controladas, sociedades coligadas ou sociedades sob controle comum, incluindo fundos de zeragem administrados por qualquer um deles, atuem na condição de contraparte, desde que com a finalidade exclusiva de realizar a gestão de caixa e liquidez da Classe A. 2.11. Ausência de Garantias."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Limites por emissor/grupo e exceção para IF acima de 20% do PL, salvo apêndice; observar critérios adicionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente única (CloudWalk)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 95,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "o significado que lhe é atribuído no item 4.1.1 do Anexo. “Cedente” Significa a CloudWalk que, de tempos em tempos, nos termos do Contrato de Cessão, cede seus respectivos Direitos Creditórios Elegíveis à Classe A. “Chargeback” Significa a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários-Finais, Estabelecimentos Credenciados, Bandeiras e/ou Emissores, que poderá resultar na não realização do repasse ou no estorno do(s) crédito(s) correspondente(s) efetuado(s) à Cedente. “CloudWalk” Significa a Cloudwalk Instituição de Pagamento e Serviços Ltda., sociedade limitada com sede no município de São Paulo, Estado de São Paulo, na Rua Eugênio de Medeiros, nº 303, conjunto 1501C, Pinheiros, CEP 05.425-000, i"
+    }
+   ],
+   "legacy": {
+    "value": "Limites por emissor/grupo e exceção para IF acima de 20% do PL, salvo apêndice; observar critérios adicionais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2026, Suplemento 1"
+   }
+  },
+  "term_max": {
+   "display": "Mínimo de 7 dias; máximo limitado ao vencimento das cotas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 33,
+     "clause": "Anexo I, cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "eniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que for menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; e 3.3. Verificação dos Critérios de Elegibilidade. O Gestor e/ou terceiro por ele contratado, será a instituição responsável por verificar e validar o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade nas operações de aquisição de Direitos Creditórios pela Classe A. 3.3.1. Responsabilidade do Gestor em Relação aos Direitos Creditórios. Independente da obrigação do Gestor de realizar a verificação dos Critérios de Elegibilidade com relação à integralidade dos Direitos Creditórios adquiridos, o Gestor não responderá pela boa formalização, existência, validade e eficácia dos Direitos Creditórios que não estejam confirmados nos relatórios diários disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 35 ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO 3.4. Verificação Definitiva."
+    }
+   ],
+   "legacy": {
+    "value": "Transações em moeda nacional; devedores adimplentes; validação na aquisição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 31,
+     "clause": "Anexo I, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "to de Cessão. 2.2. Alocação Mínima. Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios Elegíveis. 2.3. Revolvência. Será permitida a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira da Classe A , nos termos do artigo 21, inciso VI, do Anexo Normativo II, observada a ordem de alocação de recursos prevista no Capítulo XV deste Anexo. 2.4. A Classe A poderá efetuar cessão de Direitos Creditórios em favor da Cedente ou de suas partes relacionadas nas hipóteses previstas no Capítulo XIII deste Anexo, observado, ainda, o Direito de Recompra Equivalente ao Montante Sênior, o Direito de Recompra Parcial e o Direito de Recompra de Inadimplidos, previstos nos itens 13.7 e seguintes. 2.5. É vedada a aquisição de Direitos Creditórios, direta ou indiretamente originados ou cedidos pela Administradora, pelo Gestor ou partes a eles relacionadas. 2.6. A Classe A não realizará investimentos no exterior. 2.7. Realização de Operações com Derivativos. A Classe A não poderá realizar operações em mercados de derivativos. 2.8. Ativos Financeiros."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "≥ 50% do PL em direitos elegíveis, após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2026, Anexo I, cl. 2.2"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada (Grupo CloudWalk)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 103,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO “Índice de Subordinação” Significa a razão mínima admitida entre o somatório do valor das Cotas Subordinadas em circulação da Classe A e o Patrimônio Líquido da Classe A, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a 2,5% (dois inteiros e cinco décimos por cento). “Instituições Autorizadas” Significam as seguintes instituições financeiras: (i) Banco Bradesco S.A.; (ii) Banco Santander (Brasil) S.A.; (iii) Banco do Brasil S.A.; (iv) Caixa Econômica Federal; (v) Itaú Unibanco S.A.; e (vi) Banco BTG Pactual S.A.;"
+    }
+   ],
+   "legacy": {
+    "value": "≥ 2,5%: subordinadas / PL, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2026, Suplemento 1"
+   }
+  },
+  "sub_senior": {
+   "display": "2,5% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 103,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO “Índice de Subordinação” Significa a razão mínima admitida entre o somatório do valor das Cotas Subordinadas em circulação da Classe A e o Patrimônio Líquido da Classe A, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a 2,5% (dois inteiros e cinco décimos por cento). “Instituições Autorizadas” Significam as seguintes instituições financeiras: (i) Banco Bradesco S.A.; (ii) Banco Santander (Brasil) S.A.; (iii) Banco do Brasil S.A.; (iv) Caixa Econômica Federal; (v) Itaú Unibanco S.A.; e (vi) Banco BTG Pactual S.A.;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 2.5,
+   "legacy": {
+    "value": "≥ 2,5%: subordinadas / PL, apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária pelo custodiante; desenquadramento passivo de até 15 DU",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 103,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO “Índice de Subordinação” Significa a razão mínima admitida entre o somatório do valor das Cotas Subordinadas em circulação da Classe A e o Patrimônio Líquido da Classe A, conforme apurada pelo Custodiante em cada Dia Útil, equivalente a 2,5% (dois inteiros e cinco décimos por cento). “Instituições Autorizadas” Significam as seguintes instituições financeiras: (i) Banco Bradesco S.A.; (ii) Banco Santander (Brasil) S.A.; (iii) Banco do Brasil S.A.; (iv) Caixa Econômica Federal; (v) Itaú Unibanco S.A.; e (vi) Banco BTG Pactual S.A.;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 10,
+     "clause": "cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "is e significativas no Patrimônio Líquido da Classe ou nas condições gerais do mercado de valores mobiliário; (2) caso o desenquadramento passivo se prolongue por 15 (quinze) Dias Úteis consecutivos, ao final desse prazo o Gestor deve encaminhar à CVM suas explicações para o desenquadramento, e (3) o Gestor deve informar à CVM o reenquadramento da carteira, tão logo ocorrido; (x) nos termos do artigo 122, II, “a”, da Resolução CVM 175, preparar em conjunto com a Administradora um plano de resolução do Patrimônio Líquido negativo da Classe, quando aplicável, e, após aprovação pela Assembleia Especial de tal Classe, executá-lo; (xi) cumprir as deliberações da Assembleia de Cotistas; (xii) estruturar o Fundo e/ou a(s) Classe(s), considerando, no mínimo, o conjunto das seguintes atividades: a. estabelecer a Política de Investimentos; b. estimar a inadimplência da carteira de ativos e, se for o caso, estabelecer os índices de subordinação; c. estimar o prazo médio ponderado da carteira de ativos; d. estabelecer como se darão os fluxos financeiros derivados dos ativos;"
+    }
+   ],
+   "legacy": {
+    "value": "≥ 2,5%: subordinadas / PL, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2026, Suplemento 1"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para a sênior, além de reservas de aquisição e despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 106,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": ", e observado, ainda, o disposto no Artigo 12.3.2 do Anexo. “Reserva de Caixa” Significa a parcela do Patrimônio Líquido da Classe A equivalente ao valor projetado pela Administradora, que deve necessariamente ser alocada em Ativos Financeiros para a distribuição aos Cotistas Seniores (seja de Remuneração ou de amortização de 108 SUPLEMENTO 1 AO ANEXO I – DEFINIÇÕES APLICÁVEIS À CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO principal), a ser acumulada com: (i) no mínimo 30 (trinta) dias de antecedência em relação à próxima Data de Amortização Programada prevista no respectivo Apêndice (pagamento de principal e a correspondente Remuneração);"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 107,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO principal), a ser acumulada com: (i) no mínimo 30 (trinta) dias de antecedência em relação à próxima Data de Amortização Programada prevista no respectivo Apêndice (pagamento de principal e a correspondente Remuneração); e (ii) no mínimo 15 (quinze) dias de antecedência em relação à próxima Data de Pagamento de Remuneração prevista no respectivo Apêndice. “Reserva de Encargos e Significa a reserva a ser constituída pela Despesas” Administradora para o pagamento de despesas e encargos da Classe A, nos termos previstos no item 11.3 do Anexo. “Resolução BACEN 80” Significa a Resolução do BACEN n° 30, de 6 de outubro de 2021, conforme alterada. “Resolução BACEN 150” Significa a Resolução do BACEN n° 150, de 25 de março de 2021, conforme alterada. “Resolução CVM 30” Significa a Resolução da CVM n° 30, de 11 de maio de 2021, conform"
+    }
+   ],
+   "legacy": {
+    "value": "Próxima amortização: 30 dias de antecedência; próxima remuneração: 15 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/07/2026, Suplemento 1"
+   }
+  },
+  "pdd": {
+   "display": "Metodologia de provisão para perdas (PDD) da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 59,
+     "clause": "Anexo I, cl. 14.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "r descontos, limitados às respectivas provisões para devedores duvidosos, conforme percentuais aplicáveis segundo a sua metodologia de provisão para perdas (PDD), observado, no mínimo, o valor de aquisição desses Direitos Creditórios Inadimplidos e alterar a data de pagamento ou conceder prazo adicional para pagamento dos boletos ou alterar documentos de cobrança relacionados aos Direitos Creditórios Inadimplidos, de acordo com os procedimentos de cobrança previstos neste Regulamento e no Contrato de Cobrança. 14.2.2. O Agente de Cobrança Extraordinária envidará seus melhores esforços para cumprir o disposto na Política de Cobrança aplicável aos Direitos Creditórios Inadimplidos, de modo a minimizar eventuais perdas e/ou descontos na renegociação de pagamentos dos Direitos Creditórios Inadimplidos. 14.2.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falhas de pagamento, reservas, subordinação e prestadores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 64,
+     "clause": "Anexo I, cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": ". CAPÍTULO XVIII - DOS EVENTOS DE AVALIAÇÃO 18.1. Eventos de Avaliação. Será considerado Evento de Avaliação da Classe A qualquer dos seguintes eventos: (i) caso a Classe A deixe de efetuar o pagamento: (a) integral de qualquer das Amortizações Programadas das Cotas Seniores, na respectiva Data de Amortização Programada; (b) pagamento integral dos Resgates das Cotas Seniores, na respectiva Data de Resgate de Cotas Seniores; e/ou (c) da Remuneração nas respectivas Datas de Pagamento de Remuneração, e não regularizado no prazo de até 1 (um) Dia Útil;"
+    }
+   ],
+   "legacy": {
+    "value": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo; Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo; Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+    "decision": "regression",
+    "why": "A leitura anterior descreve gatilhos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 31,
+     "clause": "Anexo I, cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios Elegíveis. 2.3. Revolvência. Será permitida a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira da Classe A , nos termos do artigo 21, inciso VI, do Anexo Normativo II, observada a ordem de alocação de recursos prevista no Capítulo XV deste Anexo. 2.4. A Classe A poderá efetuar cessão de Direitos Creditórios em favor da Cedente ou de suas partes relacionadas nas hipóteses previstas no Capítulo XIII deste Anexo, observado, ainda, o Direito de Recompra Equivalente ao Montante Sênior, o Direito de Recompra Parcial e o Direito de Recompra de Inadimplidos, previstos nos itens 13.7 e seguintes. 2.5. É vedada a aquisição de Direitos Creditórios, direta ou indiretamente originados ou cedidos pela Administradora, pelo Gestor ou partes a eles relacionadas. 2.6. A Classe A não realizará investimentos no exterior. 2.7. Realização de Operações com Derivativos. A Classe A não poderá realizar operações em mercados de derivativos. 2.8. Ativos Financeiros. A parcela do Patrimônio Líquido da Classe A que não estiver alocada em Direitos Creditórios Elegíveis poderá ser aplicada nos Ativos Financeiros. 2.9."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvente; compras com recursos da carteira, observada a ordem de alocação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Sênior por cronograma do apêndice; subordinadas depois",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 39,
+     "clause": "Anexo I, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": ", AMORTIZAÇÃO EXTRAORDINÁRIA E RESGATE DAS COTAS 6.1. Amortização das Cotas. As Cotas Seniores da Classe A deverão ser amortizadas em cada Data de Amortização Programada durante o Período de Amortização, em conformidade com o respectivo Apêndice, sendo pagas aos Cotistas Seniores na mesma data. As Cotas Seniores deverão ser resgatadas quando do pagamento da última parcela de amortização dentro do Período de Amortização, exceto pelas hipóteses de resgate antecipado previstas neste Regulamento. 41 ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO 6.1.1. Pagamentos durante o Período de Carência. Durante o Período de Carência, os Cotistas Seniores terão direito somente a receber a Remuneração pelas suas respectivas Cotas Seniores, nas Datas de Pagamento de Remuneração aplicáveis, observadas as disposições previstas em cada Apêndice, e após o pagamento das taxas e despesas incorridas pela Classe A, conforme ordem de pagamento prevista no item 15.1 abaixo. 6.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos e reservas precedem distribuições; sênior prioritária; subordinadas condicionadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,04% a.a. do PL; mín. R$ 27.500/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 50,
+     "clause": "Anexo I, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "ia, custódia, controladoria e escrituração das Cotas, é devida pela Classe A à Administradora uma Taxa de Administração equivalente a 0,04% (quatro centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe A, a ser pago mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe A, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço, assegurado um valor mínimo mensal de R$ 27.500,00 (vinte e sete mil e quinhentos reais), sendo este valor atualizado pela variação positiva do IPCA sempre em janeiro de cada ano, em periodicidade não inferior a 1 (um) ano. 10.1.1. A Taxa de Administração será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe A do Dia Útil imediatamente anterior. Taxa de Gestão 52 ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO 10.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 50,
+     "clause": "Anexo I, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "primeira integralização de Cotas da Classe A, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço, assegurado um valor mínimo mensal de R$ 27.500,00 (vinte e sete mil e quinhentos reais), sendo este valor atualizado pela variação positiva do IPCA sempre em janeiro de cada ano, em periodicidade não inferior a 1 (um) ano. 10.1.1. A Taxa de Administração será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe A do Dia Útil imediatamente anterior. Taxa de Gestão 52 ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO 10.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,04%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "10% a.a. sobre o PL (redação literal); teto R$ 4 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 51,
+     "clause": "Anexo I, cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": ".2. Pelos serviços de gestão da carteira de Direitos Creditórios e Ativos Financeiros, é devida pela Classe A ao Gestor uma Taxa de Gestão equivalente a 10% (dez por cento) ao ano sobre o Patrimônio Líquido, a ser paga mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe A, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço, observado o valor máximo mensal de R$ 4.000,00 (quatro mil reais) , sendo este valor atualizado pela variação positiva do IPCA sempre em janeiro de cada ano, em periodicidade não inferior a 1 (um) ano. 10.2.1. A Taxa de Gestão será calculada e provisionada diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido da Classe A do Dia Útil imediatamente anterior. Remuneração pela Auditoria do Lastro 10.2.2. Pelos serviços de auditoria de lastro da Classe A, será devido pela Classe A ao Custodiante um valor mensal de R$ 5.000,00 (cinco mil reais), a ser paga mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe A, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço, sendo este valor atualizado pela variação positiva do IPCA a cada intervalo de 12 (doze) meses."
+    }
+   ],
+   "legacy": {
+    "value": "10%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "CDI + 1,20% a.a. (série sênior em suplemento)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 119,
+     "clause": "Suplemento 6, cl. 5.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "isponível na página www.b3.com.br, em seu informativo diário (Taxa DI), acrescida exponencialmente de spread equivalente a 1,20% (um inteiro e vinte centésimos por cento) ao ano, calculado por Dia Útil à base de 1/252 (um inteiro e duzentos e cinquenta e dois avos); (xiii) Datas de Pagamento de Remuneração (durante o Período de Carência): mensalmente, desde a Data de Emissão, todo dia 19 (dezenove) de cada mês; (xiv) Período de Carência: desde a Data de Emissão até o 30º (trigésimo) mês (inclusive); (xv) Datas de Amortização Programada (cronograma de Amortizações Programadas): 19/11/2026 19/12/2026 19/01/2027 19/02/2027 19/03/2027 19/04/2027 (xvi) Tipo de oferta pública e regime de distribuição: oferta pública sob o rito de registro automático de distribuição em regime de garantia firme de colocação; e (xvii) Coordenador Líder da Oferta: BANCO ITAÚ BBA S.A;"
+    }
+   ],
+   "legacy": {
+    "value": "1ª série: DI + 1,20% a.a. (capitalização exponencial)",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 23,
+     "clause": "cl. 10.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "ENTO – DEFINIÇÕES DA PARTE GERAL DO REGULAMENTO “Administradora” Significa a BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, instituição com sede no município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, inscrita no CNPJ sob o nº 59.281.253/0001-23, autorizada a funcionar pelo Banco Central do Brasil e autorizada pela CVM para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006, ou seu sucessor a qualquer título. “Agência Classificadora de Significa a agência classificadora de risco (rating) Risco” em funcionamento do país que será a avaliadora das séries de Cotas Seniores emitidas por cada"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BTG Pactual Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 25,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "to no CNPJ sob o nº 54.218.673/0001-41. “Gestor” Significa a BTG PACTUAL ASSET MANAGEMENT S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, com sede na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, no 27 PARTE GERAL DO REGULAMENTO DO CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO município e Estado do Rio de Janeiro, e inscrita no CNPJ sob o nº 29.650.082/0001-00, devidamente autorizado e habilitado pela CVM para o exercício profissional de administração de carteira de valores mobiliários por meio do Ato Declaratório CVM nº 5968, de 10 de maio de 2000, ou sua sucessora a qualquer título. “Instituições Autorizadas” Significam, em relação a cada Classe, aquelas definidas no S"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 25,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "ntamente. “Cotista” Significa um titular de Cotas, indistintamente. “Custodiante” Significa o Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, Botafogo, CEP 22250- 040, inscrita no CNPJ sob o nº 30.306.294/0001- 45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003, na qualidade de prestador dos serviços de custodiante indicados no item 9.5 do Anexo. “Dia Útil” ou “Dias Úteis” Significa qualquer dia em que haja expediente comercial ou bancário no município de São Paulo, Estado de São Paulo, exceto para pagamentos que devam ser realizados por meio da B3, hipótese em que será considerado como Dia Útil qualquer dia que não seja sábado, domingo ou feriado nacional. “Distribuidores” Significa um i"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "CloudWalk (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 92,
+     "clause": "Suplemento 1, cl. 20.1.73",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "ncia que venha a ser nomeada pela Assembleia Especial. “Agente de Cobrança Significa a CloudWalk, na qualidade de prestador Extraordinária” de serviços de cobrança extraordinária dos Direitos Creditórios Inadimplidos. “Alocação Mínima” Significa o percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Amortização Extraordinária Significa a amortização extraordinária das Cotas das Cotas Seniores” Seniores por decisão da Assembleia Especial da Classe A, exclusivamente para fins de enquadramento do patrimônio à Alocação Mínima, ao Índice de Subordinação e/ou à observância da política de investimento descrita no Capítulo II deste Anexo. “Amortização Extraordinária Tem o significado atribuído no item 6.7 deste das Cotas Subordinadas” Anexo. “Amortização Programada” Significa a amortização de principal das Cota"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 29,
+     "clause": "Anexo I, cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "se A classifica-se como tipo “Agro, Indústria e Comércio - Recebíveis Comerciais”. 1.8. Público-Alvo. A Classe A é destinada a Investidores Autorizados que busquem rentabilidade, no longo prazo, compatível com a Política de Investimento, composição e diversificação da carteira da Classe A, e aceitem os riscos associados aos investimentos da Classe A. 1.9. Responsabilidade dos Cotistas. Os Cotistas da Classe A terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18, da Resolução CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A. O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de Elegibilidade e às Condições de Cessão; e (ii) Ativos Financeiros, observados os índices de composição e diversificação da carteira da Classe A, conforme estabelecidos neste Anexo. 2.1.1. Origem dos Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado para fundo/classe; séries conforme apêndices",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; séries com prazo próprio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 5,
+     "clause": "cl. 1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "Assembleia de Cotistas. 1.3. O funcionamento do Fundo terá início na 1ª (primeira) data de integralização de Cotas. O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas e Subclasse de Cotas terá o prazo de duração estipulado no respectivo Apêndice. 1.4. Todos os termos e expressões iniciados em letras maiúsculas utilizados na Parte Geral do Regulamento e em seus Complementos têm os significados que lhes são atribuídos no Complemento 1 da Parte Geral deste Regulamento. Sem prejuízo das definições já previstas no Complemento 1 da Parte Geral deste Regulamento, os quais também se aplicam aos Anexos, os termos e expressões iniciados em letras maiúsculas utilizados nos Anexos e em seus respectivos Apêndices e Suplementos têm os significados que lhes são atribuídos no Suplemento 1 do respectivo Anexo. Além disso, (i) sempre que exigido pelo contexto, as definições contidas neste Regulamento e nos Anexos aplicar- se-ão tanto no singular quanto no plural e o gênero masculino incluirá o feminino, e vice- versa;"
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado para fundo/classe; séries conforme apêndices",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "Transações em arranjos de pagamento, com registro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 29,
+     "clause": "Anexo I, cl. 2.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "e diversificação da carteira da Classe A, conforme estabelecidos neste Anexo. 2.1.1. Origem dos Direitos Creditórios. Os Direitos Creditórios são oriundos do pagamento devido pelos Devedores à Cedente, decorrentes de Transações de Pagamento realizadas por Usuários-Finais, operacionalizadas pelo Sistema CloudWalk, conforme descrição a seguir: (i) os Estabelecimentos Credenciados, de tempos em tempos, realizam a prestação de serviços e venda de bens e produtos aos Usuários-Finais, os quais podem utilizar Instrumentos de Pagamento de qualquer Bandeira emitidos por um dos Devedores, operacionalizados pelo Sistema CloudWalk, gerando, assim, as Transações de Pagamento; (ii) de acordo com a regulamentação vigente, referidas Transações de Pagamento geram múltiplas relações de crédito, sendo as mais relevantes para fins da operação da Classe A: (a) o crédito do Emissor em face do Usuário-Final;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "Conta centralizadora da cedente, de movimentação restrita",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 96,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "adas pela Cedente, nos termos do item 3.1 deste Anexo. “Conta Centralizadora” Significa a conta de titularidade da Cedente, de movimentação restrita, para as quais o Banco Liquidante transferirá os pagamentos referentes aos Direitos Creditórios Cedidos, bem como os demais Direitos Creditórios (não cedidos à Classe A) de titularidade da Cedente, respeitando os fluxos de pagamentos e funções do Banco Depositário descritos neste Anexo e no Contrato de Cessão. “Conta de Livre Significa a conta corrente de livre movimentação, Movimentação” de titularidade da Cedente, para a qual serão transferidos os pagamentos referentes aos Direitos Creditórios que sejam depositados na Conta Centralizadora da Cedente que não se refiram aos pagamentos dos Direitos Creditórios Cedidos à Classe A."
+    }
+   ],
+   "legacy": {
+    "value": "Sem garantia do administrador, gestor, cedente, custodiante, seguro ou FGC",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "dilution": {
+   "display": "Cancelamentos e chargebacks tratados no contrato de cessão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1268268",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/07/2026",
+     "page": 95,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1268268",
+     "excerpt": "o significado que lhe é atribuído no item 4.1.1 do Anexo. “Cedente” Significa a CloudWalk que, de tempos em tempos, nos termos do Contrato de Cessão, cede seus respectivos Direitos Creditórios Elegíveis à Classe A. “Chargeback” Significa a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários-Finais, Estabelecimentos Credenciados, Bandeiras e/ou Emissores, que poderá resultar na não realização do repasse ou no estorno do(s) crédito(s) correspondente(s) efetuado(s) à Cedente. “CloudWalk” Significa a Cloudwalk Instituição de Pagamento e Serviços Ltda., sociedade limitada com sede no município de São Paulo, Estado de São Paulo, na Rua Eugênio de Medeiros, nº 303, conjunto 1501C, Pinheiros, CEP 05.425-000, i"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de cartão da CloudWalk contra cinco grandes bancos, cedente única; subordinação mínima de 2,5% do PL e sênior a CDI + 1,20%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

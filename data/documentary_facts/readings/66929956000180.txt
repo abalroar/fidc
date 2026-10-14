@@ -1,0 +1,56 @@
+# portado de 57532556000146 (66929956000180)
+type: Veículos
+q19: * "Alocação Mínima”: Significa a alocação de, ao menos, 50%"
+q21: * "Líquido) 0,09% Até R$1.000.000.000,00"
+q20: * "em montante equivalente a 03 (três) meses de despesas estimadas da Classe A"
+q1: * "“Emitente”: Significa o BANCO VOTORANTIM S.A."
+q2: * "realizadas entre o Emitente e os respectivos Devedores e garantidos por Alienação Fiduciária"
+q3: * "aos seguintes Critérios de Elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso"
+q4: * "inferior a 15% (quinze por cento); “Índice de Perdas 90”"
+q5: * "poderá ser inferior a 5% (cinco por cento); “Índice de Subordinação"
+q6: * "Eventos de Avaliação, a Administradora deverá (i)"
+q7: * "Não será admitida a revolvência de Diretos Creditórios"
+q8: * "montante mínimo mensal de R$9.000,00 (nove mil reais) (“Taxa de Administração”)"
+q9: * "a Classe A pagará à Gestora uma taxa de gestão de 0,25%"
+q10: * "“Gestora”: Significa a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA."
+q11: * "BANCO DAYCOVAL S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras"
+q12: * "Público-Alvo Investidores Qualificados. Custódia Administradora"
+q13: * "Prazo de Duração Indeterminado. Responsabilidade Limitada"
+q14: * "acrescida de sobretaxa de 0,80% (oitenta centésimos por cento) ao ano"
+q15: * "acrescida de sobretaxa de 2,00% (dois inteiros por cento) ao ano"
+q16: * "acrescida de sobretaxa de 4,00% (quatro inteiros por cento) ao ano"
+q17: * "provisão para perdas na recuperação dos Direitos Creditórios Inadimplidos será realizado conforme conceitos definidos no manual"
+q18: * "conforme tabela abaixo, observado o montante mínimo mensal de R$3.000,00 (três mil reais) (“Taxa de Custódia”)"
+receivables: CCCBs lastreados em CCBs de financiamento de veículos do Banco Votorantim | q2,q1
+originator: Banco Votorantim (financiamento de veículos) | q1
+assignor: Banco Votorantim, emitente dos CCCBs | q1
+debtor: Pessoas físicas com financiamento de veículo e alienação fiduciária | q2
+recourse: n/d | Recompra e resgate do CCCB regidos pelo contrato de endosso
+eligibility: CCB vence antes das cotas; 100 maiores ≤ R$ 17,5 mi; CCB ≤ R$ 175 mil | q3
+debtor_limit: CCB individual ≤ R$ 175 mil; 100 maiores ≤ R$ 17,5 mi | q3
+assignor_limit: Emitente único (Banco Votorantim) | q1
+term_max: CCB deve vencer antes do último pagamento das cotas | q3
+allocation: ≥ 50% do PL em direitos creditórios | q19 | value=50
+quota_structure: Sênior / Mezanino A / Mezanino B / Júnior | q4
+sub_senior: 15% · (mez.+jr.)/PL | q4 | basis=mez+jr/PL | value=15
+sub_mezz: Mez. B: 5% · jr/PL | q5 | basis=jr/PL | value=5
+sub_check: Diária pela administradora | q4
+reserve: Caixa equivalente a 3 meses de despesas estimadas pela gestora | q20
+pdd: Manual de provisão da administradora | q17
+eval_triggers: Eventos do capítulo 10 suspendem amortizações e convocam assembleia | q6
+liquidation: n/d | Lista de eventos de liquidação não localizada no texto extraído
+revolving: Não prevista | Regulamento veda revolvência | q7
+amortization: n/d | Cronograma definido nos apêndices das séries
+admin_fee: 0,09% a.a. até R$ 1 bi, regressiva; mín. R$ 9 mil/mês | q8,q21
+mgmt_fee: 0,25% a.a. do PL; mín. R$ 30 mil/mês | q9
+perf_fee: Não prevista | Anexo não prevê taxa de performance
+target_senior: DI + 0,80% a.a. (série sênior) | q14
+target_mezz: Mez. A: DI + 2,00%; Mez. B: DI + 4,00% | q15,q16
+administrator: Banco Daycoval | q11
+manager: Angá Administração de Recursos | q10
+custodian: Banco Daycoval (a administradora); mín. R$ 3 mil/mês | q12,q11,q18
+servicer: Banco Votorantim (cobrança pelo emitente) | q1
+investors: Investidores qualificados | q12
+duration: Indeterminado | q13
+real_collateral: Alienação fiduciária dos veículos financiados | q2
+leitura: Financiamento de veículos do BV via CCCB, sem revolvência; 15% de subordinação e sênior a DI + 0,80%.

@@ -1,0 +1,53 @@
+# Inova Credtech III FIDC (Limine Trust; Vert Gestora; consultoria CashU)
+type: Duplicatas/multicedente
+q18: * "de Inadimplência (1-15 dias) não poderá ser superior a 20% (vinte por cento)"
+q1: * "“CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE RECEBÍVEIS LTDA."
+q2: * "“Consultora Especializada” significa a CashU, acima qualificada, contratada pela Gestora"
+q3: * "12.3.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, na Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade"
+q4: * "Econômico de Devedor (em relação ao Patrimônio Líquido do Fundo) Até 20 R$500.000,00 20-35 2%"
+q5: * "observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido por Devedor"
+q6: * "Índice de Subordinação Sênior” significa a razão mínima entre (i) a soma do valor total das Cotas Subordinadas em circulação"
+q7: * "equivalente a, no mínimo, 10% (dez por cento), exceto para fins de amortização extraordinária"
+q8: * "Dia Útil, equivalente a, no mínimo, 7,50% (sete inteiros e cinquenta centésimos por cento)"
+q9: * "observado, ainda, o valor mínimo mensal de R$1.000,00 (um mil reais). Patrimônio Líquido Remuneração A"
+q10: * "imônio Líquido do Fundo, observado o valor mínimo mensal de R$ 20.000,00 (vinte mil reais). Ainda, o Fundo pagará diretamente à Gestora o valor adicional de R$ 1.500,00"
+q11: * "“Administradora” significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q12: * "O Fundo é gerido pela VERT GESTORA DE RECURSOS FINANCEIROS LTDA."
+q13: * "“Custodiante” significa a Administradora, acima qualificada"
+q14: * "A Classe do Fundo é destinada a Investidores Profissionais"
+q15: * "O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas terá o Prazo de Duração"
+q16: * "19.1.7 São considerados Eventos de Liquida"
+q17: * "s cedidos por Originadores de Menor Porte não poderá ser superior a 20%"
+receivables: Duplicatas e CCBs; notas comerciais após aprovação em assembleia | o1
+originator: CashU Fintech e parceiros financeiros que endossam CCBs | o4,q1
+assignor: Originadores selecionados pela CashU; menores ≤ 20% do PL | q17,q2
+debtor: Devedores dos títulos; limites por grupo econômico | q4
+recourse: n/d | Coobrigação definida em cada cessão
+eligibility: Limites por grupo devedor conforme faixa de PL, entre outros critérios | q3,q4
+debtor_limit: Grupo devedor ≤ R$ 500 mil ou 2% do PL, decrescente conforme o PL | q4,q5
+assignor_limit: Originadores de menor porte ≤ 20% do PL | q17
+term_max: n/d | Prazo máximo dos créditos não localizado no trecho lido
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Mezanino A e B / Júnior | q6,q7,q8
+sub_senior: 20% · (mez.+jr.)/PL | q6 | basis=mez+jr/PL | value=20
+sub_mezz: Mez. B + júnior ≥ 10%; júnior ≥ 7,5% do PL | q7,q8 | basis=jr/PL | value=7.5
+sub_check: Diária | q8
+reserve: Amortização: 30% antes e 100% desde D-15; reserva de despesas | o36
+pdd: n/d | Critério de provisão não localizado no texto extraído
+eval_triggers: Índices de inadimplência por faixa (1–15 dias ≤ 20%), entre outros | q18
+liquidation: Lista do item 19.1.7 | q16
+revolving: n/d | Revolvência não detalhada no texto extraído
+amortization: n/d | Cronograma definido nos apêndices das séries | why=Resposta anterior também não localizou o cronograma
+admin_fee: 0,04% a.a. até R$ 200 mi; 0,03% acima; mín. R$ 1 mil/mês | q9,o51
+mgmt_fee: 0,24% a.a. do PL; mín. R$ 20 mil/mês + R$ 1,5 mil de automação | q10,o54
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Benchmark definido nos apêndices, fora do acervo
+target_mezz: n/d | Benchmark definido nos apêndices, fora do acervo
+administrator: Limine Trust DTVM | q11
+manager: Vert Gestora de Recursos Financeiros | q12
+custodian: Limine Trust DTVM (a administradora) | q13,q11
+servicer: CashU (consultoria e seleção de créditos) | q2
+investors: Investidores profissionais | q14
+duration: Indeterminado; prazo por série | q15
+sacado_limit: Grupo devedor ≤ R$ 500 mil ou 2% do PL, decrescente conforme o PL | q4
+leitura: Multicarteira com consultoria CashU, 20% de subordinação e júnior ≥ 7,5%; limite por grupo devedor cai com o PL.

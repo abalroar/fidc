@@ -1,0 +1,769 @@
+{
+ "schema_version": 1,
+ "cnpj": "38658727000133",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FORNECEDORES MADEIRA MADEIRA I",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:27:49Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1216296",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "05/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296"
+  },
+  "D2": {
+   "document_id": "1322706",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "16/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322706"
+  },
+  "D3": {
+   "document_id": "1223025",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "16/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223025"
+  },
+  "D4": {
+   "document_id": "1217692",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "11/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1217692"
+  },
+  "D5": {
+   "document_id": "720398",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "14/08/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=720398"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos de fornecedores contra a MadeiraMadeira (contratos comerciais)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 45,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "na aquisição de Direitos Creditórios e, secundariamente, na aquisição de Ativos Financeiros. Artigo 3º Os Direitos Creditórios a serem adquiridos pelo Fundo serão representados pelos Contratos Comerciais, originados de operações de fornecimento de produtos e/ou serviços, realizadas nos segmentos comercial, industrial e/ou prestação de serviços. Parágrafo Primeiro Os Direitos Creditórios devem ser registrados na Entidade Registradora ou, caso não sejam passíveis de tal registro, custodiados pelo Custodiante, e/ou registrados em mercado organizado de balcão autorizado pela CVM, e/ou depositados em depositário central autorizado pela CVM ou autorizado pelo BACEN, inclusive os sistemas administrados pela B3. Parágrafo Segundo O Preço de Aquisição de cada Direito Creditório, a ser pago pelo Fundo aos Cedentes será calculado pela Gestora de acordo com a seguinte expressão: Preço de Aquisição=〖Valor Bruto×(1-Tx)〗^((d1/30)) Preço de Aquisição = valor do título após o desconto da taxa de desconto; Valor bruto = valor do título a pagar em sua data de vencimento efetiva; Tx = Taxa de desconto ao mês;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 5,
+     "clause": "cl. 39",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": ", necessariamente, um Dia Útil; 39. Data de Verificação: o último Dia Útil de cada mês; 40. Devedora: Significa a MADEIRAMADEIRA COMÉRCIO ELETRÔNICO S.A., sociedade empresária com sede na Rua Marechal Deodoro, nº 717, 2º andar, Centro, na cidade de Curitiba, Estado do Paraná, CEP 80020-320, inscrita no CNPJ sob o nº 10.490.181/0001-35; 41. Dia Útil: segunda a sexta-feira, exceto feriados de âmbito nacional ou dias em que, por qualquer motivo, não houver expediente bancário ou não funcionar o mercado financeiro na praça de sede da Administradora/Custodiante, exceto pelos casos cujos pagamentos devam ser realizados por meio da B3, ou, para os casos de obrigações pecuniárias cujos pagamentos devam ser realizados por meio da B3, hipótese em que Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB serão considerados Dias Úteis todos os dias exceto feriado nacional, sábado ou domingo ou data em que, por qualquer motivo, não haja expediente na B3; 42."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos de fornecedores por produtos/serviços, contra a MadeiraMadeira.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Fornecedores da devedora (cedentes)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 2,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "pela Devedora perante o Fundo, de obrigações necessárias à viabilização de aquisição, pelo Fundo, de Direitos Creditórios devidos pela Devedora a seus Fornecedores; 2. Administradora: A VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na cidade de São Paulo, estado de São Paulo, na Rua Cardeal Arcoverde, n° 2365, 11º andar, Pinheiros, CEP 05407- 003, inscrita no CNPJ sob o nº 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20 de outubo de 2023; 3. Agência Classificadora de Risco: Significa a AUSTIN RATING SERVIÇOS FINANCEIROS LTDA., contratada pela Gestora para elaborar a classificação de risco das Cotas; 4. Agente de Cobrança: significa a Gestora ou terceiro contratado pela Gestora para prestar o serviço de agente de cobrança dos Direitos Creditórios; 5."
+    }
+   ],
+   "legacy": {
+    "value": "Fornecedores cedentes; MadeiraMadeira também intermedeia pagamento do preço.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Fornecedores da devedora, cedendo sem coobrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 2,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "pela Devedora perante o Fundo, de obrigações necessárias à viabilização de aquisição, pelo Fundo, de Direitos Creditórios devidos pela Devedora a seus Fornecedores; 2. Administradora: A VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na cidade de São Paulo, estado de São Paulo, na Rua Cardeal Arcoverde, n° 2365, 11º andar, Pinheiros, CEP 05407- 003, inscrita no CNPJ sob o nº 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20 de outubo de 2023; 3. Agência Classificadora de Risco: Significa a AUSTIN RATING SERVIÇOS FINANCEIROS LTDA., contratada pela Gestora para elaborar a classificação de risco das Cotas; 4. Agente de Cobrança: significa a Gestora ou terceiro contratado pela Gestora para prestar o serviço de agente de cobrança dos Direitos Creditórios; 5."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 27,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "financeiras até o valor das operações contratadas e não liquidadas. Adicionalmente os Direitos Creditórios não contarão com a coobrigação dos Cedentes ou com compromisso de recompra dos Direitos Creditórios cedidos ao Fundo, por parte dos Cedentes, quando estes foram inadimplidos pela Devedora. Assim, via de regra, o recebimento do valor dos Direitos Creditórios adquiridos pelo Fundo dependerá exclusivamente da solvência e do efetivo pagamento pela Devedora, inexistindo, portanto, qualquer garantia, real ou fidejussória, de que o pagamento dos Direitos Creditórios será devidamente efetuado ou, caso o seja, de que será efetuado nos prazos avençados."
+    }
+   ],
+   "legacy": {
+    "value": "Fornecedores cedentes; MadeiraMadeira também intermedeia pagamento do preço.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "MadeiraMadeira Comércio Eletrônico (devedora única)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 5,
+     "clause": "cl. 39",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": ", necessariamente, um Dia Útil; 39. Data de Verificação: o último Dia Útil de cada mês; 40. Devedora: Significa a MADEIRAMADEIRA COMÉRCIO ELETRÔNICO S.A., sociedade empresária com sede na Rua Marechal Deodoro, nº 717, 2º andar, Centro, na cidade de Curitiba, Estado do Paraná, CEP 80020-320, inscrita no CNPJ sob o nº 10.490.181/0001-35; 41. Dia Útil: segunda a sexta-feira, exceto feriados de âmbito nacional ou dias em que, por qualquer motivo, não houver expediente bancário ou não funcionar o mercado financeiro na praça de sede da Administradora/Custodiante, exceto pelos casos cujos pagamentos devam ser realizados por meio da B3, ou, para os casos de obrigações pecuniárias cujos pagamentos devam ser realizados por meio da B3, hipótese em que Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB serão considerados Dias Úteis todos os dias exceto feriado nacional, sábado ou domingo ou data em que, por qualquer motivo, não haja expediente na B3; 42."
+    }
+   ],
+   "legacy": {
+    "value": "MadeiraMadeira Comércio Eletrônico S.A.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação dos cedentes; risco é a solvência da devedora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 27,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "financeiras até o valor das operações contratadas e não liquidadas. Adicionalmente os Direitos Creditórios não contarão com a coobrigação dos Cedentes ou com compromisso de recompra dos Direitos Creditórios cedidos ao Fundo, por parte dos Cedentes, quando estes foram inadimplidos pela Devedora. Assim, via de regra, o recebimento do valor dos Direitos Creditórios adquiridos pelo Fundo dependerá exclusivamente da solvência e do efetivo pagamento pela Devedora, inexistindo, portanto, qualquer garantia, real ou fidejussória, de que o pagamento dos Direitos Creditórios será devidamente efetuado ou, caso o seja, de que será efetuado nos prazos avençados."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Em reais, não vencidos na cessão; prazos por faixa até 180 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 52,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "s do disposto na legislação e neste Regulamento, são considerados Critérios de Elegibilidade: I. os Direitos Creditórios deverão ser provenientes do pagamento devido pela Devedora aos Cedentes, decorrentes dos Contratos Comerciais; II. sejam representados, exclusivamente, em moeda corrente nacional e não estejam vencidos na data de sua cessão ao Fundo; III. a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; IV. atendam aos seguintes critérios em relação ao prazo de pagamento: (a) até 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo deve estar composto por Direitos Creditórios com vencimento entre 120 (cento e vinte) a 180 (cento e oitenta) dias; (b) até 70% (setenta por cento) do Patrimônio Líquido do Fundo deve estar composto por Direitos Creditórios com vencimento entre 90 (noventa) a 120 (cento e vinte) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Pagamento de contratos comerciais, em reais, não vencidos na cessão.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite: devedora única é a MadeiraMadeira",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 5,
+     "clause": "cl. 39",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": ", necessariamente, um Dia Útil; 39. Data de Verificação: o último Dia Útil de cada mês; 40. Devedora: Significa a MADEIRAMADEIRA COMÉRCIO ELETRÔNICO S.A., sociedade empresária com sede na Rua Marechal Deodoro, nº 717, 2º andar, Centro, na cidade de Curitiba, Estado do Paraná, CEP 80020-320, inscrita no CNPJ sob o nº 10.490.181/0001-35; 41. Dia Útil: segunda a sexta-feira, exceto feriados de âmbito nacional ou dias em que, por qualquer motivo, não houver expediente bancário ou não funcionar o mercado financeiro na praça de sede da Administradora/Custodiante, exceto pelos casos cujos pagamentos devam ser realizados por meio da B3, ou, para os casos de obrigações pecuniárias cujos pagamentos devam ser realizados por meio da B3, hipótese em que Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB serão considerados Dias Úteis todos os dias exceto feriado nacional, sábado ou domingo ou data em que, por qualquer motivo, não haja expediente na B3; 42."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento não limita concentração por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Vencimento até 180 dias; ≤ 35% do PL entre 120 e 180 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 52,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "s do disposto na legislação e neste Regulamento, são considerados Critérios de Elegibilidade: I. os Direitos Creditórios deverão ser provenientes do pagamento devido pela Devedora aos Cedentes, decorrentes dos Contratos Comerciais; II. sejam representados, exclusivamente, em moeda corrente nacional e não estejam vencidos na data de sua cessão ao Fundo; III. a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; IV. atendam aos seguintes critérios em relação ao prazo de pagamento: (a) até 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo deve estar composto por Direitos Creditórios com vencimento entre 120 (cento e vinte) a 180 (cento e oitenta) dias; (b) até 70% (setenta por cento) do Patrimônio Líquido do Fundo deve estar composto por Direitos Creditórios com vencimento entre 90 (noventa) a 120 (cento e vinte) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Pagamento de contratos comerciais, em reais, não vencidos na cessão.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 2,
+     "clause": "cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "o pela Gestora para prestar o serviço de agente de cobrança dos Direitos Creditórios; 5. Alocação Mínima: Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios, tendo em vista o disposto na Resolução CMN n° 5.111/23; 6. Amortização Extraordinária das Cotas Seniores: Significa a amortização extraordinária das Cotas Seniores a ser realizada: (i) no caso da ocorrência de um Evento de Pagamento Antecipado Automático; e/ou (ii) no caso da ocorrência de um Evento de Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB Pagamento Antecipado Não Automático, que não tenha sido sanado no respectivo prazo previsto no presente Regulamento, conforme aplicável, e cujo pagamento antecipado automático não seja afastado pelos titulares das Cotas Seniores em Assembleia Geral especificamente convocada para essa finalidade; 7. ANBIMA: a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; 8."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL em DC, conforme prazo de enquadramento.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 44,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "afo Primeiro A Classe de Cotas é uma classe de cotas fechada, com prazo de duração indeterminado, sendo que as Cotas ora emitidas serão divididas em subclasses de Cotas Seniores e Cotas Subordinadas, devendo sempre ser observadas pro forma, quando da emissão de novas Cotas Seniores, o Índice de Subordinação da Classe de Cotas. As características de cada subclasse de Cotas estão descritas nos seus respectivos Apêndices a este Anexo Descritivo. Parágrafo Segundo A Classe de Cotas destina-se a investidores qualificados, conforme definidos no artigo 12 da Resolução CVM nº 30, que estejam aptos a investir nesta modalidade de fundo de investimento. Parágrafo Terceiro A Classe de Cotas buscará atingir os respectivos Índices Referenciais de rentabilidade para cada série de Cotas Seniores emitidas, conforme descrito nos respectivo Apêndice. Uma vez atingidos os Índices Referenciais das Cotas Seniores, os resultados excedentes do Fundo serão atribuídos às Cotas Subordinadas, as quais não possuem Índice Referencial de rentabilidade pré-definido."
+    }
+   ],
+   "legacy": {
+    "value": "PL/saldo sênior ≥136,36%; equivale aproximadamente a 26,67% subordinadas/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/06/2026, Anexo A"
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 136,36%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 62,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "Reserva de Caixa. CAPÍTULO IX – DO ÍNDICE DE SUBORDINAÇÃO DA CLASSE DE COTAS Artigo 33º O Fundo deverá observar o Índice de Subordinação de, no mínimo, 136,36% (cento e trinta e seis inteiros e trinta e seis centésimos por cento). Artigo 34º O Índice de Subordinação deve ser apurado mensalmente pela Gestora no último dia útil de cada mês, a partir da Data da 1ª Integralização de Cotas Seniores. Caso o Índice de Subordinação não seja atendido, serão adotados os procedimentos previstos nos Artigos 35º e 36º abaixo. Artigo 35º Caso o Índice de Subordinação seja inferior ao percentual definido no Artigo 33º acima por 10 (dez) Dias Úteis consecutivos serão adotados os seguintes procedimentos: I."
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 136.36,
+   "legacy": {
+    "value": "PL/saldo sênior ≥136,36%; equivale aproximadamente a 26,67% subordinadas/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/06/2026, Anexo A"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Mensal; abaixo do mínimo por 10 dias úteis aciona procedimentos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 62,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "Reserva de Caixa. CAPÍTULO IX – DO ÍNDICE DE SUBORDINAÇÃO DA CLASSE DE COTAS Artigo 33º O Fundo deverá observar o Índice de Subordinação de, no mínimo, 136,36% (cento e trinta e seis inteiros e trinta e seis centésimos por cento). Artigo 34º O Índice de Subordinação deve ser apurado mensalmente pela Gestora no último dia útil de cada mês, a partir da Data da 1ª Integralização de Cotas Seniores. Caso o Índice de Subordinação não seja atendido, serão adotados os procedimentos previstos nos Artigos 35º e 36º abaixo. Artigo 35º Caso o Índice de Subordinação seja inferior ao percentual definido no Artigo 33º acima por 10 (dez) Dias Úteis consecutivos serão adotados os seguintes procedimentos: I."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 62,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "ão não seja atendido, serão adotados os procedimentos previstos nos Artigos 35º e 36º abaixo. Artigo 35º Caso o Índice de Subordinação seja inferior ao percentual definido no Artigo 33º acima por 10 (dez) Dias Úteis consecutivos serão adotados os seguintes procedimentos: I. a Administradora mediante comunicado da Gestora deverá adotar os procedimentos necessários para comunicar, imediatamente, tal ocorrência aos titulares de Cotas Subordinadas, mediante o envio de carta, publicação no Periódico do Fundo, ou por meio eletrônico, para confirmar se os titulares de Cotas Subordinadas pretendem realizar aporte adicional de recursos para o reenquadramento do Fundo ao o Índice de Subordinação, mediante a emissão e subscrição de novas Cotas Subordinadas; II. os titulares de Cotas Subordinadas deverão informar no prazo máximo de 05 (cinco) Dias Úteis se pretendem subscrever Cotas Subordinadas em montante suficiente para reenquadramento do Índice de Subordinação; e III."
+    }
+   ],
+   "legacy": {
+    "value": "PL/saldo sênior ≥136,36%; equivale aproximadamente a 26,67% subordinadas/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/06/2026, Anexo A"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para 3 meses de despesas ordinárias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 9,
+     "clause": "cl. 71",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "ados: a resposta mencionada no Inciso II, do caput do Artigo 33º do Anexo Descritivo; 72. Reserva de Caixa: a reserva que poderá ser constituída no âmbito de cada Classe para cobrir as despesas ordinárias normalmente incorridas pela Classe para o período de 3 (três) meses, a ser constituída e monitorada pela Administradora, sendo regulada nos termos do respectivo Anexo Descritivo; 73. Resolução CMN n° 5.111/23: a Resolução CMN nº 5.111, de 21 de dezembro de 2023, conforme alterada, que regulamenta os conceitos de entidade de investimento e de direitos creditórios; 74. Resolução CVM nº 30: a Resolução CVM nº 30, de 11 de maio de 2021, conforme alterada, que dispõe sobre o dever de verificação da adequação dos produtos, serviços e operações ao perfil do cliente; 75. Resolução CVM nº 160: a Resolução CVM nº 160, de 13 de julho de 2022, conforme alterada, que dispõe sobre as ofertas públicas de distribuição primária ou secundária de valores mobiliários e a negociação dos valores mobiliários ofertados nos mercados regulamentados; 76."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas e encargos estimados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Renegociação mantém vencimentos originais para fins de provisão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 46,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "eitos de escrituração e contabilização da provisão para devedores duvidosos estabelecida neste Regulamento, na hipótese de eventual renegociação e/ou refinanciamento de Direitos Creditórios nos termos acima mencionados, a Gestora deverá considerar as datas de vencimento e condições originais dos Direitos Creditórios em questão quando de sua aquisição pelo Fundo. Parágrafo Sétimo Conforme estabelecido nos Contratos Comerciais, a data de vencimento de cada Direito Creditório mencionada na respectiva nota fiscal está sujeita a alteração, mediante comum acordo entre a Devedora e o Fornecedor e/ou seu sucessor (“Nova Data de Vencimento”). Parágrafo Oitavo A alteração da data de vencimento de Direitos Creditórios nos termos do Parágrafo Sexto acima, consiste em característica intrínseca da relação comercial entre a Devedora e seus Fornecedores estabelecida previamente ao surgimento do Direito Creditório, não caracterizando, portanto, renegociação ou refinanciamento."
+    }
+   ],
+   "legacy": {
+    "value": "Renegociação por atraso mantém datas/condições originais para provisões.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eval_triggers": {
+   "display": "Falha de prestador não sanada em 5 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 69,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "eiro Dia Útil subsequente. CAPÍTULO XII – DOS EVENTOS DE AVALIAÇÃO Artigo 52º São considerados Eventos de Avaliação da Classe de Cotas: I. inobservância pela Administradora, Gestora e/ou pelo Custodiante de seus deveres e obrigações previstos neste Regulamento, nas leis e demais normativos nos termos da legislação vigente (incluindo, sem limitações, as instruções da CVM), bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento do Fundo, não sanado no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação; Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB II. renúncia da Administradora, Gestora e/ou do Custodiante a qualquer tempo e por qualquer motivo, sem que haja: (i) a indicação de um substituto em Assembleia Geral no prazo de 120 (cento e vinte) dias; ou (ii) a efetiva substituição destes prestadores de serviço no prazo de 60 (sessenta) dias após transcorrido o prazo indicado no inciso “I” acima; III."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Falência ou recuperação da devedora; PL < R$ 1 mi por 90 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 72,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "o; II. por determinação da CVM, em caso de violação de normas legais ou regulamentares; III. pedido ou requerimento de falência, recuperação judicial ou extrajudicial pela Devedora; IV. caso o Patrimônio Líquido seja, a qualquer momento, inferior a R$1.000.000,00 (um milhão de reais) pelo período de 90 (noventa) dias consecutivos; V. renúncia da Administradora, da Gestora, do Custodiante ou resilição do Contrato de Custódia, sem que novas instituições assumam suas funções no prazo previsto na Cláusula 13.1, inciso “II” acima; e/ou VI."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Reinvestimento dos recebimentos em novos créditos elegíveis",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 47,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "o 6º Todos os resultados auferidos pela Classe de Cotas serão incorporados ao seu patrimônio. Parágrafo Primeiro A Classe de Cotas poderá realizar a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros que tenham sido originados pelos resultados do adimplemento dos Direitos Creditórios constantes da carteira da Classe de Cotas, desde que: I. os novos Direitos Creditórios a serem adquiridos se enquadrem na política de investimento ora descrita: Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB II. o Índice de Subordinação da Classe de Cotas esteja sendo devidamente cumprida; III. não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação. Parágrafo Segundo Com relação aos Direitos Creditórios e aos Ativos Financeiros, a Gestora deverá observar cumulativamente os limites de composição e diversificação da carteira do Fundo, cabendo à Gestora a responsabilidade por sua observância e atendimento: I."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,10% a.a. do PL; mín. R$ 13 mil/mês (IPCA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 75,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "ração será devido pelo Fundo uma remuneração equivalente ao somatórios dos seguintes valores: i) A Administradora receberá do Fundo a remuneração mensal equivalente a 0,10% (dez centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 13.000,00 (treze mil reais), corrigido anualmente pelo IPCA. ii) Pela prestação de serviço de custódia será cobrado pelo Fundo uma remuneração equivalente a 0,015% (quinze milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 2.000,00 (dois mil reais), corrigido anualmente pelo IPCA. Artigo 59º Pelos serviços de gestão serão devidos pelo Fundo honorários mensais, conforme descrito abaixo, sobre um percentual do Patrimônio Líquido do Fundo: i) Taxa anual incidente sobre o Patrimônio Líquido do FIDC será de 0,30% (trinta centésimos por cento) ao ano."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a./PL; mínimo R$ 13 mil/mês, IPCA.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,30% a.a. do PL; mín. R$ 25 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 75,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "rários mensais, conforme descrito abaixo, sobre um percentual do Patrimônio Líquido do Fundo: i) Taxa anual incidente sobre o Patrimônio Líquido do FIDC será de 0,30% (trinta centésimos por cento) ao ano. Será respeitado um pagamento mínimo mensal de R$ 25.000,00 (vinte e cinco mil reais) durante a operação do Fundo. Artigo 60º A Gestora não fará jus a Taxa de Performance. Artigo 61º A remuneração dos distribuidores que venham a ser contratados e remunerados pontualmente, a cada nova emissão pública de Cotas, será prevista nos documentos da respectiva oferta, conforme a Resolução CVM 160/22, tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe de Cotas, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE. Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB Parágrafo Único As remunerações previstas neste capítulo serão calculadas e apropriadas diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e serão pagas mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao vencido, corrigidas a"
+    }
+   ],
+   "legacy": {
+    "value": "0,30% a.a./PL; mínimo R$ 25 mil/mês; sem performance.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Gestora não faz jus a taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 75,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "mínimo mensal de R$ 25.000,00 (vinte e cinco mil reais) durante a operação do Fundo. Artigo 60º A Gestora não fará jus a Taxa de Performance. Artigo 61º A remuneração dos distribuidores que venham a ser contratados e remunerados pontualmente, a cada nova emissão pública de Cotas, será prevista nos documentos da respectiva oferta, conforme a Resolução CVM 160/22, tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe de Cotas, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE. Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB Parágrafo Único As remunerações previstas neste capítulo serão calculadas e apropriadas diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e serão pagas mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao vencido, corrigidas anualmente pela variação acumulada do IPCA, a partir da data de início do funcionamento do Fundo. Artigo 62º Caso a Classe de Cotas que possa adquirir cotas de outros fundos de investimento a Taxa de Administração compreende as"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Índice referencial definido no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 2,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "ição, pelo Fundo, de Direitos Creditórios devidos pela Devedora a seus Fornecedores; 2. Administradora: A VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na cidade de São Paulo, estado de São Paulo, na Rua Cardeal Arcoverde, n° 2365, 11º andar, Pinheiros, CEP 05407- 003, inscrita no CNPJ sob o nº 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20 de outubo de 2023; 3. Agência Classificadora de Risco: Significa a AUSTIN RATING SERVIÇOS FINANCEIROS LTDA., contratada pela Gestora para elaborar a classificação de risco das Cotas; 4. Agente de Cobrança: significa a Gestora ou terceiro contratado pela Gestora para prestar o serviço de agente de cobrança dos Direitos Creditórios; 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "H2 Kapital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 7,
+     "clause": "cl. 53",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FORNECEDORES MADEIRA MADEIRA I; 54. Gestora: a H2 KAPITAL S.A., sociedade autorizada pela CVM a exercer a atividade de gestão de carteira de títulos e valores mobiliários, conforme o Ato Declaratório nº 18.819, de 08 de junho de 2021, com sede na Rua Fidêncio Ramos, 223, 7º andar, conj. 74, Vila Olímpia, na Cidade de São Paulo, Estado de São Paulo, CEP 04551-010, inscrita no CNPJ sob o nº 40.297.139/0001-63; 55. Grupo Econômico ou Partes Relacionadas: Significa: (i) controladores; (ii) uma entidade controlada pelo ou sob controle comum; (iii) uma subsidiária; (iv) sociedade da qual a entidade possua, direta ou indiretamente, mais de 10% (dez) por cento do capital social; ou (v) sociedades dos quais seus administradores ou administradores de suas controladoras, subsidiárias ou afiliadas, e/ou respectivos cônjuges, ascendentes, descendentes e colaterais até 2º (segundo) grau possuam mais de 10% (dez) por cento do capital social;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 5,
+     "clause": "cl. 35",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "ente a cada cessão dos Direitos Creditórios ao Fundo, nos termos do Anexo Descritivo; 36. Custodiante: a VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na cidade de São Paulo, estado de São Paulo, na Rua Cardeal Arcoverde, n° 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18; 37. CVM: a Comissão de Valores Mobiliários; 38. Data da 1ª Integralização de Cotas: a data em que os recursos decorrentes da 1ª (primeira) integralização de determinada série de Cotas Seniores ou de determinada emissão de Cotas Subordinadas são colocados pelos investidores à disposição da Classe à qual pertençam, nos termos deste Regulamento e do respectivo Anexo Descritivo, a qual deverá ser, necessariamente, um Dia Útil; 39. Data de Verificação: o último Dia Útil de cada mês; 40."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Gestora ou terceiro por ela contratado",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 2,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "IROS LTDA., contratada pela Gestora para elaborar a classificação de risco das Cotas; 4. Agente de Cobrança: significa a Gestora ou terceiro contratado pela Gestora para prestar o serviço de agente de cobrança dos Direitos Creditórios; 5. Alocação Mínima: Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios, tendo em vista o disposto na Resolução CMN n° 5.111/23; 6. Amortização Extraordinária das Cotas Seniores: Significa a amortização extraordinária das Cotas Seniores a ser realizada: (i) no caso da ocorrência de um Evento de Pagamento Antecipado Automático; e/ou (ii) no caso da ocorrência de um Evento de Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB Pagamento Antecipado Não Automático, que não tenha sido sanado no respectivo prazo previsto no presente Regulamento, conforme aplicável, e cujo pagamento antecipado automático não seja afastado pelos titulares das Cotas Seniores em Assembleia Geral especificamente convocada para essa finalidade;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 44,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "da subclasse de Cotas estão descritas nos seus respectivos Apêndices a este Anexo Descritivo. Parágrafo Segundo A Classe de Cotas destina-se a investidores qualificados, conforme definidos no artigo 12 da Resolução CVM nº 30, que estejam aptos a investir nesta modalidade de fundo de investimento. Parágrafo Terceiro A Classe de Cotas buscará atingir os respectivos Índices Referenciais de rentabilidade para cada série de Cotas Seniores emitidas, conforme descrito nos respectivo Apêndice. Uma vez atingidos os Índices Referenciais das Cotas Seniores, os resultados excedentes do Fundo serão atribuídos às Cotas Subordinadas, as quais não possuem Índice Referencial de rentabilidade pré-definido."
+    }
+   ],
+   "legacy": {
+    "value": "Fechada, prazo indeterminado; investidores qualificados; responsabilidade ilimitada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 44,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": "vos aportes de recursos no Fundo, caso o Patrimônio Líquido seja negativo. Parágrafo Primeiro A Classe de Cotas é uma classe de cotas fechada, com prazo de duração indeterminado, sendo que as Cotas ora emitidas serão divididas em subclasses de Cotas Seniores e Cotas Subordinadas, devendo sempre ser observadas pro forma, quando da emissão de novas Cotas Seniores, o Índice de Subordinação da Classe de Cotas. As características de cada subclasse de Cotas estão descritas nos seus respectivos Apêndices a este Anexo Descritivo. Parágrafo Segundo A Classe de Cotas destina-se a investidores qualificados, conforme definidos no artigo 12 da Resolução CVM nº 30, que estejam aptos a investir nesta modalidade de fundo de investimento. Parágrafo Terceiro A Classe de Cotas buscará atingir os respectivos Índices Referenciais de rentabilidade para cada série de Cotas Seniores emitidas, conforme descrito nos respectivo Apêndice."
+    }
+   ],
+   "legacy": {
+    "value": "Fechada, prazo indeterminado; investidores qualificados; responsabilidade ilimitada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Sem limite: sacado único é a MadeiraMadeira",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1216296",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2026",
+     "page": 5,
+     "clause": "cl. 39",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1216296",
+     "excerpt": ", necessariamente, um Dia Útil; 39. Data de Verificação: o último Dia Útil de cada mês; 40. Devedora: Significa a MADEIRAMADEIRA COMÉRCIO ELETRÔNICO S.A., sociedade empresária com sede na Rua Marechal Deodoro, nº 717, 2º andar, Centro, na cidade de Curitiba, Estado do Paraná, CEP 80020-320, inscrita no CNPJ sob o nº 10.490.181/0001-35; 41. Dia Útil: segunda a sexta-feira, exceto feriados de âmbito nacional ou dias em que, por qualquer motivo, não houver expediente bancário ou não funcionar o mercado financeiro na praça de sede da Administradora/Custodiante, exceto pelos casos cujos pagamentos devam ser realizados por meio da B3, ou, para os casos de obrigações pecuniárias cujos pagamentos devam ser realizados por meio da B3, hipótese em que Docusign Envelope ID: A70F5D86-C7F6-4A54-822D-D2DB5F3706BB serão considerados Dias Úteis todos os dias exceto feriado nacional, sábado ou domingo ou data em que, por qualquer motivo, não haja expediente na B3; 42."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Risco único da MadeiraMadeira via fornecedores, sem coobrigação; PL/sênior ≥ 136,36% e prazo até 180 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,54 @@
+# Cerealis FIDC (QI CTVM; Orram; recebíveis do agronegócio)
+type: Agro/FIAGRO
+q18: * "ivos Financeiros com liquidez diária o equivalente a, no mínimo, 50% (cinquenta por cento) do valor futuro do pagamento do próximo resgate"
+q17: * "idos no período de 90 (noventa) dias contados da data de apuração ou (b) 1% (um por cento)"
+q16: * "9.3 O Fundo deverá, após 90 (noventa) dias contados da primeira Data de Subscrição Inicial do Fundo, observar a Alocação Mínima de 67%"
+q1: * "11.1 Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento"
+q2: * "O Fundo deverá observar o cumprimento de que o percentual de, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido do Fundo deverá ser representado por Cotas Subordinadas"
+q3: * "Adicionalmente, no mínimo, 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo deverá ser representado por Cotas Subordinadas Júnior"
+q4: * "Significa a concentração por Grupo Econômico do Devedor Devedor que deverá ser de até 5%"
+q5: * "Administradora QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q6: * "ão da carteira do Fundo compete à ORRAM GESTÃO DE RECURSOS LTDA."
+q7: * "Custodiante QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q8: * "Taxa de Administração: 0,30% (trinta centésimos por cento) ao ano"
+q9: * "Taxa de Gestão: 0,75% (setenta e cinco centésimos por cento) ao ano"
+q10: * "O Fundo terá prazo de duração indeterminado"
+q11: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q12: * "radas dos Cotistas quaisquer outras taxas, tais como taxa de performance"
+q13: * "23.1 O Fundo poderá ser liquidado por deliberação da Assembleia Geral de Cotistas"
+q14: * "não poderão ser devidos por Devedor pertencente ao mesmo Grupo Econômico ou for Parte Relacionada do Cedente"
+q15: * "concentração de até 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo nos meses de maio, junho, julho, agosto e setembro"
+receivables: Agronegócio: duplicatas, notas promissórias, LCC e CPR financeira | o1
+originator: Cedentes do agronegócio | q14
+assignor: Cedentes do agronegócio; LCC a performar ≤ 25% do PL (mai–set) | q15
+debtor: Devedores do agro; vedados relacionados ao cedente e cadeia do tabaco | q14
+recourse: n/d | Cessão irrevogável; regras de substituição de LCC no contrato | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: ≥ R$ 100; prazo de 10 a 365 dias; prazo médio ≤ 270; taxa ≥ DI + 0,5% a.m. | q1
+debtor_limit: Grupo devedor ≤ 5% do PL; 10 maiores e PF com tetos próprios | q4
+assignor_limit: n/d | Limites por cedente e UF citados, sem percentual no trecho lido | why=Resposta anterior trata de limites por devedor, registrados na linha própria
+term_max: De 10 a 365 dias; prazo médio ≤ 270 dias | q1
+allocation: ≥ 67% do PL em direitos creditórios após 90 dias | q16 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q2,q3
+sub_senior: 50% · (mez.+jr.)/PL | q2 | basis=mez+jr/PL
+sub_mezz: 25% · jr/PL | q3 | basis=jr/PL
+sub_check: Diária pela administradora | q3
+reserve: Caixa: maior entre 90 dias de despesas e 1% do PL; 50% do próximo resgate | q17,q18
+pdd: Perda por redução ao valor recuperável | q11
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído
+liquidation: Por deliberação da assembleia, inclusive após evento de avaliação | q13
+revolving: n/d | Regulamento não trata de revolvência no texto extraído
+amortization: n/d | Cronograma definido nos suplementos das séries
+admin_fee: 0,30% a.a. do PL (inclui custódia); mín. R$ 16 mil/mês | q8,o54
+mgmt_fee: 0,75% a.a. do PL | q9
+perf_fee: Não prevista | Regulamento veda taxa de performance | q12
+target_senior: n/d | Suplemento da série sênior vigente não está no acervo
+target_mezz: n/d | Suplemento da série mezanino vigente não está no acervo
+administrator: QI CTVM | q5
+manager: Orram Gestão de Recursos | q6
+custodian: QI CTVM | q7
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: n/d | Público-alvo não localizado no regulamento vigente
+duration: Indeterminado | q10
+agro_backing: Duplicatas, NPs, LCC e CPR financeira de devedores do agro | o1
+collateral: n/d | Garantias dos títulos não descritas no texto extraído
+leitura: Recebíveis agro com 50% de subordinação para a sênior e júnior ≥ 25%; grupo devedor ≤ 5% do PL.

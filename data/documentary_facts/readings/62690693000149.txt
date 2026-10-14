@@ -1,0 +1,58 @@
+# FIDC Randoncorp Recebíveis Comerciais (Integral Access; Integral Investimentos; cedentes Randoncorp)
+type: Duplicatas/multicedente
+q1: * "“Direitos Creditórios” Significam os direitos creditórios oriundos da venda de Produtos a prazo por Cedentes em favor de um Devedor"
+q2: * "“Cedentes” Significam, em conjunto e indistintamente, as Empresas Randoncorp que venham a assinar Termo de Adesão ao Convênio"
+q3: * "“Clientes” Significam, quando mencionados em conjunto e indistintamente, as Concessionárias, os Distribuidores"
+q4: * "Os Cedentes somente aceitam a responsabilidade pela existência e devida formalização dos Direitos Creditórios Cedidos"
+q5: * "i. o Devedor não pode dever outros direitos creditórios vencidos e não pagos por um período superior à 15 (quinze) dias"
+q6: * "LIMITES DE CONCENTRAÇÃO a. Uma vez que as Cotas serão destinadas exclusivamente a investidores profissionais"
+q7: * "contados a partir do início de suas atividades, no mínimo 50% (cinquenta por cento) do Patrimônio Líquido alocado em Direitos Creditórios Cedidos"
+q8: * "Em havendo Cotas Seniores em circulação, o Fundo deverá manter, durante seu prazo de duração, o Índice de Subordinação de 51%"
+q9: * "“Reserva de Caixa” Significa a reserva de caixa do Fundo, cujo montante mínimo consistirá no maior valor entre"
+q10: * "d. Não obstante o acima, na hipótese de constituição de provisão para perdas"
+q11: * "i. São considerados Eventos de Avaliação: i. a declaração de falência, recuperação judicial ou extrajudicial dos Cedentes"
+q12: * "b. São considerados Eventos de Liquidação: i. a exigência da CVM"
+q13: * "b. Será permitida a revolvência da carteira do Fundo"
+q14: * "a. O Fundo é constituído em regime de condomínio aberto e, como tal, é permitido aos Cotistas o resgate de suas Cotas"
+q15: * "contado a partir da Data da Primeira Integralização: 0,044% (quarenta e quadro milésimos por cento)"
+q16: * "mínima mensal a título de Taxa de Administração de R$ 5.000,00"
+q17: * "Primeira Integralização: 0,203% (duzentos e três milésimos por cento) ao ano sobre o saldo do valor presente"
+q18: * "deverá ser observada uma remuneração mínima mensal a título de Taxa de Gestão de R$19.000,00"
+q19: * "“Administrador” Significa a Integral Access Distribuidora de Títulos e Valores Mobiliários Ltda."
+q20: * "“Gestora” Significa a Integral Investimentos Ltda."
+q21: * "“Custodiante” Significa a Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A."
+q22: * "Agente de Cobrança” Significa o Banco Randon S.A."
+q23: * "a. O Fundo tem prazo de duração indeterminado"
+receivables: Vendas a prazo de produtos do grupo Randoncorp, performadas ou a performar | q1,q2
+originator: Empresas Randoncorp aderentes ao convênio | q2
+assignor: Empresas Randoncorp e suas controladas e filiais | q2
+debtor: Concessionárias, distribuidores e clientes finais da Randoncorp | q3
+recourse: Cedentes respondem só por existência e formalização, não pela solvência | q4
+eligibility: Devedor sem atraso > 15 dias; prazo mínimo de 12 dias até o vencimento | q5
+debtor_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6
+sacado_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6
+assignor_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6
+term_max: n/d | Regulamento fixa prazo mínimo, não máximo
+allocation: ≥ 50% do PL em direitos creditórios | q7 | value=50
+quota_structure: Sênior / Subordinada | q8
+sub_senior: 51% · subord./PL | q8 | basis=jr/PL | value=51
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração do índice não explicitada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Maior entre R$ 1 mi e 3 meses de despesas | q9
+pdd: Provisão para perdas reduz o valor contábil dos créditos | q10
+eval_triggers: Falência ou recuperação dos cedentes, entre outros | q11
+liquidation: Exigência da CVM, fim de contratos de cobrança ou cessão, entre outros | q12
+revolving: Revolvência com recursos dos pagamentos | q13
+amortization: Fundo aberto: resgate de cotas a qualquer tempo | q14
+admin_fee: 0,044% a.a. sobre VP dos créditos no 1º ano, 0,05% depois; mín. R$ 5 mil/mês | q15,q16
+mgmt_fee: 0,203% a.a. sobre VP dos créditos no 1º ano, escalonada; mín. R$ 19 mil/mês | q17,q18
+perf_fee: n/d | Regulamento não menciona taxa de performance
+target_senior: n/d | Rentabilidade-alvo definida no apêndice das cotas seniores
+target_mezz: — | Sem cota mezanino
+administrator: Integral Access DTVM | q19
+manager: Integral Investimentos | q20
+custodian: Oliveira Trust DTVM | q21
+servicer: Banco Randon (agente de cobrança) | q22
+investors: Investidores profissionais | q6
+duration: Indeterminado | q23
+leitura: Recebíveis comerciais do grupo Randoncorp em fundo aberto; subordinação de 51% enquanto houver sênior.

@@ -1,0 +1,59 @@
+# portado de 47640584000123 (65473122000140)
+type: Energia solar
+q27: D6 "acrescido de 8,00% a.a."
+q26: D6 "acrescido de 4,80% a.a."
+q25: D6 "Taxa DI, acrescido de 1,75% a.a."
+q24: * "Mezanino B” Administradora em cada Dia Útil, equivalente a, no mínimo"
+q1: * "“Endossante” significa (i) cada Instituição Financeira Parceira que tenha concedido um empréstimo"
+q2: * "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração"
+q3: * "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade"
+q4: * "se pessoa jurídica, R$850.000,00"
+q5: * "Sênior” Administradora em cada Dia Útil, equivalente a, no mínimo"
+q6: * "Índice de Subordinação Mezanino A será sempre de 12,50%"
+q7: * "8.1 O Fundo pagará, pelos serviços de administração do Fundo, uma Taxa de Administração equivalente a 0,09%"
+q9: * "O Fundo apurará e pagará a Taxa de Gestão como remuneração à Gestora pelos serviços de gestão fiduciária, equivalente a 0,20%"
+q11: * "observado o valor mínimo mensal de R$ 2.000,00 (dois mil reais) corrigido anualmente pelo IPCA. 8.5."
+q12: * "“Administradora” significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q13: * "4.2.1. O Fundo é gerido pela AUGME CAPITAL GESTÃO DE RECURSOS LTDA."
+q14: * "“Custodiante” significa a Administradora, que poderá contratar terceiros"
+q15: * "18.1. São Eventos de Avaliação"
+q16: * "19.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências"
+q17: * "a revolvência dos Direitos Creditórios, desde que respeitado o disposto neste Regulamento"
+q18: * "manual de provisão para perdas da Administradora, disponível em seu site"
+q19: * "taxa de ingresso, taxa de saída ou taxa de performance"
+q20: * "O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e de Cotas Subordinadas Mezanino"
+q21: * "Equipamentos. Nos termos do artigo 1.361"
+q22: * "os Direitos Creditórios devidos por Devedores pessoas físicas com idade igual ou superior a 60 (sessenta) anos não deverão representar mais que 10%"
+receivables: CCBs de financiamento de projetos de geração solar | q2,q3
+originator: Instituição Financeira Parceira de cada financiamento | q1
+assignor: Instituição Financeira Parceira (endossante) | q1
+debtor: PF e PJ que financiam projetos de geração de energia | q2
+recourse: Endossante responde só por existência e formalização do crédito | q1
+eligibility: CCB formalizada com a parceira; ofertada integralmente; filtros do anexo | q3
+debtor_limit: PJ até R$ 850 mil por grupo; exceções até 1% do PL; PF 60+ ≤ 10% | q4,q23,q22
+assignor_limit: Não previsto | Anexo limita por devedor, não por instituição parceira
+term_max: n/d | Prazo máximo da CCB não localizado no texto extraído
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino A / Mezanino B / Júnior | q5,q24
+sub_senior: 23,5% na carência, depois 25% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL | value=25
+sub_mezz: Mez. A: 12,5% após a carência; Mez. B: 4,25% → 6,25% jr/PL | q6,q24 | basis=jr/PL | value=6.25
+sub_check: Diária pela administradora sobre o PL ajustado | q5
+reserve: Reserva de despesas e encargos calculada pela administradora | q7
+pdd: Manual de provisão para perdas da administradora | q18
+eval_triggers: Relatório de monitoramento não enviado em 15 DU; rating sem atualização | q15
+liquidation: Evento de insolvência e demais itens do capítulo 19 | q16
+revolving: Revolvência permitida | q17
+amortization: n/d | Cronograma remetido aos apêndices; principal não amortiza na carência | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,09% a.a. do PL; mín. R$ 15 mil/mês nos 6 primeiros meses | q7
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 18,5 mil/mês | q9
+perf_fee: Não prevista | Regulamento veda taxa de performance | q19
+target_senior: DI + 1,75% a.a. (1ª série sênior) | q25
+target_mezz: Mez. A: DI + 4,80%; Mez. B: DI + 8,00% | q26,q27
+administrator: Genial Investimentos CVM | q12
+manager: Augme Capital Gestão de Recursos | q13
+custodian: Genial Investimentos (a administradora); mín. R$ 2 mil/mês | q14,q11,q12
+servicer: n/d | Consultor de cobrança sem nome no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído | why=Resposta anterior trata de prazo das séries, não do público
+duration: Indeterminado; prazo por série | q20
+real_collateral: Alienação fiduciária dos equipamentos solares, registrada em cartório | q21
+leitura: Financiamento solar com 25% de subordinação após a carência; sênior DI + 1,75%, mezaninos a DI + 4,80% e + 8,00%.

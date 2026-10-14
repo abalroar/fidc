@@ -1,0 +1,625 @@
+{
+ "schema_version": 1,
+ "cnpj": "60043514000156",
+ "name": "ANZEN FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:14:36Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1027083",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "03/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos de vendas e serviços, performados ou a performar; CCB e cartão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 25,
+     "clause": "Apêndice B, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "5.1.1 É permitida a aquisição de direitos creditórios originados ou cedidos pela Administradora, Gestora, Consultoria Especializada ou partes a eles relacionadas, definidas como tal pelas regras contábeis que tratam desse assunto.."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos de vendas/serviços performados ou a performar; inclui CCB e cartão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos, não predeterminados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 38,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "os Cedidos. 10.1.29 Risco decorrente da relação comercial entre Cedentes e Devedores (sacados) - O Fundo está apto a adquirir Direitos Creditórios de titularidade de múltiplos Cedentes. Tais Cedentes não são previamente conhecidos pelo Fundo e pela Administradora, de forma que eventuais problemas de natureza comercial entre os Cedentes e os respectivos Devedores (sacados) podem não ser previamente identificados pelo Fundo ou pela Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Múltiplos cedentes",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 38,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "os Cedidos. 10.1.29 Risco decorrente da relação comercial entre Cedentes e Devedores (sacados) - O Fundo está apto a adquirir Direitos Creditórios de titularidade de múltiplos Cedentes. Tais Cedentes não são previamente conhecidos pelo Fundo e pela Administradora, de forma que eventuais problemas de natureza comercial entre os Cedentes e os respectivos Devedores (sacados) podem não ser previamente identificados pelo Fundo ou pela Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Sacados dos créditos cedidos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 38,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "os Cedidos. 10.1.29 Risco decorrente da relação comercial entre Cedentes e Devedores (sacados) - O Fundo está apto a adquirir Direitos Creditórios de titularidade de múltiplos Cedentes. Tais Cedentes não são previamente conhecidos pelo Fundo e pela Administradora, de forma que eventuais problemas de natureza comercial entre os Cedentes e os respectivos Devedores (sacados) podem não ser previamente identificados pelo Fundo ou pela Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "list",
+   "reason": "Critérios de elegibilidade não detalhados no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Cedente em recuperação permitido com plano homologado e crédito sem entrega futura",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite de concentração por devedor",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 27,
+     "clause": "Apêndice B, cl. 5.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "r Direitos Creditórios. Clicksign 813c3795-0f96-41e4-8d40-3512c7b07841 Limites de Concentração 5.5 A Carteira do Fundo não observará nenhum limite de concentração por devedor, emissor e tipo de direito creditório. Outras Disposições da Política de Investimento 5.6 O Fundo poderá contratar operações com derivativos para fins de proteção patrimonial, cuja exposição seja sempre, no máximo, o valor do Patrimônio Líquido do Fundo. 5.7 É vedado ao Fundo realizar operações de (a) day-trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de o Fundo possuir estoque ou posição anterior do mesmo Ativo Financeiro, (b) venda de opções de compra a descoberto e alavancadas, a qualquer título, e (c) renda variável. 5.8 Os Direitos Creditórios e os Ativos Financeiros integrantes da Carteira do Fundo devem ser custodiados, bem como registrados e/ou mantidos em conta de depósito diretamente em nome do Fundo, em contas específicas abertas no Sistema Especial de Liquidação e de Custódia – SELIC, em sistemas de registro e de liquidação financeira de ativos autorizados pelo BACEN ou em instituições ou entidades autorizadas à prestação desses serviços pelo BACEN ou pela CVM, conforme o caso. 5.9 Caso"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Sem limite de concentração por cedente",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 27,
+     "clause": "Apêndice B, cl. 5.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "r Direitos Creditórios. Clicksign 813c3795-0f96-41e4-8d40-3512c7b07841 Limites de Concentração 5.5 A Carteira do Fundo não observará nenhum limite de concentração por devedor, emissor e tipo de direito creditório. Outras Disposições da Política de Investimento 5.6 O Fundo poderá contratar operações com derivativos para fins de proteção patrimonial, cuja exposição seja sempre, no máximo, o valor do Patrimônio Líquido do Fundo. 5.7 É vedado ao Fundo realizar operações de (a) day-trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de o Fundo possuir estoque ou posição anterior do mesmo Ativo Financeiro, (b) venda de opções de compra a descoberto e alavancadas, a qualquer título, e (c) renda variável. 5.8 Os Direitos Creditórios e os Ativos Financeiros integrantes da Carteira do Fundo devem ser custodiados, bem como registrados e/ou mantidos em conta de depósito diretamente em nome do Fundo, em contas específicas abertas no Sistema Especial de Liquidação e de Custódia – SELIC, em sistemas de registro e de liquidação financeira de ativos autorizados pelo BACEN ou em instituições ou entidades autorizadas à prestação desses serviços pelo BACEN ou pela CVM, conforme o caso. 5.9 Caso"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Cedente em recuperação permitido com plano homologado e crédito sem entrega futura",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 26,
+     "clause": "Apêndice B, cl. 5.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "ido neste Regulamento. 5.4 No prazo de 180 (cento e oitenta) dias contados do início das atividades do Fundo, o Fundo deverá observar a Alocação Mínima, possuindo parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. Clicksign 813c3795-0f96-41e4-8d40-3512c7b07841 Limites de Concentração 5.5 A Carteira do Fundo não observará nenhum limite de concentração por devedor, emissor e tipo de direito creditório. Outras Disposições da Política de Investimento 5.6 O Fundo poderá contratar operações com derivativos para fins de proteção patrimonial, cuja exposição seja sempre, no máximo, o valor do Patrimônio Líquido do Fundo. 5.7 É vedado ao Fundo realizar operações de (a) day-trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de o Fundo possuir estoque ou posição anterior do mesmo Ativo Financeiro, (b) venda de opções de compra a descoberto e alavancadas, a qualquer título, e (c) renda variável. 5.8 Os Direitos Creditórios e os Ativos Financeiros integrantes da Carteira do Fundo devem ser custodiados, bem como registrados e/ou mantidos em conta de depósito diretamente em nome do Fundo, em contas específicas abertas no Sistema Especial de Liquidação e de Custódia – SELIC, em sistem"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC >50% PL após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Apêndice B, cl. 5.4"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 8,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "entração descritos no Capítulo 5, do Anexo I, deste Regulamento. “Limite Mínimo de Subordinação” Significa o limite mínimo do Índice de Subordinação, equivalente a 30% (trinta por cento), calculado sobre o Patrimônio Líquido do Fundo, que deverá ser observado pelo Fundo. “Meta de Remuneração” Significa a meta de rentabilidade a ser buscado pelo Fundo, conforme definida no respectivo apêndice de cada Subclasse de Cotas. “Patrimônio Líquido” Significa a diferença entre (i) a soma do saldo das Disponibilidades e saldo dos Direitos Creditórios Adquiridos;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 57,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "10) Taxa de Saída: não há. 11) REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO: Taxa de Administração: A Taxa de Administração da Subclasse Subordinada Júnior, a ser paga à Administradora pelos serviços prestados à Subclasse, corresponde ao valor mínimo fixo de R$ 4.000,00 (quatro mil reais). Nos primeiros 6 (seis) meses, contados a partir da data do primeiro aporte realizado no Fundo, será concedido um desconto de 50% (cinquenta por cento) sobre o valor mínimo mensal, de modo que, durante esse período, a Taxa de Administração será de R$ 2.000,00 (dois mil reais) por mês."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Apêndice B"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 8,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "entração descritos no Capítulo 5, do Anexo I, deste Regulamento. “Limite Mínimo de Subordinação” Significa o limite mínimo do Índice de Subordinação, equivalente a 30% (trinta por cento), calculado sobre o Patrimônio Líquido do Fundo, que deverá ser observado pelo Fundo. “Meta de Remuneração” Significa a meta de rentabilidade a ser buscado pelo Fundo, conforme definida no respectivo apêndice de cada Subclasse de Cotas. “Patrimônio Líquido” Significa a diferença entre (i) a soma do saldo das Disponibilidades e saldo dos Direitos Creditórios Adquiridos;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino identificada",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Abaixo de 20% por mais de 90 dias é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 48,
+     "clause": "Apêndice B, cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "O Fundo poderá ser liquidado por deliberação da Assembleia Geral, convocada especialmente para esse fim. 15.2 Será considerado como Evento de Avaliação: (a) caso o Índice de Subordinação fique abaixo de 20% (vinte por cento) por período superior a 90 (noventa) dias; (b) cessação pela Consultora Especializada, a qualquer tempo e por qualquer motivo, da prestação dos serviços para o Fundo. (c) Aquisição de Direitos Creditórios e/ou Ativos Financeiros em desacordo com a Política de Investimentos e/ou aos Critérios de Elegibilidade, conforme aplicável, previstos neste Regulamento. 15.3 Na ocorrência do Evento de Avaliação, o Fundo não estará sujeito à liquidação automática, devendo a Gestora, imediatamente e independentemente de qualquer procedimento adicional, (a) interromper a aquisição de Direitos Creditórios, a exclusivo critério da Gestora;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Apêndice B, cl. 15.1"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa não localizada no texto extraído",
+   "sources": []
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado no texto extraído",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Subordinação < 20% por mais de 90 dias; saída de prestador, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 48,
+     "clause": "Apêndice B, cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "O Fundo poderá ser liquidado por deliberação da Assembleia Geral, convocada especialmente para esse fim. 15.2 Será considerado como Evento de Avaliação: (a) caso o Índice de Subordinação fique abaixo de 20% (vinte por cento) por período superior a 90 (noventa) dias; (b) cessação pela Consultora Especializada, a qualquer tempo e por qualquer motivo, da prestação dos serviços para o Fundo. (c) Aquisição de Direitos Creditórios e/ou Ativos Financeiros em desacordo com a Política de Investimentos e/ou aos Critérios de Elegibilidade, conforme aplicável, previstos neste Regulamento. 15.3 Na ocorrência do Evento de Avaliação, o Fundo não estará sujeito à liquidação automática, devendo a Gestora, imediatamente e independentemente de qualquer procedimento adicional, (a) interromper a aquisição de Direitos Creditórios, a exclusivo critério da Gestora;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não detalhada no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das subclasses",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "Júnior: R$ 4 mil/mês fixos (R$ 2 mil nos 6 primeiros meses)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 57,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "10) Taxa de Saída: não há. 11) REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO: Taxa de Administração: A Taxa de Administração da Subclasse Subordinada Júnior, a ser paga à Administradora pelos serviços prestados à Subclasse, corresponde ao valor mínimo fixo de R$ 4.000,00 (quatro mil reais). Nos primeiros 6 (seis) meses, contados a partir da data do primeiro aporte realizado no Fundo, será concedido um desconto de 50% (cinquenta por cento) sobre o valor mínimo mensal, de modo que, durante esse período, a Taxa de Administração será de R$ 2.000,00 (dois mil reais) por mês."
+    }
+   ],
+   "legacy": {
+    "value": "Apêndice júnior: R$ 4 mil/mês; R$ 2 mil nos primeiros 6 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,30% a.a. do PL; mín. R$ 8 mil/mês (50% de desconto nos 6 primeiros meses)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 57,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "tir do 7º (sétimo) mês, a Taxa de Administração voltará ao valor mínimo original estabelecido. Taxa de Gestão: A Taxa de Gestão da Subclasse Subordinada Júnior, a ser paga à Gestora pelos serviços prestados à Subclasse, corresponde ao percentual anual de 0,30% (trinta centésimos por cento), a ser calculado Clicksign 813c3795-0f96-41e4-8d40-3512c7b07841 sobre o valor total do Patrimônio Líquido da Classe, incluindo todas as suas Subclasses, observado, ainda, o valor mínimo mensal de R$ 8.000,00 (oito mil reais). Nos primeiros 6 (seis) meses, será concedido um desconto de 50% (cinquenta por cento) sobre o valor mínimo mensal, de modo que, durante esse período, a Taxa de Gestão será de R$ 4.000,00 (quatro mil reais) por mês. Após esse período inicial, a Taxa de Gestão voltará ao valor mínimo original estipulado. Taxa de Cogestão: A Taxa de Cogestão da Subclasse Subordinada Júnior, a ser paga à Cogestora pelos serviços prestados à Subclasse, corresponde ao percentual anual de 0,40% (quarenta centésimos por cento), a ser calculado sobre o valor total do Patrimônio Líquido da Classe, incluindo todas as suas Subclasses, observado, ainda, o valor mínimo mensal de R$ 10.000,00 (quinze mil reais). Nos primeiros 6 (seis) meses, será concedido um desconto de 50% (cinquenta por cento) sobre o valor mínim"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 58,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "96-41e4-8d40-3512c7b07841 sobre o valor total do Patrimônio Líquido da Classe, incluindo todas as suas Subclasses, observado, ainda, o valor mínimo mensal de R$ 8.000,00 (oito mil reais). Nos primeiros 6 (seis) meses, será concedido um desconto de 50% (cinquenta por cento) sobre o valor mínimo mensal, de modo que, durante esse período, a Taxa de Gestão será de R$ 4.000,00 (quatro mil reais) por mês. Após esse período inicial, a Taxa de Gestão voltará ao valor mínimo original estipulado. Taxa de Cogestão: A Taxa de Cogestão da Subclasse Subordinada Júnior, a ser paga à Cogestora pelos serviços prestados à Subclasse, corresponde ao percentual anual de 0,40% (quarenta centésimos por cento), a ser calculado sobre o valor total do Patrimônio Líquido da Classe, incluindo todas as suas Subclasses, observado, ainda, o valor mínimo mensal de R$ 10.000,00 (quinze mil reais). Nos primeiros 6 (seis) meses, será concedido um desconto de 50% (cinquenta por cento) sobre o valor mínimo mensal, de forma que, durante esse período, a Taxa de Cogestão será de R$ 5.000,00 (cinco mil reais) por mês. Após esse prazo, a Taxa de Cogestão será cobrada pelo valor mínimo original estabelecido. Taxa de Custódia: A Taxa de Custódia da Subclasse Sub"
+    }
+   ],
+   "legacy": {
+    "value": "Apêndice júnior: 0,30% a.a. PL da classe; mínimo R$ 8 mil/mês, com desconto inicial",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 16,
+     "clause": "Apêndice B, cl. 8.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "a Classe (base 252 dias). 8.6 Não serão cobradas dos Cotistas quaisquer outras taxas dos Cotistas, tais como taxa de ingresso, taxa de saída ou taxa de performance. 9. SUBSTITUIÇÃO DOS PRESTADORES DE SERVIÇOS ESSENCIAIS 9.1 A Administradora e/ ou a Gestora, na qualidade de “prestadores de serviços essenciais” do Fundo, deverão ser substituídos nas hipóteses de: (i) descredenciamento para o exercício da atividade que constitui o serviço prestado ao fundo, por decisão da CVM; (ii) renúncia;"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino identificada",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Azumi DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 4,
+     "clause": "Apêndice B, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "cado a eles atribuídos abaixo e ao longo do Regulamento, sendo aplicável tanto no singular quanto no plural. “Administradora” Significa a AZUMI DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade e Estado de São Paulo, na Rua Dr. Rubens Gomes Bueno, 691, Conjunto 131, Várzea de Baixo, CEP 04.730-903, inscrita no CNPJ/MF sob o nº 40.434.681/0001-10, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, através do Ato Declaratório nº 19.213, expedido em 27 de outubro de 2021. “Agente de Cobrança” Significa a instituição eventualmente contratada pelo Fundo, conforme aprovada pela Gestora, para realizar a cobrança extrajudicial dos Direitos Creditórios Adquiridos e coordenar em conjunto com a Gestora, mediante a contratação de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Asset Bank Asset Management (cogestão Azumi Asset)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 8,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "Significa o ANZEN FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS. “Gestora” Significa a ASSET BANK – ASSET MANAGEMENT LTDA., inscrita no CNPJ/ME sob o nº 42.221.617/0001-87, com sede Av. Rodrigo Fernando Grillo, n.º 207, Ed. Victória Business, 14º andar, Sala 1402, Jardim dos Manacás, CEP: 14801-534, na cidade de Araraquara, Estado de São Paulo, devidamente autorizada pela CVM para gestão de carteiras de valores mobiliários, conforme Ato Declaratório nº 19.632, de 09 de dezembro de 2021. “Índice de Subordinação” Significa a razão entre (a) a soma do saldo das Cotas de Subclasse Subordinada Júnior; e (b) o Patrimônio Líquido do Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 5,
+     "clause": "Apêndice B, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "“Código Civil” Significa a Lei 10.406, de 10 de janeiro de 2002, conforme alterada. “Cogestora” Significa a AZUMI ASSET MANAGEMENT LTDA., sociedade empresária com sede na Cidade de São Paulo, na Rua Dr. Rubens Bueno, nº. 691, Conj 134, Bloco B, Várzea de Baixo, Estado do São Paulo, CEP 04.730-903, inscrita no CNPJ/MF sob o nº Clicksign 813c3795-0f96-41e4-8d40-3512c7b07841 54.782.532/0001-57, devidamente autorizada pela CVM para gestão de carteiras de valores mobiliários, conforme Ato Declaratório nº 22.320, de 11 de julho de 2024. “Condições de Cessão” As condições para seleção dos Direitos Creditórios que sejam adquiridos pelo Fundo por meio de cessão ou endosso, a serem verificadas pela Gestora previamente à aquisição dos lastros, conforme previstos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Azumi DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 6,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "tórios para aquisição pelo Fundo, nos termos deste Regulamento. “Custodiante” Significa a AZUMI DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada. “CVM” Significa a Comissão de Valores Mobiliários. Clicksign 813c3795-0f96-41e4-8d40-3512c7b07841 “Data de Aquisição” Significa qualquer data na qual o Fundo formalize a aquisição de Direitos Creditórios Elegíveis e com o consequente pagamento do Preço de Aquisição. “Data de Integralização Inicial” A data da 1ª (primeira) integralização de Cotas de Subclasse Sênior e das Cotas de Subclasse Subordinada Júnior. “Data de Vencimento dos Direitos Significa a data de vencimento dos Direitos Creditórios. Creditórios” “Dia Útil” Significa qualquer dia que não seja sábado, domingo, feriado nacional ou, ainda, dia em que, por qualquer motivo, não houver expediente bancário na localidade da sede da A"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 24,
+     "clause": "Apêndice B, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "VO 2.1 O Fundo é constituído sob a forma de condomínio aberto e regido por este Regulamento. 2.2 O Fundo é destinado a Investidores Profissionais, nos termos do artigo 11 da Resolução CVM 30, de 11 de maio de 2021. 2.3 O Fundo e as Cotas não são qualificados como “VERDE”, “SOCIAL”, “SUSTENTÁVEL” ou termos correlatos. 3. PRAZO DE DURAÇÃO E EXERCÍCIO SOCIAL 3.1 O Fundo tem prazo de duração indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas reunidos em Assembleia Geral de Cotistas. 3.2 O exercício social do Fundo terá duração de 1 (um) ano e encerrar-se-á no último dia de abril de cada ano. 4. CLASSE E SUBCLASSES DE COTAS DO FUNDO 4.1 O Fundo é constituído por Classe Única de Cotas, dividida em 2 (duas) diferentes Subclasses, conforme indicadas a seguir: (i) Cotas de Subclasse Sênior. As Cotas de Subclasse Sênior são aquelas que não se subordinam às demais ou entre si para efeito de pagamentos de Remuneração e Resgate. (ii) Cotas de Subclasse Subordinada Júnior."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 11,
+     "clause": "Apêndice B, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "tos. Clicksign 813c3795-0f96-41e4-8d40-3512c7b07841 4. PRAZO DE DURAÇÃO E EXERCÍCIO SOCIAL 4.1 O Fundo tem prazo de duração indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas reunidos em Assembleia Geral de Cotistas. 4.2 O exercício social do Fundo terá duração de 1 (um) ano e encerrar-se-á no último dia de abril de cada ano. 5. CLASSE E SUBCLASSES DE COTAS DO FUNDO 5.1 O Fundo é constituído por Classe Única de Cotas, dividida em 2 (duas) diferentes Subclasses, conforme indicadas a seguir: (i) Cotas de Subclasse Sênior. As Cotas de Subclasse Sênior são aquelas que não se subordinam às demais ou entre si para efeito de pagamentos de Remuneração e Resgate. (ii) Cotas de Subclasse Subordinada Júnior."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Sem limite de concentração por devedor",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1027083",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 27,
+     "clause": "Apêndice B, cl. 5.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027083",
+     "excerpt": "r Direitos Creditórios. Clicksign 813c3795-0f96-41e4-8d40-3512c7b07841 Limites de Concentração 5.5 A Carteira do Fundo não observará nenhum limite de concentração por devedor, emissor e tipo de direito creditório. Outras Disposições da Política de Investimento 5.6 O Fundo poderá contratar operações com derivativos para fins de proteção patrimonial, cuja exposição seja sempre, no máximo, o valor do Patrimônio Líquido do Fundo. 5.7 É vedado ao Fundo realizar operações de (a) day-trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de o Fundo possuir estoque ou posição anterior do mesmo Ativo Financeiro, (b) venda de opções de compra a descoberto e alavancadas, a qualquer título, e (c) renda variável. 5.8 Os Direitos Creditórios e os Ativos Financeiros integrantes da Carteira do Fundo devem ser custodiados, bem como registrados e/ou mantidos em conta de depósito diretamente em nome do Fundo, em contas específicas abertas no Sistema Especial de Liquidação e de Custódia – SELIC, em sistemas de registro e de liquidação financeira de ativos autorizados pelo BACEN ou em instituições ou entidades autorizadas à prestação desses serviços pelo BACEN ou pela CVM, conforme o caso. 5.9 Caso"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Multicedente para profissionais com 30% de subordinação e sem limites de concentração por devedor ou cedente.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

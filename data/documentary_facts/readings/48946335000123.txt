@@ -1,0 +1,52 @@
+# Nagro Oikos FIAGRO (Vórtx; Oikos Gestão)
+type: Agro/FIAGRO
+q17: * "“Administradora”: signiﬁca VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q1: * "Para originações e revolvências a partir de 04 de agosto de 2026, serão permitidas com devedores de rating AA, A, B e C"
+q2: * "lasse poderá adquirir Direitos Creditórios e/ou Ativos Financeiros de um mesmo Devedor, ou de coobrigação de uma mesma pessoa ou entidade, que excedam 20%"
+q3: * "a Classe deverá possuir parcela superior a 50% (cinquenta por cento) do seu Patrimônio Líquido representada por Direitos Creditórios"
+q4: * "11.9. Razões de Garantia 11.9.1. A Classe deverá ter, no máximo: i. 50% (cinquenta por cento) de seu patrimônio representado por Cotas Seniores da Série A"
+q5: * "15% (quinze por cento) de seu patrimônio representado por Cotas Subordinadas Mezanino"
+q6: * "Será devido pelo Fundo à Administradora, a título de Taxa de Administração, uma remuneração equivalente a 0,25%"
+q7: * "Pelo serviço de gestão do Fundo, será devido à Gestora Taxa de Gestão no valor de 1,00%"
+q8: * "“Gestora”: signiﬁca a OIKOS GESTÃO DE RECURSOS LTDA."
+q9: * "A Administradora constituirá provisão para perdas com devedores duvidosos (“PDD”) para Direitos Creditórios Adquiridos de acordo com a seguinte metodologia"
+q10: * "A Classe terá prazo de duração indeterminado, sendo que cada Subclasse"
+q11: * "constituição e/ou recomposição da Reserva de Despesas de modo que esta, ao ﬁnal de cada Dia Útil"
+q12: D4 "100% da variação da Taxa DI, acrescida de spread de 3,25 % (três e vinte e cinco por cento) ao ano"
+q13: D4 "100% da variação da Taxa DI, acrescida de spread de 4,5 % (quatro e meio por cento) ao ano"
+q14: D4 "100% da variação da Taxa DI, acrescida de spread de 6 % (seis por cento)"
+q15: * "Direitos Creditórios não poderão ser originados por Devedores que atuam na cadeia produtiva do tabaco"
+receivables: Operações de crédito nas cadeias do agronegócio; imóveis rurais complementares | o1
+originator: Produtores e empresas do agro originados pela gestora | q1
+assignor: n/d | Cedentes não nomeados; originação conduzida pela gestora
+debtor: Devedores do agro com rating AA a C; vedada cadeia do tabaco | q1,q15
+recourse: n/d | Coobrigação definida em cada operação
+eligibility: Devedor com rating AA a C; limites e taxas mínimas por faixa | q1
+debtor_limit: Até 20% do PL por devedor, salvo exceções da norma | q2
+assignor_limit: Não previsto | Regulamento limita por devedor e rating, não por cedente
+term_max: n/d | Prazo máximo não localizado no trecho lido
+allocation: > 50% do PL em direitos creditórios | q3 | value=50
+quota_structure: Sênior A e B / Mezanino / Júnior A e B | q4
+sub_senior: Sênior A ≤ 50% e sênior A+B ≤ 75% do PL | q4 | basis=mez+jr/PL | value=25
+sub_mezz: Mezanino ≥ 15% e júnior A+B ≥ 10% do PL | q5 | basis=jr/PL | value=10
+sub_check: Diária pela gestora | q4
+reserve: Reserva de despesas recomposta diariamente pelos encargos estimados | q11,o37
+pdd: Sem provisão até 60 dias de atraso; provisão crescente depois | q9
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído
+liquidation: n/d | Lista de eventos de liquidação não localizada no texto extraído
+revolving: Revolvência permitida com devedores de rating AA a C | q1
+amortization: n/d | Prazos por série definidos nos apêndices | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,25% a.a. do PL; mín. R$ 20 mil/mês, mais adicionais | q6,o55
+mgmt_fee: 1,00% a.a. do PL | q7
+perf_fee: n/d | Taxa de performance citada como encargo, sem regra no texto lido
+target_senior: Sênior A: DI + 3,25%; Sênior B: DI + 4,5% (2ª emissão) | q12,q13
+target_mezz: DI + 6% a.a. (2ª emissão) | q14
+administrator: Vórtx DTVM | q17
+manager: Oikos Gestão de Recursos | q8
+custodian: n/d | Custodiante citado sem nome no trecho lido
+servicer: n/d | Agentes de cobrança sem nome no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado; prazo próprio por subclasse | q10
+agro_backing: Operações nas cadeias produtivas do agronegócio | o1
+collateral: n/d | Garantias definidas por operação, não no regulamento
+leitura: Crédito agro com rating AA a C, sênior A ≤ 50% e A+B ≤ 75% do PL; sênior a DI + 3,25% e gestão de 1% a.a.

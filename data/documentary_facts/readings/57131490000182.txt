@@ -1,0 +1,55 @@
+# Ponto Rural FIAGRO (Singulare; FAR Fator; cedentes do grupo Ponto Rural)
+type: Agro/FIAGRO
+q19: * "no último Dia Útil de qualquer mês ensejará a ocorrência de um Evento de Avaliação: (a) Caso o Índice de Atraso (31-360 dias) seja superior a 25%"
+q1: * "“Cedente” significa a Ponto Rural e as Empresas do Grupo Econômico da Ponto Rural"
+q2: * "“Devedores” significa os devedores dos Direitos Creditórios, os quais são clientes de uma das Cedentes"
+q3: * "9.1. Os Direitos Creditórios somente poderão ser adquiridos pela Class"
+q4: * "observará a seguinte concentração máxima por rating atribuído pela Gestora ao respectivo Devedor"
+q5: * "Isso significa que, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação"
+q6: * "Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Mezanino 2 e Cotas Subordinadas Júnior"
+q7: * "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q8: * "(base 252 Dias Úteis) Mínimo Mensal 1º mês 0,20% do Patrimônio Líquido R$6.000,00"
+q9: * "Taxa de Gestão: o valor correspondente a 0,65% (sessenta e cinco centésimos por cento) ao ano"
+q10: * "s Cotistas taxa de ingresso ou de saída da Classe ou taxa de performance"
+q11: * "“Administradora” significa a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q12: * "“Gestora” significa a FAR – FATOR ADMINISTRAÇÃO DE RECURSOS LTDA"
+q13: * "“Custodiante” significa a Administradora"
+q14: * "9.4. Revolvência. Na hipótese em que a Classe tiver disponibilidade de caixa"
+q15: * "A Classe é exclusivamente destinada a Investidores Profissionais"
+q16: * "A Classe terá prazo de duração indeterminado"
+q17: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q18: * "“Reserva de Caixa” significa a reserva para pagamento de despesas e encargos da Classe"
+receivables: Títulos das cadeias agroindustriais vendidos pela Ponto Rural | o1,q1
+originator: Ponto Rural e empresas do grupo | q1
+assignor: Ponto Rural e empresas do grupo econômico | q1
+debtor: Clientes das cedentes no agronegócio | q2
+recourse: n/d | Recompra obrigatória e facultativa reguladas no contrato | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Título ≥ R$ 100; em reais; não vencido; prazo ≤ 360 dias; sem contestação | q3
+debtor_limit: Por rating interno: A ≤ 3,5% do PL, B ≤ 3%, C ≤ 1%, D ≤ 0,5% | q4,o16
+assignor_limit: Cedentes do grupo Ponto Rural, sem limite por cedente | q1
+term_max: Até 360 dias | q3
+allocation: > 50% do PL em direitos creditórios | q7 | value=50
+quota_structure: Sênior / Mezanino 1 e 2 / Júnior | q5,q6
+sub_senior: 50% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: Mez. 2 + júnior ≥ 10% do PL | q6 | basis=jr/PL | value=10
+sub_check: Diária pela administradora | q6
+reserve: Reserva de caixa para despesas; reserva de pagamento de amortização | q18
+pdd: Perda por redução ao valor recuperável | q17
+eval_triggers: Atrasos 31–360 > 25%, 61–360 > 15%, 91–360 > 5%, 181–360 > 3% | q19
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído | why=Resposta anterior lista eventos de avaliação, registrados na linha própria
+revolving: Revolvência com caixa de pagamentos, se atendidos os critérios | q14
+amortization: n/d | Cronograma definido nos apêndices das séries
+admin_fee: 0,20% a.a. até R$ 100 mi; 0,15% acima; mínimos escalonados de R$ 6 mil | q8,o54
+mgmt_fee: 0,65% a.a. do PL; mín. R$ 15 mil/mês | q9,o57
+perf_fee: Não prevista | Regulamento veda taxa de performance | q10
+target_senior: n/d | Apêndice da série sênior não está no acervo
+target_mezz: n/d | Apêndice da série mezanino não está no acervo
+administrator: Singulare CTVM | q11
+manager: FAR – Fator Administração de Recursos | q12
+custodian: Singulare CTVM (a administradora) | q13,q11
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais | q15
+duration: Indeterminado | q16
+agro_backing: Vendas de insumos e produtos da Ponto Rural a clientes do agro | q1,q2
+collateral: n/d | Garantias dos títulos não descritas no texto extraído
+leitura: Recebíveis agro do grupo Ponto Rural com 50% de subordinação e limites por rating (A ≤ 3,5% do PL).

@@ -1,0 +1,724 @@
+{
+ "schema_version": 1,
+ "cnpj": "58510255000184",
+ "name": "SOL AGORA GREEN III ESG FIDC IS SEGMENTO FINANCEIRO RESPONSABILIDADE LIMITADA",
+ "fund_type": "Energia solar",
+ "reviewed_at": "2026-10-13T20:43:15Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1338058",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058"
+  },
+  "D2": {
+   "document_id": "1337783",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337783"
+  },
+  "D3": {
+   "document_id": "937096",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "27/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=937096"
+  },
+  "D4": {
+   "document_id": "823996",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "22/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823996"
+  },
+  "D5": {
+   "document_id": "815460",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "18/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=815460"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Energia solar",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de financiamento de projetos de geração solar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 78,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "e no mês imediatamente posterior ao 1º (primeiro) Mês Completo de Alocação. “Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Sol Agora. “Dia Útil” significa cada dia útil, para fins de operações praticadas no mercado Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. financeiro brasileiro, conforme especificados na Resolução do CMN nº 4.880, de 23 de dezembro de 2020, conforme aditada de tempos em tempos."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 39,
+     "clause": "Apêndice C, cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "em como no Contrato de Consultor de Cobrança. 11.3. Condições de Aquisição e Critérios de Elegibilidade 11.3.1.O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios, exceto se o item previr data de referência específica: Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. (i) os Direitos Creditórios devem ter sido devidamente formalizados por meio da emissão, pelos Devedores, de CCBs em favor da Instituição Financeira Parceira; (ii) os Direitos Creditórios devem ser ofertados em sua integralidade; (iii) nos termos do Ofício Circular CVM/SSE 8/2023, os Direitos Creditórios deverão estar disponíveis para endosso no Sistema de Registro quando passíveis de registro por uma Entidade Registradora; (iv) a idade do Devedor e do avalista, se pessoa física deve ser, na data de emissão da CCB, de no máximo 65 (sessenta e cinco) anos, exceto caso possua contratação de seguro prestamista em valor superior ao da CCB;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Instituição Financeira Parceira de cada financiamento",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 80,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "o Arquivo de Confirmação de Registro dos Direitos Creditórios Adquiridos. “Endossante” significa cada Instituição Financeira Parceira que tenha concedido um empréstimo a um Devedor para financiamento de um Projeto de Geração de Energia Elétrica por meio da Plataforma Sol Agora e que realize o endosso em preto das CCBs que representam os Direitos Creditórios ao Fundo, nos termos do respectivo Contrato de Endosso. “Endosso significa o endosso em preto realizado eletronicamente, sem coobrigação Eletrônico” do Endossante, de cada CCB com todos os respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados ao Endossante por meio da CCB, nos termos da legislação cambiária aplicável, realizado pelo Endossante em favor do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Instituição Financeira Parceira (endossante)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 80,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "o Arquivo de Confirmação de Registro dos Direitos Creditórios Adquiridos. “Endossante” significa cada Instituição Financeira Parceira que tenha concedido um empréstimo a um Devedor para financiamento de um Projeto de Geração de Energia Elétrica por meio da Plataforma Sol Agora e que realize o endosso em preto das CCBs que representam os Direitos Creditórios ao Fundo, nos termos do respectivo Contrato de Endosso. “Endosso significa o endosso em preto realizado eletronicamente, sem coobrigação Eletrônico” do Endossante, de cada CCB com todos os respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados ao Endossante por meio da CCB, nos termos da legislação cambiária aplicável, realizado pelo Endossante em favor do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "PF e PJ que financiam projetos de geração de energia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 78,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "e no mês imediatamente posterior ao 1º (primeiro) Mês Completo de Alocação. “Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Sol Agora. “Dia Útil” significa cada dia útil, para fins de operações praticadas no mercado Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. financeiro brasileiro, conforme especificados na Resolução do CMN nº 4.880, de 23 de dezembro de 2020, conforme aditada de tempos em tempos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Endossante responde só por existência e formalização do crédito",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 80,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "o Arquivo de Confirmação de Registro dos Direitos Creditórios Adquiridos. “Endossante” significa cada Instituição Financeira Parceira que tenha concedido um empréstimo a um Devedor para financiamento de um Projeto de Geração de Energia Elétrica por meio da Plataforma Sol Agora e que realize o endosso em preto das CCBs que representam os Direitos Creditórios ao Fundo, nos termos do respectivo Contrato de Endosso. “Endosso significa o endosso em preto realizado eletronicamente, sem coobrigação Eletrônico” do Endossante, de cada CCB com todos os respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados ao Endossante por meio da CCB, nos termos da legislação cambiária aplicável, realizado pelo Endossante em favor do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "CCB formalizada com a parceira; ofertada integralmente; filtros do anexo",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 39,
+     "clause": "Apêndice C, cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "em como no Contrato de Consultor de Cobrança. 11.3. Condições de Aquisição e Critérios de Elegibilidade 11.3.1.O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios, exceto se o item previr data de referência específica: Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. (i) os Direitos Creditórios devem ter sido devidamente formalizados por meio da emissão, pelos Devedores, de CCBs em favor da Instituição Financeira Parceira; (ii) os Direitos Creditórios devem ser ofertados em sua integralidade; (iii) nos termos do Ofício Circular CVM/SSE 8/2023, os Direitos Creditórios deverão estar disponíveis para endosso no Sistema de Registro quando passíveis de registro por uma Entidade Registradora; (iv) a idade do Devedor e do avalista, se pessoa física deve ser, na data de emissão da CCB, de no máximo 65 (sessenta e cinco) anos, exceto caso possua contratação de seguro prestamista em valor superior ao da CCB;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "PJ até R$ 850 mil por grupo; exceções até 1% do PL; PF 60+ ≤ 10%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 40,
+     "clause": "Apêndice C, cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "derá representar montante superior a (a), se pessoa física, R$400.000,00 (quatrocentos mil reais), e (b), se pessoa jurídica, R$850.000,00 (oitocentos e cinquenta mil reais) por Grupo Econômico, observado, todavia, a possibilidade do montante por devedor ultrapassar tal limite, desde que observados os requisitos abaixo: (a) considerada pro forma a aquisição pretendida, até 50 (cinquenta) Grupos Econômicos podem ser Devedores de Direitos Creditórios acima do limite acima, desde que a soma do valor presente dos Direitos Creditórios devidos por cada um desses Grupos Econômicos não supere o equivalente a 1% (um por cento) do Patrimônio Líquido do Fundo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 40,
+     "clause": "Apêndice C, cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": ", deve ser observado o seguinte limite de concentração, considerando-se pro forma a aquisição pretendida: os Direitos Creditórios devidos por Devedores pessoas físicas com idade igual ou superior a 60 (sessenta) anos não deverão representar mais que 10% (dez por cento) do Patrimônio Líquido do Fundo, exceto, conforme informado pela Sol Agora a cada oferta de Direitos Creditórios, caso tal Devedor tenha seguro de vida ou seguro prestamista em valor superior ao da CCB em questão; (ix) cada Direito Creditório deverá ser alienado ao Fundo a uma taxa de retorno, convertida para spread Este documento sobre foi assinado a Taxa DI, por eletronicamente utilizando a curva Rodrigo Godoy da Santana. e Cintia “DI x pré” das taxas referenciais BM&FBOVESPA Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. divulgada pela B3 no Dia Útil anterior à Data de Aquisição e Pagamento, igual ou superior à média ponderada da remuneração de todas as Séries de Cotas Seniores e Séries ou Subclasses de Cotas Subordinadas Mezanino em circul"
+    }
+   ],
+   "value": 850000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Anexo limita por devedor, não por instituição parceira",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo da CCB não localizado no texto extraído",
+   "sources": []
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": []
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "Apêndice C, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "3. PRAZO DE DURAÇÃO 3.1. O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o Prazo de Duração estipulado no respectivo Apêndice. 3.2. Sem prejuízo do disposto acima, em nenhuma hipótese as Cotas Seniores e as Cotas Subordinadas Mezanino de Séries subsequentes, quando da sua emissão, poderão ter Prazo de Duração igual ou superior ao Prazo de Duração remanescente das Cotas Seniores da 1ª Série, devendo tal requisito ser necessariamente observado para que se efetive, a qualquer tempo, a emissão de novas Cotas Seniores e Cotas Subordinadas Mezanino. 4. PRESTADORES DE SERVIÇOS ESSENCIAIS 4.1. Administradora Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. 4.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_senior": {
+   "display": "23,5% na carência, depois 25% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 82,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "das em Subordinação circulação e o Patrimônio Líquido Ajustado da Classe, conforme apurada Sênior” pela Administradora em cada Dia Útil, equivalente a, no mínimo, (i) no Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. Período de Carência, 23,5% (vinte e três inteiros e cinco décimos por cento), e (ii) após o período indicado no item (i), 25% (vinte e cinco por cento), observado, no entanto, que para fins de integralização de Cotas Seniores, nos termos do item 12.7.5, o Índice de Subordinação será sempre de 25% (vinte e cinco por cento). “Índices de significam, em conjunto e indistintamente, o Índice de Subordinação Subordinação” Mezanino e o Índice de Subordinação Sênior. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "10% na carência, depois 12,5% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 82,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "adas Júnior Subordinação em circulação e o Patrimônio Líquido Ajustado da Classe, conforme Mezanino” apurada pela Administradora em cada Dia Útil, equivalente a, no mínimo, (i) no Período de Carência, 10% (dez inteiros por cento), e (ii) após o período indicado no item (i), 12,50% (doze inteiros e cinquenta décimos por cento), observado, no entanto, que para fins de integralização de Cotas Mezanino, nos termos do item 12.7.5, o Índice de Subordinação será sempre de 12,50% (doze inteiros e cinquenta décimos por cento)."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 12.5,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela administradora sobre o PL ajustado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 82,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "das em Subordinação circulação e o Patrimônio Líquido Ajustado da Classe, conforme apurada Sênior” pela Administradora em cada Dia Útil, equivalente a, no mínimo, (i) no Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. Período de Carência, 23,5% (vinte e três inteiros e cinco décimos por cento), e (ii) após o período indicado no item (i), 25% (vinte e cinco por cento), observado, no entanto, que para fins de integralização de Cotas Seniores, nos termos do item 12.7.5, o Índice de Subordinação será sempre de 25% (vinte e cinco por cento). “Índices de significam, em conjunto e indistintamente, o Índice de Subordinação Subordinação” Mezanino e o Índice de Subordinação Sênior. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas e encargos calculada pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "Apêndice C, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "DEMAIS PRESTADORES DE SERVIÇO 8.1. O Fundo pagará, pelos serviços de administração do Fundo, uma Taxa de Administração equivalente ao percentual ao ano, calculado e apropriado sobre o Patrimônio Líquido conforme a tabela a seguir, que será aplicada seguindo a forma de cascata, observado o valor mínimo mensal de (i) R$ 13.500,00 (treze mil e quinhentos reais), corrigido anualmente pelo IPCA, por 6 (seis) meses contados da data da primeira integralização de Cotas do Fundo; e (ii) R$ 20.000,00 (vinte mil reais), corrigido anualmente pelo IPCA, após o prazo indicado no item anterior, a ser calculada e provisionada diariamente, à base de 1/252 (um inteiro e duzentos e cinquenta e dois avos), e paga mensalmente até o 5º (quinto) Dia Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Útil do mês subsequente, equivalente à remuneração da Administradora pelos serviços de administração, controladoria e escrituração, devidos a partir da data da primeira integralização de cotas do Fundo: Patrimônio Líquido % sobre cada faixa do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Política de provisão do complemento III",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 52,
+     "clause": "Apêndice C, cl. 16.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "o do valor a ser provisionado pelo Fundo para cobertura de perdas por devedores duvidosos está definida e detalhada na Política de Provisão para Devedores Duvidosos constante do Complemento III. 17. ASSEMBLEIA GERAL 17.1. Competência da Assembleia 17.1.1.Além das demais competências previstas na regulamentação vigente e neste Regulamento, as seguintes matérias são de competência privativa da Assembleia Geral, devendo os quóruns de aprovação seguir o disposto na tabela abaixo: Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. Quórum para Matérias sujeitas à Quórum Geral de Aprovação de Matérias aprovação específica Matéria"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Relatório de monitoramento não enviado em 15 DU; rating sem atualização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 59,
+     "clause": "Apêndice C, cl. 17.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 18.1. São Eventos de Avaliação: (i) não divulgação, pela Administradora, do Relatório de Monitoramento, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Monitoramento o envio do referido relatório não seja sanado pela Administradora; (ii) caso a Agência Classificadora de Risco não divulgue a atualização trimestral da classificação de risco referente às Cotas Seniores e Cotas Subordinadas Mezanino, por prazo igual ou superior a 90 (noventa) dias, sem a substituição da Agência Classificadora de Risco;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Evento de insolvência e demais itens do capítulo 19",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 62,
+     "clause": "Apêndice C, cl. 18.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "acima deverão ser interrompidas. 19. EVENTOS DE LIQUIDAÇÃO ANTECIPADA E LIQUIDAÇÃO DO FUNDO 19.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: Este(i) documento a ocorrência de um Evento foi assinado eletronicamente porde Insolvência Rodrigo da Sol Godoy e Cintia Agora; Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. (ii) caso seja deliberado, em Assembleia Geral, que um Evento de Avaliação configura um Evento de Liquidação Antecipada; (iii) nos casos em que houver determinação da CVM, nos termos previstos na Resolução CVM 175;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "Apêndice C, cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": ", sendo permitida, nos termos deste Regulamento e do artigo 21, inciso VI, do Anexo Normativo II da Resolução CVM 175, a revolvência dos Direitos Creditórios, desde que respeitado o disposto neste Regulamento. A aquisição de Direitos Creditórios pelo Fundo deverá observar a ordem de alocação prevista no Capítulo 15 do presente Regulamento. 11.1.3.Os recursos do Fundo terão direcionamento ao segmento econômico-financeiro relacionados a Projetos de Geração de Energia Elétrica. 11.1.4.Caso a Classe do Fundo não consiga atender à Alocação Mínima Regulatória em até 180 (cento e oitenta) dias contados da Data de Início do Fundo, a Gestora, por conta e ordem do Fundo, poderá solicitar à CVM a prorrogação do prazo, apresentando os motivos que justifiquem tal prorrogação."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,12% a.a. até R$ 500 mi, regressiva; mín. R$ 13,5 mil, depois R$ 20 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "Apêndice C, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "DEMAIS PRESTADORES DE SERVIÇO 8.1. O Fundo pagará, pelos serviços de administração do Fundo, uma Taxa de Administração equivalente ao percentual ao ano, calculado e apropriado sobre o Patrimônio Líquido conforme a tabela a seguir, que será aplicada seguindo a forma de cascata, observado o valor mínimo mensal de (i) R$ 13.500,00 (treze mil e quinhentos reais), corrigido anualmente pelo IPCA, por 6 (seis) meses contados da data da primeira integralização de Cotas do Fundo; e (ii) R$ 20.000,00 (vinte mil reais), corrigido anualmente pelo IPCA, após o prazo indicado no item anterior, a ser calculada e provisionada diariamente, à base de 1/252 (um inteiro e duzentos e cinquenta e dois avos), e paga mensalmente até o 5º (quinto) Dia Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Útil do mês subsequente, equivalente à remuneração da Administradora pelos serviços de administração, controladoria e escrituração, devidos a partir da data da primeira integralização de cotas do Fundo: Patrimônio Líquido % sobre cada faixa do"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "Apêndice C, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "Patrimônio Líquido De R$ 0,00 a R$ 500.000.000,00 0,12% a.a. De R$ 500.000.000,01 a R$ 1.000.000.000,00 0,10% a.a. Acima de R$ 1.000.000.000,00 0,085% a.a. 8.1.1. A Administradora pode estabelecer que parcelas da Taxa de Administração sejam pagas diretamente pelo Fundo aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração acima fixada. 8.2. Os tributos (ISS, PIS, COFINS e demais tributos aplicáveis, se houver) incidentes sobre todas as remunerações descritas neste Capítulo 8 não serão acrescidos às referidas remunerações, ficando a responsabilidade de tais tributos a cargo de cada uma das partes. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 8.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,30% a.a. até R$ 500 mi; 0,20% acima; mín. R$ 18,5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 15,
+     "clause": "Apêndice C, cl. 8.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "448-BE61-F757. De R$0,00 a R$ 500.000.000,00 0,30% a.a. Acima de R$ 500.000.000,00 0,20% a.a. 8.5.1. A Taxa de Gestão prevista neste Capítulo 8 será apurada diariamente, à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos), com base no valor do Patrimônio Líquido verificado no Dia Útil anterior à realização do referido cálculo, sendo as parcelas devidas no 5º (quinto) Dia Útil de cada mês. 8.5.2. Os valores fixos e os montantes mínimos da Taxa de Gestão, previstos neste Capítulo 8, serão atualizados a cada período de 12 (doze) meses a contar da Data de Início do Fundo, pela variação positiva do IPCA, ou outro índice que venha a substituí-lo. 8.5.3. Os valores acima não incluem os demais encargos previstos no Capítulo 20 deste Regulamento, a serem debitados do Fundo pela Gestora. 8.5.4. A Gestora pode estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pelo Fundo aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão acima fixada. 8.5.5."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "Apêndice C, cl. 8.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "nualmente pelo IPCA. 8.5. O Fundo apurará e pagará a Taxa de Gestão como remuneração à Gestora pelos serviços de gestão fiduciária, conforme montante constante da tabela abaixo, observado o valor mínimo mensal de R$18.500,00 (dezoito mil e quinhentos reais). Patrimônio Líquido % sobre cada faixa do Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Patrimônio Líquido Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. De R$0,00 a R$ 500.000.000,00 0,30% a.a. Acima de R$ 500.000.000,00 0,20% a.a. 8.5.1. A Taxa de Gestão prevista neste Capítulo 8 será apurada diariamente, à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos), com base no valor do Patrimônio Líquido verificado no Dia Útil anterior à realização do referido cálculo, sendo as parcelas devidas no 5º (quinto) Dia Útil de cada mês. 8.5.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 15,
+     "clause": "Apêndice C, cl. 8.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "VM 160. 8.7. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de ingresso, taxa de saída ou taxa de performance. 9. SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORA 9.1. A Administradora e a Gestora devem ser substituídas nas hipóteses de: (a) descredenciamento para o exercício da atividade que constitui o serviço prestado ao Fundo, por decisão da CVM; (b) renúncia; ou (c) destituição, por deliberação da Assembleia Geral. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 9.2. O pedido de declaração judicial de insolvência da Classe do Fundo impede a Administradora de renunciar à administração fiduciária do Fundo, mas não sua destituição por força de deliberação da Assembleia Geral. 9.3."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos CVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 73,
+     "clause": "Apêndice C, cl. 27.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "data da primeira integralização de determinada Subclasse ou Integralização” Série de Cotas. “Administradora” significa a GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM por meio do Ato Declaratório nº 6.819, de 17 de maio de 2002, à prestação de serviços de administração de carteira de títulos e valores mobiliários, inscrita no CNPJ/MF sob o nº 27.652.684/0001-62, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 913, Botafogo, CEP 22250-040, ou seu sucessor a qualquer título. “Afiliada” significa, em relação a qualquer Pessoa, qualquer outra Pessoa que Controle essa Pessoa ou esteja sob Controle comum com tal Pessoa. “Agência significa qualquer agência de classificação de risco autorizada a prestar Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Cla"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Régia Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 81,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "A, observado que todas as referências ao Fundo alcançam a sua Classe única. “Gestora” significa a RÉGIA CAPITAL LTDA., sociedade com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Rua Humaitá, 275, Pav 7, parte 1 e 2 e Pav 8, parte 1 e 2, inscrita no CNPJ/MF sob o nº 54.464.258/0001-78, devidamente autorizada pela CVM para o exercício da atividade de Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 22.117, de 24 de maio de 2024, ou sua sucessora a qualquer título. “Grupo significa o grupo econômico composto por um Pessoa e suas Afiliadas ou Econômico” Coligadas. “ICMA” significa a International Capital Mar"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (a própria administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 77,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": ".com.br e utilize o código 4196-D448-BE61-F757. item 11.3.1. deste Regulamento. “Custodiante” significa a Administradora, atuando na qualidade de custodiante, conforme detalhamento do Capítulo 6. “CVM” significa a Comissão de Valores Mobiliários. “Data de significa a data de amortização integral de cada Série de Cotas Seniores ou Amortização de cada Série ou Subclasse de Cotas Subordinadas Mezanino, especificada Integral” no respectivo Apêndice, ou a data em que as Cotas sejam integralmente amortizadas, o que ocorrer primeiro, observada a subordinação entre as Cotas. “Data de Aquisição significa cada data de pagamento pelo Fundo ao Endossante do Preço de Este e documento foi assinado eletronicamente Pagamento” Aquisição, por em Rodrigo Godoy e Cintia moeda Santana. corrente nacional, nos termos do C"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 73,
+     "clause": "Apêndice C, cl. 27.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "data da primeira integralização de determinada Subclasse ou Integralização” Série de Cotas. “Administradora” significa a GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM por meio do Ato Declaratório nº 6.819, de 17 de maio de 2002, à prestação de serviços de administração de carteira de títulos e valores mobiliários, inscrita no CNPJ/MF sob o nº 27.652.684/0001-62, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 913, Botafogo, CEP 22250-040, ou seu sucessor a qualquer título. “Afiliada” significa, em relação a qualquer Pessoa, qualquer outra Pessoa que Controle essa Pessoa ou esteja sob Controle comum com tal Pessoa. “Agência significa qualquer agência de classificação de risco autorizada a prestar Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Cla"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Consultor de cobrança sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado; prazo por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "Apêndice C, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": "3. PRAZO DE DURAÇÃO 3.1. O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o Prazo de Duração estipulado no respectivo Apêndice. 3.2. Sem prejuízo do disposto acima, em nenhuma hipótese as Cotas Seniores e as Cotas Subordinadas Mezanino de Séries subsequentes, quando da sua emissão, poderão ter Prazo de Duração igual ou superior ao Prazo de Duração remanescente das Cotas Seniores da 1ª Série, devendo tal requisito ser necessariamente observado para que se efetive, a qualquer tempo, a emissão de novas Cotas Seniores e Cotas Subordinadas Mezanino. 4. PRESTADORES DE SERVIÇOS ESSENCIAIS 4.1. Administradora Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. 4.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "real_collateral": {
+   "display": "Alienação fiduciária dos equipamentos solares, registrada em cartório",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338058",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 19,
+     "clause": "Apêndice C, cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338058",
+     "excerpt": ", de qualquer natureza. Risco de Média Materialidade 10.3.5.Risco de não constituição da Alienação Fiduciária de Equipamentos. Nos termos do artigo 1.361, § 1º, do Código Civil, a Alienação Fiduciária de Equipamentos somente é constituída mediante o registro do instrumento do qual consta a Alienação Fiduciária de Equipamentos no competente Cartório de Títulos e Documentos. A comprovação da devida constituição da Alienação Fiduciária de Equipamentos não é um Critério de Elegibilidade ou Condição de Aquisição, sendo que a CCB que contempla a Alienação Fiduciária de Equipamentos somente poderá ser registrada no competente Cartório de Títulos e Documentos em caso de inadimplemento pelo Devedor. Nesse sentido, é possível que o Fundo não tenha sucesso em executar a Alienação Fiduciária de Equipamentos em caso de inadimplemento pelo Devedor."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Financiamento solar com subordinação de 23,5% na carência e 25% depois; PJ até R$ 850 mil por grupo.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

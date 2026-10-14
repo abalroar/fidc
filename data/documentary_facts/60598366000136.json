@@ -1,0 +1,800 @@
+{
+ "schema_version": 1,
+ "cnpj": "60598366000136",
+ "name": "FIDC BV AUTO II SEGMENTO FINANCEIRO - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Veículos",
+ "reviewed_at": "2026-10-13T20:49:44Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "928236",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "11/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236"
+  },
+  "D2": {
+   "document_id": "928235",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "11/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928235"
+  },
+  "D3": {
+   "document_id": "923892",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "12/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=923892"
+  },
+  "D4": {
+   "document_id": "None",
+   "kind": "Instrumento de emissão",
+   "title": "official_mz_anuncio_encerramento_1emissao.pdf",
+   "date": "",
+   "url": ""
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Veículos",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCCBs lastreados em CCBs de financiamento de veículos do Banco Votorantim",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 30,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "de financiamento de Veículos Automotores classificados como “elétrico” ou “híbrido”, realizadas entre o Emitente e os respectivos Devedores e garantidos por Alienação Fiduciária. 4.2. O processo de originação dos Direitos Creditórios e a Política de Crédito adotada pelo Emitente encontram-se descritos no Adendo I a este Anexo Descritivo. 4.3. O Endosso de CCCBs Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade do respectivo CCCB para a Classe A, em caráter definitivo, juntamente com todos os fluxos de Direitos Creditórios de cada CCB Vinculada, direitos, privilégios, garantias, preferências, prerrogativas e ações a estas relacionadas, bem como juros e encargos, incluindo, sem limitação, a Alienação Fiduciária. 4.4. A cada aquisição de CCCBs, na respectiva Data de Endosso, a Classe A pagará ao Emitente o respectivo Preço de Aquisição. 4.5."
+    },
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "a B3; “Emissão”: Significa cada emissão de Cotas pela Classe A; “Emitente”: Significa o BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04.794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, que, nos termos do artigo 43 da Lei 10.931, e da Resolução CMN nº 2.843, pode emitir ou emitiu CCCBs Elegíveis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Banco Votorantim (financiamento de veículos)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "a B3; “Emissão”: Significa cada emissão de Cotas pela Classe A; “Emitente”: Significa o BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04.794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, que, nos termos do artigo 43 da Lei 10.931, e da Resolução CMN nº 2.843, pode emitir ou emitiu CCCBs Elegíveis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Banco Votorantim, emitente dos CCCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "a B3; “Emissão”: Significa cada emissão de Cotas pela Classe A; “Emitente”: Significa o BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04.794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, que, nos termos do artigo 43 da Lei 10.931, e da Resolução CMN nº 2.843, pode emitir ou emitiu CCCBs Elegíveis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas com financiamento de veículo e alienação fiduciária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 30,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "de financiamento de Veículos Automotores classificados como “elétrico” ou “híbrido”, realizadas entre o Emitente e os respectivos Devedores e garantidos por Alienação Fiduciária. 4.2. O processo de originação dos Direitos Creditórios e a Política de Crédito adotada pelo Emitente encontram-se descritos no Adendo I a este Anexo Descritivo. 4.3. O Endosso de CCCBs Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade do respectivo CCCB para a Classe A, em caráter definitivo, juntamente com todos os fluxos de Direitos Creditórios de cada CCB Vinculada, direitos, privilégios, garantias, preferências, prerrogativas e ações a estas relacionadas, bem como juros e encargos, incluindo, sem limitação, a Alienação Fiduciária. 4.4. A cada aquisição de CCCBs, na respectiva Data de Endosso, a Classe A pagará ao Emitente o respectivo Preço de Aquisição. 4.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resgate do CCCB regidos pelo contrato de endosso",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "CCB vence antes das cotas; 100 maiores ≤ R$ 17,5 mi; CCB ≤ R$ 175 mil",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 31,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”): (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas; (ii) considerando-se pro forma a aquisição pretendida, a soma do valor presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete milhões e quinhentos mil reais); e (iii) o valor presente de cada CCB Vinculada não poderá ter valor superior a R$175.000,00 (cento e setenta e cinco mil reais). 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "CCB individual ≤ R$ 175 mil; 100 maiores ≤ R$ 17,5 mi",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 31,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”): (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas; (ii) considerando-se pro forma a aquisição pretendida, a soma do valor presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete milhões e quinhentos mil reais); e (iii) o valor presente de cada CCB Vinculada não poderá ter valor superior a R$175.000,00 (cento e setenta e cinco mil reais). 5.2."
+    }
+   ],
+   "value": 175000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Emitente único (Banco Votorantim)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "a B3; “Emissão”: Significa cada emissão de Cotas pela Classe A; “Emitente”: Significa o BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04.794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, que, nos termos do artigo 43 da Lei 10.931, e da Resolução CMN nº 2.843, pode emitir ou emitiu CCCBs Elegíveis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "CCB deve vencer antes do último pagamento das cotas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 31,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”): (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas; (ii) considerando-se pro forma a aquisição pretendida, a soma do valor presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete milhões e quinhentos mil reais); e (iii) o valor presente de cada CCB Vinculada não poderá ter valor superior a R$175.000,00 (cento e setenta e cinco mil reais). 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios em até 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 25,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "B. 3.1.2. Não será admitida a revolvência de Diretos Creditórios. 3.2. A Classe A deverá observar, em até 180 (cento e oitenta) dias contados da primeira data de integralização das suas Cotas, a Alocação Mínima. 3.3. Desde que observada a Alocação Mínima Tributária, os Cotistas passarão a se sujeitar ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica disposto na Lei nº 25/112 Corporativo | Interno 14.754, de 12 de dezembro de 2023, e suas alterações, com a produção de efeitos completos a partir de 1º de janeiro de 2024. 3.3.1. Caso, por qualquer motivo, a Classe A não atinja a Alocação Mínima Tributária para fins de classificação como Entidade de Investimento, de acordo com as normas do CMN e da CVM, não será possível assegurar a aplicação do Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. 3.3.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "junto a um Departamento de Trânsito; “Alocação Mínima”: Significa a alocação de, ao menos, 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM nº 175; “Alocação Mínima Significa a alocação de, ao menos, 67% (sessenta e sete por Tributária”: cento) do Patrimônio Líquido em CCCBs Elegíveis, nos termos dos artigos 18, 19 e 24 da Lei nº 14.754/23, para fins de enquadramento do Fundo e da Classe A como Entidade de Investimento sujeita ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica; “ANBIMA”: Significa a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais;"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Ao menos 50% do PL; enquadramento em até 180 dias da primeira integralização; cura de 15 dias para evento de avaliação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/06/2025, p. 25"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Mezanino B / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "verificado todo Dia Útil pela Administradora e não poderá ser inferior a 15% (dez por cento); “Índice de Perdas 90”: Significa a razão entre (a) o somatório do valor de face das parcelas vincendas, vencidas e não pagas de cada CCB 18/112 Corporativo | Interno Vinculada, sendo certo que para efeitos do cálculo deste numerador serão considerados apenas CCBs Vinculadas que tenham pelo menos 1 (uma) parcela em atraso superior a 90 (noventa) dias; e (b) o somatório do valor de face de todas as parcelas de todos os Direitos Creditórios adquiridos, que não poderá ser superior a 5% (cinco por cento);"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: numeral 15%, extenso “dez por cento” (confirmar). Mezanino A: 10%; Mezanino B: 5%. Numeradores: MZA+MZB+Júnior, MZB+Júnior e Júnior, respectivamente, divididos pelo PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/06/2025, p. 18"
+   }
+  },
+  "sub_senior": {
+   "display": "15% · (mez.+jr.)/PL (extenso diz dez por cento)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "verificado todo Dia Útil pela Administradora e não poderá ser inferior a 15% (dez por cento); “Índice de Perdas 90”: Significa a razão entre (a) o somatório do valor de face das parcelas vincendas, vencidas e não pagas de cada CCB 18/112 Corporativo | Interno Vinculada, sendo certo que para efeitos do cálculo deste numerador serão considerados apenas CCBs Vinculadas que tenham pelo menos 1 (uma) parcela em atraso superior a 90 (noventa) dias; e (b) o somatório do valor de face de todas as parcelas de todos os Direitos Creditórios adquiridos, que não poderá ser superior a 5% (cinco por cento);"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Sênior: numeral 15%, extenso “dez por cento” (confirmar). Mezanino A: 10%; Mezanino B: 5%. Numeradores: MZA+MZB+Júnior, MZB+Júnior e Júnior, respectivamente, divididos pelo PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/06/2025, p. 18"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mez. B: 5% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "o qual será verificado todo Dia Útil pela Administradora e não poderá ser inferior a 5% (cinco por cento); “Índice de Subordinação Significa a razão entre (a) o somatório do valor total das Cotas Sênior”: Mezanino A, das Cotas Mezanino B e das Cotas Subordinadas Júnior em circulação; e (b) o Patrimônio Líquido, o qual será verificado todo Dia Útil pela Administradora e não poderá ser inferior a 15% (dez por cento);"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "verificado todo Dia Útil pela Administradora e não poderá ser inferior a 15% (dez por cento); “Índice de Perdas 90”: Significa a razão entre (a) o somatório do valor de face das parcelas vincendas, vencidas e não pagas de cada CCB 18/112 Corporativo | Interno Vinculada, sendo certo que para efeitos do cálculo deste numerador serão considerados apenas CCBs Vinculadas que tenham pelo menos 1 (uma) parcela em atraso superior a 90 (noventa) dias; e (b) o somatório do valor de face de todas as parcelas de todos os Direitos Creditórios adquiridos, que não poderá ser superior a 5% (cinco por cento);"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: numeral 15%, extenso “dez por cento” (confirmar). Mezanino A: 10%; Mezanino B: 5%. Numeradores: MZA+MZB+Júnior, MZB+Júnior e Júnior, respectivamente, divididos pelo PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/06/2025, p. 18"
+   }
+  },
+  "reserve": {
+   "display": "Caixa equivalente a 3 meses de despesas estimadas pela gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "Cotas Subordinadas Júnior, constituir e manter uma reserva de caixa, constituída por Disponibilidades, em montante equivalente a 03 (três) meses de despesas estimadas da Classe A, com tais valores devendo ser indicados pela Gestora à Administradora no último Dia Útil de cada mês (“Reserva de Caixa”). 12.1.1. Na hipótese de a Reserva de Caixa deixar de atender o valor mínimo descrito no item 12.1 acima, a Administradora deverá suspender a aquisição de novos 56/112 Corporativo | Interno Direitos Creditórios à Classe A e destinar os recursos da Classe A, em moeda corrente nacional, para a recomposição da Reserva de Caixa. 13. ORDEM DE APLICAÇÃO DOS RECURSOS 13.1. Todos os resultados auferidos pela Classe A serão incorporados ao seu Patrimônio Líquido. 13.2."
+    }
+   ],
+   "legacy": {
+    "value": "Disponibilidades equivalentes a 3 meses de despesas estimadas; estimativa comunicada pela Gestora no último dia útil de cada mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 65,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "regras e procedimentos divulgados no website da Administradora. 17.3.1. O cálculo da provisão para perdas na recuperação dos Direitos Creditórios Inadimplidos será realizado conforme conceitos definidos no manual disponível no website da Administradora. 17.3.2. Caso haja alteração da tabela de provisão e perdas dos Ativos integrantes da carteira da Classe A, bem como da determinação do valor dos Ativos e do Patrimônio Líquido da Classe A, a Administradora deverá informar à Gestora em até 3 (três) Dias Úteis contados da respectiva modificação. 17.4. Para efeito da determinação do valor da Carteira, devem ser observadas as normas e 65/112 Corporativo | Interno os procedimentos previstos na legislação e regulamentação em vigor. 18. FATORES DE RISCO 18.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Eventos do capítulo 10 suspendem amortizações e convocam assembleia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 54,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "Gestora responsáveis tão somente pela confirmação de sua ocorrência. 10.2. Na ocorrência de quaisquer dos Eventos de Avaliação, a Administradora deverá (i) suspender imediatamente o pagamento de qualquer parcela de amortização de Cotas em andamento, se houver; e (ii) convocar, no prazo de 5 (cinco) dias contados da ocorrência de quaisquer dos Eventos de Avaliação, uma Assembleia Especial para decidir se o Evento de Avaliação constitui um Evento de Liquidação. 10.3. No caso de a Assembleia Especial deliberar que quaisquer dos Eventos de Avaliação constituem um Evento de Liquidação, a Administradora deverá implementar os procedimentos definidos no Capítulo 11 deste Anexo Descritivo, incluindo a convocação de nova Assembleia Especial para deliberar sobre a liquidação antecipada da Classe A, no prazo máximo de 15 (quinze) dias contados da data da Assembleia Especial que deliberou a constituição do Evento de Liquidação. 10.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda revolvência",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 25,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "os quais serão declarados pelo Emitente no respectivo CCCB. 3.1.2. Não será admitida a revolvência de Diretos Creditórios. 3.2. A Classe A deverá observar, em até 180 (cento e oitenta) dias contados da primeira data de integralização das suas Cotas, a Alocação Mínima. 3.3. Desde que observada a Alocação Mínima Tributária, os Cotistas passarão a se sujeitar ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica disposto na Lei nº 25/112 Corporativo | Interno 14.754, de 12 de dezembro de 2023, e suas alterações, com a produção de efeitos completos a partir de 1º de janeiro de 2024. 3.3.1. Caso, por qualquer motivo, a Classe A não atinja a Alocação Mínima Tributária para fins de classificação como Entidade de Investimento, de acordo com as normas do CMN e da CVM, não será possível assegurar a aplicação do Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. 3.3.2."
+    }
+   ]
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,09% a.a. até R$ 1 bi, regressiva; mín. R$ 9 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 46,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "rvado o 45/112 Corporativo | Interno montante mínimo mensal de R$9.000,00 (nove mil reais) (“Taxa de Administração”): Taxa de Administração Patrimônio Líquido da Classe A (% a.a. sob o Patrimônio Líquido) 0,09% Até R$1.000.000.000,00 (um bilhão de reais) 0,07% Acima de R$1.000.000.000,00 (um bilhão de reais) até R$2.000.000.000,00 (dois bilhões de reais) 0,05% Acima de R$2.000.000.000,00 (dois bilhões de reais) 7.1.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 46,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "Patrimônio Líquido da Classe A (% a.a. sob o Patrimônio Líquido) 0,09% Até R$1.000.000.000,00 (um bilhão de reais) 0,07% Acima de R$1.000.000.000,00 (um bilhão de reais) até R$2.000.000.000,00 (dois bilhões de reais) 0,05% Acima de R$2.000.000.000,00 (dois bilhões de reais) 7.1.1. A Taxa de Administração será provisionada diariamente, na base de 252 Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,09% até PLR$1 bi;0,07% acima R$1 bi até R$2 bi;0,05% acima R$2 bi",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/06/2025, p. 46"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,25% a.a. do PL; mín. R$ 30 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 46,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "ministração acima fixada. 7.2. Em contraprestação aos serviços de gestão profissional da Carteira, a Classe A pagará à Gestora uma taxa de gestão de 0,25% (vinte e cinco centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe A, com mínimo mensal de R$30.000,00 (trinta mil reais) (“Taxa de Gestão”). 7.2.1. A Taxa de Gestão será provisionada diariamente, na base de 252 Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.2.2. A Gestora pode estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pela Classe A aos prestadores de serviços contratados pela Gestora, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão acima fixada. 7.2.3."
+    }
+   ],
+   "legacy": {
+    "value": "0,25% a.a. sobre PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + 1,00% a.a. (série sênior)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 88,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "apitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis (“Taxa DI”), acrescida de sobretaxa de 1,00% (um inteiro por cento) ao ano. 2.1. Não existe qualquer promessa da Classe A, da Administradora, da Gestora, do Emitente, do Coordenador Líder ou do Custodiante, acerca da rentabilidade das aplicações dos recursos da Classe A. 3. Quantidade. Serão emitidas até 1.275.000 (um milhão duzentas e setenta e cinco mil) Cotas Seniores da 1ª Série, inclusive com vistas ao atendimento do Índice de Subordinação Sênior. 4. Valor unitário de Emissão. O valor inicial de Emissão unitário de Cotas Seniores da 1ª Série é de R$1.000,00 (mil reais), não havendo limite máximo de subscrição por investidor. 5. Valor de subscrição."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "Mez. A: DI + 2,00%; Mez. B: DI + 4,00%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 96,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "apitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis (“Taxa DI”), acrescida de sobretaxa de 2,00% (dois inteiros por cento) ao ano. 2.1. Não existe qualquer promessa da Classe A, da Administradora, da Gestora, do Emitente, do Coordenador Líder ou do Custodiante, acerca da rentabilidade das aplicações dos recursos da Classe A. 3. Quantidade. Serão emitidas até 75.000 (setenta e cinco mil) Cotas Subordinadas Mezanino A da 1ª Série, inclusive com vistas ao atendimento ao Índice de Subordinação Mezanino A. 4. Valor unitário de Emissão. O valor inicial de Emissão unitário de Cotas Subordinadas Mezanino A da 1ª Série é de R$1.000,00 (mil reais), não havendo um limite máximo de subscrição por investidor. 5. Valor de subscrição."
+    },
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 105,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "apitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis (“Taxa DI”), acrescida de sobretaxa de 4,00% (quatro inteiros por cento) ao ano. 2.1 Não existe qualquer promessa da Classe A, da Administradora, da Gestora, do Emitente, do Coordenador Líder ou do Custodiante, acerca da rentabilidade das aplicações dos recursos da Classe A. 3. Quantidade. Serão emitidas até 75.000 (setenta e cinco mil) Cotas Subordinadas Mezanino B da 1ª Série, inclusive com vistas ao atendimento ao Índice de Subordinação Mezanino B. 4. Valor unitário de Emissão. O valor inicial de Emissão unitário de Cotas Subordinadas Mezanino B da 1ª Série é de R$1.000,00 (mil reais), não havendo um limite máximo de subscrição por investidor. 5. Valor de subscrição."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "undo, e vice-versa, já que este possui apenas classe única. “Administradora”: Significa o BANCO DAYCOVAL S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, por meio do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001- 90, ou seu sucessor a qualquer título; “Agência de Classificação Significa a agência de classificação de risco contratada pelo de Risco”: Fundo, responsável pela avaliação de risco das Cotas, conforme aplicável, que poderá ser: (a) a Fitch Ratings Brasil Ltda.; (b) a Moody’s América Latina Ltda.; ou (c) a Standard & Poor’s Ratings do Brasil Ltda.;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "“Direitos Creditórios”: Significam os direitos creditórios definidos no Anexo Descritivo; “Gestora”: Significa a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº 09.452.272/0001-05, devidamente autorizada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 9.837, de 14 de maio de 2008, ou seu sucessor a qualquer título; “Fundo”: Significa o FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV AUTO II SEGMENTO FINANCEIRO – RESPONSABILIDADE LIMITADA;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval (a administradora); mín. R$ 3 mil/mês",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 24,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "de e liquidez dos títulos componentes de sua Carteira. Público-Alvo Investidores Qualificados. Custódia Administradora. Tesouraria, Administradora. Controladoria e Escrituração A Classe A é constituída por 4 (quatro) subclasses de Cotas, Subclasses quais sejam: Cotas Seniores, Cotas Subordinadas Mezanino A, Cotas Subordinadas Mezanino B e Cotas Subordinadas Júnior. O valor de cada emissão de Cotas, volume e valor unitário da Emissão e Regime de Cota, bem como o regime de distribuição, seguirão o disposto Distribuição de Cotas no respectivo Apêndice de Cotas e no instrumento que aprova a emissão de Cotas. Capital Autorizado Não há. As Cotas ofertadas publicamente serão depositadas para distribuição no mercado primário e para nego"
+    },
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "undo, e vice-versa, já que este possui apenas classe única. “Administradora”: Significa o BANCO DAYCOVAL S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, por meio do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001- 90, ou seu sucessor a qualquer título; “Agência de Classificação Significa a agência de classificação de risco contratada pelo de Risco”: Fundo, responsável pela avaliação de risco das Cotas, conforme aplicável, que poderá ser: (a) a Fitch Ratings Brasil Ltda.; (b) a Moody’s América Latina Ltda.; ou (c) a Standard & Poor’s Ratings do Brasil Ltda.;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "ustodiante uma taxa de custódia de acordo com as respectivas faixas de Patrimônio Líquido da Classe A, conforme tabela abaixo, observado o montante mínimo mensal de R$3.000,00 (três mil reais) (“Taxa de Custódia”). Taxa de Custódia Patrimônio Líquido da Classe A (% a.a. sob o Patrimônio Líquido) 0,03% Até R$2.000.000.000,00 (dois bilhões de reais) 0,02% Acima de R$2.000.000.000,00 (dois bilhões de reais) 7.4.1. A Taxa de Custódia será provisionada diariamente, na base de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Banco Votorantim (cobrança pelo emitente)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "a B3; “Emissão”: Significa cada emissão de Cotas pela Classe A; “Emitente”: Significa o BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04.794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, que, nos termos do artigo 43 da Lei 10.931, e da Resolução CMN nº 2.843, pode emitir ou emitiu CCCBs Elegíveis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 24,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "de e liquidez dos títulos componentes de sua Carteira. Público-Alvo Investidores Qualificados. Custódia Administradora. Tesouraria, Administradora. Controladoria e Escrituração A Classe A é constituída por 4 (quatro) subclasses de Cotas, Subclasses quais sejam: Cotas Seniores, Cotas Subordinadas Mezanino A, Cotas Subordinadas Mezanino B e Cotas Subordinadas Júnior. O valor de cada emissão de Cotas, volume e valor unitário da Emissão e Regime de Cota, bem como o regime de distribuição, seguirão o disposto Distribuição de Cotas no respectivo Apêndice de Cotas e no instrumento que aprova a emissão de Cotas. Capital Autorizado Não há. As Cotas ofertadas publicamente serão depositadas para distribuição no mercado primário e para nego"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 24,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "a Classe A do Fundo estão descritas abaixo: Tipo de Condomínio Fechado. Prazo de Duração Indeterminado. Responsabilidade Limitada. Tipo “Financeiro”. Classificação ANBIMA Foco de atuação “Crédito Pessoal”. O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas, no médio e longo prazos, por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade e aos Critérios para Vinculação estabelecidos no Capítulo 5 abaixo, e (ii) Ativos Financeiros de Liquidez, observados todos os limites de composição e diversificação da Carteira, Objetivo estabelecidos neste Anexo Descritivo e na regulamentação"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "real_collateral": {
+   "display": "Alienação fiduciária dos veículos financiados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928236",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/06/2025",
+     "page": 30,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+     "excerpt": "de financiamento de Veículos Automotores classificados como “elétrico” ou “híbrido”, realizadas entre o Emitente e os respectivos Devedores e garantidos por Alienação Fiduciária. 4.2. O processo de originação dos Direitos Creditórios e a Política de Crédito adotada pelo Emitente encontram-se descritos no Adendo I a este Anexo Descritivo. 4.3. O Endosso de CCCBs Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade do respectivo CCCB para a Classe A, em caráter definitivo, juntamente com todos os fluxos de Direitos Creditórios de cada CCB Vinculada, direitos, privilégios, garantias, preferências, prerrogativas e ações a estas relacionadas, bem como juros e encargos, incluindo, sem limitação, a Alienação Fiduciária. 4.4. A cada aquisição de CCCBs, na respectiva Data de Endosso, a Classe A pagará ao Emitente o respectivo Preço de Aquisição. 4.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Financiamento de veículos do BV via CCCB, sem revolvência; 15% de subordinação e sênior a DI + 1,00%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

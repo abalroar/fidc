@@ -1,0 +1,56 @@
+# portado de 51554551000138 (58171340000165)
+type: Duplicatas/multicedente
+q22: id1206367 "Sobretaxa Mezanino: Não aplicável. Meta de Remuneração"
+q21: * "o Gestor fará jus à remuneração mensal, correspondente a 025% (vinte e cinco centésimos por cento)"
+q20: * "será pago ao Administrador o valor correspondente a 018% (dezoito centésimos por cento)"
+q19: * "Significa a relação equivalente a, no mínimo, 1% (um por cento) Mezanino”"
+q1: * "“Cedente” Significa a FRIMESA COOPERATIVA CENTRAL"
+q2: * "“Devedor” Significam cada cliente do Cedente, não pertencente"
+q3: * "devem estar limitados INFORMAÇÕES DO a 3% (três por cento) do Patrimônio"
+q4: * "prazo máximo de vencimento de até INFORMAÇÕES DO CEDENTE 60 (sessenta) dias"
+q5: * "Significa a relação equivalente a, no mínimo, 20% (vinte por Sênior” cento)"
+q6: * "Qualquer dos seguintes eventos será considerado um Evento de Avaliação"
+q7: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q8: * "manual de provisão para perdas por redução no valor de recuperação ou provisão para perdas com devedores duvidosos"
+q9: * "Não será cobrada dos Cotistas qualquer taxa de performance"
+q10: * "“Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q11: * "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA."
+q12: * "“Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada"
+q13: * "será destinada exclusivamente a Investidores Profissionais"
+q14: * "O Fundo terá prazo de duração indeterminado, sendo que cada Subclasse de Cotas"
+q16: * "Sobretaxa Mezanino” Significa a sobretaxa a ser acrescentada à Taxa DI"
+q17: * "pagamento da Meta de Remuneração com referência às Cotas Subordinadas Mezanino em circulação"
+q18: * "observado o prazo de cura de 15 (quinze) dias contados da respectiva Data de Verificação, caso o Índice de Subordinação Sênior seja inferior a 20%"
+receivables: Vendas mercantis a prazo de produtos da Frimesa, performadas | o1
+originator: Frimesa Cooperativa Central e filiais | q1
+assignor: Frimesa Cooperativa Central (cedente única) | q1
+debtor: Clientes da Frimesa, exceto grupo do cedente e entes públicos | q2
+recourse: Cessão sem coobrigação; resolução por vícios conforme contrato | o12
+eligibility: Prazo de 2 a 60 dias; devedor adimplente; grupo ≤ 3% do PL | q4,q3
+debtor_limit: Grupo econômico ≤ 3% do PL; grupos especiais por acordo operacional | q3
+assignor_limit: Cedente única (Frimesa) | q1
+term_max: De 2 a 60 dias | q4
+allocation: ≥ 50% do PL em direitos creditórios | o23 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q16,q17
+sub_senior: 20% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 1% · jr/PL | q19 | basis=jr/PL
+sub_check: Cura de 15 dias abaixo de 20%; depois é evento de avaliação | q18
+reserve: n/d | Fundo de despesas com valor mínimo em branco ([●]) no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: Manual de PDD da administradora (perda esperada; efeito vagão) | q8
+eval_triggers: Violação do cedente sem cura em 5 DU; diluição, atrasos e subordinação | q6,o43
+liquidation: Avaliação convertida; sênior sem remuneração após 2 DU, entre outros | q7
+revolving: n/d | Ordem de alocação não detalha recompra no texto extraído
+amortization: Ordem de alocação: sênior, mezanino e júnior pelas metas | q17
+admin_fee: Dezoito centésimos por cento a.a. do PL; mín. R$ 18 mil/mês | q20
+mgmt_fee: Vinte e cinco centésimos por cento a.a. do PL; mín. R$ 20 mil/mês | q21
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: n/d | Apêndice da série sênior não está no acervo | why=Resposta anterior trata da série mezanino, registrada na linha própria
+target_mezz: Taxa DI, sem sobretaxa (1ª série mezanino) | q22
+administrator: Vórtx DTVM | q10
+manager: Opea Gestora de Recursos | q11
+custodian: Vórtx DTVM | q12
+servicer: n/d | Agente de cobrança não nomeado no texto extraído
+investors: Investidores profissionais | q13
+duration: Indeterminado; prazo próprio por subclasse | q14
+sacado_limit: Grupo econômico ≤ 3% do PL; grupos especiais por acordo operacional | q3
+leitura: Vendas a prazo curto (até 60 dias) da Frimesa com 20% de subordinação e grupo devedor ≤ 3% do PL.

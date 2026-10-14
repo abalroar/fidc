@@ -1,0 +1,55 @@
+# J17 FGTS FIDC (Limine Trust; Buriti Investimentos; cedente J17)
+type: FGTS
+q18: * "não poderá ser superior a 144 (cento e quarenta e quatro) meses contados a partir da Data de Aquisição"
+q1: * "Significa a J17 e, apenas para as Aquisições Iniciais, o Metropolitana FIDC-NP"
+q2: * "te poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos"
+q3: * "O Limite de Concentração em Direitos Creditórios de um mesmo Devedor e pessoas coobrigadas (incluindo-se seu respectivo Grupo Econômico) a qualquer tempo deverá ser de, no máximo, R$ 100.000,00"
+q4: * "o Índice de Subordinação Sênior deverá ser igual ou superior a 15% (quinze por cento) de seu Patrimônio L"
+q5: * "o Índice de Subordinação Mezanino deverá ser igual ou superior a 5% (cinco por cento)"
+q6: * "será devida pela Classe Única a taxa de administração equivalente a 0,01% a.a."
+q7: * "será devida pela Classe Única a taxa de gestão equivalente a 0,10% a.a."
+q8: * "Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede"
+q9: * "Significa a BURITI INVESTIMENTOS GESTORA DE RECURSOS LTDA."
+q10: * "A Classe adotará estratégia de revolvência dos Direitos Creditórios apenas até o final do Período de Investimento das Cotas Seniores da 3ª"
+q11: * "são considerados Eventos de Liquidação Antecipada"
+q12: * "A provisão para Devedores duvidosos atingirá os demais créditos do mesmo Devedor"
+q13: * "O Fundo terá prazo de duração indeterminado, sendo que cada Classe, Subclasse e série de Cotas"
+q14: D6 "axa DI, acrescida de uma sobretaxa de 1,40% (um inteiro e quarenta centésimos por cento) a.a."
+q15: D6 "axa DI, acrescida de uma sobretaxa de 2,50% (dois inteiros e cinquenta centésimos por cento) a.a."
+q16: D6 "axa DI, acrescida de uma sobretaxa de 5,00% (cinco inteiros por cento) a.a."
+q17: * "zadas por CCBs emitidas por Devedores em favor do Credor Original, e garantidas por cessão fiduciária da totalidade ou de parte dos direitos do Devedor aos S"
+receivables: CCBs de antecipação do saque-aniversário FGTS | q17
+originator: J17, credor original pela plataforma J17 | o4,q1
+assignor: J17 (e Metropolitana FIDC-NP nas aquisições iniciais) | q1
+debtor: Titulares de FGTS optantes do saque-aniversário | q2
+recourse: n/d | Recompra e resolução regidas pelo contrato de transferência
+eligibility: Não vencido; devedor titular de FGTS com saque-aniversário; prazo e duration | q2,o16
+debtor_limit: Valor de face por devedor ≤ R$ 100 mil | q3
+assignor_limit: Cedente principal J17 | q1
+term_max: Até 144 meses; duration da carteira limitada | q18
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior e mezanino por séries / Júnior | q4,q5
+sub_senior: 15% · (mez.+jr.)/PL | q4 | basis=mez+jr/PL
+sub_mezz: 5% · jr/PL | q5 | basis=jr/PL
+sub_check: Desde a 1ª integralização até o último resgate | q4
+reserve: 3 meses de despesas; reserva adicional para MTM de derivativos | o42
+pdd: Provisão por devedor com efeito vagão | q12
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído
+liquidation: Lista do item 11.7, além das hipóteses legais | q11
+revolving: Revolvência até o fim do período de investimento da 3ª série sênior | q10
+amortization: n/d | Mensal após a carência, conforme suplementos | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,01% a.a. do PL; mín. R$ 1 mil/mês | q6
+mgmt_fee: 0,10% a.a. do PL; mín. R$ 8,5 mil/mês | q7
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: DI + 2,50% a 1,40% a.a. (séries I a IV) | q15,q14
+target_mezz: DI + 5,00% a.a. na 1ª série, menor nas seguintes | q16
+administrator: Limine Trust DTVM | q8
+manager: Buriti Investimentos Gestora de Recursos | q9
+custodian: Limine Trust DTVM | q8
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado; prazo próprio por série | q13
+payroll: Cessão fiduciária do saque-aniversário FGTS | q17
+age_limit: n/d | Limite de idade não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+installment_min: n/d | Valor mínimo de parcela não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Antecipação de FGTS da J17 com 15% de subordinação e devedor ≤ R$ 100 mil; sênior entre DI + 2,50% e DI + 1,40%.

@@ -1,0 +1,772 @@
+{
+ "schema_version": 1,
+ "cnpj": "62627243000101",
+ "name": "LEVER I FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "FGTS",
+ "reviewed_at": "2026-10-13T20:30:33Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1205675",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "03/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675"
+  },
+  "D2": {
+   "document_id": "995545",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "09/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995545"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FGTS",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de antecipação do saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "“Direitos Creditórios” Os direitos creditórios performados decorrentes de cada uma das parcelas vincendas de uma respectiva CCB, oriundos de operações de empréstimo pessoal para antecipação do Saque- Aniversário FGTS, realizadas entre a Endossant"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de antecipação de saque-aniversário FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Originadores parceiros da endossante QI SCD",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 47,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "esembaraçados de quaisquer ônus, gravames, encargos ou restrições de qualquer natureza; (ii) os Direitos Creditórios oferecidos à Endossatária devem ser oriundos de operações de crédito representadas por CCBs (a) originadas pelos Originadores e emitidas pelo respectivo Devedor em favor da Endossante, e (b) que não possuam disposições que impeçam a sua cessão ou endosso pela Endossante; Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "respectivos Suplementos, caso aplicável. “Endossante” a QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira devidamente constituída e existente de acordo com as leis do Brasil, com sede na São Paulo, estado de São Paulo, na Rua Gilberto Sabino, nº 215, andar 14, Pinheiros, CEP 05425- 020, inscrita no CNPJ sob o nº 32.402.502/0001- 35. “Entidade Registradora” As entidades registradoras criadas pela Resolução Mendes Davanso e Otavio Terra Roque. nº 264 do BACEN, de 25 de novembro de 2022, junto às quais os Direitos Creditórios deverão ser registrados, conforme"
+    }
+   ],
+   "legacy": {
+    "value": "Endossante e parceiros originadores; QI é gestora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "QI Sociedade de Crédito Direto (endossante)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "respectivos Suplementos, caso aplicável. “Endossante” a QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira devidamente constituída e existente de acordo com as leis do Brasil, com sede na São Paulo, estado de São Paulo, na Rua Gilberto Sabino, nº 215, andar 14, Pinheiros, CEP 05425- 020, inscrita no CNPJ sob o nº 32.402.502/0001- 35. “Entidade Registradora” As entidades registradoras criadas pela Resolução Mendes Davanso e Otavio Terra Roque. nº 264 do BACEN, de 25 de novembro de 2022, junto às quais os Direitos Creditórios deverão ser registrados, conforme"
+    }
+   ],
+   "legacy": {
+    "value": "Endossante e parceiros originadores; QI é gestora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas titulares de FGTS, de 18 a 75 anos na CCB",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 48,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "recebidos pela Gestora até a Data de Aquisição e Pagamento; (xi) na data de emissão da pertinente CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos de idade; e (xii) cada CCB deve, individualmente, ter um “Valor Nominal” (entendido como a soma entre os valores efetivamente desembolsados ao Devedor, IOF, tarifas eventualmente incidentes, seguros e/ou descontos devidamente autorizados Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física titular FGTS; idade 18 a 75 anos na CCB",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Retorno ao endossante só nas hipóteses do contrato de endosso",
+   "sources": [],
+   "legacy": {
+    "value": "Transferência irrevogável; retorno ao endossante só nas hipóteses contratuais",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "CCB adimplente; 12 parcelas; prazo ≤ 144 meses; duration ≤ 36 meses",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "e seu pagamento será limitado a, no máximo, 12 (doze) parcelas; (xiv) o prazo de vencimento da última parcela não poderá ser inferior a 15 (quinze) dias a contar da respectiva Data de Aquisição e Pagamento; (xv) a duration da carteira de Direitos Creditórios da Classe não poderá superior a 36 (trinta e seis) meses; (xvi) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 49,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": ") o prazo de vencimento das CCBs não poderá ser superior a 4.320 (quatro mil trezentos e vinte) dias, equivalente a 144 (cento e quarenta e quatro) meses, e seu pagamento será limitado a, no máximo, 12 (doze) parcelas; (xiv) o prazo de vencimento da última parcela não poderá ser inferior a 15 (quinze) dias a contar da respectiva Data de Aquisição e Pagamento; (xv) a duration da carteira de Direitos Creditórios da Classe não poderá superior a 36 (trinta e seis) meses; (xvi) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; (xvii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda Mendes Davanso e Otavio Terra Roque. corrente nacional; (xviii) os Direitos Creditórios não podem estar vencidos na respectiva Data de Aquisição e Pagamento e nenhuma parcela do Direito Creditório pode estar inadimplida pelo Devedor;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB adimplente; 12 parcelas; prazo ≤ 144 meses; duration da carteira ≤ 36 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "CCBs de um mesmo devedor até R$ 100 mil de face",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 49,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "100.000,00 (cem mil reais); (xiii) o prazo de vencimento das CCBs não poderá ser superior a 4.320 (quatro mil trezentos e vinte) dias, equivalente a 144 (cento e quarenta e quatro) meses, e seu pagamento será limitado a, no máximo, 12 (doze) parcelas; (xiv) o prazo de vencimento da última parcela não poderá ser inferior a 15 (quinze) dias a contar da respectiva Data de Aquisição e Pagamento;"
+    }
+   ],
+   "value": 100000.0,
+   "legacy": {
+    "value": "Face por devedor ≤ R$ 100 mil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Endossante única (QI SCD)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "respectivos Suplementos, caso aplicável. “Endossante” a QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira devidamente constituída e existente de acordo com as leis do Brasil, com sede na São Paulo, estado de São Paulo, na Rua Gilberto Sabino, nº 215, andar 14, Pinheiros, CEP 05425- 020, inscrita no CNPJ sob o nº 32.402.502/0001- 35. “Entidade Registradora” As entidades registradoras criadas pela Resolução Mendes Davanso e Otavio Terra Roque. nº 264 do BACEN, de 25 de novembro de 2022, junto às quais os Direitos Creditórios deverão ser registrados, conforme"
+    }
+   ],
+   "legacy": {
+    "value": "Face por devedor ≤ R$ 100 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, p. 8"
+   }
+  },
+  "term_max": {
+   "display": "Até 144 meses, no máximo 12 parcelas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 49,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": ") o prazo de vencimento das CCBs não poderá ser superior a 4.320 (quatro mil trezentos e vinte) dias, equivalente a 144 (cento e quarenta e quatro) meses, e seu pagamento será limitado a, no máximo, 12 (doze) parcelas; (xiv) o prazo de vencimento da última parcela não poderá ser inferior a 15 (quinze) dias a contar da respectiva Data de Aquisição e Pagamento; (xv) a duration da carteira de Direitos Creditórios da Classe não poderá superior a 36 (trinta e seis) meses; (xvi) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; (xvii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda Mendes Davanso e Otavio Terra Roque. corrente nacional; (xviii) os Direitos Creditórios não podem estar vencidos na respectiva Data de Aquisição e Pagamento e nenhuma parcela do Direito Creditório pode estar inadimplida pelo Devedor;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB adimplente; 12 parcelas; prazo ≤ 144 meses; duration da carteira ≤ 36 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Anexo, cl. 8.1"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 45,
+     "clause": "Anexo, cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "s referidos Direitos Creditórios. 7.3. Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 7.4. Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita aos limites de concentração por devedor, emissor ou tipo de Direito Creditório, nos termos das disposições legais e regulatórias aplicáveis, sem prejuízo Mendes Davanso e Otavio Terra Roque. de eventuais outros limites estabelecidos neste Anexo Descritivo. 7.5. Em razão da permissão também prevista na Cláusula 9.3 da parte geral do Regulamento, não haverá limite de concentração em Direitos Creditórios originados ou cedidos pelos Prestadores de Serviços Essenciais, consultoria especializada, se houver, e suas respectivas partes relacionadas, podendo chegar a 100% (cem por cento) do Patrimônio Líquido da Classe. 7.6."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios > 50% do PL em até 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Anexo, cl. 7.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior (por séries) / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "Subordinação da Classe a ser observado. \"Índice de Subordinação Enquanto houver Cotas Seniores em circulação, o Mínimo\" Índice de Subordinação deverá ser igual ou superior a 2% (dois por cento). “Fundo” O Lever I FGTS Fundo de Investimento em Direitos Creditórios, incluindo todas as suas Classes para todos os fins. “FIDC” Os fundos de investimento em direitos creditórios Mendes Davanso e Otavio Terra Roque. constituídos na forma prevista na RCVM 175. “Gestora” A QI GESTÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças n° 2.942, 7º ao 12°"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 2% enquanto houver sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, p. 11"
+   }
+  },
+  "sub_senior": {
+   "display": "2% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "Subordinação da Classe a ser observado. \"Índice de Subordinação Enquanto houver Cotas Seniores em circulação, o Mínimo\" Índice de Subordinação deverá ser igual ou superior a 2% (dois por cento). “Fundo” O Lever I FGTS Fundo de Investimento em Direitos Creditórios, incluindo todas as suas Classes para todos os fins. “FIDC” Os fundos de investimento em direitos creditórios Mendes Davanso e Otavio Terra Roque. constituídos na forma prevista na RCVM 175. “Gestora” A QI GESTÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças n° 2.942, 7º ao 12°"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 2.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 2% enquanto houver sênior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Enquanto houver sênior em circulação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "Subordinação da Classe a ser observado. \"Índice de Subordinação Enquanto houver Cotas Seniores em circulação, o Mínimo\" Índice de Subordinação deverá ser igual ou superior a 2% (dois por cento). “Fundo” O Lever I FGTS Fundo de Investimento em Direitos Creditórios, incluindo todas as suas Classes para todos os fins. “FIDC” Os fundos de investimento em direitos creditórios Mendes Davanso e Otavio Terra Roque. constituídos na forma prevista na RCVM 175. “Gestora” A QI GESTÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças n° 2.942, 7º ao 12°"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 2% enquanto houver sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, p. 11"
+   }
+  },
+  "reserve": {
+   "display": "Caixa: maior entre 90 dias de despesas e 1% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 51,
+     "clause": "Anexo, cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "responsabilidade do Fundo e/ou da Classe a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 1% (um por cento) do Patrimônio Líquido da Classe na data de apuração. 10.4. O montante referente à Reserva de Caixa deverá ser mantido pela Administradora de forma devidamente segregada no patrimônio da Classe e/ou do Fundo, em moeda corrente nacional, ou em Ativos Financeiros de liquidez imediata. 10.5."
+    }
+   ],
+   "legacy": {
+    "value": "Maior de 90 dias de despesas/encargos ou 1% do PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução ao valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 28,
+     "clause": "cl. 11.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "evidência de redução no valor recuperável dos Ativos da Classe, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 11.8. Os Direitos Creditórios cedidos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 11.9."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no anexo extraído",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada no anexo extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Pagamentos seguem a ordem de alocação do anexo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 50,
+     "clause": "Anexo, cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "(ix) caso seja uma Data de Aquisição e Pagamento, amortização das Cotas Subordinadas em circulação em caso de Excesso de Cobertura; (x) aquisição de novos Direitos Creditórios Elegíveis; e Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Sênior: remuneração mensal no 5º DU; vencimento em 144 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 84,
+     "clause": "Apêndice 1, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "as assinaturas vá ao site https://assinaturas.certisign.com.br e utilize o código 4269-4C5A-A197-A63B. • Remuneração das Cotas Seniores: CDI+1,30% (um inteiro e trinta centésimos por cento); e • Cronograma de pagamento da Remuneração das Cotas Seniores: mensal, todo 5º (quinto) Dia Útil. 4. Forma de integralização: à vista, em moeda corrente nacional. 5. Quando não aqui expressamente definidos, os termos definidos utilizados neste Apêndice terão o mesmo significado a eles atribuído no Regulamento. Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 84,
+     "clause": "Apêndice 1, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "os termos dispostos na Cláusula 9 do Anexo Descritivo; 3.1. Cronograma de amortização: • Vencimento final: 144 (cento e quarenta e quatro) meses contados da Data de Conversão; Para verificar as assinaturas vá ao site https://assinaturas.certisign.com.br e utilize o código 4269-4C5A-A197-A63B. • Remuneração das Cotas Seniores: CDI+1,30% (um inteiro e trinta centésimos por cento); e • Cronograma de pagamento da Remuneração das Cotas Seniores: mensal, todo 5º (quinto) Dia Útil. 4. Forma de integralização: à vista, em moeda corrente nacional. 5. Quando não aqui expressamente definidos, os termos definidos utilizados neste Apêndice terão o mesmo significado a eles atribuído no Regulamento. Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos/derivativos → reservas → remuneração/amortização sênior → subordinadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,0125% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 44,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "Marcelo Buosi Martins, Alexandre Calvo, Leandro 6. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO 6.1. A Taxa de Administração da Classe, referente aos serviços de Administração, Controladoria e Escrituração, corresponderá ao equivalente a 0,0125% (cento e vinte e cinco décimos de milésimo) a.a. aplicado ao Patrimônio Líquido. 6.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.1.2. A Taxa de Administração será reajustada anualmente, com base no índice da variação positiva do IGP-M, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 6.2. A Taxa de Gestão da Classe corresponderá ao equivalente a 0,0125% (cento e Mendes Davanso e Otavio Terra Roque. vinte e cinco décimos de milésimos por cento) a.a. aplicado ao Patrimônio Líquido. 6.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,0125% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 44,
+     "clause": "Anexo, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "o do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 6.2. A Taxa de Gestão da Classe corresponderá ao equivalente a 0,0125% (cento e Mendes Davanso e Otavio Terra Roque. vinte e cinco décimos de milésimos por cento) a.a. aplicado ao Patrimônio Líquido. 6.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.2.2. A Taxa de Gestão será reajustada anualmente, com base no índice da variação positiva do IGP-M, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 6.3. Tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe, o presente Anexo Descritivo não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo da classe não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "CDI + 1,30% a.a. (1ª série sênior)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 84,
+     "clause": "Apêndice 1, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "as assinaturas vá ao site https://assinaturas.certisign.com.br e utilize o código 4269-4C5A-A197-A63B. • Remuneração das Cotas Seniores: CDI+1,30% (um inteiro e trinta centésimos por cento); e • Cronograma de pagamento da Remuneração das Cotas Seniores: mensal, todo 5º (quinto) Dia Útil. 4. Forma de integralização: à vista, em moeda corrente nacional. 5. Quando não aqui expressamente definidos, os termos definidos utilizados neste Apêndice terão o mesmo significado a eles atribuído no Regulamento. Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    }
+   ],
+   "legacy": {
+    "value": "1ª sênior: CDI + 1,30% a.a.; subordinada residual",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": [],
+   "legacy": {
+    "value": "1ª sênior: CDI + 1,30% a.a.; subordinada residual",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "Mendes Davanso e Otavio Terra Roque. sucessores, representantes e cessionários autorizados. “Administradora” A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Avenida Brigadeiro Faria Lima, nº 1355 – 5º andar, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou sua sucessora a qualquer título. “Agência de Classificação de Agência de classificação de risco que pode ser Risco” contratada pela Gestora, em nome da Classe, para realizar a avaliação de risco das Cotas, nos termos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "QI Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "Terra Roque. constituídos na forma prevista na RCVM 175. “Gestora” A QI GESTÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças n° 2.942, 7º ao 12° andar, parte G, Pinheiros, CEP 05402-500, inscrita no CNPJ sob o nº 52.332.058/0001-36, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 21.743, de 5 de fevereiro de 2024, que presta serviço de gestão da carteira de Ativos do Fundo. “IGP-M” Índice Geral de Preços do Mercado, divulgado pela Fundação Getúlio Vargas, ou outro índice que"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "Classe sem custodiante de direitos creditórios (registro em registradora)",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 44,
+     "clause": "Anexo, cl. 6.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "em vista que as CCBs representativas dos Direitos Creditórios são passíveis de registro em Entidade Registradora, a Classe não contará com custodiante de direitos creditórios não sendo devida, portanto, qualquer taxa máxima de custódia. 6.5. A Taxa de Administração e a Taxa de Gestão não incluem os demais encargos do Fundo ou da Classe, os quais serão arcados diretamente pelo patrimônio da Classe. 6.6. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 7. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    }
+   ]
+  },
+  "servicer": {
+   "display": "Não nomeado; prestador contratado pela gestora quando necessário",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "rificar as assinaturas vá ao site https://assinaturas.certisign.com.br e utilize o código 4269-4C5A-A197-A63B. “Agente de Cobrança” Cada prestador de serviços que poderá ser contratado pela Gestora, em nome da Classe, para cobrança extraordinária dos Direitos Creditórios cedidos que venham a ser inadimplidos, nos termos dispostos neste Regulamento. “Agente de Conta Vinculada” A instituição responsável pela movimentação da Conta Vinculada; “Agente Operador do FGTS” A Caixa Econômica Federal, na qualidade de agente operador do FGTS; Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    }
+   ]
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 25,
+     "clause": "cl. 4.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "Emissões, conforme disposto no Anexo Descritivo e nos respectivos Suplementos, se for o caso. 4.3. O Fundo e a Classe serão destinados exclusivamente a Investidores Profissionais. 5. DO PRAZO DE DURAÇÃO Mendes Davanso e Otavio Terra Roque. 5.1. O funcionamento do Fundo terá início na primeira Data de Subscrição Inicial. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas em conformidade com o disposto neste Regulamento. 5.2. O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 6. DA POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 6.1. A Classe do Fundo terá como objetivo proporcionar aos Cotistas a valorização de suas Cotas, por meio da aplicação dos recursos da Classe do Fundo preponderantemente na aquisição de Direitos Creditórios. 6.2."
+    }
+   ],
+   "legacy": {
+    "value": "Fechado; prazo indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 25,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "tavio Terra Roque. 5.1. O funcionamento do Fundo terá início na primeira Data de Subscrição Inicial. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas em conformidade com o disposto neste Regulamento. 5.2. O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 6. DA POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 6.1. A Classe do Fundo terá como objetivo proporcionar aos Cotistas a valorização de suas Cotas, por meio da aplicação dos recursos da Classe do Fundo preponderantemente na aquisição de Direitos Creditórios. 6.2. A descrição dos Direitos Creditórios passíveis de aquisição pela Classe, bem como as regras de enquadramento e concentração encontram-se descritos no respectivo Anexo Descritivo. Para verificar as assinaturas vá ao site https://assinaturas.certisign.com.br e utilize o código 4269-4C5A-A197-A63B. 7."
+    }
+   ],
+   "legacy": {
+    "value": "Fechado; prazo indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Saque-aniversário FGTS em cessão fiduciária, com bloqueio de saldo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 48,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "(iii) deve ter sido realizada, pela Endossante, a averbação de valores dos Saques- Aniversários em relação a cada Devedor, a qual foi devidamente autorizada pelo Devedor. Para maior clareza, entende-se “comprovante de averbação” o código de averbação fornecido com base no protocolo disponibilizado pelo Agente Operador do FGTS, comprovando que houve a averbação do saldo do Saque-Aniversário em relação a cada Devedor, a ser informado por meio de arquivo apartado constando o núme"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão fiduciária do saque-aniversário; registro e bloqueio de saldo FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "Devedor de 18 a 75 anos na emissão da CCB",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1205675",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 48,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205675",
+     "excerpt": "recebidos pela Gestora até a Data de Aquisição e Pagamento; (xi) na data de emissão da pertinente CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos de idade; e (xii) cada CCB deve, individualmente, ter um “Valor Nominal” (entendido como a soma entre os valores efetivamente desembolsados ao Devedor, IOF, tarifas eventualmente incidentes, seguros e/ou descontos devidamente autorizados Este documento foi assinado digitalmente por Daniela Vieira Bragarbyk, Camila Aparecida Belmonte Gomes Clementino Rodrigues, Alexandra Matos Dos Reis, Marcelo Buosi Martins, Alexandre Calvo, Leandro Mendes Davanso e Otavio Terra Roque."
+    }
+   ],
+   "legacy": {
+    "value": "CCB adimplente; 12 parcelas; prazo ≤ 144 meses; duration da carteira ≤ 36 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Anexo, cl. 8.1"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Anexo limita o número de parcelas (12), não o valor mínimo",
+   "sources": [],
+   "legacy": {
+    "value": "CCB adimplente; 12 parcelas; prazo ≤ 144 meses; duration da carteira ≤ 36 meses",
+    "decision": "regression",
+    "why": "Resposta anterior trata de prazo e número de parcelas, registrados na elegibilidade"
+   }
+  }
+ },
+ "leitura": "Antecipação do saque-aniversário FGTS originada pela QI SCD, com subordinação mínima de 2% e taxas de 0,0125% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

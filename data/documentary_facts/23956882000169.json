@@ -1,0 +1,745 @@
+{
+ "schema_version": 1,
+ "cnpj": "23956882000169",
+ "name": "SB CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSETORIAL DE CLASSE UNICA FECHADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:26:16Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1218996",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996"
+  },
+  "D2": {
+   "document_id": "1338370",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338370"
+  },
+  "D3": {
+   "document_id": "1169410",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "24/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1169410"
+  },
+  "D4": {
+   "document_id": "1168784",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "24/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1168784"
+  },
+  "D5": {
+   "document_id": "1167802",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "23/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1167802"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Duplicatas, notas promissórias, NC, CCB, CCI, CPR e cotas de FIDC",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 62,
+     "clause": "Anexo I, cl. 14.22",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "14.22. As limitações da Política de Investimento, diversificação e composição da carteira do Fundo e da Classe previstas nesta Cláusula serão observadas diariamente, com base no Patrimônio Líquido do Dia Útil imediatamente anterior. 14.23. As aplicações realizadas no Fundo e pela Classe não contam com garantia da Administradora, da Gestora, de quaisquer terceiros, de qualquer mecanismo de seguro ou, ainda, do Fundo Garantidor de Crédito – FGC. 15. CONDIÇÕES DE CESSÃO E CRITÉRIOS DE ELEGIBILIDADE 15.1."
+    }
+   ],
+   "legacy": {
+    "value": "Duplicatas, promissórias, NC, CCB, CCI, CPR, contratos e cotasFIDC elegíveis.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos (multicedente)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 14.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ões de Cessão, observados, ainda, além dos limites estabelecidos na regulamentação pertinente, os previstos abaixo: QUADRO A – LIMITE DE DIREITOS CREDITÓRIOS PELO PATRIMÔNIO LÍQUIDO DA CLASSE/ CONCENTRAÇÃO POR CEDENTE E SACADO a) Direitos Creditórios no mínimo 67% (sessenta e sete por cento) b) Concentração de Cedente Até 5% (cinco por cento) c) Concentração pelos 3 (três) Até 13% (treze por cento) Cedentes mais representativos d) Concentração pelos 10 (dez) Até 27% (vinte e sete por cento) Cedentes mais representativos e) Concentração por Sacados Até 3% (três por cento) 58 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA f) Concentração pelos Três Sacados Até 8% (oito por cento) mais representativos g) Concentração pelos 15 (quinze) Até 22% (vinte e dois por cento) maiores Sacados h) Concentração pelos 20 (vinte) Até 26% (vinte e seis por cento) maiores Sacados i) Concentração máxima em CCB e Até 40% (quarenta por cento) Nota Comercial j) Concentração máxima em Warrant"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos; até 5% do PL por cedente",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 14.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ões de Cessão, observados, ainda, além dos limites estabelecidos na regulamentação pertinente, os previstos abaixo: QUADRO A – LIMITE DE DIREITOS CREDITÓRIOS PELO PATRIMÔNIO LÍQUIDO DA CLASSE/ CONCENTRAÇÃO POR CEDENTE E SACADO a) Direitos Creditórios no mínimo 67% (sessenta e sete por cento) b) Concentração de Cedente Até 5% (cinco por cento) c) Concentração pelos 3 (três) Até 13% (treze por cento) Cedentes mais representativos d) Concentração pelos 10 (dez) Até 27% (vinte e sete por cento) Cedentes mais representativos e) Concentração por Sacados Até 3% (três por cento) 58 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA f) Concentração pelos Três Sacados Até 8% (oito por cento) mais representativos g) Concentração pelos 15 (quinze) Até 22% (vinte e dois por cento) maiores Sacados h) Concentração pelos 20 (vinte) Até 26% (vinte e seis por cento) maiores Sacados i) Concentração máxima em CCB e Até 40% (quarenta por cento) Nota Comercial j) Concentração máxima em Warrant"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Sacados diversos; até 3% do PL por sacado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 14.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "resentativos d) Concentração pelos 10 (dez) Até 27% (vinte e sete por cento) Cedentes mais representativos e) Concentração por Sacados Até 3% (três por cento) 58 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA f) Concentração pelos Três Sacados Até 8% (oito por cento) mais representativos g) Concentração pelos 15 (quinze) Até 22% (vinte e dois por cento) maiores Sacados h) Concentração pelos 20 (vinte) Até 26% (vinte e seis por cento) maiores Sacados i) Concentração máxima em CCB e Até 40% (quarenta por cento) Nota Comercial j) Concentração máxima em Warrant Até 8% (oito por cento) (WA) ou Certificado de Depósito Agronegócio (CDA) k) Concentração em Contratos à Até 1,20% (Um inteiro e vinte centésimos) performar cujo Sacado seja a Petróleo por cento) Brasileiro S.A (“Petrobras”) l) Concentração na Industria no mínimo 50% (cinquenta por cento) e no máximo 100% (cem por cento"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada contrato de cessão, sem regra única no anexo",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Prazo até 270 dias da cessão; limites de concentração do quadro A",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 62,
+     "clause": "Anexo I, cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "Direito Creditório representado por duplicatas deverá corresponder a, no mínimo, 3 (três) dias e, no máximo, 270 (duzentos e setenta) dias, a contar da respectiva Data de Cessão; 15.2. Adicionalmente ao disposto na Cláusula15.1 acima, os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: CRITÉRIOS DE ELEGIBILIDADE VERIFICADOS PELA GESTORA a) Atenderem aos limites de concentração definidos na Cláusula 14.12 (Quadro “A”) e as vedações descritas na Cláusula 14.15 (“Quadro “C”) 62 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA b) a análise dos Direitos Creditórios e de seus respectivos Cedentes e Devedores deverá ter sido realizada com base na Política de Crédito, adotada pela Consultora Especializada da Classe, conforme descrita no Anexo II a este Anexo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 14.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ões de Cessão, observados, ainda, além dos limites estabelecidos na regulamentação pertinente, os previstos abaixo: QUADRO A – LIMITE DE DIREITOS CREDITÓRIOS PELO PATRIMÔNIO LÍQUIDO DA CLASSE/ CONCENTRAÇÃO POR CEDENTE E SACADO a) Direitos Creditórios no mínimo 67% (sessenta e sete por cento) b) Concentração de Cedente Até 5% (cinco por cento) c) Concentração pelos 3 (três) Até 13% (treze por cento) Cedentes mais representativos d) Concentração pelos 10 (dez) Até 27% (vinte e sete por cento) Cedentes mais representativos e) Concentração por Sacados Até 3% (três por cento) 58 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA f) Concentração pelos Três Sacados Até 8% (oito por cento) mais representativos g) Concentração pelos 15 (quinze) Até 22% (vinte e dois por cento) maiores Sacados h) Concentração pelos 20 (vinte) Até 26% (vinte e seis por cento) maiores Sacados i) Concentração máxima em CCB e Até 40% (quarenta por cento) Nota Comercial j) Concentração máxima em Warrant"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sacado ≤ 3%; 3 maiores ≤ 8%; 20 maiores ≤ 26% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 14.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "resentativos d) Concentração pelos 10 (dez) Até 27% (vinte e sete por cento) Cedentes mais representativos e) Concentração por Sacados Até 3% (três por cento) 58 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA f) Concentração pelos Três Sacados Até 8% (oito por cento) mais representativos g) Concentração pelos 15 (quinze) Até 22% (vinte e dois por cento) maiores Sacados h) Concentração pelos 20 (vinte) Até 26% (vinte e seis por cento) maiores Sacados i) Concentração máxima em CCB e Até 40% (quarenta por cento) Nota Comercial j) Concentração máxima em Warrant Até 8% (oito por cento) (WA) ou Certificado de Depósito Agronegócio (CDA) k) Concentração em Contratos à Até 1,20% (Um inteiro e vinte centésimos) performar cujo Sacado seja a Petróleo por cento) Brasileiro S.A (“Petrobras”) l) Concentração na Industria no mínimo 50% (cinquenta por cento) e no máximo 100% (cem por cento"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente ≤ 5%; 3 maiores ≤ 13%; 10 maiores ≤ 27% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 14.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ões de Cessão, observados, ainda, além dos limites estabelecidos na regulamentação pertinente, os previstos abaixo: QUADRO A – LIMITE DE DIREITOS CREDITÓRIOS PELO PATRIMÔNIO LÍQUIDO DA CLASSE/ CONCENTRAÇÃO POR CEDENTE E SACADO a) Direitos Creditórios no mínimo 67% (sessenta e sete por cento) b) Concentração de Cedente Até 5% (cinco por cento) c) Concentração pelos 3 (três) Até 13% (treze por cento) Cedentes mais representativos d) Concentração pelos 10 (dez) Até 27% (vinte e sete por cento) Cedentes mais representativos e) Concentração por Sacados Até 3% (três por cento) 58 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA f) Concentração pelos Três Sacados Até 8% (oito por cento) mais representativos g) Concentração pelos 15 (quinze) Até 22% (vinte e dois por cento) maiores Sacados h) Concentração pelos 20 (vinte) Até 26% (vinte e seis por cento) maiores Sacados i) Concentração máxima em CCB e Até 40% (quarenta por cento) Nota Comercial j) Concentração máxima em Warrant"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "Até 270 dias da data de cessão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 62,
+     "clause": "Anexo I, cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "Direito Creditório representado por duplicatas deverá corresponder a, no mínimo, 3 (três) dias e, no máximo, 270 (duzentos e setenta) dias, a contar da respectiva Data de Cessão; 15.2. Adicionalmente ao disposto na Cláusula15.1 acima, os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: CRITÉRIOS DE ELEGIBILIDADE VERIFICADOS PELA GESTORA a) Atenderem aos limites de concentração definidos na Cláusula 14.12 (Quadro “A”) e as vedações descritas na Cláusula 14.15 (“Quadro “C”) 62 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA b) a análise dos Direitos Creditórios e de seus respectivos Cedentes e Devedores deverá ter sido realizada com base na Política de Crédito, adotada pela Consultora Especializada da Classe, conforme descrita no Anexo II a este Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 14.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ões de Cessão, observados, ainda, além dos limites estabelecidos na regulamentação pertinente, os previstos abaixo: QUADRO A – LIMITE DE DIREITOS CREDITÓRIOS PELO PATRIMÔNIO LÍQUIDO DA CLASSE/ CONCENTRAÇÃO POR CEDENTE E SACADO a) Direitos Creditórios no mínimo 67% (sessenta e sete por cento) b) Concentração de Cedente Até 5% (cinco por cento) c) Concentração pelos 3 (três) Até 13% (treze por cento) Cedentes mais representativos d) Concentração pelos 10 (dez) Até 27% (vinte e sete por cento) Cedentes mais representativos e) Concentração por Sacados Até 3% (três por cento) 58 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA f) Concentração pelos Três Sacados Até 8% (oito por cento) mais representativos g) Concentração pelos 15 (quinze) Até 22% (vinte e dois por cento) maiores Sacados h) Concentração pelos 20 (vinte) Até 26% (vinte e seis por cento) maiores Sacados i) Concentração máxima em CCB e Até 40% (quarenta por cento) Nota Comercial j) Concentração máxima em Warrant"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "50%/PL em direitos creditórios; prazo de enquadramento exige conferir condições.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2026, Anexo I, cl. 14.12"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 53,
+     "clause": "Anexo I, cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "inação Mezanino, na qual será apurada pela Administradora diariamente, devendo ser informada aos Cotistas mensalmente. 11.1.1. Para o cálculo do Índice de Subordinação Mezanino, a Administradora deverá considerar a razão entre (a) Patrimônio Líquido das Cotas Subordinadas Junior em circulação; e (b) Patrimônio Líquido da Classe em circulação, no qual será de 13% (treze por cento). 53 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA 11.1.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 54,
+     "clause": "Anexo I, cl. 11.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA 11.1.2. Para o cálculo do Índice de Subordinação Sênior, a Administradora deverá considerar a razão a razão entre (a) Patrimônio Líquido das Cotas Subordinadas em circulação e (b) o Patrimônio Líquido da Classe, no qual será de 30% (trinta por cento). a) Na hipótese de não atendimento ao Índice de Subordinação Sênior e/ou Mezanino, os Cotistas Subordinados Juniores serão informados pela Administradora em até 2 (dois) Dias Úteis, os quais deverão providenciar o reenquadramento por meio de aporte de recursos ou integralização de Direitos Creditórios. b) Os respectivos cotistas deverão responder à Administradora, com cópia para a Gestora, impreterivelmente até o 15º (décimo quinto) dia subsequente à data do recebimento da comunicação referida na Cláusula acima, informando por escrito se desejam integralizar, ou não, novas Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Junior, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥13%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2026, Anexo I, cl. 11.1"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 54,
+     "clause": "Anexo I, cl. 11.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA 11.1.2. Para o cálculo do Índice de Subordinação Sênior, a Administradora deverá considerar a razão a razão entre (a) Patrimônio Líquido das Cotas Subordinadas em circulação e (b) o Patrimônio Líquido da Classe, no qual será de 30% (trinta por cento). a) Na hipótese de não atendimento ao Índice de Subordinação Sênior e/ou Mezanino, os Cotistas Subordinados Juniores serão informados pela Administradora em até 2 (dois) Dias Úteis, os quais deverão providenciar o reenquadramento por meio de aporte de recursos ou integralização de Direitos Creditórios. b) Os respectivos cotistas deverão responder à Administradora, com cópia para a Gestora, impreterivelmente até o 15º (décimo quinto) dia subsequente à data do recebimento da comunicação referida na Cláusula acima, informando por escrito se desejam integralizar, ou não, novas Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Junior, conforme o caso."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥13%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2026, Anexo I, cl. 11.1.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "13% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 53,
+     "clause": "Anexo I, cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "inação Mezanino, na qual será apurada pela Administradora diariamente, devendo ser informada aos Cotistas mensalmente. 11.1.1. Para o cálculo do Índice de Subordinação Mezanino, a Administradora deverá considerar a razão entre (a) Patrimônio Líquido das Cotas Subordinadas Junior em circulação; e (b) Patrimônio Líquido da Classe em circulação, no qual será de 13% (treze por cento). 53 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA 11.1.2."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 13.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela administradora; cotistas informados mensalmente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 53,
+     "clause": "Anexo I, cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "inação Mezanino, na qual será apurada pela Administradora diariamente, devendo ser informada aos Cotistas mensalmente. 11.1.1. Para o cálculo do Índice de Subordinação Mezanino, a Administradora deverá considerar a razão entre (a) Patrimônio Líquido das Cotas Subordinadas Junior em circulação; e (b) Patrimônio Líquido da Classe em circulação, no qual será de 13% (treze por cento). 53 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA 11.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥13%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2026, Anexo I, cl. 11.1"
+   }
+  },
+  "reserve": {
+   "display": "Reservas de caixa (despesas) e de pagamento de amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 28,
+     "clause": "cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "CAIXA 15.1. Observada a Ordem de Alocação de recursos prevista na Cláusula 14 deste Regulamento e no Anexo da Classe, a Administradora deverá constituir a Reserva de Pagamento de Amortização, e a Reserva de Caixa. As regras quanto a ordem de alocação da Reservas de Pagamento de Amortização e da Reserva de Caixa seguem descritas no Anexo da Classe. 16. ALTERAÇÃO DE REGULAMENTO, ASSEMBLEIA DE COTISTAS, CONVOCAÇÃO, INSTALAÇÃO E DELIBERAÇÕES 16.1. As alterações do Regulamento dependem da prévia aprovação da Assembleia de Cotistas, salvo nas hipóteses previstas na Cláusula 16.3 deste Regulamento. 16.1.1. Salvo se aprovadas pela unanimidade dos Cotistas reunidos em Assembleia Geral de Cotistas, as alterações do Regulamento são eficazes, com relação a incorporação, cisão, fusão ou transformação do Fundo, apenas a partir do decurso do prazo para pagamento do reembolso aos Cotistas, nos termos do §2º do art. 119 da Res. 175 da CVM. 16.2."
+    }
+   ],
+   "legacy": {
+    "value": "Amortização 15% emD-30,50% emD-15 e 100% emD-3 DU.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2026, cl. 15.1"
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução ao valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 25,
+     "clause": "cl. 12.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "re que houver evidência de redução no valor recuperável dos Ativos da Classe, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo 25 CONDIÇÕES GERAIS APLICÁVEIS AO SB CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSETORIAL DE CLASSE ÚNICA FECHADA antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 12.8. Os Direitos Creditórios cedidos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 12.9."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rating rebaixado; reservas ou subordinação desenquadradas; lastro irregular",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 70,
+     "clause": "Anexo I, cl. 21.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "por mais de 15 (quinze) dias consecutivos; (e) inobservância de qualquer dos limites estabelecidos na cláusula 15 , por mais de 15 (quinze) dias consecutivos, ressalvada a hipótese de desenquadramento passivo; (f) resgate de Cotas Subordinadas Juniores em desacordo com o disposto neste Regulamento; (g) caso haja alteração na adoção da Política de Crédito pela Consultora Especializada, sem a prévia aprovação da Assembleia Geral;"
+    }
+   ],
+   "legacy": {
+    "value": "Reservas/limites fora por 15 dias; subordinação fora>10 DU; irregularidade lastro>10%; redução compras≥30%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2026, Anexo I, cl. 21.2"
+   }
+  },
+  "liquidation": {
+   "display": "Saída da administradora sem substituição, entre outras hipóteses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 71,
+     "clause": "Anexo I, cl. 21.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ão deve ser considerado um Evento de Liquidação Antecipada, a aquisição de Direitos Creditórios voltará a normalidade. 21.6. São considerados Eventos de Liquidação Antecipada quaisquer das seguintes hipóteses: (a) renúncia ou cessação definitiva, a qualquer tempo, por qualquer motivo, da prestação dos serviços pela Administradora, pela Gestora, pela Consultora Especializada, pelo Custodiante ou pelo Agente de Cobrança, sem que tenha havido sua substituição, em Assembleia Geral, por outro prestador de serviços; e (b) caso seja deliberado, em Assembleia Geral, que um Evento de Avaliação constitui um Evento de Liquidação Antecipada. 21.7. Na hipótese de ocorrência de qualquer Evento de Liquidação Antecipada, a Administradora imediatamente (a) suspenderá imediatamente os pagamentos de remuneração, amortização de principal e Amortização Extraordinária das Cotas; e (b) convocará a Assembleia Geral para deliberar sobre a liquidação do Fundo, bem como os procedimentos a ela relativos. 21.8."
+    }
+   ],
+   "legacy": {
+    "value": "Reservas/limites fora por 15 dias; subordinação fora>10 DU; irregularidade lastro>10%; redução compras≥30%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2026, Anexo I, cl. 21.5"
+   }
+  },
+  "revolving": {
+   "display": "Novas aquisições ao fim da ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 65,
+     "clause": "Anexo I, cl. 17.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "ou igual a 30% (trinta por cento); (vii) pagamento da Amortização Extraordinária de Cotas Subordinadas Júniores; e (viii) aquisição de Direitos Creditórios e Ativos Financeiros, conforme disposto no presente Regulamento. 18. VALORIZAÇÃO DAS COTAS 65 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA 18.1. As Cotas, independentemente da classe, serão valorizadas todo Dia Útil, conforme o disposto nesta cláusula 18. A valorização das Cotas ocorrerá a partir do Dia Útil seguinte à Data de Subscrição Inicial da respectiva série ou classe, sendo que a última valorização ocorrerá na respectiva data de resgate. Para fins do disposto no presente Anexo, o valor da Cota será o da abertura do respectivo Dia Útil. 18.2. Cada Cota Sênior terá seu valor unitário calculado na abertura de todo Dia Útil, sendo que tal valor será equivalente ao menor dos seguintes valores, observado o disposto nas cláusulas 18.2.3 e 18.2.4 abaixo. 18.2.1. O valor apurado conforme fórmula constante no Apêndice da das Cotas Seniores; ou 18.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido em apêndice da série, fora do acervo",
+   "sources": [],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Maior entre 0,15% a.a. do PL e R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 56,
+     "clause": "Anexo I, cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA a) O maior valor entre o percentual de 0,15% (quinze décimos por cento) ao ano e R$ 15.000,00 (quinze mil) reais ao mês. 13.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 13.1.2. A Taxa de Administração será reajustada anualmente, com base no índice da variação positiva do IPCA, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 13.2. A Taxa de Gestão da Classe corresponderá: a) O maior valor entre o percentual de 0,10% (dez décimos por cento) ao ano e R$ 10.000,00 (dez mil) reais ao mês. 13.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 13.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Numérico 0,15% a.a./PL, mínimo R$ 15 mil/mês; extenso diverge; IPCA.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "Maior entre 0,10% a.a. do PL e R$ 10 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 56,
+     "clause": "Anexo I, cl. 13.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "rtir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 13.2. A Taxa de Gestão da Classe corresponderá: a) O maior valor entre o percentual de 0,10% (dez décimos por cento) ao ano e R$ 10.000,00 (dez mil) reais ao mês. 13.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 13.2.2. A Taxa de Gestão será reajustada anualmente, com base no índice da variação positiva do IPCA, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 13.3. A Taxa Máxima de Distribuição da Classe será definida no Apêndice da Classe e será calculada sobre Patrimônio Líquido anual da Classe. 13.4."
+    }
+   ],
+   "legacy": {
+    "value": "Numérico 0,10% a.a./PL, mínimo R$ 10 mil/mês; extenso diverge; IPCA.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo da classe não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "100% do CDI (1ª emissão sênior)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "1168784",
+     "kind": "Instrumento de emissão",
+     "title": "Aviso ao Mercado",
+     "date": "24/04/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1168784",
+     "excerpt": "nominativas e escriturais, da 1ª (primeira) emissão do Fundo, sendo definida a meta de remuneração das Cotas Ofertadas, correspondente a 100% (cem por cento) da taxa média referencial dos depósitos interfinanceiros (CDI Extra- grupo) apurada pela B3 S.A. – Brasil, Bolsa, Balcão (“B3”) e divulgada no informativo diário disponível na sua página na rede mundial de computadores, ou em qualquer outra página ou publicação que venha a substitui-la, expressa na forma percentual e calculada diariamente sob forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, acrescida de uma sobretaxa (spread) de (a) 2,7% (dois inteiros e sete décimos por cento) ao ano, para as Cotas Seniores;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta da mezanino definida em apêndice fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "to; e (v) todas as referências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. “Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Carmel Gestora de Ativos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "de investimento em direitos creditórios constituídos na forma prevista na Res. CVM 175. “Gestora” A CARMEL GESTORA DE ATIVOS LTDA, sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, 1009 – 20º andar, Conj. 2010, Bela 7 Vista, CEP: 01311-919, inscrita no CNPJ sob o nº 24.515.907/0001-51, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 15.385, de dezembro de 2016, que presta serviço de gestão da carteira de Ativos do Fundo. Grupo Econômico Em relação a qualquer Cedente ou Devedor, seus controladores, sociedades por ele direta ou indiretamente controladas, coligadas ou sob controle comum, incluindo sociedades controladas por familiares até o 2º (segundo) grau do Cedente"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "como subordinada(s) para os mesmos fins. “Cotista” O titular de Cotas, sem distinção. “Custodiante” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no regulamento extraído",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não explicitado no anexo extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 46,
+     "clause": "Anexo I, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "LVO 3.1. A Classe é exclusivamente destinada a Investidores Qualificados. 4. DO PRAZO DE DURAÇÃO DA CLASSE 4.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada por deliberação da Assembleia Geral em conformidade com o disposto no Regulamento e neste Anexo I – A. 5. OBRIGAÇÕES COMPLEMENTARES DA ADMINISTRADORA 5.1. Em adição as obrigações previstas no Regulamento, cabe à Administradora monitorar, com base nas informações que estejam em sua posse como custodiante, aquelas fornecidas pela Gestora, pela Consultora Especializada da Classe, conforme o caso: (1) o atendimento ao Índice de Subordinação Sênior e o Indice Subordinação Mezanino; (2) a composição da Reserva de Despesas e Encargos e da Reserva de Amortização; (3) a ocorrência de qualquer Evento de Avaliação ou Evento de Liquidação Antecipada; (4) informar imediatamente os Cotistas sobre eventual rebaixamento da classificação de risco das Cotas Seniores ou das Cotas Subordinadas Mezanino, nos termos do presente Regulamento. 6. OBRIGAÇÕES COMPLEMENTARES DA GESTORA 6.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Sacado ≤ 3%; 3 maiores ≤ 8%; 20 maiores ≤ 26% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1218996",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 14.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+     "excerpt": "resentativos d) Concentração pelos 10 (dez) Até 27% (vinte e sete por cento) Cedentes mais representativos e) Concentração por Sacados Até 3% (três por cento) 58 ANEXO I – A – DESCRITIVO DA CLASSE FECHADA DO SB CRÉDITO MULTISSETORIAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE ÚNICA FECHADA f) Concentração pelos Três Sacados Até 8% (oito por cento) mais representativos g) Concentração pelos 15 (quinze) Até 22% (vinte e dois por cento) maiores Sacados h) Concentração pelos 20 (vinte) Até 26% (vinte e seis por cento) maiores Sacados i) Concentração máxima em CCB e Até 40% (quarenta por cento) Nota Comercial j) Concentração máxima em Warrant Até 8% (oito por cento) (WA) ou Certificado de Depósito Agronegócio (CDA) k) Concentração em Contratos à Até 1,20% (Um inteiro e vinte centésimos) performar cujo Sacado seja a Petróleo por cento) Brasileiro S.A (“Petrobras”) l) Concentração na Industria no mínimo 50% (cinquenta por cento) e no máximo 100% (cem por cento"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Multicedente com sênior protegida por 30% de mez.+jr. e júnior ≥ 13%; cedente ≤ 5% e sacado ≤ 3% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

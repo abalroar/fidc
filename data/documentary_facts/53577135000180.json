@@ -1,0 +1,827 @@
+{
+ "schema_version": 1,
+ "cnpj": "53577135000180",
+ "name": "ANGÁ FGTS II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "FGTS",
+ "reviewed_at": "2026-10-14T01:06:38Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1224059",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "18/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059"
+  },
+  "D2": {
+   "document_id": "856958",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "12/03/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=856958"
+  },
+  "D3": {
+   "document_id": "732872",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732872"
+  },
+  "D4": {
+   "document_id": "732871",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso de Modificação de Oferta",
+   "date": "05/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732871"
+  },
+  "D5": {
+   "document_id": "732869",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "22/08/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732869"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FGTS",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de empréstimo pessoal garantidas pelo saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 26,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "rem adquiridos pela Classe A são direitos creditórios performados, representados por CCB, oriundos de operações de empréstimo pessoal realizadas entre o Credor Original e os respectivos Devedores e garantidos por Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saques-Aniversário, que garantirá o pagamento dos Direitos Creditórios devidos pelo respectivo Devedor. 4.2. O processo de originação dos Direitos Creditórios e a Política de Crédito adotada pelos Originadores encontram-se descritos no Adendo I a este Anexo Descritivo. 4.3. A transferência dos Direitos Creditórios Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade para a Classe A, em caráter definitivo, juntamente com todos os direitos, privilégios, garantias, preferências, prerrogativas e ações a estes relacionadas, bem como juros e encargos, incluindo, sem limitação, a Cessão Fiduciária. 4.4. A cada aquisição de Direitos Creditórios, na respectiva Data de Aquisição, a Classe A pagará ao respectivo Endossante o respectivo Preço de Aquisição. 4.5. Na Data de Aquisição, o respectivo Endossante deverá disponibilizar os Documentos Representativos do Crédito para o Custodiante. 4.5.1."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de antecipação do saque-aniversário FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "QI SCD (credor original)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "sejam Cotistas ao final do Dia Útil imediatamente anterior à respectiva data do pagamento; “Credor Original”: Significa a QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira devidamente constituída e existente de acordo com as com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte E, Pinheiros, CEP 05402-500 “Critérios de Tem o significado que lhe é atribuído no Capítulo 5 deste Anexo Elegibilidade”: Descritivo; “Custodiante”: Significa a LASTRO RDV DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira 13 devidamente autorizada pela CVM para o exercício profissional de custódia de valores mobiliários, com sede na Cidade de Araras, Estado de São Paulo, na Rua Júlio Mesquita, nº 743, Centro, CEP 13600-060, inscrita no CNPJ sob o nº 71.590.442/0001-83;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "FIDC Angá Multi Consignados, QI SCD ou fundos indicados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "ódigo de averbação correspondente; “Emissão”: Significa cada emissão de Cotas Subordinadas Juniores; “Endossantes”: O FIDC Angá Multi Consignados, o Credor Original ou, ainda, qualquer fundo de investimento ou classe de fundo de investimento gerida pela Gestora que celebre um Contrato de Endosso com a Classe A, conforme o caso; “Eventos de Avaliação”: Tem o significado que lhe é atribuído no item 10.1 deste Anexo Descritivo; “Eventos de Liquidação”: Tem o significado que lhe é atribuído no item 11.1 deste Anexo Descritivo; “FGTS”: Fundo de Garantia do Tempo de Serviço; “FIDC Angá Multi O FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS Consignados”: ANGÁ MULTI CONSIGNADOS I, inscrito no CNPJ sob nº 29.720.593/0001-42; “Fundo”: Significa o Angá FGTS II Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "sejam Cotistas ao final do Dia Útil imediatamente anterior à respectiva data do pagamento; “Credor Original”: Significa a QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira devidamente constituída e existente de acordo com as com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte E, Pinheiros, CEP 05402-500 “Critérios de Tem o significado que lhe é atribuído no Capítulo 5 deste Anexo Elegibilidade”: Descritivo; “Custodiante”: Significa a LASTRO RDV DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira 13 devidamente autorizada pela CVM para o exercício profissional de custódia de valores mobiliários, com sede na Cidade de Araras, Estado de São Paulo, na Rua Júlio Mesquita, nº 743, Centro, CEP 13600-060, inscrita no CNPJ sob o nº 71.590.442/0001-83;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas titulares de FGTS com saque-aniversário",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 26,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "rem adquiridos pela Classe A são direitos creditórios performados, representados por CCB, oriundos de operações de empréstimo pessoal realizadas entre o Credor Original e os respectivos Devedores e garantidos por Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saques-Aniversário, que garantirá o pagamento dos Direitos Creditórios devidos pelo respectivo Devedor. 4.2. O processo de originação dos Direitos Creditórios e a Política de Crédito adotada pelos Originadores encontram-se descritos no Adendo I a este Anexo Descritivo. 4.3. A transferência dos Direitos Creditórios Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade para a Classe A, em caráter definitivo, juntamente com todos os direitos, privilégios, garantias, preferências, prerrogativas e ações a estes relacionadas, bem como juros e encargos, incluindo, sem limitação, a Cessão Fiduciária. 4.4. A cada aquisição de Direitos Creditórios, na respectiva Data de Aquisição, a Classe A pagará ao respectivo Endossante o respectivo Preço de Aquisição. 4.5. Na Data de Aquisição, o respectivo Endossante deverá disponibilizar os Documentos Representativos do Crédito para o Custodiante. 4.5.1."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas titulares de contas FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação de endossantes ou do credor original",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 25,
+     "clause": "cl. 3.11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "coobrigação dos Endossantes ou do Credor Original. 3.11.3. A Administradora, a Gestora e o Custodiante ou partes a eles relacionadas não respondem pelo pagamento dos Direitos Creditórios endossados à Classe A, pela 25 solvência dos Devedores ou pela existência, autenticidade, correta formalização e liquidez de tais Direitos Creditórios. 3.12."
+    }
+   ],
+   "legacy": {
+    "value": "Endosso irrevogável; declarações de aquisição e contrato regem resolução",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Adimplência; prazo ≤ 144 meses; saldo ≤ R$ 120 mil por devedor",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 27,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "o, para posterior repasse à Conta Vinculada. 5. DOS CRITÉRIOS DE ELEGIBILIDADE E DECLARAÇÕES DE AQUISIÇÃO 5.1. Em cada cessão de Direitos Creditórios à Classe A, os Direitos Creditórios devem atender, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, na Data de Aquisição: (i) os Direitos Creditórios deverão ser devidos por Devedores que não apresentem, na Data de Aquisição, outros Direitos Creditórios Inadimplidos junto à Classe A; (ii) considerada pro forma a aquisição pretendida, o saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); e (iii) os Direitos Creditórios deverão ter prazo máximo de 144 (cento e quarenta e quatro) meses, contados da Data da Aquisição do respectivo Direito Creditório; (iv) considerada pro forma a aquisição pretendida, o somatório do saldo devedor das parcelas de Direitos Creditórios que tenham vencimento em data superior à data de vencimento das Cotas Seniores de maior prazo deve ser menor ou igual a 1% (um inteiro por cento) do Patrimônio Líquido do Fundo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 27,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "evidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); e (iii) os Direitos Creditórios deverão ter prazo máximo de 144 (cento e quarenta e quatro) meses, contados da Data da Aquisição do respectivo Direito Creditório; (iv) considerada pro forma a aquisição pretendida, o somatório do saldo devedor das parcelas de Direitos Creditórios que tenham vencimento em data superior à data de vencimento das Cotas Seniores de maior prazo deve ser menor ou igual a 1% (um inteiro por cento) do Patrimônio Líquido do Fundo; (v) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, 27 conforme definido no respectivo Contrato de Endosso; (vi) o conjunto de Direitos Creditórios cedidos à Classe, pro forma a cessão pretendida, deve ter uma Taxa Média de Aquisição igual ou superior à Taxa Mínima Média de Aquisição; (vii) na data de emissão da CCB, o respectivo Devedor tinha, no mínimo, 18 (dezoito) anos de idade; (viii) os Direitos Creditórios possuem taxas de juros prefixadas;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 27,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "utros Direitos Creditórios Inadimplidos junto à Classe A; (ii) considerada pro forma a aquisição pretendida, o saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); e (iii) os Direitos Creditórios deverão ter prazo máximo de 144 (cento e quarenta e quatro) meses, contados da Data da Aquisição do respectivo Direito Creditório; (iv) considerada pro forma a aquisição pretendida, o somatório do saldo devedor das parcelas de Direitos Creditórios que tenham vencimento em data superior à data de vencimento das Cotas Seniores de maior prazo deve ser menor ou igual a 1% (um inteiro por cento) do Patrimônio Líquido do Fundo; (v) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, 27 conforme definido no respectivo Contrato de Endosso; (vi) o conjunto de Direitos Creditórios cedidos à Classe, pro forma a cessão pretendida, deve ter uma Taxa Média de Aquisição igual ou superior à Taxa Mínima Média de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Adimplência; prazo ≤ 144 meses; parcelas além da sênior mais longa ≤ 1% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, cl. 5"
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor ≤ R$ 120 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 27,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "utros Direitos Creditórios Inadimplidos junto à Classe A; (ii) considerada pro forma a aquisição pretendida, o saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); e (iii) os Direitos Creditórios deverão ter prazo máximo de 144 (cento e quarenta e quatro) meses, contados da Data da Aquisição do respectivo Direito Creditório; (iv) considerada pro forma a aquisição pretendida, o somatório do saldo devedor das parcelas de Direitos Creditórios que tenham vencimento em data superior à data de vencimento das Cotas Seniores de maior prazo deve ser menor ou igual a 1% (um inteiro por cento) do Patrimônio Líquido do Fundo; (v) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, 27 conforme definido no respectivo Contrato de Endosso; (vi) o conjunto de Direitos Creditórios cedidos à Classe, pro forma a cessão pretendida, deve ter uma Taxa Média de Aquisição igual ou superior à Taxa Mínima Média de Aquisição;"
+    }
+   ],
+   "value": 120000.0,
+   "legacy": {
+    "value": "Saldo por devedor ≤ R$ 120 mil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor, não por endossante",
+   "sources": [],
+   "legacy": {
+    "value": "Saldo por devedor ≤ R$ 120 mil",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 144 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 27,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "evidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); e (iii) os Direitos Creditórios deverão ter prazo máximo de 144 (cento e quarenta e quatro) meses, contados da Data da Aquisição do respectivo Direito Creditório; (iv) considerada pro forma a aquisição pretendida, o somatório do saldo devedor das parcelas de Direitos Creditórios que tenham vencimento em data superior à data de vencimento das Cotas Seniores de maior prazo deve ser menor ou igual a 1% (um inteiro por cento) do Patrimônio Líquido do Fundo; (v) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, 27 conforme definido no respectivo Contrato de Endosso; (vi) o conjunto de Direitos Creditórios cedidos à Classe, pro forma a cessão pretendida, deve ter uma Taxa Média de Aquisição igual ou superior à Taxa Mínima Média de Aquisição; (vii) na data de emissão da CCB, o respectivo Devedor tinha, no mínimo, 18 (dezoito) anos de idade; (viii) os Direitos Creditórios possuem taxas de juros prefixadas;"
+    }
+   ],
+   "legacy": {
+    "value": "Adimplência; prazo ≤ 144 meses; parcelas além da sênior mais longa ≤ 1% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, cl. 5.1"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": []
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "(b) somatório do valor de face de todas as parcelas adquiridas; “Índice de Subordinação A relação equivalente a, no mínimo, 20% (vinte por cento) entre Sênior”: o valor das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, em conjunto, em circulação, e o Patrimônio Líquido da Classe A, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175. Isto quer dizer que a Classe A deverá ter, 16 no máximo, 80% (oitenta) por cento do seu Patrimônio Líquido representado por Cotas Seniores;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "r cento do seu Patrimônio Líquido representado por Cotas Seniores; “Índice de Subordinação A relação equivalente a, no mínimo, 15% (quinze por cento) Mezanino”: entre: (a) o valor das Cotas Subordinadas Júnior em circulação e (b) o Patrimônio Líquido da Classe A, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175. “Índices de Significam, em conjunto, o Índice de Subordinação Sênior e o Subordinação”: Índice de Subordinação Mezanino; “Instituições As instituições financeiras com nota de classificação de risco Autorizadas”: (rating) igual ou superior à “AAA(bra)” emitida pela Standard & Poor’s Ratings, Fitch Ratings e Moodys; “Investidores Tem o significado que lhe é atribuído no Artigo 11 da Resolução Profissionais”: CVM 30;"
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 20%; júnior/PL ≥ 15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, p. 16"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "(b) somatório do valor de face de todas as parcelas adquiridas; “Índice de Subordinação A relação equivalente a, no mínimo, 20% (vinte por cento) entre Sênior”: o valor das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, em conjunto, em circulação, e o Patrimônio Líquido da Classe A, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175. Isto quer dizer que a Classe A deverá ter, 16 no máximo, 80% (oitenta) por cento do seu Patrimônio Líquido representado por Cotas Seniores;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 20%; júnior/PL ≥ 15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, p. 16"
+   }
+  },
+  "sub_mezz": {
+   "display": "15% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "r cento do seu Patrimônio Líquido representado por Cotas Seniores; “Índice de Subordinação A relação equivalente a, no mínimo, 15% (quinze por cento) Mezanino”: entre: (a) o valor das Cotas Subordinadas Júnior em circulação e (b) o Patrimônio Líquido da Classe A, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175. “Índices de Significam, em conjunto, o Índice de Subordinação Sênior e o Subordinação”: Índice de Subordinação Mezanino; “Instituições As instituições financeiras com nota de classificação de risco Autorizadas”: (rating) igual ou superior à “AAA(bra)” emitida pela Standard & Poor’s Ratings, Fitch Ratings e Moodys; “Investidores Tem o significado que lhe é atribuído no Artigo 11 da Resolução Profissionais”: CVM 30;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Apuração conforme o anexo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "(b) somatório do valor de face de todas as parcelas adquiridas; “Índice de Subordinação A relação equivalente a, no mínimo, 20% (vinte por cento) entre Sênior”: o valor das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, em conjunto, em circulação, e o Patrimônio Líquido da Classe A, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175. Isto quer dizer que a Classe A deverá ter, 16 no máximo, 80% (oitenta) por cento do seu Patrimônio Líquido representado por Cotas Seniores;"
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 20%; júnior/PL ≥ 15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, p. 16"
+   }
+  },
+  "reserve": {
+   "display": "Liquidez de 1% do PL, limitada a R$ 2 mi, mais despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 49,
+     "clause": "cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "rva de liquidez para o pagamento das amortizações de principal e/ou rendimentos das Cotas Seniores subsequentes, constituída por Disponibilidades, em montante equivalente a 1% (um por cento) do Patrimônio Líquido da Classe A, limitado à R$ 2.000.000,00 (dois milhões de reais), cujos valores deverão ser apurados pela Administradora no último Dia Útil de cada mês (“Reserva de Liquidez”). 13. ORDEM DE APLICAÇÃO DOS RECURSOS 49 13.1. Todos os resultados auferidos pela Classe A serão incorporados ao seu Patrimônio Líquido. 13.2. A partir da data da primeira integralização de Cotas e até a liquidação da Classe A, sempre preservada a manutenção de sua boa ordem legal, administrativa e operacional, a Administradora obriga-se, por meio dos competentes débitos e créditos realizados na conta corrente de titularidade da Classe A, a alocar os recursos decorrentes da integralização das Cotas e do recebimento dos ativos integrantes da Carteira da Classe A, na seguinte ordem: (i) recebimentos decorrentes da integralização das Cotas, na seguinte ordem: 1) pagamento dos encargos e despesas correntes da Classe A; 2) constituição e manutenção da Reserva de Caixa;"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas + liquidez 1% do PL, limitada a R$ 2 mi",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, cl. 12.2"
+   }
+  },
+  "pdd": {
+   "display": "Provisão conforme o adendo IV do anexo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 56,
+     "clause": "cl. 17.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "esultado do período, conforme as regras e procedimentos constantes no Adendo IV deste Anexo Descritivo. 17.3.1. O cálculo da provisão para perdas na recuperação dos Direitos Creditórios Inadimplidos será realizado conforme conceitos definidos no Adendo IV deste Anexo Descritivo. 17.4. Para efeito da determinação do valor da Carteira, devem ser observadas as normas e os procedimentos previstos na legislação e regulamentação em vigor. 18. FATORES DE RISCO 18.1. Os Direitos Creditórios e os Ativos Financeiros de Liquidez integrantes da Carteira da Classe A, por sua própria natureza, estão sujeitos a flutuações de mercado, a riscos de crédito, operacionais, das contrapartes das operações contratadas pela Classe A, assim como a riscos de outras naturezas, podendo, assim, gerar perdas até o montante das operações contratadas e não liquidadas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Arrecadação < 93% em 2 datas; atraso > 10%; outros do anexo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 46,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "data de amortização imediatamente subsequente à verificação do desenquadramento, nos termos do item 9.6 acima; (xii) caso o Índice de Arrecadação for inferior à 93% (noventa e três por cento) em 2 (duas) Datas de Verificação nos últimos 12 (doze) meses; (xiii) caso o Índice de Atraso for superior à 10% (dez por cento) em uma Data de Verificação; (xiv) caso o Índice de Ágio da Carteira da Classe A seja maior do que o Ágio Máximo Permitido em uma Data de Verificação; e (xv) na hipótese de declaração da invalidade, nulidade ou ineficácia de qualquer dos Contratos de Endosso por ordem judicial e/ou por qualquer autoridade governamental. 10.1.1. Exceto pelos eventos previstos nos incisos (xi), (xii) e (xiii) do item 10.1 acima, que serão verificados pela Gestora, os demais incisos acima serão verificados pela Administradora, diariamente, sendo certo que não haverá qualquer responsabilidade de verificação pela Gestora. 10.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Arrecadação < 93% em 2 datas/12 meses; atraso > 10%; Selic ≥ 16% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, cl. 10.1"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados separadamente",
+   "sources": [],
+   "legacy": {
+    "value": "Arrecadação < 93% em 2 datas/12 meses; atraso > 10%; Selic ≥ 16% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior lista eventos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com recursos da carteira",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 26,
+     "clause": "cl. 3.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "ivamente durante o Período de Carência, será permitida a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira de Direitos Creditórios (revolvência). 4. DOS DIREITOS CREDITÓRIOS 4.1. Os Direitos Creditórios a serem adquiridos pela Classe A são direitos creditórios performados, representados por CCB, oriundos de operações de empréstimo pessoal realizadas entre o Credor Original e os respectivos Devedores e garantidos por Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saques-Aniversário, que garantirá o pagamento dos Direitos Creditórios devidos pelo respectivo Devedor. 4.2. O processo de originação dos Direitos Creditórios e a Política de Crédito adotada pelos Originadores encontram-se descritos no Adendo I a este Anexo Descritivo. 4.3. A transferência dos Direitos Creditórios Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade para a Classe A, em caráter definitivo, juntamente com todos os direitos, privilégios, garantias, preferências, prerrogativas e ações a estes relacionadas, bem como juros e encargos, incluindo, sem limitação, a Cessão Fiduciária. 4.4."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência somente durante carência",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos das séries",
+   "sources": [],
+   "legacy": {
+    "value": "Até véspera da amortização do segundo mês calendário subsequente",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. até R$ 100 mi; 0,16% acima; mín. R$ 16 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 40,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": ", observado o montante mínimo mensal de R$ 16.000,00 (dezesseis mil reais) (“Taxa de Administração”): Taxa de Administração Patrimônio Líquido da Classe A (% a.a.) 0,20% Até R$ 100.000.000,00 (inclusive). 0,16% Acima de R$ 100.000.000,00 (exclusive). 7.1.1. A Taxa de Administração será provisionada diariamente, na base de 252 Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.1.2. A Administradora pode estabelecer que parcelas da Taxa de Administração sejam pagas diretamente pela Classe A aos Prestadores de Serviços contratados pela Administradora, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração acima fixada. 7.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 40,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "39 as respectivas faixas de Patrimônio Líquido da Classe A, conforme tabela abaixo, observado o montante mínimo mensal de R$ 16.000,00 (dezesseis mil reais) (“Taxa de Administração”): Taxa de Administração Patrimônio Líquido da Classe A (% a.a.) 0,20% Até R$ 100.000.000,00 (inclusive). 0,16% Acima de R$ 100.000.000,00 (exclusive). 7.1.1. A Taxa de Administração será provisionada diariamente, na base de 252 Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.1.2. A Administradora pode estabelecer que parcelas da Taxa de Administração sejam pagas diretamente pela Classe A aos Prestadores de Serviços contratados pela Administradora, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração acima fixada. 7.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 39,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "e escrituração, a Classe A pagará à Administradora uma taxa de administração de acordo com 39 as respectivas faixas de Patrimônio Líquido da Classe A, conforme tabela abaixo, observado o montante mínimo mensal de R$ 16.000,00 (dezesseis mil reais) (“Taxa de Administração”): Taxa de Administração Patrimônio Líquido da Classe A (% a.a.) 0,20% Até R$ 100.000.000,00 (inclusive)."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. até R$ 100 mi; 0,16% acima; mínimo R$ 16 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,60% a.a. até R$ 100 mi; 0,64% acima; mín. R$ 10 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 40,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "ela abaixo, observado o montante mínimo mensal de R$ 10.000,00 (dez mil reais) (“Taxa de Gestão”): Taxa de Gestão Patrimônio Líquido da Classe A (% a.a.) 0,60% Até R$ 100.000.000,00 (inclusive). 0,64% Acima de R$ 100.000.000,00 (exclusive). 7.2.1. A Taxa de Gestão será provisionada diariamente, na base de 252 Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.2.2. A Gestora pode estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pela Classe A aos Prestadores de Serviços contratados pela Gestora, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão acima fixada. 7.2.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 40,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "stora uma taxa de gestão de acordo com as respectivas faixas de Patrimônio Líquido da Classe A, conforme tabela abaixo, observado o montante mínimo mensal de R$ 10.000,00 (dez mil reais) (“Taxa de Gestão”): Taxa de Gestão Patrimônio Líquido da Classe A (% a.a.) 0,60% Até R$ 100.000.000,00 (inclusive). 0,64% Acima de R$ 100.000.000,00 (exclusive). 7.2.1. A Taxa de Gestão será provisionada diariamente, na base de 252 Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.2.2. A Gestora pode estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pela Classe A aos Prestadores de Serviços contratados pela Gestora, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão acima fixada. 7.2.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 40,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "0,60% Até R$ 100.000.000,00 (inclusive). 0,64% Acima de R$ 100.000.000,00 (exclusive). 7.2.1. A Taxa de Gestão será provisionada diariamente, na base de 252 Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,60% a.a. até R$ 100 mi; 0,64% acima; mínimo R$ 10 mil/mês + tributos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 41,
+     "clause": "cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "teis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. 7.4. Não serão cobradas dos Cotistas taxas de performance, ingresso e saída. 8. SUBSTITUIÇÃO DOS PRESTADORES DE SERVIÇOS ESSENCIAIS E DEMAIS PRESTADORES DE SERVIÇOS 8.1. Os Prestadores de Serviços Essenciais poderão renunciar à administração ou gestão do Fundo, conforme aplicável, por meio de carta com aviso de recebimento endereçada a cada Cotista e desde que convoque, no mesmo ato, Assembleia Geral a se realizar em, no máximo, 15 (quinze) dias contados da convocação, para deliberar sobre a (a) sua substituição; ou (b) liquidação do Fundo. 8.1.1. O pedido de declaração judicial de insolvência do Fundo impede a Administradora de renunciar à prestação de serviços à Classe A, mas não sua destituição por força da Assembleia Geral. 8.1.2. No caso de sua renúncia, o Prestador de Serviços Essenciais deverá permanecer no exercício de suas funções até a sua efetiva substituição, que deve ocorrer em até 180 (cento e oitenta) dias, contados a partir da data da renúncia. 8.1.3."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Suplemento da série sênior não está no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Suplemento da mezanino não está no acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "derá contar com mais de uma classe de cotas. Prazo de Duração Indeterminado. QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., inscrita no CNPJ sob o nº 62.285.390/0001-40, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte ADMINISTRADORA I, Pinheiros, CEP 05402-500, devidamente autorizada pela CVM para exercer a atividade de administração de carteira de valores mobiliários por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990 (“Administradora”). ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº 09.452.272/0001-05, GESTORA devidamente autorizada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "tório nº 1.498, de 28 de agosto de 1990 (“Administradora”). ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº 09.452.272/0001-05, GESTORA devidamente autorizada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 9.837, de 14 de maio de 2008 (“Gestora” e, quando referido conjuntamente e indistintamente com a Administradora, os “Prestadores de Serviços Essenciais”). Foro Aplicável Foro da Cidade de São Paulo, Estado de São Paulo. Encerramento do Último dia útil do mês de novembro de cada ano. Exercício Social 1.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Lastro RDV DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "érios de Tem o significado que lhe é atribuído no Capítulo 5 deste Anexo Elegibilidade”: Descritivo; “Custodiante”: Significa a LASTRO RDV DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira 13 devidamente autorizada pela CVM para o exercício profissional de custódia de valores mobiliários, com sede na Cidade de Araras, Estado de São Paulo, na Rua Júlio Mesquita, nº 743, Centro, CEP 13600-060, inscrita no CNPJ sob o nº 71.590.442/0001-83; “CVM”: Comissão de Valores Mobiliários; “Data de Aquisição”: Significa cada data de aquisição de Direitos Creditórios Elegíveis pela Classe A; “Data de Subscrição Significa a data da primeira integralização de Cotas da Classe A; Inicial”: “Data de Verificação”: É todo o último Dia Útil de cada mês calendário; “Declarações de Tem o significado que lhe é atribuído no item 5.6 deste Anexo Aquisição”: Descritivo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 20,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "rentabilidade e liquidez dos títulos componentes de sua Carteira. Público-Alvo Investidores Profissionais. LASTRO RDV DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira, com sede na Cidade de Araras, Estado de São Paulo, na Rua Júlio Mesquita, nº 743, Centro, CEP 13600-060, Custódia dos Direitos inscrita no CNPJ sob o nº 71.590.442/0001-83, devidamente Creditórios credenciada pela CVM para o exercício profissional da atividade custódia de valores mobiliários, nos termos do Ato Declaratório nº 18.358, de 18 de janeiro de 2021 (“Custodiante”). Custódia dos Valores Administradora. Mobiliários Tesouraria, Controladoria Administradora. 20 e Escrituração A Classe A é constituída por 3 (três) subclasses de Cotas, quais sejam: Subclasses Cotas Seniores, Cotas Subordina"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "omo principais características: Classe de Cotas O Fundo poderá contar com mais de uma classe de cotas. Prazo de Duração Indeterminado. QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., inscrita no CNPJ sob o nº 62.285.390/0001-40, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte ADMINISTRADORA I, Pinheiros, CEP 05402-500, devidamente autorizada pela CVM para exercer a atividade de administração de carteira de valores mobiliários por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990 (“Administradora”). ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº 09.452.272/0001-05, GESTORA devidamente autorizada pela CVM para o exe"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Cessão fiduciária do saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1224059",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 26,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+     "excerpt": "rem adquiridos pela Classe A são direitos creditórios performados, representados por CCB, oriundos de operações de empréstimo pessoal realizadas entre o Credor Original e os respectivos Devedores e garantidos por Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saques-Aniversário, que garantirá o pagamento dos Direitos Creditórios devidos pelo respectivo Devedor. 4.2. O processo de originação dos Direitos Creditórios e a Política de Crédito adotada pelos Originadores encontram-se descritos no Adendo I a este Anexo Descritivo. 4.3. A transferência dos Direitos Creditórios Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade para a Classe A, em caráter definitivo, juntamente com todos os direitos, privilégios, garantias, preferências, prerrogativas e ações a estes relacionadas, bem como juros e encargos, incluindo, sem limitação, a Cessão Fiduciária. 4.4. A cada aquisição de Direitos Creditórios, na respectiva Data de Aquisição, a Classe A pagará ao respectivo Endossante o respectivo Preço de Aquisição. 4.5. Na Data de Aquisição, o respectivo Endossante deverá disponibilizar os Documentos Representativos do Crédito para o Custodiante. 4.5.1."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão fiduciária dos direitos ao saque-aniversário",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Limite de idade não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplência; prazo ≤ 144 meses; parcelas além da sênior mais longa ≤ 1% do PL",
+    "decision": "regression",
+    "why": "Resposta anterior trata de prazo e adimplência, registrados na elegibilidade"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Valor mínimo de parcela não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplência; prazo ≤ 144 meses; parcelas além da sênior mais longa ≤ 1% do PL",
+    "decision": "regression",
+    "why": "Resposta anterior trata de prazo e adimplência, registrados na elegibilidade"
+   }
+  }
+ },
+ "leitura": "Antecipação de FGTS da QI SCD com 20% de subordinação e júnior ≥ 15%; saldo por devedor ≤ R$ 120 mil.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

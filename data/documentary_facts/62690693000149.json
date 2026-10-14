@@ -1,0 +1,737 @@
+{
+ "schema_version": 1,
+ "cnpj": "62690693000149",
+ "name": "FIDC RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:30:00Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1028146",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "03/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146"
+  },
+  "D2": {
+   "document_id": "1028142",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "03/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028142"
+  },
+  "D3": {
+   "document_id": "992733",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "11/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992733"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de produtos do grupo Randoncorp, performadas ou a performar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 11,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "IAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. “Direitos Creditórios” Significam os direitos creditórios oriundos da venda de Produtos a prazo por Cedentes em favor de um Devedor, conforme o caso, performados ou a performar, formalizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituídas e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios Cedidos” Significam os Direitos Creditórios Elegíveis adquiridos pelo Fundo mediante a celebração do Termo de Cessão respectivo, conforme disposto no Contrato de Cessão. “Direitos Credi"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 6,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "viços de cobrança bancária dos Direitos Creditórios Cedidos. “Cedentes” Significam, em conjunto e indistintamente, as Empresas Randoncorp que venham a assinar Termo de Adesão ao Convênio, e suas respectivas controladas e/ou filiais. Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. “Chaves de Acesso Significam o conjunto de dígitos que identificam univocamente Eletrônico” uma nota fiscal eletrônica e facultam a verificação da sua autorização e conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda –"
+    }
+   ],
+   "legacy": {
+    "value": "Venda a prazo de produtos, performados ou a performar, de empresas do grupoRandoncorp.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Empresas Randoncorp aderentes ao convênio",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 6,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "viços de cobrança bancária dos Direitos Creditórios Cedidos. “Cedentes” Significam, em conjunto e indistintamente, as Empresas Randoncorp que venham a assinar Termo de Adesão ao Convênio, e suas respectivas controladas e/ou filiais. Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. “Chaves de Acesso Significam o conjunto de dígitos que identificam univocamente Eletrônico” uma nota fiscal eletrônica e facultam a verificação da sua autorização e conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda –"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Empresas Randoncorp e suas controladas e filiais",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 6,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "viços de cobrança bancária dos Direitos Creditórios Cedidos. “Cedentes” Significam, em conjunto e indistintamente, as Empresas Randoncorp que venham a assinar Termo de Adesão ao Convênio, e suas respectivas controladas e/ou filiais. Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. “Chaves de Acesso Significam o conjunto de dígitos que identificam univocamente Eletrônico” uma nota fiscal eletrônica e facultam a verificação da sua autorização e conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda –"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Concessionárias, distribuidores e clientes finais da Randoncorp",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 7,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "e respeitar integralmente os preceitos nele estabelecidos. “Clientes” Significam, quando mencionados em conjunto e indistintamente, as Concessionárias, os Distribuidores, os clientes finais das Empresas Randoncorp e as redes independentes que, embora não estejam sujeitas ao Código de Conduta Ética da Randoncorp, mantenham relação comercial com as Empresas Randoncorp e tenham aderido ao Convênio mediante assinatura de um Termo de Adesão ao Convênio. Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. “Conta do Fundo” Significa a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Cedentes respondem só por existência e formalização, não pela solvência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 52,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "Fundo e, consequentemente, aos Cotistas. Ausência de garantia de pagamento ou de obrigação conjunta. Os Cedentes somente aceitam a responsabilidade pela existência e devida formalização dos Direitos Creditórios Cedidos, e não aceitam nenhuma responsabilidade pelo seu pagamento ou pela solvência dos Devedores, conforme aplicável. O Administrador, a Gestora, o Custodiante, o Agente de Cobrança, o Agente Operacional, os Cedentes e quaisquer de suas Ligadas não são responsáveis pelo pagamento dos Direitos Creditórios Cedidos ou pela solvência dos Devedores. A consumação dos Direitos Creditórios Cedidos depende exclusivamente da solvência dos Devedores e do efetivo pagamento dos valores resultantes das operações mercantis que lastreiam os Direitos Creditórios Cedidos. Não existe nenhuma garantia ou segurança de que o referido pagamento será efetuado ou, caso seja efetuado, que os prazos programados e os valores ajustados, conforme critérios definidos no Regulamento, serão efetivamente cumpridos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Devedor sem atraso > 15 dias; prazo mínimo de 12 dias até o vencimento",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 48,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "ntrato de Cessão, de acordo com os seguintes Critérios de Elegibilidade: i. o Devedor não pode dever outros direitos creditórios vencidos e não pagos por um período superior à 15 (quinze) dias (inclusive); ii. o Direito Creditório deverá ter prazo mínimo de 12 (doze) dias corridos entre a data de aquisição e o respectivo vencimento, observado que para Direitos Creditórios parcelados, irá se assumir o vencimento da primeira parcela para verificação deste critério, não sendo este critério considerado válido no caso de aquisição de Direitos Creditórios que já tenham sido anteriormente adquiridos pelo Fundo e que estejam sendo cedidos novamente em decorrência de resolução de cessão anterior realizada pela Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite (classe para profissionais, dispensada do art. 45)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 49,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "is Prestadores de Serviços ou os Cedentes. (14) LIMITES DE CONCENTRAÇÃO a. Uma vez que as Cotas serão destinadas exclusivamente a investidores profissionais, conforme definidos no artigo 11 da Resolução CVM nª 30/21, o Fundo está dispensado de observar as disposições do artigo 45 do Anexo Normativo II à Resolução CVM nº 175/22. (15) FATORES DE RISCO Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. a. Os Ativos do Fundo estão sujeitos a diversos riscos, incluindo, sem limitação, os descritos abaixo."
+    }
+   ],
+   "value": 45.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Sem limite (classe para profissionais, dispensada do art. 45)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 49,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "is Prestadores de Serviços ou os Cedentes. (14) LIMITES DE CONCENTRAÇÃO a. Uma vez que as Cotas serão destinadas exclusivamente a investidores profissionais, conforme definidos no artigo 11 da Resolução CVM nª 30/21, o Fundo está dispensado de observar as disposições do artigo 45 do Anexo Normativo II à Resolução CVM nº 175/22. (15) FATORES DE RISCO Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. a. Os Ativos do Fundo estão sujeitos a diversos riscos, incluindo, sem limitação, os descritos abaixo."
+    }
+   ],
+   "value": 45.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento fixa prazo mínimo, não máximo",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 42,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "a. O Fundo deverá manter, após 180 (cento e oitenta) dias, contados a partir do início de suas atividades, no mínimo 50% (cinquenta por cento) do Patrimônio Líquido alocado em Direitos Creditórios Cedidos. b. Os Direitos Creditórios a serem adquiridos pelo Fundo devem necessariamente observar os Critérios de Elegibilidade especificados no item a deste Regulamento. c. Os valores remanescentes da aplicação em Direitos Creditórios deverão ser investidos em (i) operações compromissadas com liquidez diária lastreadas em títulos de emissão do Tesouro Nacional, cuja seleção caberá à Gestora; (ii) ativos financeiros de renda fixa de emissão ou coobrigação de Instituições Financeiras Autorizadas que possuam classificação emitida pelas principais agências de classificação de riscos, com rating superior a ‘A’; (iii) operações compromissadas com lastro nos ativos financeiros referidos nos itens (i) e (ii) acima;"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50%/PL em DC após 180 dias; 67% para entidade de investimento.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Anexo III"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 69,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "Operacional e/ou de demais prestadores de serviços do Fundo. h. Cumprimento do Índice de Subordinação. Em havendo Cotas Seniores em circulação, o Fundo deverá manter, durante seu prazo de duração, o Índice de Subordinação de 51% (cinquenta e um por cento). a. Cada subscrição e integralização das Cotas Seniores de emissão do Fundo está condicionada à prévia subscrição e integralização de Cotas Subordinadas em montante necessário para que o Índice de Subordinação seja enquadrado, considerando o Patrimônio Líquido pro forma após a respectiva subscrição e integralização de Cotas Seniores. b."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥51%/PL enquanto houver sênior.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Anexo III"
+   }
+  },
+  "sub_senior": {
+   "display": "51% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 69,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "Operacional e/ou de demais prestadores de serviços do Fundo. h. Cumprimento do Índice de Subordinação. Em havendo Cotas Seniores em circulação, o Fundo deverá manter, durante seu prazo de duração, o Índice de Subordinação de 51% (cinquenta e um por cento). a. Cada subscrição e integralização das Cotas Seniores de emissão do Fundo está condicionada à prévia subscrição e integralização de Cotas Subordinadas em montante necessário para que o Índice de Subordinação seja enquadrado, considerando o Patrimônio Líquido pro forma após a respectiva subscrição e integralização de Cotas Seniores. b."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 51.0,
+   "legacy": {
+    "value": "Subordinadas ≥51%/PL enquanto houver sênior.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração do índice não explicitada",
+   "sources": [],
+   "legacy": {
+    "value": "Subordinadas ≥51%/PL enquanto houver sênior.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Maior entre R$ 1 mi e 3 meses de despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 17,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "IAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. “Reserva de Caixa” Significa a reserva de caixa do Fundo, cujo montante mínimo consistirá no maior valor entre (a) R$1.000.000,00 (um milhão de reais) e (b) o valor total correspondente às Despesas referentes a um período de 3 (três) meses de atividade do Fundo. \"Resolução CMN 5.111\" Significa a Resolução CMN nº 5.111, de 21 de dezembro de 2023, conforme alterada. “Resolução CVM nº 175/22” Significa a Resolução da CVM nº 175, de 23 de dezembro de 2022, conforme aditada. “Selic” Significa o Sistema Especial de Liquidação e Custódia, criado pela Circular nº 466, de 11 de outubro de 1979, do BACEN, e constitui sistema informatizado destinado à custódia de títulos escriturais de emissão do Tesouro Nacional, bem como ao registro e à"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Provisão para perdas reduz o valor contábil dos créditos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 76,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "evidência de redução no valor recuperável dos Direitos Creditórios Cedidos ou Investimentos Permitidos. d. Não obstante o acima, na hipótese de constituição de provisão para perdas, o cálculo do valor contábil dos Direitos Creditórios Cedidos também deverá levar em consideração tal provisão e, portanto, deverá ser reduzido pelo saldo do respectivo Direito Creditório Cedido provisionado. e. As Cotas Seniores deverão ter seu valor calculado todo Dia Útil, na abertura do dia, de acordo com a meta de valorização prevista no respectivo Apêndice. f."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falência ou recuperação dos cedentes, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 86,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "o de 30 (trinta) dias contado da data da sua realização. Capítulo II. Eventos de Avaliação i. São considerados Eventos de Avaliação: i. a declaração de falência, recuperação judicial ou extrajudicial dos Cedentes; ii. o descumprimento pelos Prestadores de Serviços Essenciais de seus deveres e obrigações descritos no presente Regulamento e no Contrato de Cessão, verificado pela Empresa de Auditoria ou por um representante do Cotista, se houver, desde que, se o inadimplemento em questão for informado pela Empresa de Auditoria ou pelo representante do Cotista ao Prestador de Serviços Essencial, o Prestador de Serviço Essencial não sanar o inadimplemento em questão no prazo de 5 (cinco) Dias Úteis do recebimento da referida notificação; iii. o descumprimento pelo Custodiante de seus deveres e obrigações descritos no presente Regulamento e no Contrato de Custódia, desde que, se o inadimplemento em questão for informado pelo Administrador ao Custodiante, e o Custodiante não sanar o inadimplemento em questão no prazo de 5 (cinco) Dias Úteis do recebimento da referida notificação; iv."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Exigência da CVM, fim de contratos de cobrança ou cessão, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 88,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "(21) LIQUIDAÇÃO DO FUNDO a. O Fundo poderá ser liquidado por deliberação da Assembleia. b. São considerados Eventos de Liquidação: i. a exigência da CVM, na hipótese de violação das disposições legais ou regulamentares aplicáveis; ii. se o Contrato de Cobrança ou o Contrato de Agente Operacional for rescindido, resilido, resolvido ou, de outra forma, terminado pelo Agente de Cobrança ou Agente Operacional, conforme o caso, independente do motivo, e o Agente de Cobrança ou Agente Operacional não for substituído; iii. se o Contrato de Cessão for rescindido por qualquer motivo; e iv. se assim decidido pelos Cotistas em Assembleia especialmente convocada para este fim. a. No caso de qualquer Evento de Liquidação, a Gestora imediatamente (i) comunicará tal fato ao Administrador; e (ii) interromperá a aquisição de novos Direitos Creditórios. b."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com recursos dos pagamentos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 45,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "Normativo II à Resolução CVM nº 175/22. b. Será permitida a revolvência da carteira do Fundo, ou seja, a aquisição de novos Direitos Creditórios pelo Fundo com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração do Fundo, respeitada a ordem de alocação de recursos prevista na Seção (19) do presente Regulamento. b. Processo de originação dos Direitos Creditórios: os Cedentes, na qualidade de fabricantes de Produtos, celebram, com os Devedores operações de compra e venda de Produtos no âmbito do “Programa de Pagamento Diferenciado”, o qual define as regras de pagamento a prazo pela aquisição dos Produtos pelos Clientes. A venda a prazo dos Produtos origina os Direitos Creditórios, cuja transferência ao Fundo constitui o objeto do Contrato de Cessão. Capítulo II."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Fundo aberto: resgate de cotas a qualquer tempo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 21,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "s Cotas Seniores não constitui promessa ou garantia de rentabilidade. (5) FORMA DE CONSTITUIÇÃO a. O Fundo é constituído em regime de condomínio aberto e, como tal, é permitido aos Cotistas o resgate de suas Cotas, a qualquer tempo, observado o disposto neste Regulamento. Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. (6) PRAZO DE DURAÇÃO a. O Fundo tem prazo de duração indeterminado, ressalvada a hipótese de ocorrência de qualquer dos Eventos de Avaliação, que resulte na liquidação do Fundo, ou dos Eventos de Liquidação, conforme previstos, respectivamente, nos itens (20)i e (21)b deste Regulamento. (7) PRESTADORES DE SERVIÇOS ESSENCIAIS a."
+    }
+   ],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,044% a.a. sobre VP dos créditos no 1º ano, 0,05% depois; mín. R$ 5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 30,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "Até o 12º (décimo segundo) mês (inclusive) contado a partir da Data da Primeira Integralização: 0,044% (quarenta e quadro milésimos por cento) ao ano sobre o saldo do valor presente dos Direitos Creditórios Cedidos. A partir do 13º (décimo terceiro) mês (inclusive) contado a partir da Data da Primeira Integralização: 0,05% (cinco centésimos por cento) ao ano sobre o saldo do valor presente dos Direitos Creditórios Cedidos. a."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 30,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "eitos Creditórios Cedidos, deverá ser observada uma remuneração mínima mensal a título de Taxa de Administração de R$ 5.000,00 (cinco mil reais). b. A Taxa de Administração passa a ser devida a partir da primeira integralização de Cotas realizada no Fundo. Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. c."
+    }
+   ],
+   "legacy": {
+    "value": "0,044% a.a. (até mês 12) e 0,05% (desde 13); base VP de DC; mínimo R$ 5 mil/mês.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Anexo III"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,203% a.a. sobre VP dos créditos no 1º ano, escalonada; mín. R$ 19 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 31,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "mo segundo) mês (inclusive) contado a (trezentos milhões de reais) partir da Data da Primeira Integralização: 0,203% (duzentos e três milésimos por cento) ao ano sobre o saldo do valor presente de Direitos Creditórios Cedidos. A partir do 13º (décimo terceiro) mês (inclusive) contado a partir da Data da Primeira Integralização: 0,230% (duzentos e trinta milésimos por cento) ao ano Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. sobre o saldo do valor presente de Direitos Creditórios Cedidos."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 32,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "plementar. b. Independentemente da faixa de Patrimônio Líquido, deverá ser observada uma remuneração mínima mensal a título de Taxa de Gestão de R$19.000,00 (dezenove mil reais). c. A Taxa de Gestão será calculada e provisionada diariamente, e os percentuais apresentados acima serão calculados com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, incidente sobre o saldo do Valor Presente dos Direitos Creditórios Cedidos, e será pago até o 5º (quinto) Dia Útil do mês subsequente ao do serviço prestado. d. A Taxa de Gestão passa a ser devida a partir da primeira integralização de Cotas realizada no Fundo. e."
+    }
+   ],
+   "legacy": {
+    "value": "VP de DC:0,203%/0,230% até R$ 300 mi; excesso 0,229%/0,257% a.a., meses≤12/≥13; mínimo R$ 19 mil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/11/2025, Anexo III"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não menciona taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Rentabilidade-alvo definida no apêndice das cotas seniores",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Integral Access DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 4,
+     "clause": "Anexo III, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "s serviços de administração e gestão de carteira do Fundo. “Administrador” Significa a Integral Access Distribuidora de Títulos e Valores Mobiliários Ltda., sociedade regularmente constituída e em funcionamento no Brasil, devidamente autorizada e habilitada pela CVM a administrar carteiras de valores mobiliários, na categoria de administrador fiduciário, pelo Ato Declaratório CVM nº 20.066, de 15 de agosto de 2025, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.663, 3º andar, CEP 01.452-001, inscrita no CNPJ/MF sob o nº 34.978.626/0001-99, ou qualquer de seus sucessores ou cessionários devidamente autorizados e habilitados pela CVM a administrar carteiras de valores mobiliários, na"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Integral Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 13,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "pela B3, em que poderão ser registradas as Cotas Subordinadas. “Gestora” Significa a Integral Investimentos Ltda., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, por meio do Ato Declaratório CVM nº 8.662, de 21 de fevereiro de 2006, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.663, 3º andar, CEP 01.452-001, inscrita no CNPJ/MF sob o nº 06.576.569/0001- 86. “IGP-M” Significa o Índice Geral de Preços ao Mercado, publicado mensalmente pela Fundação Getúlio Vargas. “Índice de Subordinação” Significa a proporção mínima obrigatória do valor das Cotas S"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 9,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "s do item (13)a deste Regulamento e do Contrato de Cessão. “Custodiante” Significa a Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. profissional de administração de carteiras de valores mobiliários, na categoria de custodiante, nos termos do Ato Declaratório CVM 11.485, de 27 de dezembro de 2010, com sede na Cidade do Rio de Janeiro, estado do Rio de Janeiro, na Ave"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Banco Randon (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 5,
+     "clause": "Anexo III, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "itórios Inadimplidos, nos termos do Contrato de Cobrança. “Agente de Cobrança” Significa o Banco Randon S.A., instituição financeira com sede na Cidade de Caxias do Sul, Estado do Rio Grande do Sul na Avenida Rubem Bento Alves, 1.469, sala 03, CEP 95.052-105, inscrita no CNPJ/MF sob o nº 11.476.673/0001-3, ou qualquer de seus sucessores ou cessionários, na qualidade de agente contratado pela Gestora, em nome do Fundo, para realizar os serviços de cobrança dos Direitos Creditórios Inadimplidos, nos termos deste Regulamento e do Contrato de Cobrança. “Agente de Controladoria” Significa a Oliveira Trust Servicer S.A., com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 49,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "is Prestadores de Serviços ou os Cedentes. (14) LIMITES DE CONCENTRAÇÃO a. Uma vez que as Cotas serão destinadas exclusivamente a investidores profissionais, conforme definidos no artigo 11 da Resolução CVM nª 30/21, o Fundo está dispensado de observar as disposições do artigo 45 do Anexo Normativo II à Resolução CVM nº 175/22. (15) FATORES DE RISCO Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. a. Os Ativos do Fundo estão sujeitos a diversos riscos, incluindo, sem limitação, os descritos abaixo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 22,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "DATADO DE 03/11/2025. (6) PRAZO DE DURAÇÃO a. O Fundo tem prazo de duração indeterminado, ressalvada a hipótese de ocorrência de qualquer dos Eventos de Avaliação, que resulte na liquidação do Fundo, ou dos Eventos de Liquidação, conforme previstos, respectivamente, nos itens (20)i e (21)b deste Regulamento. (7) PRESTADORES DE SERVIÇOS ESSENCIAIS a. A administração fiduciária do Fundo é realizada pela Integral Access Distribuidora de Títulos e Valores Mobiliários Ltda. b. A gestão do Fundo é realizada pela Integral Investimentos Ltda. (8) OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADE DOS PRESTADORES DE SERVIÇOS ESSENCIAIS Capítulo I. Atribuições do Administrador a. O Administrador, observadas as limitações estabelecidas no Regulamento e na legislação e na regulamentação aplicáveis, tem poderes para praticar os atos necessários à administração do Fundo, na sua respectiva esfera de atuação. b."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Sem limite (classe para profissionais, dispensada do art. 45)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028146",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/11/2025",
+     "page": 49,
+     "clause": "Anexo III",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+     "excerpt": "is Prestadores de Serviços ou os Cedentes. (14) LIMITES DE CONCENTRAÇÃO a. Uma vez que as Cotas serão destinadas exclusivamente a investidores profissionais, conforme definidos no artigo 11 da Resolução CVM nª 30/21, o Fundo está dispensado de observar as disposições do artigo 45 do Anexo Normativo II à Resolução CVM nº 175/22. (15) FATORES DE RISCO Informação Pública Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. a. Os Ativos do Fundo estão sujeitos a diversos riscos, incluindo, sem limitação, os descritos abaixo."
+    }
+   ],
+   "value": 45.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis comerciais do grupo Randoncorp em fundo aberto; subordinação de 51% enquanto houver sênior.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,54 @@
+# portado de 63168433000170 (65327006000113)
+type: Consignado público
+q20: * "deverão (i) subscrever, no mínimo, 35% (trinta e cinco por cento) das Cotas Subordinadas Júnior"
+q19: * "O Cedente/Endossante é somente responsável pela existência"
+q101: * "Direitos Creditórios serão sempre adquiridos pelo Fundo, em cada Data de"
+q2: * "5.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade"
+q3: * "devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo: Idade do Devedor Saldo devedor máximo De 18 até 64 anos"
+q5: * "8.5. O Índice de Subordinação referente à Subclasse de Cotas Subordinadas Júnior"
+q6: * "a classe de cotas deve possuir parcela superior a 67% (sessenta e sete por cento) de seu patrimônio líquido representada por Direitos Creditórios"
+q7: * "A Taxa de Administração será correspondente a 0,15% a.a."
+q8: * "A Taxa de Gestão será equivalente a 0,50% a.a."
+q9: * "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q10: * "2.1. Administração. O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q11: * "A gestão da carteira do Fundo é realizada pela VALORA RENDA FIXA ESTRUTURADOS LTDA."
+q12: * "reditórios Transferidos para adquirir novos Direitos Creditórios (revolvência) durante o Período de Investimento"
+q13: * "Eventos de Avaliação Adicionais previstos no Anexo Definições Específicas da Classe, são Eventos de Avaliação"
+q15: * "em regime fechado e com prazo de duração indeterminado"
+q16: * "O Cedente/Endossante é somente responsável pela existência e, caso previsto no respectivo Contrato de Transferência"
+q17: * "Direitos Creditórios serão considerados líquidos de provisão para devedores duvidosos"
+receivables: CCBs de consignado das Forças Armadas e de servidores federais (SIAPE) | o1
+originator: Originador e cedente/endossante definidos no anexo de definições | q19
+assignor: Cedente/endossante do anexo de definições, sem nome no texto lido | q19
+debtor: Militares e pensionistas das Forças Armadas; servidores SIAPE | o1
+recourse: Endossante responde por existência e formalização, não pela solvência | q16
+eligibility: Não vencidos; devedor adimplente; saldo por devedor escalonado por idade | q2,q3
+debtor_limit: Saldo por devedor escalonado por idade (até R$ 350 mil de 18 a 64 anos) | q3
+assignor_limit: n/d | Limite por cedente não localizado no texto extraído
+term_max: n/d | Prazo máximo da CCB não localizado no trecho lido
+allocation: > 67% do PL em direitos creditórios | q6 | value=67
+quota_structure: Sênior / Mezanino / Júnior (Larca ≥ 35% da júnior) | q5,q20
+sub_senior: n/d | Índices da sênior e mezanino definidos em apêndices, fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+sub_mezz: Júnior ≥ 5% do PL | q5 | basis=jr/PL
+sub_check: Desenquadramento comunicado aos subordinados em até 5 DU | q5
+reserve: n/d | Valor das reservas não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: Direitos creditórios líquidos de provisão para devedores duvidosos | q17
+eval_triggers: Relatório de gestão não divulgado em 15 DU, entre outros | q13
+liquidation: n/d | Eventos de liquidação definidos no anexo de definições, não lido
+revolving: Revolvência durante o período de investimento | q12
+amortization: n/d | Cronograma definido nos apêndices das séries
+admin_fee: 0,15% a.a. do PL; mín. R$ 12,5 mil/mês | q7
+mgmt_fee: 0,50% a.a. do PL; mín. R$ 20 mil/mês | q8
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: n/d | Sobretaxa definida nos apêndices, fora do acervo
+target_mezz: n/d | Sobretaxa definida nos apêndices, fora do acervo
+administrator: Vert DTVM | q10
+manager: Valora Renda Fixa Estruturados | q11
+custodian: n/d | Custodiante definido no anexo de definições, não lido
+servicer: n/d | Agente de cobrança extraordinária sem nome no trecho lido
+investors: n/d | Público-alvo definido no anexo de definições, não lido
+duration: Indeterminado | q15
+payroll: Consignação em folha do Exército e do SIAPE | q101
+age_limit: Saldo máximo cai com a idade do devedor (faixas a partir de 65 anos) | q3
+installment_min: n/d | Valor mínimo de parcela não localizado no texto extraído
+leitura: Consignado federal (Forças Armadas e SIAPE) com júnior ≥ 5% do PL e saldo por devedor limitado por idade.

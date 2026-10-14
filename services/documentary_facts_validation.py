@@ -18,7 +18,9 @@ _DATE = re.compile(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b")
 _MONTHS = ("janeiro", "fevereiro", "marco", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
 _STOP_ENTITY = {"Classe", "Fundo", "Cotas", "Gestor", "Gestora", "Administrador", "Administradora", "Custodiante",
                 "Regulamento", "Cedente", "Cedentes", "Endossante", "Originador", "Originadora", "Sociedade", "Grupo",
-                "Instituição", "Pagamento", "Pessoas", "Físicas", "Jurídicas", "Varia", "Não", "Diversos", "Mesmo", "Agente"}
+                "Instituição", "Pagamento", "Pessoas", "Físicas", "Jurídicas", "Varia", "Não", "Diversos", "Mesmo", "Agente",
+                "Emissores", "Distribuidores", "Produtores", "Endossantes", "Instituições", "Correspondentes", "Múltiplos",
+                "Tomadores", "Empresas"}
 
 
 def _value(token: str) -> float:

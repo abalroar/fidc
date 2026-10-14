@@ -1,0 +1,41 @@
+# GTCS FIDC (Singulare; H2 Kapital; crédito pessoal Amel)
+type: Crédito pessoal
+q1: D1 "Endossantes é, conforme o caso, (i) a Amel Administradora; (ii) a Edmil; ou (iii) a ZIPDIN"
+q2: D1 "A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição"
+q3: D1 "9.19. O Índice de Subordinação será correspondente à razão entre"
+q4: D1 "O Fundo será gerido pela H2 KAPITAL S.A."
+q5: D1 "Custodiante é a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q6: D1 "Agentes de Cobrança São a Amel Administradora e a Edmil"
+q7: D1 "As Cotas Seniores, as Cotas Mezanino e as Cotas Subordinadas emitidas pela Classe Única somente poderão ser subscritas"
+receivables: CCBs de empréstimo pessoal, acordos e notas comerciais | c2
+originator: Amel Administradora (clientes pessoa física) | c8
+assignor: Endossantes: Amel, Edmil ou Zipdin SCD | q1
+debtor: Clientes pessoa física da Amel; emissores das notas comerciais | c8
+recourse: Endosso sem direito de regresso nem coobrigação do endossante | c10
+eligibility: Documentação disponível; prazo ≤ 24 meses; em reais | q2
+debtor_limit: Não previsto | Anexo não fixa limite de concentração por devedor
+assignor_limit: Não previsto | Anexo não fixa limite de concentração por endossante
+term_max: Até 24 meses (CCBs e acordos) | q2
+allocation: > 67% do PL em direitos creditórios elegíveis | o20 | value=67
+quota_structure: Sênior / Mezanino / Júnior | c25
+sub_senior: 70% · (mez.+jr.)/PL | q3 | basis=mez+jr/PL
+sub_mezz: 10% · jr/PL | q3 | basis=jr/PL
+sub_check: Diária pela gestora; reenquadramento em até 30 dias | q3,c30
+reserve: Despesas ordinárias estimadas de 1 mês | o32
+pdd: Perda por redução ao valor recuperável, pela metodologia do anexo | c35
+eval_triggers: Renúncia de prestador, queda de 50% nas aquisições e outros | c38,c22
+liquidation: Por assembleia, inclusive após evento de avaliação ou renúncia | c40,c42
+revolving: Não prevista | Regulamento não trata de reinvestimento ou revolvência
+amortization: Despesas e reservas precedem pagamentos sênior e subordinados | o43
+admin_fee: 0,20% a.a. do PL; mín. R$ 20 mil/mês, inclui custódia | o46
+mgmt_fee: 0,40% a.a. do PL; mín. R$ 40 mil/mês | o49
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Benchmark sênior fica no suplemento de cada série, em branco no modelo
+target_mezz: n/d | Benchmark mezanino fica no suplemento, em branco no modelo
+administrator: Singulare CTVM | c58
+manager: H2 Kapital | q4
+custodian: Singulare CTVM | q5
+servicer: Amel Administradora e Edmil (agentes de cobrança) | q6
+investors: Investidores profissionais | q7
+duration: Indeterminado | c65
+leitura: Crédito pessoal de clientes da Amel com subordinação mínima de 70% do PL (sênior até 30%) e júnior ≥ 10%.

@@ -1,0 +1,54 @@
+# Lever I FGTS FIDC (Singulare; QI Gestão; endossante QI SCD)
+type: FGTS
+q1: * "“Endossante” a QI SOCIEDADE DE CRÉDITO DIRETO S.A."
+q2: * "“Gestora” A QI GESTÃO DE RECURSOS LTDA."
+q3: * "“Administradora” A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q4: * "Enquanto houver Cotas Seniores em circulação, o Mínimo"
+q5: * "A Taxa de Administração da Classe, referente aos serviços de Administração, Controladoria e Escrituração, corresponderá ao equivalente a 0,0125%"
+q6: * "A Taxa de Gestão da Classe corresponderá ao equivalente a 0,0125%"
+q7: * "a Classe não contará com custodiante de direitos creditórios"
+q8: * "O Fundo e a Classe serão destinados exclusivamente a Investidores Profissionais"
+q9: * "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q11: * "O Fundo terá prazo de duração indeterminado"
+q12: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q13: * "os Direitos Creditórios oferecidos à Endossatária devem ser oriundos de operações de crédito representadas por CCBs"
+q14: * "“Agente de Cobrança” Cada prestador de serviços que poderá ser contratado pela Ges"
+q15: * "o respectivo Devedor deve ter entre 18 (dezoito) e 75"
+q16: * "equivalente a 144 (cento e quarenta e quatro) meses, e seu pagamento será limitado a, no máximo, 12"
+q17: * "Remuneração das Cotas Seniores: CDI+1,30%"
+q18: * "Vencimento final: 144 (cento e quarenta e quatro) meses contados da Data de Conversão"
+receivables: CCBs de antecipação do saque-aniversário FGTS | o1
+originator: Originadores parceiros da endossante QI SCD | q13,q1
+assignor: QI Sociedade de Crédito Direto (endossante) | q1
+debtor: Pessoas físicas titulares de FGTS, de 18 a 75 anos na CCB | q15
+recourse: n/d | Retorno ao endossante só nas hipóteses do contrato de endosso | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: CCB adimplente; 12 parcelas; prazo ≤ 144 meses; duration ≤ 36 meses | o15,q16
+debtor_limit: CCBs de um mesmo devedor até R$ 100 mil de face | o18
+assignor_limit: Endossante única (QI SCD) | q1
+term_max: Até 144 meses, no máximo 12 parcelas | q16
+allocation: > 50% do PL em direitos creditórios | q9 | value=50
+quota_structure: Sênior (por séries) / Subordinada | q4
+sub_senior: 2% · subord./PL | q4 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Enquanto houver sênior em circulação | q4
+reserve: Caixa: maior entre 90 dias de despesas e 1% do PL | o38
+pdd: Perda por redução ao valor recuperável | q12
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no anexo extraído
+liquidation: n/d | Lista de eventos de liquidação não localizada no anexo extraído
+revolving: Pagamentos seguem a ordem de alocação do anexo | o51
+amortization: Sênior: remuneração mensal no 5º DU; vencimento em 144 meses | q17,q18
+admin_fee: 0,0125% a.a. do PL | q5
+mgmt_fee: 0,0125% a.a. do PL | q6
+perf_fee: Não prevista | Anexo da classe não prevê taxa de performance
+target_senior: CDI + 1,30% a.a. (1ª série sênior) | q17
+target_mezz: — | Sem cota mezanino
+administrator: Singulare CTVM | q3
+manager: QI Gestão de Recursos | q2
+custodian: — | Classe sem custodiante de direitos creditórios (registro em registradora) | q7
+servicer: Não nomeado; prestador contratado pela gestora quando necessário | q14
+investors: Investidores profissionais | q8
+duration: Indeterminado | q11
+payroll: Saque-aniversário FGTS em cessão fiduciária, com bloqueio de saldo | o80
+age_limit: Devedor de 18 a 75 anos na emissão da CCB | q15
+installment_min: n/d | Anexo limita o número de parcelas (12), não o valor mínimo | why=Resposta anterior trata de prazo e número de parcelas, registrados na elegibilidade
+leitura: Antecipação do saque-aniversário FGTS originada pela QI SCD, com subordinação mínima de 2% e taxas de 0,0125% a.a.

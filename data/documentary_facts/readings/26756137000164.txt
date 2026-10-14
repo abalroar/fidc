@@ -1,0 +1,54 @@
+# portado de 17468142000180 (26756137000164)
+type: Duplicatas/multicedente
+q23: * "deverá ser equivalente a 80% (oitenta por cento) do valor estimado para as despesas e encargos referentes a 1 (um) mês"
+q22: * "mantenha em disponibilidades soma equivalente a no mínimo 30% (trinta por cento) do valor futuro estimado da amortização"
+q21: * "Ter prazo de vencimento máximo de 3.600 (três mil e seiscentos) dias"
+q20: * "inobservância, por mais de 15 (quinze) Dias Úteis consecutivos, dos Índices de subordinação Mínimos"
+q19: * "O valor mínimo mensal da Taxa de Administração será R$ 26.143,60"
+q104: * "100% de perda do respectivo Devedor, em decorrência da situação e"
+q3: * "5.30. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente"
+q4: * "O Limite de Concentração em Direitos Creditórios de um mesmo Devedor (incluindo- se seu respectivo Grupo Econômico) deverá ser de, no máximo, 7%"
+q5: * "Índice de Subordinação Sênior deverá ser igual ou superior a 50%"
+q6: * "Índice de Subordinação Mezanino deverá ser igual ou superior a 30%"
+q7: * "tx1: 0,55% a.a."
+q8: * "taxa de gestão equivalente a 0,35% a.a."
+q9: * "“Administrador” Significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Gestor” Significa a OURO PRETO GESTÃO DE RECURSOS S.A."
+q11: * "“Custodiante” Significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q12: * "a Classe adotará estratégia de revolvência dos Direitos Creditórios"
+q13: * "são considerados Eventos de Liquidação Antecipada"
+q14: * "O Fundo terá prazo de duração indeterminado, sendo que cada Classe, Subclasse e série de Cotas"
+q15: * "A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores e para as Cotas Subordinadas Mezanino"
+receivables: Multissetorial: títulos e contratos comerciais, industriais, agro e serviços | o1,q3
+originator: Cedentes diversos | q3
+assignor: Cedentes diversos | q3
+debtor: Devedores dos títulos cedidos | q4
+recourse: n/d | Cedente pode responder com os devedores conforme cada cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Não vencidos; prazo de 5 a 3.600 dias; duplicatas, cheques, CCBs e notas | q3,q21
+debtor_limit: Devedor/grupo ≤ 7% do PL | q4
+assignor_limit: n/d | Limite por cedente não localizado no trecho lido | why=Números da resposta anterior não aparecem no regulamento vigente
+term_max: Até 3.600 dias (mínimo de 5 dias) | q21
+allocation: ≥ 50% do PL em direitos elegíveis | o25 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q15
+sub_senior: 50% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 30% · (jr. + mezaninos subordinados)/PL | q6 | basis=jr/PL
+sub_check: Fora do mínimo por mais de 15 DU é evento de avaliação | q20
+reserve: Despesas: 80% de um mês; amortização: 30% do valor futuro antes do pagamento | q23,q22
+pdd: Provisão pode antecipar 100% do devedor; efeito vagão | q104
+eval_triggers: Subordinação fora por 15 DU; reservas; recompras > 25%; atraso mezanino | q20,o47
+liquidation: Lista do item 11.7, além das hipóteses legais | q13
+revolving: Revolvência durante o prazo indeterminado | q12
+amortization: n/d | Cronograma definido nos suplementos de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,55% a.a. na 1ª faixa, regressiva por faixas de PL; mín. R$ 26.143,60/mês | q7,q19
+mgmt_fee: 0,35% a.a. do PL; mín. R$ 4 mil/mês | q8
+perf_fee: Não prevista | Anexo não prevê taxa de performance
+target_senior: n/d | Suplemento da série sênior vigente não está no acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Suplemento da série mezanino vigente não está no acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: QI CTVM | q9
+manager: Ouro Preto Gestão de Recursos | q10
+custodian: QI CTVM | q11
+servicer: n/d | Consultora especializada citada, sem nome no trecho lido
+investors: Investidores qualificados | o76
+duration: Indeterminado; prazo próprio por série | q14
+sacado_limit: Devedor/grupo ≤ 7% do PL | q4
+leitura: Multicedente com 50% de subordinação para a sênior e 30% para a mezanino; devedor ≤ 7% do PL.

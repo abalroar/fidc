@@ -1,0 +1,54 @@
+# FIDC Crédito Nitro Agro (Vórtx; Opea; cedente Nitro Química)
+type: Agro/FIAGRO
+q1: * "“Cedente” Significa a COMPANHIA NITRO QUÍMICA BRASILEIRA"
+q2: * "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais"
+q3: * "(i) Devedores presentes na “Lista de Clientes Elegíveis KPMG”: até 100%"
+q4: * "estar inadimplentes em relação ao Fundo por mais de 1 (um) dia na Data de Aquisição"
+q5: * "“Índice de Subordinação” Significa a relação equivalente a, no mínimo, 25%"
+q6: * "Qualquer dos seguintes eventos será considerado um Evento de Avaliação"
+q7: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q8: * "manual de provisão para perdas por redução no valor de recuperação ou provisão para perdas com devedores duvidosos"
+q9: * "Não será cobrada dos Cotistas qualquer taxa de performance"
+q10: * "“Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q11: * "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA."
+q12: * "“Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada"
+q13: * "será destinada exclusivamente a Investidores Profissionais"
+q14: * "O Fundo terá prazo de duração indeterminado, sendo que cada Subclasse de Cotas"
+q15: D2 "Sobretaxa Sênior: 1,85% (um inteiro e oitenta e cinco centésimos por cento)"
+q16: * "Sobretaxa Mezanino” Significa a sobretaxa a ser acrescentada à Taxa DI"
+q17: * "pagamento da Meta de Remuneração com referência às Cotas Subordinadas Mezanino em circulação"
+q18: * "o Índice de Subordinação for menor que 25%"
+receivables: Créditos performados de venda de insumos agro, com NF-e em XML | o1
+originator: Companhia Nitro Química Brasileira (insumos agrícolas) | q1
+assignor: Companhia Nitro Química Brasileira (cedente única) | q1
+debtor: Produtores rurais, cooperativas e empresas do agronegócio | q2
+recourse: n/d | Regime de coobrigação fica nos termos gerais de cessão, fora do texto lido
+eligibility: Devedor sem atraso > 1 dia; lista de autorizados; vedados e Serasa | q4,q3
+debtor_limit: Lista KPMG até 100% do PL; demais devedores até 20% | q3
+assignor_limit: Cedente única (Nitro Química) | q1
+term_max: n/d | Prazo máximo dos créditos não localizado no anexo extraído
+allocation: ≥ 50% do PL em direitos creditórios | o25 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q16,q17
+sub_senior: 25% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: n/d | Índice próprio da mezanino não localizado no anexo extraído
+sub_check: Mensal (último DU); abaixo de 25% é evento do anexo | q18
+reserve: Fundo de despesas para cerca de 10 meses de despesas | o38
+pdd: Manual de PDD da administradora (perda esperada; efeito vagão) | q8
+eval_triggers: Violação do cedente não sanada em 5 DU, entre outros | q6
+liquidation: Avaliação convertida; sênior sem remuneração após 2 DU, entre outros | q7
+revolving: n/d | Ordem de alocação não detalha recompra no texto extraído
+amortization: Ordem de alocação: sênior, mezanino e júnior pelas metas | q17
+admin_fee: 0,18% a.a. do PL; mín. R$ 18 mil/mês; implantação R$ 10 mil | o57
+mgmt_fee: 0,135% a.a. do PL; mín. R$ 15 mil/mês, mais flat fee | o60
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: DI + 1,85% a.a. (série sênior vigente) | q15
+target_mezz: n/d | Sobretaxa da mezanino definida em apêndice fora do acervo | q16 | why=Resposta anterior trata da série sênior, registrada na linha própria
+administrator: Vórtx DTVM | q10
+manager: Opea Gestora de Recursos | q11
+custodian: Vórtx DTVM | q12
+servicer: n/d | Agente de cobrança não nomeado no texto extraído
+investors: Investidores profissionais | q13
+duration: Indeterminado; prazo próprio por subclasse | q14
+agro_backing: Venda de insumos agrícolas da Nitro Química a produtores | q1,o1
+collateral: n/d | Garantias dos recebíveis não descritas no anexo extraído
+leitura: Insumos agrícolas da Nitro Química com 25% de subordinação; devedor fora da lista KPMG limitado a 20% do PL.

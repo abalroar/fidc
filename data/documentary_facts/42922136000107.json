@@ -1,0 +1,674 @@
+{
+ "schema_version": 1,
+ "cnpj": "42922136000107",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MONEE I DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T01:26:25Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1310906",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "04/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de empréstimo e recebíveis de pagamentos com cartão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 29,
+     "clause": "Suplemento, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "são as pessoas naturais ou jurídicas, devedoras dos Direitos Creditórios; Direitos Creditórios: os Direitos Creditórios oriundos (i) de operações de empréstimo; (ii) de Operações de Pagamento com Cartões realizadas pelos Usuários para a aquisição de bens e/ou serviços nos Estabelecimentos, descontadas das Taxas Aplicáveis e organizadas através de Unidades de Recebíveis; Direitos Creditórios os Direitos Creditórios ofertados para cessão/endosso à Classe Elegíveis: que atendam, na Data de Aquisição, aos Critérios de Elegibilidade; Direitos Creditórios os Direitos Creditórios cedidos à Classe que não forem Inadimplidos: devidamente pagos na data de seus respectivos vencimentos;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB de empréstimos e unidades de recebíveis de pagamentos por cartão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Maree Instituição de Pagamento",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 30,
+     "clause": "Suplemento",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "serviços junto a Estabelecimento, mediante a utilização de Cartão como meio de pagamento; Originadora: é a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA., pessoa jurídica de direito privado, inscrita no CNPJ/MF sob n° 38.372.267/0001-82, com sede na Av. Brigadeiro Faria Lima, nº 949 conjunto 601 (Parte), Pinheiros, CEP 05426-100, São Paulo/SP; Registradora: são as sociedades devidamente autorizadas pelo BACEN a prestar serviços de registro e depósito centralizado de ativos financeiros, direitos creditórios e de valores mobiliários, nos termos da Resolução CMN nº 4.593/2017 Reserva de Caixa: é a reserva constituída para pagamento de encargos e despesas da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras endossantes; Maree como correspondente e agente de cobrança",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Endossantes das CCBs, por contrato de endosso sem coobrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 28,
+     "clause": "Suplemento, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "sem Coobrigação e Outras Avenças celebrado entre a Classe e o respectivo Cedente; Contrato de Endosso: cada Contrato de Promessa de Endosso de Direitos Creditórios sem Coobrigação e Outras Avenças celebrado entre a Classe e o respectivo Endossante; Contrato de Cobrança: é o contrato de cobrança dos Direitos Creditórios Inadimplidos celebrado entre a Classe e o AGENTE DE COBRANÇA; Critérios de são as condições às quais os Direitos Creditórios deverão Elegibilidade: atender para que sejam elegíveis à cessão/endosso ao Fundo ou à Classe. A validação dos Critérios de Elegibilidade é feita pela GESTORA; Data de Apuração: é cada último Dia Útil de cada mês calendário; Data de Aquisição: é cada data de aquisição de Direitos Creditórios pelo FUNDO; Data de Início da Classe: Significa a data da primeira integralização de Cotas da Classe; Data de Oferta de Significa cada data em que os Cedentes/Endossantes ofertem Direitos Creditórios: Direitos Creditórios para serem cedidos ou endossados à Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras endossantes; Maree como correspondente e agente de cobrança",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas naturais ou jurídicas tomadoras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 29,
+     "clause": "Suplemento, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "Direitos Creditórios: Direitos Creditórios para serem cedidos ou endossados à Classe; Devedores: são as pessoas naturais ou jurídicas, devedoras dos Direitos Creditórios; Direitos Creditórios: os Direitos Creditórios oriundos (i) de operações de empréstimo; (ii) de Operações de Pagamento com Cartões realizadas pelos Usuários para a aquisição de bens e/ou serviços nos Estabelecimentos, descontadas das Taxas Aplicáveis e organizadas através de Unidades de Recebíveis; Direitos Creditórios os Direitos Creditórios ofertados para cessão/endosso à Classe Elegíveis: que atendam, na Data de Aquisição, aos Critérios de Elegibilidade; Direitos Creditórios os Direitos Creditórios cedidos à Classe que não forem Inadimplidos: devidamente pagos na data de seus respectivos vencimentos;"
+    }
+   ],
+   "legacy": {
+    "value": "Tomadores de empréstimos e devedores dos arranjos de pagamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação da originadora; regresso só por má-fé, culpa ou dolo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 32,
+     "clause": "Suplemento, cl. 5.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "Classe, nos termos do artigo 295 do Código Civil Brasileiro. 5.7. Os Direitos Creditórios Elegíveis cedidos à Classe não contarão com a coobrigação da ORIGINADORA. 5.8. A Classe poderá utilizar os recursos financeiros originados na carteira de Direitos Creditórios para adquirir novos Direitos Creditórios (“Revolvência”). 5.9. A ADMINISTRADORA e a GESTORA ou partes a eles relacionadas não respondem pelo pagamento dos Direitos Creditórios adquiridos pela Classe, pela solvência dos Devedores ou pela existência, autenticidade, correta formalização e liquidez de tais Direitos Creditórios. 5.10. A Classe poderá ceder ou alienar os Direitos Creditórios Inadimplidos, sendo que, após a cessão ou alienação dos Direitos Creditórios Inadimplidos, as despesas com cobrança e coleta dos pagamentos dos Direitos Creditórios será de responsabilidade do novo titular. 5.11. A Classe poderá alienar a terceiros Direitos Creditórios integrantes da sua carteira, desde que o valor de venda seja igual ou superior ao valor justo do ativo, conforme critério estabelecido pela GESTORA. 5.12."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 35,
+     "clause": "Suplemento, cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "Na hipótese de o Direito Creditório Elegível perder qualquer Critério de Elegibilidade após sua aquisição pela Classe, a Classe e seus Cotistas não terão qualquer direito de regresso contra a ADMINISTRADORA, a GESTORA, os Cedentes/Endossantes e a ORIGINADORA, salvo na existência comprovada de má-fé, culpa ou dolo contra quem o motivou. 6.4. Pela aquisição dos Direitos Creditórios identificados em cada Contrato de Cessão/Endosso e/ou Termo de Cessão/Endosso, a Classe pagará à vista aos Cedentes, em moeda corrente nacional, na Data de Aquisição, o preço de aquisição indicado no respectivo Termo de Cessão/Endosso. CAPÍTULO VII – DOS PRESTADORES DE SERVIÇOS ESPECÍFICOS DA CLASSE 7.1. Adicionalmente aos serviços prestados pela ADMINISTRADORA e pela GESTORA, a Classe contará com os serviços específicos prestados pelo AGENTE DE COBRANÇA. 7.2. A GESTORA, em nome do FUNDO e da Classe, contratou o AGENTE DE COBRANÇA para realizar a cobrança dos Direitos Creditórios Inadimplidos, nos termos estabelecidos no Contrato de Cobrança. 7.2.1. Os serviços dos AGENTES DE COBRANÇA, sem prejuízo de outros serviços previstos no Contrato de Cobrança, consistem em, no mínimo: I – monitorar diariamente a cobrança dos Direitos Creditórios Inadimplidos;"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão/endosso definitivo; regresso apenas nas hipóteses de culpa/fraude e vícios",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "CCB com todas as parcelas a vencer, prefixadas e mensais; devedor adimplente",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 34,
+     "clause": "Suplemento, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "ório a ser adquirido pela Classe deverá atender, na Data de Aquisição, cumulativamente aos Critérios de Elegibilidade. 6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade: I – em se tratando de Direitos Creditórios decorrentes de operações de empréstimo, ser oriundos de operações de crédito realizadas pelos Endossantes e originados pela ORIGINADORA; II – em se tratando de Direitos Creditórios decorrentes de operações de empréstimo, devem abranger todas as parcelas consecutivas e a vencer decorrentes da CCB; III - em se tratando de Direitos Creditórios decorrentes de operações de empréstimo, ser representados por CCB;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB com parcelas futuras consecutivas e taxa mensal fixa; devedor sem atraso no fundo nas condições",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou coobrigado: até 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 33,
+     "clause": "Suplemento, cl. 5.18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "a presente Classe, na Data de Aquisição, considerados pro forma inclusive os Direitos Creditórios a serem adquiridos, o limite máximo de concentração por Devedor ou coobrigado será de 20% (vinte por cento) do Patrimônio Líquido desta Classe. 5.18.1. Não obstante o disposto no item 5.18 acima e nos termos do Art. 45, §3º, do Anexo II da Resolução CVM 175, esta Classe poderá adquirir Direitos Creditórios Elegíveis de um mesmo Devedor sem a observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido desde que o Devedor: a) tenha registro de companhia aberta; b) seja instituição financeira ou equiparada; ou c) seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do Direito Creditório elaboradas em conformidade com o disposto na Lei nº 6.404, de 1976, e a regulamentação editada pela CVM, e auditadas por auditor independente registrado na CVM. 5.18.2."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor/coobrigado ≤ 20% PL, com exceções para profissionais e requisitos documentais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita apenas por devedor ou coobrigado",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor/coobrigado ≤ 20% PL, com exceções para profissionais e requisitos documentais",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa prazo máximo das CCBs",
+   "sources": [],
+   "legacy": {
+    "value": "CCB com parcelas futuras consecutivas e taxa mensal fixa; devedor sem atraso no fundo nas condições",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 31,
+     "clause": "Suplemento, cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "ente Classe do FUNDO deverá alocar, em até 180 (cento) dias contados da primeira data de integralização das suas cotas, no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis. 5.4. É vedado à ADMINISTRADORA, à Gestora, ao consultor especializado (se houver) e à Partes Relacionadas aos mesmos ceder ou originar, direta ou indiretamente, Direitos Creditórios ao Fundo, assim como adquirir, direta ou indiretamente, Direitos Creditórios, exceto se a Gestora, a Registradora e o custodiante não forem Partes Relacionadas entre si e se a Registradora e o custodiante não forem Partes Relacionadas à originadora ou ao Cedente/Endossante . 5.4.1. A Classe não poderá adquirir ativos de emissão ou que envolvam coobrigação da ADMINISTRADORA, da GESTORA ou dos demais prestadores de serviços do FUNDO e suas Partes Relacionadas, tal como definidas pelas regras contábeis pertinentes. 5.5. A cessão dos Direitos Creditórios Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade para a Classe, em caráter definitivo, juntamente com todos os direitos, garantias, privilégios, preferências, prerrogativas, ações e acessórios a estes relacionados. 5.6."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Piso de 50% PL após 180 dias; objetivo 67% PL em créditos/cotas elegíveis para regime tributário",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2026, Suplemento, cl. 5.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Classe única; cotas pari passu, sem subordinação",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 58,
+     "clause": "Suplemento, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "voto; (b) os direitos dos titulares das Cotas contra o Patrimônio Líquido da Classe, nos termos deste Regulamento, são pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação entre os titulares de Cotas; e (c) não possuem meta de rentabilidade definida. 1.3. As demais características e particularidades de cada Série de Cotas estão previstas em seus respectivos Suplementos, que, uma vez emitidos, passam a fazer parte integrante deste Apêndice. 1.4. As Cotas, quando emitidas, poderão ser objeto de classificação de risco a ser realizada pela Agência de Classificação de Risco. 1.5. A integralização de Cotas pode ser efetuada (i) por meio de transferência eletrônica disponível ou por qualquer outro mecanismo admitido pelo BACEN ou (ii) com Direitos Creditórios que se enquadrem na política de investimento da Classe. 1.6. Para o cálculo do número de Cotas a que tem direito o investidor quando da aplicação, não serão deduzidas do valor entregue à ADMINISTRADORA quaisquer taxas ou despesas. 1.7. É admitida a subscrição por um mesmo investidor de todas as Cotas emitidas. Não haverá, portanto, requisitos de dispersão das Cotas. 1.8. As Cotas, independente da Série, terão valor unitário de R$ 1.000,00 (um mil reais) na data da 1ª (primeira) integralização."
+    }
+   ],
+   "legacy": {
+    "value": "Cotas em igualdade de condições; sem estrutura de subordinação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cotas pari passu, sem subordinação",
+   "sources": [],
+   "legacy": {
+    "value": "Cotas em igualdade de condições; sem estrutura de subordinação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem índice de subordinação",
+   "sources": [],
+   "legacy": {
+    "value": "Cotas em igualdade de condições; sem estrutura de subordinação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para encargos e despesas da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 30,
+     "clause": "Suplemento",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": ", direitos creditórios e de valores mobiliários, nos termos da Resolução CMN nº 4.593/2017 Reserva de Caixa: é a reserva constituída para pagamento de encargos e despesas da Classe; Resolução BACEN significa a Resolução do BACEN n° 80, de 25 de março de 2021, 80/21: conforme alterada, ou qualquer outra norma que venha a substituí-la Resolução CMN significa a Resolução do CMN n° 4.282, de 4 de novembro de 4.282/13: 2013, conforme alterada, ou qualquer outra norma que venha a substituí-la; Taxas Aplicáveis: significam as taxas que constituem a remuneração dos Emissores (interchange), e/ou outras taxas/valores que integram a remuneração dos Devedores e/ou das Bandeiras, conforme eventualmente aplicável, previstas nas regras dos Arranjos de Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de encargos e despesas estimadas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2026, Suplemento"
+   }
+  },
+  "pdd": {
+   "display": "Provisão pelo manual de provisionamento da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 42,
+     "clause": "Suplemento, cl. 13.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "quada conta de receita ou despesa no resultado do período, observados os procedimentos definidos na Instrução CVM 489. 13.4 A ADMINISTRADORA constituirá provisão para créditos de liquidação duvidosa referente aos Direitos Creditórios e aos Ativos Financeiros. As perdas e provisões relacionadas aos Direitos Creditórios Inadimplidos serão suportadas única e exclusivamente pela Classe em questão, e serão reconhecidas no resultado do período, conforme as regras e procedimentos do Manual de Provisionamento da ADMINISTRADORA. 13.5. Para efeito da determinação do valor da carteira, devem ser observadas as normas e os procedimentos previstos na legislação e regulamentação em vigor. XIV – DOS FATORES DE RISCO 14.1. Os Direitos Creditórios e os Ativos Financeiros integrantes da carteira da Classe, por sua própria natureza, estão sujeitos a flutuações de mercado, a riscos de crédito, operacionais, das contrapartes das operações contratadas pela Classe, assim como a riscos de outras naturezas, podendo, assim, gerar perdas até o montante das operações contratadas e não liquidadas."
+    }
+   ],
+   "legacy": {
+    "value": "Após 1 dia da aquisição: 5, 97%; atraso 1–30: 58, 11%; 31–60: 87, 70%; 61–90: 96, 08%;> 91: 100%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2026, Suplemento, cl. 13.3"
+   }
+  },
+  "eval_triggers": {
+   "display": "Reserva de caixa desenquadrada por mais de 30 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 54,
+     "clause": "Suplemento, cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "desde que tal rebaixamento não seja causado por mudança de metodologia de cálculo da Agência Classificadora de Risco; II - desenquadramento da Reserva de Caixa por um prazo superior a 30 (trinta) Dias Úteis consecutivos, conforme calculada e comunicada pela GESTORA; III - desenquadramento dos Limites de Concentração por Devedor por um prazo superior a 20 (vinte) Dias Úteis, conforme verificado pela GESTORA com base em informações fornecidas pela ADMINISTRADORA no primeiro dia útil subsequente; IV – exceto em relação à ORIGINADORA, renúncia de qualquer prestador de serviços contratado para prestar serviços para a Classe, desde que não substituído no prazo de 60 (sessenta) Dias Úteis contados da renúncia; VI – na hipótese de decretação de recuperação judicial ou falência da ORIGINADORA; VII - descumprimento, pela ADMINISTRADORA e/ou pela GESTORA , de seus deveres e obrigações estabelecidos neste Regulamento e nos Contratos de Endosso, desde que não sanado no prazo de 15 (quinze) Dias Úteis contado do recebimento da notificação. VIII - caso a Conta Vinculada seja alterada sem prévia e expressa autorização da ADMINISTRADORA e da GESTORA. IX - amortização das Cotas em desacordo com o disposto neste Regulamento. 15.2."
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramentos/falhas contratuais; cessação da atividade do originador; PL < R$ 1 mi por 90 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2026, Suplemento, cl. 15.1"
+   }
+  },
+  "liquidation": {
+   "display": "Originadora encerra atividades; PL < R$ 1 mi por 90 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 55,
+     "clause": "Suplemento, cl. 16.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "liberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; III. caso a ORIGINADORA encerre suas atividades, por qualquer motivo; IV. Após 90 (noventa) dias da data da primeira integralização de Cotas da Classe, manutenção do Patrimônio Líquido diário da Classe inferior a R$ 1.000.000,00 (um milhão de reais) por período de 90 (noventa) dias consecutivos. 16.2. Na ocorrência de qualquer dos Eventos de Liquidação da Classe, independentemente de qualquer procedimento adicional, a ADMINISTRADORA e a GESTORA, nas esferas de suas respectivas competências, deverão (i) suspender imediatamente o pagamento de qualquer resgate ou amortização em andamento, se houver, e os procedimentos de aquisição de Direitos Creditórios; (ii) convocar, no prazo de 05 (cinco) dias, uma Assembleia Especial para que os Cotistas deliberem sobre as medidas que serão adotadas visando preservar seus direitos, suas garantias e prerrogativas, observando o direito de resgate dos Cotistas dissidentes de que trata o item 16.3. abaixo. 16.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramentos/falhas contratuais; cessação da atividade do originador; PL < R$ 1 mi por 90 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com recursos da carteira",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 32,
+     "clause": "Suplemento, cl. 5.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "Classe, nos termos do artigo 295 do Código Civil Brasileiro. 5.7. Os Direitos Creditórios Elegíveis cedidos à Classe não contarão com a coobrigação da ORIGINADORA. 5.8. A Classe poderá utilizar os recursos financeiros originados na carteira de Direitos Creditórios para adquirir novos Direitos Creditórios (“Revolvência”). 5.9. A ADMINISTRADORA e a GESTORA ou partes a eles relacionadas não respondem pelo pagamento dos Direitos Creditórios adquiridos pela Classe, pela solvência dos Devedores ou pela existência, autenticidade, correta formalização e liquidez de tais Direitos Creditórios. 5.10. A Classe poderá ceder ou alienar os Direitos Creditórios Inadimplidos, sendo que, após a cessão ou alienação dos Direitos Creditórios Inadimplidos, as despesas com cobrança e coleta dos pagamentos dos Direitos Creditórios será de responsabilidade do novo titular. 5.11. A Classe poderá alienar a terceiros Direitos Creditórios integrantes da sua carteira, desde que o valor de venda seja igual ou superior ao valor justo do ativo, conforme critério estabelecido pela GESTORA. 5.12."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisição de créditos elegíveis na vigência da classe",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Amortizações definidas nos suplementos de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Liquidação: encargos e distribuição proporcional da mesma classe",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,25% a.a. até R$ 1 bi de PL, regressiva até 0,20%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 39,
+     "clause": "Suplemento, cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "evida pela Classe uma remuneração equivalente à somatória dos seguintes valores (“Taxa de Administração”): Taxa de Administração (a.a.) Patrimônio Líquido 0,25% Até R$ 1.000.000.000,00 (inclusive) De R$ 1.000.000.000,00 (exclusive) 0,225% a R$ 2.000.000.000,00 (inclusive) Acima de R$2.000.000.000,00 0,20% (exclusive) a) para a participação e a implementação das decisões tomadas em reunião formal ou na Assembleia de Cotistas, a Classe pagará à Administradora uma remuneração adicional equivalente a R$ 700,00 (setecentos reais) por hora-homem de trabalho dedicada a tais atividades, a ser paga em até 5 (cinco) dias a contar da comprovação da entrega, pela Administradora, do relatório de horas enviado aos Cotistas; e; 11.1.2. A Taxa de Administração será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos). 11.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 30 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 40,
+     "clause": "Suplemento, cl. 11.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "O, desde que o somatório dessas parcelas não exceda o montante total da referida taxa. 11.2. Pelos serviços de gestão, a GESTORA fará jus a uma remuneração equivalente a 0,20% a.a. (vinte centésimos por cento) incidente sobre o Patrimônio Líquido da Classe ou um valor mínimo mensal de R$ 30.000,00 (trinta mil reais), o que for maior (“Taxa de Gestão”). 11.2.2. A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos). 11.2.3. Os valores mínimos mensais acordados no item 11.2 acima serão reajustados a cada 12 (doze) meses, contados a partir da Data de Início da Classe, com base no Índice de Preços ao Consumidor Amplo (IPCA), divulgado pelo Instituto Brasileiro de Geografia e Estatística (IBGE), ou outro índice que venha a substituí-lo. 11.2.4. A GESTORA pode estabelecer que parcelas da Taxa de Gestão sejam pagas, pelo FUNDO, diretamente aos prestadores de serviço por ela contratados em nome do FUNDO, desde que o somatório dessas parcelas não exceda o montante total da referida taxa. 11.3."
+    }
+   ],
+   "legacy": {
+    "value": "0, 20% a.a./PL; mínimo R$ 30 mil/mês; IPCA anual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2026, Suplemento, cl. 11.1.4"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 40,
+     "clause": "Suplemento, cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "nte total da referida taxa. 11.3. Não poderão ser cobradas dos Cotistas desta Classe quaisquer outras taxas, tais como taxa de performance, ingresso e/ou saída. XII - DA ASSEMBLEIA ESPECIAL DE COTISTAS DA CLASSE, DA FORMA DE COMUNICAÇÃO DA ADMINISTRADORA E DOS PROCEDIMENTOS APLICÁVEIS ÀS MANIFESTAÇÕES DE VONTADE DOS COTISTAS Assembleia Especial de Cotistas 12.1. Será de competência privativa da Assembleia Especial de Cotistas da presente Classe: I. deliberar sobre as demonstrações contábeis da Classe; II. deliberar sobre a elevação da Taxa de Administração e da Taxa de Gestão, inclusive na hipótese de restabelecimento de taxa que tenha sido objeto de redução; III. deliberar sobre a alteração deste Anexo; IV. deliberar sobre a fusão, a incorporação, a cisão, total ou parcial, a transformação ou a liquidação da Classe; V. deliberar sobre a substituição do Agente de Cobrança; VI. resolver se, na ocorrência de quaisquer dos Eventos de Avaliação, conforme definido abaixo, tais Eventos de Avaliação devem ser considerados como um Evento de Liquidação; VII."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "Sem meta de rentabilidade definida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 58,
+     "clause": "Suplemento, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "voto; (b) os direitos dos titulares das Cotas contra o Patrimônio Líquido da Classe, nos termos deste Regulamento, são pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação entre os titulares de Cotas; e (c) não possuem meta de rentabilidade definida. 1.3. As demais características e particularidades de cada Série de Cotas estão previstas em seus respectivos Suplementos, que, uma vez emitidos, passam a fazer parte integrante deste Apêndice. 1.4. As Cotas, quando emitidas, poderão ser objeto de classificação de risco a ser realizada pela Agência de Classificação de Risco. 1.5. A integralização de Cotas pode ser efetuada (i) por meio de transferência eletrônica disponível ou por qualquer outro mecanismo admitido pelo BACEN ou (ii) com Direitos Creditórios que se enquadrem na política de investimento da Classe. 1.6. Para o cálculo do número de Cotas a que tem direito o investidor quando da aplicação, não serão deduzidas do valor entregue à ADMINISTRADORA quaisquer taxas ou despesas. 1.7. É admitida a subscrição por um mesmo investidor de todas as Cotas emitidas. Não haverá, portanto, requisitos de dispersão das Cotas. 1.8. As Cotas, independente da Série, terão valor unitário de R$ 1.000,00 (um mil reais) na data da 1ª (primeira) integralização."
+    }
+   ],
+   "legacy": {
+    "value": "Sem meta de rentabilidade; cotas seguem a performance patrimonial",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": [],
+   "legacy": {
+    "value": "Sem meta de rentabilidade; cotas seguem a performance patrimonial",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 4,
+     "clause": "Suplemento, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "o acordo operacional celebrado entre a ADMINISTRADORA e a GESTORA; ADMINISTRADORA: QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., inscrita no CNPJ sob o nº 62.285.390/0001-40, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte I, Pinheiros, CEP 05402-500, devidamente autorizada pela CVM para exercer a atividade de administração de carteira de valores mobiliários por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, ou quem lhe vier a suceder; ALOCAÇÃO MÍNIMA: Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios cedidos e/ou Cotas investidas de Fundos em Direitos Creditórios, conforme definido pelo Conselho Monetário Nacional e Comissão de Valores Mobiliários;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Valora Renda Fixa Estruturados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 6,
+     "clause": "Suplemento, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "CREDITÓRIOS SEGMENTO FINANCEIRO - RESPONSABILIDADE LIMITADA ; GESTORA: VALORA RENDA FIXA ESTRUTURADOS LTDA, pessoa jurídica de direito privado devidamente constituída sob o CNPJ/MF nº 57.369.679/0001-08, devidamente autorizada pela CVM para o exercício profissional por meio do Ato Declaratório nº 22.910, de 08 de janeiro de 2025, com sede na Avenida Presidente Juscelino Kubitschek, nº 1830, sala 32, bloco 2, Jardim Paulistano, CEP 04.543-900, ou quem lhe vier a suceder; Instrução CVM 489: a Instrução CVM nº 489, de 14 de janeiro de 2011 e suas alterações; Investidor Profissional: são os investidores profissionais, conforme definidos na Resolução CVM 30; Investidor Qualificado: são os investidores qualificados, conforme definidos na Resolução CVM 30;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado no regulamento",
+   "sources": []
+  },
+  "servicer": {
+   "display": "Maree Instituição de Pagamento (cobrança ordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 27,
+     "clause": "Suplemento, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "de a agência classificadora de risco das Cotas quando emitidas Classificação de Risco: pelo FUNDO; Agente de Cobrança: é a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA., responsável pela cobrança ordinária dos Direitos Creditórios; Arranjo de Pagamento: é o conjunto de regras e procedimentos estabelecidos pela Bandeira que disciplina a prestação de determinado serviço de pagamento ao público, tais como as atividades de emissão de Instrumentos de Pagamento e o credenciamento de Estabelecimentos, bem como define o uso de padrões operacionais e de segurança associados a essas atividades, nos termos da legislação aplicável, em especial a Lei 12.865/13, a Resolução CMN 4.282/13 e a Resolução BACEN 80/21; Ativos Financeiros: ativos financeiros que poderão integrar a carteira da Classe, conforme definidos no item 5.14 deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados e profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 27,
+     "clause": "Suplemento, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "IMITADA I – DO PÚBLICO-ALVO E DA RESPONSABILIDADE DOS COTISTAS 1.1. A Classe única de Cotas do FUNDO destina-se exclusivamente a Investidores Qualificados e/ou Investidores Profissionais, observado os termos da regulamentação aplicável. 1.2. A responsabilidade dos Cotistas é limitada e está circunscrita ao valor por eles subscrito. II – DO REGIME DA CLASSE 2.1. Esta Classe é constituída sob a forma de regime fechado. III – DO PRAZO DE DURAÇÃO 3.1. O prazo de duração desta Classe é indeterminado. IV – DAS DEFINIÇÕES 4.1. Os termos e expressões previstos neste Anexo, indicados em letra maiúscula, no singular ou no plural, terão os significados a seguir atribuídos e se sobrepõem e prevalecem em relação às definições previstas na Parte Geral do Regulamento: Agência de a agência classificadora de risco das Cotas quando emitidas Classificação de Risco: pelo FUNDO; Agente de Cobrança: é a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA., responsável pela cobrança ordinária dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; qualificados/profissionais; responsabilidade limitada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1310906",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2026",
+     "page": 27,
+     "clause": "Suplemento, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1310906",
+     "excerpt": "Esta Classe é constituída sob a forma de regime fechado. III – DO PRAZO DE DURAÇÃO 3.1. O prazo de duração desta Classe é indeterminado. IV – DAS DEFINIÇÕES 4.1. Os termos e expressões previstos neste Anexo, indicados em letra maiúscula, no singular ou no plural, terão os significados a seguir atribuídos e se sobrepõem e prevalecem em relação às definições previstas na Parte Geral do Regulamento: Agência de a agência classificadora de risco das Cotas quando emitidas Classificação de Risco: pelo FUNDO; Agente de Cobrança: é a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA., responsável pela cobrança ordinária dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; qualificados/profissionais; responsabilidade limitada",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Crédito pessoal e recebíveis de cartão da Maree em cotas pari passu; por devedor até 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

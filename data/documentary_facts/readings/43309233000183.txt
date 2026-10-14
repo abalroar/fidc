@@ -1,0 +1,54 @@
+# FIDC Liverpool (Oliveira Trust; Farmtech Gestão; Adama e distribuidores)
+type: Agro/FIAGRO
+q1: * "“Cedentes” Significa (i) a Adama, cujas cessões não contarão com coobrigação"
+q2: * "“Originador” Significa a Adama e/ou qualquer outro originador indicado pelo Gestor"
+q3: * "“Devedores” Significam (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas"
+q4: * "4.17. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade"
+q5: * "r de face dos Direitos Creditórios devidos de um mesmo Devedor, considerado individualmente, não poderá representar concentração superior a 3%"
+q6: * "Relação Mínima” Significa a razão entre (i) o Patrimônio Líquido do Fundo; e (ii) o valor total das Cotas Seniores"
+q7: * "o Administrador cobrará os valores abaixo descritos pelos serviços de administração do Fundo"
+q8: * "O Gestor cobrará o valor correspondente a 0,8% (oito décimos por cento) ao ano"
+q9: * "“Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Gestor” Significa a FARMTECH GESTÃO DE RECURSOS LTDA."
+q11: * "“Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima"
+q12: * "4.33. Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência"
+q13: * "são considerados Eventos de Liquidação Antecipada do Fundo qualquer"
+q14: * "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador"
+q15: * "O público-alvo da Classe Única é composto exclusivamente por Investidores Profissionais"
+q16: * "A Classe Única terá prazo de duração indeterminado, sendo que cada série de Cotas"
+q17: * "observado o mínimo mensal de R$ 9.000,00 (nove mil reais): (a) 0,065%"
+q18: * "cobrança de qualquer taxa de performance"
+receivables: Agro: CPR-F, CDCA, créditos Adama e de distribuidores de insumos | o1
+originator: Adama (insumos agrícolas) e originadores aprovados em assembleia | q2
+assignor: Adama (sem coobrigação) e distribuidores indicados (com coobrigação) | q1
+debtor: Produtores rurais (PF/PJ), cooperativas e distribuidores | q3
+recourse: Adama sem coobrigação; distribuidores sempre com coobrigação | q1
+eligibility: Não vencidos; valor determinado; devedor adimplente; devedor ≤ 3% do PL | q4,q5
+debtor_limit: Devedor ≤ 3% do PL, individual e por grupo econômico | q5
+assignor_limit: Não previsto | Regulamento limita por devedor, não por cedente
+term_max: n/d | Prazo máximo dos créditos não localizado no texto extraído
+allocation: ≥ 50% do PL em direitos elegíveis | o27 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q6
+sub_senior: PL/sênior ≥ 117,64% | q6 | basis=PL/sr | value=117.64
+sub_mezz: n/d | Percentuais por subclasse não localizados no texto extraído
+sub_check: Relação mínima apurada até o resgate total da sênior | q6
+reserve: Reserva de liquidez ≥ 1% do PL; reforço antes dos pagamentos | o41
+pdd: Manual de provisão para perdas da administradora | q14
+eval_triggers: Obrigação do originador sem cura em 5 DU; aquisições irregulares ≥ 2% do PL | o47
+liquidation: Lista do anexo, inclusive remuneração sênior em atraso | q13
+revolving: Revolvência admitida, pela ordem de alocação | q12
+amortization: n/d | Metas e datas remetidas aos apêndices das séries | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,13% a.a. até R$ 200 mi, regressiva; mín. R$ 18 mil/mês (+ custódia) | q7
+mgmt_fee: 0,8% a.a. do PL; mín. R$ 200 mil/mês | q8
+perf_fee: Não prevista | Regulamento veda taxa de performance | q18
+target_senior: n/d | Sobretaxas por série em apêndices não preenchidos no acervo | why=Resposta anterior também não encontrou o spread final
+target_mezz: n/d | Sobretaxas por série em apêndices não preenchidos no acervo | why=Resposta anterior também não encontrou o spread final
+administrator: Oliveira Trust DTVM | q9
+manager: Farmtech Gestão de Recursos | q10
+custodian: Oliveira Trust DTVM (0,065% a.a.; mín. R$ 9 mil/mês) | q11,q17
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais | q15
+duration: Indeterminado; prazo próprio por série | q16
+agro_backing: CPR-F, CDCA e vendas de insumos Adama e distribuidores | o1
+collateral: n/d | Garantias dos títulos não descritas no texto extraído
+leitura: Crédito agro da Adama e distribuidores com PL/sênior ≥ 117,64% e devedor ≤ 3%; gestão de 0,8% a.a. (mín. R$ 200 mil).

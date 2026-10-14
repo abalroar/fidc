@@ -1,0 +1,817 @@
+{
+ "schema_version": 1,
+ "cnpj": "57131490000182",
+ "name": "PONTO RURAL FIAGRO RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T01:07:59Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1028766",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "05/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766"
+  },
+  "D2": {
+   "document_id": "1069272",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "22/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069272"
+  },
+  "D3": {
+   "document_id": "1061210",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "26/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061210"
+  },
+  "D4": {
+   "document_id": "1057549",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "09/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1057549"
+  },
+  "D5": {
+   "document_id": "1044555",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "18/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044555"
+  },
+  "D6": {
+   "document_id": "995970",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "23/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995970"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Títulos das cadeias agroindustriais vendidos pela Ponto Rural",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "995970",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/09/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995970",
+     "excerpt": "“Direitos Creditórios” significa os direitos creditórios decorrentes de um Título e que sejam transferidos por um Cedente ao Fundo, vinculados às cadeias produtivas agroindustriais. “Disponibilidades” são, em conjunto: (a) recursos em caixa; (b) depósitos bancários à vista; e (c) Ativos Financeiros."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "” significa a carteira de investimentos da Classe, composta por Ativos. “Cedente” significa a Ponto Rural e as Empresas do Grupo Econômico da Ponto Rural, quando mencionadas em conjunto. “Classe” significa a CLASSE ÚNICA DO PONTO RURAL FIAGRO RESPONSABILIDADE LIMITADA, conforme características descritas no Anexo Descritivo. “CNPJ” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Código Civil” significa a Lei n.º 10.406, de 10 de janeiro de 2002, conforme em vigor. “Código de Processo Civil” significa a Lei n.º 13.105, de 16 de março de 2015, conforme em vigor. “Condições de Aquisição” significa as condições de aquisição dos Direitos Creditórios prevista na Cláusula 9.2 do Anexo Descritivo, a serem verificados pela Gestora previamente a cada aquisição de Direitos Creditórios pelo Fundo e/ou pela Classe. “Conta da Clas"
+    }
+   ],
+   "legacy": {
+    "value": "Títulos ligados às cadeias agroindustriais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Ponto Rural e empresas do grupo",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "” significa a carteira de investimentos da Classe, composta por Ativos. “Cedente” significa a Ponto Rural e as Empresas do Grupo Econômico da Ponto Rural, quando mencionadas em conjunto. “Classe” significa a CLASSE ÚNICA DO PONTO RURAL FIAGRO RESPONSABILIDADE LIMITADA, conforme características descritas no Anexo Descritivo. “CNPJ” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Código Civil” significa a Lei n.º 10.406, de 10 de janeiro de 2002, conforme em vigor. “Código de Processo Civil” significa a Lei n.º 13.105, de 16 de março de 2015, conforme em vigor. “Condições de Aquisição” significa as condições de aquisição dos Direitos Creditórios prevista na Cláusula 9.2 do Anexo Descritivo, a serem verificados pela Gestora previamente a cada aquisição de Direitos Creditórios pelo Fundo e/ou pela Classe. “Conta da Clas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Ponto Rural e empresas do grupo econômico",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "” significa a carteira de investimentos da Classe, composta por Ativos. “Cedente” significa a Ponto Rural e as Empresas do Grupo Econômico da Ponto Rural, quando mencionadas em conjunto. “Classe” significa a CLASSE ÚNICA DO PONTO RURAL FIAGRO RESPONSABILIDADE LIMITADA, conforme características descritas no Anexo Descritivo. “CNPJ” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Código Civil” significa a Lei n.º 10.406, de 10 de janeiro de 2002, conforme em vigor. “Código de Processo Civil” significa a Lei n.º 13.105, de 16 de março de 2015, conforme em vigor. “Condições de Aquisição” significa as condições de aquisição dos Direitos Creditórios prevista na Cláusula 9.2 do Anexo Descritivo, a serem verificados pela Gestora previamente a cada aquisição de Direitos Creditórios pelo Fundo e/ou pela Classe. “Conta da Clas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Clientes das cedentes no agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "Monitoramento, qual seja, 5º (quinto) Dia Útil de cada mês. “Devedores” significa os devedores dos Direitos Creditórios, os quais são clientes de uma das Cedentes. “Dia Útil” significa qualquer dia da semana, exceto sábados, domingos e feriados declarados nacionais ou dias em que não haja expediente da B3. “Direitos Creditórios” significa os direitos creditórios decorrentes de um Título e que sejam transferidos por um Cedente ao Fundo, vinculados às cadeias produtivas agroindustriais. “Disponibilidades” são, em conjunto: (a) recursos em caixa; (b) depósitos bancários à vista;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra obrigatória e facultativa reguladas no contrato",
+   "sources": [],
+   "legacy": {
+    "value": "Cessão irrevogável; recompra obrigatória/facultativa>15% PL gera avaliação com janelas 3/12 meses",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Título ≥ R$ 100; em reais; não vencido; prazo ≤ 360 dias; sem contestação",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 44,
+     "clause": "cl. 9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "no Patrimônio Líquido do Dia Útil imediatamente anterior. 9. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE AQUISIÇÃO 9.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificadas pela Gestora: (a) sejam representados por Títulos com valor nominal mínimo de R$ 100,00 (cem reais); (b) sejam representados em moeda corrente nacional e passíveis de registro contábil; (c) não estarem vencidos e pendentes de pagamento na Data de Aquisição e Pagamento. (d) não terem prazo de vencimento superior a 360 (trezentos e sessenta) dias; (e) que sejam oriundos de relações jurídicas havidas entre as Cedentes e os Devedores; (f) que não sejam objeto de contestação pelo respectivo Devedor, conforme declaração nesse sentido entregue pelo Cedente; (g) na Data da Aquisição e Pagamento o respectivo Devedor não pode apresentar qualquer valor em atraso com o Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos≥R$ 100 e prazo≤360 dias; sem contestação ou atraso; restrição crédito≤R$ 5 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, cl. 9"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por rating interno: A ≤ 3,5% do PL, B ≤ 3%, C ≤ 1%, D ≤ 0,5%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 44,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "ndo; (h) a soma do saldo devedor dos Direitos Creditórios do mesmo Devedor e/ou de suas partes relacionadas, observará a seguinte concentração máxima por rating atribuído pela Gestora ao respectivo Devedor, nos termos da política de concessão de crédito da Cedente prevista no Contrato de Transferência: Rating Devedor Concentração Máxima A 3,5% B 3% C 1% D 0,5% E 0% (i) os Devedores não poderão apresentar apontamento(s) negativo(s) de crédito superior(es) a R$5.000,00 (cinco mil reais) em órgãos de proteção ao crédito; (j) os Direitos Creditórios Adquiridos não poderão ter prazo de vencimento superior a 44 60 (sessenta) dias anteriores ao Vencimento Esperado da série de Cota Sênior de maior duração. 9.2."
+    },
+    {
+     "doc": "D6",
+     "document_id": "995970",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/09/2025",
+     "page": 44,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995970",
+     "excerpt": "A 3,5% B 3% C 1% D 0,5% E 0% (i) os Devedores não poderão apresentar apontamento(s) negativo(s) de crédito superior(es) a R$5.000,00 (cinco mil reais) em órgãos de proteção ao crédito;"
+    }
+   ],
+   "value": 3.5,
+   "legacy": {
+    "value": "Por rating interno do devedor: A 3,5%;B 3%;C 1%;D 0,5%;E vedado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedentes do grupo Ponto Rural, sem limite por cedente",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "” significa a carteira de investimentos da Classe, composta por Ativos. “Cedente” significa a Ponto Rural e as Empresas do Grupo Econômico da Ponto Rural, quando mencionadas em conjunto. “Classe” significa a CLASSE ÚNICA DO PONTO RURAL FIAGRO RESPONSABILIDADE LIMITADA, conforme características descritas no Anexo Descritivo. “CNPJ” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Código Civil” significa a Lei n.º 10.406, de 10 de janeiro de 2002, conforme em vigor. “Código de Processo Civil” significa a Lei n.º 13.105, de 16 de março de 2015, conforme em vigor. “Condições de Aquisição” significa as condições de aquisição dos Direitos Creditórios prevista na Cláusula 9.2 do Anexo Descritivo, a serem verificados pela Gestora previamente a cada aquisição de Direitos Creditórios pelo Fundo e/ou pela Classe. “Conta da Clas"
+    }
+   ],
+   "legacy": {
+    "value": "Por rating interno do devedor: A 3,5%;B 3%;C 1%;D 0,5%;E vedado",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, p. 4"
+   }
+  },
+  "term_max": {
+   "display": "Até 360 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 44,
+     "clause": "cl. 9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "no Patrimônio Líquido do Dia Útil imediatamente anterior. 9. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE AQUISIÇÃO 9.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificadas pela Gestora: (a) sejam representados por Títulos com valor nominal mínimo de R$ 100,00 (cem reais); (b) sejam representados em moeda corrente nacional e passíveis de registro contábil; (c) não estarem vencidos e pendentes de pagamento na Data de Aquisição e Pagamento. (d) não terem prazo de vencimento superior a 360 (trezentos e sessenta) dias; (e) que sejam oriundos de relações jurídicas havidas entre as Cedentes e os Devedores; (f) que não sejam objeto de contestação pelo respectivo Devedor, conforme declaração nesse sentido entregue pelo Cedente; (g) na Data da Aquisição e Pagamento o respectivo Devedor não pode apresentar qualquer valor em atraso com o Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos≥R$ 100 e prazo≤360 dias; sem contestação ou atraso; restrição crédito≤R$ 5 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, cl. 9"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 42,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "relacionados aos referidos Direitos Creditórios. 8.3. Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 8.4. Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita a limites de concentração de sua carteira por Devedor, emissor ou tipo de Direito Creditório, nos termos das disposições legais e regulatórias aplicáveis, sem prejuízo do disposto na Cláusula 8.3 acima. 8.5. As aquisições de Direitos Creditórios pela Classe serão realizadas em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 8.6. Na aquisição dos Direitos Creditórios, a Gestora deverá verificar se todos os Documentos Comprobatórios compreendem todos os documentos necessários para protesto, cobrança ou execução judicial dos Direitos Creditórios adquiridos, nos termos da regulamentação aplicável, sem prejuízo da análise conjunta com a Administradora, em razão de suas obrigações acessórias à aquisição dos Direitos Creditórios. 8.7. Os processos de originação dos Direitos Creditórios adquiridos encontram-se descritos na Cláusula 6 da Parte Geral. 8.8. A Gestora é responsável pela análise, seleção e aquisição dos Direitos Creditórios. 8.9."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios>50% PL em até 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, cl. 8.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino 1 e 2 / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 39,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "ção Sênior será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe. Isso significa que, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 5.2. O Índice de Subordinação Mezanino 1 será a relação mínima a ser observada entre o (a) valor das Cotas Subordinadas Júnior acrescido do valor das Cotas Subordinadas Mezanino 2, e (b) o Patrimônio Líquido da Classe. Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Mezanino 2 e Cotas Subordinadas Júnior em circulação. 5.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os Cotistas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula 5.3 acima. 5.5."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 39,
+     "clause": "cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "s Cotas Subordinadas Júnior acrescido do valor das Cotas Subordinadas Mezanino 2, e (b) o Patrimônio Líquido da Classe. Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Mezanino 2 e Cotas Subordinadas Júnior em circulação. 5.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os Cotistas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula 5.3 acima. 5.5. Caso os Índices de Subordinação não sejam reenquadrados em até 10 (dez) Dias Úteis da comunicação prevista na Cláusula 5.4 acima, será configurado um Evento de Avaliação. 39 6. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO 6.1."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL≥50%; (júnior+mezanino 2) / PL≥10% para mezanino 1",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, cl. 5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 39,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "ção Sênior será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe. Isso significa que, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 5.2. O Índice de Subordinação Mezanino 1 será a relação mínima a ser observada entre o (a) valor das Cotas Subordinadas Júnior acrescido do valor das Cotas Subordinadas Mezanino 2, e (b) o Patrimônio Líquido da Classe. Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Mezanino 2 e Cotas Subordinadas Júnior em circulação. 5.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os Cotistas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula 5.3 acima. 5.5."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Subordinadas / PL≥50%; (júnior+mezanino 2) / PL≥10% para mezanino 1",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, cl. 5.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mez. 2 + júnior ≥ 10% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 39,
+     "clause": "cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "s Cotas Subordinadas Júnior acrescido do valor das Cotas Subordinadas Mezanino 2, e (b) o Patrimônio Líquido da Classe. Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Mezanino 2 e Cotas Subordinadas Júnior em circulação. 5.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os Cotistas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula 5.3 acima. 5.5. Caso os Índices de Subordinação não sejam reenquadrados em até 10 (dez) Dias Úteis da comunicação prevista na Cláusula 5.4 acima, será configurado um Evento de Avaliação. 39 6. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO 6.1."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 39,
+     "clause": "cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "s Cotas Subordinadas Júnior acrescido do valor das Cotas Subordinadas Mezanino 2, e (b) o Patrimônio Líquido da Classe. Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas Mezanino 2 e Cotas Subordinadas Júnior em circulação. 5.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os Cotistas serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula 5.3 acima. 5.5. Caso os Índices de Subordinação não sejam reenquadrados em até 10 (dez) Dias Úteis da comunicação prevista na Cláusula 5.4 acima, será configurado um Evento de Avaliação. 39 6. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO 6.1."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL≥50%; (júnior+mezanino 2) / PL≥10% para mezanino 1",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, cl. 5.2"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para despesas; reserva de pagamento de amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "Parte Geral, o Anexo Descritivo, os Apêndices e os Suplementos para todos os fins. “Reserva de Caixa” significa a reserva para pagamento de despesas e encargos da Classe e/ou do Fundo, prevista na Cláusula 11.1 do Anexo Descritivo. “Reserva de Pagamento de significa a reserva para pagamento de amortizações Amortização” e/ou resgates de Cotas, prevista na Cláusula 11.1 do Anexo Descritivo. “Resolução CVM 30” significa a Resolução CVM nº 30, de 11 de maio de 2021, conforme em vigor. “Resolução CVM 39” significa a Resolução CVM nº 39, de 13 de julho de 2021, conforme em vigor. “Resolução CVM 160” significa a Resolução da CVM n.º 160, de 13 de julho de 2022, conforme em vigor. “Resolução CVM 175” significa a Resolução CVM nº 175, de 23 de dezembro 10 de 2022, conforme em vigor. “SCR” significa o Sistema de Informações de Créditos do BACEN. “Subclasse"
+    }
+   ],
+   "legacy": {
+    "value": "6 meses de despesas;100% da próxima amortização, com vencimento dos ativos≥D-30",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, p. 10"
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução ao valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 23,
+     "clause": "cl. 11.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "re que houver evidência de redução no valor recuperável dos Ativos da Classe, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 11.8. Os Direitos Creditórios adquiridos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 11.9. É obrigatória a divulgação, em notas explicativas às demonstrações contábeis anuais do Fundo e/ou da Classe, de informações que abranjam, no mínimo, (i) o montante, a natureza e as faixas de vencimento dos Ativos integrantes da carteira da Classe, caso aplicável, (ii) o mercado dos Ativos, segregados por tipo de Ativo, e (iii) os parâmetros utilizados na determinação desses valores. 12. DAS DESPESAS E ENCARGOS DO FUNDO 12.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Atrasos 31–360 > 25%, 61–360 > 15%, 91–360 > 5%, 181–360 > 3%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 49,
+     "clause": "cl. 11.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "em verificados para os Índices de Monitoramento descritos no item 11.5 acima. O atingimento de quaisquer desses valores no último Dia Útil de qualquer mês ensejará a ocorrência de um Evento de Avaliação: (a) Caso o Índice de Atraso (31-360 dias) seja superior a 25% (vinte e cinco por cento); (b) Caso o Índice de Atraso (61-360 dias) seja superior a 15% (quinze por cento); (c) Caso o Índice de Atraso (91-360 dias) seja superior a 5% (cinco por cento); (d) Caso o Índice de Atraso (181-360 dias) seja superior a 3% (três por cento); (e) Caso o Índice de Recompra Obrigatória seja superior a 15% (quinze por cento); (f) Caso o Índice de Recompra Facultativa seja superior a 15% (quinze por cento); (g) Caso o Índice de Pagamentos Incorretos seja superior a 20% (vinte por cento). 11.7. A Administradora e a Gestora serão responsáveis por controlar o cumprimento dos Índices de Monitoramento, de acordo com as responsabilidades descritas nos itens 11.5.1 e 11.5.2 acima. 49 12. DA RESPONSABILIDADE DOS COTISTAS E PATRIMÔNIO LÍQUIDO NEGATIVO 12.1. Esta Classe adota para seus Cotistas o regime de responsabilidade limitada ao valor das Cotas subscritas, nos termos do artigo 18 da Resolução CVM 175. 12.2."
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: atrasos 31–360>25%,61–360>15%,91–360>5%,181–360>3%; denominador PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Avaliação: atrasos 31–360>25%,61–360>15%,91–360>5%,181–360>3%; denominador PL",
+    "decision": "regression",
+    "why": "Resposta anterior lista eventos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com caixa de pagamentos, se atendidos os critérios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 46,
+     "clause": "cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "dores, das sociedades por elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum. 9.4. Revolvência. Na hipótese em que a Classe tiver disponibilidade de caixa em razão de pagamento total ou parcial de Direitos Creditórios, e atendidos os Critérios de Elegibilidade e as Condições de Aquisição, a Classe poderá utilizar tais recursos para a compra de novos Direitos Creditórios. 10. ORDEM DE ALOCAÇÃO DOS RECURSOS 10.1. A partir da 1ª Data de Integralização e até a liquidação da Classe, a Administradora deverá, em todo Dia Útil, por meio dos competentes débitos e créditos realizados na Conta da Classe, se houver, alocar os recursos decorrentes da integralização de Cotas e do recebimento de recursos provenientes da carteira da Classe, bem como aqueles correspondentes ao valor agregado dos Ativos Financeiros integrantes da carteira da Classe, na seguinte ordem, conforme aplicável: (a) pagamento de despesas e encargos de responsabilidade da Classe e/ou do Fundo, devidos nos termos deste Regulamento e da legislação aplicável; (b) constituição e/ou recomposição da Reserva de Caixa e da Reserva de Pagamento de Amortização;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. até R$ 100 mi; 0,15% acima; mínimos escalonados de R$ 6 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 40,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "oladoria, custódia e escrituração prestados pela Administradora; e Mês Taxa (% a.a.) (base 252 Dias Úteis) Mínimo Mensal 1º mês 0,20% do Patrimônio Líquido R$6.000,00 2º mês 0,20% do Patrimônio Líquido R$8.000,00 3º mês 0,20% do Patrimônio Líquido R$10.000,00 (i) 0,20% do Patrimônio Líquido, caso o Patrimônio Líquido do Fundo seja de até R$100.000.000,00; ou A partir do R$16.500,00 4º mês (ii) 0,15% do Patrimônio Líquido, caso o Patrimônio Líquido do Fundo seja acima de R$100.000.000,00 (b) Taxa de Gestão: o valor correspondente a 0,65% (sessenta e cinco centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$15.000,00 (quinze mil reais), atualizado pela variação positiva do IPCA a cada período de 12 (doze) meses, sendo que a Taxa de Gestão inclui os serviços de gestão pela Gestora. 6.1.1."
+    },
+    {
+     "doc": "D6",
+     "document_id": "995970",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/09/2025",
+     "page": 40,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995970",
+     "excerpt": "1º mês 0,20% do Patrimônio Líquido R$6.000,00 2º mês 0,20% do Patrimônio Líquido R$8.000,00 3º mês 0,20% do Patrimônio Líquido R$10.000,00 (i) 0,20% do Patrimônio Líquido, caso o Patrimônio Líquido do Fundo seja de até R$100.000.000,00; ou A partir do R$16."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a.PL atéR$ 100 mi;0,15% acima após 4º mês; mínimos R$ 6/8/10 mil e R$ 16,5 mil após",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/11/2025, cl. 6.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,65% a.a. do PL; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 40,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "nio Líquido, caso o Patrimônio Líquido do Fundo seja acima de R$100.000.000,00 (b) Taxa de Gestão: o valor correspondente a 0,65% (sessenta e cinco centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$15.000,00 (quinze mil reais), atualizado pela variação positiva do IPCA a cada período de 12 (doze) meses, sendo que a Taxa de Gestão inclui os serviços de gestão pela Gestora. 6.1.1. Na hipótese de extinção do IPCA, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 6.1.2. A Taxa de Administração e a Taxa de Gestão serão calculadas e provisionadas todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 6.1.3."
+    },
+    {
+     "doc": "D6",
+     "document_id": "995970",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/09/2025",
+     "page": 40,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995970",
+     "excerpt": "(b) Taxa de Gestão: o valor correspondente a 0,65% (sessenta e cinco centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$15.000,00 (quinze mil reais), atualizado pela variação positiva do IPCA a cada período de 12 (doze) meses, sendo que a Taxa de Gestão inclui os serviços de gestão pela Gestora. 6.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,65% a.a. PL; mínimo R$ 15 mil/mês; cobrança incluída",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 41,
+     "clause": "cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "erviços de agente de cobrança a ser prestado ao Fundo já está contemplada na Taxa de Gestão. 6.3. Não serão cobradas dos Cotistas taxa de ingresso ou de saída da Classe ou taxa de performance. 6.4. Tendo em vista que a Classe não conta com distribuidores das Cotas que atuem de forma contínua, o Anexo Descritivo não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE. A remuneração dos distribuidores que sejam contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos das respectivas ofertas, conforme previsto na Resolução CVM 160. 7. ORIGEM DOS DIREITOS CREDITÓRIOS E POLÍTICA DE CONCESSÃO DE CRÉDITO 7.1. A Classe é uma comunhão de recursos destinada, preponderantemente, à aquisição de Direitos Creditórios. 7.2. Os Direitos Creditórios serão adquiridos pela Classe sempre de acordo com a Política de Investimentos e desde que cumprindo integralmente os Critérios de Elegibilidade, as Condições de Aquisição e os demais critérios de composição de Carteira estabelecidos neste Anexo Descritivo e na regulamentação aplicável. 7.3. Os Direitos Creditórios serão originados caso a caso, observando a Política de Crédito e a Política de Investimento. 8."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Apêndice da série sênior não está no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Apêndice da série mezanino não está no acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "ação” significa a data da 1ª (primeira) integralização de Cotas da Classe. “Administradora” significa a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Cidade de São Paulo, Estado de São Paulo, Avenida Rebouças, nº 2.942 – 7º ao 12º andar – Parte I – Pinheiros – CEP: 05402-500, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou sua sucessora a qualquer título. “Agência de Classificação de significa a agência de classificação de risco que Risco” poderá ser contratada pela Gestora, em nome do Fundo, para realizar a avaliação de risco das Cotas, nos termos dispostos neste Regulamento. “Agente de Cobrança”"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "FAR – Fator Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "significa o PONTO RURAL FIAGRO RESPONSABILIDADE LIMITADA. “Gestora” significa a FAR – FATOR ADMINISTRAÇÃO DE RECURSOS LTDA, sociedade limitada, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Dr. Renato Paes de Barros, 1.017, 12º andar, Itaim Bibi, inscrito no CNPJ sob o nº 01.861.016/0001-51, autorizada à prestação dos serviços de administração 7 de carteira de títulos e valores mobiliários de acordo com o Ato Declaratório nº 4.407, de 18 de julho de 1997. “Índices de Monitoramento” significam os índices de monitoramento a serem verificados nas Datas de Verificação pela Administradora e/ou pela Gestora, conforme o caso, nos termos do Capítulo 11 do Anexo Descritivo. “Índice de Referência” significa a meta de valorização de cada Subclasse,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Singulare CTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "o Fundo e/ou pela Classe. 5 “Custodiante” significa a Administradora. “CVM” significa a Comissão de Valores Mobiliários. “Data de Início da Amortização significa a data de início amortização extraordinária Extraordinária Obrigatória” obrigatória indicada no respectivo apêndice das Cotas Seniores, das Cotas Subordinadas Mezanino 1, das Cotas Subordinadas Mezanino 2 e das Cotas Subordinadas Júnior, a partir da qual será iniciada, mensalmente, no último Dia Útil de cada mês, a Amortização Extraordinária Obrigatória da respectiva Subclasse de Cotas. “Data de Aquisição e significa a data em que a Classe efetua o pagamento Pagamento” pela aquisição dos Direitos Creditórios, em moeda corrente nacional e/ou em outras contrapartidas definidas no respectivo Contrato de Transferência e/ou no Termo de"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "ação” significa a data da 1ª (primeira) integralização de Cotas da Classe. “Administradora” significa a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Cidade de São Paulo, Estado de São Paulo, Avenida Rebouças, nº 2.942 – 7º ao 12º andar – Parte I – Pinheiros – CEP: 05402-500, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou sua sucessora a qualquer título. “Agência de Classificação de significa a agência de classificação de risco que Risco” poderá ser contratada pela Gestora, em nome do Fundo, para realizar a avaliação de risco das Cotas, nos termos dispostos neste Regulamento. “Agente de Cobrança”"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 35,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": ", ou em virtude de liquidação da Classe, em conformidade com o disposto no Regulamento. 2. DO PÚBLICO-ALVO 2.1. A Classe é exclusivamente destinada a Investidores Profissionais. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada, a qualquer tempo, por deliberação da Assembleia de Cotistas em conformidade com o disposto no Regulamento e neste Anexo Descritivo. Cada emissão de Cotas, contudo, terá o prazo de duração previsto no respectivo Apêndice. 4. DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS 4.1. A Classe se divide nas seguintes Subclasses: (i) Cotas Seniores; (ii) Cotas Subordinadas Mezanino 1; (ii) Cotas Subordinadas Mezanino 2; e (iv) Cotas Subordinadas Júnior. 4.2. As Cotas Seniores são aquelas que não se subordinam às Cotas Subordinadas para efeito de amortização, resgate e distribuição dos rendimentos da carteira da Classe, nos termos do presente Regulamento e conforme particularidades descritas nos Apêndices. 4.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 35,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "O 2.1. A Classe é exclusivamente destinada a Investidores Profissionais. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada, a qualquer tempo, por deliberação da Assembleia de Cotistas em conformidade com o disposto no Regulamento e neste Anexo Descritivo. Cada emissão de Cotas, contudo, terá o prazo de duração previsto no respectivo Apêndice. 4. DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS 4.1. A Classe se divide nas seguintes Subclasses: (i) Cotas Seniores; (ii) Cotas Subordinadas Mezanino 1; (ii) Cotas Subordinadas Mezanino 2; e (iv) Cotas Subordinadas Júnior. 4.2. As Cotas Seniores são aquelas que não se subordinam às Cotas Subordinadas para efeito de amortização, resgate e distribuição dos rendimentos da carteira da Classe, nos termos do presente Regulamento e conforme particularidades descritas nos Apêndices. 4.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Vendas de insumos e produtos da Ponto Rural a clientes do agro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "” significa a carteira de investimentos da Classe, composta por Ativos. “Cedente” significa a Ponto Rural e as Empresas do Grupo Econômico da Ponto Rural, quando mencionadas em conjunto. “Classe” significa a CLASSE ÚNICA DO PONTO RURAL FIAGRO RESPONSABILIDADE LIMITADA, conforme características descritas no Anexo Descritivo. “CNPJ” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Código Civil” significa a Lei n.º 10.406, de 10 de janeiro de 2002, conforme em vigor. “Código de Processo Civil” significa a Lei n.º 13.105, de 16 de março de 2015, conforme em vigor. “Condições de Aquisição” significa as condições de aquisição dos Direitos Creditórios prevista na Cláusula 9.2 do Anexo Descritivo, a serem verificados pela Gestora previamente a cada aquisição de Direitos Creditórios pelo Fundo e/ou pela Classe. “Conta da Clas"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1028766",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/11/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028766",
+     "excerpt": "Monitoramento, qual seja, 5º (quinto) Dia Útil de cada mês. “Devedores” significa os devedores dos Direitos Creditórios, os quais são clientes de uma das Cedentes. “Dia Útil” significa qualquer dia da semana, exceto sábados, domingos e feriados declarados nacionais ou dias em que não haja expediente da B3. “Direitos Creditórios” significa os direitos creditórios decorrentes de um Título e que sejam transferidos por um Cedente ao Fundo, vinculados às cadeias produtivas agroindustriais. “Disponibilidades” são, em conjunto: (a) recursos em caixa; (b) depósitos bancários à vista;"
+    }
+   ],
+   "legacy": {
+    "value": "Títulos ligados às cadeias agroindustriais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas no texto extraído",
+   "sources": []
+  }
+ },
+ "leitura": "Recebíveis agro do grupo Ponto Rural com 50% de subordinação e limites por rating (A ≤ 3,5% do PL).",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

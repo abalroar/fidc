@@ -1,0 +1,56 @@
+# portado de 51554551000138 (58291962000127)
+type: Agro/FIAGRO
+q22: * "“Reserva de Despesas” A reserva a ser constituída, em valor aproximado equivalente 12 (doze) meses"
+q21: * "o Gestor cobrará, pelos serviços de gestão profissional da Carteira, o valor correspondente a 0,25%"
+q20: * "A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,18%"
+q19: * "mínimo de vencimento de 30 (trinta) dias, contados da Data de Aquisição"
+q1: * "“Cedente” Significa a HELM DO BRASIL MERCANTIL LTDA."
+q2: * "“Devedores” Significa qualquer cliente da Cedente cujos Direitos Creditórios venham a ser cedidos ao Fundo"
+q3: * "com as demais integrantes do seu Grupo Econômico), devem estar limitados a 3% (três por cento) do Patrimônio Líquido da Classe"
+q4: * "os Direitos Creditórios não poderão estar do Agente de Formalização e do Administrador vencidos"
+q5: * "Índice de Subordinação deverá corresponder a, no mínimo, 20%"
+q7: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q8: * "Devedor Especial (considerado em conjunto com as demais integrantes do seu Grupo Econômico) conforme Anexo I do Acordo Operacional, devem estar limitados a 10%"
+q10: * "“Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q11: * "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA."
+q12: * "“Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada"
+q13: * "será destinada exclusivamente a Investidores Profissionais"
+q14: * "O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse"
+q15: id957853 "Sobretaxa Sênior: 2,00% (dois inteiros por cento)"
+q16: * "A Classe buscará atingir a Meta de Remuneração das Cotas Seniores, das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior"
+q17: * "pagamento da Meta de Amortização e Meta de Remuneração relativa às Cotas Subordinadas Mezanino em circulação"
+q18: * "Rio Grande do Sul, devem estar limitados a 30% (trinta por cento)"
+receivables: Vendas de insumos agropecuários da Helm, com lastro em notas fiscais | q1,q2
+originator: Helm do Brasil Mercantil (insumos agropecuários) | q1
+assignor: Helm do Brasil Mercantil (cedente única) | q1
+debtor: Clientes da Helm no agronegócio | q2
+recourse: n/d | Regime de coobrigação fica nos termos gerais de cessão, fora do texto lido
+eligibility: Não vencidos; prazo mínimo de 30 dias; taxa de desconto do contrato | q4,q19
+debtor_limit: Grupo ≤ 3% do PL; devedor especial ≤ 10%; Rio Grande do Sul ≤ 30% | q3,q8,q18
+assignor_limit: Cedente única (Helm) | q1
+term_max: Prazo mínimo de 30 dias; máximo não fixado no anexo | q19
+allocation: ≥ 67% do PL em direitos creditórios | o23 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q16,q17
+sub_senior: 20% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: n/d | Índice próprio da mezanino não localizado no anexo extraído
+sub_check: Índice de monitoramento apurado pelo gestor | q5
+reserve: Reserva de despesas de cerca de 12 meses de despesas ordinárias | q22
+pdd: Manual de PDD da administradora (perda esperada; efeito vagão) | q8
+eval_triggers: Não pagamento da sênior sem cura em 2 DU, entre outros | o39
+liquidation: Avaliação convertida; sênior sem remuneração após 2 DU, entre outros | q7
+revolving: n/d | Ordem de alocação não detalha recompra no texto extraído
+amortization: Ordem de alocação: sênior, mezanino e júnior pelas metas | q17
+admin_fee: 0,18% a.a. do PL; mín. R$ 18 mil/mês; inclui custódia | q20,o51
+mgmt_fee: 0,25% a.a. do PL; mín. R$ 20 mil/mês | q21,o54
+perf_fee: Não prevista | Anexo não prevê taxa de performance
+target_senior: DI + 2,00% a.a. (1ª série sênior) | q15
+target_mezz: n/d | Sobretaxa da mezanino definida em apêndice fora do acervo | q16 | why=Resposta anterior trata da série sênior, registrada na linha própria
+administrator: Vórtx DTVM | q10
+manager: Opea Gestora de Recursos | q11
+custodian: Vórtx DTVM | q12
+servicer: n/d | Agente de cobrança não nomeado no texto extraído
+investors: Investidores profissionais | q13
+duration: Indeterminado; prazo próprio por subclasse | q14
+agro_backing: Insumos agropecuários vendidos pela Helm | q1,q2
+collateral: n/d | Garantias dos recebíveis não descritas no anexo extraído
+leitura: Insumos agro da Helm com 20% de subordinação; grupo devedor ≤ 3% e Rio Grande do Sul ≤ 30% do PL.

@@ -1,0 +1,53 @@
+# Três Tentos FIAGRO (Oliveira Trust; Opea; cedentes Três Tentos e TentosCap)
+type: Agro/FIAGRO
+q18: * "TentosCap deverão representar até 30% (trinta por cento) do Patrimônio Líquido"
+q17: * "Grosso deverão representar até 50% (cinquenta por cento) do Patrimônio Líquido"
+q16: * "devem estar limitados a 3% (três por cento) do Patrimônio Líquido da Classe"
+q15: * "de até 365 (trezentos e sessenta e DE FORMALIZAÇÃO cinco) dias com base na Data de Aquisição"
+q14: * "ter data de vencimento de, pelo INFORMAÇÕES DO AGENTE menos, 30 (trinta) dias anteriores"
+q1: * "“Cedentes” Significam, quando referidas em conjunto, a Três Tentos e a TentosCap"
+q2: * "“Devedores” Significa qualquer cliente das Cedentes, atuantes no segmento"
+q3: * "“Índice de Subordinação” significa a razão entre o valor total das Cotas Seniores e o Patrimônio Líquido"
+q5: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q6: * "“Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q7: * "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA."
+q8: * "“Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima"
+q9: * "O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse"
+q10: * "A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores, para as Cotas Subordinadas Mezanino e para as Cotas Subordinadas Júnior"
+q11: * "A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,2%"
+q12: * "o Gestor cobrará, pelos serviços de gestão profissional da Carteira, o valor correspondente a 0,25%"
+q13: * "Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores Autorizados"
+receivables: Créditos das cedentes, incluindo CPR e notas fiscais do agronegócio | o1
+originator: Três Tentos e TentosCap | q1
+assignor: Três Tentos e TentosCap | q1
+debtor: Clientes das cedentes no agronegócio | q2
+recourse: n/d | Recompra e resolução regidas pelo contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Prazo de 10 a 365 dias; vence 30 dias antes do resgate sênior; adimplente | q14,q15
+debtor_limit: Grupo ≤ 3% do PL; Mato Grosso ≤ 50%; TentosCap ≤ 30% | q16,q17,q18
+assignor_limit: Originação TentosCap ≤ 30% do PL | q18
+term_max: De 10 a 365 dias | q15
+allocation: ≥ 67% do PL em direitos creditórios | o24 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q10
+sub_senior: Sênior ≤ 80% do PL | q3 | basis=mez+jr/PL | value=20
+sub_mezz: n/d | Índice próprio da mezanino não localizado no anexo extraído
+sub_check: Apuração pelo gestor; abaixo do mínimo veda novas aquisições | q3
+reserve: Reserva de liquidez de cerca de 10 meses de despesas ordinárias | o38
+pdd: n/d | Critério de provisão não localizado no texto extraído
+eval_triggers: Atrasos 31/61/91/181–360 dias acima de 15%/10%/5%/2% do PL | o44
+liquidation: Lista do item 11.7, a partir de avaliação convertida | q5
+revolving: n/d | Ordem de alocação não detalha recompra no texto extraído
+amortization: Ordem de alocação: sênior, mezanino e júnior pelas metas dos apêndices | q10
+admin_fee: 0,20% a.a. até R$ 250 mi, regressiva; mín. R$ 25 mil/mês; inclui custódia | o55,q11
+mgmt_fee: 0,25% a.a. do PL; mín. R$ 20 mil/mês | o58,q12
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Apêndice da série sênior vigente não está no acervo; série de 2024 pagava DI + 1,80%
+target_mezz: n/d | Sobretaxa da mezanino definida em apêndice fora do acervo
+administrator: Oliveira Trust DTVM | q6
+manager: Opea Gestora de Recursos | q7
+custodian: Oliveira Trust DTVM | q8
+servicer: n/d | Agente de cobrança citado, sem nome no trecho lido
+investors: Investidores autorizados | q13
+duration: Indeterminado; prazo próprio por subclasse | q9
+agro_backing: CPR e notas fiscais de clientes do agronegócio da Três Tentos | o1,q1
+collateral: n/d | Garantias dos recebíveis não descritas no anexo extraído
+leitura: Recebíveis agro da Três Tentos com sênior ≤ 80% do PL; grupo devedor ≤ 3% e Mato Grosso ≤ 50% do PL.

@@ -1,0 +1,55 @@
+# Tambasa FIDC (Singulare; GV Atacama; classe única aberta)
+type: Duplicatas/multicedente
+q1: * "preponderantemente na aquisição de direitos creditórios nos segmentos industrial, comercial, do agronegócio, financeiro e de prestação de serviços"
+q2: * "os Direitos Creditórios não poderão estar vencidos na data da cessão"
+q3: * "Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita limites de concentração"
+q4: * "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q5: * "A Classe não será dividida em Subclasses"
+q6: * "constituída sob a forma de condomínio aberto"
+q7: * "a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 1%"
+q8: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q9: * "A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Avaliação"
+q10: * "A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Liquidação Antecipada"
+q11: * "A Taxa de Administração, custódia, controladoria de ativos e passivos da Classe corresponderá a 0,24%"
+q12: * "A Taxa de Gestão da Classe corresponderá a 0,26%"
+q13: * "Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance"
+q14: * "“Administradora” A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q15: * "“Gestora” A GV ATACAMA CAPITAL LTDA"
+q16: * "A Classe terá prazo de duração indeterminado"
+q17: * "O desenquadramento de qualquer Direito Creditório a quaisquer Critérios de Elegibilidade"
+q18: * "As cessões de Direitos Creditórios à Classe serão realizadas em caráter irrevogável e irretratável"
+q19: * "será devida pela Classe uma única parcela no valor de R$ 150.000,00"
+q20: * "alocar os recursos decorrentes da integralização de Cotas e do recebimento de recursos provenientes da carteira da Classe"
+receivables: Títulos de crédito multissetoriais (duplicatas, NPs, NCs, CCBs, CPRs) e cotas de FIDC | q1
+originator: Cedentes diversos | q1
+assignor: Cedentes diversos; vedada cessão a cedentes e partes relacionadas | q18
+debtor: Devedores dos títulos cedidos | q1
+recourse: Sem regresso contra cedentes por desenquadramento posterior | q17
+eligibility: Créditos não vencidos e livres de ônus | q2
+debtor_limit: Sem limite por devedor (classe para profissionais) | q3
+assignor_limit: Sem limite por cedente (classe para profissionais) | q3
+term_max: Não previsto | Anexo não fixa prazo máximo dos créditos
+allocation: > 50% do PL em direitos creditórios | q4 | value=50
+quota_structure: Classe única aberta, sem subclasses | q5,q6
+sub_senior: — | Classe única, sem cotas subordinadas
+sub_mezz: — | Classe única, sem cotas subordinadas
+sub_check: — | Classe única, sem índice de subordinação
+reserve: Caixa: maior entre 90 dias de despesas e 1% do PL | q7
+pdd: Perda por redução ao valor recuperável | q8
+eval_triggers: Rebaixamento do rating das cotas, entre outras hipóteses | q9
+liquidation: Assembleia; avaliação convertida; renúncia sem substituto em 60 dias | q10
+revolving: Recursos da carteira realocados diariamente pela ordem de alocação | q20
+amortization: Resgates de classe aberta; suspensos em liquidação antecipada | q10
+admin_fee: 0,24% a.a. do PL, inclui custódia | q11
+mgmt_fee: 0,26% a.a. do PL; mín. R$ 12 mil/mês; estruturação R$ 150 mil | q12,q19
+perf_fee: Não prevista | Regulamento veda taxa de performance | q13
+target_senior: — | Classe única, sem cota sênior com meta
+target_mezz: — | Sem cota mezanino
+administrator: Singulare CTVM | q14
+manager: GV Atacama Capital | q15
+custodian: Singulare CTVM (custódia na taxa de administração) | q11,q14
+servicer: n/d | Agente de cobrança citado, mas não nomeado no regulamento extraído
+investors: Investidores profissionais | q3
+duration: Indeterminado | q16
+sacado_limit: Sem limite por sacado (classe para profissionais) | q3
+leitura: Classe única aberta, sem subordinação, para profissionais e sem limites de concentração; risco direto da carteira.

@@ -1,0 +1,775 @@
+{
+ "schema_version": 1,
+ "cnpj": "52298532000150",
+ "name": "IOX REAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:29:35Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1307382",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382"
+  },
+  "D2": {
+   "document_id": "1338011",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338011"
+  },
+  "D3": {
+   "document_id": "1338009",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338009"
+  },
+  "D4": {
+   "document_id": "1337986",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "30/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337986"
+  },
+  "D5": {
+   "document_id": "1303440",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "13/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1303440"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Títulos e contratos industriais, comerciais, agro, financeiros e de serviços",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "aquisição de Direitos Creditórios oriundos dos segmentos industrial, comercial, do agronegócio, financeiro e de prestação de serviços representados por (a) títulos de crédito, tais como mas não mas limitadamente a duplicatas, notas promissórias, notas comerciais, cédulas de crédito bancário, cédulas de crédito imobiliário, cédulas de produtor rural, contratos de aluguel, contratos diversos, (b) todo e qualquer instrumento representativo de crédito, desde que aprovado pela Administradora e Gestora no que diz respeito às suas resp"
+    }
+   ],
+   "legacy": {
+    "value": "Títulos e contratos industriais, comerciais, agro, financeiros e de serviços; carteira diversificada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos, selecionados com a consultora IOX Securitizadora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "Gestora previamente a cada cessão de Direitos Creditórios ao Fundo e/ou à Classe. “Consultora Especializada” A IOX SECURITIZADORA S/A., sociedade com sede na cidade de Sorocaba, Estado de São Paulo, Av. Washigton Luiz, 685 – Edif: Mondrian, 11º - sala: C – Jardim Emília - CEP: 18.031-000, inscrita no CNPJ sob o nº 18.329.685/0001-80, contratada pela Gestora, em nome do Fundo, para prestar serviços de consultoria especializada de investimentos, nos termos dispostos neste Regulamento. “Conta da Classe” Conta corrente de titularidade da Classe mantida junto à Administradora, utilizada para movimentação dos recursos da Classe, inclusive para pagamento dos encargos da Classe. “Conta de Cobrança” Conta de cobrança ordinária aberta pela Administradora em nome da Classe e/ou do Fundo em uma das Instituições Bancárias Autorizadas. “Conta do Fundo” Conta corrente de titularidade do Fundo mantida junto à"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "aquisição de Direitos Creditórios oriundos dos segmentos industrial, comercial, do agronegócio, financeiro e de prestação de serviços representados por (a) títulos de crédito, tais como mas não mas limitadamente a duplicatas, notas promissórias, notas comerciais, cédulas de crédito bancário, cédulas de crédito imobiliário, cédulas de produtor rural, contratos de aluguel, contratos diversos, (b) todo e qualquer instrumento representativo de crédito, desde que aprovado pela Administradora e Gestora no que diz respeito às suas resp"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Devedores diversos; até 20% do PL por devedor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "o) do seu Patrimônio Líquido em Direitos Creditórios. 7.4. A aplicação de recursos em Direitos Creditórios e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor está limitada a 20% (vinte por cento) do Patrimônio Líquido da Classe. 7.4.1. Para efeito do cálculo dos limites, consideram-se como pertencentes a um único Devedor, os Direitos Creditórios e ativos financeiros de liquidez de responsabilidade ou coobrigação de Devedores integrantes de um mesmo grupo econômico. 7.4.2. Tendo em vista que a Classe é destinada para Investidores Qualificados, o limite indicado no item 7.4 acima poderá ser aumentado quando: I) O Devedor ou coobrigado: a) tenha registro de companhia aberta; b) seja instituição financeira; c) seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do direito creditório elaboradas em conformidade 45 com o disposto na Lei nº 6.404, de 1976, e a regulamentação editada pela CVM, e auditadas por auditor independente registrado na CVM; ou II) Se tratar de aplicações em: a) títulos públicos federais;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regime de coobrigação depende de cada contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Cessão irrevogável com acessórios; desenquadramento posterior não cria regresso automático.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Critérios do anexo verificados na data de aquisição",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "helicóptero, barco, avião, rodante, imóveis ou duplicatas. 8.2. Adicionalmente ao disposto na Cláusula 8.1 acima, os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: a) valor mínimo de R$ 10,00 (dez reais); b) valor máximo de R$ 100.000.000,00 (cem milhões de reais); c) Prazo máximo de 60 (sessenta) meses. 8.2.1. Observados os termos e as condições do presente Regulamento, a verificação do atendimento aos Critérios de Elegibilidade pela Gestora será considerada definitiva. 8.2.2. O desenquadramento de qualquer Direito Creditório a quaisquer Critérios de Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela Classe, nem dará à Classe qualquer pretensão, recurso ou direito de regresso em face das Cedentes, da Administradora, da Gestora, de seus respectivos controladores, das sociedades por elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum. 9. ORDEM DE ALOCAÇÃO DOS RECURSOS 49 9.1."
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos; valor R$ 10 a R$ 100 mi; prazo máximo 60 meses; exclusões de litígio/recuperação.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/09/2026, Anexo, cl. 8.2"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor/grupo ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "o) do seu Patrimônio Líquido em Direitos Creditórios. 7.4. A aplicação de recursos em Direitos Creditórios e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor está limitada a 20% (vinte por cento) do Patrimônio Líquido da Classe. 7.4.1. Para efeito do cálculo dos limites, consideram-se como pertencentes a um único Devedor, os Direitos Creditórios e ativos financeiros de liquidez de responsabilidade ou coobrigação de Devedores integrantes de um mesmo grupo econômico. 7.4.2. Tendo em vista que a Classe é destinada para Investidores Qualificados, o limite indicado no item 7.4 acima poderá ser aumentado quando: I) O Devedor ou coobrigado: a) tenha registro de companhia aberta; b) seja instituição financeira; c) seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do direito creditório elaboradas em conformidade 45 com o disposto na Lei nº 6.404, de 1976, e a regulamentação editada pela CVM, e auditadas por auditor independente registrado na CVM; ou II) Se tratar de aplicações em: a) títulos públicos federais;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor/grupo 20%/PL; exceções mediante condições documentais.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Anexo limita por devedor, não por cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor/grupo 20%/PL; exceções mediante condições documentais.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado no anexo extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Vincendos; valor R$ 10 a R$ 100 mi; prazo máximo 60 meses; exclusões de litígio/recuperação.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "lacionados aos referidos Direitos Creditórios. 7.3. Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios (“Alocação Mínima”). 7.3.1. Não obstante o item 7.3 acima, para fins de cumprimento ao disposto na Lei nº 14.754 e na Resolução CMN nº 5.111, o Fundo deverá aplicar, no mínimo, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios. 7.4. A aplicação de recursos em Direitos Creditórios e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor está limitada a 20% (vinte por cento) do Patrimônio Líquido da Classe. 7.4.1. Para efeito do cálculo dos limites, consideram-se como pertencentes a um único Devedor, os Direitos Creditórios e ativos financeiros de liquidez de responsabilidade ou coobrigação de Devedores integrantes de um mesmo grupo econômico. 7.4.2. Tendo em vista que a Classe é destinada para Investidores Qualificados, o limite indicado no item 7.4 acima poderá ser aumentado quando: I) O Devedor ou coobrigado: a) tenha registro de companhia aberta; b) seja instituição financeira;"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios >50%/PL até 180 dias; tributária ≥67%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/09/2026, Anexo, cl. 7.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 42,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "Classes Subordinadas deverá representar o percentual mínimo de 30% (trinta por cento) do Patrimônio Líquido da Classe. 42 5.2. O Índice de Subordinação Mezanino será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido da Classe. Diariamente, o Patrimônio Líquido das Cotas Subordinadas Juniores deverá representar no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe. 5.3."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥20%/PL, diariamente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/09/2026, Anexo, cl. 5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 42,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "Classes Subordinadas deverá representar o percentual mínimo de 30% (trinta por cento) do Patrimônio Líquido da Classe. 42 5.2. O Índice de Subordinação Mezanino será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido da Classe. Diariamente, o Patrimônio Líquido das Cotas Subordinadas Juniores deverá representar no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe. 5.3."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥20%/PL, diariamente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/09/2026, Anexo, cl. 5.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "20% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 42,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "Classes Subordinadas deverá representar o percentual mínimo de 30% (trinta por cento) do Patrimônio Líquido da Classe. 42 5.2. O Índice de Subordinação Mezanino será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido da Classe. Diariamente, o Patrimônio Líquido das Cotas Subordinadas Juniores deverá representar no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe. 5.3."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 42,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "Classes Subordinadas deverá representar o percentual mínimo de 30% (trinta por cento) do Patrimônio Líquido da Classe. 42 5.2. O Índice de Subordinação Mezanino será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido da Classe. Diariamente, o Patrimônio Líquido das Cotas Subordinadas Juniores deverá representar no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe. 5.3."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥30%/PL; júnior ≥20%/PL, diariamente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/09/2026, Anexo, cl. 5.1"
+   }
+  },
+  "reserve": {
+   "display": "Caixa: maior entre 90 dias de despesas e 1% do PL; reserva de amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 51,
+     "clause": "Anexo, cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "ndo ser equivalente ao maior valor entre (a) o total de despesas e encargos de responsabilidade do Fundo e/ou da Classe a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 1% (um por cento) do Patrimônio Líquido da Classe na data de apuração. 10.4. O montante referente à Reserva de Caixa deverá ser mantido pela Administradora de forma devidamente segregada no patrimônio da Classe e/ou do Fundo, em moeda corrente nacional, ou em Ativos Financeiros de liquidez imediata. 10.5. Na hipótese de a Reserva de Caixa deixar de atender ao limite de enquadramento descrito nesta Cláusula, a Administradora, por conta e ordem, deverá destinar todos os recursos da Classe e/ou do Fundo, conforme o caso, em moeda corrente nacional, para a recomposição da Reserva de Caixa, observada a ordem de alocação de recursos prevista na Cláusula 9 acima. 11. ASSEMBLEIAS ESPECIAIS DE COTISTAS 11.1. Sem prejuízo do disposto nas condições gerais deste Regulamento, estão sujeitas exclusivamente à aprovação da maioria representativa da respectiva participação dos Cotistas na Classe, as deliberações relativas às seguintes matérias: (i) alteração de característica da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre despesas de 90 dias e 1%/PL; pagamentos 30% em D−30 e 100% em D−15.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/09/2026, Anexo, cl. 10.3"
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução ao valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 22,
+     "clause": "cl. 12.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "re que houver evidência de redução no valor recuperável dos Ativos da Classe, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 12.8. Os Direitos Creditórios cedidos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 12.9."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rating rebaixado, desenquadramento > 15 DU, PL negativo, subordinação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 52,
+     "clause": "Anexo, cl. 13.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "(ii) desenquadramento da carteira de Ativos por mais de 15 (quinze) Dias Úteis consecutivos, consoante os limites aplicáveis à Classe, nos termos deste Regulamento e das disposições legais e regulatórias em vigor; 52 (iii) verificação de Patrimônio Líquido Negativo; ou (iv) desenquadramento de Índice de Subordinação por um período superior ao previsto na Cláusula 5.6 acima. 13.3."
+    }
+   ],
+   "legacy": {
+    "value": "Rebaixamento de rating, desenquadramento >15 DU, PL negativo ou subordinação sem cura.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada no anexo extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Rebaixamento de rating, desenquadramento >15 DU, PL negativo ou subordinação sem cura.",
+    "decision": "regression",
+    "why": "Resposta anterior descreve eventos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Ordem de alocação não detalhada no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Mezanino 3: 48 meses, amortização mensal do 25º ao 48º mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1337986",
+     "document_id": "1337986",
+     "kind": "Instrumento de emissão",
+     "title": "Instrumento Particular de Emissão de Cotas",
+     "date": "30/09/2026",
+     "page": 5,
+     "clause": "Suplemento",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337986",
+     "excerpt": "1/5 1/4 1/3 1/2 1/1 k) Prazo de Duração e Data de Resgate: 48 (quarenta e oito) meses, a contar da data da primeira integralização de Cotas da 3ª Série Mezanino, sendo que no 48º (quadragésimo oitavo) mês ocorrerá o resgate integral das Cotas da 3ª Série Mezanino, encerrando-se a referida série; l) Remuneração alvo: Será determinada por meio da apropriação diária, sob forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de uma sobretaxa de 5% a.a. (cinco inteiros por cento ao ano); m) Possibilidade de encerramento da distribuição com cancelamento do saldo não colocado: O saldo não colocado poderá ser cancelado; n) Forma de Integralização: Nos termos definidos no Regulamento e Boletins de subscrição; o) Intermediária líder da oferta: Será a Administradora do Fundo; p) Custos de Distribuição: Pelos serviços de distribuição de Cotas do Fundo, será devido (i) à Intermediária líder da oferta uma remuneração de 0,01% (um centésimo por cento) do valor de cada aporte;"
+    }
+   ],
+   "legacy": {
+    "value": "Encargos → reservas → sênior → mezanino → júnior → novas aquisições.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,55% do PL; mín. R$ 15,5 mil/mês; inclui custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 44,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "controladoria e custódia, corresponderá ao percentual de 0,55% (cinquenta e cinco centésimos por cento) calculada sobre o Patrimônio Líquido do Fundo. 6.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.1.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 44,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "43 6. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO 6.1. A Taxa de Administração da Classe, referente aos serviços de administração, escrituração, controladoria e custódia, corresponderá ao percentual de 0,55% (cinquenta e cinco centésimos por cento) calculada sobre o Patrimônio Líquido do Fundo. 6.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.1.2. A Taxa de Administração será reajustada anualmente, com base no índice da variação positiva do IPCA, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 6.1.3. Independentemente dos valores indicados na Cláusula 6.1 acima, a Administradora sempre fará jus a uma remuneração mínima mensal de R$ 15.500.00 (quinze mil e quinhentos reais), ainda que a Taxa de Administração calculada nos termos desta Cláusula não alcance tal valor. 6.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,55%/PL, provisionada 1/252; piso R$ 15,5 mil/mês; IPCA; unidade anual não expressa.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/09/2026, Anexo, cl. 6.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "1,00% do PL; mín. R$ 25 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 44,
+     "clause": "Anexo, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "6.2. A Taxa de Gestão da Classe corresponderá ao percentual de 1,00% (um por cento) calculada sobre o Patrimônio Líquido do Fundo, sendo devida sempre a remuneração mínima mensal de R$ 25.000.00 (vinte e cinco mil reais). 6.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.2.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 44,
+     "clause": "Anexo, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "uinhentos reais), ainda que a Taxa de Administração calculada nos termos desta Cláusula não alcance tal valor. 6.2. A Taxa de Gestão da Classe corresponderá ao percentual de 1,00% (um por cento) calculada sobre o Patrimônio Líquido do Fundo, sendo devida sempre a remuneração mínima mensal de R$ 25.000.00 (vinte e cinco mil reais). 6.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.2.2. A remuneração mínima mensal da Taxa de Gestão será reajustada anualmente, com base no índice da variação positiva do IPCA, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 6.3. A Taxa Máxima de Distribuição da Classe corresponderá a 0,01% do Patrimônio Líquido anual da Classe. 6.4. A Consultora Especializada fará jus à remuneração mensal de R$ 15.000,00 (quinze mil reais). 6.5. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 7."
+    }
+   ],
+   "legacy": {
+    "value": "1,00%/PL, provisionada 1/252; piso R$ 25 mil/mês; IPCA; unidade anual não expressa.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo da classe não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + 4% a.a. (série sênior mais recente)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1337986",
+     "document_id": "1337986",
+     "kind": "Instrumento de emissão",
+     "title": "Instrumento Particular de Emissão de Cotas",
+     "date": "30/09/2026",
+     "page": 3,
+     "clause": "Suplemento",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337986",
+     "excerpt": "riação diária, sob forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de uma sobretaxa de 4% a.a. (quatro inteiros por cento ao ano); m) Possibilidade de encerramento da distribuição com cancelamento do saldo não colocado: O saldo não colocado poderá ser cancelado; n) Forma de Integralização: Nos termos definidos no Regulamento e Boletins de subscrição; o) Intermediária líder da oferta: Será a Administradora do Fundo; p) Custos de Distribuição: Pelos serviços de distribuição de Cotas do Fundo, será devido (i) à Intermediária líder da oferta uma remuneração de 0,01% (um centésimo por cento) do valor de cada aporte; e (ii) taxa exigível pela CVM, conforme legislação vigente. Os termos utilizados neste Suplemento, iniciados em letras maiúsculas (estejam no singular ou no plural), que não sejam aqui definidos de outra forma, terão o significado que lhes é atribuído no Regulamento. São Paulo, 30 de setembro de 2026. ________________________________________________________________ IOX REAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "DI + 5% a.a. (3ª série mezanino)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1337986",
+     "document_id": "1337986",
+     "kind": "Instrumento de emissão",
+     "title": "Instrumento Particular de Emissão de Cotas",
+     "date": "30/09/2026",
+     "page": 5,
+     "clause": "Suplemento",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337986",
+     "excerpt": "forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de uma sobretaxa de 5% a.a. (cinco inteiros por cento ao ano); m) Possibilidade de encerramento da distribuição com cancelamento do saldo não colocado: O saldo não colocado poderá ser cancelado; n) Forma de Integralização: Nos termos definidos no Regulamento e Boletins de subscrição; o) Intermediária líder da oferta: Será a Administradora do Fundo; p) Custos de Distribuição: Pelos serviços de distribuição de Cotas do Fundo, será devido (i) à Intermediária líder da oferta uma remuneração de 0,01% (um centésimo por cento) do valor de cada aporte; e (ii) taxa exigível pela CVM, conforme legislação vigente. Os termos utilizados neste Suplemento, iniciados em letras maiúsculas (estejam no singular ou no plural), que não sejam aqui definidos de outra forma, terão o significado que lhes é atribuído no Regulamento. São Paulo, 30 de setembro de 2026. ________________________________________________________________ IOX REAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "nto; e (v) todas as referências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. “Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "M8 Partners Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "undo de investimento em direitos creditórios constituídos na forma prevista na RCVM 175. “Gestora” A M8 PARTNERS GESTORA DE RECURSOS LTDA., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 13.304 de 23 de setembro de 2013, com sede na cidade de São Paulo, Estado de São Paulo, Rua dos Pinheiros, nº 6 1.060, 2º andar, CEP 05.422-002, inscrita no CNPJ sob o nº 18.038.439/0001-79, ou sua sucessora a qualquer título, que presta serviço de gestão da carteira de Ativos do Fundo. “IGP-M” Índice Geral de Preços do Mercado, divulgado pela Fundação Getúlio Vargas, ou outro índice que venha a substituí-lo. “Índice de Referência” Meta de valorização de cada Subclasse, conforme definida no Anexo da"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM (custódia na taxa de administração)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 44,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "43 6. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO 6.1. A Taxa de Administração da Classe, referente aos serviços de administração, escrituração, controladoria e custódia, corresponderá ao percentual de 0,55% (cinquenta e cinco centésimos por cento) calculada sobre o Patrimônio Líquido do Fundo. 6.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.1.2. A Taxa de Administração será reajustada anualmente, com base no índice da variação positiva do IPCA, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 6.1.3. Independentemente dos valores indicados na Cláusula 6.1 acima, a Administradora sempre fará jus a uma remuneração mínima mensal de R$ 15.500.00 (quinze mil e quinhentos reais), ainda que a Taxa de Administração calculada nos termos desta Cláusula não alcance tal valor. 6.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "nto; e (v) todas as referências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. “Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "IOX Securitizadora (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "realizar a avaliação de risco das Cotas, nos termos dispostos neste Regulamento. “Agente de Cobrança” A IOX SECURITIZADORA S.A., empresa situada à Avenida Washington Luiz, 685, Edifício Mondrian, 11º andar, sala C, Sorocaba/SP, CNPJ 18.329.685/0001-80, contratada pela Gestora, em nome do Fundo, para cobrança extraordinária dos Direitos Creditórios cedidos que venham a ser inadimplidos, nos termos dispostos neste Regulamento. “Anexo da Classe Única” É o Anexo da respectiva Classe deste Regulamento, dos quais constam as regras específicas aplicáveis à classe única e respectivas Subclasses. “Anexo da Política de Cobrança” O anexo da Classe, do qual consta a Política de Cobrança aplicável à respectiva Classe. 2 “Anexo da Verificação do Lastro” O anexo da Classe deste Regulamento, do qual co"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 40,
+     "clause": "Anexo, cl. 4.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "4.6. Somente os Investidores Qualificados poderão adquirir as Cotas Seniores, as Cotas Subordinadas Mezaninos e/ou as Cotas Subordinadas Junior. 4.7. Para fins de integralização de Cotas Seniores, de Cotas Subordinadas Mezanino e de Cotas Subordinadas Junior, deverá ser utilizado o valor da Cota em vigor no fechamento do mesmo Dia Útil da efetiva disponibilidade dos recursos depositados pelo investidor diretamente na Conta do Fundo/Conta da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; cotas para qualificados; responsabilidade ilimitada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 39,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "2.1. A Classe é exclusivamente destinada a Investidores Qualificados. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada por deliberação da Assembleia Geral em conformidade com o disposto no Regulamento e neste Anexo da Classe Única. 4. DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS 4.1. A Classe se divide nas seguintes Subclasses: (i) Cotas Seniores; (ii) Cotas Subordinadas Mezanino; e (iii) Cotas Subordinadas Junior. 4.1.1. As Cotas Seniores são aquelas que não se subordinam às Cotas Subordinadas para efeito de amortização, resgate e distribuição dos rendimentos da carteira da Classe, nos termos do presente Regulamento, Anexo e nos respectivos Suplementos. 4.1.2. As Cotas Subordinadas Mezanino são aquelas que se subordinam às Cotas Seniores para efeito de amortização, resgate e distribuição de rendimentos da carteira do Fundo, mas que, para os mesmos efeitos, não se subordinam às Cotas Subordinadas Júnior, nos termos do presente Regulamento, Anexo e nos respectivos Suplementos. 4.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; cotas para qualificados; responsabilidade ilimitada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Devedor/grupo ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1307382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/09/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307382",
+     "excerpt": "o) do seu Patrimônio Líquido em Direitos Creditórios. 7.4. A aplicação de recursos em Direitos Creditórios e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor está limitada a 20% (vinte por cento) do Patrimônio Líquido da Classe. 7.4.1. Para efeito do cálculo dos limites, consideram-se como pertencentes a um único Devedor, os Direitos Creditórios e ativos financeiros de liquidez de responsabilidade ou coobrigação de Devedores integrantes de um mesmo grupo econômico. 7.4.2. Tendo em vista que a Classe é destinada para Investidores Qualificados, o limite indicado no item 7.4 acima poderá ser aumentado quando: I) O Devedor ou coobrigado: a) tenha registro de companhia aberta; b) seja instituição financeira; c) seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do direito creditório elaboradas em conformidade 45 com o disposto na Lei nº 6.404, de 1976, e a regulamentação editada pela CVM, e auditadas por auditor independente registrado na CVM; ou II) Se tratar de aplicações em: a) títulos públicos federais;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor/grupo 20%/PL; exceções mediante condições documentais.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Multicedente com 30% de subordinação e júnior ≥ 20%; sênior a DI + 4% e taxas de 0,55% + 1,00% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,700 @@
+{
+ "schema_version": 1,
+ "cnpj": "30035329000159",
+ "name": "VIA INVEST II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "FGTS",
+ "reviewed_at": "2026-10-14T01:22:29Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "998769",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "22/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769"
+  },
+  "D2": {
+   "document_id": "1233063",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "26/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1233063"
+  },
+  "D3": {
+   "document_id": "1148278",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "15/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148278"
+  },
+  "D4": {
+   "document_id": "1003989",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "30/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003989"
+  },
+  "D5": {
+   "document_id": "989063",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "11/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=989063"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FGTS",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de antecipação do saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "Classe, direitos creditórios oriundos de operações de empréstimo pessoal, formalizadas por CCBs emitidas por Devedores em favor do Endossante, e garantidas por cessão fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei 8.036 e da Resolução CCFGTS 958 ou qualquer outro normativo que venha a substituí-la. “Documentos Comprobatórios” Documentação que evidencia o lastro dos Direitos Creditórios, compreendendo neste caso: (i) Termos de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de antecipação do saque-aniversário FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Endossante parceiro (correspondente) que emite as CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "Classe, direitos creditórios oriundos de operações de empréstimo pessoal, formalizadas por CCBs emitidas por Devedores em favor do Endossante, e garantidas por cessão fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei 8.036 e da Resolução CCFGTS 958 ou qualquer outro normativo que venha a substituí-la. “Documentos Comprobatórios” Documentação que evidencia o lastro dos Direitos Creditórios, compreendendo neste caso: (i) Termos de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "Endossante contratual ou QI SCD conforme cláusula8.1(v)",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Endossante das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "Classe, direitos creditórios oriundos de operações de empréstimo pessoal, formalizadas por CCBs emitidas por Devedores em favor do Endossante, e garantidas por cessão fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei 8.036 e da Resolução CCFGTS 958 ou qualquer outro normativo que venha a substituí-la. “Documentos Comprobatórios” Documentação que evidencia o lastro dos Direitos Creditórios, compreendendo neste caso: (i) Termos de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "Endossante contratual ou QI SCD conforme cláusula8.1(v)",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas de 18 a 69 anos com saque-aniversário (extenso diverge)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 49,
+     "clause": "Anexo, cl. 8.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "agamento, tais Direitos Creditórios atendessem a todas as Condições de Endosso vigentes em tal data. 8.2. Adicionalmente ao disposto na Cláusula 8.1 acima, os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: a) Os devedores dos Direitos de Crédito deverão ser pessoas físicas inscritas, respectivamente, no Cadastro de Pessoas Físicas (CPF), sendo que o respectivo Devedor deverá ter entre 18 (dezoito) e 69 (setenta e um) anos de idade, inclusive; b) Os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; c) O Fundo não pode, em hipótese alguma, adquirir Direitos de Crédito que estejam vencidos; d) Os Direitos Creditórios deverão ter prazo de vencimento de, no máximo, 120 (cento e vinte) meses e prazo mínimo de vencimento de 15 (quinze) dias; e) o Devedor deverá ser aderente à modalidade de saque-aniversário na data da alienação fiduciária do seu saque aniversário, ou seja, na data da contratação da operação;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física aderente ao saque-aniversário; idade com divergência69/71 anos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Endosso irrevogável; regras de recompra no contrato",
+   "sources": [],
+   "legacy": {
+    "value": "Endosso irrevogável; vedado adquirir de endossante que recomprou >30% nos30 dias anteriores",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "PF de 18 a 69 anos; em reais; não vencidos; prazo de 15 dias a 120 meses",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 49,
+     "clause": "Anexo, cl. 8.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "agamento, tais Direitos Creditórios atendessem a todas as Condições de Endosso vigentes em tal data. 8.2. Adicionalmente ao disposto na Cláusula 8.1 acima, os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: a) Os devedores dos Direitos de Crédito deverão ser pessoas físicas inscritas, respectivamente, no Cadastro de Pessoas Físicas (CPF), sendo que o respectivo Devedor deverá ter entre 18 (dezoito) e 69 (setenta e um) anos de idade, inclusive; b) Os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; c) O Fundo não pode, em hipótese alguma, adquirir Direitos de Crédito que estejam vencidos; d) Os Direitos Creditórios deverão ter prazo de vencimento de, no máximo, 120 (cento e vinte) meses e prazo mínimo de vencimento de 15 (quinze) dias; e) o Devedor deverá ser aderente à modalidade de saque-aniversário na data da alienação fiduciária do seu saque aniversário, ou seja, na data da contratação da operação;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs adimplentes, em reais; prazo15 dias–120 meses; FGTS bloqueado e aderência validada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por devedor não localizado no texto extraído",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por endossante não localizado no texto extraído",
+   "sources": []
+  },
+  "term_max": {
+   "display": "De 15 dias a 120 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 49,
+     "clause": "Anexo, cl. 8.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "agamento, tais Direitos Creditórios atendessem a todas as Condições de Endosso vigentes em tal data. 8.2. Adicionalmente ao disposto na Cláusula 8.1 acima, os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: a) Os devedores dos Direitos de Crédito deverão ser pessoas físicas inscritas, respectivamente, no Cadastro de Pessoas Físicas (CPF), sendo que o respectivo Devedor deverá ter entre 18 (dezoito) e 69 (setenta e um) anos de idade, inclusive; b) Os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; c) O Fundo não pode, em hipótese alguma, adquirir Direitos de Crédito que estejam vencidos; d) Os Direitos Creditórios deverão ter prazo de vencimento de, no máximo, 120 (cento e vinte) meses e prazo mínimo de vencimento de 15 (quinze) dias; e) o Devedor deverá ser aderente à modalidade de saque-aniversário na data da alienação fiduciária do seu saque aniversário, ou seja, na data da contratação da operação;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs adimplentes, em reais; prazo15 dias–120 meses; FGTS bloqueado e aderência validada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 46,
+     "clause": "Anexo, cl. 7.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "s aos referidos Direitos Creditórios. 7.5. Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios (“Alocação Mínima”). 7.6. Sem prejuízo do disposto acima, a Classe deverá envidar melhores esforços para manter, a partir da Data de Integralização Inicial, pelo menos, 67% (sessenta e sete por cento) de seu Patrimônio Líquido representada por Direitos Creditórios (“Alocação Mínima Para Fins Tributários”). 7.7. Os endossos de Direitos Creditórios à Classe serão realizadas em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 7.8. Na aquisição dos Direitos Creditórios, a Gestora deverá verificar se todos os Documentos Comprobatórios compreendem todos os documentos necessários para protesto, cobrança ou execução judicial dos Direitos Creditórios cedidos, nos termos da regulamentação aplicável, sem prejuízo da análise conjunta com a Administradora, em razão de suas obrigações acessórias à aquisição dos Direitos Creditórios. 7.9."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC >50% PL em180 dias; melhores esforços para67% tributários",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 44,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "43 Docusign Envelope ID: 66237647-109C-4598-B098-1D486375AD96 DESSE ÍNDICE 5.1. A partir da integralização de Cotas Seniores e de Cotas Subordinadas Mezanino, a Classe deverá observar o Índice de Subordinação equivalente a, no mínimo, 15% (quinze por cento). 5.2. O Índice de Subordinação deverá ser apurado todo Dia Útil pela Gestora, devendo a apuração do cálculo ser informada à aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas Junior, conforme o caso, serão imediatamente informados pela Gestora, com cópia para a Administradora. 5.4. Os respectivos Cotistas deverão responder à Gestora, com cópia para a Administradora, impreterivelmente até o 5º (quinto) dia útil subsequente à data do recebimento da comunicação referida na Cláusula 5.2 acima, informando por escrito se desejam integralizar, ou não, novas Cotas Subordinadas Junior, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "Índice de subordinação ≥15%; apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/09/2025, Anexo, cl. 5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "15% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 44,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "43 Docusign Envelope ID: 66237647-109C-4598-B098-1D486375AD96 DESSE ÍNDICE 5.1. A partir da integralização de Cotas Seniores e de Cotas Subordinadas Mezanino, a Classe deverá observar o Índice de Subordinação equivalente a, no mínimo, 15% (quinze por cento). 5.2. O Índice de Subordinação deverá ser apurado todo Dia Útil pela Gestora, devendo a apuração do cálculo ser informada à aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas Junior, conforme o caso, serão imediatamente informados pela Gestora, com cópia para a Administradora. 5.4. Os respectivos Cotistas deverão responder à Gestora, com cópia para a Administradora, impreterivelmente até o 5º (quinto) dia útil subsequente à data do recebimento da comunicação referida na Cláusula 5.2 acima, informando por escrito se desejam integralizar, ou não, novas Cotas Subordinadas Junior, conforme o caso."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Índice de subordinação ≥15%; apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no texto extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Abaixo de 15% a qualquer momento é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 64,
+     "clause": "Anexo, cl. 13.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "a qualquer momento, superior a 1% (um por cento) do Patrimônio da Classe; (vii) caso o Índice de Subordinação da Classe seja, a qualquer momento, inferior a 15% (quinze por cento) do Patrimônio da Classe, desde que não sanado no prazo máximo de 5 (cinco) dias úteis, conforme disposições da cláusula 5.4 deste Anexo; (viii) caso haja na Carteira da Classe Direitos Creditórios que venham a ser inadimplidos ou não pagos por qualquer motivo operacional do Agente Operador por mais de 5 (cinco) dias e desde que, conjuntamente, superem a 1% (um por cento) do Patrimônio Líquido da Classe; (ix) qualquer pedido de declaração judicial de insolvência da Classe; (x) após 180 (cento e oitenta) dias após o início das operações da Classe, ocorrer o desenquadramento da Alocação Mínima de Investimento; (xi) não pagamento da Amortização referente à Meta de Remuneração ou da Amortização de Principal das Cotas Seniores ou das Cotas Subordinadas Mezanino na respectiva Data de Pagamento, observado o prazo de cura de 1 (um) Dia Útil;"
+    }
+   ],
+   "legacy": {
+    "value": "Índice de subordinação ≥15%; apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para despesas; reserva de MTM de derivativos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "e, conforme definida no respectivo Suplemento. “Reserva de Caixa” Reserva para pagamento de despesas e encargos da Classe da Classe e/ou do Fundo, prevista no Capítulo 15 do Regulamento e detalhada no Anexo da Classe Única. “Reserva de Pagamento de Reserva para pagamento de amortizações e/ou resgates Amortização ou Resgate” de Cotas, prevista no Capítulo 10 do Anexo da Classe Única. “Resolução CCFGTS 958” Significa a resolução editada pelo Conselho Curador do FGTS, conforme alterada, ou qualquer outro normativo que venha a substitui-la, que regulamenta a alienação ou cessão fiduciária do direito ao Saque-Aniversário da conta vinculada do FGTS. “Risco de Capital” Exposição da Classe ao risco de seu Patrimônio Líquido"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado no texto extraído",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Subordinação < 15%; atraso de pagamento da sênior, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 64,
+     "clause": "Anexo, cl. 13.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "a qualquer momento, superior a 1% (um por cento) do Patrimônio da Classe; (vii) caso o Índice de Subordinação da Classe seja, a qualquer momento, inferior a 15% (quinze por cento) do Patrimônio da Classe, desde que não sanado no prazo máximo de 5 (cinco) dias úteis, conforme disposições da cláusula 5.4 deste Anexo; (viii) caso haja na Carteira da Classe Direitos Creditórios que venham a ser inadimplidos ou não pagos por qualquer motivo operacional do Agente Operador por mais de 5 (cinco) dias e desde que, conjuntamente, superem a 1% (um por cento) do Patrimônio Líquido da Classe; (ix) qualquer pedido de declaração judicial de insolvência da Classe; (x) após 180 (cento e oitenta) dias após o início das operações da Classe, ocorrer o desenquadramento da Alocação Mínima de Investimento; (xi) não pagamento da Amortização referente à Meta de Remuneração ou da Amortização de Principal das Cotas Seniores ou das Cotas Subordinadas Mezanino na respectiva Data de Pagamento, observado o prazo de cura de 1 (um) Dia Útil;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 64,
+     "clause": "Anexo, cl. 13.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "da Classe, ocorrer o desenquadramento da Alocação Mínima de Investimento; (xi) não pagamento da Amortização referente à Meta de Remuneração ou da Amortização de Principal das Cotas Seniores ou das Cotas Subordinadas Mezanino na respectiva Data de Pagamento, observado o prazo de cura de 1 (um) Dia Útil; (xii) não entrega pela Cogestor do Relatório de Monitoramento do Cogestor no prazo previsto no item 1.2.8 deste Regulamento; (xiii) amortização de Cotas Subordinadas em desconformidade com este Anexo Descritivo; (xiv) extinção, impossibilidade legal de aplicação, falta de apuração ou de divulgação dos índices ou parâmetros, estabelecidos neste Regulamento, exclusivamente para o cálculo da Meta de Remuneração, por prazo superior a 5 (cinco) Dias Úteis consecutivos ou a 15 (quinze) Dias Úteis alternados da data esperada para a sua apuração e/ou divulgação, exceto se os Cotistas reunidos em Assembleia de Cotistas deliberarem pela substituição do índice ou parâmetro em questão;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados separadamente no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não detalhada no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,15% a.a. do PL; mín. R$ 6 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 44,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "o da data em que ocorrer a primeira integralização de Cotas da Classe até o 5º (quinto) Dia Útil do mês subsequente ao da prestação de serviço, assegurado o valor mínimo mensal de R$ 6.000,00 (seis mil reais) (“Taxa de Administração”). 6.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.1.2. A Taxa de Administração será reajustada anualmente, sempre no mês de janeiro, com base no índice da variação positiva do IPCA, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do 44 Docusign Envelope ID: 66237647-109C-4598-B098-1D486375AD96 início da prestação de serviço, conforme o caso. 6.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 44,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "0,15% (quinze centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe, a ser pago mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe até o 5º (quinto) Dia Útil do mês subsequente ao da prestação de serviço, assegurado o valor mínimo mensal de R$ 6.000,00 (seis mil reais) (“Taxa de Administração”). 6.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,15% a.a. PL; mínimo R$ 6 mil/mês, IPCA positivo anual",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,60% a.a. (0,50% gestora e 0,10% cogestora); mín. R$ 6,5 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 45,
+     "clause": "Anexo, cl. 6.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "velope ID: 66237647-109C-4598-B098-1D486375AD96 início da prestação de serviço, conforme o caso. 6.2. A Taxa de Gestão da Classe corresponderá ao valor de 0,60% (zero vírgula sessenta por cento) ao ano sobre o patrimônio líquido, sendo 0,50% (zero vírgula cinquenta por cento) para a Gestora e 0,10% (zero vírgula dez por cento) para a Cogestora, respeitado o mínimo mensal de R$ 6.500,00 (seis mil e quinhentos reais) apenas para a Gestora. 6.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.2.2. A Taxa de Gestão será reajustada anualmente, sempre no mês de janeiro, com base no índice da variação positiva do IPCA, contados a partir da data de início do funcionamento do Fundo e/ou da Classe ou do início da prestação de serviço, conforme o caso. 6.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 45,
+     "clause": "Anexo, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "6.2. A Taxa de Gestão da Classe corresponderá ao valor de 0,60% (zero vírgula sessenta por cento) ao ano sobre o patrimônio líquido, sendo 0,50% (zero vírgula cinquenta por cento) para a Gestora e 0,10% (zero vírgula dez por cento) para a Cogestora, respeitado o mínimo mensal de R$ 6.500,00 (seis mil e quinhentos reais) apenas para a Gestora. 6.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,60% a.a. PL:0,50% gestor+0,10% cogestor; mínimo R$ 6,5 mil somente gestor",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida em suplemento, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida em suplemento, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos CVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "erências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. “Administradora” A GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, 228, sala 913, inscrita no CNPJ sob nº 27.652.684/0001- 62, autorizada pela CVM a exercer a atividade de administração de carteira de valores mobiliários, por meio do Ato Declaratório CVM nº 6.819, expedido em 17 de maio de 2002, ou sua sucessora a qualquer título. “Agência de Classificação de Risco” Agência de classificação de risco que pode ser contratada pela Gestora, em nome do Fundo, para realizar a avaliação de risco das Cotas, nos termos dispostos neste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Via Invest Gestora de Recursos (cogestão Genial Gestão)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "os constituídos na forma prevista na RCVM 175. “Gestora” A VIA INVEST GESTORA DE RECURSOS LTDA., sociedade empresária limitada, inscrita no CNPJ sob o nº 44.141.694/0001-52, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, n° 1106, 17° e 18º andares, Bela Vista, CEP 01.310-914, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 20.600 de 16 de fevereiro de 2023, a exercer a atividade de gestão de recursos, ou sua sucessora a qualquer título, na qualidade de Gestora. “IGP-M” Índice Geral de Preços do Mercado, divulgado pela"
+    },
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "3 Docusign Envelope ID: 66237647-109C-4598-B098-1D486375AD96 “Cogestora” A GENIAL GESTÃO LTDA., instituição devidamente autorizada pela CVM para prestação dos serviços de administração de carteira de títulos e valores mobiliários através do Ato Declaratório nº 14.519, expedido em 30 de setembro de 2015 inscrita no CNPJ sob o nº 22.119.959/0001-83, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, n° 3400, conjunto 91 – parte, Itaim Bibi, CEP 04538- 132, ou sua sucessora a qualquer título, na qualidade de Cogestora. “Condições de Endosso” Condições de endosso previstas no Capítulo 7 do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "e Direitos Creditórios ao Fundo e/ou à Classe. “Custodiante” A Administradora, podendo contratar, em nome do 5 Docusign Envelope ID: 66237647-109C-4598-B098-1D486375AD96 Fundo, terceiro, incluindo parte relacionada, devidamente habilitado e autorizado para prestação deste serviço nos termos da RCVM 175. “CVM” A Comissão de Valores Mobiliários. “Data de Aquisição e Pagamento” Data em que ocorrer a assinatura de cada Contrato de Endosso ou Termo de Endosso, conforme aplicável, e o pagamento do preço de aquisição do respectivo Direito Creditório pela Administradora (“Preço de Aquisição”),"
+    },
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "erências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. “Administradora” A GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, 228, sala 913, inscrita no CNPJ sob nº 27.652.684/0001- 62, autorizada pela CVM a exercer a atividade de administração de carteira de valores mobiliários, por meio do Ato Declaratório CVM nº 6.819, expedido em 17 de maio de 2002, ou sua sucessora a qualquer título. “Agência de Classificação de Risco” Agência de classificação de risco que pode ser contratada pela Gestora, em nome do Fundo, para realizar a avaliação de risco das Cotas, nos termos dispostos neste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 40,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "A Classe é destinada a Investidores Profissionais. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada por deliberação da Assembleia Geral em conformidade com o disposto no Regulamento e neste Anexo da Classe Única. 4. DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS 4.1. A Classe se divide nas seguintes Subclasses: (i) Cotas Seniores; (ii) Cotas Subordinadas Mezanino; e (iii) Cotas Subordinadas Junior. 4.1.1. As Cotas Seniores são aquelas que não se subordinam às Cotas Subordinadas para efeito de amortização, resgate e distribuição dos rendimentos da carteira da Classe, nos termos do presente Regulamento e conforme particularidades descritas nos Suplementos. 4.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Cessão fiduciária do saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "Classe, direitos creditórios oriundos de operações de empréstimo pessoal, formalizadas por CCBs emitidas por Devedores em favor do Endossante, e garantidas por cessão fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei 8.036 e da Resolução CCFGTS 958 ou qualquer outro normativo que venha a substituí-la. “Documentos Comprobatórios” Documentação que evidencia o lastro dos Direitos Creditórios, compreendendo neste caso: (i) Termos de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão fiduciária integral do saque-aniversário, registrada com bloqueio no agente operador",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "Devedor de 18 a 69 anos (extenso diverge do numeral)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "998769",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2025",
+     "page": 49,
+     "clause": "Anexo, cl. 8.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998769",
+     "excerpt": "agamento, tais Direitos Creditórios atendessem a todas as Condições de Endosso vigentes em tal data. 8.2. Adicionalmente ao disposto na Cláusula 8.1 acima, os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: a) Os devedores dos Direitos de Crédito deverão ser pessoas físicas inscritas, respectivamente, no Cadastro de Pessoas Físicas (CPF), sendo que o respectivo Devedor deverá ter entre 18 (dezoito) e 69 (setenta e um) anos de idade, inclusive; b) Os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; c) O Fundo não pode, em hipótese alguma, adquirir Direitos de Crédito que estejam vencidos; d) Os Direitos Creditórios deverão ter prazo de vencimento de, no máximo, 120 (cento e vinte) meses e prazo mínimo de vencimento de 15 (quinze) dias; e) o Devedor deverá ser aderente à modalidade de saque-aniversário na data da alienação fiduciária do seu saque aniversário, ou seja, na data da contratação da operação;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs adimplentes, em reais; prazo15 dias–120 meses; FGTS bloqueado e aderência validada",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/09/2025, Anexo, cl. 8.1.2"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Valor mínimo de parcela não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "CCBs adimplentes, em reais; prazo15 dias–120 meses; FGTS bloqueado e aderência validada",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Antecipação de FGTS com 15% de subordinação; devedor de 18 a 69 anos e prazos até 120 meses.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

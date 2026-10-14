@@ -1,0 +1,1004 @@
+{
+ "schema_version": 1,
+ "cnpj": "60356171000180",
+ "name": "CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-13T20:10:14Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "993687",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "04/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687"
+  },
+  "D2": {
+   "document_id": "884542",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "24/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542"
+  },
+  "D3": {
+   "document_id": "883903",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "23/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883903"
+  },
+  "D4": {
+   "document_id": "883612",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "22/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883612"
+  },
+  "D5": {
+   "document_id": "883159",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "11/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883159"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de transações de cartão do sistema CloudWalk",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 31,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "ira da Classe A, conforme estabelecidos neste Anexo. 2.1.1. Origem dos Direitos Creditórios. Os Direitos Creditórios são oriundos do pagamento devido pelos Devedores à Cedente, decorrentes de Transações de Pagamento realizadas por Usuários-Finais, operacionalizadas pelo Sistema CloudWalk, conf orme descrição a seguir: (i) os Estabelecimentos Credenciados, de tempos em tempos, realizam a prestação de serviços e venda de bens e produtos aos Usuários-Finais, os quais podem utilizar Instrumentos de Pagamento de qualquer Bandeira emitidos por um dos Devedores, operacionalizados pelo Sistema CloudWalk, gerando, assim, as Transações de Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "CloudWalk (credenciadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 103,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Cedente” Signif ica a CloudWalk que, de tempos em tempos, nos termos do Contrato de Cessão, cede seus respectivos Direitos Creditórios Elegíveis à Classe A."
+    }
+   ],
+   "legacy": {
+    "value": "Cloud Walk, como credenciadora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "CloudWalk (cedente única)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 103,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Cedente” Signif ica a CloudWalk que, de tempos em tempos, nos termos do Contrato de Cessão, cede seus respectivos Direitos Creditórios Elegíveis à Classe A."
+    }
+   ],
+   "legacy": {
+    "value": "Cloud Walk, como credenciadora",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Emissores em 4 grupos; Grupo 1 com Itaú, Bradesco, BB e outros grandes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 107,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Devedores” Signif icam, em conjunto e indistintamente, os Devedores Grupo 1, os Devedores Grupo 2, os Devedores Grupo 3 e os Devedores Grupo 4. Corporativo | Interno SUPLEMENTO 1 AO ANEXO I – DEFINIÇÕES APLICÁVEIS À CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO “Devedores Grupo 1” Signif icam (i) o Itaú Unibanco S.A."
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 108,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "DO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO “Devedores Grupo 1” Signif icam (i) o Itaú Unibanco S.A. e Entidades do Respectivo Grupo; (ii) o Banco Bradesco S.A. e Entidades do Respectivo Grupo; (iii) o Banco do Brasil S.A. e Entidades do Respectivo Grupo; (iv) o Banco Santander (Brasil) S.A. e Entidades do Respectivo Grupo; e (v) a Caixa Econômica Federal e Entidades do Respectivo Grupo. “Devedores Grupo 2” Signif icam (i) Nu Pagamentos S.A. e Entidades do Respectivo Grupo; (ii) Banco Cooperativo Sicredi S.A. e Entidades do Respectivo Grupo; (iii) Banco Safra S.A. e Entidades do Respectivo Grupo; e (iv) Banco Citibank S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Emissores dos instrumentos de pagamento; grupos de elegibilidade previstos no anexo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso nem coobrigação da cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 32,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "2.1.5. Inexistência de Direito de Regresso e Coobrigação. A Classe A adquirirá Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, acessórios, ações, coobrigações e garantias pertinentes, em caráter def initivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "Resolução por vício, inelegibilidade, chargeback/cancelamento não coberto; demais recompras conforme contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Moeda nacional; devedor adimplente; vencimento ≥ 7 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 35,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "3.2. Critérios de Elegibilidade. A Classe A somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelos Devedores à Cedente, decorrente das Transações de Pagamento realizadas por Usuários-Finais utilizando-se de I"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 35,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "(iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que f or menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; e (vi) considerada pro forma a aquisição dos Direitos Creditórios em questão, a exposição da carteira da Classe A a Direitos Creditórios deverá respeitar os seguintes limites mínimos e máximos de concentração: 35 Corporativo | Interno ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO a) ao menos 52,5% (cinquenta e dois inteiros e cinco décimos por cento) do Patrimônio Líquido da Classe A deverá ser alocado em Direitos Creditórios devidos por Devedores Grupo 1, considerados"
+    }
+   ],
+   "legacy": {
+    "value": "Transações em moeda nacional; devedores adimplentes; validação na aquisição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "G1+caixa ≥ 52,5% do PL; G2 ≤ 15% cada; G3 ≤ 4%; G4 ≤ 2%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 36,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO a) ao menos 52,5% (cinquenta e dois inteiros e cinco décimos por cento) do Patrimônio Líquido da Classe A deverá ser alocado em Direitos Creditórios devidos por Devedores Grupo 1, considerados em conjunto e/ou em Disponibilidades, sendo certo que (1) não haverá volume mínimo ou máximo de Direitos Creditórios considerando-se os Devedores Grupo 1 individualmente, e (2) não haverá volume máximo de Direitos Creditórios considerando-se os Devedores Grupo 1 em conjunto;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 36,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "b) os Direitos Creditórios devidos por Devedores Grupo 2, considerados individualmente, não poderão representar mais do que 15% (quinze por cento) do Patrimônio Líquido da Classe A, sendo certo que: (1) não haverá volume mínimo de Direitos Creditórios considerando-se os Devedores Grupo 2 individualmente; e (2) não haverá volume mínimo ou máximo de Direitos Creditórios considerando-se os Devedores Grupo 2 em conjunto;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 36,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "considerando-se os Devedores Grupo 2 em conjunto; c) os Direitos Creditórios devidos por Devedores Grupo 3 não poderão representar mais do que (1) a soma do valor das Cotas Subordinadas Mezanino e a soma do valor das Cotas Subordinadas Júnior, considerando-se os Devedores Grupo 3 em conjunto; ou (2) 4% (quatro por cento) do Patrimônio Líquido da Classe A, considerando- se os Devedores Grupo 3 individualmente, sendo certo que não haverá volume mínimo, considerando-se os Devedores Grupo 3 conjunta ou individualmente; e d) os Direitos Creditórios devidos por Devedores Grupo 4 não poderão representar mais do que (1) a soma do valor das Cotas Subordinadas Mezanino e a soma do valor das Cotas Subordinadas Júnior, considerando-se os Devedores Grupo 4 em conjunto;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 36,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "s Cotas Subordinadas Júnior, considerando-se os Devedores Grupo 4 em conjunto; ou (2) 2% (dois por cento) do Patrimônio Líquido da Classe A, considerando-se os Devedores Grupo 4 individualmente, sendo certo que não haverá volume mínimo, considerando-se os Devedores Grupo 4 conjunta ou individualmente. 3.2.1. Para f ins de esclarecimento, os limites máximos de concentração previstos nos subitens c) e d) do item 3.2 acima, em relação ao valor das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, devem ser considerados separadamente, sendo certo que a alocação em Direitos Creditórios devidos por Devedores Grupo 3 não deverá limitar ou diminuir a alocação em Direitos Creditórios devidos por Devedores Grupo 4, e vice versa. 3.3. Verif icação dos Critérios de Elegibilidade."
+    }
+   ],
+   "value": 52.5,
+   "legacy": {
+    "value": "Grupo 1+ caixa ≥52,5% do PL; Grupo 2 ≤15% por devedor; Grupo 3 ≤4%; Grupo 4 ≤2%; grupos 3/4 limitados também por subordinadas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2025, Anexo I"
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente única (CloudWalk)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 103,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Cedente” Signif ica a CloudWalk que, de tempos em tempos, nos termos do Contrato de Cessão, cede seus respectivos Direitos Creditórios Elegíveis à Classe A."
+    }
+   ],
+   "legacy": {
+    "value": "Grupo 1+ caixa ≥52,5% do PL; Grupo 2 ≤15% por devedor; Grupo 3 ≤4%; Grupo 4 ≤2%; grupos 3/4 limitados também por subordinadas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2025, Suplemento 1"
+   }
+  },
+  "term_max": {
+   "display": "Mínimo 7 dias; máximo de 365 dias ou vencimento da sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 35,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "(iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que f or menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; e (vi) considerada pro forma a aquisição dos Direitos Creditórios em questão, a exposição da carteira da Classe A a Direitos Creditórios deverá respeitar os seguintes limites mínimos e máximos de concentração: 35 Corporativo | Interno ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO a) ao menos 52,5% (cinquenta e dois inteiros e cinco décimos por cento) do Patrimônio Líquido da Classe A deverá ser alocado em Direitos Creditórios devidos por Devedores Grupo 1, considerados"
+    }
+   ],
+   "legacy": {
+    "value": "Transações em moeda nacional; devedores adimplentes; validação na aquisição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 99,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Alocação Mínima” Signif ica o percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "≥ 50% do PL em direitos elegíveis, após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2025, Suplemento 1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A e B / Júnior (Grupo CloudWalk)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 118,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Subclasse” Signif icam as subclasses de Cotas da Classe A, as quais são divididas em Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior."
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 41,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "Benchmark determinado no respectivo Apêndice. 5.5. As Cotas Subordinadas Júnior, a serem subscritas e integralizadas exclusivamente por entidades do Grupo CloudWalk, terão as seguintes características, vantagens, direitos e obrigações: (i) serão subordinadas às Cotas Seniores e às Cotas Subordinadas Mezanino para os f ins de pagamento de retorno, amortização de principal e resgate;"
+    }
+   ],
+   "legacy": {
+    "value": "Mínimo 15,5%; ramp-up 15,75%; target 16% (subordinadas / PL)",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2025, Suplemento 1"
+   }
+  },
+  "sub_senior": {
+   "display": "15,5% · (mez.+jr.)/PL; ramp-up 15,75%; alvo 16%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 112,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "cada Dia Útil, equivalente a, no mínimo, 15,5% (quinze inteiros e cinco décimos por cento). “Índice de Subordinação Signif ica a razão mínima admitida entre o Sênior Ramp-Up” somatório do valor das Cotas Subordinadas em circulação da Classe A e o Patrimônio Líquido da Corporativo | Interno SUPLEMENTO 1 AO ANEXO I – DEFINIÇÕES APLICÁVEIS À CLASSE A - RESPONSABILIDADE LIMITADA DO"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 113,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "Classe A, conf orme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 15,75% (quinze inteiros e setenta e cinco centésimos por cento). “Índice de Subordinação Signif ica a razão mínima admitida entre o Sênior Target” somatório do valor das Cotas Subordinadas em circulação da Classe A e o Patrimônio Líquido da Classe A, conf orme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 16% (dezesseis por cento). “Índices de Subordinação” signif icam, em conjunto ou indistintamente, os Índices de Subordinação Mínimos, os Índices de Subordinação Ramp-Up e os o Índices de Subordinação Target. “Índices de Subordinação signif icam, em conjunto ou indistintamente, os Mínimos”"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 113,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "Classe A, conf orme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 16% (dezesseis por cento). “Índices de Subordinação” signif icam, em conjunto ou indistintamente, os Índices de Subordinação Mínimos, os Índices de Subordinação Ramp-Up e os o Índices de Subordinação Target. “Índices de Subordinação signif icam, em conjunto ou indistintamente, os Mínimos” Índices de Subordinação Mezanino Mínimos, e o Índice de Subordinação Sênior Mínimo. “Índices de Subordinação Signif icam, em conjunto ou indistintamente, os Ramp-Up” Índice de Subordinação Mezanino Ramp-Up e o Índice de Subordinação Sênior Ramp-Up. “Índices de Subordinação signif icam, em conjunto ou indistintamente, os Target” Índices de Subordinação Mezanino Target e o"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.5,
+   "legacy": {
+    "value": "Mínimo 15,5%; ramp-up 15,75%; target 16% (subordinadas / PL)",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índices das mezaninos A e B em branco ([=]%) nos suplementos 5 e 6",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária pelo custodiante; júnior tem 11 DU para recompor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 112,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Índice de Subordinação Signif ica a razão mínima admitida entre o Sênior Mínimo” somatório do valor das Cotas Subordinadas em circulação da Classe A e o Patrimônio Líquido da Classe A, conf orme apurada pelo Custodiante em cada Dia Útil, equivalente a, no mínimo, 15,5% (quinze inteiros e cinco décimos por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 75,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "um Evento de Avaliação constitui Evento de Liquidação; (iii) caso os Índices de Subordinação Mínimos sejam descumpridos e não saneados pelos Cotistas Subordinados Júnior dentro do prazo de 11 (onze) Dias Úteis contados do desenquadramento; (iv) renúncia, descredenciamento ou destituição da Administradora e/ou do Gestor, sem que ocorra sua respectiva substituição por uma nova instituição, nos termos deste Regulamento; (v) decretação de evento de intervenção, liquidação, f alência, recuperação judicial ou extrajudicial, requerimento de medidas antecipatórias à recuperação junto a credores e/ou liquidação da Cedente, nos termos da legislação e regulamentação aplicáveis; (vi) caso, por qualquer motivo, haja a rescisão ou término da vigência do Contrato de Cessão ou decisão judicial que o invalide; (vii) nos casos em que houver determinação da CVM;"
+    }
+   ],
+   "legacy": {
+    "value": "Mínimo 15,5%; ramp-up 15,75%; target 16% (subordinadas / PL)",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/09/2025, Suplemento 1"
+   }
+  },
+  "reserve": {
+   "display": "Amortização 30 dias e remuneração 15 dias antes; despesas de 3 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 117,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "(i) no mínimo 30 (trinta) dias de antecedência em relação à próxima Data de Amortização Programada prevista no respectivo Apêndice (pagamento de principal e a correspondente Remuneração); e (ii) no mínimo 15 (quinze) dias de antecedência em relação à próxima Data de"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 58,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "de Gestão, ref erentes aos 3 (três) meses subsequentes. CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO 12.1."
+    }
+   ],
+   "legacy": {
+    "value": "Próxima amortização: 30 dias de antecedência; próxima remuneração: 15 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 67,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "contábeis pertinentes, levando em conta, ainda, o Manual de Provisão para Perdas em Ativos de Crédito da Administradora, observada, no entanto, a Resolução de Cessão relativa aos Direitos Creditórios Cedidos em razão de inexistência, conf orme os termos e condições previstos no Contrato de Cessão. 16.2. Cálculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos Financeiros que compõem a carteira da Classe A será ef etuada com base nas regras descritas no manual da Administradora, bem como nas regras aplicáveis do BACEN e da CVM. CAPÍTULO XVII – ASSEMBLEIA ESPECIAL 17.1. Aplicam-se à Assembleia Especial os mesmos procedimentos previstos na Parte Geral deste Regulamento para a Assembleia Geral."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falhas de pagamento, reservas, subordinação e prestadores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 70,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "CAPÍTULO XVIII - DOS EVENTOS DE AVALIAÇÃO 18.1. Eventos de Avaliação. Será considerado Evento de Avaliação da Classe A qualquer dos seguintes eventos: (i) caso a Classe A deixe de efetuar o pagamento: (a) integral de qualquer das Amortizações Programadas das Cotas Seniores e das Cotas Subordinadas Mezanino, na respectiva Data de Amortização Programada desde que não regularizado n"
+    }
+   ],
+   "legacy": {
+    "value": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo; Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Compras inviáveis, subordinação não recomposta, prestadores e insolvência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 75,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "A LIQUIDAÇÃO ANTECIPADA DA CLASSE A 19.1. Eventos de Liquidação. Será considerado Evento de Liquidação da Classe A qualquer dos seguintes eventos: (i) vedação legal e/ou impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade especificados no Regulamento; (ii) se f or deliberado em Assembleia Especial que um Evento de Avaliação constitui Evento de Liquidação; (iii) caso os Índices de Subordinação Mínimos sejam descumpridos e não saneados pelos Cotistas Subordinados Júnior dentro do prazo de 11 (onze) Dias Úteis contados do desenquadramento; (iv) renúncia, descredenciamento ou destituição da Administradora e/ou do Gestor, sem que ocorra sua respectiva substituição por uma nova instituição, nos termos deste Regulamento;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 75,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "um Evento de Avaliação constitui Evento de Liquidação; (iii) caso os Índices de Subordinação Mínimos sejam descumpridos e não saneados pelos Cotistas Subordinados Júnior dentro do prazo de 11 (onze) Dias Úteis contados do desenquadramento; (iv) renúncia, descredenciamento ou destituição da Administradora e/ou do Gestor, sem que ocorra sua respectiva substituição por uma nova instituição, nos termos deste Regulamento; (v) decretação de evento de intervenção, liquidação, f alência, recuperação judicial ou extrajudicial, requerimento de medidas antecipatórias à recuperação junto a credores e/ou liquidação da Cedente, nos termos da legislação e regulamentação aplicáveis; (vi) caso, por qualquer motivo, haja a rescisão ou término da vigência do Contrato de Cessão ou decisão judicial que o invalide; (vii) nos casos em que houver determinação da CVM;"
+    }
+   ],
+   "legacy": {
+    "value": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo; Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 33,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "2.3. Revolvência. Será permitida a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira da Classe A, nos termos do artigo 21, inciso VI, do Anexo Normativo II, observada a ordem de alocação de recursos prevista no Capítulo XV deste Anexo. 2.4."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvente; compras com recursos da carteira, observada a ordem de alocação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Sênior e mezanino por cronograma dos apêndices",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 44,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "DAS COTAS 6.1. Amortização das Cotas. As Cotas Seniores e as Cotas Subordinadas Mezanino da Classe A deverão ser amortizadas em cada Data de Amortização Programada durante o Período de Amortização, em conformidade com os respectivos Apêndices, sendo pagas aos Cotistas Seniores e aos Cotistas Subordinados Mezanino na mesma data. As Cotas Seniores e as Cotas Subordinadas Mezanino deverão ser resgatadas quando do pagamento da última parcela de amortização dentro do Período de Amortização, exceto pelas hipóteses de resgate antecipado previstas neste Regulamento. 6.1.1. Pagamentos durante o Período de Carência de Principal. Durante o Período de Carência de Principal, os Cotistas Seniores e os Cotistas Subordinados Mezanino terão direito somente a receber a Remuneração pelas suas respectivas Cotas, nas Datas de Pagamento de Remuneração aplicáveis, e após o pagamento das taxas e despesas incorridas pela Classe A, conf orme ordem de pagamento prevista no item 15.1 abaixo. 6.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos e reservas precedem distribuições; sênior prioritária; subordinadas condicionadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,02% a.a. do PL; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 55,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "é devida pela Classe A à Administradora uma Taxa de Administração equivalente a 0,02% (dois centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe A, a ser pago mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe A, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço, assegurado um valor mínimo mensal de R$ 15.000,00 (quinze mil reais), sendo 55 Corporativo | Interno ANEXO I - DESCRITIVO D"
+    }
+   ],
+   "legacy": {
+    "value": "0,02%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,06% a.a. do PL; mín. R$ 7 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 56,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "devida pela Classe A ao Gestor uma Taxa de Gestão equivalente a 0,06% (seis centésimos por cento) ao ano sobre o Patrimônio Líquido, a ser paga mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe A, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço, observado o valor mínimo mensal de R$ 7.000,00 (sete mil reais), sendo este valor atualizado pela variação positiva do IPCA sempre em janeiro de cada ano, em periodicidade não inferior a 1 (um)"
+    }
+   ],
+   "legacy": {
+    "value": "0,06%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda cobrança de taxa de performance da classe",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 56,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "itórios e Ativos Financeiros. 10.4. Inexistência de Taxas Adicionais. Não serão cobradas da Classe A ou dos Cotistas taxas de perf ormance, de ingresso ou de saída. 10.5. Especif icamente em relação a f undos e investimento investidos pela Classe A como Ativo Financeiro, esclarece-se que a Taxa de Administração e a Taxa de Gestão não incluem os valores correspondentes às taxas, remuneração dos prestadores de serviços e demais encargos incidentes sobre tais f undos de investimento que: (i) tenham suas cotas admitidas à negociação em mercado organizado; e (ii) sejam geridos por partes não relacionadas ao Gestor e/ou administrados por partes não relacionadas à Administradora, os quais também podem cobrar taxa de ingresso, saída e/ou performance, conforme seus respectivos regulamentos. Os demais f undos de investimento investidos pela Classe A como Ativo Financeiro terão suas taxas de administração e taxa de gestão incorporadas nas taxas máximas indicadas acima. 10.6."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "DI + 0,95% a.a. (séries 1 e 2, relatório de rating)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1204286",
+     "document_id": "1204286",
+     "kind": "Rating",
+     "title": "Relatório de Agência de Rating",
+     "date": "15/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1204286",
+     "excerpt": "top Características das Séries Série Vencimento Rentabilidade Alvo Regime de Amortização Senior Série 1 23/04/2030 DI + 0,95% ao ano Principal amortizado mensalmente com 48 meses de carência; juros pagos mensalmente, sem carência Senior Série 2 23/04/2030 DI + 0,95% ao ano Principal amortizado mensalmente com 48 meses de carência; juros pagos mensalmente, sem carência Mezanino 1 Série 1 23/04/2030 DI + 1,70% ao ano Principal amortizado mensalmente com 48 meses de carência; juros pagos mensalmente, sem carência Mezanino 2 Série 1 23/04/2030 DI + 4,99% ao ano Principal amortizado mensalmente com 48 meses de carência;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "Mez. 1: DI + 1,70%; Mez. 2: DI + 4,99% (relatório de rating)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1204286",
+     "document_id": "1204286",
+     "kind": "Rating",
+     "title": "Relatório de Agência de Rating",
+     "date": "15/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1204286",
+     "excerpt": "0,95% ao ano Principal amortizado mensalmente com 48 meses de carência; juros pagos mensalmente, sem carência Mezanino 1 Série 1 23/04/2030 DI + 1,70% ao ano Principal amortizado mensalmente com 48 meses de carência; juros pagos mensalmente, sem carência Mezanino 2 Série 1 23/04/2030 DI + 4,99% ao ano Principal amortizado mensalmente com 48 meses de carência; juros pagos mensalmente, sem carência Subordinada -- Sem remuneração definida Após resgate integral das Cotas Seniores e Mezanino Informações de Rating Série Rating Inicial Data de Atribuição Rating Atual Data da Última Atribuição Em Revisão Senior Série 1 AAA.br(sf) 06/05/2025 AAA.br(sf) 06/05/2025 Não Senior Série 2 AAA.br(sf) 06/05/2025 AAA.br(sf) 06/05/2025 Não Mezanino 1 Série 1 AA+.br(sf) 06/05/2025 AA+.br(sf) 06/05/2025 Não Mezanino 2 Série 1 -- -- -- -- -- Subordinada -- -- --"
+    },
+    {
+     "doc": "id1204286",
+     "document_id": "1204286",
+     "kind": "Rating",
+     "title": "Relatório de Agência de Rating",
+     "date": "15/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1204286",
+     "excerpt": "1,70% ao ano Principal amortizado mensalmente com 48 meses de carência; juros pagos mensalmente, sem carência Mezanino 2 Série 1 23/04/2030 DI + 4,99% ao ano Principal amortizado mensalmente com 48 meses de carência; juros pagos mensalmente, sem carência Subordinada -- Sem remuneração definida Após resgate integral das Cotas Seniores e Mezanino Informações de Rating Série Rating Inicial Data de Atribuição Rating Atual Data da Última Atribuição Em Revisão Senior Série 1 AAA.br(sf) 06/05/2025 AAA.br(sf) 06/05/2025 Não Senior Série 2 AAA.br(sf) 06/05/2025 AAA.br(sf) 06/05/2025 Não Mezanino 1 Série 1 AA+.br(sf) 06/05/2025 AA+.br(sf) 06/05/2025 Não Mezanino 2 Série 1 -- -- -- -- -- Subordinada -- -- -- -- -- Powe"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 25,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "S DA PARTE GERAL DO REGULAMENTO “Administradora” Signif ica a BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, instituição com sede no município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botaf ogo, nº 501, Torre Corcovado, 5º andar – parte, inscrita no CNPJ sob o nº 59.281.253/0001-23, autorizada a f uncionar pelo Banco Central do Brasil e autorizada pela CVM para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006, ou seu sucessor a qualquer título. “Agência Classif icadora de Signif ica a agência classif icadora de risco (rating) Risco” em f"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BTG Pactual Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 28,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Gestor” Signif ica a BTG PACTUAL ASSET MANAGEMENT S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 27,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Custodiante” Signif ica o Banco BTG Pactual S.A., instituição f inanceira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corco"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "CloudWalk (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 99,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Agente de Cobrança Signif ica a CloudWalk, na qualidade de prestador Extraordinária” de serviços de cobrança extraordinária dos Direitos Creditórios Inadimplidos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 31,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "A classif ica-se como tipo “Agro, Indústria e Comércio - Recebíveis Comerciais”. 1.8. Público-Alvo. A Classe A é destinada a Investidores Autorizados que busquem rentabilidade, no longo prazo, compatível com a Política de Investimento, composição e diversificação da carteira da Classe A, e aceitem os riscos associados aos investimentos da Classe A. 1.9. Responsabilidade dos Cotistas. Os Cotistas da Classe A terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18, da Resolução CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A. O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de Elegibilidade e às Condições de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado para fundo/classe; séries conforme apêndices",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; séries com prazo próprio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "Cotas. O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas e Subclasse de Cotas terá o prazo de duração estipulado no respectivo Apêndice. 1.4."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado para fundo/classe; séries conforme apêndices",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "Transações em arranjos de pagamento das bandeiras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 31,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "ira da Classe A, conforme estabelecidos neste Anexo. 2.1.1. Origem dos Direitos Creditórios. Os Direitos Creditórios são oriundos do pagamento devido pelos Devedores à Cedente, decorrentes de Transações de Pagamento realizadas por Usuários-Finais, operacionalizadas pelo Sistema CloudWalk, conf orme descrição a seguir: (i) os Estabelecimentos Credenciados, de tempos em tempos, realizam a prestação de serviços e venda de bens e produtos aos Usuários-Finais, os quais podem utilizar Instrumentos de Pagamento de qualquer Bandeira emitidos por um dos Devedores, operacionalizados pelo Sistema CloudWalk, gerando, assim, as Transações de Pagamento;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 101,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Arranjo de Pagamento” Signif ica o conjunto de regras e procedimentos estabelecidos pela Bandeira que disciplina a prestação de determinado serviço de pagamento ao público, tais como as atividades de emissão de Instrumentos de Pagamento e o credenciamento de Estabelecimentos Credenciados, bem como def ine o uso de padrões operacionais e de"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "Conta centralizadora da cedente, de movimentação restrita",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 104,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Conta Centralizadora” Signif ica a conta de titularidade da Cedente, de movimentação restrita, para as quais o Banco Liquidante transf erirá os pagamentos ref erentes aos Direitos Creditórios Cedidos, bem como os demais Direitos Creditórios (não cedidos à Classe A) de titularidade da Cedente, respeitando os f luxos de pagamentos e"
+    }
+   ],
+   "legacy": {
+    "value": "Sem garantia do administrador, gestor, cedente, custodiante, seguro ou FGC",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "dilution": {
+   "display": "Cancelamentos e chargebacks; gestor monitora o índice",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 103,
+     "clause": "Suplemento 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "“Chargeback” Signif ica a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários-Finais, Estabelecimentos Credenciados, Bandeiras e/ou Emissores, que poderá resultar na não realização do repasse ou no estorno do(s) crédito(s) correspondente(s) efetuado(s) à Cedente."
+    },
+    {
+     "doc": "D1",
+     "document_id": "993687",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/09/2025",
+     "page": 52,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+     "excerpt": "de Cancelamento e/ou de Chargeback, observada a obrigação do Gestor de monitorar o 52 Corporativo | Interno ANEXO I - DESCRITIVO DA CLASSE A - RESPONSABILIDADE LIMITADA DO CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO Índice de Cancelamento e Chargebacks e informar à Administradora o respectivo percentual. Gestor 9.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Cartão CloudWalk com sênior protegida por 15,5% de mez.+jr.; mezaninos A/B com índices em branco no regulamento.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

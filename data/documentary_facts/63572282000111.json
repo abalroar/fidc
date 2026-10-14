@@ -1,0 +1,868 @@
+{
+ "schema_version": 1,
+ "cnpj": "63572282000111",
+ "name": "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-13T20:20:46Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1301298",
+   "kind": "Anexo",
+   "title": "Anexo ao Regulamento",
+   "date": "26/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1301298"
+  },
+  "D2": {
+   "document_id": "1089845",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "21/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845"
+  },
+  "D3": {
+   "document_id": "1307567",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "01/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1307567"
+  },
+  "D4": {
+   "document_id": "1301830",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "26/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1301830"
+  },
+  "D5": {
+   "document_id": "1301282",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "26/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1301282"
+  },
+  "D6": {
+   "document_id": "1104314",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "06/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1104314"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de vendas no Mercado Pago e créditos sub-rogados do Mercado Crédito",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 112,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "itiva ou em garantia, incluindo operação de antecipação ou desconto de recebíveis pela Mercado Pago) de direitos creditórios decorrentes de Transações de Pagamento realizadas entre um Estabelecimento Comercial e um ou mais Usuários- Finais através do Mercado Pago, na condição de instituidor de um Arranjo de Pagamento Fechado que interopera e/ou participa do(s) Arranjo(s) de Pagamento Aberto(s) da(s) Bandeira(s), exceto quando o valor do Estoque Livre do Devedor for igual ou superior ao valor do montante total das emissões de Cotas Seniores das séries em circulação (definido nos respectivos Adendo(s) ao Apêndice A) e a operação de cessão ou alienação não comprometa o valor do Estoque Livre do Devedor, que deverá permanecer igual ou superior ao valor do montante total das emissões de Cotas Seniores das séries em circulação (definido nos respectivos Adendo(s) ao Apêndice A);"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 41,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "” na Data de Aquisição e Pagamento, de titularidade do Mercado Crédito, originados no âmbito da operação de pagamento com sub-rogação, nos termos do inciso I, do artigo 347, do Código Civil Brasileiro e do parágrafo 2º, do artigo 12-A, da Lei nº 12.865 de 9 de outubro de 2013, por meio da qual o Mercado Crédito tem como propósito (i) viabilizar o pagamento antecipado de determinadas U.Rs associadas às Dívidas do Devedor a determinados Estabelecimentos Comerciais, nos termos solicitados por tais Estabelecimentos Comerciais, e (ii) se sub-rogar nos direitos de tais Estabelecimentos Comerciais de receber o valor devido pelo Devedor pela respectiva Transação de Pagamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Estabelecimentos comerciais do Mercado Pago e Mercado Crédito",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 35,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "rio Adquirido e que não se caracterize como um Chargeback. “Cedentes” significa os Estabelecimentos Comerciais (com relação aos Direitos Creditórios dos Estabelecimentos Comerciais) e o Mercado Crédito (com relação aos Direitos Creditórios do Mercado Crédito) que, nos termos do respectivo Contrato de Cessão, cedem a totalidade ou parte de seus respectivos Direitos Creditórios ao Fundo e, para tanto, tenham realizado 35 JUR_SP - 56690675v12 - 2154004.566958 Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 e/ou venham a realizar Formalização(ões) Eletrônica(s) de Cessão com o Fundo. “Chargeback” significa, exclusivamente com relação aos Direitos Creditórios dos Estabeleci"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 41,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "” na Data de Aquisição e Pagamento, de titularidade do Mercado Crédito, originados no âmbito da operação de pagamento com sub-rogação, nos termos do inciso I, do artigo 347, do Código Civil Brasileiro e do parágrafo 2º, do artigo 12-A, da Lei nº 12.865 de 9 de outubro de 2013, por meio da qual o Mercado Crédito tem como propósito (i) viabilizar o pagamento antecipado de determinadas U.Rs associadas às Dívidas do Devedor a determinados Estabelecimentos Comerciais, nos termos solicitados por tais Estabelecimentos Comerciais, e (ii) se sub-rogar nos direitos de tais Estabelecimentos Comerciais de receber o valor devido pelo Devedor pela respectiva Transação de Pagamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Estabelecimentos comerciais e Mercado Crédito",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 35,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "rio Adquirido e que não se caracterize como um Chargeback. “Cedentes” significa os Estabelecimentos Comerciais (com relação aos Direitos Creditórios dos Estabelecimentos Comerciais) e o Mercado Crédito (com relação aos Direitos Creditórios do Mercado Crédito) que, nos termos do respectivo Contrato de Cessão, cedem a totalidade ou parte de seus respectivos Direitos Creditórios ao Fundo e, para tanto, tenham realizado 35 JUR_SP - 56690675v12 - 2154004.566958 Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 e/ou venham a realizar Formalização(ões) Eletrônica(s) de Cessão com o Fundo. “Chargeback” significa, exclusivamente com relação aos Direitos Creditórios dos Estabeleci"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Mercado Pago Instituição de Pagamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 40,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "lasse Única, mediante a Formalização Eletrônica de Cessão. “Devedor” significa o MERCADO PAGO INSTITUIÇÃO DE PAGAMENTO LTDA., sociedade limitada, com sede na Avenida das Nações Unidas, nº 3.003, Parte E, Bonfim, no Município de Osasco, Estado de São Paulo, CEP 06.233-903, inscrita no CNPJ sob o nº 10.573.521/0001-91. “Dia Útil” ou “Dias significa qualquer dia que não seja sábado, domingo, feriado Úteis” nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos significam os Direitos Creditórios dos Estabelecimentos Creditórios” Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos significam os Direitos Creditórios Elegíveis, observados os Creditórios Critérios"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação dos cedentes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 66,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "tá sujeita a riscos diversos e cujo desempenho é incerto; (viii) Ausência de Coobrigação dos Cedentes. Os Cedentes não respondem pelo pagamento dos Direitos Creditórios Adquiridos ou pela solvência do Devedor. Assim, na hipótese de inadimplemento dos Direitos Creditórios Adquiridos, poderá haver um impacto negativo no patrimônio e na rentabilidade do Fundo; 66 JUR_SP - 56690675v12 - 2154004.566958 Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 (ix) Risco de Crédito dos Emissores ou Contrapartes dos Ativos Financeiros. A parcela do Patrimônio Líquido não aplicada em Direitos Creditórios poderá ser aplicada nos Ativos Financeiros. Os Ativos Financeiros integrantes da carteira do Fundo poderão não vir a ser honrados pelos respectivos emissores ou contrapartes, de modo que o Fundo teria que suportar tais prejuízos, afetando negativamente a rentabilidade das Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Devedor adimplente; créditos não vencidos; prazo ≤ 365 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 59,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "mentos Comerciais deverão ser expressos em moeda corrente nacional; (ii) o Devedor não poderá estar inadimplente em relação ao Fundo na respectiva Data de Aquisição e Pagamento; (iii) os Direitos Creditórios dos Estabelecimentos Comerciais não poderão estar vencidos, quando de sua aquisição pelo Fundo; (iv) os Direitos Creditórios dos Estabelecimentos Comerciais a serem adquiridos não poderão ser devidos por partes relacionadas e sociedades que sejam integrantes do mesmo Grupo Econômico da Administradora, da Gestora e/ou do Custodiante; (v) os Direitos Creditórios dos Estabelecimentos Comerciais ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 59,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "ditórios dos Estabelecimentos Comerciais ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e (vi) os Direitos Creditórios dos Estabelecimentos Comerciais deverão ser provenientes de Transações de Pagamento realizadas por Usuários-Finais que utilizam os Instrumentos de Pagamento operacionalizados pelo Sistema Mercado Pago para a aquisição de bens, produtos e serviços nos Estabelecimentos Comerciais formalizados através de U.Rs registradas junto à Entidade Registradora. 3.9.2 Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito. Com relação especificamente aos Direitos Creditórios do Mercado Crédito, o Fundo somente poderá adquirir Direitos Creditórios do Mercado Crédito, caso sejam atendidos, nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito”): (i) os Direitos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite de 20% do PL (cotistas profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 58,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "itórios e Ativos Financeiros de responsabilidade ou coobrigação de um mesmo devedor não está limitada a 20% (vinte por cento) do Patrimônio Líquido, uma vez que os Cotistas da Classe Única são exclusivamente Investidores Profissionais. 3.6.2 Inexistência de Percentuais Adicionais de Composição da Carteira. A composição da carteira da Classe Única não apresentará requisitos de diversificação além dos previstos neste Capítulo. 3.7 Ausência de Garantias. As aplicações na Classe Única não contam com garantia: (i) da Administradora; (ii) dos Cedentes; (iii) do Custodiante; (iv) da Gestora; (iv) de qualquer mecanismo de seguro; ou (v) do FGC. Ademais, as aplicações na Classe Única não contam com garantias reais do Devedor. 3.8 Política de Voto. A Gestora adota política de exercício de direito de voto em assembleias, que disciplina os princípios gerais, o processo decisório e as matérias relevantes obrigatórias para o exercício do direito de voto."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento não limita concentração por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Até 365 dias da aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 59,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "ditórios dos Estabelecimentos Comerciais ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e (vi) os Direitos Creditórios dos Estabelecimentos Comerciais deverão ser provenientes de Transações de Pagamento realizadas por Usuários-Finais que utilizam os Instrumentos de Pagamento operacionalizados pelo Sistema Mercado Pago para a aquisição de bens, produtos e serviços nos Estabelecimentos Comerciais formalizados através de U.Rs registradas junto à Entidade Registradora. 3.9.2 Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito. Com relação especificamente aos Direitos Creditórios do Mercado Crédito, o Fundo somente poderá adquirir Direitos Creditórios do Mercado Crédito, caso sejam atendidos, nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito”): (i) os Direitos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos elegíveis (67% para fins tributários)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 57,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "e oitenta) dias do início das atividades da Classe Única, a Classe Única deverá ter alocado, no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II (“Alocação Mínima”). 3.3 Ativos Financeiros. A parcela do Patrimônio Líquido que não estiver alocada em Direitos Creditórios Elegíveis poderá ser alocada em Ativos Financeiros. 3.4 A Classe Única, respeitado o disposto neste Anexo Descritivo, não poderá realizar operações nas quais a Gestora, a Administradora, seus Controladores, sociedades por eles direta ou indiretamente Controladas, coligadas ou outras sociedades sob Controle comum atuem na condição de contraparte. 57 JUR_SP - 56690675v12 - 2154004.566958 Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 3.4.1 A Classe Única não poderá investir em cotas de fundos d"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 31,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis, nos “Alocação Mínima termos dos artigos 18, 19 e 24 da Lei nº 14.754, de 12 de de Investimento dezembro de 2023, para fins de enquadramento do Fundo e da Tributária” Classe como Entidade de Investimento sujeita ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. “Amortização de significa, com relação a cada Data de Amortização, a Principal” amortização de parcela do valor de principal das Cotas, calculado nos termos deste Anexo Descritivo e dos respectivos Apêndices, conforme aplicável. “Amortização tem seu significado atribuído no"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos Creditórios Elegíveis / PL >= 50% após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/01/2026, Apêndice C"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 53,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "Adendo(s) ao Apêndice A e na forma deste Anexo Descritivo. “Subclasse Sênior” significa a subclasse de Cotas, cujas principais características e direitos estão descritos no Apêndice A. “Subclasse significa a subclasse de Cotas, cujas principais características Mezanino” e direitos estão descritos no Apêndice B. “Subclasse significa a subclasse de Cotas, cujas principais características Subordinada e direitos estão descritos no Apêndice C. Júnior” “Taxa de significa a taxa a que a Administradora terá direito pela Administração” prestação de seus serviços de administração, calculada conforme o Artigo 5.9 deste Anexo Descritivo. “Taxa de Gestão” significa a taxa a que a Gestora terá direito pela prestação de seus serviços de gestão da carteira do Fundo, calculada conforme o Artigo 5.10 deste Anexo Descritivo. “Taxa Máxima de significa a taxa a que o Custodia"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 38,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "inada Subordinadas Mezanino da presente Classe Única, que se subordinam às Mezanino” Cotas Seniores para fins de remuneração e/ou amortização, mas não estão subordinadas à Subclasse Subordinada Júnior para fins de remuneração e amortização, bem como para a distribuição de rendimentos. “Cotas significam as cotas integrantes da Subclasse Subordinada Subordinadas Júnior da presente Classe Única, que se subordinam às Cotas Juniores” Seniores e às Cotas Subordinadas Mezanino para fins de remuneração e amortização, bem como para a distribuição de rendimentos. “Cotista” significa o titular de Cotas da presente Classe Única emitidas pelo Fundo. “Cotistas Seniores” significam os titulares de Cotas Seniores emitidas pelo Fundo. 38"
+    }
+   ],
+   "legacy": {
+    "value": "Cotas Subordinadas Juniores / PL >= 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/01/2026, Apêndice C"
+   }
+  },
+  "sub_senior": {
+   "display": "10% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 99,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "otalidade das Cotas Subordinadas Juniores, em comparação ao Patrimônio Líquido deverá ser equivalente a 10% (dez por cento) (“Índice de Subordinação”). 8.8.1 A totalidade das Cotas Subordinadas Juniores deverá ser integralizada em moeda corrente nacional, mediante transferência eletrônica disponível, valendo o comprovante de depósito como recibo de quitação, equivalente(s), no mínimo, ao Índice de Subordinação. A verificação de enquadramento do Índice de Subordinação deverá ser desempenhada pela Gestora, desde que existam Cotas Seniores e/ou Cotas Subordinadas Mezanino em circulação. 8.8.2 Os Cotistas Subordinados Juniores deverão subscrever Cotas Subordinadas Juniores em um montante necessário para atingir o Índice de Subordinação. Caso o Índice de Subordinação não seja observado por 1 (um) Dia Útil, a Gestora comunicará imediatamente tal ocorrência aos Cotistas Subordinados Juniores, por meio eletrônico, com aviso de recebimento, e tomará as providências para a emissão e subscrição de novas Cotas Subordinadas Juniores."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "Cotas Subordinadas Juniores / PL >= 10%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no regulamento",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária; 10 dias de desenquadramento geram avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 104,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "Adquiridos vincendos e os Direitos Creditórios Adquiridos Inadimplidos terão seu valor apurado todo Dia Útil, observado o disposto na legislação vigente, assim como as provisões e as perdas com tais Direitos Creditórios Adquiridos vincendos e Direitos Creditórios Adquiridos Inadimplidos integrantes da carteira da Classe Única serão efetuadas ou reconhecidas nos termos da legislação e regulamentação vigentes, observados o manual de precificação da Administradora e a Instrução CVM 489/11. Desta forma, o valor do saldo dos Direitos Creditórios poderá ser reduzido pelo valor da provisão efetuada ou perda reconhecida. 10.2.1 Os Direitos Creditórios Adquiridos, em regra, serão avaliados de acordo com a taxa de desconto aplicada na aquisição dos respectivos Direitos Creditórios. Os Direitos Creditórios Adquiridos Inadimplidos integrantes da carteira da Classe Única, não terão seu valor corrigido pela respectiva taxa de desconto após seu inadimplemento."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 108,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "do Patrimônio Líquido por 2 (duas) datas de verificação consecutivas; (x) desenquadramento do Índice de Subordinação, por 10 (dez) dias consecutivos contados a partir do envio de notificação aos Cotistas Subordinados Juniores referente ao desenquadramento do Índice de Subordinação; (xi) caso, diante das hipóteses a seguir, o Mercado Crédito não realize, direta ou indiretamente, no prazo de 3 (três) dias do recebimento da notificação enviada pelo Fundo, a aquisição dos Direitos Creditórios Adquiridos que se enquadrem nas hipóteses a seguir, por seu respectivo valor total, descontados valores eventualmente já recebidos pelo Fundo: (a) verificação de que o(s) Direito(s) Creditório(s) Adquirido(s) não cumpria(m) com quaisquer dos Critérios de Elegibilidade à época da cessão ao Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Cotas Subordinadas Juniores / PL >= 10%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "Liquidez de 3 meses de despesas; caixa para a próxima amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 103,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "quidez. A Classe Única deverá estabelecer uma Reserva de Liquidez, cujo valor mínimo será equivalente a 3 (três) meses de despesas ordinárias da Classe Única, assim entendidas como as despesas de manutenção de contratação dos prestadores de serviços da Classe Única, na proporção devida pela Classe Única. 10.1.1 A Reserva de Liquidez será constituída quando da integralização das Cotas, e será custeada pelos recursos recebidos pela Classe Única. 103 JUR_SP - 56690675v12 - 2154004.566958 Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 10.1.2 Os recursos mantidos na Reserva de Liquidez serão investidos em Ativos Financeiros. 10.1.3 A Classe Única deterá todos os direitos em relação aos Ativos Financeiros e a todos os valores em dinheiro mantidos na Reserva de Liquidez, sendo que os rendimentos dos Ativos Financeiros reverterão em benefício dos Cotistas."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 51,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "(quadragésimo quinto) dia anterior à próxima Data de Amortização e 100% (cem por cento) constituída em até 10 (dez) dias antes da próxima Data de Amortização ou Data de Pagamento de Remuneração, conforme previsto no respectivo Apêndice. “Reserva de significa a reserva de liquidez equivalente a, no mínimo, 3 (três) Liquidez” meses de despesas ordinárias da Classe Única, a ser constituída e controlada pela Administradora, para fins de cobertura dos encargos e despesas da Classe Única, observado o disposto neste Anexo Descritivo. “Resolução BCB significa a Resolução BCB nº 264, de 25 de novembro de 2022, 264/22” conforme em vigor. “Resolução CMN Significa a Resolução CMN nº 4.593, de 28 de agosto de 2017, 4.593/17” conforme em vigor. “Sistema de significa a plataforma de comunicação com uma Entidade"
+    }
+   ],
+   "legacy": {
+    "value": "100% do próximo pagamento de amortização/remuneração até D-10; acumula desde D-45",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/01/2026, Apêndice C"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de PDD remetido à regulamentação e ao manual; sem regra própria localizada",
+   "sources": [],
+   "legacy": {
+    "value": "100%",
+    "decision": "regression",
+    "why": "O \"100%\" da leitura anterior não tem fonte localizável"
+   }
+  },
+  "eval_triggers": {
+   "display": "Índice de subordinação desenquadrado por 10 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 108,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "do Patrimônio Líquido por 2 (duas) datas de verificação consecutivas; (x) desenquadramento do Índice de Subordinação, por 10 (dez) dias consecutivos contados a partir do envio de notificação aos Cotistas Subordinados Juniores referente ao desenquadramento do Índice de Subordinação; (xi) caso, diante das hipóteses a seguir, o Mercado Crédito não realize, direta ou indiretamente, no prazo de 3 (três) dias do recebimento da notificação enviada pelo Fundo, a aquisição dos Direitos Creditórios Adquiridos que se enquadrem nas hipóteses a seguir, por seu respectivo valor total, descontados valores eventualmente já recebidos pelo Fundo: (a) verificação de que o(s) Direito(s) Creditório(s) Adquirido(s) não cumpria(m) com quaisquer dos Critérios de Elegibilidade à época da cessão ao Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Pagamento das cotas não feito em 2 DU; avaliação convertida pela AGC",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 114,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "entos. 12. CAPÍTULO DOZE – LIQUIDAÇÃO DA CLASSE 12.1 Eventos de Liquidação. Caracterizam eventos que ensejam a liquidação antecipada da Classe Única, a ser deliberada em Assembleia Especial (“Eventos de Liquidação”): (i) o não pagamento, em até 2 (dois) Dias Úteis das Datas de Pagamento de Remuneração, das Datas de Amortização e/ou das Datas de Amortização Final, do valor da remuneração, amortização e/ou Amortização Final das Cotas Seniores devido na respectiva Data de Pagamento de Remuneração, Data de Amortização e/ou Data de Amortização Final; (ii) se for deliberado que um Evento de Avaliação constitui Evento de Liquidação; (iii) na hipótese de inexigibilidade, por qualquer meio judicial, de todos os Direitos Creditórios Adquiridos porventura existentes na carteira da Classe Única, por período superior a 45 (quarenta e cinco) dias; (iv) caso as Cotas sejam integralmente amortizadas, de forma que não existam Cotas em circulação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida, conforme ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 62,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "3.17 Segmento Econômico dos Direitos Creditórios: meios de pagamento. 3.18 Revolvência: observada a ordem de alocação de recursos prevista no Artigo 10.7 deste Anexo Descritivo, será admitida a revolvência dos Direitos Creditórios que compõe a carteira da Classe Única. 3.19 Nas hipóteses previstas nos Contratos de Cessão, considerar-se-á resolvida de pleno direito a cessão dos Direitos Creditórios adquiridos que se enquadrarem nessas referidas hipóteses, obrigando o respectivo Cedente dos Direitos Creditórios adquiridos ao pagamento do preço da resolução de cessão. 62 JUR_SP - 56690675v12 - 2154004.566958 Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 3.19.1 Os procedimentos aplicáveis para a resolução da cessão dos Direitos Creditórios estarão descritos nos Contratos de Cessão. 3.19.2 Não há limite para a resolução de cessão dos Di"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Encargos e reservas → sênior → mezanino → júnior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 97,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "ão das Cotas. Em cada Data de Amortização e em cada Data de Pagamento de Remuneração, a amortização das Cotas e a distribuição dos rendimentos do Fundo deverão observar a seguinte ordem de prioridade, conforme ordem de alocação de recursos prevista no Artigo 10.7abaixo: (i) primeiro, na medida necessária para o pagamento dos Encargos do Fundo, os valores recebidos na Conta Movimento da Classe Única serão retidos e pagos aos respectivos beneficiários na(s) respectiva(s) data(s) de vencimento; (ii) segundo, na medida necessária para a manutenção da Reserva de Liquidez, os valores recebidos na Conta Movimento da Classe Única ficarão retidos na mesma, em valor equivalente à Reserva de Liquidez, sendo certo que a disponibilidade ficará aplicada em Ativos Financeiros;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,075% a.a. até R$ 200 mi; 0,05% acima",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 82,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "a Administradora. A Taxa de Administração terá a seguinte composição: (i) 0,075% (setenta e cinco milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido até R$ 200.000.000,00 (duzentos milhões de reais), acrescido de 0,05% (cinco centésimos por cento) ao ano, incidente sobre a parcela do Patrimônio Líquido que exceder R$ 200.000.000,00 (duzentos milhões de reais) até o limite de R$ 500.000.000,00 (quinhentos milhões de reais), acrescido de 0,04% (quatro centésimos por cento) ao ano, incidente sobre a parcela do Patrimônio Líquido que exceder R$ 500.000.000,00 (quinhentos milhões de reais) até o limite de R$ 1.000.000.000,00 (um bilhão de reais), acrescido de 0,02% (dois centésimos por cento) ao ano, incidente sobre a parcela do Patrimônio Líquido que exceder R$ 1.000.000.000,00 (um bilhão de reais), provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido em cada Dia Útil, observado o piso mensal de R$ 17.500,00 (dezessete mil e quinhentos reais) e teto mensal de R$ 50.000,0"
+    }
+   ],
+   "legacy": {
+    "value": "curadoria específica ainda não carregada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,02% a.a. sobre o PL acima de R$ 1 bi (faixas)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 82,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "00 (quinhentos milhões de reais) até o limite de R$ 1.000.000.000,00 (um bilhão de reais), acrescido de 0,02% (dois centésimos por cento) ao ano, incidente sobre a parcela do Patrimônio Líquido que exceder R$ 1.000.000.000,00 (um bilhão de reais), provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido em cada Dia Útil, observado o piso mensal de R$ 17.500,00 (dezessete mil e quinhentos reais) e teto mensal de R$ 50.000,00 (cinquenta mil reais); (ii) será acrescido à remuneração da Administradora (a) o valor de R$ 2.000,00 (dois mil reais) mensais, pelos serviços de escrituração de Cotas; (b) o valor de R$ 7.000,00 (sete mil reais), a título de implantação do Fundo no sistema de passivo de escrituração pagos em uma única parcela no último Dia Útil do mês em que ocorrer a primeira integralização de Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "curadoria específica ainda não carregada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + spread da série (5ª série)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1301298",
+     "kind": "Anexo",
+     "title": "Anexo ao Regulamento",
+     "date": "26/08/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1301298",
+     "excerpt": "os termos do Capítulo 10 do Anexo Descritivo do Regulamento. A meta de Remuneração será determinada por meio da apropriação diária, sob a forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida do Spread Sênior 2ª (segunda) série. Período de Carência: O período compreendido entre a Data de Emissão da 2ª (segunda) série Sênior e 14 de abril de 2029; Data de Amortização: Toda Data de Aniversário que ocorrer a partir (inclusive) da primeira Data de Aniversário após o final do Período de Carência, até a Data de Amortização Final (inclusive);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Índice referencial da mezanino definido no apêndice; taxa não localizada",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 4,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "sso Civil, isto é, excluindo-se o dia do começo e incluindo-se o dia do vencimento. “Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM para o exercício da atividade de administração de carteira de valores mobiliários, custódia de valores mobiliários e escrituração de valores mobiliários, inscrita no CNPJ sob o nº 36.113.876/0001-91, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, 2° andar, CEP 22.640- 102. “Agência Classificadora de significa qualquer agência de classificação de risco Risco” autorizada a prestar tais serviços junto à CVM que seja contratada para a classificação de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 8,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "ação e regulamentação aplicável. “Gestora” significa a OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM para o exercício profissional de gestão de carteiras, por meio do Ato Declaratório nº 7.446, de 13 de outubro de 2003, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, sala 202, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20. “Patrimônio Líquido” tem o significado atribuído no Anexo Descritivo. “Pessoa” significa qualquer pessoa física ou jurídica, sociedade, associação, joint venture, sociedades anônimas, fundos de investimento, organizações ou entidades sem p"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 7,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "“Contratos de Cessão\" tem o significado atribuído no Anexo Descritivo. “Custodiante” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., conforme definido acima. “CVM” significa a Comissão de Valores Mobiliários. “Dia Útil” ou “Dias Úteis” significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” tem o significado atribuído no Anexo Descritivo. “Direitos Creditórios tem o significado atribuído no Anexo Descritivo. Adquiridos” “Direitos Creditórios tem o significado atribuído no Anexo Descritivo. Adquiridos Inadimplidos” “Direitos Creditórios tem o significado atribuído no Anexo Descritivo. Elegíveis” “Docu"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no regulamento",
+   "sources": []
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 56,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "cterísticas e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração e amortização das Cotas seguem descritos no Capítulo Dez deste Anexo Descritivo e nos Apêndices. 2.4 Público-Alvo. O público alvo da Classe Única é composto exclusivamente por Investidores Profissionais, definidos como tal pela regulamentação editada pela CVM. 3. CAPÍTULO TERCEIRO – POLÍTICA DE INVESTIMENTO E COMPOSIÇÃO DA CARTEIRA, CRITÉRIOS DE ELEGIBILIDADE E PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS 3.1 Objetivo da Classe Única."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 10,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "2. CAPÍTULO SEGUNDO - DENOMINAÇÃO, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E COMPOSIÇÃO DO PATRIMÔNIO 2.1 Denominação, Forma de Constituição e Prazo de Duração. O Fundo foi constituído com prazo de duração indeterminado, é disciplinado pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Transações no arranjo fechado do Mercado Pago, com registro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 112,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "itiva ou em garantia, incluindo operação de antecipação ou desconto de recebíveis pela Mercado Pago) de direitos creditórios decorrentes de Transações de Pagamento realizadas entre um Estabelecimento Comercial e um ou mais Usuários- Finais através do Mercado Pago, na condição de instituidor de um Arranjo de Pagamento Fechado que interopera e/ou participa do(s) Arranjo(s) de Pagamento Aberto(s) da(s) Bandeira(s), exceto quando o valor do Estoque Livre do Devedor for igual ou superior ao valor do montante total das emissões de Cotas Seniores das séries em circulação (definido nos respectivos Adendo(s) ao Apêndice A) e a operação de cessão ou alienação não comprometa o valor do Estoque Livre do Devedor, que deverá permanecer igual ou superior ao valor do montante total das emissões de Cotas Seniores das séries em circulação (definido nos respectivos Adendo(s) ao Apêndice A);"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 8,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "os no Capítulo Oitavo deste Regulamento. “Entidade Registradora” significa a entidade autorizada pelo BACEN a prestar o serviço de registro de Direitos Creditórios e que poderá ser contratada pela Administradora, em nome do Fundo, para realização do registro de Direitos Creditórios que sejam passíveis de registro, conforme regulamentação da CVM. “FGC” significa o Fundo Garantidor de Créditos. “Fundo” significa o SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA, inscrito no CNPJ sob o nº 63.572.282/0001-11, regido por este Regulamento, bem como pela legislação e regulamentação ap"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_lock": {
+   "display": "Liquidação na conta arrecadação da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 71,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "lidade de falhas operacionais e/ou registros inconsistentes nos Sistemas de Registros e na indicação de domicílios bancários, os quais podem impactar a liquidação dos Direitos Creditórios dos Estabelecimentos Comerciais na Conta Arrecadação da Classe Única; (x) Risco de Alteração do Regime de Registro dos Direitos Creditórios do Mercado Crédito. Nos termos do Ofício-Circular nº 8/2023/CVM/SSE, datado em 27 de setembro de 2023, são passíveis de registro os ativos financeiros dispostos no artigo 2º da Resolução CMN 4.593/17. Entretanto, o referido ofício circular dispensa o registro de direitos creditórios quando não houver mecanismos mínimos de checagem entre as Entidades Registradoras autorizadas a registrar a mesma modalidade de direito creditório, isto é, quando não houver “interoperabilidade” entre elas, uma vez que não é possível verificar eventuais registros ou cessões duplas de um mesmo ativo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "dilution": {
+   "display": "Cancelamentos e chargebacks dos lojistas definidos em contrato",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 36,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "zar Formalização(ões) Eletrônica(s) de Cessão com o Fundo. “Chargeback” significa, exclusivamente com relação aos Direitos Creditórios dos Estabelecimentos Comerciais, a contestação de Transação(ões) de Pagamento, seja no todo ou em parte, por parte de Usuários-Finais e/ou do Devedor, que poderá resultar na não realização do pagamento, total ou parcial, de um Direito Creditório Adquirido ou no estorno do(s) crédito(s) correspondente(s) efetuado(s) ao(s) respectivo(s) Cedente(s). “Classe Única” significa a presente Classe Única – Responsabilidade Limitada do Fundo. “Código Civil significa a Lei nº 10.406, de 10 de janeiro de 2002, conforme Brasileiro” em vigor. “Comissões” significam as comissões devidas pelo Mercado Crédito ao Fundo, nos termos do Contrato de Cessão dos Direitos C"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1089845",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/01/2026",
+     "page": 35,
+     "clause": "Apêndice C",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+     "excerpt": "is e de segurança, nos termos da regulamentação aplicável. “Cancelamento” significa, exclusivamente com relação aos Direitos Creditórios dos Estabelecimentos Comerciais, qualquer cancelamento de uma Transação de Pagamento que possa resultar na não realização do pagamento, total ou parcial, de um Direito Creditório Adquirido e que não se caracterize como um Chargeback. “Cedentes” significa os Estabelecimentos Comerciais (com relação aos Direitos Creditórios dos Estabelecimentos Comerciais) e o Mercado Crédito (com relação aos Direitos Creditórios do Mercado Crédito) que, nos termos do respectivo Contrato de Cessão, cedem a totalidade ou parte de seus respectivos Direitos Creditórios ao Fundo e, para tanto, tenham realizado 35"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de lojistas do Mercado Pago, devedor único Mercado Pago, com júnior mínima de 10% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,814 @@
+{
+ "schema_version": 1,
+ "cnpj": "56936116000191",
+ "name": "FATOR TARKEN FIAGRO",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T01:07:23Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1326321",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "22/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321"
+  },
+  "D2": {
+   "document_id": "1179644",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "04/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1179644"
+  },
+  "D3": {
+   "document_id": "1089209",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "29/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089209"
+  },
+  "D4": {
+   "document_id": "1047660",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "26/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1047660"
+  },
+  "D5": {
+   "document_id": "1030090",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "06/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1030090"
+  },
+  "D6": {
+   "document_id": "1023213",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "27/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023213"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos agroindustriais: CPR-F, duplicatas, CDCA, promissórias e CCB",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1023213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/10/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023213",
+     "excerpt": "“Direitos Creditórios” significa os direitos creditórios vinculados às cadeias produtivas agroindustriais, passíveis de aquisição pelo Fundo e/ou pela Classe, que sejam decorrentes de um Título e transferidos por um Cedente ao Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos agroindustriais representados por CPR-F, duplicatas, CDCA, promissórias e CCB.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes do agronegócio, com crédito avaliado pela Tarken",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "ifica a carteira de investimentos da Classe, composta por Ativos. “Cedente” significa um titular de Direitos Creditórios, que realiza transferência do referido Direito Creditório ao Fundo. “Chamada de Capital” significa cada aviso entregue aos Cotistas de tempos em tempos pela Administradora, conforme instruído pela Gestora, a qual informará o momento e o valor das integralizações de Cotas que deverão ser feitas pelos Cotistas, por meio da qual os Cotistas deverão realizar aportes de recursos na Classe para: (i) a realização de investimentos em Direitos Creditórios, nos termos do Anexo Descritivo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "da aquisição de Direitos Creditórios pelo Fundo e/ou pela Classe. “Consultora Especializada” significa a TARKEN SOFTWARE LTDA., sociedade limitada com sede na Cidade de Belo Horizonte, Estado de Minas Gerais, na Rua Santa Rita Durão, nº 20, 5º andar, inscrita no CNPJ sob o nº 25.033.061/0001-86, contratada pela Gestora, em nome do Fundo, para prestar serviços de consultoria especializada, nos termos dispostos neste Regulamento. “Consultora de Crédito” significa ITAÚ UNIBANCO S.A., instituição financeira, com sede na cidade de São Paulo, Estado de São Paulo, na Praça Alfredo Egydio de Souza Aranha, nº100, Torre Olavo Setubal - Itausa, Parque Jabaquara, CEP 04344- 902, inscrita no CNPJ/MF sob o nº 60.701.190/0001-04, contratada pela Gestora,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos; cedente ≤ 25% do PL (exceção temporária Albaugh)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 50,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "(n) após 30 de abril de 2026, o Fundo não poderá deter mais que 25% (vinte e cinco por cento) do Patrimônio Líquido alocado em Direitos Creditórios cedidos por um mesmo Cedente, ressalvado que, até 31 de outubro de 2027, exclusivamente em relação ao Cedente ALBAUGH AGRO BRASIL LTDA., sociedade inscrita no CNPJ/MF sob o nº 01.789.121/0001- 27 (“Albaugh”), o limite máximo será de 65% (sessenta e cinco por cento) do Patrimônio Líquido do Fundo; (o) ser cedidos por Cedentes previamente aprovados pela Gestora e Consultoria Especializada; (p) os Cedentes não poderão estar em recuperação judicial, extrajudicial, falência ou insolvência civil, devendo esta última ser verificada pelas vias judiciais; e, (q) os Direitos Creditórios devidos pelos 10 (dez) maiores devedores da carteira do Fundo deverão contar com cobertura mínima de 90% (noventa por cento) por seguro de crédito emitido por Seguradoras Elegíveis. 8.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Produtores e empresas do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 49,
+     "clause": "cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "(individualmente) 20% 8. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE AQUISIÇÃO 8.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificadas pela Gestora: (a) ser representados por Títulos com valor nominal mínimo de R$ 100,00 (cem reais); (b) ser representados em moeda corrente nacional e passíveis de registro contábil; (c) não estar vencidos e pendentes de pagamento na Data de Aquisição e Pagamento; (d) não ter prazo de vencimento superior a 360 (trezentos e sessenta) dias; (e) não ter prazo de vencimento inferior a 15 (quinze) dias; (f) deverão ser performados; (g) não poderão ser devidos por Devedores que atuam na cadeia produtiva do tabaco, fumo e derivados; (h) não poderão ser devidos por Devedores que tenham formado renegociações com o Fundo, com relação aos respectivos Direitos Creditórios adquiridos, e que ainda não tenham sido devidamente quitados pelos correspondentes Devedores;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Cessão irrevogável com garantias; recompras conforme contrato",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1023213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/10/2025",
+     "page": 47,
+     "clause": "cl. 7.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023213",
+     "excerpt": "sem coobrigação), conforme aplicável. 7.9. Será permitida a transferência de Direitos Creditórios para o Cedente e suas partes relacionadas e para fundos de investimento geridos pela Gestora ou administrados pela Administradora, a exclusivo critério da Gestora, não havendo limites para tanto. 7.10."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão irrevogável/irretratável, incluindo garantias; recompras conforme contrato.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Título ≥ R$ 100; em reais; não vencido; prazo de 15 a 360 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 49,
+     "clause": "cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "(individualmente) 20% 8. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE AQUISIÇÃO 8.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificadas pela Gestora: (a) ser representados por Títulos com valor nominal mínimo de R$ 100,00 (cem reais); (b) ser representados em moeda corrente nacional e passíveis de registro contábil; (c) não estar vencidos e pendentes de pagamento na Data de Aquisição e Pagamento; (d) não ter prazo de vencimento superior a 360 (trezentos e sessenta) dias; (e) não ter prazo de vencimento inferior a 15 (quinze) dias; (f) deverão ser performados; (g) não poderão ser devidos por Devedores que atuam na cadeia produtiva do tabaco, fumo e derivados; (h) não poderão ser devidos por Devedores que tenham formado renegociações com o Fundo, com relação aos respectivos Direitos Creditórios adquiridos, e que ainda não tenham sido devidamente quitados pelos correspondentes Devedores;"
+    }
+   ],
+   "legacy": {
+    "value": "Performados e vincendos, 15–360 dias; tabaco vedado; devedor adimplente e segurado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "20 maiores devedores ≤ 40% do PL; MT ≤ 50%, PR ≤ 40% por UF",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 50,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "os adquiridos não pode representar mais que 5% (cinco por cento) do Patrimônio Líquido do Fundo; (m) os 20 (vinte) maiores Devedores não podem representar mais que 40% (quarenta por cento) do Patrimônio Líquido do Fundo; (n) após 30 de abril de 2026, o Fundo não poderá deter mais que 25% (vinte e cinco por cento) do Patrimônio Líquido alocado em Direitos Creditórios cedidos por um mesmo Cedente, ressalvado que, até 31 de outubro de 2027, exclusivamente em relação ao Cedente ALBAUGH AGRO BRASIL LTDA., sociedade inscrita no CNPJ/MF sob o nº 01.789.121/0001- 27 (“Albaugh”), o limite máximo será de 65% (sessenta e cinco por cento) do Patrimônio Líquido do Fundo; (o) ser cedidos por Cedentes previamente aprovados pela Gestora e Consultoria Especializada; (p) os Cedentes não poderão estar em recuperação judicial, extrajudicial, falência ou insolvência civil, devendo esta última ser verificada pelas vias judiciais;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 49,
+     "clause": "cl. 7.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "s limites máximos de concentração de Devedores por localização geográfica: Estado (UF) Limite de Concentração MT 50% PR 40% GO 30% SP 30% MG 30% Demais (individualmente) 20% 8. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE AQUISIÇÃO 8.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificadas pela Gestora: (a) ser representados por Títulos com valor nominal mínimo de R$ 100,00 (cem reais); (b) ser representados em moeda corrente nacional e passíveis de registro contábil; (c) não estar vencidos e pendentes de pagamento na Data de Aquisição e Pagamento; (d) não ter prazo de vencimento superior a 360 (trezentos e sessenta) dias; (e) não ter prazo de vencimento inferior a 15 (quinze) dias; (f) deverão ser performados; (g) não poderão ser devidos por Devedores que atuam na cadeia produtiva do tabaco, fumo e derivados;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Maior grupo ≤5%/PL desde 2026; top 20 ≤40%/PL; cedente≤25%/PL desde maio/2026.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/09/2026, cl. 8.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente ≤ 25% do PL, com exceção para Albaugh até 2027",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 50,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "(n) após 30 de abril de 2026, o Fundo não poderá deter mais que 25% (vinte e cinco por cento) do Patrimônio Líquido alocado em Direitos Creditórios cedidos por um mesmo Cedente, ressalvado que, até 31 de outubro de 2027, exclusivamente em relação ao Cedente ALBAUGH AGRO BRASIL LTDA., sociedade inscrita no CNPJ/MF sob o nº 01.789.121/0001- 27 (“Albaugh”), o limite máximo será de 65% (sessenta e cinco por cento) do Patrimônio Líquido do Fundo; (o) ser cedidos por Cedentes previamente aprovados pela Gestora e Consultoria Especializada; (p) os Cedentes não poderão estar em recuperação judicial, extrajudicial, falência ou insolvência civil, devendo esta última ser verificada pelas vias judiciais; e, (q) os Direitos Creditórios devidos pelos 10 (dez) maiores devedores da carteira do Fundo deverão contar com cobertura mínima de 90% (noventa por cento) por seguro de crédito emitido por Seguradoras Elegíveis. 8.2."
+    }
+   ],
+   "value": 25.0,
+   "legacy": {
+    "value": "Maior grupo ≤5%/PL desde 2026; top 20 ≤40%/PL; cedente≤25%/PL desde maio/2026.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/09/2026, cl. 8.1"
+   }
+  },
+  "term_max": {
+   "display": "De 15 a 360 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 49,
+     "clause": "cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "(individualmente) 20% 8. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE AQUISIÇÃO 8.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificadas pela Gestora: (a) ser representados por Títulos com valor nominal mínimo de R$ 100,00 (cem reais); (b) ser representados em moeda corrente nacional e passíveis de registro contábil; (c) não estar vencidos e pendentes de pagamento na Data de Aquisição e Pagamento; (d) não ter prazo de vencimento superior a 360 (trezentos e sessenta) dias; (e) não ter prazo de vencimento inferior a 15 (quinze) dias; (f) deverão ser performados; (g) não poderão ser devidos por Devedores que atuam na cadeia produtiva do tabaco, fumo e derivados; (h) não poderão ser devidos por Devedores que tenham formado renegociações com o Fundo, com relação aos respectivos Direitos Creditórios adquiridos, e que ainda não tenham sido devidamente quitados pelos correspondentes Devedores;"
+    }
+   ],
+   "legacy": {
+    "value": "Performados e vincendos, 15–360 dias; tabaco vedado; devedor adimplente e segurado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 46,
+     "clause": "cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "referidos Direitos Creditórios. 7.3. Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 7.4. Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita limites de concentração de sua carteira por Devedor, emissor ou tipo de Direito Creditório, nos termos das disposições legais e regulatórias aplicáveis, sem prejuízo do disposto na Cláusula 7.3 acima. 7.5. As aquisições de Direitos Creditórios pela Classe serão realizadas em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 7.6. Na aquisição dos Direitos Creditórios, a Gestora deverá verificar se todos os Documentos Comprobatórios compreendem todos os documentos necessários para protesto, cobrança ou execução judicial dos Direitos Creditórios adquiridos, nos termos da e09c5c0e-95f9-41df-afa9-069d7c3d2ebe regulamentação aplicável, sem prejuízo da análise conjunta com a Administradora, em razão de suas obrigações acessórias à aquisição dos Direitos Creditórios. 7.7."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Mais de 50%/PL em DC até 180 dias do início.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/09/2026, cl. 7.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 43,
+     "clause": "cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "calculadas e divulgadas pela B3, no informativo diário disponível em sua página na internet (www.b3.com.br), acrescida de sobretaxa de 15% (quinze por cento) ao ano, expressa na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, apurado diariamente; “Cota Benchmark” = valor da Cota Subordinada Júnior de acordo com o Benchmark, apurada e corrigida diariamente até a Data de Apuração do Prêmio de Sucesso. 5.3.1. Caso ocorram novas emissões de cotas, o Prêmio de Sucesso será provisionado separadamente para as tranches correspondentes a cada emissão de Cotas e o Prêmio de Sucesso em cada Data de Apuração será o eventual resultado positivo entre a soma dos valores apurados para cada tranche. Após a cobrança do Prêmio de Sucesso em determinado período, a Cota Benchmark de cada tranche será atualizada para a Cota Benchmark utilizada na última cobrança do Prêmio de Sucesso efetuada, desconsiderando o efeito de possíveis parcelamentos. 5.3.2."
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinadas ≥15%/PL; júnior ≥3%/PL; cura até 10 DU.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/09/2026, cl. 5.3"
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice de subordinação não localizado no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Total subordinadas ≥15%/PL; júnior ≥3%/PL; cura até 10 DU.",
+    "decision": "regression",
+    "why": "Resposta anterior vem de versão de 2025 do regulamento"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice de subordinação não localizado no regulamento vigente",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Índice de subordinação não localizado no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Total subordinadas ≥15%/PL; júnior ≥3%/PL; cura até 10 DU.",
+    "decision": "regression",
+    "why": "Resposta anterior vem de versão de 2025 do regulamento"
+   }
+  },
+  "reserve": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Sem reserva específica para amortização",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1023213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/10/2025",
+     "page": 26,
+     "clause": "cl. 13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023213",
+     "excerpt": "13. RESERVA DE PAGAMENTO DE AMORTIZAÇÃO 13.1. O Fundo não conta com uma obrigação de manutenção de reserva específica para pagamento de amortização de Cotas. 14. ALTERAÇÃO DE REGULAMENTO, ASSEMBLEIA DE COTISTAS, CONVOCAÇÃO, INSTALAÇÃO E DELIBERAÇÕES 14.1. As alterações do Regulamento dependem da prévia aprovação da Assembleia de Cotistas, salvo nas hipóteses previstas na Cláusula 14.3 deste Regulamento. 14.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Sem obrigação de reserva específica para amortização.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução ao valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 23,
+     "clause": "cl. 10.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "er evidência de redução no valor recuperável dos Ativos da Classe, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. e09c5c0e-95f9-41df-afa9-069d7c3d2ebe PARTE GERAL 10.8. Os Direitos Creditórios adquiridos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 10.9."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Atrasos por faixa (241–360 > 3%), recompras > 10%, renegociações > 5%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 55,
+     "clause": "cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "to); (d) caso o Índice de Atraso (181-360 dias) seja superior a 5% (cinco por cento); (e) caso o Índice de Atraso (241-360 dias) seja superior a 3% (três por cento); (f) caso o Índice de Quantidade Mínima de Devedores seja inferior a 50 (cinquenta); (g) caso o Índice de Recompra Obrigatória seja superior a 10% (dez por cento); (h) caso o Índice de Recompra Facultativa seja superior a 10% (dez por cento); (i) caso o Índice de Pagamentos Incorretos seja superior a 15% (quinze por cento); e (j) caso o Índice de Renegociações seja superior a 5% (cinco por cento). 10.4. A Administradora e a Gestora serão responsáveis por controlar o cumprimento dos Índices de Monitoramento, de acordo com as responsabilidades descritas nas Cláusulas 10.2.1 e 10.2.2 acima. 11. DA RESPONSABILIDADE DOS COTISTAS E PATRIMÔNIO LÍQUIDO NEGATIVO 11.1. A Classe não limita a responsabilidade dos Cotistas ao valor das respectivas Cotas subscritas, na forma prevista nesta Cláusula 11. 11.2."
+    }
+   ],
+   "legacy": {
+    "value": "Atraso 31/61: numérico 20%/15% versus extenso 10%/10%; over 91/181/241:7%/5%/3%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/09/2026, cl. 10.3"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Atraso 31/61: numérico 20%/15% versus extenso 10%/10%; over 91/181/241:7%/5%/3%.",
+    "decision": "regression",
+    "why": "Resposta anterior lista eventos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com caixa de pagamentos, se atendidos os critérios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 51,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "por elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum. 8.4. Revolvência. Na hipótese em que a Classe tiver disponibilidade de caixa em razão de pagamento total ou parcial de Direitos Creditórios, e atendidos os Critérios de Elegibilidade e09c5c0e-95f9-41df-afa9-069d7c3d2ebe e as Condições de Aquisição, a Classe poderá utilizar tais recursos para a compra de novos Direitos Creditórios. 9. ORDEM DE ALOCAÇÃO DOS RECURSOS 9.1. A partir da 1ª Data de Integralização e até a liquidação da Classe, a Administradora deverá, em todo Dia Útil, por meio dos competentes débitos e créditos realizados na Conta da Classe, se houver, alocar os recursos decorrentes da integralização de Cotas e do recebimento de recursos provenientes da carteira da Classe, bem como aqueles correspondentes ao valor agregado dos Ativos Financeiros integrantes da carteira da Classe, na seguinte ordem, conforme aplicável: (a) pagamento de despesas e encargos de responsabilidade da Classe e/ou do Fundo, devidos nos termos deste Regulamento e da legislação aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. até R$ 100 mi; 0,15% acima; inclui custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 41,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "e pagará a Taxa de Administração e Taxa de Gestão, respectivamente, nos seguintes moldes: (a) Taxa de Administração (inclui os serviços de administração, custódia e controladoria): o valor correspondente a (i) 0,20% (vinte centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, enquanto o Fundo possuir um Patrimônio Líquido de até R$ 100.000.000,00 (cem milhões de reais); e (ii) 0,15% (quinze centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, enquanto o Fundo possuir um Patrimônio Líquido superior a R$ 100.000.000,00 (cem milhões de reais), observada uma remuneração mínima de R$ e09c5c0e-95f9-41df-afa9-069d7c3d2ebe 6.000,00 (seis mil reais) no primeiro mês de funcionamento, R$ 8.000,00 (oito mil reais) no segundo mês de funcionamento, R$ 10.000,00 (dez mil reais) no terceiro mês de funcionamento e R$ 16.500,00 (dezesseis mil e quinhentos reais) a partir do quarto mês de funcionamento, atualizada pela variação positiva do IPCA a cada período de 12 (doze) meses;"
+    },
+    {
+     "doc": "D6",
+     "document_id": "1023213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/10/2025",
+     "page": 41,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023213",
+     "excerpt": "o valor correspondente a (i) 0,20% (vinte centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, enquanto o Fundo possuir um Patrimônio Líquido de até R$ 100.000.000,00 (cem milhões de reais); e (ii) 0,15% (quinze centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, enquanto o Fundo possuir um Patrimônio Líquido superior a R$ 100.000.000,00 (cem milhões de reais), observada uma remuneração mínima de R$ 6.000,00 (seis mil reais) no prim"
+    }
+   ],
+   "legacy": {
+    "value": "0,20%/0,15% a.a., corte PL R$ 100 mi; piso R$ 6/8/10/16,5 mil meses 1/2/3/4+; IPCA.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/09/2026, cl. 5.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,40% a.a. do PL; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 42,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "to, atualizada pela variação positiva do IPCA a cada período de 12 (doze) meses; e (b) Taxa de Gestão: o valor correspondente a 0,40% (quarenta centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, observada uma remuneração mínima de R$15.000,00 (quinze mil reais) ao mês, atualizada pela variação positiva do IPCA a cada período de 12 (doze) meses. 5.1.1. Na hipótese de extinção do IPCA, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 5.1.2. A Taxa de Administração e a Taxa de Gestão serão calculadas e provisionadas todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 5.1.3."
+    },
+    {
+     "doc": "D6",
+     "document_id": "1023213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/10/2025",
+     "page": 42,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023213",
+     "excerpt": "(b) Taxa de Gestão: o valor correspondente a 0,40% (quarenta centésimos por cento) ao ano (base 252 Dias Úteis) aplicado sobre o Patrimônio Líquido, observada uma remuneração mínima de R$15.000,00 (quinze mil reais) ao mês, atualizada pela variação positiva do IPCA a cada período de 12 (doze) meses. 5.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,40% a.a./PL; mínimo R$ 15 mil/mês; IPCA.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "6,67% do excedente da júnior sobre DI + 15% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 44,
+     "clause": "cl. 5.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "s, será prevista nos documentos das respectivas ofertas, conforme previsto na Resolução CVM 160. 5.5. Será cobrada da Classe uma Taxa de Performance, a ser paga diretamente à Gestora, correspondente a 6,67% (seis inteiros e sessenta e sete centésimos por cento) do que exceder a diferença entre a soma da Cota Patrimonial e dos Rendimentos por Cota distribuídos, e Cota Benchmark, conforme a seguinte fórmula: 𝑇𝑃 = 0,0667 ∗ 𝑁 ∗ (𝐶𝑜𝑡𝑎 𝑃𝑎𝑡𝑟𝑖𝑚𝑜𝑛𝑖𝑎𝑙 + Σ𝑅𝑒𝑛𝑑𝑖𝑚𝑒𝑛𝑡𝑜 𝐷𝑖𝑠𝑡𝑟𝑖𝑏𝑢í𝑑𝑜 𝑝𝑜𝑟 𝐶𝑜𝑡𝑎 − 𝐶𝑜𝑡𝑎 𝐵𝑒𝑛𝑐ℎ𝑚𝑎𝑟𝑘) Onde: “TP” = Taxa de Performance; “N” = número de cotas emitidas e integralizadas; “Cota Patrimonial” = valor da Cota Subordinada Júnior, fruto do Patrimônio Líquido dividido pelo número de cotas emitidas e integralizadas apurada na Data de Apuração; e “ΣRendimento Distribuído por Cota” = somatório dos rendimentos por Cota distribuídos aos Cotistas dentro do período de apuração."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 43,
+     "clause": "cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "calculadas e divulgadas pela B3, no informativo diário disponível em sua página na internet (www.b3.com.br), acrescida de sobretaxa de 15% (quinze por cento) ao ano, expressa na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, apurado diariamente; “Cota Benchmark” = valor da Cota Subordinada Júnior de acordo com o Benchmark, apurada e corrigida diariamente até a Data de Apuração do Prêmio de Sucesso. 5.3.1. Caso ocorram novas emissões de cotas, o Prêmio de Sucesso será provisionado separadamente para as tranches correspondentes a cada emissão de Cotas e o Prêmio de Sucesso em cada Data de Apuração será o eventual resultado positivo entre a soma dos valores apurados para cada tranche. Após a cobrança do Prêmio de Sucesso em determinado período, a Cota Benchmark de cada tranche será atualizada para a Cota Benchmark utilizada na última cobrança do Prêmio de Sucesso efetuada, desconsiderando o efeito de possíveis parcelamentos. 5.3.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Apêndice da série sênior não está no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Apêndice da série mezanino não está no acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "a a data da 1ª (primeira) integralização de Cotas da Classe. “Administradora” significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte I, CEP 05402-500, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou sua sucessora a qualquer título. “Agência de Classificação de significa a agência de classificação de risco que poderá Risco” ser contratada pela Gestora, em nome do Fundo, para realizar a avaliação de risco das Cotas, nos termos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "FAR – Fator Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "do agronegócio. “Fundo” significa o FATOR TARKEN FIAGRO . “Gestora” significa a FAR – FATOR ADMINISTRAÇÃO DE RECURSOS LTDA, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Doutor Renato Paes de Barros, nº 1.017, 12º andar, Itaim Bibi, inscrita no CNPJ sob o nº 01.861.016/0001-51, autorizada à prestação dos serviços de administração de carteira de títulos e valores mobiliários de acordo com o Ato Declaratório CVM nº 4.407, de 18 de julho de 1997. “Grupo Econômico” significa (i) as pessoas físicas e jurídicas controladoras de determinada pessoa; (ii) as sociedades direta ou indiretamente controladas por tal pessoa; (iii) as sociedades coligadas com tal pessoa; e/ou (iv) sociedades sob controle comum com tal pessoa."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "aquisição de Direitos Creditórios pelo Fundo e/ou pela Classe. “Custodiante” significa a Administradora. e09c5c0e-95f9-41df-afa9-069d7c3d2ebe PARTE GERAL “CVM” significa a Comissão de Valores Mobiliários. “Data de Início da Amortização significa a data de início amortização extraordinária Extraordinária Obrigatória” obrigatória indicada no respectivo apêndice das Cotas Seniores, das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, a partir da qual será iniciada, mensalmente, no último Dia Útil de cada mês, a Amortização Extraordinária Obrigatória da respectiva emissão de Cotas. “Data de Aquisição e significa a data em que a Classe efetua o pagamento Pagamento” pela aquisição dos Direitos Creditórios, em moeda corrente naciona"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "a a data da 1ª (primeira) integralização de Cotas da Classe. “Administradora” significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte I, CEP 05402-500, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou sua sucessora a qualquer título. “Agência de Classificação de significa a agência de classificação de risco que poderá Risco” ser contratada pela Gestora, em nome do Fundo, para realizar a avaliação de risco das Cotas, nos termos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Tarken Software (consultoria de crédito)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "da aquisição de Direitos Creditórios pelo Fundo e/ou pela Classe. “Consultora Especializada” significa a TARKEN SOFTWARE LTDA., sociedade limitada com sede na Cidade de Belo Horizonte, Estado de Minas Gerais, na Rua Santa Rita Durão, nº 20, 5º andar, inscrita no CNPJ sob o nº 25.033.061/0001-86, contratada pela Gestora, em nome do Fundo, para prestar serviços de consultoria especializada, nos termos dispostos neste Regulamento. “Consultora de Crédito” significa ITAÚ UNIBANCO S.A., instituição financeira, com sede na cidade de São Paulo, Estado de São Paulo, na Praça Alfredo Egydio de Souza Aranha, nº100, Torre Olavo Setubal - Itausa, Parque Jabaquara, CEP 04344- 902, inscrita no CNPJ/MF sob o nº 60.701.190/0001-04, contratada pela Gestora,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 36,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "asse, em conformidade com o disposto no Regulamento. 2. DO PÚBLICO-ALVO 2.1. A Classe é exclusivamente destinada a Investidores Profissionais. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada, a qualquer tempo, por deliberação da Assembleia de Cotistas em conformidade com o disposto no Regulamento e neste Anexo Descritivo. Cada emissão de Cotas, contudo, terá o prazo de duração previsto no respectivo Apêndice. 4. DA EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS 4.1. A Classe será dividida nas seguintes Subclasses: (i) Cotas Seniores; (ii) Cotas Subordinadas Mezanino; e (iii) Cotas Subordinadas Júnior. 4.1.1. Fica a critério da Assembleia de Cotistas a emissão de novas Cotas ou, enquanto vigorar o Capital Autorizado, da Gestora. 4.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminada; investidores profissionais; prazo por emissão/apêndice.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1326321",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/09/2026",
+     "page": 36,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1326321",
+     "excerpt": "clusivamente destinada a Investidores Profissionais. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada, a qualquer tempo, por deliberação da Assembleia de Cotistas em conformidade com o disposto no Regulamento e neste Anexo Descritivo. Cada emissão de Cotas, contudo, terá o prazo de duração previsto no respectivo Apêndice. 4. DA EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS 4.1. A Classe será dividida nas seguintes Subclasses: (i) Cotas Seniores; (ii) Cotas Subordinadas Mezanino; e (iii) Cotas Subordinadas Júnior. 4.1.1. Fica a critério da Assembleia de Cotistas a emissão de novas Cotas ou, enquanto vigorar o Capital Autorizado, da Gestora. 4.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminada; investidores profissionais; prazo por emissão/apêndice.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "CPR-F, duplicatas, CDCA, NPs e CCBs do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1023213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/10/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023213",
+     "excerpt": "“Direitos Creditórios” significa os direitos creditórios vinculados às cadeias produtivas agroindustriais, passíveis de aquisição pelo Fundo e/ou pela Classe, que sejam decorrentes de um Título e transferidos por um Cedente ao Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos agroindustriais representados por CPR-F, duplicatas, CDCA, promissórias e CCB.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "Seguro de crédito cobrindo ≥ 90% dos 10 maiores devedores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1023213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/10/2025",
+     "page": 50,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023213",
+     "excerpt": "(q) os Direitos Creditórios devidos pelos 10 (dez) maiores devedores da carteira do Fundo deverão contar com cobertura mínima de 90% (noventa por cento) por seguro de crédito emitido por Seguradoras Elegíveis. 8.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Aquisição, a serem verificadas pela Gestora: (a) a formalização de constituição e da aquisição para o Fundo dos Direitos Credit"
+    }
+   ],
+   "legacy": {
+    "value": "Top 10 devedores com seguro de crédito cobrindo ≥90%; demais garantias por operação.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Crédito agro multicedente com 20 maiores devedores ≤ 40% e MT ≤ 50% do PL; performance de 6,67% sobre DI + 15%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

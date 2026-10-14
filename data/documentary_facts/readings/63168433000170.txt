@@ -1,0 +1,55 @@
+# Larca Aurora FIDC Consignado (Vert DTVM; Vert Gestora; endossante QI SCD)
+type: Consignado público
+q1: * "significa (a) a QI SOCIEDADE DE CRÉDITO DIRETO S.A."
+q2: * "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade"
+q3: * "devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo: Idade do Devedor Saldo devedor máximo De 18 até 64 anos"
+q4: * "Prioridade Subordinadas Mezanino Subordinação 1 Cotas Subordinadas 20% (vinte por cento) Mezanino A 2 Cotas Subordinadas 12%"
+q5: * "Nome da Subclasse de Cotas Valor mínimo do Índice de Subordinação Subordinadas Júnior Cotas Subordinadas Júnior A 5%"
+q6: * "a classe de cotas deve possuir parcela superior a 67% (sessenta e sete por cento) de seu patrimônio líquido representada por Direitos Creditórios"
+q7: * "A Taxa de Administração será correspondente a 0,15% a.a."
+q8: * "A Taxa de Gestão será equivalente à 0,15% a.a."
+q9: * "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q10: * "ERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na cidade de São Paulo"
+q11: * "VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade limitada com sede na cidade de São Paulo"
+q12: * "reditórios Transferidos para adquirir novos Direitos Creditórios (revolvência) durante o Período de Investimento"
+q13: * "14.1 Sem prejuízo dos Eventos de Avaliação adicionais previstos no Anexo Definições Específicas da Classe"
+q14: * "15.1 Sem prejuízo dos Eventos de Liquidação adicionais previstos no Anexo Definições Específicas da Classe"
+q15: * "em regime fechado e com prazo de duração indeterminado"
+q16: * "O Cedente/Endossante é somente responsável pela existência e, caso previsto no respectivo Contrato de Transferência"
+q17: * "Direitos Creditórios serão considerados líquidos de provisão para devedores duvidosos"
+q18: * "a Reserva de Liquidez, conforme aplicável, a Reserva de Despesas e Encargos e a Reserva de MTM"
+receivables: CCBs de consignado a militares do Exército e servidores federais (SIAPE) | o1
+originator: QI SCD e originadores do anexo de definições | q1
+assignor: QI Sociedade de Crédito Direto (cedente/endossante) | q1
+debtor: Militares e pensionistas do Exército; servidores e aposentados SIAPE | o1
+recourse: Endossante responde por existência e formalização, não pela solvência | q16
+eligibility: Não vencidos; sem parcela inadimplida; devedor adimplente no fundo | q2
+debtor_limit: Saldo por devedor escalonado por idade (até R$ 350 mil de 18 a 64 anos) | q3
+assignor_limit: Endossante principal QI SCD | q1
+term_max: n/d | Prazo máximo da CCB não localizado no trecho lido
+allocation: > 67% do PL em direitos creditórios | q6 | value=67
+quota_structure: Sênior / Mezanino A e B / Júnior A e B | q4,q5
+sub_senior: 20% · (mez.+jr.)/PL | q4 | basis=mez+jr/PL
+sub_mezz: Mez. A: 12% (mez. B + júnior); Mez. B: júnior ≥ 5% do PL | q4,q5 | basis=jr/PL | value=5
+sub_check: Índices por subclasse, na ordem de prioridade | q4
+reserve: Reservas de liquidez, de despesas e de MTM | q18,o38
+pdd: Direitos creditórios líquidos de provisão para devedores duvidosos | q17
+eval_triggers: Lista do capítulo 14, mais os do anexo de definições | q13
+liquidation: Lista do capítulo 15, mais os do anexo de definições | q14
+revolving: Revolvência durante o período de investimento | q12
+amortization: n/d | Cronograma definido nos apêndices das séries
+admin_fee: 0,15% a.a. do PL; mín. R$ 12,5 mil/mês | q7
+mgmt_fee: 0,15% a.a. do PL; mín. R$ 12,5 mil/mês | q8
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: n/d | Sobretaxa definida nos apêndices, fora do acervo
+target_mezz: n/d | Sobretaxa definida nos apêndices, fora do acervo
+administrator: Vert DTVM | q10
+manager: Vert Gestora de Recursos Financeiros | q11
+custodian: n/d | Custodiante definido no anexo de definições, não lido
+servicer: n/d | Agente de cobrança extraordinária sem nome no trecho lido
+investors: n/d | Público-alvo definido no anexo de definições, não lido
+duration: Indeterminado | q15
+payroll: Consignação em folha do Exército e do SIAPE | o1
+age_limit: Saldo máximo cai com a idade do devedor (faixas a partir de 65 anos) | q3
+installment_min: n/d | Valor mínimo de parcela não localizado no texto extraído
+leitura: Consignado federal (Exército e SIAPE) da QI SCD com 20% de subordinação; saldo por devedor até R$ 350 mil.

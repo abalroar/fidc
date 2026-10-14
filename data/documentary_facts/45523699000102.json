@@ -1,0 +1,742 @@
+{
+ "schema_version": 1,
+ "cnpj": "45523699000102",
+ "name": "VIXTRA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:04:32Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1024756",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "30/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756"
+  },
+  "D2": {
+   "document_id": "1038532",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "12/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038532"
+  },
+  "D3": {
+   "document_id": "1038504",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "13/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1038504"
+  },
+  "D4": {
+   "document_id": "1031566",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "07/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1031566"
+  },
+  "D5": {
+   "document_id": "913089",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913089"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos comerciais; notas comerciais podem ter garantia de Bill of Lading",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 11,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "Direitos Creditórios originados conforme política de concessão de crédito, que se encontra descrita no Anexo VII deste Regulamento. 10.1.1. O Fundo poderá adquirir Direitos Creditórios Extraordinários, observados as Condições de Cessão e os Critérios de Elegibilidade, desde que a respectiva Nota Comercial conte com obrigação, sob pena de vencimento antecipado, de que a respectiva garantia de cessão fiduciária de Bill of Lading será devidamente constituída no prazo máximo de até 90 (n"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos comerciais; notas comerciais podem ter garantia de Bill of Lading",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos, analisados pela gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 12,
+     "clause": "cl. 10.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": ".5 Os processos de originação dos Direitos Creditórios Cedidos encontram- se descritos na cláusula 12 abaixo. 10.6 A Gestora é responsável pela análise do Cedente e seleção dos Direitos Creditórios. 11. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 11.1 Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão, além de atender às Condições de Cessão, atender, cumulativamente, aos seguintes Critérios de Elegibilidade: (I) valor mínimo, por ativo, de R$ 100,00 (cem reais); (II) prazo mínimo de vencimento de 7 (sete) dias; (III) prazo máximo de vencimento de 270 (duzentos e setenta) dias; (IV) não podem estar vencidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 12,
+     "clause": "cl. 10.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": ".5 Os processos de originação dos Direitos Creditórios Cedidos encontram- se descritos na cláusula 12 abaixo. 10.6 A Gestora é responsável pela análise do Cedente e seleção dos Direitos Creditórios. 11. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 11.1 Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão, além de atender às Condições de Cessão, atender, cumulativamente, aos seguintes Critérios de Elegibilidade: (I) valor mínimo, por ativo, de R$ 100,00 (cem reais); (II) prazo mínimo de vencimento de 7 (sete) dias; (III) prazo máximo de vencimento de 270 (duzentos e setenta) dias; (IV) não podem estar vencidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos créditos comerciais cedidos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 12,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "e de Concentração em Patrimônio Líquido do Fundo Direitos Creditórios por Devedor Até R$ 99.999.999,99 Até R$ 2.500.000,00 A partir de R$ 100.000.000,00 Até 2,5% do Patrimônio Líquido até R$ 199.999.999,99 A partir de R$ 200.000.000,00 Até 2,25% do Patrimônio Líquido até R$ 249.999.999,99 12 A partir de R$ 250.000.000,00 Até 2,0% do Patrimônio Líquido (3) os Direitos Creditórios cujagarantia seja composta por cessão fiduciária de título de crédito representativo da posse e da propriedade sobre mercadorias importadas em trânsito (Bill of Lading), considerada pro- forma a aquisição pretendida, podem representar até 100% (cem por cento) do Patrimônio Líquido do Fundo; (4) os Direitos Creditórios cuja garantia seja composta por duplicatas, considerada pro-forma a aquisição pretendida, podem representar até 33,33% (trinta e três inteiros e trinta e três centésimos por cento) do Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada contrato de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Título ≥ R$ 100; vencimento de 7 a 270 dias; não vencidos",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 12,
+     "clause": "cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "nálise do Cedente e seleção dos Direitos Creditórios. 11. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 11.1 Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão, além de atender às Condições de Cessão, atender, cumulativamente, aos seguintes Critérios de Elegibilidade: (I) valor mínimo, por ativo, de R$ 100,00 (cem reais); (II) prazo mínimo de vencimento de 7 (sete) dias; (III) prazo máximo de vencimento de 270 (duzentos e setenta) dias; (IV) não podem estar vencidos;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 11,
+     "clause": "cl. 10.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "Condições de Cessão e os Critérios de Elegibilidade, desde que a respectiva Nota Comercial conte com obrigação, sob pena de vencimento antecipado, de que a respectiva garantia de cessão fiduciária de Bill of Lading será devidamente constituída no prazo máximo de até 90 (noventa) dias da aquisição do Direito Creditório Extraordinário pelo Fundo, passando o Direito Creditório, a partir do envio de comprovação à Gestora sobre a devida constituição da garantia em valor percentual mínimo de 125% (c"
+    }
+   ],
+   "legacy": {
+    "value": "Não vencidos; sem litígio/penhora, recuperação judicial ou existência futura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor até R$ 2,5 mi (PL < R$ 100 mi) ou 2,5% do PL; teto legal 20%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 12,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "e de Concentração em Patrimônio Líquido do Fundo Direitos Creditórios por Devedor Até R$ 99.999.999,99 Até R$ 2.500.000,00 A partir de R$ 100.000.000,00 Até 2,5% do Patrimônio Líquido até R$ 199.999.999,99 A partir de R$ 200.000.000,00 Até 2,25% do Patrimônio Líquido até R$ 249.999.999,99 12 A partir de R$ 250.000.000,00 Até 2,0% do Patrimônio Líquido (3) os Direitos Creditórios cujagarantia seja composta por cessão fiduciária de título de crédito representativo da posse e da propriedade sobre mercadorias importadas em trânsito (Bill of Lading), considerada pro- forma a aquisição pretendida, podem representar até 100% (cem por cento) do Patrimônio Líquido do Fundo; (4) os Direitos Creditórios cuja garantia seja composta por duplicatas, considerada pro-forma a aquisição pretendida, podem representar até 33,33% (trinta e três inteiros e trinta e três centésimos por cento) do Patrimônio Líquido do Fundo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 9,
+     "clause": "cl. 9.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "ervar a Alocação Mínima de 67% (sessenta e sete por cento)do Patrimônio Líquido em Direitos Creditórios. 9.4 O Fundo poderá adquirir Direitos Creditórios e Ativos Financeiros de um mesmo Devedor ou de coobrigação de uma mesma pessoa ou entidade, no limite de até 20% (vinte por cento) de seu Patrimônio Líquido. 9.4.1 O enquadramento do Fundo aos limites previstos no item 9.4 acima deverá ser observado a partir de 180 (cento e oitenta) dias a contar da primeira Data de Subscrição Inicial do Fundo. 9.5 O remanescente do Patrimônio Líquido, que não for aplicado em Direitos Creditórios, poderá ser mantido em moeda corrente nacional ou investido nos seguintes Ativos Financeiros: (a) títulos de emissão do Tesouro Nacional; (b) operações compromissadas com lastro nos Ativos Financeiros mencionados na alínea (a);"
+    }
+   ],
+   "value": 2500000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor, não por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "De 7 a 270 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 12,
+     "clause": "cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "nálise do Cedente e seleção dos Direitos Creditórios. 11. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 11.1 Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão, além de atender às Condições de Cessão, atender, cumulativamente, aos seguintes Critérios de Elegibilidade: (I) valor mínimo, por ativo, de R$ 100,00 (cem reais); (II) prazo mínimo de vencimento de 7 (sete) dias; (III) prazo máximo de vencimento de 270 (duzentos e setenta) dias; (IV) não podem estar vencidos;"
+    }
+   ],
+   "legacy": {
+    "value": "Não vencidos; sem litígio/penhora, recuperação judicial ou existência futura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios após 90 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 9,
+     "clause": "cl. 9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "Fundo de acordo com a política de investimento, composição e diversificação da carteira do Fundo abaixo estabelecida. 9.3 O Fundo deverá, após 90 (noventa) dias contados da primeira Data de Subscrição Inicial do Fundo, observar a Alocação Mínima de 67% (sessenta e sete por cento)do Patrimônio Líquido em Direitos Creditórios. 9.4 O Fundo poderá adquirir Direitos Creditórios e Ativos Financeiros de um mesmo Devedor ou de coobrigação de uma mesma pessoa ou entidade, no limite de até 20% (vinte por cento) de seu Patrimônio Líquido. 9.4.1 O enquadramento do Fundo aos limites previstos no item 9.4 acima deverá ser observado a partir de 180 (cento e oitenta) dias a contar da primeira Data de Subscrição Inicial do Fundo. 9.5 O remanescente do Patrimônio Líquido, que não for aplicado em Direitos Creditórios, poderá ser mantido em moeda corrente nacional ou investido nos seguintes Ativos Financeiros: (a) títulos de emissão do Tesouro Nacional; (b) operações compromissadas com lastro nos Ativos Financeiros mencionados na alínea (a);"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "DC ≥67% PL após90 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A e B / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 26,
+     "clause": "cl. 14.3.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "s hipóteses de conflito de interesse de seus Cotistas, sendo que a cada Cota Subordinada corresponderá 1 (um) voto. 14.4 Índice de Subordinação O Fundo terá como Razão de Garantia o percentual mínimo de 150% (cento e cinquenta por cento) . Isso significa que, no mínimo, 33,34% (trinta e três inteiros e trinta e quatro centésimos por cento) do Patrimônio Líquido do Fundo deve ser representado pelo somatório das Cotas Subordinadas em circulação, sendo que as Cotas Subordinadas Mezanino B e as Cotas Subordinadas Juniores em conjunto nunca poderão ser inferiores a 16,67% (dezesseis inteiros e sessenta e sete centésimos por cento) do Patrimônio Líquido do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas≥33,34% PL; mezaninoB+júnior≥16,67%; júnior≥10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/10/2025, cl. 14.3.5"
+   }
+  },
+  "sub_senior": {
+   "display": "33,34% · (mez.+jr.)/PL; razão de garantia ≥ 150%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 26,
+     "clause": "cl. 14.3.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "s hipóteses de conflito de interesse de seus Cotistas, sendo que a cada Cota Subordinada corresponderá 1 (um) voto. 14.4 Índice de Subordinação O Fundo terá como Razão de Garantia o percentual mínimo de 150% (cento e cinquenta por cento) . Isso significa que, no mínimo, 33,34% (trinta e três inteiros e trinta e quatro centésimos por cento) do Patrimônio Líquido do Fundo deve ser representado pelo somatório das Cotas Subordinadas em circulação, sendo que as Cotas Subordinadas Mezanino B e as Cotas Subordinadas Juniores em conjunto nunca poderão ser inferiores a 16,67% (dezesseis inteiros e sessenta e sete centésimos por cento) do Patrimônio Líquido do Fundo."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 33.34,
+   "legacy": {
+    "value": "Subordinadas≥33,34% PL; mezaninoB+júnior≥16,67%; júnior≥10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/10/2025, cl. 14.3.5"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mez. B + júnior ≥ 16,67% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 26,
+     "clause": "cl. 14.3.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "s hipóteses de conflito de interesse de seus Cotistas, sendo que a cada Cota Subordinada corresponderá 1 (um) voto. 14.4 Índice de Subordinação O Fundo terá como Razão de Garantia o percentual mínimo de 150% (cento e cinquenta por cento) . Isso significa que, no mínimo, 33,34% (trinta e três inteiros e trinta e quatro centésimos por cento) do Patrimônio Líquido do Fundo deve ser representado pelo somatório das Cotas Subordinadas em circulação, sendo que as Cotas Subordinadas Mezanino B e as Cotas Subordinadas Juniores em conjunto nunca poderão ser inferiores a 16,67% (dezesseis inteiros e sessenta e sete centésimos por cento) do Patrimônio Líquido do Fundo."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 16.67,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Razão de garantia monitorada pela gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 26,
+     "clause": "cl. 14.3.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "s hipóteses de conflito de interesse de seus Cotistas, sendo que a cada Cota Subordinada corresponderá 1 (um) voto. 14.4 Índice de Subordinação O Fundo terá como Razão de Garantia o percentual mínimo de 150% (cento e cinquenta por cento) . Isso significa que, no mínimo, 33,34% (trinta e três inteiros e trinta e quatro centésimos por cento) do Patrimônio Líquido do Fundo deve ser representado pelo somatório das Cotas Subordinadas em circulação, sendo que as Cotas Subordinadas Mezanino B e as Cotas Subordinadas Juniores em conjunto nunca poderão ser inferiores a 16,67% (dezesseis inteiros e sessenta e sete centésimos por cento) do Patrimônio Líquido do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas≥33,34% PL; mezaninoB+júnior≥16,67%; júnior≥10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/10/2025, cl. 14.3.5"
+   }
+  },
+  "reserve": {
+   "display": "Liquidez ≥ 50% do próximo resgate sênior/mezanino, 100% a partir de D-15",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 32,
+     "clause": "cl. 17.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "a partir de 30 (trinta) dias antes de cada data de pagamento de cada amortização, o Fundo sempre mantenha em Ativos Financeiros com liquidez diária o equivalente a, no mínimo, 50% (cinquenta por cento) do valor futuro do pagamento do próximo resgate de Cotas Seniores e, conforme o caso, de Cotas Subordinadas Mezanino em questão; e (b) a partir de 15 (quinze) dias antes de cada data de pagamento de resgate, o Fundo sempre mantenha em Ativos Financeiros com liquidez diária o equivalente a 100% (cem por cento) do valor futuro do pagamento do próximo resgate de Cotas Seniores em questão. 17.2 Observada a ordem de alocação de recursos prevista na cláusula 24 deste Regulamento, a Administradora deverá manter, exclusivamente com os recursos do Fundo, Reserva de Caixa do Fundo, por conta e ordem deste, desde a Data de Subscrição Inicial até a liquidação do Fundo, a qual será destinada exclusivamente ao pagamento dos montantes referentes às despesas e encargos de responsabilidade do Fundo, incluindo-se a Taxa de Administração. 17.2.1 O valor da Reserva de Caixa deverá ser apurado pela Administradora e monitorado pela Gestora todo último Dia Útil de cada mês calendário, devendo ser equivalente ao maior valor entre (a) o total de despesas e encargos de responsabilidade do Fundo, a ser"
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre90 dias de despesas e1% PL; amortização50% emD−30 e100% emD−15",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/10/2025, cl. 17.1"
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução ao valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 33,
+     "clause": "cl. 18.3.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "pre que houver evidência de redução no valor recuperável dos ativos do Fundo, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 18.3.3.1 Os Direitos Creditórios Cedidos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 18.3.4 É obrigatória a divulgação, em notas explicativas às demonstrações financeiras anuais do Fundo, de informações que abranjam, no mínimo, o montante, a natureza e as faixas de vencimento dos ativos integrantes da carteira do Fundo e, caso aplicável, de mercado dos ativos, segregados por tipo de ativo, bem como os parâmetros utilizados na determinação desses valores. 18.3.5 Observada a ordem de alocação de recursos prevista na cláusula 24 abaixo, o descumprimento de qualquer obrigação originária dos Direitos Creditórios"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no texto extraído",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "Por deliberação da assembleia, inclusive após evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 38,
+     "clause": "cl. 23",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "e da CVM, conforme aplicável. 23. LIQUIDAÇÃO DO FUNDO, EVENTOS DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO ANTECIPADA 23.1 O Fundo poderá ser liquidado por deliberação da Assembleia Geral de Cotistas, convocada especialmente para esse fim ou, caso não existam Cotas em circulação,por deliberação da Administradora. 23.2 São considerados Eventos de Avaliação quaisquer das seguintes hipóteses: a) rebaixamento da classificação de risco das Cotas Seniores em circulação, (1) a qualquer tempo, em 3 (três) níveis abaixo da classificação de risco originalmente atribuída ou (2) em uma única revisão de classificação de risco ou em 2 (duas) revisões consecutivas, em 2 (dois) níveis abaixo da classificação de risco originalmente atribuída, se houver; b) desenquadramento do Índice de Subordinação por um período superior ao previsto no item 14.4.3 do Regulamento; c) desenquadramento do limite de concentração por Devedor, conforme definido nos Critérios de Elegibilidade e Condições de Cessão, após a aquisição dos referidos Direitos Creditórios pelo Fundo, por período superior a 15(quinze) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não trata de revolvência no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Sênior 3ª série: juros mensais; principal do 13º ao 48º mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 56,
+     "clause": "Suplemento, cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "agésimo oitavo) mês: pagamento de principal + juros h) Prazo de Duração: 48 (quarenta e oito) meses; i) Remuneração alvo: CDI + 3,00% (três por cento) ao ano; j) Forma de Integralização: a prazo, mediante chamadas de capital a serem realizadas nos termos definidos no Regulamento; k) Intermediária líder da oferta: ITAÚ BBA ASSESSORIA FINANCEIRA S.A.. Os termos utilizados neste Suplemento, iniciados em letras maiúsculas (estejam no singular ou no plural), que não sejam aqui definidos de outra forma, terão o significado que lhes é atribuído no Regulamento. São Paulo, 20 de outubro de 2025. 56 ANEXO VII Este anexo é parte integrante do Regulamento do VIXTRA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA. POLÍTICA DE CRÉDITO 1. OBJETIVO A presente descrição do processo de originação dos direitos creditórios e política de crédito têm por objetivo definir níveis de aprovação e concessão de crédito para os Devedores, bem como estabelecer procedimentos para análise, aprovação e reavaliação. 2."
+    }
+   ],
+   "legacy": {
+    "value": "Periodicidade e prazo remetidos ao suplemento; cronograma fechado não identificado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,32% a.a. do PL (inclui custódia); mín. a partir de R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 8,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "ensal 7 0,32% R$ 15.000,00 (até R$5MM ou até o 6º mês, o que ocorrer 1º) R$17.000,00 (entre R$5MM até R$40MM ou até o 12º mês, o que ocorrer 1º) R$18.500,00 (a partir de R$40MM ou a partir do 13º mês, o que ocorrer 1º) b) Será devida pela prestação dos serviços de Gestão: % sobre o Patrimônio Líquido (a.a.) Remuneração Mínima Mensal 0,25% R$ 15.000,00 (até R$5MM ou até o 6º mês, o que ocorrer 1º) R$17.000,00 (entre R$5MM até R$40MM ou até o 12º mês, o que ocorrer 1º) R$18.500,00 (a partir de R$40MM ou a partir do 13º mês, o que ocorrer 1º) (c) Tendo em vista que não há distribuidores das Cota"
+    }
+   ],
+   "legacy": {
+    "value": "Administração+custódia0,32% a.a. PL; mínimos R$ 15/17/18,5 mil conforme PL e idade",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/10/2025, cl. 8.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,25% a.a. do PL; mín. a partir de R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 8,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "o que ocorrer 1º) b) Será devida pela prestação dos serviços de Gestão: % sobre o Patrimônio Líquido (a.a.) Remuneração Mínima Mensal 0,25% R$ 15.000,00 (até R$5MM ou até o 6º mês, o que ocorrer 1º) R$17.000,00 (entre R$5MM até R$40MM ou até o 12º mês, o que ocorrer 1º) R$18.500,00 (a partir de R$40MM ou a partir do 13º mês, o que ocorrer 1º) (c) Tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe, o presente Regulamento não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE."
+    }
+   ],
+   "legacy": {
+    "value": "0,25% a.a. PL; mínimos R$ 15/17/18,5 mil conforme PL e idade",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/10/2025, cl. 8.1"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 8,
+     "clause": "cl. 8.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "las não exceda o montante total da Taxa de Administração e/ou Taxa de Gestão acima fixada. 8.4 Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 9. POLÍTICA DE INVESTIMENTO 9.1 O Fundo tem como objetivo proporcionar aos Cotistas a valorização de 8 suas Cotas, por meio da aplicação dos recursos do Fundo preponderantemente na aquisição de Direitos Creditórios. 9.1.1 Caracterizam-se como passíveis de aquisição pelo Fundo (a) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Cessão;"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "CDI + 3,00% a.a. (3ª série sênior)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 56,
+     "clause": "Suplemento, cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "agésimo oitavo) mês: pagamento de principal + juros h) Prazo de Duração: 48 (quarenta e oito) meses; i) Remuneração alvo: CDI + 3,00% (três por cento) ao ano; j) Forma de Integralização: a prazo, mediante chamadas de capital a serem realizadas nos termos definidos no Regulamento; k) Intermediária líder da oferta: ITAÚ BBA ASSESSORIA FINANCEIRA S.A.. Os termos utilizados neste Suplemento, iniciados em letras maiúsculas (estejam no singular ou no plural), que não sejam aqui definidos de outra forma, terão o significado que lhes é atribuído no Regulamento. São Paulo, 20 de outubro de 2025. 56 ANEXO VII Este anexo é parte integrante do Regulamento do VIXTRA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA. POLÍTICA DE CRÉDITO 1. OBJETIVO A presente descrição do processo de originação dos direitos creditórios e política de crédito têm por objetivo definir níveis de aprovação e concessão de crédito para os Devedores, bem como estabelecer procedimentos para análise, aprovação e reavaliação. 2."
+    }
+   ],
+   "legacy": {
+    "value": "Sobretaxa por suplemento; modelos com campos não preenchidos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa da mezanino em suplemento fora do acervo",
+   "sources": [],
+   "legacy": {
+    "value": "Sobretaxa por suplemento; modelos com campos não preenchidos",
+    "decision": "regression",
+    "why": "Resposta anterior também não encontrou a sobretaxa preenchida"
+   }
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 43,
+     "clause": "cl. 26.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "CREDITÓRIOS RESPONSABILIDADE LIMITADA Acordo Operacional É o acordo feito entre Administradora e Gestora. Administradora A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Avenida Brigadeiro Faria Lima, nº 1355 5º andar, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou sua sucessora a qualquer título. Agência de Classificação A agência de classificação de risco contratada pelo de Risco Fundo, responsável pela avaliação de risco das Cotas Seniores e/ou das Cotas Subordinadas Mezanino, conforme o caso. Agente de Cobrança A VIXTRA TECNOLOGIA E SERVIÇOS FINANCEIROS LTDA, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Doutor Renato Paes de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Contea Capital Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 5,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "mercado de classe fechada, e (f) cogestão da carteira de ativos, conforme aplicável. 7.2 A gestão da carteira do Fundo compete à CONTEA CAPITAL GESTAO DE RECURSOS LTDA., sociedade com sede na Cidade e Estado de São Paulo, na Avenida Brigadeiro Faria Lima 2369, conjunto 401, inscrita no CNPJ/MF sob n.º 11.325.341/0001-53, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 10.845 de 01 de fevereiro de 2010, doravante designada \"Gestora\". 7.2.1 Sem prejuízo de outras atribuições impostas pela regulamentação em vigor, pelo presente Regulamento e pelo Contrato de Gestão, enquanto este for vigente, e pelo Acordo Operacional a ser formalizado, a Gestora é responsávelpelas seguintes atividades: (a) realizar a gestão profissional dos Direitos Creditórios e Ativos Financeiros integrantes da carteira do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 45,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "no momento de cada cessão de Direitos Creditórios ao Fundo. Custodiante A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, Avenida Brigadeiro Faria Lima, nº 1355, 5º andar, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou seu sucessor a qualquer título. CVM A Comissão de Valores Mobiliários. Data de Aquisição e Cada data do pagamento à respectiva Cedente do preço Pagamento de aquisição dos Direitos Creditórios Cedidos, nos termos do Contratos de Cessão e Termos de Cessão. Data de Subscrição A data da primeira subscrição e integralização de Cotas Inicial de determinada classe. Devedores Os devedores (sacados) dos Direitos Creditórios, considerando CNPJ ou Grupo Econômico. Dia Útil Qualquer dia que não seja (a) sábado, domingo ou feriado nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 2,
+     "clause": "cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "nção dos registros específicos para cada nova classe/subclasse em questão perante os órgãos competentes. 2.3 O Fundo será destinado exclusivamente a Investidores Qualificados, conforme definido pela regulamentaçao específica. 3. PRAZO DE DURAÇÃO 3.1 O funcionamento do Fundo terá início na primeira Data de Subscrição Inicial do Fundo. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral de Cotistas em conformidade com o disposto neste Regulamento, e ainda, nas hipóteses expressamente previstas na RCVM 175 . 3.2 O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 2 4. ADMINISTRADORA 4.1 O Fundo é administrado pela Administradora. 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 2,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "PRAZO DE DURAÇÃO 3.1 O funcionamento do Fundo terá início na primeira Data de Subscrição Inicial do Fundo. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral de Cotistas em conformidade com o disposto neste Regulamento, e ainda, nas hipóteses expressamente previstas na RCVM 175 . 3.2 O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 2 4. ADMINISTRADORA 4.1 O Fundo é administrado pela Administradora. 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Devedor até R$ 2,5 mi (PL < R$ 100 mi) ou 2,5% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1024756",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/10/2025",
+     "page": 12,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024756",
+     "excerpt": "e de Concentração em Patrimônio Líquido do Fundo Direitos Creditórios por Devedor Até R$ 99.999.999,99 Até R$ 2.500.000,00 A partir de R$ 100.000.000,00 Até 2,5% do Patrimônio Líquido até R$ 199.999.999,99 A partir de R$ 200.000.000,00 Até 2,25% do Patrimônio Líquido até R$ 249.999.999,99 12 A partir de R$ 250.000.000,00 Até 2,0% do Patrimônio Líquido (3) os Direitos Creditórios cujagarantia seja composta por cessão fiduciária de título de crédito representativo da posse e da propriedade sobre mercadorias importadas em trânsito (Bill of Lading), considerada pro- forma a aquisição pretendida, podem representar até 100% (cem por cento) do Patrimônio Líquido do Fundo; (4) os Direitos Creditórios cuja garantia seja composta por duplicatas, considerada pro-forma a aquisição pretendida, podem representar até 33,33% (trinta e três inteiros e trinta e três centésimos por cento) do Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "value": 2500000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Crédito comercial com 33,34% de subordinação (razão de garantia de 150%) e devedor ≤ 2,5% do PL; sênior CDI + 3%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

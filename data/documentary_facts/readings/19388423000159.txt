@@ -1,0 +1,56 @@
+# portado de 17468142000180 (19388423000159)
+type: Duplicatas/multicedente
+q23: * "Para um mesmo Devedor, presente em mais de uma operação de crédito com o Fundo, o percentual de provisionamento"
+q22: * "tx6 = 0,20% a.a."
+q21: * "taxa minima mensal de administração equivalente a R$ 1.000,00"
+q20: * "Apuração do Índice de Inadimplência superior a 5% (cinco por cento) por um período superior a 20"
+q19: * "A Reserva de Caixa será equivalente a 1% (um por cento) do Patrimônio Líquido do Fundo"
+q18: * "Direitos Creditórios devidos pelos 10(dez) 0% 35% maiores Devedores"
+q2: * "Consultor Especializado” Significa a OXSS SECURITIZADORA S.A"
+q3: * "5.29. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente"
+q4: * "Direitos Creditórios devidos por um mesmo 0% 4% Devedor"
+q5: * "Índice de Subordinação Sênior deverá ser igual ou superior a 33%"
+q6: * "Índice de Subordinação Mezanino deverá ser igual ou superior a 18%"
+q7: * "V1(tx1/252) x PL1(D 1) tx1: 0,50% a.a."
+q8: * "taxa de gestão equivalente a 1% a.a. (um por cento ao ano)"
+q9: * "“Administrador” Significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Gestor” Significa a OURO PRETO GESTÃO DE RECURSOS S.A."
+q11: * "“Custodiante” Significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q12: * "a Classe adotará estratégia de revolvência dos Direitos Creditórios"
+q13: * "são considerados Eventos de Liquidação Antecipada"
+q14: * "O Fundo terá prazo de duração indeterminado, sendo que cada Classe, Subclasse e série de Cotas"
+q15: * "A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores e para as Cotas Subordinadas Mezanino"
+q16: * "Caso o Índice de Subordinação seja inferior ao Índice de Subordinação Mínimo, a Administradora deverá comunicar"
+receivables: Multissetorial performado: duplicatas, cheques, CCBs, cartões e notas | o1
+originator: Cedentes PJ e instituições financeiras; consultoria da OXSS | q3,q2
+assignor: Cedentes PJ e instituições financeiras brasileiras | q3
+debtor: Devedores dos títulos cedidos | q4
+recourse: Com ou sem coobrigação, conforme o contrato de cessão | o12
+eligibility: Cheques ≤ 180 dias; duplicatas ≤ 365 dias; limites de concentração | q3
+debtor_limit: Devedor ≤ 4% do PL; 10 maiores ≤ 35% | q4,q18
+assignor_limit: Cedente ≤ 3,5% do PL (exceto CCB); 10 maiores ≤ 30% | q4
+term_max: Cheques até 180 dias; duplicatas até 365 dias | q3
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino / Júnior | q15
+sub_senior: 33% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 18% · jr/PL | q6 | basis=jr/PL
+sub_check: Desenquadramento leva a chamada de aporte aos subordinados | q16
+reserve: Reserva de caixa de 1% do PL; reserva de amortização | q19
+pdd: Provisão por faixa de atraso com arrasto pelo pior contrato do devedor | q23
+eval_triggers: Inadimplência > 5% por 20 DU; índice de recompra, entre outros | q20
+liquidation: Lista do item 11.7, além das hipóteses legais | q13
+revolving: Revolvência durante o prazo indeterminado | q12
+amortization: n/d | Cronograma definido nos suplementos de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,50% a.a. até R$ 20 mi, regressiva até 0,20%; mín. R$ 1 mil/mês | q7,q22,q21
+mgmt_fee: 1% a.a. do PL; mín. R$ 3 mil/mês | q8
+perf_fee: Não prevista | Anexo não prevê taxa de performance
+target_senior: n/d | Suplemento da série sênior vigente não está no acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Suplemento da série mezanino vigente não está no acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: QI CTVM | q9
+manager: Ouro Preto Gestão de Recursos | q10
+custodian: QI CTVM | q11
+servicer: OXSS Securitizadora (consultoria e cobrança) | q2
+investors: Investidores qualificados | o76
+duration: Indeterminado; prazo próprio por série | q14
+sacado_limit: Devedor ≤ 4% do PL; 10 maiores ≤ 35% | q4,q18
+leitura: Multicedente performado com 33% de subordinação, júnior ≥ 18% e devedor ≤ 4% do PL; gestão de 1% a.a.

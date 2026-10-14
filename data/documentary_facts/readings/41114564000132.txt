@@ -1,0 +1,53 @@
+# Larca Multiplica Capital FIDC (QI CTVM; Multiplica Capital)
+type: Duplicatas/multicedente
+q1: * "O Índice de Subordinação Subordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe"
+q2: * "O Índice de Subordinação Júnior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Júnior"
+q3: * "A Taxa de Administração da Classe, referente aos serviços de administração, custódia, tesouraria, controladoria e escrituração"
+q4: * "A Taxa de Gestão da Classe corresponderá 0,70% a.a."
+q5: * "“Administradora” QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q6: * "“Gestora” MULTIPLICA CAPITAL ASSET MANAGEMENT LTDA"
+q7: * "os Direitos Creditórios Cedidos adquiridos de um mesmo Cedente coobrigado poderão representar no máximo 4%"
+q8: * "os Direitos Creditórios Cedidos que tenham um mesmo Devedor poderão representar no máximo 4%"
+q9: * "Será permitida, sem qualquer limitação, a revolvência da carteira da Classe"
+q10: * "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q11: * "Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade"
+q12: * "A Classe terá prazo de duração indeterminado"
+q13: * "Classe poderá ser dividida em Subclasses de Cotas Seniores, Cotas Subordinadas Mezanino e/ou Cotas Subordinad"
+q14: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q15: * "a Administradora deverá constituir a Reserva de Caixa"
+q16: * "A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Avaliação"
+q17: * "caso o resgate de Cotas Seniores não seja pago em até 60"
+q18: * "prazo máximo de 360 (trezentos e sessenta) dias"
+receivables: Créditos industriais, comerciais, financeiros, imobiliários, agro e serviços | q11
+originator: Cedentes e endossantes diversos | q7
+assignor: Cedentes diversos; coobrigado ≤ 4% do PL | q7
+debtor: Devedores diversos; ≤ 4% do PL por devedor | q8
+recourse: Cessões com ou sem coobrigação do cedente | q7
+eligibility: Duplicatas de 2 a 180 dias; CCB, notas e demais de 2 a 360 dias | q11,q18
+debtor_limit: Devedor ≤ 4% do PL; 5 maiores com teto próprio | q8
+assignor_limit: Cedente coobrigado ≤ 4% do PL; 5 maiores com teto próprio | q7
+term_max: Até 360 dias (duplicatas até 180) | q11,q18
+allocation: > 50% do PL em direitos creditórios | q10 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q13
+sub_senior: 35% · (mez.+jr.)/PL | q1 | basis=mez+jr/PL
+sub_mezz: 15,4% · jr/PL | q2 | basis=jr/PL
+sub_check: Diária | q1
+reserve: Reserva de caixa para despesas e encargos | q15
+pdd: Perda por redução ao valor recuperável | q14
+eval_triggers: Subordinação não recomposta em 15 dias, entre outras hipóteses | q16
+liquidation: Prestador sem substituto; resgate sênior não pago em 60 DU, entre outros | q17
+revolving: Revolvência permitida sem limite | q9
+amortization: n/d | Cronograma definido nos suplementos de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,25% a.a. até R$ 500 mi, menor acima; mín. R$ 25 mil/mês | q3
+mgmt_fee: 0,70% a.a. do PL; mín. R$ 12 mil/mês | q4
+perf_fee: Não prevista | Anexo da classe não prevê taxa de performance
+target_senior: n/d | Remuneração das séries em suplemento fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Remuneração da mezanino em suplemento fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: QI CTVM | q5
+manager: Multiplica Capital Asset Management | q6
+custodian: QI CTVM (custódia na taxa de administração) | q3,q5
+servicer: n/d | Agente de cobrança não nomeado no regulamento extraído
+investors: n/d | Público-alvo não explicitado no anexo extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+duration: Indeterminado | q12
+sacado_limit: Devedor ≤ 4% do PL | q8
+leitura: Multicedente com subordinação de 35% do PL (júnior ≥ 15,4%) e limites de 4% do PL por cedente e por devedor.

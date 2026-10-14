@@ -1,0 +1,52 @@
+# MCPO FIDC (Oliveira Trust; Angá; cedente Maqcampo)
+type: Duplicatas/multicedente
+q17: * "de Maquinário usado deverão representar até 10% (dez por cento) do Patrimônio Líquido"
+q16: * "de Peças e Implementos e/ou Serviços deverão ter prazo máximo de vencimento de 150"
+q1: * "“Cedente” Significa a MAQCAMPO SOLUÇÕES AGRÍCOLAS S.A."
+q2: * "“Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q3: * "“Gestor” Significa a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA."
+q4: * "“Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada"
+q5: * "A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa"
+q6: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q7: * "mínimo, 20% (vinte por cento)"
+q8: * "a redução do Índice de Subordinação Ex-Derivativo a nível inferior a 20%"
+q9: * "eitos Creditórios devidos por Grupo Econômico de um mesmo Devedor, considerada em conjunto com a posição atualizada do estoque"
+q10: * "A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,20%"
+q11: * "o Gestor cobrará, pelos serviços de gestão profissional da Carteira, o valor correspondente a 0,20%"
+q12: * "O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse"
+q13: * "A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores, para as Cotas Subordinadas Mezanino e para as Cotas Subordinadas Júnior"
+q14: * "ser adquiridos, com recursos decorrentes de revolvência, Direitos Creditórios com prazo de vencimento de, no mínimo, 45"
+q15: * "Sênior: [•]% ([•] por cento). Meta de Remuneração"
+receivables: Vendas a prazo de máquinas, peças, implementos e serviços agrícolas | o1
+originator: Maqcampo Soluções Agrícolas (revenda de máquinas) | q1
+assignor: Maqcampo Soluções Agrícolas (cedente única) | q1
+debtor: Produtores rurais com score AgRisk mínimo, entre outros filtros | q5
+recourse: n/d | Coobrigação definida no contrato de cessão, fora do texto lido
+eligibility: Vincendos; peças e serviços ≤ 150 dias; usados ≤ 10% do PL e ≤ 5 anos | q16,q17
+debtor_limit: Grupo econômico ≤ 3% do PL; 10 maiores ≤ 30% | o15,q9
+assignor_limit: Cedente única (Maqcampo) | q1
+term_max: Peças e serviços até 150 dias; prazo médio por devedor ≤ 36 meses | q16
+allocation: ≥ 50% do PL em direitos creditórios | o22 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q13
+sub_senior: 20% · (mez.+jr.)/PL (1 − sênior/PL) | q7 | basis=mez+jr/PL
+sub_mezz: n/d | Índice próprio da mezanino não localizado no anexo extraído
+sub_check: Abaixo de 20% em 2 verificações seguidas dispara desalavancagem | q8
+reserve: Reserva de pagamento formada a partir de D-30 | o34
+pdd: n/d | Critério de provisão não localizado no texto extraído
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído
+liquidation: Lista do item 11.7, começando pela extinção do contrato de cessão | q6
+revolving: Revolvência com créditos de vencimento ≥ 45 dias antes do pagamento | q14
+amortization: n/d | Cronograma definido nos apêndices de cada série
+admin_fee: 0,20% a.a. até R$ 250 mi, regressiva; mín. R$ 33,5 mil e teto R$ 75 mil | o49,q10
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 50 mil/mês | o52,q11
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Sobretaxa sênior em branco ([•]) no modelo de apêndice | q15
+target_mezz: n/d | Sobretaxa da mezanino definida em apêndice fora do acervo
+administrator: Oliveira Trust DTVM | q2
+manager: Angá Administração de Recursos | q3
+custodian: Oliveira Trust DTVM | q4
+servicer: n/d | Agentes de cobrança citados, sem nome no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado; prazo próprio por subclasse | q12
+sacado_limit: Grupo econômico ≤ 3% do PL; 10 maiores ≤ 30% | o15,q9
+leitura: Vendas a prazo de máquinas agrícolas da Maqcampo com 20% de subordinação e grupo devedor ≤ 3% do PL.

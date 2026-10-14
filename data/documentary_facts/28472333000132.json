@@ -1,0 +1,631 @@
+{
+ "schema_version": 1,
+ "cnpj": "28472333000132",
+ "name": "Mercado Crédito Merchant Fundo de Investimento em Direitos Creditórios",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T01:23:23Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "732140",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "03/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de crédito parcelado e direitos PPV da plataforma Mercado Pago",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 4,
+     "clause": "Anexo XI, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Cessão estabelecidos no Capítulo 3 deste Regulamento, e (ii) Ativos Financeiros listados na cláusula 2.7 abaixo, observados todos os índices de composição e diversificação da Carteira do Fundo, estabelecidos neste Regulam"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de crédito parcelado e direitos PPV da plataforma Mercado Pago",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Instituições parceiras que emitem as CCBs; cedentes PPV por contrato",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 4,
+     "clause": "Anexo XI, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Cessão estabelecidos no Capítulo 3 deste Regulamento, e (ii) Ativos Financeiros listados na cláusula 2.7 abaixo, observados todos os índices de composição e diversificação da Carteira do Fundo, estabelecidos neste Regulam"
+    }
+   ],
+   "legacy": {
+    "value": "IFs parceiras originam CCBs; cedentes PPV conforme contratos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Endossantes das CCBs e cedentes PPV, conforme contratos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 4,
+     "clause": "Anexo XI, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Cessão estabelecidos no Capítulo 3 deste Regulamento, e (ii) Ativos Financeiros listados na cláusula 2.7 abaixo, observados todos os índices de composição e diversificação da Carteira do Fundo, estabelecidos neste Regulam"
+    }
+   ],
+   "legacy": {
+    "value": "IFs parceiras originam CCBs; cedentes PPV conforme contratos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Clientes da plataforma Mercado Pago",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 4,
+     "clause": "Anexo XI, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Cessão estabelecidos no Capítulo 3 deste Regulamento, e (ii) Ativos Financeiros listados na cláusula 2.7 abaixo, observados todos os índices de composição e diversificação da Carteira do Fundo, estabelecidos neste Regulam"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelos contratos de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "CCB veículos até 60 meses; demais CCBs até 25 meses; critérios PPV próprios",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 7,
+     "clause": "Anexo XI, cl. 3.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "s PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”). 3.5 Como Critério de Elegibilidade, os Direitos Creditórios CCB, na respectiva Data de Aquisição e Pagamento, deverão ter prazo máximo de vencimento equivalente a (a) a Nom propried e do d cumento desconhec o 60 (sessenta) meses para as CCBs Veículos; ou (b) a 25 (vinte e cinco) meses para as demais CCBs. 3.6 Os Direitos Creditórios PPV deverão atender aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: a) O Cedente deverá ser pessoa física ou pessoa jurídica inscrita, respectivamente, no Cadastro de Pessoas Físicas ou Cadastro Nacional de Pessoas Jurídicas; e b) O respectivo Cedente não pode estar inadimplente perante o Fundo com relação a quaisquer parcelas no âmbito de resoluções de cessão e/ou recompra facultativa dos Direitos Creditórios PPV. 3.7 Observados os termos e as condições do presente Regulamento, a verificação do atendimento às Condições de Cessão será realizada pela Gestora e pelo Mercado Pago, da seguinte forma: a) a verificação das Condições de Cessão previstas na alínea (a) e (b) da Cláusula 3.2. será realizada pela Gestora;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por devedor não localizado no texto extraído",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado no texto extraído",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Até 60 meses (veículos) ou 25 meses (demais CCBs)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 7,
+     "clause": "Anexo XI, cl. 3.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "s PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”). 3.5 Como Critério de Elegibilidade, os Direitos Creditórios CCB, na respectiva Data de Aquisição e Pagamento, deverão ter prazo máximo de vencimento equivalente a (a) a Nom propried e do d cumento desconhec o 60 (sessenta) meses para as CCBs Veículos; ou (b) a 25 (vinte e cinco) meses para as demais CCBs. 3.6 Os Direitos Creditórios PPV deverão atender aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: a) O Cedente deverá ser pessoa física ou pessoa jurídica inscrita, respectivamente, no Cadastro de Pessoas Físicas ou Cadastro Nacional de Pessoas Jurídicas; e b) O respectivo Cedente não pode estar inadimplente perante o Fundo com relação a quaisquer parcelas no âmbito de resoluções de cessão e/ou recompra facultativa dos Direitos Creditórios PPV. 3.7 Observados os termos e as condições do presente Regulamento, a verificação do atendimento às Condições de Cessão será realizada pela Gestora e pelo Mercado Pago, da seguinte forma: a) a verificação das Condições de Cessão previstas na alínea (a) e (b) da Cláusula 3.2. será realizada pela Gestora;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL após 90 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 36,
+     "clause": "Anexo XI, cl. 15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "isionamento para devedores duvidosos do Fundo disposta no Anexo X. 15. Eventos de Avaliação 15.1 São considerados Eventos de Avaliação: (a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no prazo de 30 (trinta) dias; (c) a verificação de que os Direitos Creditórios Adquiridos foram endossados para o Fundo em desacordo com qualquer dos Critérios de Elegibilidade e das Condições de Cessão previstas neste Regulamento no momento de sua aquisição, incluindo, sem limitação, a Lista de Exclusão, e que tais Direitos Creditórios não tenham sido adquiridos pelo Mercado Pago ou negociados no mercado secundário dentro de, no máximo, 10 (dez) dias contados do recebimento pelo Mercado Pago de notificação da Administradora, do Custodiante e/ou da Gestora neste sentido;"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "≥ 50% PL após 90 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior em séries / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 28,
+     "clause": "Anexo XI, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "risco das Cotas Seniores. Nom propried e do d cumento desconhec o 10.1.4.4 A “Meta de Relação Mínima” será equivalente à Relação Mínima de 30% (trinta por cento). Não obstante, a Meta de Relação Mínima poderá ser reduzida para o percentual de 20% (vinte por cento) quando do envio pela Gestora à Administradora e posterior notificação pela Administradora aos Cotistas sobre o cumprimento dos seguintes critérios, cumulativamente, que poderão ser verificados mensalmente a partir de 1º de maio de 2019 (“Critérios de Redução da Meta de Relação Mínima”), desde que e enquanto tais Critérios de Redução da Meta de Relação Mínima continuem a ser mantidos após a redução: (1) as Cotas Seniores forem objeto de classificação de risco igual ou superior a “AA (Local)” (ou classificação equivalente) por Agência Classificadora de Risco Qualificada, e (2) verificação do Índice de Atraso Histórico, conforme metodologia de cálculo constante no Anexo VI, inferior a 7% (sete por cento). 10.1.4.5 Na hi"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior/PL ≥ 30%; pode cair a 20% com rating sênior ≥ AA e atraso histórico < 7%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/09/2024, Anexo XI, cl. 10.1"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · jr/PL; pode cair a 20% com rating AA e baixa inadimplência",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 28,
+     "clause": "Anexo XI, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "risco das Cotas Seniores. Nom propried e do d cumento desconhec o 10.1.4.4 A “Meta de Relação Mínima” será equivalente à Relação Mínima de 30% (trinta por cento). Não obstante, a Meta de Relação Mínima poderá ser reduzida para o percentual de 20% (vinte por cento) quando do envio pela Gestora à Administradora e posterior notificação pela Administradora aos Cotistas sobre o cumprimento dos seguintes critérios, cumulativamente, que poderão ser verificados mensalmente a partir de 1º de maio de 2019 (“Critérios de Redução da Meta de Relação Mínima”), desde que e enquanto tais Critérios de Redução da Meta de Relação Mínima continuem a ser mantidos após a redução: (1) as Cotas Seniores forem objeto de classificação de risco igual ou superior a “AA (Local)” (ou classificação equivalente) por Agência Classificadora de Risco Qualificada, e (2) verificação do Índice de Atraso Histórico, conforme metodologia de cálculo constante no Anexo VI, inferior a 7% (sete por cento). 10.1.4.5 Na hi"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Júnior/PL ≥ 30%; pode cair a 20% com rating sênior ≥ AA e atraso histórico < 7%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/09/2024, Anexo XI, cl. 10.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Desenquadramento sem restabelecimento em 30 dias é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 36,
+     "clause": "Anexo XI, cl. 15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "isionamento para devedores duvidosos do Fundo disposta no Anexo X. 15. Eventos de Avaliação 15.1 São considerados Eventos de Avaliação: (a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no prazo de 30 (trinta) dias; (c) a verificação de que os Direitos Creditórios Adquiridos foram endossados para o Fundo em desacordo com qualquer dos Critérios de Elegibilidade e das Condições de Cessão previstas neste Regulamento no momento de sua aquisição, incluindo, sem limitação, a Lista de Exclusão, e que tais Direitos Creditórios não tenham sido adquiridos pelo Mercado Pago ou negociados no mercado secundário dentro de, no máximo, 10 (dez) dias contados do recebimento pelo Mercado Pago de notificação da Administradora, do Custodiante e/ou da Gestora neste sentido;"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior/PL ≥ 30%; pode cair a 20% com rating sênior ≥ AA e atraso histórico < 7%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/09/2024, Anexo XI, cl. 15"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de amortização constituída pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 33,
+     "clause": "Anexo XI, cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "ursos prevista no Capítulo 13 do presente Regulamento e com os Suplementos das Cotas Seniores. 12.2.1 A Reserva de Amortização será constituída pela Administradora, de acordo com as informações recebidas da Gestora, exclusivamente em Ativos Financeiros, para fazer frente ao pagamento do montante equivalente ao valor total da 1ª (primeira) Série de Cotas Seniores em Circulação acrescido de R$5.000.000,00 (cinco milhões de reais). 12.2.2 Havendo mais de uma série de Cotas Seniores emitidas e ainda não totalmente amortizadas, o pagamento das amortizações será feito de forma proporcional à participação de cada série de Cotas Seniores no Patrimônio Líquido, sem qualquer distinção ou preferência entre as Cotas Seniores das diferentes séries, respeitado os valores de pagamento previstos nos respectivos Suplementos. 12.3 As Cotas Subordinadas Júnior somente poderão ser amortizadas ou resgatadas após a amortização ou o resgate integral das Cotas Seniores, ressalvada a hipótese de Amortização Extraordinária Júnior, mediante solicitação da Gestora, que Nom propried e do d cumento desconhec o poderá ser realizada uma vez que a Administradora verifique o cumpri"
+    },
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 33,
+     "clause": "Anexo XI, cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "R$5.000.000,00 (cinco milhões de reais). 12.2.2 Havendo mais de uma série de Cotas Seniores emitidas e ainda não totalmente amortizadas, o pagamento das amortizações será feito de forma proporcional à participação de cada série de Cotas Seniores no Patrimônio Líquido, sem qualquer distinção ou preferência entre as Cotas Seniores das diferentes séries, respeitado os valores de pagamento previstos nos respectivos Suplementos."
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de amortização: valor total da 1ª série sênior em circulação + R$5 milhões",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/09/2024, Anexo XI, cl. 12.2"
+   }
+  },
+  "pdd": {
+   "display": "Política de provisão do anexo X",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 36,
+     "clause": "Anexo XI, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "acordo com a metodologia prevista na Instrução CVM nº 489/11. 14.1.3 Sem prejuízo do disposto acima, a Administradora irá calcular as provisões referentes aos Direitos Creditórios conforme política de provisionamento para devedores duvidosos do Fundo disposta no Anexo X. 15. Eventos de Avaliação 15.1 São considerados Eventos de Avaliação: (a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no prazo de 30 (trinta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/09/2024, Anexo XI, cl. 14.1"
+   }
+  },
+  "eval_triggers": {
+   "display": "Alocação < 50% por 30 dias; relação mínima sem cura em 30 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 36,
+     "clause": "Anexo XI, cl. 15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "isionamento para devedores duvidosos do Fundo disposta no Anexo X. 15. Eventos de Avaliação 15.1 São considerados Eventos de Avaliação: (a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no prazo de 30 (trinta) dias; (c) a verificação de que os Direitos Creditórios Adquiridos foram endossados para o Fundo em desacordo com qualquer dos Critérios de Elegibilidade e das Condições de Cessão previstas neste Regulamento no momento de sua aquisição, incluindo, sem limitação, a Lista de Exclusão, e que tais Direitos Creditórios não tenham sido adquiridos pelo Mercado Pago ou negociados no mercado secundário dentro de, no máximo, 10 (dez) dias contados do recebimento pelo Mercado Pago de notificação da Administradora, do Custodiante e/ou da Gestora neste sentido;"
+    }
+   ],
+   "legacy": {
+    "value": "Alocação < 50% por 30 dias; relação mínima sem cura em 30 dias; inelegibilidade sem solução em 10 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/09/2024, Anexo XI, cl. 15"
+   }
+  },
+  "liquidation": {
+   "display": "Lista do item 16.1",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 40,
+     "clause": "Anexo XI, cl. 16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "disponibilidade de recursos do Fundo. 16. Eventos de Liquidação Antecipada e Liquidação do Fundo 16.1 São considerados Eventos de Liquidação Antecipada quaisquer dos seguintes eventos: (a) caso seja deliberado em Assembleia Geral que um Evento de Avaliação constitui um Evento de Liquidação; (b) caso a Administradora deixe de convocar a Assembleia Geral nos termos deste Regulamento na hipótese da ocorrência de qualquer Evento de Avaliação; (c) caso o Mercado Pago ou uma Afiliada do Mercado Pago que seja Cotista do Fundo tenha sua falência decretada ou sofra processo de intervenção, de liquidação judicial ou extrajudicial, de Regime de Administração Especial Temporária (RAET), ou procedimento análogo aos indicados anteriormente, conforme aplicável; (d) caso os Cotistas deliberem em Assembleia Geral pela não realização de Chamada de Capital para suprir a necessidade de recursos para pagamento de despesas e encargos do Fundo que não possam ser cobertos pela disponibilidade de caixa do Fundo, quando convocados para tal deliberação, conforme definido na cláusula 11.3 do Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Alocação < 50% por 30 dias; relação mínima sem cura em 30 dias; inelegibilidade sem solução em 10 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/09/2024, Anexo XI, cl. 16"
+   }
+  },
+  "revolving": {
+   "display": "Aquisições ao fim da ordem de alocação, se aplicável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 35,
+     "clause": "Anexo XI, cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "ição da Reserva de Amortização; (f) se aplicável, pagamento da Amortização Extraordinária Júnior; (g) se aplicável, aquisição de Direitos Creditórios; e (h) aquisição de Ativos Financeiros. 13.2 Na hipótese de ocorrência de um Evento de Avaliação, e enquanto perdurar tal Evento de Avaliação ou até a liquidação do Fundo, diariamente a Administradora deverá, por meio dos competentes débitos e créditos realizados nas contas correntes de titularidade do Fundo, a alocar os recursos decorrentes da integralização das Cotas e de receitas eventualmente geradas pela carteira do Fundo, na seguinte ordem: (a) pagamento de despesas e encargos de responsabilidade do Fundo, devidos nos termos deste Regulamento e da legislação aplicável; (b) caso seja uma Data de Pagamento, pagamento da Remuneração Sênior com referência às Cotas Seniores em Circulação; (c) caso seja uma Data de Pagamento, pagamento da Amortização Sênior; (d) uma vez resgatado a totalidade das Cotas Seniores, pagamento da Amortização Extraordinária Júnior; e Nom propried e do d cumento desconhec o (e) aquisição de Ativos Financeiros. 14."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Metas definidas nos suplementos das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "Taxa agregada máxima de 1,25% a.a. (inclui gestão e custódia); mín. R$ 30 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 20,
+     "clause": "Anexo XI, cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "contratados para a gestão da Carteira do Fundo, em qualquer caso limitadas, em agregado, e incorporadas à Taxa de Administração máxima equivalente a 1,25% (um inteiro e vinte e cinco centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, respeitada a remuneração mínima mensal definida na cláusula 7.1. 9.1.3 Os serviços de cobrança de Direitos Creditórios Adquiridos inadimplidos serão remunerados nos termos do Contrato de Cobrança. 9.2 Como gestora da Carteira do Fundo foi contratada a Polígono Capital Ltda., sociedade com sede na Cidade de São Paulo, Estado de São Paulo, na Av."
+    },
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 18,
+     "clause": "Anexo XI, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "de administração equivalente a 1,25% (um inteiro e vinte e cinco por cento) ao ano sobre o Patrimônio Líquido do Fundo, garantindo-se à Administradora o valor mínimo mensal de R$ 30.000,00 (trinta mil reais) mês a partir da primeira Data de Subscrição Inicial do Fundo. Nom propried e do d cumento desconhec o 7.1.1 A Taxa de Administração será calculada e provisionada todo Dia Útil à base de 1/252 (um inteiro e duzentos e cinquenta e dois avos), sobre o valor do Patrimônio Líquido do Fundo, verificado no Dia Útil anterior à realização do referido cálculo. 7.1.2 A Taxa de Administração será paga mensalmente à Administradora, por período vencido, no quinto Dia Útil do mês subsequente à prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas do Fundo. 7.1.3 Os valores expressos em reais dispostos neste Capítulo 7 serão atualizados a cada período de 12 (doze) meses contado a partir do mês em que ocorrer a primeira integralização de Cotas, pelo IGP-M/FGV ou, na sua falta, pelo índice que vier a substituí-lo."
+    }
+   ],
+   "legacy": {
+    "value": "Taxa máxima agregada 1,25% a.a. PL; mínimo R$ 30 mil/mês; IGP-M",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa agregada de 1,25% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 20,
+     "clause": "Anexo XI, cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "contratados para a gestão da Carteira do Fundo, em qualquer caso limitadas, em agregado, e incorporadas à Taxa de Administração máxima equivalente a 1,25% (um inteiro e vinte e cinco centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, respeitada a remuneração mínima mensal definida na cláusula 7.1. 9.1.3 Os serviços de cobrança de Direitos Creditórios Adquiridos inadimplidos serão remunerados nos termos do Contrato de Cobrança. 9.2 Como gestora da Carteira do Fundo foi contratada a Polígono Capital Ltda., sociedade com sede na Cidade de São Paulo, Estado de São Paulo, na Av."
+    }
+   ],
+   "legacy": {
+    "value": "Incluída na taxa máxima de administração de 1,25% a.a.; parcela de gestão pode ser paga diretamente a contratados, sem percentual separado identificado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 19,
+     "clause": "Anexo XI, cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 7.2 Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 8. Substituição e Renúncia da Administradora 8.1 Mediante aviso prévio de 90 (noventa) dias, por meio eletrônico e através de carta com aviso de recebimento endereçada a cada Cotista, a Administradora poderá renunciar à administração do Fundo, desde que convoque, no mesmo ato, Assembleia Geral para decidir sobre sua substituição ou sobre a liquidação do Fundo, nos termos da legislação aplicável e do disposto no Capítulo 18 abaixo. 8.2 No caso de renúncia, a Administradora deverá permanecer no exercício de suas funções até sua efetiva substituição, que deverá ocorrer no prazo máximo de 30 (trinta) dias contados da data de realização da Assembleia Geral convocada para decidir sobre sua substituição ou liquidação do Fundo. 8.2.1 A Administradora deverá, sem qualquer custo adicional para o Fundo, colocar à disposição da instituição que vier a substituí-la, no prazo de 10 (dez) dias corridos contados da data da deliberação da sua substituição, todos os regis"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração sênior definida nos suplementos, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 15,
+     "clause": "Anexo XI, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "com a mesma remuneração buscada pelo Fundo. 5. Administradora 5.1 O Fundo é administrado pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, n° 215, 4º andar, Pinheiros, inscrita no CNPJ/MF sob n.º 22.610.500/0001- 88, autorizada a prestar serviço de administração de carteiras de valores mobiliários pela Nom propried e do d cumento desconhec o CVM, de acordo com o Ato Declaratório CVM n.º 14820, expedido em 8 de janeiro de 2016. 5.2 A Administradora deverá administrar o Fundo cumprindo com suas obrigações de acordo com os mais altos padrões de diligência e correção do mercado, entendidos no mínimo como aqueles que todo homem ativo e probo deve empregar na condução de seus próprios negócios, praticando todos os seus atos com a estrita observância (i) da lei e das normas regulamentares aplicáveis, (ii) deste Regulamento, (iii) das deliberações da Assembleia Geral, e (iv) dos deveres fiduciários de diligência e lealdade, de informação e de preservação dos direitos dos Cotistas. 6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Polígono Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 20,
+     "clause": "Anexo XI, cl. 9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "editórios Adquiridos inadimplidos serão remunerados nos termos do Contrato de Cobrança. 9.2 Como gestora da Carteira do Fundo foi contratada a Polígono Capital Ltda., sociedade com sede na Cidade de São Paulo, Estado de São Paulo, na Av. Brigadeiro Faria Lima, nº 2.601, 9º andar, Jardim Paulistano, inscrita no CNPJ/MF sob o nº 43.241.789/0001- 85. 9.2.1 Sem prejuízo de outras atribuições impostas pela regulamentação em Nom propried e do d cumento desconhec o vigor e pelo presente Regulamento, a Gestora é responsável pelas seguintes atividades: (a) realizar a gestão do caixa do Fundo e dos Ativos Financeiros de modo que o Fundo tenha liquidez suficiente para fazer frente às suas obrigações, despesas e encargos, limitando eventuais Chamadas de Capital dos Cotistas para fazer frente às despesas e encargos apenas aos casos em que o Fundo tenha Patrimônio Líquido negativo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante citado sem nome no trecho lido",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 22,
+     "clause": "Anexo XI, cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "o Capítulo 8 deste Regulamento aplicam-se, no que couber, à substituição da Gestora. 9.3 Os serviços de Custódia Qualificada e controladoria dos Direitos Creditórios e demais ativos do Fundo, bem como a de escrituração das Cotas do Fundo e a guarda dos Direitos Creditórios e dos Documentos Comprobatórios, serão prestados pelo Custodiante. 9.3.1 Sem prejuízo dos demais deveres e obrigações definidos na legislação aplicável e neste Regulamento, o Custodiante, por si ou por terceiros, nos termos da regulamentação aplicável, é responsável pelas seguintes atividades: (a) validar, antes da liquidação da cessão, os Direitos Creditórios Adquiridos em relação aos Critérios de Elegibilidade; Nom propried e do d cumento desconhec o (b) receber e verificar a documentação que evidencia o lastro dos Direitos Creditórios Adquiridos; (c) realizar a liquidação física (conforme aplicável) e financeira dos Direitos Creditórios Adquiridos, evidenciados pelos Documentos Comprobatórios;"
+    }
+   ]
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "732140",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/09/2024",
+     "page": 4,
+     "clause": "Anexo XI, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+     "excerpt": "de liquidação do Fundo. 1.2 O funcionamento do Fundo terá início na primeira Data de Subscrição Inicial. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Cessão estabelecidos no Capítulo 3 deste Regulamento, e (ii) Ativos Financeiros listados na cláusula 2.7 abaixo, observados todos os índices de composição e diversificação da Carteira do Fundo, estabelecidos neste Regulamento. 2.1.1 Os Direitos Creditórios Adquiridos e os Ativos Financeiros devem ser registrados, custodiados ou mantidos em conta de depósito diretamente em nome do Fundo, conforme o caso, em contas específicas abertas no SELIC, ou em Pessoas autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 2.2 A cada aquisição de Direitos Creditórios, o Fundo pagará"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Crédito parcelado do Mercado Pago com júnior mínima de 30% do PL (redutível a 20% com rating AA); taxa total até 1,25% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,708 @@
+{
+ "schema_version": 1,
+ "cnpj": "47669476000183",
+ "name": "INOVA CREDTECH II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:10:36Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "400722",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/01/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722"
+  },
+  "D2": {
+   "document_id": "400717",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "12/01/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400717"
+  },
+  "D3": {
+   "document_id": "572305",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "18/12/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=572305"
+  },
+  "D4": {
+   "document_id": "387776",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "16/08/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=387776"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Antecipação de recebíveis de cedentes e de seus fornecedores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 3,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "Carteira estabelecidos neste Regulamento e na regulamentação aplicável. 4.2. Os Direitos Creditórios serão majoritariamente originados através de antecipação de recebíveis junto da cedente e de fornecedores da cedente. 4.3. As originações de crédito previstas no item 4.2 acima deverão observar a política de concessão de crédito prevista nesse Regulamento. 4.4. Os pagamentos relativos aos Direitos Creditórios de titularidade do Fundo serão realizados pelos Devedores e /ou pelos Cedentes, conforme o caso, por meio de: (a) Transferência Eletrônica Disponível (TED), ou por outra forma de transferência de recursos autorizada pelo Banco Central que permita a identificação da conta bancária de origem dos recursos, direcionado para a Conta do Fundo e/ou para Conta Vinculada de titularidade do respectivo Cedente; e/ou (b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1."
+    }
+   ],
+   "legacy": {
+    "value": "Antecipação de recebíveis de cedente e fornecedores; contratos/títulos elegíveis.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes e fornecedores das cedentes",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 3,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "Carteira estabelecidos neste Regulamento e na regulamentação aplicável. 4.2. Os Direitos Creditórios serão majoritariamente originados através de antecipação de recebíveis junto da cedente e de fornecedores da cedente. 4.3. As originações de crédito previstas no item 4.2 acima deverão observar a política de concessão de crédito prevista nesse Regulamento. 4.4. Os pagamentos relativos aos Direitos Creditórios de titularidade do Fundo serão realizados pelos Devedores e /ou pelos Cedentes, conforme o caso, por meio de: (a) Transferência Eletrônica Disponível (TED), ou por outra forma de transferência de recursos autorizada pelo Banco Central que permita a identificação da conta bancária de origem dos recursos, direcionado para a Conta do Fundo e/ou para Conta Vinculada de titularidade do respectivo Cedente; e/ou (b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos; até 3% do PL por cedente",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 6,
+     "clause": "cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "o passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento: (a) Limite de até a 3,0% (três por cento) do Patrimônio Líquido do Fundo por Cedente, respeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do Fundo por sacado, respeitado o Grupo Econômico; FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 5 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br 6.2.1. Para fins da verificação pelo Custodiante das Condições de Cessão, será considerado o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 6.2.2. Na hipótese de o Direito Creditório elegível perder qualquer Condição de Cessão após sua aquisição pelo Fundo, não haverá direito de regresso contra o Custodiante, a Administradora e/ou a Gestora. CAPÍTULO VII – PROCEDIMENTOS DE CESSÃO 7.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Sacados diversos; até 1% do PL por sacado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 6,
+     "clause": "cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "Cedente, respeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do Fundo por sacado, respeitado o Grupo Econômico; FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 5 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br 6.2.1. Para fins da verificação pelo Custodiante das Condições de Cessão, será considerado o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 6.2.2. Na hipótese de o Direito Creditório elegível perder qualquer Condição de Cessão após sua aquisição pelo Fundo, não haverá direito de regresso contra o Custodiante, a Administradora e/ou a Gestora. CAPÍTULO VII – PROCEDIMENTOS DE CESSÃO 7.1. Para a formalização das ofertas de Direitos Creditórios pela Cedente ao Fundo, serão adotados os procedimentos descritos nos Artigos abaixo. 7.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Cedente responde por existência e formalização do crédito",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 5,
+     "clause": "cl. 5.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "às Cedentes para posterior reembolso pelo Fundo, seja pela Administradora, pela Gestora ou pelo Custodiante. 5.9. Os Cedentes são responsáveis pela existência, certeza, conteúdo, exatidão, veracidade, legitimidade, validade e correta formalização dos respectivos Direitos Creditórios adquiridos pelo Fundo, podendo ainda, responder pela solvência dos Direitos Creditórios, conforme respectivo Contrato de Cessão. 5.10. O Fundo, a Administradora e a Gestora, bem como seus controladores, sociedades coligadas, controladas ou sob controle comum, e/ou subsidiárias, não são responsáveis pela certeza, liquidez, exigibilidade, conteúdo, exatidão, veracidade, legitimidade, validade e/ou correta formalização dos Direitos Creditórios adquiridos pelo Fundo, tampouco pela solvência dos Devedores e/ou Cedentes dos respectivos Direitos Creditórios. 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Taxa ≥ 100% do DI; devedor sem atraso > 60 dias; prazo ≤ 365 (médio ≤ 180)",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 6,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "e nacional; (b) não estejam vencidos, no momento de sua cessão para o Fundo; (c) deverão ser adquiridos por uma taxa mínima de cessão de 100% (cem por cento) da Taxa DI. (d) os Direitos Creditórios devem ser de devedores que, na Data da Aquisição para o FUNDO, não apresentem qualquer valor em atraso há mais de 60 (sessenta) dias; (e) os Direitos Creditórios deverão ter prazo médio de vencimento de, no máximo, 180 (cento e oitenta) dias contados da Data de Aquisição; (f) os Direitos Creditórios deverão ter prazo máximo de vencimento de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição; (g) Limite de 10% (dez por cento) do patrimônio líquido em caso de aquisição de Direitos Creditórios de Devedores que estejam com valores em atrasos até 15 (quinze) dias corridos na Data de Aquisição; e (h) Até 5% (cinco por cento) do Patrimônio Líquido do FUNDO poderá ser composto por direitos creditórios cedidos por empresas em recuperação extrajudicial ou judicial. 6.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos; devedor sem atraso>60 dias; prazo médio≤180 e individual≤365 dias; cessão≥100% DI.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Sacado ≤ 1% do PL, por grupo econômico",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 6,
+     "clause": "cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "Cedente, respeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do Fundo por sacado, respeitado o Grupo Econômico; FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 5 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br 6.2.1. Para fins da verificação pelo Custodiante das Condições de Cessão, será considerado o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 6.2.2. Na hipótese de o Direito Creditório elegível perder qualquer Condição de Cessão após sua aquisição pelo Fundo, não haverá direito de regresso contra o Custodiante, a Administradora e/ou a Gestora. CAPÍTULO VII – PROCEDIMENTOS DE CESSÃO 7.1. Para a formalização das ofertas de Direitos Creditórios pela Cedente ao Fundo, serão adotados os procedimentos descritos nos Artigos abaixo. 7.1.1."
+    }
+   ],
+   "value": 1.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente ≤ 3% do PL, por grupo econômico",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 6,
+     "clause": "cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "o passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento: (a) Limite de até a 3,0% (três por cento) do Patrimônio Líquido do Fundo por Cedente, respeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do Fundo por sacado, respeitado o Grupo Econômico; FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 5 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br 6.2.1. Para fins da verificação pelo Custodiante das Condições de Cessão, será considerado o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 6.2.2. Na hipótese de o Direito Creditório elegível perder qualquer Condição de Cessão após sua aquisição pelo Fundo, não haverá direito de regresso contra o Custodiante, a Administradora e/ou a Gestora. CAPÍTULO VII – PROCEDIMENTOS DE CESSÃO 7.1."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "Até 365 dias; prazo médio da carteira ≤ 180 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 6,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "e nacional; (b) não estejam vencidos, no momento de sua cessão para o Fundo; (c) deverão ser adquiridos por uma taxa mínima de cessão de 100% (cem por cento) da Taxa DI. (d) os Direitos Creditórios devem ser de devedores que, na Data da Aquisição para o FUNDO, não apresentem qualquer valor em atraso há mais de 60 (sessenta) dias; (e) os Direitos Creditórios deverão ter prazo médio de vencimento de, no máximo, 180 (cento e oitenta) dias contados da Data de Aquisição; (f) os Direitos Creditórios deverão ter prazo máximo de vencimento de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição; (g) Limite de 10% (dez por cento) do patrimônio líquido em caso de aquisição de Direitos Creditórios de Devedores que estejam com valores em atrasos até 15 (quinze) dias corridos na Data de Aquisição; e (h) Até 5% (cinco por cento) do Patrimônio Líquido do FUNDO poderá ser composto por direitos creditórios cedidos por empresas em recuperação extrajudicial ou judicial. 6.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos; devedor sem atraso>60 dias; prazo médio≤180 e individual≤365 dias; cessão≥100% DI.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/01/2023, cl. 6.1"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": []
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 11,
+     "clause": "cl. 8.12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "pital incidente na alienação ou declaração sobre a inexistência de imposto devido. Subordinação e Excesso de Garantia 8.13. Após a Data da 1ª Integralização de Cotas Seniores, a Subordinação deverá corresponder a, no mínimo, 25% (vinte e cinco por cento) do seu Patrimônio Líquido, FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 10 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordinação será apurada diariamente pela Administradora. Para fins de cálculo da Subordinação, não serão considerados os Ativos Financeiros integrantes da carteira do Fundo. 8.13.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 11,
+     "clause": "cl. 8.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "463, 11º andar 0800 601 1313 10 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordinação será apurada diariamente pela Administradora. Para fins de cálculo da Subordinação, não serão considerados os Ativos Financeiros integrantes da carteira do Fundo. 8.13.2. Verificado Excesso de Garantia, as Cotas Subordinadas Júnior poderão ser amortizadas mensalmente até o limite do Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores e das Cotas Subordinadas Mezanino – desde que: (i) seja observada a ordem de alocação de recursos definida no item 11.1 abaixo; (ii) não existam Obrigações do Fundo vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação; (iv) existam suficientes Ativos Financeiros e/ou recursos disponíveis; e (vii) permaneça atendida a Subordinação."
+    }
+   ],
+   "legacy": {
+    "value": "Total≥25%/PL; júnior≥12,5% com mezanino e 25% sem mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/01/2023, cl. 8.12.3"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 11,
+     "clause": "cl. 8.12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "pital incidente na alienação ou declaração sobre a inexistência de imposto devido. Subordinação e Excesso de Garantia 8.13. Após a Data da 1ª Integralização de Cotas Seniores, a Subordinação deverá corresponder a, no mínimo, 25% (vinte e cinco por cento) do seu Patrimônio Líquido, FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 10 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordinação será apurada diariamente pela Administradora. Para fins de cálculo da Subordinação, não serão considerados os Ativos Financeiros integrantes da carteira do Fundo. 8.13.2."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Total≥25%/PL; júnior≥12,5% com mezanino e 25% sem mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/01/2023, cl. 8.12.3"
+   }
+  },
+  "sub_mezz": {
+   "display": "12,5% · jr/PL (25% sem mezanino)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 11,
+     "clause": "cl. 8.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "463, 11º andar 0800 601 1313 10 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordinação será apurada diariamente pela Administradora. Para fins de cálculo da Subordinação, não serão considerados os Ativos Financeiros integrantes da carteira do Fundo. 8.13.2. Verificado Excesso de Garantia, as Cotas Subordinadas Júnior poderão ser amortizadas mensalmente até o limite do Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores e das Cotas Subordinadas Mezanino – desde que: (i) seja observada a ordem de alocação de recursos definida no item 11.1 abaixo; (ii) não existam Obrigações do Fundo vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação; (iv) existam suficientes Ativos Financeiros e/ou recursos disponíveis; e (vii) permaneça atendida a Subordinação."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 12.5,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 11,
+     "clause": "cl. 8.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "463, 11º andar 0800 601 1313 10 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordinação será apurada diariamente pela Administradora. Para fins de cálculo da Subordinação, não serão considerados os Ativos Financeiros integrantes da carteira do Fundo. 8.13.2. Verificado Excesso de Garantia, as Cotas Subordinadas Júnior poderão ser amortizadas mensalmente até o limite do Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores e das Cotas Subordinadas Mezanino – desde que: (i) seja observada a ordem de alocação de recursos definida no item 11.1 abaixo; (ii) não existam Obrigações do Fundo vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação; (iv) existam suficientes Ativos Financeiros e/ou recursos disponíveis; e (vii) permaneça atendida a Subordinação."
+    }
+   ],
+   "legacy": {
+    "value": "Total≥25%/PL; júnior≥12,5% com mezanino e 25% sem mezanino.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/01/2023, cl. 8.13"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de amortização: 50% antes da data e 100% até 10 dias antes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 50,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "das, de acordo com o seguinte cronograma: (a) até 20 (vinte) dias antes de cada data de amortização ou data de resgate, o saldo da reserva deverá ser equivalente a 50% (cinquenta por cento) do valor integral da amortização ou resgate atualizado até a data da constituição da reserva; e (b) até 10 (dez) dias antes de cada data de amortização ou data de resgate, o saldo da reserva deverá ser equivalente a 100% (cem por cento) do valor integral da amortização ou resgate atualizado até a data da constituição da reserva; “Série”: cada um dos subconjuntos de Cotas Seniores, diferenciados exclusivamente por prazos e valores para Amortização, resgate e remuneração, incluindo o respectivo Benchmark Sênior; “Subordinação”: é o percentual mínimo do Patrimônio Líquido do Fundo representado por Cotas Subordinadas; “Suplemento”: é qualquer suplemento a este Regulamento, que descreverá as características específicas de cada emissão de Cotas Seniores e de Cotas Subordinadas Mezanino elaborado em observância ao modelo constante do Anexo III a este Regulamento; “Resolução CVM 30”: significa a Resolução CVM nº 30, de 11 de maio de 2021. FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R."
+    }
+   ],
+   "legacy": {
+    "value": "Amortização:50% emD-20 e 100% emD-10; verificar dias/calendário do suplemento.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/01/2023, p. 50"
+   }
+  },
+  "pdd": {
+   "display": "Provisão por devedor, conforme a norma contábil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 17,
+     "clause": "cl. 12.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "reitos Creditórios e/ou Ativos Financeiros será reduzido pelo valor da provisão efetuada ou perda reconhecida. 12.2.1. O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Artigo 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual da Administradora. CAPÍTULO XIII – ASSEMBLEIA GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a substituição da Administradora; (c) deliberar sobre a substituição da Gestora e do Custodiante; (d) deliberar sobre a elevação da Taxa de Administração, inclusive na hipótese de restabelecimento de taxa que tenha sido objeto de redução;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Inobservância de deveres por prestadores sem cura em 5 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 20,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": ", E PROCEDIMENTOS DE LIQUIDAÇÃO ANTECIPADA Eventos de Avaliação 14.1. As seguintes hipóteses são consideradas Eventos de Avaliação: (a) inobservância pela Administradora, pelo Custodiante e/ou pela Gestora de seus deveres e obrigações previstos neste Regulamento, bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento do Fundo, verificada pela Administradora, pelo Custodiante e/ou pela Gestora ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, a Administradora, o Custodiante e/ou a Gestora, conforme o caso, não o sane ou justifique no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação; FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados separadamente no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Aquisições contínuas pela ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 16,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "o, se houver; (e) constituição e/ou recomposição da Reserva de Amortização; (f) aquisição pelo Fundo de Direitos Creditórios, observando-se a Política de Investimentos; e (g) pagamento de Amortização ou resgate de Cotas Subordinadas Júnior. CAPÍTULO XII – METODOLOGIA DE AVALIAÇÃO DOS ATIVOS DO FUNDO 12.1. Os Direitos Creditórios e Ativos Financeiros que compõem a Carteira do Fundo terão seus valores calculados todo Dia Útil conforme a metodologia de avaliação FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 15 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br descrita no manual da Administradora disponível no website www.corretora.finaxis.com.br. 12.2. As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros integrantes da Carteira serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos das séries",
+   "sources": [],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "regression",
+    "why": "Resposta anterior também não localizou o cronograma"
+   }
+  },
+  "admin_fee": {
+   "display": "0,35% a.a. do PL (administração e gestão); mín. R$ 14 mil, depois R$ 18 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 29,
+     "clause": "cl. 17.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "27 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br (i) pelos serviços de administração fiduciária, gestão, controladoria e escrituração: a taxa será de 0,35% (trinta e cinco centésimos por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo, observado o pagamento do valor mínimo mensal de (a) R$ 14.000,00 (quatorze mil reais), durante os 6 (seis) primeiros meses de atividade do Fundo; e (b) R$ 18.000,00 (dezoito mil reais), a partir do 7º (sétimo) mês de atividade do Fundo, atualizado anualmente pela variação positiva do IPCA, a partir de janeiro de 2022, acrescida das taxas por evento previstas no Anexo IV deste Regulamento. 17.1.1. Na hipótese de extinção do IPCA, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 17.1.2. A Taxa de Administração prevista no item 17.1. acima será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 17.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "Taxa conjunta 0,35% a.a./PL; mínimos R$ 14 mil (meses 1–6) eR$ 18 mil (≥7); IPCA.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/01/2023, cl. 17.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa conjunta de 0,35% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 29,
+     "clause": "cl. 17.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "27 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br (i) pelos serviços de administração fiduciária, gestão, controladoria e escrituração: a taxa será de 0,35% (trinta e cinco centésimos por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo, observado o pagamento do valor mínimo mensal de (a) R$ 14.000,00 (quatorze mil reais), durante os 6 (seis) primeiros meses de atividade do Fundo; e (b) R$ 18.000,00 (dezoito mil reais), a partir do 7º (sétimo) mês de atividade do Fundo, atualizado anualmente pela variação positiva do IPCA, a partir de janeiro de 2022, acrescida das taxas por evento previstas no Anexo IV deste Regulamento. 17.1.1. Na hipótese de extinção do IPCA, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 17.1.2. A Taxa de Administração prevista no item 17.1. acima será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 17.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark sênior definido nos suplementos, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark mezanino definido nos suplementos, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Finaxis CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 45,
+     "clause": "cl. 22.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "INOVA CREDTECH II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DEFINIÇÕES “Administradora”: o FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Cidade de São Paulo, no Estado de São Paulo, na Avenida Paulista, nº 1842, 1º Andar, Conjunto 17, Cerqueira Cesar, CEP 01310-923, inscrita no CNPJ/ME sob o nº 03.317.692/0001-94, devidamente autorizada pela CVM para prestar os serviços de administrador de carteira de valores mobiliários por meio do Ato Declaratório nº 6.547, de 18 de outubro de 2001; “Agência Classificadora de Risco”: é a agência classificadora de risco contratada pelo Fundo para a classificação de risco das Cotas; “Agente Escriturador”: o BANCO FINAXIS S.A., instituição financeira com sede na Cidade de Curitiba, Estado do Paraná, na Rua Pasteur, nº 463, 11º andar, Água Verde, CEP 80250-104, inscrita no CNPJ sob o nº 11.758.741/0001-52, o qual se encontra devidamente habilitado pela CVM para prestar os serviços de escrituração das Cotas, ou seu sucessor a qualquer título; Amortização Extraordinária”: significa a amortização extraordinária das Cotas Subordinadas Júnior em circulação, em caso de Excesso de Garantia;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Petra Capital Gestão de Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 49,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "Fundos, ambiente de negociação secundária de cotas de fundos de investimento, administrado e operacionalizado pela B3; “Gestora”: a PETRA CAPITAL GESTÃO DE INVESTIMENTOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, à Avenida Paulista, nº 1842, 9º Andar, conjunto 95, Bela Vista, CEP 01310-200, inscrita no CNPJ sob o nº 09.204.714/0001-96, devidamente autorizada e habilitada pela CVM para o exercício profissional de administração de carteira de valores mobiliários por meio do Ato Declaratório nº 9.664 de 28 de dezembro de 2007; “Instrução CVM 356”: Instrução nº 356 da CVM, de 17 de dezembro de 2001, conforme alterada; “Instrução CVM 400”: Instrução nº 400 da CVM, de 29 de dezembro de 2003, conforme alterada; “Instrução CVM 476”: Instrução nº 476 da CVM, de 16 de janeiro de 2009, conforme alterada; “Instrução CVM 489”: Instrução nº 489 da CVM, de 14 de janeiro de 2011, conforme alterada; “Investidores Qualificados”: os investidores considerados qualificados, nos termos do Artigo 12 da Resolução CVM nº 30 de 11 de Maio de 2021; “Investidores Profissionais”: os investidores considerados profissionais, nos termos do Artigo 11 da Resolução CVM nº 30 de 11 de Maio de 2021;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Finaxis",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "nome do Cotista; “Critérios de Elegibilidade”: os critérios de elegibilidade descritos no item 6.1 deste Regulamento; “Custodiante”: o BANCO FINAXIS S.A., instituição financeira com sede na Cidade de Curitiba, Estado do Paraná, à Rua Pasteur, nº 463, 11º andar, Água Verde, CEP 80250- 104, inscrita no CNPJ sob o nº 11.758.741/0001-52, o qual se encontra devidamente habilitado pela CVM para prestar os serviços de custódia qualificada e controladoria dos Direitos Creditórios e demais ativos do Fundo, por meio do Ato Declaratório nº 11.590, de 21 de março de 2011; “CVM”: a Comissão de Valores Mobiliários; “Data da 1ª Integralização”: significa a data da 1ª integralização das Cotas ou conforme o caso, a data da 1ª integralização de Cotas de determinada Classe e/ou Série, data em que os recursos são efetivamente colocados à disposição do Fundo pelos Cotistas; “Data de Amortização”: cada data em que houver pagamento de Amortização Extraordinária e/ou Amortização Programada das Cotas, conforme o disposto neste Regulamento e nos cronogramas de amortização programada previstos em cada um dos Suplementos, conforme aplicável; FINAXIS - SP FINAXIS - PR Ouvidoria Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 2,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "termos do Capítulo XIII abaixo. CAPÍTULO III – PÚBLICO ALVO 3.1. O Fundo será destinado exclusivamente a Investidores Qualificados. CAPÍTULO IV – ORIGEM DOS DIREITOS CREDITÓRIOS 4.1. O Fundo é uma comunhão de recursos destinada, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 1 01310-923 São Paulo SP 82250-104 Curitiba PR www.finaxis.com.br Elegibilidade, as Condições de Cessão e os critérios de composição de Carteira estabelecidos neste Regulamento e na regulamentação aplicável. 4.2. Os Direitos Creditórios serão majoritariamente originados através de antecipação de recebíveis junto da cedente e de fornecedores da cedente. 4.3. As originações de crédito previstas no item 4.2 acima deverão observar a política de concessão de crédito prevista nesse Regulamento. 4.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 2,
+     "clause": "cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "de FIDC nº 8 de 11 de janeiro de 2019, o Fundo classifica-se como Agro, Indústria e Comércio- Multicarteira. 2.3. O Fundo terá prazo de duração indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas reunidos em Assembleia Geral, nos termos do Capítulo XIII abaixo. CAPÍTULO III – PÚBLICO ALVO 3.1. O Fundo será destinado exclusivamente a Investidores Qualificados. CAPÍTULO IV – ORIGEM DOS DIREITOS CREDITÓRIOS 4.1. O Fundo é uma comunhão de recursos destinada, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 1 01310-923 São Paulo SP 82250-104 Curitiba PR www.finaxis.com.br Elegibilidade, as Condições de Cessão e os critérios de composição de Carteira estabelecidos neste Regulamento e na regulamentação aplicável. 4.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Sacado ≤ 1% do PL, por grupo econômico",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "400722",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/01/2023",
+     "page": 6,
+     "clause": "cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400722",
+     "excerpt": "Cedente, respeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do Fundo por sacado, respeitado o Grupo Econômico; FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte 1º andar cj.17 R. Pasteur, 463, 11º andar 0800 601 1313 5 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br 6.2.1. Para fins da verificação pelo Custodiante das Condições de Cessão, será considerado o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 6.2.2. Na hipótese de o Direito Creditório elegível perder qualquer Condição de Cessão após sua aquisição pelo Fundo, não haverá direito de regresso contra o Custodiante, a Administradora e/ou a Gestora. CAPÍTULO VII – PROCEDIMENTOS DE CESSÃO 7.1. Para a formalização das ofertas de Direitos Creditórios pela Cedente ao Fundo, serão adotados os procedimentos descritos nos Artigos abaixo. 7.1.1."
+    }
+   ],
+   "value": 1.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Antecipação pulverizada com 25% de subordinação, cedente ≤ 3% e sacado ≤ 1% do PL; taxa total de 0,35% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

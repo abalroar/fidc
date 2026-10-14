@@ -1,0 +1,50 @@
+# Monee II FIDC (QI CTVM; Valora; originadora Maree)
+type: Crédito pessoal
+q1: * "“ORIGINADORA”: significa a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA."
+q2: * "6.2. Em cada Data de Aquisição, a GESTORA deverá verificar, previamente ao endosso, se os Direitos Creditórios oferecidos à Classe atendem"
+q3: * "o valor presente dos Direitos Creditórios originados com relação ao Devedor, identificado por seu CPF, não poderá exceder 0,001%"
+q4: * "(três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”); VI. o prazo máximo da CCB deve ser de 12 (doze) meses"
+q5: * "21.1. O Índice de Subordinação será a relação a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe"
+q6: * "desenquadramento do Índice de Subordinação mínimo de 30% (trinta por cento) exigido por prazo superior a 5"
+q7: * "somatória dos seguintes valores, observado um valor mínimo mensal de R$ 30.000,00 (trinta mil reais) (“Taxa de Administração”)"
+q8: * "te sobre o Patrimônio Líquido da Classe ou um valor mínimo mensal de R$ 30.000,00 (trinta mil reais), o que for maior (“Taxa de Gestão”)"
+q9: * "lasse quaisquer outras taxas, tais como taxa de performance, ingresso e/ou saída"
+q10: * "“ADMINISTRADORA”: significa a QI CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A."
+q11: * "“GESTORA”: significa a VALORA RENDA FIXA ESTRUTURADOS LTDA."
+q12: * "A Classe única de Cotas do FUNDO destina-se exclusivamente a Investidores Profissionais"
+q13: * "O prazo de duração desta Classe é indeterminado"
+q14: * "e Direitos Creditórios para adquirir novos Direitos Creditórios (“Revolvência”)"
+q15: * "“Reserva de Caixa”: significa a parcela do Patrimônio Líquido a ser retida e destinada ao pagamento dos encargos e despesas da Classe"
+q16: * "celebrado entre a Classe, o respectivo Endossante e a ORIGINADORA"
+receivables: CCBs de crédito pessoal originadas pela Maree | o1,q1
+originator: Maree Instituição de Pagamento (originadora) | q1
+assignor: Endossantes das CCBs (Maree SCD e veículos do grupo) | q16,o7
+debtor: Pessoas físicas de 18 a 70 anos com CPF | q2
+recourse: n/d | Recompra e resolução regidas pelo contrato de endosso
+eligibility: Devedor adimplente; 18 a 70 anos; CCB ≤ 12 meses; ágio limitado | q2,q4
+debtor_limit: Por devedor: maior entre 0,001% do PL e R$ 3,5 mil | q3,q4
+assignor_limit: Não previsto | Regulamento limita por devedor
+term_max: CCB de até 12 meses | q4
+allocation: ≥ 67% do PL em direitos creditórios | o23 | value=67
+quota_structure: Sênior / Subordinada | q5
+sub_senior: 30% · subord./PL | q5 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária; fora do mínimo por mais de 5 dias é evento de avaliação | q6
+reserve: Reserva de caixa de ao menos 3 meses de despesas | q15,o36
+pdd: n/d | Critério de provisão não localizado no texto extraído
+eval_triggers: Subordinação abaixo de 30% por mais de 5 dias, entre outros | q6
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído
+revolving: Revolvência com recursos da carteira | q14
+amortization: n/d | Cronograma definido nos apêndices das séries
+admin_fee: 0,25% a.a. na faixa inicial, regressiva até 0,20%; mín. R$ 30 mil/mês | q7,o53
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 30 mil/mês | q8,o56
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: n/d | Benchmark definido no apêndice da série, fora do acervo
+target_mezz: — | Sem cota mezanino
+administrator: QI CTVM | q10
+manager: Valora Renda Fixa Estruturados | q11
+custodian: n/d | Custodiante não nomeado no trecho lido
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais | q12
+duration: Indeterminado | q13
+leitura: Crédito pessoal pulverizado da Maree com 30% de subordinação; por devedor até R$ 3,5 mil e CCB ≤ 12 meses.

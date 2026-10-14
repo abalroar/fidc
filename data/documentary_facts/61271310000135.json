@@ -1,0 +1,774 @@
+{
+ "schema_version": 1,
+ "cnpj": "61271310000135",
+ "name": "BAYER CROPCREDIT II FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LTDA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T01:15:21Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1159923",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "10/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923"
+  },
+  "D2": {
+   "document_id": "935448",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "10/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935448"
+  },
+  "D3": {
+   "document_id": "994705",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "19/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Agro: notas fiscais XML, CPR-F e títulos emitidos em favor da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "994705",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/09/2025",
+     "page": 15,
+     "clause": "cl. 4.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+     "excerpt": "4.1.1. Os Direitos Creditórios serão representados por (i) notas fiscais eletrônicas (individualizadas pelas respectivas chaves de acesso das notas fiscais, que se encontram armazenadas eletronicamente em sistemas próprios da Secretaria da Fazenda Estadual aplicável, nos termos da legislação vigente) cedidas pelos Sponsors Notas Fiscais Direitos Creditórios XML ; (ii) CPR-F; e (iii) Direitos Creditórios Títulos de Crédito e, quando em conjunto com"
+    }
+   ],
+   "legacy": {
+    "value": "Agronegócio: notas fiscais XML, CPR-F e títulos de crédito emitidos em favor da classe",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Emissores dos títulos da cadeia de insumos agrícolas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "994705",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/09/2025",
+     "page": 15,
+     "clause": "cl. 4.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+     "excerpt": "4.1.1. Os Direitos Creditórios serão representados por (i) notas fiscais eletrônicas (individualizadas pelas respectivas chaves de acesso das notas fiscais, que se encontram armazenadas eletronicamente em sistemas próprios da Secretaria da Fazenda Estadual aplicável, nos termos da legislação vigente) cedidas pelos Sponsors Notas Fiscais Direitos Creditórios XML ; (ii) CPR-F; e (iii) Direitos Creditórios Títulos de Crédito e, quando em conjunto com"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Cedentes não nomeados no regulamento; títulos emitidos a favor da classe",
+   "sources": []
+  },
+  "debtor": {
+   "display": "Produtores e empresas do agro; mínimo de 50 devedores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 28,
+     "clause": "cl. 5.31",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "ade mínima de Devedores de Direitos Creditórios que compõem a carteira de ativos do Fundo em um dado momento. A Quantidade Mínima de Devedores não poderá ser inferior a 50 (cinquenta) Devedores; (vi) Índices de Subordinação; (vii) Índice de Concentração por Devedor, que deverá ser inferior a 3% (três por cento); e (viii) Índice de Concentração por Prazo, que deverá ser inferior a 20% (vinte por cento). 5.30.1. Caso haja desenquadramento dos Índices de Monitoramento como consequência direta de uma amortização programada e/ou Amortização Extraordinária, o desenquadramento em questão não ensejará um Evento de Avaliação. 5.30.1.1. Em caso de desenquadramento dos Índices de Monitoramento, haverá o prazo de cura para reenquadramento de (i) 10 (dez) Dias Úteis, no caso dos Índices de Atraso, do Índice de Concentração por Devedor, do Índice de Concentração por Prazo e dos Índices de Subordinação; e (ii) 30 (trinta) dias corridos, no caso do Índice de Indenização e/ou Resolução e do Índice de Repasse. 5.30.1.2. A Quantidade Mínima de Devedores terá um prazo de cura de 180 (cento e oitenta) dias após a Data da Primeira Integralização e, após este período, o prazo de cura será de 30 (trinta) dias corridos. 5.30.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso por desenquadramento posterior, salvo culpa ou dolo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "994705",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/09/2025",
+     "page": 19,
+     "clause": "cl. 4.16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+     "excerpt": "qualquer pretensão, recurso ou direito de regresso contra os Sponsors, o Administrador, a Gestora, o Agente de Formalização e Cobrança, o Custodiante ou suas partes relacionadas, exceto nos casos de culpa, dolo e/ou má-fé. 4.16.3. A Gestora será responsável por verificar e validar os Critérios de Elegibilidade em cada Data de Aquisição."
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramento posterior não gera regresso, salvo culpa/dolo/má-fé; indenização segundo contratos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "≥ 30 dias; devedor adimplente; vence 30 dias antes do resgate sênior",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 18,
+     "clause": "cl. 4.15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "er outro prestador de serviços do Fundo; ou (vii) do Fundo Garantidor de Créditos FGC. Critérios de Elegibilidade 4.16. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva Data de Aquisição, aos Critérios de Elegibilidade, abaixo elencados, a serem verificados pela Gestora, previamente à aquisição de Direitos Creditórios pela Classe I: (i) os Direitos Creditórios deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição; (ii) os Direitos Creditórios não poderão ser devidos por Devedor que esteja inadimplente perante a Classe I; (iii) os Direitos Creditórios deverão ter data de vencimento com pelo menos 30 (trinta) dias anteriores à data de resgate das Cotas Seniores em circulação; (iv) considerada pro forma a respectiva aquisição, os Direitos Creditórios com lastro em CPR-Fs com Variação Cambial poderão representar até [.]% do Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Devedor adimplente; ≥30 dias de prazo e vencimento ≥30 dias antes do resgate sênior; até 360 dias, exceção até 540",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/04/2026, cl. 4.15"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor ≤ 3% do PL, exceto especiais; ≥ 50 devedores",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 18,
+     "clause": "cl. 4.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "atas de Aquisição Critério de Concentração de Prazo ; e (vi) considerando-se pro forma a aquisição pretendida, o somatório do valor presente dos Direitos Creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, com exceção de determinados Devedores Especiais que poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido, conforme aplicável, conforme previamente aprovados pelo investidor das Cotas Seniores Critério de Concentração por Devedor Critérios de Concentração . 4.16.1. Para fins de cálculo dos Critérios de Concentração, será observado: (a) durante o período compreendido entre a Data da Primeira Integralização de Cotas e o período de até 180 (cento e oitenta) dias contados dessa data, o maior valor entre (i) o Patrimônio Líquido Base; e (ii) o Patrimônio Líquido vigente na Data de Aquisição dos respectivos Direitos Creditórios;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 28,
+     "clause": "cl. 5.31",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "ade mínima de Devedores de Direitos Creditórios que compõem a carteira de ativos do Fundo em um dado momento. A Quantidade Mínima de Devedores não poderá ser inferior a 50 (cinquenta) Devedores; (vi) Índices de Subordinação; (vii) Índice de Concentração por Devedor, que deverá ser inferior a 3% (três por cento); e (viii) Índice de Concentração por Prazo, que deverá ser inferior a 20% (vinte por cento). 5.30.1. Caso haja desenquadramento dos Índices de Monitoramento como consequência direta de uma amortização programada e/ou Amortização Extraordinária, o desenquadramento em questão não ensejará um Evento de Avaliação. 5.30.1.1. Em caso de desenquadramento dos Índices de Monitoramento, haverá o prazo de cura para reenquadramento de (i) 10 (dez) Dias Úteis, no caso dos Índices de Atraso, do Índice de Concentração por Devedor, do Índice de Concentração por Prazo e dos Índices de Subordinação; e (ii) 30 (trinta) dias corridos, no caso do Índice de Indenização e/ou Resolução e do Índice de Repasse. 5.30.1.2. A Quantidade Mínima de Devedores terá um prazo de cura de 180 (cento e oitenta) dias após a Data da Primeira Integralização e, após este período, o prazo de cura será de 30 (trinta) dias corridos. 5.30.2."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Devedor ≤3% do PL, exceto especiais aprovados; créditos >360 dias ≤20%; ≥50 devedores",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/04/2026, cl. 4.16"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor ≤3% do PL, exceto especiais aprovados; créditos >360 dias ≤20%; ≥50 devedores",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 360 dias; até 20% do PL com prazo maior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 18,
+     "clause": "cl. 4.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "com lastro em CPR-Fs com Variação Cambial poderão representar até [.]% do Patrimônio Líquido do Fundo; (v) os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias, com exceção de até 20% (vinte por cento) do valor do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, que poderá aceitar que esses Direitos Creditórios tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos, em qualquer caso, contados das respectivas Datas de Aquisição Critério de Concentração de Prazo ;"
+    }
+   ],
+   "legacy": {
+    "value": "Devedor adimplente; ≥30 dias de prazo e vencimento ≥30 dias antes do resgate sênior; até 360 dias, exceção até 540",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/04/2026, cl. 4.16"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "994705",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/09/2025",
+     "page": 16,
+     "clause": "cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+     "excerpt": "deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I. 4.5. A parcela do Patrimônio Líquido do Fundo que não estiver alocada em Direitos Creditórios deverá ser alocada em Ativos Financeiros de Liquidez, em estrita observância aos critérios de seleção, composição e diversificação previstos neste Anexo I. 4.6."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios ≥50% do PL após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/09/2025, cl. 4.4"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 27,
+     "clause": "cl. 5.25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "esolução CVM 175 e alterações posteriores e demais regulamentações específicas. Índices de Subordinação 5.25. O Índice de Subordinação Sênior compreende a razão entre o somatório do valor das Cotas Subordinadas e o Patrimônio Líquido, e deverá se manter igual ou superior a 15% (quinze por cento). 5.26. O Índice de Subordinação Mezanino compreende a razão entre o somatório do valor das Cotas Subordinadas Júnior e o Patrimônio Líquido, e deverá se manter igual ou superior a 1,50% (um inteiro e cinquenta centésimos por cento). 5.27. Sem prejuízo do disposto no Artigo 5.31 abaixo, os Índices de Subordinação serão monitorados pela Gestora, que deverá imediatamente informar o Administrador e os Cotistas em caso de desenquadramento. 5.28. Enquanto existirem Cotas Seniores e Cotas Subordinadas Mezanino em circulação, os Índices de Subordinação deverão ser mantidos, observado que os Índices de Subordinação poderão ser alterados apenas se assim deliberado e aprovado em Assembleia de Cotistas. 5.29. O desenquadramento de qualquer dos Índices de Subordinação não sanado no respectivo prazo de cura constitui um Evento de Avaliação. Reserva de Despesas 5.30."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 27,
+     "clause": "cl. 5.25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "do valor das Cotas Subordinadas e o Patrimônio Líquido, e deverá se manter igual ou superior a 15% (quinze por cento). 5.26. O Índice de Subordinação Mezanino compreende a razão entre o somatório do valor das Cotas Subordinadas Júnior e o Patrimônio Líquido, e deverá se manter igual ou superior a 1,50% (um inteiro e cinquenta centésimos por cento). 5.27. Sem prejuízo do disposto no Artigo 5.31 abaixo, os Índices de Subordinação serão monitorados pela Gestora, que deverá imediatamente informar o Administrador e os Cotistas em caso de desenquadramento. 5.28. Enquanto existirem Cotas Seniores e Cotas Subordinadas Mezanino em circulação, os Índices de Subordinação deverão ser mantidos, observado que os Índices de Subordinação poderão ser alterados apenas se assim deliberado e aprovado em Assembleia de Cotistas. 5.29. O desenquadramento de qualquer dos Índices de Subordinação não sanado no respectivo prazo de cura constitui um Evento de Avaliação. Reserva de Despesas 5.30."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥15%; júnior / PL ≥1,50%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/04/2026, cl. 5.25"
+   }
+  },
+  "sub_senior": {
+   "display": "15% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 27,
+     "clause": "cl. 5.25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "esolução CVM 175 e alterações posteriores e demais regulamentações específicas. Índices de Subordinação 5.25. O Índice de Subordinação Sênior compreende a razão entre o somatório do valor das Cotas Subordinadas e o Patrimônio Líquido, e deverá se manter igual ou superior a 15% (quinze por cento). 5.26. O Índice de Subordinação Mezanino compreende a razão entre o somatório do valor das Cotas Subordinadas Júnior e o Patrimônio Líquido, e deverá se manter igual ou superior a 1,50% (um inteiro e cinquenta centésimos por cento). 5.27. Sem prejuízo do disposto no Artigo 5.31 abaixo, os Índices de Subordinação serão monitorados pela Gestora, que deverá imediatamente informar o Administrador e os Cotistas em caso de desenquadramento. 5.28. Enquanto existirem Cotas Seniores e Cotas Subordinadas Mezanino em circulação, os Índices de Subordinação deverão ser mantidos, observado que os Índices de Subordinação poderão ser alterados apenas se assim deliberado e aprovado em Assembleia de Cotistas. 5.29. O desenquadramento de qualquer dos Índices de Subordinação não sanado no respectivo prazo de cura constitui um Evento de Avaliação. Reserva de Despesas 5.30."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Subordinadas / PL ≥15%; júnior / PL ≥1,50%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/04/2026, cl. 5.25"
+   }
+  },
+  "sub_mezz": {
+   "display": "1,5% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 27,
+     "clause": "cl. 5.25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "do valor das Cotas Subordinadas e o Patrimônio Líquido, e deverá se manter igual ou superior a 15% (quinze por cento). 5.26. O Índice de Subordinação Mezanino compreende a razão entre o somatório do valor das Cotas Subordinadas Júnior e o Patrimônio Líquido, e deverá se manter igual ou superior a 1,50% (um inteiro e cinquenta centésimos por cento). 5.27. Sem prejuízo do disposto no Artigo 5.31 abaixo, os Índices de Subordinação serão monitorados pela Gestora, que deverá imediatamente informar o Administrador e os Cotistas em caso de desenquadramento. 5.28. Enquanto existirem Cotas Seniores e Cotas Subordinadas Mezanino em circulação, os Índices de Subordinação deverão ser mantidos, observado que os Índices de Subordinação poderão ser alterados apenas se assim deliberado e aprovado em Assembleia de Cotistas. 5.29. O desenquadramento de qualquer dos Índices de Subordinação não sanado no respectivo prazo de cura constitui um Evento de Avaliação. Reserva de Despesas 5.30."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 1.5,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Monitorados pela gestora; sem cura no prazo é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 27,
+     "clause": "cl. 5.29",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "ssim deliberado e aprovado em Assembleia de Cotistas. 5.29. O desenquadramento de qualquer dos Índices de Subordinação não sanado no respectivo prazo de cura constitui um Evento de Avaliação. Reserva de Despesas 5.30. A reserva a ser constituída pela Classe I, a ser recomposta mensalmente, para o pagamento de despesas e encargos ordinários, referentes à operacionalização do Fundo, que deve corresponder ao valor equivalente às despesas e Encargos da Classe I para o período de 9 (nove) meses, conforme estimativa do Administrador. Reserva de Pagamentos 5.28.1. A reserva a ser constituída pela Classe I, a ser recomposta mensalmente, para o pagamento de despesas e encargos ordinários, referentes à operacionalização do Fundo, que deve corresponder ao valor equivalente ao montante estimado de pagamento de amortização das Cotas e do Valor do Prêmio para o período de 6 (seis) meses. Índices de Monitoramento 5.31. O Administrador e/ou o Custodiante, conforme o caso, calcularão os seguintes Índices de Monitoramento: (i) Índices de Atraso (90 dias), que deverá ser inferior a 6% (seis por cento); (ii) Índice de Atraso (180 dias), que deverá ser inferior a 2% (dois por cento);"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥15%; júnior / PL ≥1,50%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/04/2026, cl. 5.29"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas recomposta mensalmente; reserva de pagamentos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 27,
+     "clause": "cl. 5.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "ubordinação não sanado no respectivo prazo de cura constitui um Evento de Avaliação. Reserva de Despesas 5.30. A reserva a ser constituída pela Classe I, a ser recomposta mensalmente, para o pagamento de despesas e encargos ordinários, referentes à operacionalização do Fundo, que deve corresponder ao valor equivalente às despesas e Encargos da Classe I para o período de 9 (nove) meses, conforme estimativa do Administrador. Reserva de Pagamentos 5.28.1. A reserva a ser constituída pela Classe I, a ser recomposta mensalmente, para o pagamento de despesas e encargos ordinários, referentes à operacionalização do Fundo, que deve corresponder ao valor equivalente ao montante estimado de pagamento de amortização das Cotas e do Valor do Prêmio para o período de 6 (seis) meses. Índices de Monitoramento 5.31. O Administrador e/ou o Custodiante, conforme o caso, calcularão os seguintes Índices de Monitoramento: (i) Índices de Atraso (90 dias), que deverá ser inferior a 6% (seis por cento); (ii) Índice de Atraso (180 dias), que deverá ser inferior a 2% (dois por cento); (iii) Índice de Indenização e/ou Resolução, que deverá ser inferior a 3% (três por cento); (iv) Índice de Repasse, que deverá ser inferior a 6% (seis por cento);"
+    },
+    {
+     "doc": "D3",
+     "document_id": "994705",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/09/2025",
+     "page": 27,
+     "clause": "cl. 5.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+     "excerpt": "corresponder ao valor equivalente às despesas e Encargos da Classe I para o período de 9 (nove) meses, conforme estimativa do Administrador. Reserva de Pagamentos 5.28.1. A reserva a ser constituída pela Classe I, a ser recomposta mensalmente, para o pagamento de despesas e encargos ordinários, referentes à operacionalização do Fundo, que deve corresponder ao valor equivalente ao montante estimado de pagamento de amortização das Cotas e do Valor do Prêmio para o período de 6 (seis) meses. Índices de Monitoramento 5.31."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas: 9 meses; pagamentos de amortização/prêmio: 6 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/04/2026, cl. 5.30"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 93,
+     "clause": "Apêndice, cl. 3.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "erão calculadas e ajustadas mensalmente e abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador disponível em http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf, observado o disposto acima. Caso o Administrador e/ou a Gestora constatem que a carteira da Classe I possui um comportamento de atrasos substancialmente diferente ao estimado pela política de provisão, esta poderá ser revista por ambas as partes em conjunto, observado os percentuais mínimos de provisionamento constantes na tabela acima."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Subordinação sem cura; atraso 90 e 180 dias acima dos tetos, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 27,
+     "clause": "cl. 5.29",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "ssim deliberado e aprovado em Assembleia de Cotistas. 5.29. O desenquadramento de qualquer dos Índices de Subordinação não sanado no respectivo prazo de cura constitui um Evento de Avaliação. Reserva de Despesas 5.30. A reserva a ser constituída pela Classe I, a ser recomposta mensalmente, para o pagamento de despesas e encargos ordinários, referentes à operacionalização do Fundo, que deve corresponder ao valor equivalente às despesas e Encargos da Classe I para o período de 9 (nove) meses, conforme estimativa do Administrador. Reserva de Pagamentos 5.28.1. A reserva a ser constituída pela Classe I, a ser recomposta mensalmente, para o pagamento de despesas e encargos ordinários, referentes à operacionalização do Fundo, que deve corresponder ao valor equivalente ao montante estimado de pagamento de amortização das Cotas e do Valor do Prêmio para o período de 6 (seis) meses. Índices de Monitoramento 5.31. O Administrador e/ou o Custodiante, conforme o caso, calcularão os seguintes Índices de Monitoramento: (i) Índices de Atraso (90 dias), que deverá ser inferior a 6% (seis por cento); (ii) Índice de Atraso (180 dias), que deverá ser inferior a 2% (dois por cento);"
+    },
+    {
+     "doc": "D3",
+     "document_id": "994705",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/09/2025",
+     "page": 28,
+     "clause": "cl. 5.31",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+     "excerpt": "(i) Índices de Atraso (90 dias), que deverá ser inferior a 6% (seis por cento); (ii) Índice de Atraso (180 dias), que deverá ser inferior a 2% (dois por cento); (iii) Índice de Indenização e/ou Resolução, que deverá ser inferior a 3% (três por cento); (iv) Índice de Repasse, que deverá ser inferior a 6% (seis por cento); (v) Quantidade Mínima de Devedores: significa a quantidade mínima de Devedores de Direitos Creditórios que compõem a carteira de ativos do Fundo em um dado momento."
+    }
+   ],
+   "legacy": {
+    "value": "Atraso 90 <6%; atraso 180 <2%; indenização/resolução <3%; repasse <6%; cura conforme índice",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 10/04/2026, cl. 5.29"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Atraso 90 <6%; atraso 180 <2%; indenização/resolução <3%; repasse <6%; cura conforme índice",
+    "decision": "regression",
+    "why": "Resposta anterior lista eventos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "Sempre revolvente, pela ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 22,
+     "clause": "cl. 4.26.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "I. 4.26.1. A Carteira da Classe I, para fins do artigo 21, inciso VI, do Anexo Normativo II da Resolução CVM 175, considera-se sempre revolvente, observada a Ordem de Alocação de Recursos disposta neste Anexo I. Procedimentos de Cobrança dos Direitos Creditórios 4.27. A cobrança dos Direitos Creditórios ocorrerá na forma da Política de Cobrança prevista no Complemento 5 ao presente Anexo I. Outras disposições relativas à Política de Investimentos 4.28. A Classe I poderá utilizar instrumentos de derivativos desde que com o objetivo de proteção patrimonial, ou, desde que não resulte em exposição a risco de capital, conforme definida no inciso XXIV do artigo 3º da parte geral da Resolução CVM 175, troca de indexador a que os ativos estão indexados e o índice de referência de cada Subclasse. 4.29. É vedada qualquer forma de antecipação de recursos aos Sponsors para posterior reembolso pela Classe I, seja pelo Administrador, pela Gestora, Custodiante ou Agente de Formalização e Cobrança. 5. CARACTERÍSTICAS E CONDIÇÕES DAS COTAS 5.1. O patrimônio da Classe I é representado por 3 (três) Subclasses de Cotas, quais sejam, as Cotas Seniores, as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazos e metas definidos nos apêndices",
+   "sources": [],
+   "legacy": {
+    "value": "100% do principal e juros acumulados no resgate; antecipação sênior com comissão e break funding",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,1125% a.a. até R$ 100 mi; 0,075% acima; mín. R$ 14,25 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 51,
+     "clause": "cl. 12.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "cessárias. 12. TAXAS DE ADMINISTRAÇÃO, GESTÃO E MÁXIMA DE CUSTÓDIA Taxa de Administração 12.30. O Fundo pagará pelos serviços de administração custódia e escrituração dos Direitos Creditórios adquiridos uma taxa de administração equivalente a 0,1125% (mil cento e vinte e cinco décimos de milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido até R$ 100.000.000,00 (cem milhões de reais), acrescido de 0,075% (setenta e cinco milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido acima de R$ 100.000.000,00 (cem milhões), observado o mínimo mensal de R$14.250,00 (quatorze mil duzentos e cinquenta Taxa de Administração Administração não inclui valores correspondentes aos demais Encargos do Fundo, os quais serão debitados do Fundo de acordo com o disposto neste Regulamento e na regulamentação vigente. 12.30.1. A Taxa de Administração será calculada e provisionada todo Dia Útil à razão 1/252 (um duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 12.30.2. Será acrescido à remuneração do Administrador, para a participação e implementação das decisões tomadas em Assembleia de Cotistas, o valor equivalente a R$ 850,00 (oitocentos e cinquenta reais) por hora-homem de trabalho dedicada a tais atividades. 12.31."
+    },
+    {
+     "doc": "D3",
+     "document_id": "994705",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/09/2025",
+     "page": 52,
+     "clause": "cl. 12.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+     "excerpt": "Creditórios adquiridos uma taxa de administração equivalente a 0,1125% (mil cento e vinte e cinco décimos de milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido até R$ 100.000.000,00 (cem milhões de reais), acrescido de 0,075% (setenta e cinco milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido acima de R$ 100.000.000,00 (cem milhões), observado o mínimo mensal de R$14.250,00 (quatorze mil duzentos e cinquenta Taxa de Administração Administração não inclui valores correspondentes aos demais Encargos do Fundo, os quais serão debitados do Fund"
+    }
+   ],
+   "legacy": {
+    "value": "Marginal 0,1125% a.a. PL atéR$ 100 mi +0,075% acima; mínimo R$ 14,25 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,26% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 53,
+     "clause": "cl. 12.32",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "em lei, pelo IGP-M, ou na sua falta, pelo índice que vier a substituí-lo. Taxa de Gestão 12.32. Pelos serviços de gestão, a Gestora fará jus a uma remuneração equivalente a 0,26% (vinte e seis centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido, observado o mínimo Taxa de Gestão valores correspondentes aos demais Encargos do Fundo, os quais serão debitados do Fundo de acordo com o disposto neste Regulamento e na regulamentação vigente. 12.32.1. A Taxa de Gestão será calculada e provisionada todo Dia Útil à razão 1/252 (um duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 12.33. Os valores expressos em reais disposto cima serão atualizados a cada período de 12 (doze) meses, contado do início das atividades do Fundo ou na menor periodicidade admitida em lei, pelo Índice Nacional de Preços ao Consumidor Amplo IPCA ou na sua falta, pelo índice que vier a substituí-lo. 12.34. Não será cobrada taxa de performance do Fundo. 12.35."
+    }
+   ],
+   "legacy": {
+    "value": "0,26% a.a. sobre PL; mínimo mensal não extraído de forma íntegra; confirmar documento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 53,
+     "clause": "cl. 12.34",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "ice Nacional de Preços ao Consumidor Amplo IPCA ou na sua falta, pelo índice que vier a substituí-lo. 12.34. Não será cobrada taxa de performance do Fundo. 12.35. Serão acrescidos mensalmente às remunerações previstas nos itens 12.1 e 12.3 acima os tributos (ISS, PIS, COFINS, CSLL e IRRF e outros que porventura venham incidir) nas alíquotas vigentes nas respectivas datas de pagamento. Taxa de Ingresso ou Saída 12.36. Não serão cobradas da Classe I ou dos Cotistas, taxas de performance, de ingresso ou de saída. 13. CUSTOS REFERENTES À DEFESA DOS INTERESSES DA CLASSE I 13.30."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida nos apêndices, fora do acervo",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior, mezanino e júnior: DI +1,60% a.a., conforme apêndices",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida nos apêndices, fora do acervo",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior, mezanino e júnior: DI +1,60% a.a., conforme apêndices",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 9,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "composição e diversificação da carteira do Fundo estabelecidos neste Anexo I. Público-Alvo Investidores Profissionais. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na cidade Custódia e Tesouraria do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Grupo 201, inscrita no CNPJ sob o nº 36.113.876/0001-91 Custodiante Subclasses Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, nos termos do Capítulo 5 deste Anexo I. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o regime de distribuição seguirão o disposto no instrumento que aprova a emissão de Cotas, que disporá acerca da eventual existência de direito de preferência dos Cotistas. Emissão e Regime de Sem prejuízo do disposto neste Anexo I, poderão ser emitidas novas Distribuição de Cotas Cotas Subordinadas, a exclusivo critério da Gestora, com as características"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Farmtech Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002 Administrador FARMTECH GESTÃO DE RECURSOS LTDA., com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 4.509, Conjuntos 91 e 94, CEP 04538-133, inscrito no CNPJ sob o nº 20.043.909/0001-34, na qualidade de gestora do Fundo, devidamente GESTOR autorizada pela CVM para o exercício profissional de administração de carteiras de títulos e valores mobiliários, através do Ato Declaratório nº Gestora conjuntamente e indistintamente com o Administrador, os Prestadores de Serviços Essenciais Fica eleito o foro da Comarca de São Paulo, Estado de São Paulo, para Foro Aplicável dirimir quaisquer ações nos processos jurídicos relativos ao Fundo ou quaisquer questões oriundas do presente Regulamento. Encerramento do 31 de dezembro. Exercício Social 1.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 73,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "e Variação Cambial; Critérios de Elegibilidade os critérios de elegibilidade descritos na cláusula 4.16 do Anexo I; Custodiante a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Grupo 201, inscrita no CNPJ sob o nº 36.113.876/0001- 91; Data da Primeira Integralização recursos são efetivamente colocados à disposição da Classe I pelos Cotistas; Data de Aquisição aquisição dos Direitos Creditórios; Datas de Pagamento datas em que serão realizados os pagamentos de remuneração e de amortização das Cotas, conforme previstas neste Anexo I e nos respectivos Apêndice; Devedor (i) cujos Direitos Creditórios venham a ser cedidos à Classe I pelas Sponsors; e/ou (ii) que venham a emitir CPR-F e/ou Notas Comerciais em favor da Classe I; Devedor Especial Assembleia de Cotistas, conforme listagem arquivada perante a Gestora, e que poderão ter uma concentração de Direitos Creditórios superior àquela estabelecida aos demais Devedores da Classe I, conforme disposto na Cláusula 4.16 do Anexo I;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 9,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "composição e diversificação da carteira do Fundo estabelecidos neste Anexo I. Público-Alvo Investidores Profissionais. OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na cidade Custódia e Tesouraria do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Grupo 201, inscrita no CNPJ sob o nº 36.113.876/0001-91 Custodiante Subclasses Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, nos termos do Capítulo 5 deste Anexo I. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o regime de distribuição seguirão o disposto no instrumento que aprova a emissão de Cotas, que disporá acerca da eventual existência de direito de preferência dos Cotistas. Emissão e Regime de Sem prejuízo do disposto neste Anexo I, poderão ser emitidas novas Distribuição de Cotas Cotas Subordinadas, a exclusivo critério da Gestora, com as características"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1159923",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "10/04/2026",
+     "page": 9,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+     "excerpt": "As principais características da Classe I do Fundo estão descritas abaixo: Tipo de Condomínio Fechado. Prazo de Duração A Classe I terá prazo de duração indeterminado. Classe de Investimento em Não. Cotas Classificação ANBIMA Tipo Indústria e Foco de atuação Categoria Fundo de investimento nas cadeias produtivas do agronegócio, conforme Anexo Normativo VI da Resolução CVM 175, com regência supletiva pelo Anexo Normativo II da Resolução CVM 175. O objetivo da Classe I é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido preponderantemente na aquisição de Direitos Creditórios originados nos termos da Política de Crédito descrita no Objetivo Complemento 4 a este Anexo I e que atendam a Política de Investimento e aos Critérios de Elegibilidade estabelecidos neste Regulamento, sem prejuízo da possibilidade de aquisição d"
+    }
+   ],
+   "legacy": {
+    "value": "28/09/2028 para as três subclasses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "Notas fiscais e CPR-F da cadeia de insumos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "994705",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/09/2025",
+     "page": 15,
+     "clause": "cl. 4.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+     "excerpt": "4.1.1. Os Direitos Creditórios serão representados por (i) notas fiscais eletrônicas (individualizadas pelas respectivas chaves de acesso das notas fiscais, que se encontram armazenadas eletronicamente em sistemas próprios da Secretaria da Fazenda Estadual aplicável, nos termos da legislação vigente) cedidas pelos Sponsors Notas Fiscais Direitos Creditórios XML ; (ii) CPR-F; e (iii) Direitos Creditórios Títulos de Crédito e, quando em conjunto com"
+    }
+   ],
+   "legacy": {
+    "value": "Agronegócio: notas fiscais XML, CPR-F e títulos de crédito emitidos em favor da classe",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas no texto extraído",
+   "sources": []
+  }
+ },
+ "leitura": "Cadeia de insumos agro com 15% de subordinação (júnior ≥ 1,5%), devedor ≤ 3% do PL e mínimo de 50 devedores.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

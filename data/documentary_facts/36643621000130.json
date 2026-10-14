@@ -1,0 +1,618 @@
+{
+ "schema_version": 1,
+ "cnpj": "36643621000130",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS TRINDADE - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:50:45Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "826314",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "13/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314"
+  },
+  "D2": {
+   "document_id": "185842",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "02/03/2020",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185842"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Multicarteira: títulos e direitos de crédito diversos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 8,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "(xi) Despesas com a contratação de atividades relacionadas à verificação de lastro. CAPÍTULO 4 – POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA Características dos Direitos Creditórios 4.1 Os Direitos Creditórios pela Classe serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos. 4.2 Tendo em vista (i) a natureza variada dos Direitos Creditórios passíveis de aquisição pela Classe, (ii) a amplitude da Política de Investimentos e (iii) a potencial diversificação de Cedentes e Devedores, não é possível precisar os processos de origem dos Direitos Creditórios e as políticas de concessão de crédito adotadas pelos Cedentes. 8 Docusign Envelope ID: D3905119-62FD-4AC9-A601-090BF95D4457 ANEXO I – ANEXO DESCRITIVO DA CLASSE DE COTAS 4.3 Os pagamentos relativos aos Direitos Creditórios de titularidade da Classe serão realizados pelos Devedores e/ou pelos Cedentes, conforme o caso, por meio de: (i) Transferência Eletrônica Disponív"
+    }
+   ],
+   "legacy": {
+    "value": "Multicarteira com direitos/títulos de crédito e ativos financeiros elegíveis.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Sem cedentes predeterminados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 11,
+     "clause": "Anexo, cl. 4.15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "ites para efetuar cessão de direitos creditórios para o cedente e suas partes relacionadas 4.15 Considerando que não há Cedentes ou contrapartes predeterminados para a aquisição dos Direitos Creditórios, não é possível precisar as hipóteses e procedimentos para que a Classe ceda os Direitos Creditórios novamente aos respectivos Cedentes. Outras disposições relativas à Política de Investimentos 4.16 A Classe poderá realizar aplicações que coloquem em risco parte ou a totalidade de seu patrimônio. Dentre os diversos riscos aos quais está sujeita a Carteira da Classe estão, exemplificativamente, os analisados no CAPITULO 14 abaixo, o qual deve ser cuidadosamente lido pelo subscritor ou adquirente das Cotas. 4.17 A Classe poderá utilizar instrumentos derivativos, desde que com o objetivo de proteção patrimonial, ou, desde que não resulte em exposição a risco de capital, conforme definida no inciso XXIV do Art. 3º da parte geral da Resolução CVM 175, troca de indexador a que os ativos estão indexados. 4.18 A Classe não realizará operações de day trade, assim consideradas aquelas iniciadas e encerradas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos, sem contraparte predeterminada",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 11,
+     "clause": "Anexo, cl. 4.15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "ites para efetuar cessão de direitos creditórios para o cedente e suas partes relacionadas 4.15 Considerando que não há Cedentes ou contrapartes predeterminados para a aquisição dos Direitos Creditórios, não é possível precisar as hipóteses e procedimentos para que a Classe ceda os Direitos Creditórios novamente aos respectivos Cedentes. Outras disposições relativas à Política de Investimentos 4.16 A Classe poderá realizar aplicações que coloquem em risco parte ou a totalidade de seu patrimônio. Dentre os diversos riscos aos quais está sujeita a Carteira da Classe estão, exemplificativamente, os analisados no CAPITULO 14 abaixo, o qual deve ser cuidadosamente lido pelo subscritor ou adquirente das Cotas. 4.17 A Classe poderá utilizar instrumentos derivativos, desde que com o objetivo de proteção patrimonial, ou, desde que não resulte em exposição a risco de capital, conforme definida no inciso XXIV do Art. 3º da parte geral da Resolução CVM 175, troca de indexador a que os ativos estão indexados. 4.18 A Classe não realizará operações de day trade, assim consideradas aquelas iniciadas e encerradas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos créditos adquiridos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "io Líquido em Direitos Creditórios. 4.9 Nos termos do Art. 45 do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 20% (vinte por cento) de seu Patrimônio Líquido alocado em Derivativos, observado o disposto no item 4.19, e Direitos Creditórios devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado. 4.9.1 Os limites de concentração descritos no item 4.9 acima, apenas poderão ser excedidos se (a) tal Devedor for (a.i) uma sociedade registrada perante a CVM como companhia aberta; (a.ii) uma instituição financeira ou equiparada; ou (a.iii) seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do direito creditório elaboradas de acordo com a regulamentação editada pela CVM e com a Lei nº 6.404, de 15 de dezembro de 1976, conforme alterada, e auditadas por um auditor independente registrado junto à CVM;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Em reais; vincendos de 4 a 371 dias; devedor ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 9,
+     "clause": "Anexo, cl. 4.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "reditórios, bem como de realizar o cadastro dos Cedentes e/ou Devedores. Critérios de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pela GESTORA, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) sejam representados em moeda corrente nacional; (ii) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo CUSTODIANTE, de acordo com os procedimentos operacionais e contábeis praticados pelo CUSTODIANTE; (iii) atendam, pro forma, no momento da aquisição, aos limites de concentração definidos no CAPÍTULO 4;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "ESCRITIVO DA CLASSE DE COTAS (vi) o prazo de vencimento dos direitos creditórios deverá ser de no mínimo 4 (quatro) dias e, no máximo, 371 (trezentos e setenta e um) dias; e (vii) a soma de direitos creditórios por devedor não poderá ser superior a 20% (vinte por cento) do patrimônio líquido do fundo. 4.6.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.6.2 Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de Elegibilidade após sua aquisição pela Classe tal fato não será entendido como um desenquadramento da Carteira, tampouco haverá direito de regresso contra a ADMINISTRADORA, a GESTORA, a Consultora e/ou o Agente de Cobrança. Ativos Financeiros de Liquidez 4.7 A parcela do Patrimônio Líquido que não estiver alocada em Direitos Creditórios será necessariamente alocada em Ativos Financeiros de Liquidez."
+    }
+   ],
+   "legacy": {
+    "value": "Prazos vincendos de 4 a 371 dias; validação de lastro e análise cadastral/crédito.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor/grupo ≤ 20% do PL, com exceções da norma",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "io Líquido em Direitos Creditórios. 4.9 Nos termos do Art. 45 do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 20% (vinte por cento) de seu Patrimônio Líquido alocado em Derivativos, observado o disposto no item 4.19, e Direitos Creditórios devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado. 4.9.1 Os limites de concentração descritos no item 4.9 acima, apenas poderão ser excedidos se (a) tal Devedor for (a.i) uma sociedade registrada perante a CVM como companhia aberta; (a.ii) uma instituição financeira ou equiparada; ou (a.iii) seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do direito creditório elaboradas de acordo com a regulamentação editada pela CVM e com a Lei nº 6.404, de 15 de dezembro de 1976, conforme alterada, e auditadas por um auditor independente registrado junto à CVM;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Mesmo devedor≤20%/PL; condições adicionais por grupo.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento não limita concentração por cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Mesmo devedor≤20%/PL; condições adicionais por grupo.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "De 4 a 371 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "ESCRITIVO DA CLASSE DE COTAS (vi) o prazo de vencimento dos direitos creditórios deverá ser de no mínimo 4 (quatro) dias e, no máximo, 371 (trezentos e setenta e um) dias; e (vii) a soma de direitos creditórios por devedor não poderá ser superior a 20% (vinte por cento) do patrimônio líquido do fundo. 4.6.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.6.2 Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de Elegibilidade após sua aquisição pela Classe tal fato não será entendido como um desenquadramento da Carteira, tampouco haverá direito de regresso contra a ADMINISTRADORA, a GESTORA, a Consultora e/ou o Agente de Cobrança. Ativos Financeiros de Liquidez 4.7 A parcela do Patrimônio Líquido que não estiver alocada em Direitos Creditórios será necessariamente alocada em Ativos Financeiros de Liquidez."
+    }
+   ],
+   "legacy": {
+    "value": "Prazos vincendos de 4 a 371 dias; validação de lastro e análise cadastral/crédito.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Alocação tributária 67%/PL; base CMN inclui instrumentos/cotas elegíveis.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Classe única aberta",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 3,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "demais disposições legais e regulamentares aplicáveis, terá como principais características: CLASSE DE COTAS Classe única. PRAZO DE DURAÇÃO Indeterminado. BRL TRUST Distribuidora Títulos e de Valores Mobiliários S.A., sociedade com sede na Cidade e Estado de São Paulo, na Rua Alves Guimarães, nº 1.212, Pinheiros, CEP 05410-002, inscrita no CNPJ sob o nº 13.486.793/0001-42 e ADMINISTRADOR credenciada como administradora de carteira, de acordo com o Ato Declaratório CVM nº 11.784, de 30 de junho de 2011 (“ADMINISTRADORA” e, quando referido em conjunto indistintamente com o GESTOR, os “Prestadores de Serviços Essenciais”). PHRONESIS INVESTIMENTOS LTDA, com sede na Cidade de Curitiba e Estado do Paraná, na Av."
+    },
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 7,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "cado. 1.2 As principais características da classe única de cotas do FUNDO estão descritas abaixo: Tipo de Condomínio Aberto. Prazo de Duração Indeterminado. Classe de Investimento em Não Cotas Tipo “Outros”. Foco de atuação “Multicarteira Outros”. Classificação ANBIMA A CLASSE DE COTAS PODE INVESTIR EM CARTEIRA DE DIREITOS CREDITÓRIOS DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Classe única, sem cotas subordinadas",
+   "sources": []
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Classe única, sem cotas subordinadas",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Classe única, sem índice de subordinação",
+   "sources": []
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa não localizada no texto extraído",
+   "sources": []
+  },
+  "pdd": {
+   "display": "Provisão por devedor, estendida aos demais créditos do mesmo devedor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 14,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "de Liquidez será reduzido pelo valor da provisão efetuada ou perda reconhecida. 8.2.1 O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Art. 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual da ADMINISTRADORA ou, ainda, no manual do CUSTODIANTE. CAPÍTULO 9 – ASSEMBLEIA ESPECIAL DE COTISTAS DA CLASSE ÚNICA DE COTAS 14 Docusign Envelope ID: D3905119-62FD-4AC9-A601-090BF95D4457 ANEXO I – ANEXO DESCRITIVO DA CLASSE DE COTAS 9.1 Sem prejuízo de outros requisitos e informações previstos na regulamentação vigente, a Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas, incluindo, mas não se limitando a: (i) deliberar sobre as demonstrações contábeis da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de avaliação não localizados no texto extraído",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Recebimentos podem comprar novos créditos ou amortizar, a critério da gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 11,
+     "clause": "Anexo, cl. 4.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "I – ANEXO DESCRITIVO DA CLASSE DE COTAS Revolvência da Carteira de Direitos Creditórios 4.10 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por execução ou execução de garantia, alienação, recompra, indenização pelo Cedente e/ou desinvestimento de Ativo Recuperado, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios e/ou destinados à Amortização das Cotas, conforme decisão da GESTORA e desde que observada a ordem de alocação de recursos definida no item 7.1 abaixo. Ativos Recuperados 4.11 Sem prejuízo da Política de Investimento da Classe prevista neste item, poderão eventualmente compor a carteira de investimento da Classe imóveis (ou direitos reais relacionados), participações societárias, cotas de fundos de investimento, bens móveis em geral, produtos ou insumos agrícolas, direitos disponíveis, dentre outros ativos, bens ou direitos que não os Direitos Creditórios ou os Ativos Financeiros (“Ativos Recuperados”), em decorrência, exclusivamente, dos procedimento"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Classe aberta; amortizações pela ordem de alocação, a critério da gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 11,
+     "clause": "Anexo, cl. 4.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "I – ANEXO DESCRITIVO DA CLASSE DE COTAS Revolvência da Carteira de Direitos Creditórios 4.10 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por execução ou execução de garantia, alienação, recompra, indenização pelo Cedente e/ou desinvestimento de Ativo Recuperado, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios e/ou destinados à Amortização das Cotas, conforme decisão da GESTORA e desde que observada a ordem de alocação de recursos definida no item 7.1 abaixo. Ativos Recuperados 4.11 Sem prejuízo da Política de Investimento da Classe prevista neste item, poderão eventualmente compor a carteira de investimento da Classe imóveis (ou direitos reais relacionados), participações societárias, cotas de fundos de investimento, bens móveis em geral, produtos ou insumos agrícolas, direitos disponíveis, dentre outros ativos, bens ou direitos que não os Direitos Creditórios ou os Ativos Financeiros (“Ativos Recuperados”), em decorrência, exclusivamente, dos procedimento"
+    }
+   ],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,04% a.a. do PL; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 22,
+     "clause": "Anexo, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "Taxa de Administração 12.1 Pelos serviços de administração, tesouraria, controladoria e escrituração, a Classe pagará a Taxa de Administração nos seguintes moldes: o valor correspondente a 0,04% (quatro centésimo por cento) ao ano aplicado sobre o Patrimônio Líquido (“Taxa de Administração Variável”), observado o valor mínimo de: (i) R$15.000,00 (quinze mil reais) mensais, atualizado pela variação positiva do IPCA a cada período de 12 (doze) meses, aplicando-se o reajuste no mês de janeiro de cada ano (“Taxa de Administração Fixa”). 12.1.1 Na hipótese de extinção do IPCA, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 12.1.2 A Taxa de Administração será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia"
+    },
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 22,
+     "clause": "Anexo, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "escrituração, a Classe pagará a Taxa de Administração nos seguintes moldes: o valor correspondente a 0,04% (quatro centésimo por cento) ao ano aplicado sobre o Patrimônio Líquido (“Taxa de Administração Variável”), observado o valor mínimo de: (i) R$15.000,00 (quinze mil reais) mensais, atualizado pela variação positiva do IPCA a cada período de 12 (doze) meses, aplicando-se o reajuste no mês de janeiro de cada ano (“Taxa de Administração Fixa”). 12.1.1 Na hipótese de extinção do IPCA, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 12.1.2 A Taxa de Administração será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 12.1.3 A Taxa de Administração será paga"
+    }
+   ],
+   "legacy": {
+    "value": "0,04% a.a./PL; mínimo R$ 15 mil/mês; IPCA.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,31% a.a. do PL (extenso diz vinte e seis centésimos)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 22,
+     "clause": "Anexo, cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "xceda o montante total da Taxa de Administração. Taxa de Gestão 12.3 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos seguintes moldes: o valor correspondente a 0,31% (vinte e seis centésimo por cento) ao ano aplicado sobre o Patrimônio Líquido (“Taxa de Gestão Variável”), observado o valor mínimo de: (i) R$10.000,00 (dez mil reais) mensais, atualizado pela variação positiva do IPCA a cada período de 12 (doze) meses, aplicando- se o reajuste no mês de janeiro de cada ano (“Taxa de Gestão Fixa”). 12.3.1 Na hipótese de extinção do IPCA, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 12.3.2 A Taxa de Gestão será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e 22 Docusign Envelope ID: D3905119-62FD-4AC9-A601-090BF95D4457"
+    }
+   ],
+   "legacy": {
+    "value": "Numérico 0,31% a.a., extenso 0,26%; mínimo R$ 10 mil/mês; taxa divergente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/01/2025, Anexo, cl. 12.3"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Gestora não faz jus a taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 23,
+     "clause": "Anexo, cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "s serviços, a partir da data de início do funcionamento do Fundo. 12.3.4 A Gestora não fará jus a Taxa de Performance. 12.4 A GESTORA poderá estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pela Classe aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão. Taxa Máxima de Custódia 12.5 Pela prestação de serviços de custódia dos Direitos Creditórios da Classe Única e dos ativos financeiros da Classe Única, será devida remuneração equivalente à (“Taxa de Custódia”) 0,03% (três centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observada a remuneração mínima mensal de R$ 2.000,00 (dois mil reis), valor já englobado na Taxa de Administração. Taxa Máxima de Distribuição 12.6 O DISTRIBUIDOR não fará jus a taxa de Distribuição. CAPÍTULO 13 – CUSTOS REFERENTES À DEFESA DOS INTERESSES DA CLASSE 13.1 Caso a Classe não possua recursos disponíveis, em moeda corrente nacional, suficientes para a adoção e manutenção, diret"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Classe única, sem cota sênior com meta",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "BRL Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 7,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "ntabilidade e liquidez dos títulos componentes de sua carteira. Público-Alvo Investidores Profissionais. BRL Trust Distribuidora de Títulos e Valores Mobiliários S.A., instituição financeira, com sede na Cidade e Estado de São Paulo, na Rua Custódia Alves Guimarães, nº 1.212, Pinheiros, CEP 05.410-002, inscrita no CNPJ sob o nº 13.486.793/0001-42 e credenciado como custodiante, de acordo com o Ato Declaratório nº 13.244, de 21 de agosto de 2013 (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração As Cotas não podem ser negociadas, exceto nas hipóteses previstas no Negociação Art."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Phronesis Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 3,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "“Prestadores de Serviços Essenciais”). PHRONESIS INVESTIMENTOS LTDA, com sede na Cidade de Curitiba e Estado do Paraná, na Av. Anita Garibaldi, nº 850, Infinity Prime Office, Torre B, Sala 210, Cabral, CEP 80.540-400, inscrito no CNPJ sob o nº 10.479.557/0001-00, autorizado GESTOR à prestação dos serviços de administração de carteira de títulos e valores mobiliários de acordo com o Ato Declaratório nº 10.250, de 03 de fevereiro de 2009 (“GESTORA” e, quando referido e em conjunto indistintamente com o ADMINISTRADORA, os“Prestadores de Serviços Essenciais”). Fica eleito o foro da comarca da Capital do Estado de São Paulo, com expressa FORO APLICÁVEL renúncia a qualquer outro, por mais privilegiado que possa ser, para propositura de quaisquer ações judiciais relativas ao Fundo ou a questões decorrentes da"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado no trecho lido",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no texto extraído",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 7,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "ntabilidade e liquidez dos títulos componentes de sua carteira. Público-Alvo Investidores Profissionais. BRL Trust Distribuidora de Títulos e Valores Mobiliários S.A., instituição financeira, com sede na Cidade e Estado de São Paulo, na Rua Custódia Alves Guimarães, nº 1.212, Pinheiros, CEP 05.410-002, inscrita no CNPJ sob o nº 13.486.793/0001-42 e credenciado como custodiante, de acordo com o Ato Declaratório nº 13.244, de 21 de agosto de 2013 (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração As Cotas não podem ser negociadas, exceto nas hipóteses previstas no Negociação Art."
+    }
+   ],
+   "legacy": {
+    "value": "Classe aberta, prazo indeterminado; investidores profissionais; responsabilidade limitada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; classe aberta",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 7,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "cado. 1.2 As principais características da classe única de cotas do FUNDO estão descritas abaixo: Tipo de Condomínio Aberto. Prazo de Duração Indeterminado. Classe de Investimento em Não Cotas Tipo “Outros”. Foco de atuação “Multicarteira Outros”. Classificação ANBIMA A CLASSE DE COTAS PODE INVESTIR EM CARTEIRA DE DIREITOS CREDITÓRIOS DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS."
+    }
+   ],
+   "legacy": {
+    "value": "Classe aberta, prazo indeterminado; investidores profissionais; responsabilidade limitada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Devedor/grupo ≤ 20% do PL, com exceções da norma",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826314",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/01/2025",
+     "page": 10,
+     "clause": "Anexo, cl. 4.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+     "excerpt": "io Líquido em Direitos Creditórios. 4.9 Nos termos do Art. 45 do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 20% (vinte por cento) de seu Patrimônio Líquido alocado em Derivativos, observado o disposto no item 4.19, e Direitos Creditórios devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado. 4.9.1 Os limites de concentração descritos no item 4.9 acima, apenas poderão ser excedidos se (a) tal Devedor for (a.i) uma sociedade registrada perante a CVM como companhia aberta; (a.ii) uma instituição financeira ou equiparada; ou (a.iii) seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do direito creditório elaboradas de acordo com a regulamentação editada pela CVM e com a Lei nº 6.404, de 15 de dezembro de 1976, conforme alterada, e auditadas por um auditor independente registrado junto à CVM;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Mesmo devedor≤20%/PL; condições adicionais por grupo.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Classe única aberta para profissionais, sem subordinação; devedor até 20% do PL e gestão de 0,31% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

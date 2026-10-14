@@ -1,0 +1,67 @@
+# portado de 45598747000121 (34850088000152)
+type: Cartão/adquirência
+q201: * "Direitos Creditórios serão originados pelo Cedente e devidos pelos Devedores, em observância às regras dos Arranjos de Pagamento"
+q202: * "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL"
+q203: * "“Alocação Mínima” significa o percentual mínimo de 50%"
+q204: * "a relação mínima admitida entre o somatório do valor Mezanino” das Cotas Subordinadas Júnior e o Patrimônio Líquido da Classe, equivalente a 5 %"
+q206: * "O manual de precificação e provisionamento da Administradora pode ser consultado"
+q207: * "a revolvência dos Direitos Creditórios, desde respeitado o disposto neste Regulamento"
+q208: * "observado o valor mínimo mensal de R$36.000,00"
+q209: * "Até R$300.000.000,00 0,09%"
+q210: * "equivalente a 10% (dez por cento) calculado sobre a Taxa de Administração, limitado a R$4.000,00"
+q211: * "Subclasse” significam as subclasses de Cotas da Classe do Fundo, as quais são divididas em Cotas Seniores e Cotas Subordinadas"
+q212: * "cada Série e Subclasse de Cotas Subordinadas Mezanino terá o Prazo de Duração estipulado no respectivo Apêndice"
+q213: * "Cedidos e ao Fundo para a movimentação da Conta Centralizadora do Cedente"
+q103: * "Devedores são instituições financeiras, e estão sujeitos à extensa e contínua"
+q104: * "“Emissores” significam as instituições financeiras ou instituições de pagamento listadas no Complemento III"
+q105: * "coobrigação do Cedente ou de terceiros . O Cedente não responde"
+q106: * "Devedores não poderão estar inadimplentes perante (i) o Cedente, conforme informado"
+q111: * "Reserva de Amortização” significa com relação a cada Data de Cálculo,"
+q112: * "Reserva de Despesas e significa a reserva, a ser constituída em"
+q115: * "Amortização Sequencial” significa o critério de alocação dos recursos do Fundo"
+q118: * "Administradora” significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição"
+q119: * "Gestora” significa a GENIAL GESTÃO LTDA., instituição devidamente autorizada pela CVM"
+q120: * "Custodiante” significa a Administradora. “CVM” significa a Comissão de Valores Mobiliários."
+q121: * "Agente de Cobrança significa a Gestora ou terceiro contratado para realizar"
+q122: * "Investidores Profissionais” significam os investidores considerados profissionais, nos termos do artigo"
+q123: * "Prazo de Duração” significa o prazo de duração de cada Série"
+q124: * "Arranjo de Pagamento” significa cada conjunto de regras e procedimentos estabelecidos"
+q125: * "domicílio bancário do titular do respectivo Direito Creditório ou Direito Creditório"
+q127: * "Conta Centralizadora do Cedente que estavam em vigor anteriormente à data"
+q1: * "18.1. São Eventos de Avaliação"
+q2: * "19.1. São Eventos de Liquidação"
+receivables: Recebíveis de transações de cartão cedidos pela SumUp | q201,q202
+originator: SumUp Instituição de Pagamento Brasil (credenciadora) | q202
+assignor: SumUp Instituição de Pagamento Brasil (cedente único) | q202
+debtor: Emissores de cartão listados no complemento III | q103,q104
+recourse: Sem coobrigação do cedente | q105
+eligibility: Emissor autorizado e adimplente; sem evento de insolvência | q106,q104
+debtor_limit: n/d | Limite por emissor não localizado no regulamento
+assignor_limit: Cedente único (SumUp) | q202
+term_max: n/d | Prazo máximo dos recebíveis não localizado no regulamento
+allocation: ≥ 50% do PL em direitos creditórios | q203 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q211,q212
+sub_senior: n/d | Percentual definido no apêndice da mezanino, que não está no acervo
+sub_mezz: 5% · jr/PL | q204 | basis=jr/PL
+sub_check: n/d | Frequência de apuração e cura do índice não localizadas
+reserve: Reservas de amortização e de despesas e encargos | q111,q112
+pdd: Manual de provisionamento da administradora | q206
+eval_triggers: Rating sênior sem atualização por 90 dias ou rebaixado 3 níveis | q1
+liquidation: Falta de créditos elegíveis; AGC; CVM; fim da prestação de serviços | q2
+revolving: Revolvência permitida | q207
+amortization: Por metas da série; sequencial após evento de liquidação | q115
+admin_fee: 0,09% a.a. até R$ 300 mi, regressiva acima; mín. R$ 36 mil/mês | q208,q209
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês | q210
+perf_fee: Não prevista | Regulamento: não há taxa de performance
+target_senior: n/d | Sobretaxa sobre a Taxa DI definida no apêndice de cada série; não localizada no acervo
+target_mezz: n/d | Meta de remuneração da mezanino fica no apêndice, que não está no acervo
+administrator: Genial Investimentos CVM | q118
+manager: Genial Gestão | q119
+custodian: Genial Investimentos (o próprio administrador) | q120,q118
+servicer: Genial Gestão ou terceiro aprovado em assembleia | q121,q119
+investors: Profissionais | q122
+duration: Por série | q123
+card_receivables: Transações em arranjos de pagamento, com registro | q124,q125
+card_lock: Domicílio na conta do fundo; conta centralizadora do cedente | q125,q213
+dilution: Cancelamentos e chargebacks cobertos por depósito do cedente | q127
+leitura: Recebíveis de cartão da SumUp, cedente único; júnior mínima de 5% do PL; subordinação da sênior no apêndice da mezanino.

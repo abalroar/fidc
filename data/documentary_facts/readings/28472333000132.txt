@@ -1,0 +1,48 @@
+# Mercado Crédito Merchant FIDC-NP (Vórtx; Polígono Capital; Mercado Pago)
+type: Crédito pessoal
+q1: * "Como Critério de Elegibilidade, os Direitos Creditórios CCB, na respectiva Data de Aquisição e Pagamento, deverão ter prazo máximo de vencimento equivalente a"
+q2: * "A “Meta de Relação Mínima” será equivalente à Relação Mínima de 30% (trinta por cento)"
+q3: * "15.1 São considerados Eventos de Avaliação: (a) caso, após 90 (noventa) dias contados do início das suas atividades"
+q4: * "16.1 São considerados Eventos de Liquidação Antec"
+q5: * "incorporadas à Taxa de Administração máxima equivalente a 1,25%"
+q6: * "garantindo-se à Administradora o valor mínimo mensal de R$ 30.000,00"
+q7: * "O Fundo é administrado pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q8: * "Como gestora da Carteira do Fundo foi contratada a Polígono Capital Ltda."
+q9: * "Os serviços de Custódia Qualificada e controladoria dos Direitos Creditórios e demais ativos do Fundo"
+q10: * "O Fundo terá prazo de duração indeterminado"
+q11: * "a Administradora irá calcular as provisões referentes aos Direitos Creditórios conforme política de provisionamento para devedores duvidosos do Fundo disposta no Anexo X"
+q12: * "radas dos Cotistas quaisquer outras taxas, tais como taxa de performance"
+q13: * "A Reserva de Amortização será constituída pela Administradora, de acordo com as informações recebidas da Gestora"
+q14: * "se aplicável, aquisição de D"
+receivables: CCBs de crédito parcelado e direitos PPV da plataforma Mercado Pago | o1
+originator: Instituições parceiras que emitem as CCBs; cedentes PPV por contrato | o1
+assignor: Endossantes das CCBs e cedentes PPV, conforme contratos | o1
+debtor: Clientes da plataforma Mercado Pago | o1
+recourse: n/d | Recompra e resolução regidas pelos contratos de cessão
+eligibility: CCB veículos até 60 meses; demais CCBs até 25 meses; critérios PPV próprios | q1
+debtor_limit: n/d | Limite por devedor não localizado no texto extraído
+assignor_limit: n/d | Limite por cedente não localizado no texto extraído
+term_max: Até 60 meses (veículos) ou 25 meses (demais CCBs) | q1
+allocation: ≥ 50% do PL após 90 dias | q3 | value=50
+quota_structure: Sênior em séries / Júnior | q2
+sub_senior: 30% · jr/PL; pode cair a 20% com rating AA e baixa inadimplência | q2 | basis=jr/PL | value=30
+sub_mezz: — | Sem cota mezanino
+sub_check: Desenquadramento sem restabelecimento em 30 dias é evento de avaliação | q3
+reserve: Reserva de amortização constituída pela administradora | q13,o32
+pdd: Política de provisão do anexo X | q11
+eval_triggers: Alocação < 50% por 30 dias; relação mínima sem cura em 30 dias | q3
+liquidation: Lista do item 16.1 | q4
+revolving: Aquisições ao fim da ordem de alocação, se aplicável | q14
+amortization: n/d | Metas definidas nos suplementos das séries
+admin_fee: Taxa agregada máxima de 1,25% a.a. (inclui gestão e custódia); mín. R$ 30 mil | q5,q6
+mgmt_fee: Incluída na taxa agregada de 1,25% a.a. | q5
+perf_fee: Não prevista | Regulamento veda taxa de performance | q12
+target_senior: n/d | Meta de remuneração sênior definida nos suplementos, fora do acervo
+target_mezz: — | Sem cota mezanino
+administrator: Vórtx DTVM | q7
+manager: Polígono Capital | q8
+custodian: n/d | Custodiante citado sem nome no trecho lido | q9
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado | q10
+leitura: Crédito parcelado do Mercado Pago com júnior mínima de 30% do PL (redutível a 20% com rating AA); taxa total até 1,25% a.a.
