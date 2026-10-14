@@ -1,57 +1,56 @@
-# portado de 49113994000141 (42922136000107)
+# Monee I / Maree I FIDC (QI CTVM; Valora; originadora Maree)
 type: Crédito pessoal
-q101: * "0,50% (cinquenta centésimos por cento) do Patrimônio Líquido da Classe; e"
-q102: * "0,25% R$100.000.000,00 De R$100.000.000,01 a 0,20% R$200.000.000,00 46 Docusign Envelope ID:"
-q103: * "0,25% R$100.000.000,00 47 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 De R$100.000.000,01 a 0,22%"
-q20: * "e observado o valor mínimo mensal de (a) R$ 9.500,00 (nove mil e quinhentos reais) até"
-q1: * "Originadora: a Capim Tecnologia e Serviço Ltda."
-q2: * "Endossantes: as pessoas jurídicas ou instituições financeiras, integrantes do Sistema Financeiro Nacional"
-q3: * "todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pela Classe deverá atender cumulativamente"
-q4: * "a Subordinação Mínima Sênior admitida é de 39% (trinta e nove por cento) do Patrimônio Líquido"
-q5: * "a Subordinação Mínima Mezanino Preferencial admitida é de 24%"
-q6: * "a Subordinação Mínima Mezanino High Yield admitida é de 14%"
-q7: * "18.1. São considerados Eventos de Avaliação: I. caso as Subordinações Mínimas indicadas no item 14.1 não sejam atendidas dentro do prazo de 15"
-q8: * "Os Endossantes e a Originadora não responderão pelo pagamento dos Direitos Creditórios cedidos à Classe ou pela solvência dos Devedores"
-q9: * "/252, observado o valor mínimo mensal de R$ 28.000,00"
-q10: * "ADMINISTRADORA: a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
-q11: * "GESTORA: a VERT GESTORA DE RECURSOS FINANCEIROS LTDA."
-q12: * "CUSTODIANTE: é a ADMINISTRADORA"
-q13: * "A Classe única de Cotas do FUNDO destina-se exclusivamente a Investidores Profissionais e/ou Investidores Qualificados"
-q14: * "com prazo de duração indeterminado, regido pelo presente Regulamento"
-q15: * "O CUSTODIANTE constituirá Provisão para Devedores Duvidosos (PDD) referente aos Direitos Creditórios"
-q16: * "ontre em um Evento de Liquidação da Classe, haverá Revolvência de Direitos Creditórios para a Classe"
-q17: * "Do Benchmark: Taxa DI acrescida de 3% (três inteiros por cento) ao ano"
-q18: * "Do Benchmark: Taxa DI acrescida de 4% (quatro inteiros por cento) ao ano"
-q19: * "Do Benchmark: Taxa DI acrescida de 6,5% (seis inteiros e cinco décimos por cento) ao ano"
-receivables: CCBs de financiamento de produtos e serviços de saúde a pessoas físicas | q1,q3
-originator: Capim Tecnologia e Serviço (originadora) | q1
-assignor: Endossantes: instituições financeiras do SFN | q2
-debtor: Pessoas físicas que financiam serviços de saúde e bem-estar | q3
-recourse: Originadora e endossantes não respondem pela solvência dos devedores | q8
-eligibility: Saldo por devedor entre R$ 200 e R$ 35 mil; taxa mínima e demais filtros | q3
-debtor_limit: Saldo de CCB por devedor ≤ R$ 35 mil | q3
-assignor_limit: Não previsto | Regulamento limita por devedor, não por endossante
-term_max: n/d | Prazo máximo da CCB não localizado no trecho lido
-allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
-quota_structure: Sênior / Mezanino Preferencial / Mezanino High Yield / Júnior | q4,q5,q6
-sub_senior: 39% · (mez.+jr.)/PL | q4 | basis=mez+jr/PL
-sub_mezz: Mez. Preferencial: 24%; Mez. High Yield: 14% (júnior) | q5,q6 | basis=jr/PL | value=14
-sub_check: Reenquadramento em 15 DU; depois é evento de avaliação | q7
-reserve: Maior entre 0,50% do PL e encargos estimados | q101
-pdd: PDD calculada pela administradora conforme manual | q15
-eval_triggers: Subordinações mínimas não recompostas em 15 DU, entre outros | q7
-liquidation: n/d | Eventos de liquidação não localizados no texto extraído
-revolving: Revolvência permitida fora de eventos de liquidação | q16
-amortization: n/d | Cronograma definido nos suplementos das séries
-admin_fee: Tabela regressiva sobre o PL; mín. R$ 28 mil/mês | q9,q102
-mgmt_fee: 0,25% a.a. até R$ 100 mi, em cascata; mín. R$ 17,5 mil/mês | q103,q20
-perf_fee: Não prevista | Regulamento não prevê taxa de performance
-target_senior: DI + 3% a.a. (4ª série sênior) | q17
-target_mezz: Mez. Preferencial D: DI + 4%; High Yield: DI + 6,5% | q18,q19
-administrator: Oliveira Trust DTVM | q10
-manager: Vert Gestora de Recursos Financeiros | q11
-custodian: Oliveira Trust DTVM (a administradora) | q12,q10
-servicer: n/d | Agente de cobrança extraordinário sem nome no trecho lido
-investors: Investidores profissionais e qualificados | q13
-duration: Indeterminado | q14
-leitura: Crédito de saúde a PF (Capim) com 39% de subordinação; saldo por devedor ≤ R$ 35 mil; sênior a DI + 3%.
+q1: * "Direitos Creditórios: os Direitos Creditórios oriundos (i) de operações de empréstimo; (ii) de Operações de Pagamento com Cartões"
+q2: * "Originadora: é a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA."
+q3: * "Contrato de Endosso: cada Contrato de Promessa de Endosso de Direitos Creditórios sem Coobrigação"
+q4: * "Devedores: são as pessoas naturais ou jurídicas, devedoras dos Direitos Creditórios"
+q5: * "não contarão com a coobrigação da ORIGINADORA. 5.8. A Classe poderá utilizar os recursos financeiros originados na carteira"
+q6: * "a Classe e seus Cotistas não terão qualquer direito de regresso contra a ADMINISTRADORA"
+q7: * "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar"
+q8: * "limite máximo de concentração por Devedor ou coobrigado será de 20% (vinte por cento) do Patrimônio Líquido desta Classe"
+q9: * "no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis"
+q10: * "são pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação entre os titulares de Cotas"
+q11: * "Reserva de Caixa: é a reserva constituída para pagamento de encargos e despesas da Classe"
+q12: * "13.4 A ADMINISTRADORA constituirá provisão para créditos de liquidação duvidosa"
+q13: * "II - desenquadramento da Reserva de Caixa por um prazo superior a 30 (trinta) Dias Úteis consecutivos"
+q14: * "III. caso a ORIGINADORA encerre suas atividades, por qualquer motivo; IV. Após 90 (noventa) dias"
+q15: * "Taxa de Administração (a.a.) Patrimônio Líquido 0,25% Até R$ 1.000.000.000,00 (inclusive)"
+q16: * "a GESTORA fará jus a uma remuneração equivalente a 0,20% a.a. (vinte centésimos por cento)"
+q17: * "taxa de performance, ingresso e/ou saída"
+q18: * "ADMINISTRADORA: QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q19: * "GESTORA: VALORA RENDA FIXA ESTRUTURADOS LTDA"
+q20: * "Agente de Cobrança: é a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA., responsável pela cobrança ordinária"
+q21: * "destina-se exclusivamente a Investidores Qualificados e/ou Investidores Profissionais"
+q22: * "3.1. O prazo de duração desta Classe é indeterminado"
+receivables: CCBs de empréstimo e recebíveis de pagamentos com cartão | q1
+originator: Maree Instituição de Pagamento | q2
+assignor: Endossantes das CCBs, por contrato de endosso sem coobrigação | q3
+debtor: Pessoas naturais ou jurídicas tomadoras | q4
+recourse: Sem coobrigação da originadora; regresso só por má-fé, culpa ou dolo | q5,q6
+eligibility: CCB com todas as parcelas a vencer, prefixadas e mensais; devedor adimplente | q7
+debtor_limit: Por devedor ou coobrigado: até 20% do PL | q8 | value=20
+assignor_limit: Não previsto | Regulamento limita apenas por devedor ou coobrigado
+term_max: n/d | Regulamento não fixa prazo máximo das CCBs | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | q9 | value=50
+quota_structure: Classe única; cotas pari passu, sem subordinação | q10
+sub_senior: — | Cotas pari passu, sem subordinação
+sub_mezz: — | Sem cota mezanino
+sub_check: — | Sem índice de subordinação
+reserve: Reserva de caixa para encargos e despesas da classe | q11
+pdd: Provisão pelo manual de provisionamento da administradora | q12
+eval_triggers: Reserva de caixa desenquadrada por mais de 30 dias úteis, entre outros | q13
+liquidation: Originadora encerra atividades; PL < R$ 1 mi por 90 dias | q14
+revolving: Revolvência com recursos da carteira | q5
+amortization: n/d | Amortizações definidas nos suplementos de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,25% a.a. até R$ 1 bi de PL, regressiva até 0,20% | q15
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 30 mil/mês | q16
+perf_fee: Não prevista | Regulamento veda taxa de performance | q17
+target_senior: Sem meta de rentabilidade definida | q10
+target_mezz: — | Sem cota mezanino
+administrator: QI CTVM | q18
+manager: Valora Renda Fixa Estruturados | q19
+custodian: n/d | Custodiante não nomeado no regulamento
+servicer: Maree Instituição de Pagamento (cobrança ordinária) | q20
+investors: Investidores qualificados e profissionais | q21
+duration: Indeterminado | q22
+leitura: Crédito pessoal e recebíveis de cartão da Maree em cotas pari passu; por devedor até 20% do PL.

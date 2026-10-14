@@ -1,0 +1,694 @@
+{
+ "schema_version": 1,
+ "cnpj": "58152340000118",
+ "name": "MONEE II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO FINANCEIRO - RESP. LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T01:23:54Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1324346",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "18/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346"
+  },
+  "D2": {
+   "document_id": "1096187",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1096187"
+  },
+  "D3": {
+   "document_id": "1096182",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1096182"
+  },
+  "D4": {
+   "document_id": "1095085",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "26/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1095085"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de crédito pessoal originadas pela Maree",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 37,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "“Direitos Creditórios”: significam os direitos creditórios, originários de operações de crédito contratadas pelos Devedores, por meio da emissão de CCBs em nome dos Devedores perante a respectiva instituição financeira;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 41,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "Itaim Bibi, CEP 04.538-132, na Cidade de São Paulo, no Estado de São Paulo; “ORIGINADORA”: significa a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA., pessoa jurídica de direito privado, inscrita no CNPJ/MF sob n° 38.372.267/0001-82, com sede na Avenida Brigadeiro Faria Lima, nº 949, 6º andar, Pinheiros, CEP 05.426-100, na Cidade de São Paulo, no Estado de São Paulo; “Plataforma Shopee”: significa a plataforma digital de compra e venda de bens e produtos pertencente ao grupo econômico da ORIGINADORA; “Política de Concessão significa a política de concessão de crédito utilizada para de Crédito” a originação dos Direitos Creditórios, conforme descrita no item 8.2 do Anexo ao presente Regulamento; “Prazo Médio dos significa o prazo médio das CCBs que compõem a Direitos Creditórios” carteira da Classe, a ser verificado diariamente pela GESTORA;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de crédito a pessoas físicas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Maree Instituição de Pagamento (originadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 41,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "Itaim Bibi, CEP 04.538-132, na Cidade de São Paulo, no Estado de São Paulo; “ORIGINADORA”: significa a MAREE INSTITUIÇÃO DE PAGAMENTO LTDA., pessoa jurídica de direito privado, inscrita no CNPJ/MF sob n° 38.372.267/0001-82, com sede na Avenida Brigadeiro Faria Lima, nº 949, 6º andar, Pinheiros, CEP 05.426-100, na Cidade de São Paulo, no Estado de São Paulo; “Plataforma Shopee”: significa a plataforma digital de compra e venda de bens e produtos pertencente ao grupo econômico da ORIGINADORA; “Política de Concessão significa a política de concessão de crédito utilizada para de Crédito” a originação dos Direitos Creditórios, conforme descrita no item 8.2 do Anexo ao presente Regulamento; “Prazo Médio dos significa o prazo médio das CCBs que compõem a Direitos Creditórios” carteira da Classe, a ser verificado diariamente pela GESTORA;"
+    }
+   ],
+   "legacy": {
+    "value": "Maree SCD origina; endossantes Maree SCD e, conforme o caso, FIDC Maree I",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Endossantes das CCBs (Maree SCD e veículos do grupo)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 35,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "osso de Direitos Creditórios sem Coobrigação e Outras Avenças celebrado entre a Classe, o respectivo Endossante e a ORIGINADORA, com a interveniência anuência da ADMINISTRADORA e da GESTORA; “Contrato de Cobrança”: significa o contrato de cobrança dos Direitos Creditórios Inadimplidos celebrado entre o FUNDO, e o AGENTE DE COBRANÇA Página 35 de 117 “Cotas”: significam as Cotas Seniores e as Cotas Subordinadas quando referidas em conjunto; “Cotas Seniores”: significam as cotas integrantes da Subclasse Sênior da presente Classe, que não estão subordinadas a nenhuma outra Subclasse de Cotas para fins de amortização; “Cotas Subordinadas”: significam as cotas integrantes da Subclasse Subordinada da presente Classe, que se subordinam às Cotas Seniores para fins de amortização;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 37,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "“Endossante”: significa a Maree SCD e, conforme o caso, o FIDC MAREE I;"
+    }
+   ],
+   "legacy": {
+    "value": "Maree SCD origina; endossantes Maree SCD e, conforme o caso, FIDC Maree I",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas de 18 a 70 anos com CPF",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 47,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "Condições de Endosso. Página 46 de 117 6.2. Em cada Data de Aquisição, a GESTORA deverá verificar, previamente ao endosso, se os Direitos Creditórios oferecidos à Classe atendem, na respectiva Data de Aquisição, cumulativamente aos seguintes Critérios de Elegibilidade: I. o Devedor não pode estar inadimplente com quaisquer obrigações financeiras frente à Classe, ressalvados os casos em que haja renegociação de Direitos Creditórios previamente endossados à Classe, situação na qual o Devedor poderá ter a emissão de uma nova CCB com as condições renegociadas e realizar o pré-pagamento da CCB inadimplente; II. o Devedor deve ser pessoa física e possuir CPF; III. a aquisição da CCB poderá contar com ágio até o limite estabelecido no Contrato de Endosso; IV. o Devedor deve ter, no mínimo, 18 (dezoito) anos de idade e, no máximo, 70 (setenta) anos de idade na data de emissão da CCB; V. o valor presente dos Direitos Creditórios originados com relação ao Devedor, identificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”); VI. o prazo máximo da CCB deve ser de 12 (doze) meses; VII."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas naturais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de endosso",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Devedor adimplente; 18 a 70 anos; CCB ≤ 12 meses; ágio limitado",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 47,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "Condições de Endosso. Página 46 de 117 6.2. Em cada Data de Aquisição, a GESTORA deverá verificar, previamente ao endosso, se os Direitos Creditórios oferecidos à Classe atendem, na respectiva Data de Aquisição, cumulativamente aos seguintes Critérios de Elegibilidade: I. o Devedor não pode estar inadimplente com quaisquer obrigações financeiras frente à Classe, ressalvados os casos em que haja renegociação de Direitos Creditórios previamente endossados à Classe, situação na qual o Devedor poderá ter a emissão de uma nova CCB com as condições renegociadas e realizar o pré-pagamento da CCB inadimplente; II. o Devedor deve ser pessoa física e possuir CPF; III. a aquisição da CCB poderá contar com ágio até o limite estabelecido no Contrato de Endosso; IV. o Devedor deve ter, no mínimo, 18 (dezoito) anos de idade e, no máximo, 70 (setenta) anos de idade na data de emissão da CCB; V. o valor presente dos Direitos Creditórios originados com relação ao Devedor, identificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”); VI. o prazo máximo da CCB deve ser de 12 (doze) meses; VII."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 47,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "tificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”); VI. o prazo máximo da CCB deve ser de 12 (doze) meses; VII. o valor presente mínimo da CCB deve ser de R$10,00 (dez reais); VIII. o Direito Creditório deve ter sido formalizado por meio da emissão de CCBs pelos Devedores em favor da Instituição Financeira Parceira; IX. o Direito Creditório, caso o endossante seja o FIDC MAREE I, somente poderá ser endossado à Classe até, no máximo, 30 (trinta) dias da data de sua originação; X. o Direito Creditório, caso o endossante seja o FIDC MAREE I, somente poderá ser endossado à Classe dentro de um período de, no máximo, 4 (quatro) meses contados data da primeira integralização de Cotas Seniores do Fundo; XI. o Direito Creditório deve ser expresso em moeda corrente nacional; XII. todas as parcelas a vencer do Direito Creditório devem ser oferecidas integralmente à Classe; Página 47 de 117 XIII. o Devedor não pode estar inadimplente com quaisquer obrigações não financeiras frente à Classe; XIV."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: maior entre 0,001% do PL e R$ 3,5 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 47,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "ter, no mínimo, 18 (dezoito) anos de idade e, no máximo, 70 (setenta) anos de idade na data de emissão da CCB; V. o valor presente dos Direitos Creditórios originados com relação ao Devedor, identificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”); VI. o prazo máximo da CCB deve ser de 12 (doze) meses; VII. o valor presente mínimo da CCB deve ser de R$10,00 (dez reais); VIII. o Direito Creditório deve ter sido formalizado por meio da emissão de CCBs pelos Devedores em favor da Instituição Financeira Parceira; IX. o Direito Creditório, caso o endossante seja o FIDC MAREE I, somente poderá ser endossado à Classe até, no máximo, 30 (trinta) dias da data de sua originação; X. o Direito Creditório, caso o endossante seja o FIDC MAREE I, somente poderá ser endossado à Classe dentro de um período de, no máximo, 4 (quatro) meses contados data da primeira integralização de Cotas Seniores do Fundo; XI. o Direito Creditório deve ser expresso em moeda corrente nacional; XII. todas as parcelas a vencer do Direito Creditório devem ser oferecidas integralmente à Classe; Página 47 de 117 XIII."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 47,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "tificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”); VI. o prazo máximo da CCB deve ser de 12 (doze) meses; VII. o valor presente mínimo da CCB deve ser de R$10,00 (dez reais); VIII. o Direito Creditório deve ter sido formalizado por meio da emissão de CCBs pelos Devedores em favor da Instituição Financeira Parceira; IX. o Direito Creditório, caso o endossante seja o FIDC MAREE I, somente poderá ser endossado à Classe até, no máximo, 30 (trinta) dias da data de sua originação; X. o Direito Creditório, caso o endossante seja o FIDC MAREE I, somente poderá ser endossado à Classe dentro de um período de, no máximo, 4 (quatro) meses contados data da primeira integralização de Cotas Seniores do Fundo; XI. o Direito Creditório deve ser expresso em moeda corrente nacional; XII. todas as parcelas a vencer do Direito Creditório devem ser oferecidas integralmente à Classe; Página 47 de 117 XIII. o Devedor não pode estar inadimplente com quaisquer obrigações não financeiras frente à Classe; XIV."
+    }
+   ],
+   "value": 0.001,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor",
+   "sources": []
+  },
+  "term_max": {
+   "display": "CCB de até 12 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 47,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "tificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”); VI. o prazo máximo da CCB deve ser de 12 (doze) meses; VII. o valor presente mínimo da CCB deve ser de R$10,00 (dez reais); VIII. o Direito Creditório deve ter sido formalizado por meio da emissão de CCBs pelos Devedores em favor da Instituição Financeira Parceira; IX. o Direito Creditório, caso o endossante seja o FIDC MAREE I, somente poderá ser endossado à Classe até, no máximo, 30 (trinta) dias da data de sua originação; X. o Direito Creditório, caso o endossante seja o FIDC MAREE I, somente poderá ser endossado à Classe dentro de um período de, no máximo, 4 (quatro) meses contados data da primeira integralização de Cotas Seniores do Fundo; XI. o Direito Creditório deve ser expresso em moeda corrente nacional; XII. todas as parcelas a vencer do Direito Creditório devem ser oferecidas integralmente à Classe; Página 47 de 117 XIII. o Devedor não pode estar inadimplente com quaisquer obrigações não financeiras frente à Classe; XIV."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 43,
+     "clause": "cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "Data de Início da Classe, no mínimo, 67% (sessenta e sete por cento) de seu Patrimônio Página 43 de 117 Líquido na aquisição de Direitos Creditórios Elegíveis, tendo em vista a ALOCAÇÃO MÍNIMA prevista neste Regulamento. 5.4."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67% PL; prazo diverge 180 numérico e cento por extenso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/09/2026, cl. 5.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 105,
+     "clause": "cl. 20.10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "XXI. DO ÍNDICE DE SUBORDINAÇÃO E PROCEDIMENTOS APLICÁVEIS NA HIPÓTESE DE INOBSERVÂNCIA DESSE ÍNDICE 21.1. O Índice de Subordinação será a relação a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 30% (trinta por cento). 21.2. O Índice de Subordinação deverá ser apurado em todo Dia Útil pela ADMINISTRADORA, devendo a apuração do cálculo ser informada à GESTORA imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento. 21.3. Na hipótese de desenquadramento do Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas, serão imediatamente informados pela ADMINISTRADORA, juntamente com a informação a ser transmitida à GESTORA. 21.4. Os respectivos Cotistas deverão responder à ADMINISTRADORA, com cópia para a GESTORA, impreterivelmente até o 5º (quinto) Dia Útil subsequente à data do recebimento da comunicação referida no item 21.3 acima, informando por escrito se desejam integralizar, ou não, novas Cotas Subordinadas, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; verificação diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/09/2026, cl. 20.10.1"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 105,
+     "clause": "cl. 20.10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "XXI. DO ÍNDICE DE SUBORDINAÇÃO E PROCEDIMENTOS APLICÁVEIS NA HIPÓTESE DE INOBSERVÂNCIA DESSE ÍNDICE 21.1. O Índice de Subordinação será a relação a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 30% (trinta por cento). 21.2. O Índice de Subordinação deverá ser apurado em todo Dia Útil pela ADMINISTRADORA, devendo a apuração do cálculo ser informada à GESTORA imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento. 21.3. Na hipótese de desenquadramento do Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas, serão imediatamente informados pela ADMINISTRADORA, juntamente com a informação a ser transmitida à GESTORA. 21.4. Os respectivos Cotistas deverão responder à ADMINISTRADORA, com cópia para a GESTORA, impreterivelmente até o 5º (quinto) Dia Útil subsequente à data do recebimento da comunicação referida no item 21.3 acima, informando por escrito se desejam integralizar, ou não, novas Cotas Subordinadas, conforme o caso."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; verificação diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária; fora do mínimo por mais de 5 dias é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 91,
+     "clause": "cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "uma porcentagem igual ou superior a 23% (vinte e três por cento) dos Direitos Creditórios pertencentes à Classe; XIV. desenquadramento do Índice de Subordinação mínimo de 30% (trinta por cento) exigido por prazo superior a 5 (cinco) Dias Úteis consecutivos, desde que esse índice não seja reenquadrado dentro deste período; XV. caso, após 90 (noventa) dias contados da data da primeira subscrição de Cotas Seniores do Fundo, o Índice de Cancelamento resulte em porcentagem superior a 10% (dez por cento); XVI. caso o Índice de Recompra resulte em porcentagem superior a 1,50% (um inteiro e cinquenta centésimos por cento); XVII. caso o Índice de Cobertura resulte em valor inferior a 1,00 (um inteiro) em um determinado mês; XVIII. (a) pedido de falência formulado por terceiros em face da ORIGINADORA, do AGENTE DE COBRANÇA e/ou de qualquer dos Endossantes e não elidido no prazo legal (inclusive mediante depósito elisivo nos termos do parágrafo único do art. 98 da Lei nº 11.101, de 9 de fevereiro de 2005, conforme alterada); (b) pedido de autofalência pela ORIGINADORA, pelo AGENTE DE COBRANÇA e/ou por qualquer dos Endossantes; (c) ocorrência de evento que, para os fins da legislação aplicável à época na qual ocorrer o evento, torne a ORIGINADORA, o AGENTE DE COBRANÇA e/ou os Endossantes insolvente;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; verificação diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/09/2026, cl. 15.1"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa de ao menos 3 meses de despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 42,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "trega concluída na data informada na planilha do item (b) dos Documentos Complementares; “Reserva de Caixa”: significa a parcela do Patrimônio Líquido a ser retida e destinada ao pagamento dos encargos e despesas da Classe, equivalente a, no mínimo, 3 (três) meses de despesas ordinárias da Classe, a ser constituída e controlada pela GESTORA, observado o disposto neste Anexo; “Reserva de significa a parcela do Patrimônio Líquido a ser retida e Amortização”: destinada exclusivamente para o pagamento das Amortizações de Principal e/ou Amortização de Remuneração das Cotas Seniores, conforme programadas nos termos dos respectivos Apêndices e Suplementos e no montante e nas datas exigidas no item 17.4.1 abaixo; “Regime Específico dos tem o significado atribuído na Seção III da Lei nº 14.754, Fundos Não Sujeitos à de 12 de dezembro de 2023; Tributação Periódica” “Revolvência” tem o significado que lhe é atribuído no item 5.9 deste Anexo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 42,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "Classe, equivalente a, no mínimo, 3 (três) meses de despesas ordinárias da Classe, a ser constituída e controlada pela GESTORA, observado o disposto neste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "Pelo menos 3 meses de despesas ordinárias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado no texto extraído",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Subordinação abaixo de 30% por mais de 5 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 91,
+     "clause": "cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "uma porcentagem igual ou superior a 23% (vinte e três por cento) dos Direitos Creditórios pertencentes à Classe; XIV. desenquadramento do Índice de Subordinação mínimo de 30% (trinta por cento) exigido por prazo superior a 5 (cinco) Dias Úteis consecutivos, desde que esse índice não seja reenquadrado dentro deste período; XV. caso, após 90 (noventa) dias contados da data da primeira subscrição de Cotas Seniores do Fundo, o Índice de Cancelamento resulte em porcentagem superior a 10% (dez por cento); XVI. caso o Índice de Recompra resulte em porcentagem superior a 1,50% (um inteiro e cinquenta centésimos por cento); XVII. caso o Índice de Cobertura resulte em valor inferior a 1,00 (um inteiro) em um determinado mês; XVIII. (a) pedido de falência formulado por terceiros em face da ORIGINADORA, do AGENTE DE COBRANÇA e/ou de qualquer dos Endossantes e não elidido no prazo legal (inclusive mediante depósito elisivo nos termos do parágrafo único do art. 98 da Lei nº 11.101, de 9 de fevereiro de 2005, conforme alterada); (b) pedido de autofalência pela ORIGINADORA, pelo AGENTE DE COBRANÇA e/ou por qualquer dos Endossantes; (c) ocorrência de evento que, para os fins da legislação aplicável à época na qual ocorrer o evento, torne a ORIGINADORA, o AGENTE DE COBRANÇA e/ou os Endossantes insolvente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Revolvência com recursos da carteira",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 44,
+     "clause": "cl. 5.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "ontrato de Endosso, conforme aplicável. 5.9. A Classe poderá utilizar os recursos financeiros originados na carteira de Direitos Creditórios para adquirir novos Direitos Creditórios (“Revolvência”). Página 44 de 117 5.10. A ADMINISTRADORA e a GESTORA ou partes a eles relacionadas não respondem pelo pagamento dos Direitos Creditórios adquiridos pela Classe, pela solvência dos Devedores ou pela existência, autenticidade, correta formalização e liquidez de tais Direitos Creditórios. 5.11. A Classe poderá alienar os Direitos Creditórios Inadimplidos, sendo que, após a alienação dos Direitos Creditórios Inadimplidos, as despesas com cobrança e coleta dos pagamentos dos Direitos Creditórios será de responsabilidade do novo titular. 5.12. A Classe poderá alienar a terceiros Direitos Creditórios Inadimplidos integrantes da sua carteira, desde que o valor de venda seja igual ou superior ao valor de marcação na carteira. 5.13. Observado o disposto nos itens 5.12 acima, a Classe, mediante aprovação em Assembleia de Cotistas, poderá alienar a totalidade da carteira de Direitos Creditórios desta Classe. 5.14."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,25% a.a. na faixa inicial, regressiva até 0,20%; mín. R$ 30 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 56,
+     "clause": "cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "erviços de administração, custódia, controladoria e escrituração, será devida pela Classe uma remuneração equivalente à somatória dos seguintes valores, observado um valor mínimo mensal de R$ 30.000,00 (trinta mil reais) (“Taxa de Administração”): Taxa de Administração (% a.a.) Patrimônio Líquido (R$) 0,25% Até R$ 1.000.000.000,00 (inclusive) De R$ 1.000.000.000,00 (exclusive) 0,225% a R$ 2.000.000.000,00 (inclusive) Acima de R$2.000.000.000,00 0,20% (exclusive) a) será acrescido à remuneração da ADMINISTRADORA o valor de R$ 30.000,00 (trinta mil reais), líquido de impostos abaixo, pago em parcela única, devidos na Data de Início da Classe;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 56,
+     "clause": "cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "0,25% Até R$ 1.000.000.000,00 (inclusive) De R$ 1.000.000.000,00 (exclusive) 0,225% a R$ 2.000.000.000,00 (inclusive) Acima de R$2.000.000.000,00 0,20% (exclusive) a) será acrescido à remuneração da ADMINISTRADORA o valor de R$ 30.000,00 (trint"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais 0,25%/0,225%/0,20% a.a. PL; mínimo R$ 30 mil/mês; implantação R$ 30 mil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 30 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 56,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "ços de gestão, a GESTORA fará jus a uma remuneração equivalente a 0,20% a.a. (vinte centésimos por cento ao ano) incidente sobre o Patrimônio Líquido da Classe ou um valor mínimo mensal de R$ 30.000,00 (trinta mil reais), o que for maior (“Taxa de Gestão”). Página 56 de 117 11.2.1 A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos). 11.2.2 Os valores mínimos mensais acordados no item 11.2 acima serão reajustados a cada 12 (doze) meses, contados a partir da Data de Início da Classe, com base no IPCA, divulgado pelo Instituto Brasileiro de Geografia e Estatística (IBGE), ou outro índice que venha a substituí-lo. 11.2.3 A GESTORA pode estabelecer que parcelas da Taxa de Gestão sejam pagas, pelo FUNDO, diretamente aos prestadores de serviço por ela contratados em nome do FUNDO, desde que o somatório dessas parcelas não exceda o montante total da referida taxa. 11.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 56,
+     "clause": "cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "0,20% (exclusive) a) será acrescido à remuneração da ADMINISTRADORA o valor de R$ 30.000,00 (trinta mil reais), líquido de impostos abaixo, pago em parcela única, devidos na Data de Início da Classe; e b) para a participação e a implementação das decisões tomadas em reunião formal ou na Assembleia de Cotistas, a Classe pagará à ADMINISTRADORA uma remuneração adicional equivalente a R$ 700,00 (setecentos reais) por hora-homem de trabalho dedicada a"
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. PL; mínimo R$ 30 mil/mês; IPCA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 57,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "eda o montante total da referida taxa. 11.3. Não poderão ser cobradas dos Cotistas desta Classe quaisquer outras taxas, tais como taxa de performance, ingresso e/ou saída. 11.4. Tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe, o presente Regulamento não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE. A remuneração dos distribuidores que venham a ser contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos da respectiva oferta, conforme a Resolução CVM 160. XII. DA ASSEMBLEIA ESPECIAL DE COTISTAS DA CLASSE, DA FORMA DE COMUNICAÇÃO DA ADMINISTRADORA E DOS PROCEDIMENTOS APLICÁVEIS ÀS MANIFESTAÇÕES DE VONTADE DOS COTISTAS Assembleia Especial de Cotistas 12.1."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido no apêndice da série, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 4,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "lamento, indicados em letra maiúscula, no singular ou no plural, terão os significados a seguir atribuídos: “ADMINISTRADORA”: significa a QI CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A., instituição autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Cidade de São Paulo, Estado de São Paulo, Cidade de São Paulo, Estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte I, Pinheiros, CEP 05402-500, inscrita no CNPJ/MF sob o nº 62.285.390/0001-40, ou quem lhe vier a suceder;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Valora Renda Fixa Estruturados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "mento, bem como pela legislação e regulamentação aplicável; “GESTORA”: significa a VALORA RENDA FIXA ESTRUTURADOS LTDA., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, por meio do Ato Declaratório CVM nº 22.910, de 08 de janeiro de 2025, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Presidente Juscelino Kubitschek, nº 1830, conjunto 32, torre 2, CEP 04543-900, inscrita no Página 8 de 117 CNPJ/MF sob o nº 57.369.679/0001-08, ou quem lhe vier a suceder;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado no trecho lido",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 34,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "RESPONSABILIDADE LIMITADA I. DO PÚBLICO-ALVO E DA RESPONSABILIDADE DOS COTISTAS 1.1. A Classe única de Cotas do FUNDO destina-se exclusivamente a Investidores Profissionais, observado os termos da regulamentação aplicável. 1.2. A responsabilidade dos Cotista está limitada ao valor por eles subscrito, nos termos do artigo 1.368-D, inciso I do Código Civil Brasileiro e na forma regulamentada pela Resolução CVM 175. II. DO REGIME DA CLASSE 2.1. Esta Classe é constituída sob a forma de condomínio fechado. III. DO PRAZO DE DURAÇÃO 3.1. O prazo de duração desta Classe é indeterminado. IV. DAS DEFINIÇÕES 4.1. Os termos e expressões previstos neste Anexo, indicados em letra maiúscula, no singular ou no plural, terão os significados a seguir atribuídos e se sobrepõem e prevalecem em relação às definições previstas na Parte Geral do Regulamento: “Agência de significa a agência classificadora de risco das Cotas Classificação de Risco”: emitidas pela Classe; “AGENTE DE significa a ORIGINADORA, responsável pela cobrança COBRANÇA”: dos Direitos Creditórios Inadimplidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324346",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/09/2026",
+     "page": 34,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+     "excerpt": "E 2.1. Esta Classe é constituída sob a forma de condomínio fechado. III. DO PRAZO DE DURAÇÃO 3.1. O prazo de duração desta Classe é indeterminado. IV. DAS DEFINIÇÕES 4.1. Os termos e expressões previstos neste Anexo, indicados em letra maiúscula, no singular ou no plural, terão os significados a seguir atribuídos e se sobrepõem e prevalecem em relação às definições previstas na Parte Geral do Regulamento: “Agência de significa a agência classificadora de risco das Cotas Classificação de Risco”: emitidas pela Classe; “AGENTE DE significa a ORIGINADORA, responsável pela cobrança COBRANÇA”: dos Direitos Creditórios Inadimplidos; “Amortização de significa a amortização de parcela do valor de principal Principal”: das Cotas, calculado nos termos deste Anexo e respectivos Apêndices;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Crédito pessoal pulverizado da Maree com 30% de subordinação; por devedor até R$ 3,5 mil e CCB ≤ 12 meses.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
