@@ -1,0 +1,54 @@
+# FIDC CAP (Oliveira Trust; Vert Gestora; originadora Capim)
+type: Crédito pessoal
+q20: * "e observado o valor mínimo mensal de (a) R$ 9.500,00 (nove mil e quinhentos reais) até"
+q1: * "Originadora: a Capim Tecnologia e Serviço Ltda."
+q2: * "Endossantes: as pessoas jurídicas ou instituições financeiras, integrantes do Sistema Financeiro Nacional"
+q3: * "todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pela Classe deverá atender cumulativamente"
+q4: * "a Subordinação Mínima Sênior admitida é de 39% (trinta e nove por cento) do Patrimônio Líquido"
+q5: * "a Subordinação Mínima Mezanino Preferencial admitida é de 24%"
+q6: * "a Subordinação Mínima Mezanino High Yield admitida é de 14%"
+q7: * "18.1. São considerados Eventos de Avaliação: I. caso as Subordinações Mínimas indicadas no item 14.1 não sejam atendidas dentro do prazo de 15"
+q8: * "Os Endossantes e a Originadora não responderão pelo pagamento dos Direitos Creditórios cedidos à Classe ou pela solvência dos Devedores"
+q9: * "/252, observado o valor mínimo mensal de R$ 28.000,00"
+q10: * "ADMINISTRADORA: a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q11: * "GESTORA: a VERT GESTORA DE RECURSOS FINANCEIROS LTDA."
+q12: * "CUSTODIANTE: é a ADMINISTRADORA"
+q13: * "A Classe única de Cotas do FUNDO destina-se exclusivamente a Investidores Profissionais e/ou Investidores Qualificados"
+q14: * "com prazo de duração indeterminado, regido pelo presente Regulamento"
+q15: * "O CUSTODIANTE constituirá Provisão para Devedores Duvidosos (PDD) referente aos Direitos Creditórios"
+q16: * "ontre em um Evento de Liquidação da Classe, haverá Revolvência de Direitos Creditórios para a Classe"
+q17: id1126613 "Do Benchmark: Taxa DI acrescida de 3% (três inteiros por cento) ao ano"
+q18: id1126613 "Do Benchmark: Taxa DI acrescida de 4% (quatro inteiros por cento) ao ano"
+q19: id1126613 "Do Benchmark: Taxa DI acrescida de 6,5% (seis inteiros e cinco décimos por cento) ao ano"
+receivables: CCBs de financiamento de produtos e serviços de saúde a pessoas físicas | q1,q3
+originator: Capim Tecnologia e Serviço (originadora) | q1
+assignor: Endossantes: instituições financeiras do SFN | q2
+debtor: Pessoas físicas que financiam serviços de saúde e bem-estar | q3
+recourse: Originadora e endossantes não respondem pela solvência dos devedores | q8
+eligibility: Saldo por devedor entre R$ 200 e R$ 35 mil; taxa mínima e demais filtros | q3
+debtor_limit: Saldo de CCB por devedor ≤ R$ 35 mil | q3
+assignor_limit: Não previsto | Regulamento limita por devedor, não por endossante
+term_max: n/d | Prazo máximo da CCB não localizado no trecho lido
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino Preferencial / Mezanino High Yield / Júnior | q4,q5,q6
+sub_senior: 39% · (mez.+jr.)/PL | q4 | basis=mez+jr/PL
+sub_mezz: Mez. Preferencial: 24%; Mez. High Yield: 14% (júnior) | q5,q6 | basis=jr/PL | value=14
+sub_check: Reenquadramento em 15 DU; depois é evento de avaliação | q7
+reserve: Maior entre 0,50% do PL e encargos estimados | o36
+pdd: PDD calculada pela administradora conforme manual | q15
+eval_triggers: Subordinações mínimas não recompostas em 15 DU, entre outros | q7
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído
+revolving: Revolvência permitida fora de eventos de liquidação | q16
+amortization: n/d | Cronograma definido nos suplementos das séries
+admin_fee: Tabela regressiva sobre o PL; mín. R$ 28 mil/mês | q9,o54
+mgmt_fee: 0,25% a.a. até R$ 100 mi, em cascata; mín. R$ 17,5 mil/mês | o57,q20
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: DI + 3% a.a. (4ª série sênior) | q17
+target_mezz: Mez. Preferencial D: DI + 4%; High Yield: DI + 6,5% | q18,q19
+administrator: Oliveira Trust DTVM | q10
+manager: Vert Gestora de Recursos Financeiros | q11
+custodian: Oliveira Trust DTVM (a administradora) | q12,q10
+servicer: n/d | Agente de cobrança extraordinário sem nome no trecho lido
+investors: Investidores profissionais e qualificados | q13
+duration: Indeterminado | q14
+leitura: Crédito de saúde a PF (Capim) com 39% de subordinação; saldo por devedor ≤ R$ 35 mil; sênior a DI + 3%.

@@ -1,0 +1,762 @@
+{
+ "schema_version": 1,
+ "cnpj": "49113994000141",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CAP - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T01:16:01Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "788104",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "22/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104"
+  },
+  "D2": {
+   "document_id": "1315226",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "08/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1315226"
+  },
+  "D3": {
+   "document_id": "1131484",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "09/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1131484"
+  },
+  "D4": {
+   "document_id": "868419",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "31/03/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=868419"
+  },
+  "D5": {
+   "document_id": "815405",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=815405"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de financiamento de produtos e serviços de saúde a pessoas físicas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 34,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "o AGENTE DE COBRANÇA EXTRAORDINÁRIO. Originadora: a Capim Tecnologia e Serviço Ltda., sociedade limitada, inscrita no CNPJ sob o nº 40.634.135/0001-23, com sede na Av. Brigadeiro Faria Lima, nº 1713, 13º andar, Pinheiros, na Cidade de São Paulo, Estado de São Paulo; Prazo de Duração: O prazo de duração de cada Série de cotas da Subclasse de Cotas Seniores e da Subclasse de Cotas Mezanino, compreendido entre a respectiva 1ª Data de Integralização de tais Cotas e a respectiva Data de Resgate;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 39,
+     "clause": "Anexo I, cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "forma eletrônico. 6.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pela Classe deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pela GESTORA ou por terceiro por ela contratado para esse fim, após a verificação das Condições de Endosso pela Originadora e pela GESTORA, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais); (ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00 (duzentos reais); (iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% (um inteiro e setenta e nove centésimos por cento) ao mês;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs para financiamento de produtos/serviços de saúde e bem-estar a PF, sem garantia",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Capim Tecnologia e Serviço (originadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 34,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "o AGENTE DE COBRANÇA EXTRAORDINÁRIO. Originadora: a Capim Tecnologia e Serviço Ltda., sociedade limitada, inscrita no CNPJ sob o nº 40.634.135/0001-23, com sede na Av. Brigadeiro Faria Lima, nº 1713, 13º andar, Pinheiros, na Cidade de São Paulo, Estado de São Paulo; Prazo de Duração: O prazo de duração de cada Série de cotas da Subclasse de Cotas Seniores e da Subclasse de Cotas Mezanino, compreendido entre a respectiva 1ª Data de Integralização de tais Cotas e a respectiva Data de Resgate;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Endossantes: instituições financeiras do SFN",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 32,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "31 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 Endossantes: as pessoas jurídicas ou instituições financeiras, integrantes do Sistema Financeiro Nacional, com as quais a Originadora tem celebrado contrato de prestação de serviços de correspondente no País, nos termos da Resolução do CMN nº 3.954, de 24 de fevereiro de 2011, conforme alterada, que venham a endossar os Direitos Creditórios à Classe, nos termos de um Contrato de Endosso; Eventos de Avaliação da as situações descritas no capítulo “DOS EVENTOS DE Classe: AVALIAÇÃO DA CLASSE” do Anexo I; Eventos de Liquidação da as situações descritas no capítulo “DA LIQUIDAÇÃO DA Classe: CLASSE” do Anexo I;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas que financiam serviços de saúde e bem-estar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 39,
+     "clause": "Anexo I, cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "forma eletrônico. 6.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pela Classe deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pela GESTORA ou por terceiro por ela contratado para esse fim, após a verificação das Condições de Endosso pela Originadora e pela GESTORA, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais); (ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00 (duzentos reais); (iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% (um inteiro e setenta e nove centésimos por cento) ao mês;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas; financiamento de saúde/bem-estar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Originadora e endossantes não respondem pela solvência dos devedores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 36,
+     "clause": "Anexo I, cl. 5.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "cias, prerrogativas, ações e acessórios a estes relacionadas, bem como juros e encargos. 5.6. Os Endossantes e a Originadora não responderão pelo pagamento dos Direitos Creditórios cedidos à Classe ou pela solvência dos Devedores. 5.7. Não obstante o disposto no item 5.6 acima, os Endossantes serão responsáveis, civil e criminalmente, pela existência, certeza, exigibilidade e a correta formalização dos Direitos Creditórios, de acordo com o previsto no presente Regulamento, no Contrato de Endosso e na legislação vigente, ficando responsáveis por eventuais oposições ou exceções que forem apresentadas pelos Devedores dos Direitos Creditórios em relação a estas, enquanto a Originadora será responsável (i) pela legalidade, legitimidade, veracidade e correta formalização dos Direitos Creditórios ofertados à Classe; (ii) por eventuais oposições ou exceções 36 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 apresentadas pelos Devedores relacionadas às características indicadas no inciso (i);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Saldo por devedor entre R$ 200 e R$ 35 mil; taxa mínima e demais filtros",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 39,
+     "clause": "Anexo I, cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "forma eletrônico. 6.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pela Classe deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pela GESTORA ou por terceiro por ela contratado para esse fim, após a verificação das Condições de Endosso pela Originadora e pela GESTORA, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais); (ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00 (duzentos reais); (iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% (um inteiro e setenta e nove centésimos por cento) ao mês;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo de CCB por devedor ≤ R$ 35 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 39,
+     "clause": "Anexo I, cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "forma eletrônico. 6.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pela Classe deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pela GESTORA ou por terceiro por ela contratado para esse fim, após a verificação das Condições de Endosso pela Originadora e pela GESTORA, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais); (ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00 (duzentos reais); (iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% (um inteiro e setenta e nove centésimos por cento) ao mês;"
+    }
+   ],
+   "value": 35000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor, não por endossante",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo da CCB não localizado no trecho lido",
+   "sources": []
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": []
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino Preferencial / Mezanino High Yield / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 53,
+     "clause": "Anexo I, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "52 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 I. a Subordinação Mínima Sênior admitida é de 39% (trinta e nove por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Mezanino e cotas da Subclasse de Cotas Subordinadas Júnior, em conjunto; II. a Subordinação Mínima Mezanino Preferencial admitida é de 24% (vinte e quatro por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Mezanino High Yield e cotas da Subclasse de Cotas Subordinadas Júnior; e III. a Subordinação Mínima Mezanino High Yield admitida é de 14% (catorze por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Júnior. 14.1.1. Não obstante o disposto no item 14.1, acima, no último Dia Útil de cada mês, as seguintes Subordinações Mínimas deverão ser observadas: I."
+    },
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 53,
+     "clause": "Anexo I, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "Mezanino e cotas da Subclasse de Cotas Subordinadas Júnior, em conjunto; II. a Subordinação Mínima Mezanino Preferencial admitida é de 24% (vinte e quatro por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Mezanino High Yield e cotas da Subclasse de Cotas Subordinadas Júnior; e III. a Subordinação Mínima Mezanino High Yield admitida é de 14% (catorze por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Júnior. 14.1.1. Não obstante o disposto no item 14.1, acima, no último Dia Útil de cada mês, as seguintes Subordinações Mínimas deverão ser observadas: I. a Subordinação Mínima Sênior admitida na Classe é de 40% (quarenta por cento) do Patrimônio Líquido, representada por Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, em conjunto; II."
+    },
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 53,
+     "clause": "Anexo I, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "eld e cotas da Subclasse de Cotas Subordinadas Júnior; e III. a Subordinação Mínima Mezanino High Yield admitida é de 14% (catorze por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Júnior. 14.1.1. Não obstante o disposto no item 14.1, acima, no último Dia Útil de cada mês, as seguintes Subordinações Mínimas deverão ser observadas: I. a Subordinação Mínima Sênior admitida na Classe é de 40% (quarenta por cento) do Patrimônio Líquido, representada por Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, em conjunto; II. a Subordinação Mínima Mezanino Preferencial admitida na Classe é de 25% (vinte e cinco por cento) do Patrimônio Líquido, representada por Cotas Subordinadas Mezanino High Yield e Cotas Subordinadas Júnior; e III."
+    }
+   ],
+   "legacy": {
+    "value": "Diária:39%/24%/14% PL; fim de mês sênior 40%, conforme níveis de cotas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/11/2024, Anexo I, cl. 14.1"
+   }
+  },
+  "sub_senior": {
+   "display": "39% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 53,
+     "clause": "Anexo I, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "52 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 I. a Subordinação Mínima Sênior admitida é de 39% (trinta e nove por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Mezanino e cotas da Subclasse de Cotas Subordinadas Júnior, em conjunto; II. a Subordinação Mínima Mezanino Preferencial admitida é de 24% (vinte e quatro por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Mezanino High Yield e cotas da Subclasse de Cotas Subordinadas Júnior; e III. a Subordinação Mínima Mezanino High Yield admitida é de 14% (catorze por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Júnior. 14.1.1. Não obstante o disposto no item 14.1, acima, no último Dia Útil de cada mês, as seguintes Subordinações Mínimas deverão ser observadas: I."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 39.0,
+   "legacy": {
+    "value": "Diária:39%/24%/14% PL; fim de mês sênior 40%, conforme níveis de cotas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/11/2024, Anexo I, cl. 14.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mez. Preferencial: 24%; Mez. High Yield: 14% (júnior)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 53,
+     "clause": "Anexo I, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "Mezanino e cotas da Subclasse de Cotas Subordinadas Júnior, em conjunto; II. a Subordinação Mínima Mezanino Preferencial admitida é de 24% (vinte e quatro por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Mezanino High Yield e cotas da Subclasse de Cotas Subordinadas Júnior; e III. a Subordinação Mínima Mezanino High Yield admitida é de 14% (catorze por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Júnior. 14.1.1. Não obstante o disposto no item 14.1, acima, no último Dia Útil de cada mês, as seguintes Subordinações Mínimas deverão ser observadas: I. a Subordinação Mínima Sênior admitida na Classe é de 40% (quarenta por cento) do Patrimônio Líquido, representada por Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, em conjunto; II."
+    },
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 53,
+     "clause": "Anexo I, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "eld e cotas da Subclasse de Cotas Subordinadas Júnior; e III. a Subordinação Mínima Mezanino High Yield admitida é de 14% (catorze por cento) do Patrimônio Líquido, representada por cotas da Subclasse de Cotas Subordinadas Júnior. 14.1.1. Não obstante o disposto no item 14.1, acima, no último Dia Útil de cada mês, as seguintes Subordinações Mínimas deverão ser observadas: I. a Subordinação Mínima Sênior admitida na Classe é de 40% (quarenta por cento) do Patrimônio Líquido, representada por Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, em conjunto; II. a Subordinação Mínima Mezanino Preferencial admitida na Classe é de 25% (vinte e cinco por cento) do Patrimônio Líquido, representada por Cotas Subordinadas Mezanino High Yield e Cotas Subordinadas Júnior; e III."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 14.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Reenquadramento em 15 DU; depois é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 69,
+     "clause": "Anexo I, cl. 17.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "do Fundo Garantidor de Créditos – FGC. 18. DOS EVENTOS DE AVALIAÇÃO DA CLASSE 18.1. São considerados Eventos de Avaliação: I. caso as Subordinações Mínimas indicadas no item 14.1 não sejam atendidas dentro do prazo de 15 (quinze) Dias Úteis estabelecido para o reenquadramento; II. caso as Subordinações Mínimas indicadas no item 14.1.1 desenquadrem por 02 (dois) meses consecutivos; III. caso seja verificado que o Índice de Inadimplência é superior a 12% (doze por cento) pelo período superior a 10 (dez) Dias Úteis; IV. caso pelo período superior a 30 (trinta) dias consecutivos, o Índice de Liquidez seja inferior a 1,00 (um); 69 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 V. desenquadramento da Reserva de Amortização por prazo superior a 7 (sete) Dias Úteis consecutivos, conforme calculada e comunicada pela GESTORA; VI. desenquadramento da Reserva de Caixa por prazo superior a 10 (dez) Dias Úteis consecutivos;"
+    }
+   ],
+   "legacy": {
+    "value": "Diária:39%/24%/14% PL; fim de mês sênior 40%, conforme níveis de cotas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/11/2024, Anexo I, cl. 17.3"
+   }
+  },
+  "reserve": {
+   "display": "Maior entre 0,50% do PL e encargos estimados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 40,
+     "clause": "Anexo I, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "ao maior entre (i) 0,50% (cinquenta centésimos por cento) do Patrimônio Líquido da Classe; e (ii) o valor correspondente aos encargos e despesas, conforme previstos no Capítulo 9 da Parte Geral e no Capítulo 22 deste Anexo devidas no período de 3 (três) meses. O montante equivalente à Reserva de Caixa não será considerado para fins de apuração da Reserva de Amortização. 8.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre0,50% PL e encargos/despesas estimados na cláusula7",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "PDD calculada pela administradora conforme manual",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 56,
+     "clause": "Anexo I, cl. 16.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "servadas as normas e os procedimentos previstos na legislação em vigor. 16.14.1. O CUSTODIANTE constituirá Provisão para Devedores Duvidosos (PDD) referente aos Direitos Creditórios e aos Ativos Financeiros a partir do cálculo realizado pela ADMINISTRADORA e informado ao CUSTODIANTE diariamente. 16.14.2. As perdas e provisões relacionadas aos Direitos Creditórios Inadimplidos serão suportadas única e exclusivamente pela Classe e serão reconhecidas no resultado do período, conforme as regras e procedimentos previsto no item 16.15 abaixo. 16.15. A ADMINISTRADORA realizará o provisionamento dos Direitos Creditórios com base no disposto em seu Manual de Provisão para Perdas em Ativos de Crédito, disponibilizado no site da ADMINISTRADORA, podendo adotar os seguintes critérios e as seguintes medidas referentes ao “provisionamento para devedores duvidosos”, em relação ao Direitos Creditórios integrantes da carteira da Classe: I."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Subordinações mínimas não recompostas em 15 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 69,
+     "clause": "Anexo I, cl. 17.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "do Fundo Garantidor de Créditos – FGC. 18. DOS EVENTOS DE AVALIAÇÃO DA CLASSE 18.1. São considerados Eventos de Avaliação: I. caso as Subordinações Mínimas indicadas no item 14.1 não sejam atendidas dentro do prazo de 15 (quinze) Dias Úteis estabelecido para o reenquadramento; II. caso as Subordinações Mínimas indicadas no item 14.1.1 desenquadrem por 02 (dois) meses consecutivos; III. caso seja verificado que o Índice de Inadimplência é superior a 12% (doze por cento) pelo período superior a 10 (dez) Dias Úteis; IV. caso pelo período superior a 30 (trinta) dias consecutivos, o Índice de Liquidez seja inferior a 1,00 (um); 69 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 V. desenquadramento da Reserva de Amortização por prazo superior a 7 (sete) Dias Úteis consecutivos, conforme calculada e comunicada pela GESTORA; VI. desenquadramento da Reserva de Caixa por prazo superior a 10 (dez) Dias Úteis consecutivos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Revolvência permitida fora de eventos de liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 37,
+     "clause": "Anexo I, cl. 5.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "ta formalização da cessão dos Direitos Creditórios. 5.9. Desde que a presente Classe não se encontre em um Evento de Liquidação da Classe, haverá Revolvência de Direitos Creditórios para a Classe. 5.10. A Classe poderá endossar ou alienar os Direitos Creditórios integrantes de sua carteira, sendo que, após o endosso ou alienação dos Direitos Creditórios pela Classe, a cobrança e coleta dos pagamentos de tais Direitos Creditórios será de responsabilidade do novo titular. 5.10.1. Com exceção das hipóteses de resolução de endosso previstas em cada Contrato de Endosso e mediante aprovação pela Assembleia Geral de Cotistas, nos termos deste Anexo, a Classe poderá alienar a terceiros Direitos Creditórios integrantes da sua carteira, inclusive os Direitos Creditórios Inadimplidos descritos no Capítulo 9 deste Regulamento, desde que o valor de venda seja igual ou superior ao valor contabilizado em seu ativo. 5.11. Eventuais remoções de Direitos Creditórios integrantes da carteira da Classe seguirão os procedimentos da ADMINISTRADORA. 5.12."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "Tabela regressiva sobre o PL; mín. R$ 28 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 46,
+     "clause": "Anexo I, cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "seguindo a forma de cascata, conforme tabela abaixo, provisionados diariamente à razão de 1/252, observado o valor mínimo mensal de R$ 28.000,00 (\"Remuneração da Administradora”): % sobre o Patrimônio Patrimônio Líquido Líquido (a.a.) De R$0,00 a 0,25% R$100.000.000,00 De R$100.000.000,01 a 0,20% R$200.000.000,00 46 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 Acima de 0,15% R$200.000.000,00 (ii) ao CUSTODIANTE o valor de R$2.000,00 (dois mil reais) mensais pelos serviços de"
+    },
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 46,
+     "clause": "Anexo I, cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "0,25% R$100.000.000,00 De R$100.000.000,01 a 0,20% R$200.000.000,00 46 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 Acima de 0,"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas 0,25%/0,20%/0,15% a.a. PL; mínimo R$ 28 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/11/2024, Anexo I, cl. 13.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,25% a.a. até R$ 100 mi, em cascata; mín. R$ 17,5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 47,
+     "clause": "Anexo I, cl. 13.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "0,25% R$100.000.000,00 47 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 De R$100.000.000,01 a 0,22% R$150.000.000,00 De R$150.000.000,01 a"
+    },
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 47,
+     "clause": "Anexo I, cl. 13.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "plicada seguindo a forma de cascata, conforme tabela abaixo, provisionados diariamente à razão de 1/252, e observado o valor mínimo mensal de (a) R$ 9.500,00 (nove mil e quinhentos reais) até [30 de abril de 2024]; e (b) R$ 17.500,00 (dezessete mil e quinhentos reais) a partir de [1º de maio de 2024] (“Taxa de Gestão” ou “Remuneração da Gestora”): % sobre o Patrimônio Patrimônio Líquido Líquido (a.a.) De R$0,00 a 0,25% R$100.000.000,00 47 Docusign Envelope ID: 2114D1FD-A89E-418C-A32F-26DFBFEAC8D9 De R$100.000.000,01 a 0,22% R$150.000.000,00 De R$150.000.000,01 a 0,20%"
+    }
+   ],
+   "legacy": {
+    "value": "0,25% a.a. até R$ 100 mi; demais faixas noart13.2; mínimo R$ 17,5 mil/mês com data entre colchetes",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + 3% a.a. (4ª série sênior)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1126613",
+     "document_id": "1126613",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "19/02/2026",
+     "page": 5,
+     "clause": "Suplemento, cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126613",
+     "excerpt": "investidor ao FUNDO, calculado conforme o disposto no Regulamento e no presente Suplemento. 5. Do Benchmark: Taxa DI acrescida de 3% (três inteiros por cento) ao ano. 6. Do valor da Cota: o valor de cada Cota Sênior da 4ª Série será calculado todo Dia Útil pelo CUSTODIANTE, de acordo com o disposto no item 17.2 do Regulamento, pela fórmula abaixo (“Fórmula 1”): 1 VUR = VCs4T−1 × [( Taxa DIT−1 + 1) × (Spread + 1)]252 onde: VUR Valor unitário de referência, que corresponde ao valor da Quarta Série das Cotas Seniores para efeito de cálculo de seu valor de integralização, amortização, resgate ou nas hipóteses definidas no Regulamento, calculado para a data “T”. VCs4T-1 Valor da Quarta Série de Cota Sênior para efeito de cálculo de seu valor de integralização, amortização, resgate ou nas hipóteses definidas no Regulamento, calculado no do Dia Útil imediatament"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "Mez. Preferencial D: DI + 4%; High Yield: DI + 6,5%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1126613",
+     "document_id": "1126613",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "19/02/2026",
+     "page": 8,
+     "clause": "Suplemento, cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126613",
+     "excerpt": "o investidor ao FUNDO, calculado conforme o disposto no Regulamento e no presente Suplemento. 5. Do Benchmark: Taxa DI acrescida de 4% (quatro inteiros por cento) ao ano. 6. Do valor da Cota: O valor de cada Cota Subordinada Mezanino Preferencial D será calculado todo Dia Útil pelo CUSTODIANTE, de acordo com o disposto no item 17.5, do Regulamento, pela fórmula abaixo (“Fórmula 1”):. 1 VUR = VCmCT−1 × [( Taxa DIT−1 + 1) × (Spread + 1)]252 onde: VUR Valor unitário de referência, que corresponde ao valor da Cota Subordinada Mezanino Preferencial D para efeito de cálculo de seu valor de integralização, amortização, resgate ou nas hipóteses definidas no Regulamento, calculado para a data “ T”. VCmCT-1 Valor da Cota Subordinada Mezanino Preferencial D para efeito de cálculo de seu valor de integralização, amortização, resgate ou nas hipóteses definidas no Regulam"
+    },
+    {
+     "doc": "id1126613",
+     "document_id": "1126613",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "19/02/2026",
+     "page": 11,
+     "clause": "Suplemento, cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126613",
+     "excerpt": "lo investidor ao FUNDO, calculado conforme o disposto no Regulamento e no presente Suplemento. 5. Do Benchmark: Taxa DI acrescida de 6,5% (seis inteiros e cinco décimos por cento) ao ano. 6. Do valor da Cota: O valor de cada Cota Subordinada Mezanino High Yield IV será calculado todo Dia Útil pelo CUSTODIANTE, de acordo com o disposto no item 17.8, do Regulamento, pela fórmula abaixo (“Fórmula 1”): 1 VUR = VCmIVT−1 × [( Taxa DIT−1 + 1) × (Spread + 1)]252 onde: VUR Valor unitário de referência, que corresponde ao valor da Cota Subordinada Mezanino High Yield IV para efeito de cálculo de seu valor de integralização, amortização, resgate ou nas hipóteses definidas no Regulamento, calculado para a data “ T”. Docusign Envelope ID: C1FDD191-00AD-4A40-8BAE-929B52F7ED79 VCmIVT-1 Valor da Cota Subordinada Mezanino High Yield IV para efeito de cálculo de seu valor de integralização, amortização, resgate ou nas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 3,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "ária do FUNDO e a gestão da carteira do FUNDO; ADMINISTRADORA: a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade devidamente autorizada pela CVM a administrar carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Sala 201, CEP 22.640-102, inscrita no CNPJ/MF sob o nº 36.113.876/0001-91; ANBIMA: é a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Vert Gestora de Recursos Financeiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "OS CAP RESPONSABILIDADE LIMITADA; GESTORA: a VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 31.636.333/0001-35, devidamente autorizada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 17.249, de 11 de julho de 2019;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "sse de High Yield: Cotas Subordinadas Mezanino High Yield; CUSTODIANTE: é a ADMINISTRADORA, ou quem vier a lhe suceder; CVM: a Comissão de Valores Mobiliários; Despesas: é o conjunto de despesas descritas no item 9.1. da Parte Geral e no item 21.1 do Anexo I do Regulamento;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 3,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "ária do FUNDO e a gestão da carteira do FUNDO; ADMINISTRADORA: a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade devidamente autorizada pela CVM a administrar carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Sala 201, CEP 22.640-102, inscrita no CNPJ/MF sob o nº 36.113.876/0001-91; ANBIMA: é a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança extraordinário sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais e qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 29,
+     "clause": "Anexo I, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "RESPONSABILIDADE LIMITADA 1. DO PÚBLICO-ALVO E DA RESPONSABILIDADE DOS COTISTAS 1.1. A Classe única de Cotas do FUNDO destina-se exclusivamente a Investidores Profissionais e/ou Investidores Qualificados, conforme o caso, que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira da Classe e aceitem os riscos associados aos investimentos da Classe, observado os termos da regulamentação aplicável. 1.2. A responsabilidade dos Cotistas está limitada ao valor por eles subscrito. 1.3. Para os fins do Código ANBIMA de Administração de Recursos de Terceiros, a Classe se classifica como tipo “FIDC Financeiro”, “Crédito Pessoal”. 2. DO REGIME DA CLASSE 2.1. Esta Classe é constituída sob a forma de regime fechado. 3. DO PRAZO DE DURAÇÃO 3.1. O funcionamento da Classe terá início na Data da 1ª Integralização de Cotas. O prazo de duração da Classe será indeterminado, sendo que cada Série de cotas da Subclasse de Cotas Seniores e Série de cotas da Subclasse de Cotas Subordinadas Mezanino terá o Prazo de Duração estipulado no respectivo Suplemento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "788104",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/11/2024",
+     "page": 3,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788104",
+     "excerpt": "um fundo de investimento em direitos creditórios constituído sob a forma de condomínio especial fechado, com prazo de duração indeterminado, regido pelo presente Regulamento, pela Resolução CMN 2.907, pela Resolução CVM 175 e pelas demais disposições legais e regulamentares que lhe forem aplicáveis. 1.2. O exercício social do FUNDO tem duração de 1 (um) ano e encerra-se em 31 de dezembro de cada ano. 2. DAS DEFINIÇÕES 2.1. Sem prejuízo de definições específicas previstas no Anexo da Classe única os termos e expressões previstos neste Regulamento, indicados em letra maiúscula, no singular ou no plural, terão os significados a seguir atribuídos: Acordo Operacional: É o acordo operacional celebrado entre a ADMINISTRADORA e a GESTORA, que regulará as atividades a serem desenvolvidas pelas partes no que se refere à administração fiduciária do FUNDO e a gestão da carteira do FUNDO;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Crédito de saúde a PF (Capim) com 39% de subordinação; saldo por devedor ≤ R$ 35 mil; sênior a DI + 3%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
