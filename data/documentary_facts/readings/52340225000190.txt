@@ -1,5 +1,6 @@
 # Inova Credtech III FIDC (Limine Trust; Vert Gestora; consultoria CashU)
 type: Duplicatas/multicedente
+q18: * "de Inadimplência (1-15 dias) não poderá ser superior a 20% (vinte por cento)"
 q1: * "“CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE RECEBÍVEIS LTDA."
 q2: * "“Consultora Especializada” significa a CashU, acima qualificada, contratada pela Gestora"
 q3: * "12.3.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, na Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade"
@@ -33,7 +34,7 @@ sub_mezz: Mez. B + júnior ≥ 10%; júnior ≥ 7,5% do PL | q7,q8 | basis=jr/PL
 sub_check: Diária | q8
 reserve: Amortização: 30% antes e 100% desde D-15; reserva de despesas | o36
 pdd: n/d | Critério de provisão não localizado no texto extraído
-eval_triggers: Inadimplência por faixas acima dos tetos de 20%, 10% e 5% | o42
+eval_triggers: Índices de inadimplência por faixa (1–15 dias ≤ 20%), entre outros | q18
 liquidation: Lista do item 19.1.7 | q16
 revolving: n/d | Revolvência não detalhada no texto extraído
 amortization: n/d | Cronograma definido nos apêndices das séries | why=Resposta anterior também não localizou o cronograma

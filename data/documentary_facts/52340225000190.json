@@ -1,0 +1,790 @@
+{
+ "schema_version": 1,
+ "cnpj": "52340225000190",
+ "name": "INOVA CREDTECH III FIDC SEGMENTO MULTICARTEIRA DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T01:11:31Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1171206",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "25/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206"
+  },
+  "D2": {
+   "document_id": "1242464",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "08/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242464"
+  },
+  "D3": {
+   "document_id": "1055501",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "03/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1055501"
+  },
+  "D4": {
+   "document_id": "1047378",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "17/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1047378"
+  },
+  "D5": {
+   "document_id": "943297",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "02/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943297"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Duplicatas e CCBs; notas comerciais após aprovação em assembleia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 29,
+     "clause": "cl. 12.2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "hipótese de Direitos Creditórios originados pela Originadora Cencosud, ou aos Devedores, conforme aplicável. 12.2.3.1 O pagamento do Preço de Aquisição relativo aos Direitos Creditórios Adquiridos pelo Fundo deverá ser realizado em moeda corrente nacional, mediante transferência eletrônica disponível ou outra forma autorizada pelo BACEN diretamente aos respectivos Credores Originais à Consultora Especializada, na hipótese de Direitos Creditórios originados pela Originadora Cencosud"
+    }
+   ],
+   "legacy": {
+    "value": "Duplicatas e CCB; NC após aprovação das minutas em assembleia.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "CashU Fintech e parceiros financeiros que endossam CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 29,
+     "clause": "cl. 12.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Duplicatas ou CCBs originadas pela Originadora. 12.2.3 A originação e a aquisição de Direitos Creditórios pelo Fundo ocorrem da seguinte forma: (i) a Originadora seleciona os potenciais Credores Originais, Fornecedores ou Devedores que poderão realizar operações com o Fundo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 67,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "sil, Bolsa e Balcão. “Capítulos” significam os capítulos do Regulamento. “CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE RECEBÍVEIS LTDA., empresa com sede na Cidade de Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no CNPJ/MF sob o nº 35.444.423/0001-85. “CCBs” significam as cédulas de crédito bancário emitidas ou a serem emitidas eletronicamente pelos Devedores, nos termos da Lei nº 10.931, com o objetivo de adquirir produtos dos Fornecedores. “Classe” significa a classe única de Cotas fechada do Fundo, observado que todas as referências a Classe alcançam o Fundo já que este possui Classe única. “CMN” significa o Conselho Monetário Nacional."
+    }
+   ],
+   "legacy": {
+    "value": "CashU origina; parceiros financeiros endossam CCB; Cencosud prevista no glossário.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Originadores selecionados pela CashU; menores ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 32,
+     "clause": "cl. 12.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "xtrajudicial; (xii) considerada pro forma a aquisição pretendida, o valor agregado dos Direitos Creditórios cedidos por Originadores de Menor Porte não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido; e (xiii) considerada pro forma a aquisição pretendida, o Índice de Cobertura não poderá ficar desenquadrado. O cálculo pro forma será realizado com base nas informações da carteira diária e estoque de Direitos Creditórios do Fundo, com data base de 2 (dois) Dias Úteis anteriores a data do cálculo do presente critério. 12.3.2 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir ao Critério de Elegibilidade será verificado e validado pela Gestora, observado que o Critério de Elegibilidade previsto no item 12.3.1(ii) acima será verificado por meio de arquivo contendo a relação de Credores Originais e Fornecedores com indicação de seus respectivos Grupo Econômicos, enviado pela Consultora Especializada à Gestora em cada Data de Referência, e a Gestora não será responsável pelas informações disponibilizadas pela Consultora Especializada no referido arquivo ou no Arquivo de Endosso, nos termos do Contrato de Consulto"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 67,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "ento, conforme estabelecidas no item 12.4 deste Regulamento. “Consultora Especializada” significa a CashU, acima qualificada, contratada pela Gestora, em nome do Fundo, para realizar análise e seleção dos Direitos Creditórios que poderão ser adquiridos pelo Fundo. “Conta de Arrecadação” significa a conta de titularidade do Fundo, movimentada pelo Custodiante, aberta junto a uma Instituição Autorizada, na qual serão recebidos os recursos relativos aos Direitos Creditórios e aos Ativos Financeiros integrantes da carteira do Fundo. “Conta do Fundo” significa a conta de titularidade do Fundo mantida junto à Administradora ou uma Instituição Autorizada, que será movimentada exclusivamente mediante instruções do"
+    }
+   ],
+   "legacy": {
+    "value": "CashU origina; parceiros financeiros endossam CCB; Cencosud prevista no glossário.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos títulos; limites por grupo econômico",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 31,
+     "clause": "cl. 12.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Concentração máxima por cada Grupo Patrimônio Líquido (em milhões) Econômico de Devedor (em relação ao Patrimônio Líquido do Fundo) Até 20 R$500.000,00 20-35 2% 35-50 1,75% 50-75 1.50% >75 1.25% O cálculo pro forma será realizado com base nas informações da carteira diária e estoque de Direitos Creditórios do Fundo, com data base de 2 (dois) Dias Úteis anteriores a data do cálculo do presente critério. (ii) considerada pro forma a aquisição pretendida, o valor presente dos Direitos Creditórios endossados por cada Grupo Econômico de Credor Original, no caso de endosso de Duplicatas, ou por cada Grupo Econômico de Fornecedor, no caso de endosso de CCBs, deverá atender aos limites de concentração por faixa do Patrimônio Líquido do Fundo, conforme indicados na tabela abaixo: Concentração Máxima por cada Grupo E"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Limites por grupo devedor conforme faixa de PL, entre outros critérios",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 30,
+     "clause": "cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Critérios de Elegibilidade e as Condições de Aquisição. 12.3 Critérios de Elegibilidade 12.3.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, na Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: 38 Clicksign afb204e5-3776-436a-9a87-16a2b0331c56 (i) considerada pro forma a aquisição pretendida, o valor presente dos Direitos Creditórios devidos por cada Grupo Econômico de Devedor deverá atender aos limites de concentração por faixa de Patrimônio Líquido do Fundo, conforme indicados na tabela abaixo: Concentração máxima por cada Grupo Patrimônio Líquido (em milhões) Econômico de Devedor (em relação ao Patrimônio Líquido do Fundo) Até 20 R$500.000,00 20-35 2% 35-50 1,75%"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 31,
+     "clause": "cl. 12.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Concentração máxima por cada Grupo Patrimônio Líquido (em milhões) Econômico de Devedor (em relação ao Patrimônio Líquido do Fundo) Até 20 R$500.000,00 20-35 2% 35-50 1,75% 50-75 1.50% >75 1.25% O cálculo pro forma será realizado com base nas informações da carteira diária e estoque de Direitos Creditórios do Fundo, com data base de 2 (dois) Dias Úteis anteriores a data do cálculo do presente critério. (ii) considerada pro forma a aquisição pretendida, o valor presente dos Direitos Creditórios endossados por cada Grupo Econômico de Credor Original, no caso de endosso de Duplicatas, ou por cada Grupo Econômico de Fornecedor, no caso de endosso de CCBs, deverá atender aos limites de concentração por faixa do Patrimônio Líquido do Fundo, conforme indicados na tabela abaixo: Concentração Máxima por cada Grupo E"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo devedor ≤ R$ 500 mil ou 2% do PL, decrescente conforme o PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 31,
+     "clause": "cl. 12.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Concentração máxima por cada Grupo Patrimônio Líquido (em milhões) Econômico de Devedor (em relação ao Patrimônio Líquido do Fundo) Até 20 R$500.000,00 20-35 2% 35-50 1,75% 50-75 1.50% >75 1.25% O cálculo pro forma será realizado com base nas informações da carteira diária e estoque de Direitos Creditórios do Fundo, com data base de 2 (dois) Dias Úteis anteriores a data do cálculo do presente critério. (ii) considerada pro forma a aquisição pretendida, o valor presente dos Direitos Creditórios endossados por cada Grupo Econômico de Credor Original, no caso de endosso de Duplicatas, ou por cada Grupo Econômico de Fornecedor, no caso de endosso de CCBs, deverá atender aos limites de concentração por faixa do Patrimônio Líquido do Fundo, conforme indicados na tabela abaixo: Concentração Máxima por cada Grupo E"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 27,
+     "clause": "cl. 12.1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "12.1.8 O Fundo não poderá adquirir Direitos Creditórios e Ativos Financeiros dos Devedores, sem a observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido por Devedor, observado o previsto nos subitens 12.3.1(i)12.3.1(ii) abaixo. 12.1.9 Os Direitos Creditórios podem ser não performados, ou seja, podem estar sujeitos à efetiva entrega de produtos pelos Credores Originais ou Fornecedores, conforme aplicável, aos Devedores. Por admitir a aquisição de Direitos Creditórios sujeitos à entrega futura pelos Credores Originais ou Fornecedores, conforme aplicável, observado a Política de Crédito, as Cotas não poderão ser colocadas junto ao público em geral, nos termos do artigo 13 do Anexo Normativo II da Resolução CVM 175. 12.1.10 A Gestora deste Fundo adota política de exercício de direito de voto em assembleias, que disciplina os princípios gerais, o processo decisório e quais são as matérias relevantes obrigatórias para o exercício do direito de voto."
+    }
+   ],
+   "value": 500000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Originadores de menor porte ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 32,
+     "clause": "cl. 12.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "xtrajudicial; (xii) considerada pro forma a aquisição pretendida, o valor agregado dos Direitos Creditórios cedidos por Originadores de Menor Porte não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido; e (xiii) considerada pro forma a aquisição pretendida, o Índice de Cobertura não poderá ficar desenquadrado. O cálculo pro forma será realizado com base nas informações da carteira diária e estoque de Direitos Creditórios do Fundo, com data base de 2 (dois) Dias Úteis anteriores a data do cálculo do presente critério. 12.3.2 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir ao Critério de Elegibilidade será verificado e validado pela Gestora, observado que o Critério de Elegibilidade previsto no item 12.3.1(ii) acima será verificado por meio de arquivo contendo a relação de Credores Originais e Fornecedores com indicação de seus respectivos Grupo Econômicos, enviado pela Consultora Especializada à Gestora em cada Data de Referência, e a Gestora não será responsável pelas informações disponibilizadas pela Consultora Especializada no referido arquivo ou no Arquivo de Endosso, nos termos do Contrato de Consulto"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo dos créditos não localizado no trecho lido",
+   "sources": []
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Alocação alvo 67%/PL; entidade de investimento 67% após 180 dias da 1ª integralização sênior.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A e B / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 77,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "e e/ou uma mudança no vencimento no contexto de cobrança. “Índice de Subordinação Sênior” significa a razão mínima entre (i) a soma do valor total das Cotas Subordinadas em circulação e (ii) o Patrimônio Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 20% (vinte por cento), exceto para fins de amortização extraordinária das Cotas Subordinadas Júnior prevista no item 15.2.1 e seguintes, em relação a qual deve ser, no mínimo, 22,50% (vinte e dois inteiros e cinquenta centésimos por cento). “Índice de Subordinação Mezanino significa a razão mínima entre (i) a soma do valor total das A” Cotas Subordinadas Mezanino B e Cotas Subordinadas Júnior em circulação e (ii) o Patrimônio Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 77,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 10% (dez por cento), exceto para fins de amortização extraordinária das Cotas Subordinadas Júnior prevista no item 15.2.1 e seguintes, em relação a qual deve ser, no mínimo, 12,50% (doze inteiros e cinquenta centésimos por cento). “Índice de Subordinação Mezanino significa a razão mínima entre (i) a soma do valor total das e B” Cotas Subordinadas Júnior em circulação e (ii) o Patrimônio Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 7,50% (sete inteiros e cinquenta centésimos por cento). 85 Clicksign afb204e5-3776-436a-9a87-16a2b0331c56 “Índices de Subordinação” significam, em conjunto e indistintamente, o Índi"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 77,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 7,50% (sete inteiros e cinquenta centésimos por cento). 85 Clicksign afb204e5-3776-436a-9a87-16a2b0331c56 “Índices de Subordinação” significam, em conjunto e indistintamente, o Índice de Subordinação Mezanino A, o Índice de Subordinação Mezanino B e o Índice de Subordinação Sênior. “Instituição Autorizada” significa quaisquer instituições financeiras: (i) Banco Bradesco S.A.; (ii) Banco Santander (Brasil) S.A.; (iii) Banco do Brasil S.A.; (iv) Caixa Econômica Federal;"
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinadas ≥20%/PL; mezaninoB+júnior ≥10%/PL; júnior ≥7,50%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, p. 77"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 77,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "e e/ou uma mudança no vencimento no contexto de cobrança. “Índice de Subordinação Sênior” significa a razão mínima entre (i) a soma do valor total das Cotas Subordinadas em circulação e (ii) o Patrimônio Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 20% (vinte por cento), exceto para fins de amortização extraordinária das Cotas Subordinadas Júnior prevista no item 15.2.1 e seguintes, em relação a qual deve ser, no mínimo, 22,50% (vinte e dois inteiros e cinquenta centésimos por cento). “Índice de Subordinação Mezanino significa a razão mínima entre (i) a soma do valor total das A” Cotas Subordinadas Mezanino B e Cotas Subordinadas Júnior em circulação e (ii) o Patrimônio Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil,"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Total subordinadas ≥20%/PL; mezaninoB+júnior ≥10%/PL; júnior ≥7,50%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, p. 77"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mez. B + júnior ≥ 10%; júnior ≥ 7,5% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 77,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 10% (dez por cento), exceto para fins de amortização extraordinária das Cotas Subordinadas Júnior prevista no item 15.2.1 e seguintes, em relação a qual deve ser, no mínimo, 12,50% (doze inteiros e cinquenta centésimos por cento). “Índice de Subordinação Mezanino significa a razão mínima entre (i) a soma do valor total das e B” Cotas Subordinadas Júnior em circulação e (ii) o Patrimônio Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 7,50% (sete inteiros e cinquenta centésimos por cento). 85 Clicksign afb204e5-3776-436a-9a87-16a2b0331c56 “Índices de Subordinação” significam, em conjunto e indistintamente, o Índi"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 77,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 7,50% (sete inteiros e cinquenta centésimos por cento). 85 Clicksign afb204e5-3776-436a-9a87-16a2b0331c56 “Índices de Subordinação” significam, em conjunto e indistintamente, o Índice de Subordinação Mezanino A, o Índice de Subordinação Mezanino B e o Índice de Subordinação Sênior. “Instituição Autorizada” significa quaisquer instituições financeiras: (i) Banco Bradesco S.A.; (ii) Banco Santander (Brasil) S.A.; (iii) Banco do Brasil S.A.; (iv) Caixa Econômica Federal;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 7.5,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 77,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Líquido do Fundo, conforme apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo, 7,50% (sete inteiros e cinquenta centésimos por cento). 85 Clicksign afb204e5-3776-436a-9a87-16a2b0331c56 “Índices de Subordinação” significam, em conjunto e indistintamente, o Índice de Subordinação Mezanino A, o Índice de Subordinação Mezanino B e o Índice de Subordinação Sênior. “Instituição Autorizada” significa quaisquer instituições financeiras: (i) Banco Bradesco S.A.; (ii) Banco Santander (Brasil) S.A.; (iii) Banco do Brasil S.A.; (iv) Caixa Econômica Federal;"
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinadas ≥20%/PL; mezaninoB+júnior ≥10%/PL; júnior ≥7,50%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, p. 77"
+   }
+  },
+  "reserve": {
+   "display": "Amortização: 30% antes e 100% desde D-15; reserva de despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 59,
+     "clause": "cl. 21.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "mínimo 30% (trinta por cento) do valor futuro estimado da amortização das Cotas Seniores e das Cotas Subordinadas Mezanino, conforme o caso, imediatamente subsequente; e (ii) a partir do 15º (décimo quinto) dia antes de cada Data de Amortização subsequente e até a respectiva Data de Amortização, o Fundo sempre mantenha em Disponibilidades soma equivalente a 100% (cem por cento) do valor futuro estimado da amortização das Cotas Seniores e das Cotas Subordinadas Mezanino, co"
+    }
+   ],
+   "legacy": {
+    "value": "Amortização:30% em D-60 aD-16 e 100% desdeD-15; reserva de despesas adicional.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 21.1"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado no texto extraído",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Índices de inadimplência por faixa (1–15 dias ≤ 20%), entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 75,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "82 Clicksign afb204e5-3776-436a-9a87-16a2b0331c56 de Inadimplência (1-15 dias) não poderá ser superior a 20% (vinte por cento). “Índice de Inadimplência (15-30 significa o percentual equivalente a uma fração cujo dias)” numerador é igual à soma dos valores de face dos Direitos Creditórios Inadimplidos com atrasos entre 15 (quinze) (exclusive) e 30 (trinta) (inclusive) dias contados a partir das respectivas datas de vencimento dos Direitos Creditórios, e o denominador é igual ao Patrimônio Líquido do Fundo na mesma data. O Índice de Inadimplência (15-30 dias) deverá ser calculado pela Gestora em cada Data de Verificação, considerando as informações da Data de Referência."
+    }
+   ],
+   "legacy": {
+    "value": "Inadimplência por faixas tem tetos 20%/10%/5%; over 120≤3%/PL; fórmulas próprias.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, p. 75"
+   }
+  },
+  "liquidation": {
+   "display": "Lista do item 19.1.7",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 55,
+     "clause": "cl. 19.1.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "gral imediato de suas Cotas, desde que manifestado tal desejo na respectiva Assembleia de Cotistas. 19.1.7 São considerados Eventos de Liquidação Antecipada quaisquer das seguintes hipóteses: (i) caso seja deliberado, em Assembleia de Cotistas, que um Evento de Avaliação configura um Evento de Liquidação Antecipada; (ii) caso seja declarada a insolvência do Fundo, nos termos do Código Civil; (iii) determinação da CVM, nos termos previstos na Resolução CVM 175; (iv) cessação definitiva, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, pela Gestora, pela Consultora Especializada ou pelo Custodiante, sem que tenha havido sua efetiva substituição por outro prestador de serviços, observados os procedimentos e prazos descritos neste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Inadimplência por faixas tem tetos 20%/10%/5%; over 120≤3%/PL; fórmulas próprias.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 19.1.6"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não detalhada no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das séries",
+   "sources": [],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "regression",
+    "why": "Resposta anterior também não localizou o cronograma"
+   }
+  },
+  "admin_fee": {
+   "display": "0,04% a.a. até R$ 200 mi; 0,03% acima; mín. R$ 1 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 14,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "icksign afb204e5-3776-436a-9a87-16a2b0331c56 Patrimônio Líquido do Fundo, conforme indicado na tabela abaixo, observado, ainda, o valor mínimo mensal de R$1.000,00 (um mil reais). Patrimônio Líquido Remuneração Até R$200.000.000,00 (duzentos milhões de 0,04% (quatro centésimos por cento) ao ano reais) Acima de R$200.000.000,00 (duzentos milhões 0,03% (três centésimos por cento) ao ano de reais) 9.2 Pela prestação dos serviços de custódia de ativos, o Fundo pagará diretamente à Administradora remuneração mensal correspondente a um percentual sobre o valor do Patrimônio Líquido do Fundo, conforme indicado na tabela abaixo, observado, ainda, o valor mínimo mensal de R$14.000,00 (quatorze mil reais). Patrimônio Líquido Remuneração Até R$200.000.000,00 (duzentos milhões de 0,14% (quatorze centésimos por cento) ao ano reais) Acima de R$200.000.000,00 (duzentos milhões 0,12% (doze centésimos por cento) ao ano de reais) 9.3 Pela prestação dos serviços de gestão, o Fundo paga"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 14,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Até R$200.000.000,00 (duzentos milhões de 0,04% (quatro centésimos por cento) ao ano reais) Acima de R$200.000.000,00 (duzentos milhões 0,03% (três centésimos por cento) ao ano de reais) 9.2 Pela prestação dos serviços de custódia de ativos, o Fundo pagará diretamente à Administradora remuneração mensal correspondente a um percentual sobre o valor do Patrimônio Líquido do Fundo, conforme indicado na tabela abaixo, observado, ainda, o"
+    }
+   ],
+   "legacy": {
+    "value": "0,04% a.a. até R$ 200 mi;0,03% acima; mínimo R$ 1 mil/mês, IPCA.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,24% a.a. do PL; mín. R$ 20 mil/mês + R$ 1,5 mil de automação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 14,
+     "clause": "cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "uma remuneração correspondente a 0,24% a.a. (vinte e quatro centésimos por cento ao ano) sobre o valor do Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 20.000,00 (vinte mil reais). Ainda, o Fundo pagará diretamente à Gestora o valor adicional de R$ 1.500,00 (mil e quinhentos reais), correspondentes à contratação de consultoria da Bash Consultoria, empresa especializada em Robotic Process Automation (RPA), responsável pela automação das assinaturas dos documentos relacionados ao Fundo. 9.3.1 As remunerações previstas nas Cláusulas acima serão calculadas e provisionadas diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis. 9.3.2 Adicionalmente, será devido pelo Fundo diretamente ao prestador de serviços contratado para verificação da existência, integridade e titularidade do lastro dos Direitos Creditórios com base nos Documentos Comprobatórios, o valor de R$ 1.500,00 (um mil e quinhentos reais), em parcela única, acrescidos de uma parcela mensal, variável conforme número de Direitos Creditórios verificados no mês, conforme apresentada na tabela abaixo, a ser apurado pela Gestora mensalmente e pago até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços. Número d"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 14,
+     "clause": "cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "correspondente a 0,24% a.a. (vinte e quatro centésimos por cento ao ano) sobre o valor do Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 20.000,00 (vinte mil reais). Ainda, o Fundo pagará diretamente à Gestora o valor adicional de R$ 1.500,00 (mil e quinhentos reais), correspondentes à contratação de consultoria da Bash Consultoria, empresa especializada em Robotic Process Automation (RPA), responsável pela automação das assinaturas dos documentos relacionados ao Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "0,24% a.a./PL; mínimo R$ 20 mil/mês +R$ 1,5 mil/mês de automação.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Limine Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 65,
+     "clause": "cl. 27.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "dministração fiduciária e de gestão de carteira do Fundo. “Administradora” significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor Cardoso de Melo, n° 1.184, 9° andar, conjunto 91, Vila Olímpia, CEP 04548-004, inscrita no CNPJ/MF sob o nº 24.361.690/0001-72, devidamente autorizada pela CVM para atuar como administrador fiduciário na administração de carteiras de valores mobiliários, nos termos do Ato Declaratório CVM nº 16.206, de 08 de maio de 2018, ou sua sucessora a qualquer título. “Agência Classificadora de Risco” significa qualquer agência de classificação de risco autorizada a prestar tais serviços junto a CVM que tenh"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Vert Gestora de Recursos Financeiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 7,
+     "clause": "cl. 4.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "as atividades do terceiro contratado relacionadas ao Fundo. 4.2 Gestora 4.2.1 O Fundo é gerido pela VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade limitada, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2365, 11º andar, CEP 05407-003, inscrita no CNPJ/MF sob o nº 31.636.333/0001-35, devidamente autorizada e habilitada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, conforme Ato Declaratório nº 17.249, de 11 de julho de 2019. 4.2.2 A Gestora presta ao Fundo os serviços de gestão profissional dos Direitos Creditórios Adquiridos e dos Ativos Financeiros integrantes da carteira do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Limine Trust DTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 69,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "estora, conforme descritos no item 12.3 deste Regulamento. “Custodiante” significa a Administradora, acima qualificada. “CVM” significa a Comissão de Valores Mobiliários. “Data de Aquisição e Pagamento” significa qualquer data na qual o Fundo formalize a aquisição de Direitos Creditórios, por meio: (i) (a) da celebração: do respectivo Contrato de Endosso; (b) da celebração: do respectivo Termo de Endosso; ou (c) assinatura do respectivo boletim de subscrição, conforme o caso;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 65,
+     "clause": "cl. 27.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "dministração fiduciária e de gestão de carteira do Fundo. “Administradora” significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor Cardoso de Melo, n° 1.184, 9° andar, conjunto 91, Vila Olímpia, CEP 04548-004, inscrita no CNPJ/MF sob o nº 24.361.690/0001-72, devidamente autorizada pela CVM para atuar como administrador fiduciário na administração de carteiras de valores mobiliários, nos termos do Ato Declaratório CVM nº 16.206, de 08 de maio de 2018, ou sua sucessora a qualquer título. “Agência Classificadora de Risco” significa qualquer agência de classificação de risco autorizada a prestar tais serviços junto a CVM que tenh"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "CashU (consultoria e seleção de créditos)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 67,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "ento, conforme estabelecidas no item 12.4 deste Regulamento. “Consultora Especializada” significa a CashU, acima qualificada, contratada pela Gestora, em nome do Fundo, para realizar análise e seleção dos Direitos Creditórios que poderão ser adquiridos pelo Fundo. “Conta de Arrecadação” significa a conta de titularidade do Fundo, movimentada pelo Custodiante, aberta junto a uma Instituição Autorizada, na qual serão recebidos os recursos relativos aos Direitos Creditórios e aos Ativos Financeiros integrantes da carteira do Fundo. “Conta do Fundo” significa a conta de titularidade do Fundo mantida junto à Administradora ou uma Instituição Autorizada, que será movimentada exclusivamente mediante instruções do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 3,
+     "clause": "cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "(noventa) dias consecutivos, estes devem ser imediatamente liquidados pela Administradora. 2.3 A Classe do Fundo é destinada a Investidores Profissionais que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceitem os riscos associados aos investimentos do Fundo. 11 Clicksign afb204e5-3776-436a-9a87-16a2b0331c56 2.4 Para fins do disposto no “Código de Administração e Gestão de Recursos de Terceiros” da ANBIMA, o Fundo é classificado como “Fundo de Investimento em Direitos Creditórios”, tipo “Agro, Indústria e Comércio”, com foco de atuação em “Multicarteira Agro, Indústria e Comércio”, conforme “Anexo Complementar V - Regras e Procedimentos para FIDC”, de 15 de julho de 2024. 3. PRAZO DE DURAÇÃO 3.1 O funcionamento do Fundo terá início na 1ª Data de Integralização. O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas terá o Prazo de Duração estipulado no respectivo Apêndice. 4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 4,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "3. PRAZO DE DURAÇÃO 3.1 O funcionamento do Fundo terá início na 1ª Data de Integralização. O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas terá o Prazo de Duração estipulado no respectivo Apêndice. 4. PRESTADORES DE SERVIÇOS ESSENCIAIS 4.1 Administradora 4.1.1 O Fundo será administrado pela LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor Cardoso de Melo, n° 1.184, 9° andar, conjunto 91, Vila Olímpia, CEP 04548-004, inscrita no CNPJ/MF sob o nº 24.361.690/0001-72, devidamente autorizada pela CVM para atuar como administrador fiduciário na administração de carteiras de valores mobiliários, nos termos do Ato Declaratório CVM nº 16.206, de 08 de maio de 2018. 4.1.2 Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem poderes para praticar todos os atos necessários à administração do Fundo, na sua respectiva esfera de atuação. 4.1.3 Sem prejuízo de outras obrigações legais e regulamentares a que esteja sujeita, a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Grupo devedor ≤ R$ 500 mil ou 2% do PL, decrescente conforme o PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1171206",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 31,
+     "clause": "cl. 12.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171206",
+     "excerpt": "Concentração máxima por cada Grupo Patrimônio Líquido (em milhões) Econômico de Devedor (em relação ao Patrimônio Líquido do Fundo) Até 20 R$500.000,00 20-35 2% 35-50 1,75% 50-75 1.50% >75 1.25% O cálculo pro forma será realizado com base nas informações da carteira diária e estoque de Direitos Creditórios do Fundo, com data base de 2 (dois) Dias Úteis anteriores a data do cálculo do presente critério. (ii) considerada pro forma a aquisição pretendida, o valor presente dos Direitos Creditórios endossados por cada Grupo Econômico de Credor Original, no caso de endosso de Duplicatas, ou por cada Grupo Econômico de Fornecedor, no caso de endosso de CCBs, deverá atender aos limites de concentração por faixa do Patrimônio Líquido do Fundo, conforme indicados na tabela abaixo: Concentração Máxima por cada Grupo E"
+    }
+   ],
+   "value": 500000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Multicarteira com consultoria CashU, 20% de subordinação e júnior ≥ 7,5%; limite por grupo devedor cai com o PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
