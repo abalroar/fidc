@@ -1,0 +1,72 @@
+# portado de 60010416000112 (58458416000138)
+type: Consignado privado
+q101: * "Direitos Creditórios serão adquiridos pela Classe sempre de acordo com a"
+q102: * "Direitos Creditórios decorrentes das CCB seja f eito por Consignação e/ou"
+q103: * "originados no âmbito de operações de empréstimo consignado concedido pelo Endossante"
+q104: * "Endossante”: a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída"
+q105: * "Devedores”: cada pessoa f ísica que possua vínculo empregatício f ormalizado"
+q106: * "coobrigação do Endossante, da plena titularidade desse Direito Creditório, juntamente com"
+q107: * "Critérios de Elegibilidade 4.4 A Classe somente poderá adquirir os Direitos"
+q108: * "3,00% (três por cento) do Patrimônio Líquido da Classe. Ativos Financeiros"
+q109: * "por Devedores que tenham acima de 64 (sessenta e quatro) anos"
+q110: * "prazo máximo de vencimento equivalente ao prazo remanescente do Período de"
+q111: * "vencimento final anterior ao vencimento f inal da Classe; BTG Pactual"
+q112: * "50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios,"
+q113: * "sessenta e sete por cento) de direitos creditórios de acordo com"
+q114: * "Cotas Seniores”: São as cotas de subclasse sênior, emitidas pela Classe;"
+q115: * "Índice de Subordinação”: signif ica a razão mínima admitida entre: (a)"
+q116: * "apurado todo Dia Útil e será acessível aos Cotistas da Classe"
+q117: * "desenquadramento do Índice de Subordinação por 10 (dez) dias úteis consecutivos;"
+q118: * "provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor"
+q119: * "10 (dez) dias úteis consecutivos; (iii) não cumprimento, pelo Endossante, de"
+q120: * "24 (vinte e quatro) meses, contados da Data da 1ª Integralização"
+q121: * "0,40% (quarenta centésimos por cento) por ano sobre o Patrimônio Líquido"
+q122: * "Taxa de Gestão”: a taxa mensal que é devida ao Gestor,"
+q123: * "Benchmark Sênior Adicional”: o parâmetro adicional de rentabilidade a ser buscado"
+q124: * "Administrador”: a BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e"
+q125: * "Gestor”: a BTG Pactual Asset Management S.A. Distribuidora de Títulos e"
+q126: * "Custodiante”: o Banco BTG Pactual S.A., instituição financeira, com sede no"
+q127: * "Agente de Retenção/Cobrança”: significa a Tudo Serviços S.A., sociedade por ações"
+q128: * "Público-Alvo interesse único e indissociável, classificados como Investidores Prof issionais. Banco"
+q129: * "Público-Alvo das Cotas Subordinadas”: significa um único Cotista ou grupo de"
+q130: * "Prazo de Duração da Classe”: é o prazo de duração da"
+q131: * "Convênio Consignado Privado”: habilitação f irmada entre o Endossante e a"
+q132: * "64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte"
+q1: * "se, após 90 (noventa) dias do início das atividades do Fundo, o Patrimônio Líquido diário"
+q2: * "as Cotas serão amortizadas mensalmente, em regime de caixa"
+q3: * "não sanados em até 2 (dois) Dias Úteis contados do prazo final do respectivo evento"
+receivables: CCB eletrônica de consignado privado (CLT), averbada na Dataprev | q101,q102
+originator: Parati CFI, via Plataforma MT | q103,q104
+assignor: Parati CFI (endossante único) | q104
+debtor: Trabalhador CLT com CTPS digital (eSocial cat. 101) | q105
+recourse: Sem coobrigação; recompra compulsória e opção de venda ao agente | q106
+eligibility: CCB prefixada vencendo antes da classe; TVM ≤ 3% do PL | q107,q108
+debtor_limit: R$ 150 mil | q109
+assignor_limit: Endossante único; CDB/RDB dele ≤ R$ 25 mi | q110
+term_max: Até o prazo legal; vencimento antes do fim da classe | q111
+allocation: ≥ 50% do PL (67% para fins tributários) | q112,q113 | value=50
+quota_structure: Sênior (séries) / Subordinada | q114
+sub_senior: 5% · subord./PL | q115 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária; 10 DU fora do índice gera avaliação | q116,q117
+reserve: Não prevista | Regulamento sem cláusula de reserva de caixa ou liquidez
+pdd: ICVM 489 e manual do administrador; sem curva no regulamento | q118
+eval_triggers: Índice fora por 10 DU; falhas do endossante sem cura em 2 a 10 DU | q119,q3
+liquidation: PL < R$ 1 mi por 90 dias; prestador sem substituto; CVM/AGC | q1
+revolving: 24 meses da 1ª integralização | q120
+amortization: Mensal após o investimento, em caixa, com índice atendido | q2
+admin_fee: 0,40% a.a. do PL; mín. R$ 20 mil/mês (IPCA) | q121
+mgmt_fee: Incluída na taxa de administração | q122
+perf_fee: Não prevista | Regulamento sem taxa de performance
+target_senior: CDI + 15% do excesso de spread; teto CDI + 6% a.a. | q123 | why=Spread de 4,80% da leitura anterior não consta dos documentos locais
+target_mezz: — | Sem cota mezanino
+administrator: BTG Pactual Serviços Financeiros DTVM | q124
+manager: BTG Pactual Asset Management | q125
+custodian: Banco BTG Pactual | q126
+servicer: Tudo Serviços (agente de retenção e cobrança) | q127
+investors: Profissionais; subordinada restrita ao grupo do agente | q128,q129
+duration: Indeterminado | q130
+payroll: Convênio do endossante com a Dataprev (consignado privado) | q131
+age_limit: ≤ 64 anos, 11 meses e 29 dias na emissão | q132
+installment_min: Não prevista | Regulamento não fixa parcela mínima
+leitura: Consignado CLT com colchão de 5% (subord./PL), endossante único Parati e teto de R$ 150 mil por devedor.

@@ -1,0 +1,66 @@
+# portado de 63953620000165 (51290497000160)
+type: Consignado privado
+q101: * "originados no âmbito de operações de empréstimo consignado concedido pelo Endossante"
+q102: * "Direitos Creditórios decorrentes das CCB seja feito por Consignação. 4.5 São"
+q103: * "Endossante” ou “Cedente”), acompanhados de todos os direitos, privilégios, preferências, prerrogativas,"
+q104: * "coobrigação nem direito de regresso da Classe contra o Endossante, o"
+q105: * "anos 11 (onze) meses e 29 (vinte e nove) dias na"
+q106: * "mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não"
+q107: * "sessenta e sete por cento) do seu Patrimônio Líquido em Direitos"
+q108: * "Subclasse Sênior” e “Cotas Seniores”) e a subclasse subordinada (“Subclasse Subordinada"
+q109: * "Cotas Seniores”) e a subclasse subordinada (“Subclasse Subordinada” e “Cotas Subordinadas"
+q110: * "Índice de Subordinação Sênior e Excesso de Subordinação 4.1. Após a"
+q111: * "desenquadramento do Índice de Subordinação por 10 (dez) dias úteis consecutivos;"
+q112: * "Reserva de Caixa”). 8.2.1 A deliberação acerca da utilização dos valores"
+q113: * "provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor"
+q114: * "Período de Investimento”). 4.17.1 Durante o Período de Investimento, os recursos"
+q115: * "AMORTIZAÇÃO DAS COTAS 7.1 A distribuição de quaisquer ganhos e rendimentos"
+q116: * "Índice de Subordinação Alvo”), as Cotas Subordinadas poderão ser objeto de"
+q117: * "Taxa de Administração” e “IGP-M”, respectivamente). Na hipótese de extinção do"
+q118: * "Taxa de Gestão”). Na hipótese de extinção do IGP-M, não divulgação"
+q119: * "Investidores Profissionais” e “Resolução CVM 30”, respectivamente) Banco BTG Pactual S.A.,"
+q120: * "Convênio Consignado Privado”); e/ou (ii) “Direitos Creditórios TVM”, representados por direitos,"
+q1: * "serão descontados pela Dataprev da remuneração do Devedor"
+q2: * "equivalente ao prazo máximo permitido pelas leis"
+q3: * "o Patrimônio Líquido diário da Classe for inferior a R$ 1.000.000,00"
+q4: * "0,05% (cinco centésimos por cento) ao ano, apropriada diariamente"
+q5: * "FIPE. 0,05% (cinco centésimos por cento) ao ano"
+q6: * "positiva do CDI acrescida de 1,50%"
+q7: * "BTG Pactual Serviços Financeiros S.A."
+q8: * "Banco BTG Pactual S.A."
+q9: * "A Classe contratou a Tudo Serviços S.A."
+receivables: CCB de consignado privado (CLT), averbada na Dataprev | q101,q102
+originator: Parati CFI, via Plataforma MT | q101,q103
+assignor: Parati CFI (endossante) | q103
+debtor: Trabalhador com desconto em folha via Dataprev | q1
+recourse: Sem coobrigação, salvo má-fé, culpa ou dolo | q104
+eligibility: TVM só por subscrição primária, em reais | q105
+debtor_limit: R$ 150 mil | q106
+assignor_limit: Endossante único (Parati) | q103
+term_max: Até o prazo legal máximo da CCB | q2
+allocation: ≥ 50% do PL (67% para fins tributários) | q107 | value=50
+quota_structure: Sênior / Subordinada | q108,q109
+sub_senior: 1% · subord./PL | q110 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária; 10 DU fora do índice gera avaliação | q110,q111
+reserve: R$ 150 mi de capital sênior até o fim do investimento | q112
+pdd: ICVM 489 e manual do administrador; sem curva no regulamento | q113
+eval_triggers: Índice fora por 10 DU; falhas do endossante sem cura em 10 DU | q111
+liquidation: PL < R$ 1 mi por 90 dias; sem caixa para encargos; CVM/AGC | q3
+revolving: Investimento até 29/06/2031 | q114
+amortization: Regime de caixa e extraordinária; júnior acima do alvo de 10% | q115,q116
+admin_fee: 0,05% a.a.; mín. R$ 2,5 mil/mês (IGP-M) | q4,q117
+mgmt_fee: 0,05% a.a.; mín. R$ 2,5 mil/mês (IGP-M) | q5,q118
+perf_fee: Não prevista | Anexo: não será devida taxa de performance
+target_senior: CDI + 1,5% a.a. na parcela em consignado; CDI no restante | q6
+target_mezz: — | Sem cota mezanino
+administrator: BTG Pactual Serviços Financeiros DTVM | q7
+manager: n/d | Gestor não identificado no anexo da classe; a parte geral do fundo não está no acervo local
+custodian: Banco BTG Pactual | q8
+servicer: Tudo Serviços (retenção e cobrança) | q9
+investors: Profissionais | q119
+duration: n/d | Quadro de características com texto ilegível na extração do PDF
+payroll: Convênio do endossante com a Dataprev | q120
+age_limit: ≤ 64 anos, 11 meses e 29 dias na emissão | q105
+installment_min: Não prevista | Anexo não fixa parcela mínima
+leitura: Consignado CLT da Parati com colchão mínimo de 1% e reserva de R$ 150 mi de capital sênior.

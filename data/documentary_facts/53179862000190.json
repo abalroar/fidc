@@ -1,0 +1,788 @@
+{
+ "schema_version": 1,
+ "cnpj": "53179862000190",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA FGTS MT II",
+ "fund_type": "FGTS",
+ "reviewed_at": "2026-10-14T07:53:26Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "948986",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "14/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986"
+  },
+  "D2": {
+   "document_id": "1232504",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1232504"
+  },
+  "D3": {
+   "document_id": "1090574",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "23/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090574"
+  },
+  "D4": {
+   "document_id": "953854",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "28/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953854"
+  },
+  "D5": {
+   "document_id": "926238",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "16/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=926238"
+  },
+  "D6": {
+   "document_id": "908443",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "31/03/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908443"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FGTS",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs com antecipação do saque-aniversário do FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 71,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "parte geral do Regulamento, aplicáveis tanto no singular quanto no plural. I. Recebimento Ordinário dos Direitos Creditórios Os pagamentos das parcelas das CCBs serão realizados mediante consignação do Saque Aniversário. Todas as parcelas das CCBs deverão ser transferidas pelo Agente Operador do FGTS diretamente para Conta de Liquidação e serão automaticamente transferidos para uma conta de arrecadação de titularidade do Endossante, onde o agente da conta de arrecadação deverá realizar a devida conciliação e segregação, a fim de repassá-los para Conta do Fundo. II."
+    },
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 49,
+     "clause": "cl. 10.22",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "rentabilidade das Cotas. 10.22. Insuficiência das Garantias dos Direitos Creditórios Endossados - Os Direitos Creditórios são garantidos pela Cessão Fiduciária ou Alienação Fiduciária dos Direitos aos Saques-Aniversários. Havendo o inadimplemento dos Direitos Creditórios endossados, os Devedores serão executados extrajudicial ou judicialmente, sendo possível, dentre outros, que a execução das garantias seja morosa, insuficiente ou, ainda, que o Fundo não consiga executá-las, por qualquer motivo. Nesses casos, o Patrimônio Líquido será afetado negativamente e a Classe poderá não ter recursos suficientes para efetuar o pagamento das Cotas. 10.23. Riscos de execução da garantia das CCBs: Os Direitos Creditórios são garantidos por Alienação Fiduciária ou Cessão Fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei nº 8.036/90 e da Resolução CCFGTS 958. Não obstante, referida garantia pode ser parcial ou ainda poderá haver problemas operacionais para sua formalização ou para o recebimento de tal garantia em especial, sua oponibilidade perante o Agente Operador do FGTS ou outros terceiros, decorrente da ausência de registro público do instrumento de constituição de tais garantias."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Tudo Serviços (endossante)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "ui-la, que dispõe sobre o Fundo de Garantia do Tempo de Serviço; é a (i) TUDO SERVIÇOS S/A, sociedade por ações com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, Bairro Coaçu, CEP 61760-000, inscrita no CNPJ/MF sob nº 27.852.506/0001-85 ou qualquer outra empresa devidamente habilitada no BACEN. 9 Patrimônio Líquido Patrimônio líquido da Classe. Política de Cobrança Política de cobrança dos Direitos Creditórios Cedidos inadimplidos, adotada pelo Agente de Cobrança, conforme o Suplemento B do Anexo. Política de Crédito Política de concessão de crédito, adotada pela Gestora na análise dos Direitos Creditórios e do respectivo Endossante e Devedores, conforme o Suplemento A do Anexo. Prestadores de Serviços A Administradora e as Gestoras, quando referidas em Essenciais conjunto e indistintamente. Regulamento O regulamento do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Tudo Serviços, por endosso das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "ui-la, que dispõe sobre o Fundo de Garantia do Tempo de Serviço; é a (i) TUDO SERVIÇOS S/A, sociedade por ações com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, Bairro Coaçu, CEP 61760-000, inscrita no CNPJ/MF sob nº 27.852.506/0001-85 ou qualquer outra empresa devidamente habilitada no BACEN. 9 Patrimônio Líquido Patrimônio líquido da Classe. Política de Cobrança Política de cobrança dos Direitos Creditórios Cedidos inadimplidos, adotada pelo Agente de Cobrança, conforme o Suplemento B do Anexo. Política de Crédito Política de concessão de crédito, adotada pela Gestora na análise dos Direitos Creditórios e do respectivo Endossante e Devedores, conforme o Suplemento A do Anexo. Prestadores de Serviços A Administradora e as Gestoras, quando referidas em Essenciais conjunto e indistintamente. Regulamento O regulamento do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Trabalhadores titulares de contas do FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 49,
+     "clause": "cl. 10.22",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "rentabilidade das Cotas. 10.22. Insuficiência das Garantias dos Direitos Creditórios Endossados - Os Direitos Creditórios são garantidos pela Cessão Fiduciária ou Alienação Fiduciária dos Direitos aos Saques-Aniversários. Havendo o inadimplemento dos Direitos Creditórios endossados, os Devedores serão executados extrajudicial ou judicialmente, sendo possível, dentre outros, que a execução das garantias seja morosa, insuficiente ou, ainda, que o Fundo não consiga executá-las, por qualquer motivo. Nesses casos, o Patrimônio Líquido será afetado negativamente e a Classe poderá não ter recursos suficientes para efetuar o pagamento das Cotas. 10.23. Riscos de execução da garantia das CCBs: Os Direitos Creditórios são garantidos por Alienação Fiduciária ou Cessão Fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei nº 8.036/90 e da Resolução CCFGTS 958. Não obstante, referida garantia pode ser parcial ou ainda poderá haver problemas operacionais para sua formalização ou para o recebimento de tal garantia em especial, sua oponibilidade perante o Agente Operador do FGTS ou outros terceiros, decorrente da ausência de registro público do instrumento de constituição de tais garantias."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Garantia fiduciária dos direitos ao saque-aniversário",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 49,
+     "clause": "cl. 10.22",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "rentabilidade das Cotas. 10.22. Insuficiência das Garantias dos Direitos Creditórios Endossados - Os Direitos Creditórios são garantidos pela Cessão Fiduciária ou Alienação Fiduciária dos Direitos aos Saques-Aniversários. Havendo o inadimplemento dos Direitos Creditórios endossados, os Devedores serão executados extrajudicial ou judicialmente, sendo possível, dentre outros, que a execução das garantias seja morosa, insuficiente ou, ainda, que o Fundo não consiga executá-las, por qualquer motivo. Nesses casos, o Patrimônio Líquido será afetado negativamente e a Classe poderá não ter recursos suficientes para efetuar o pagamento das Cotas. 10.23. Riscos de execução da garantia das CCBs: Os Direitos Creditórios são garantidos por Alienação Fiduciária ou Cessão Fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei nº 8.036/90 e da Resolução CCFGTS 958. Não obstante, referida garantia pode ser parcial ou ainda poderá haver problemas operacionais para sua formalização ou para o recebimento de tal garantia em especial, sua oponibilidade perante o Agente Operador do FGTS ou outros terceiros, decorrente da ausência de registro público do instrumento de constituição de tais garantias."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Totalidade das parcelas da CCB; devedor sem atraso com a classe",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 42,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "TÉRIOS DE ELEGIBILIDADE 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: 41 a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 43,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Parcelas por devedor até R$ 200 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 43,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição; h) os Direitos Creditórios deverão ser representados por CCB;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Endossante única: Tudo Serviços",
+   "sources": []
+  },
+  "term_max": {
+   "display": "CCB de até 144 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 43,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição; h) os Direitos Creditórios deverão ser representados por CCB;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "gos. Operador do Caixa Econômica Federal Percentual mínima de 67% (sessenta e sete) do Patrimônio Alocação Mínima Líquido a ser mantido em Direitos Creditórios Cedidos e/ou cotas investidas de Fundos em Direitos Creditórios, conforme definido pelo Conselho Monetário Nacional e CVM. ANBIMA Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. Anexo Anexo descritivo da Classe, o qual será parte integrante do Regulamento. Apêndice Apêndice descritivo de cada tipo de cotas da Classe. Assembleia Assembleia geral ou especial de Cotistas, ordinária ou extraordinária. Ativos Financeiros de Ativos financeiros que poderão integrar a carteira da Classe, Liquidez conforme definidos no item 6.3 do Anexo. Auditor Independente Empresa de auditoria independente registrada na CVM contratada pela Administradora, em nome do Fundo, para prestar os serviços de auditoria das demonstrações contábeis do Fundo. B3 B3 S.A."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Mezanino B / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": ", até o resgate integral das Cotas Seniores do Fundo, o Índice de Subordinação Sênior deverá ser equivalente a, no mínimo, 10% (dez por cento) do Patrimônio Líquido. Índice de Subordinação A razão entre (a) a soma do valor total das Cotas Mezanino B Mezanino A e das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido do Fundo. Como regra geral, até o resgate integral das Cotas Mezanino A, o Índice de Subordinação Mezanino A deverá ser equivalente a, no mínimo, 5% (cinco por cento) do Patrimônio Líquido. de Subordinação A razão entre (a) a soma do valor total das Cotas Mezanino Subordinadas Júnior;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "do Fundo. Como regra geral, até o resgate integral das Cotas Mezanino A, o Índice de Subordinação Mezanino A deverá ser equivalente a, no mínimo, 5% (cinco por cento) do Patrimônio Líquido. de Subordinação A razão entre (a) a soma do valor total das Cotas Mezanino Subordinadas Júnior; e (b) o Patrimônio Líquido do Fundo. Como regra geral, até o resgate integral das Cotas Mezanino B, o Índice de Subordinação Mezanino B deverá ser equivalente a, no mínimo, 2,5% (dois inteiros e cinquenta décimos por cento) do Patrimônio Líquido. Índice Referencial Índice quantitativo utilizado para calcular a meta de valorização das Cotas Seniores ou das Cotas Mezaninos de uma determinada série, conforme eventualmente definido no respectivo Apêndice. Financeiras Instituições financeiras que possuam classificação de risco, em escala local, atribuída pela agência classificadora de risco igual ou superior a grau de investimento por Agência de Classificação de Ris"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior e mezanino A por séries; demais classes sem validação integral",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "10% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": ", até o resgate integral das Cotas Seniores do Fundo, o Índice de Subordinação Sênior deverá ser equivalente a, no mínimo, 10% (dez por cento) do Patrimônio Líquido. Índice de Subordinação A razão entre (a) a soma do valor total das Cotas Mezanino B Mezanino A e das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido do Fundo. Como regra geral, até o resgate integral das Cotas Mezanino A, o Índice de Subordinação Mezanino A deverá ser equivalente a, no mínimo, 5% (cinco por cento) do Patrimônio Líquido. de Subordinação A razão entre (a) a soma do valor total das Cotas Mezanino Subordinadas Júnior;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A: 5% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "do Fundo. Como regra geral, até o resgate integral das Cotas Mezanino A, o Índice de Subordinação Mezanino A deverá ser equivalente a, no mínimo, 5% (cinco por cento) do Patrimônio Líquido. de Subordinação A razão entre (a) a soma do valor total das Cotas Mezanino Subordinadas Júnior; e (b) o Patrimônio Líquido do Fundo. Como regra geral, até o resgate integral das Cotas Mezanino B, o Índice de Subordinação Mezanino B deverá ser equivalente a, no mínimo, 2,5% (dois inteiros e cinquenta décimos por cento) do Patrimônio Líquido. Índice Referencial Índice quantitativo utilizado para calcular a meta de valorização das Cotas Seniores ou das Cotas Mezaninos de uma determinada série, conforme eventualmente definido no respectivo Apêndice. Financeiras Instituições financeiras que possuam classificação de risco, em escala local, atribuída pela agência classificadora de risco igual ou superior a grau de investimento por Agência de Classificação de Ris"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração dos índices não localizada",
+   "sources": []
+  },
+  "reserve": {
+   "display": "Menor entre R$ 500 mil e 3 meses de despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 62,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "RESERVAS 14.1 Observada a ordem de alocação de recursos prevista na cláusula 15 do presente Anexo, a Gestora Ext deverá manter a Reserva de Caixa, por conta e ordem da Classe, desde a Data de Início do Fundo até a liquidação da Classe, equivalente ao valor de R$ 500.000,00 (quinhentos mil reais) ou, a, no mínimo, o montante referente à 3 (três) meses de despesas e encargos da Classe, o que for menor, cujos valores deverão ser apurados pela Administradora no último Dia Útil de cada mês. A Reserva de Caixa será constituída quando da integralização das Cotas do Fundo, e será custeada pelos recursos recebidos pelo Fundo. Os recursos mantidos na Reserva de Caixa serão investidos em Ativos Financeiros de Liquidez. O Fundo deterá todos os direitos em relação aos Ativos Financeiros de Liquidez e a todos os valores em dinheiro mantidos na Reserva de Caixa, sendo que os rendimentos dos Ativos Financeiros de Liquidez reverterão em benefício dos Cotistas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 24,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "asse serão calculadas pela Administradora, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas da Administradora, também disponível na sua página na rede mundial de computadores. 8.4 O Patrimônio Líquido será equivalente ao valor das Disponibilidades, acrescido do valor dos Direitos Creditórios Cedidos, deduzidas as exigibilidades e as provisões do Fundo. 8.5 As Cotas terão o seu valor calculado, todo Dia Útil, nos termos do Anexo. 9. PATRIMÔNIO LÍQUIDO NEGATIVO 9.1 Caso verifique, a qualquer tempo, que o Patrimônio Líquido está negativo, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento da amortização das Cotas; (b) comunicará a verificação do Patrimônio Líquido negativo às Gestoras, sendo certo que a Gestora Valora deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rebaixamento de rating em 2 níveis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 65,
+     "clause": "cl. 17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "OS DE LIQUIDAÇÃO 63 17.1 São considerados Eventos de Avaliação: (a) Rebaixamento da classificação de risco de qualquer Série ou Classe de Cotas em circulação em 02 (dois) níveis abaixo da classificação de risco originalmente atribuída ou 01 (um) nível abaixo da classificação de risco em vigor caso nos últimos 12 (doze) meses já tenha ocorrido um rebaixamento, se aplicável; (b) Desenquadramento de quaisquer Índice de Subordinação se, após notificados, os Cotistas não aportem recursos para reenquadrar o Índice de Subordinação nos termos deste Anexo e/ou não haja possibilidade de amortização extraordinária para fins de reenquadramento; (c) Renúncia de qualquer Prestador de Serviço Essencial, desde que não substituído no prazo de 60 (sessenta) Dias Úteis contados da renúncia; (d) Caso a Endossante e/ou o Originador iniciem processo de recuperação judicial, intervenção, liquidação, falência, regime de administração temporária, cassação de autorização para funcionamento, renegociação de dívidas, ou situação de endividamento que evidencie a iminência de que ocorra tal fato;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou deliberação sobre evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 67,
+     "clause": "cl. 17.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "lização da Assembleia prevista no item 17.1.1(c) acima, a Assembleia será cancelada pela Administradora. 17.2 A Classe será liquidada única e exclusivamente nas seguintes hipóteses: (a) por determinação da CVM, em caso de violação de normas legais ou regulamentares; e (b) caso seja deliberado na Assembleia que um Evento de Avaliação constitui um Evento de Liquidação. 17.2.1 Na ocorrência de qualquer Evento de Liquidação, após notificação da Gestora Valora, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento da amortização das Cotas; (b) comunicará tal fato à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência durante todo o prazo da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 41,
+     "clause": "cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "ireitos Creditórios Cedidos, nos termos do artigo 295 do Código Civil. 7.3 Será permitida a revolvência da carteira da Classe, ou seja, a aquisição de novos Direitos Creditórios pela Classe com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração da Classe, respeitada a ordem de alocação de recursos prevista na cláusula 15 do presente Anexo. 40 7.4 O processo de originação dos Direitos Creditórios e a Política de Crédito, encontram-se descritos no Suplemento B deste Anexo. 7.5 A cobrança dos Direitos Creditórios Cedidos inadimplidos será realizada pelo Agente de Cobrança nos termos da Política de Cobrança, constante no Suplemento B do presente Anexo. Verificação e guarda dos Documentos Comprobatórios 7.6 Os Documentos Comprobatórios compreenderão a documentação necessária para o exercício das prerrogativas decorrentes da titularidade dos Direitos Creditórios Cedidos, tais como o protesto, a cobrança ou a execução judicial, sendo capazes de comprovar a origem, a existência, validade e a exigibilidade dos Direitos Creditórios Cedidos, devendo a Gestora Valor"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Mezanino A 2ª: primeira amortização até 30/03/2025",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,12% a.a. até R$ 250 mi de PL, regressiva até 0,05%; mín. R$ 12 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 36,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "ermos da Política de Cobrança. 5. TAXA DE ADMINISTRAÇÃO, TAXA DE GESTÃO TAXA MÁXIMA DE DISTRIBUIÇÃO E OUTRAS TAXAS 5.1 Pela prestação dos serviços de administração fiduciária do Fundo, a Classe pagará à Administradora a Taxa de Administração, equivalente a uma porcentagem ao ano incidente sobre o Patrimônio Líquido, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mensal mínimo de R$ 12.000,00 (doze mil reais), conforme variação abaixo descrita: Administração Patrimônio Líquido % ao ano Mínimo mensal em em reais reais Até 250 milhões 0,12 35 250 500 milhões 0,10 500 milhões 1 0,07 R$ 12 mil bilhão Acima de 1 bilhão 0,05 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,85% a.a. do PL, rateada entre as gestoras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 37,
+     "clause": "cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "o valor mensal mínimo mensal de R$ 3.000,00 (três mil reais). 5.3. Pela prestação dos serviços de gestão do Fundo, a Classe pagará às Gestoras a Taxa de Gestão, equivalente a 0,85 (zero vírgula oitenta e cinco por cento) ao ano incidente sobre o Patrimônio Líquido, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis. A Taxa de Gestão será rateada entre ambas as Gestoras por igual. 5.4. A Taxa de Administração e a Taxa de Gestão serão calculadas e provisionadas todo Dia Útil e pagas no 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo o primeiro pagamento da Taxa de Administração e da Taxa de Gestão devido no 5º (quinto) Dia Útil do mês subsequente ao mês em que ocorrer a Data de Início do Fundo. 5.5. A Administradora e as Gestoras poderão estabelecer que parcelas da Taxa de Administração e da Taxa de Gestão, respectivamente, sejam pagas diretamente pelo Fundo aos Demais Prestadores de Serviços, desde que o somatório dessas parcelas não exceda o valor total da Taxa de Administração ou da Taxa de Gestão, conforme o caso. 5.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "2ª série mezanino A: DI + 4,00% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "2ª série mezanino A: DI + 4,00% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "Direitos celebrado entre os Prestadores de Serviços Essenciais. Administradora BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título. Agente de Cobrança TUDO SERVIÇOS S.A., com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, Bairro Coaçu, CEP 61760-000, inscrita no CNPJ/MF sob n.º 27.852.506/0001-85 ou qualquer outro prestador de serviço contratado pelas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Valora Renda Fixa e EXT Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA FGTS MT II. Gestora Valora VALORA RENDA FIXA ESTRUTURADOS LTDA., sociedade com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Presidente Juscelino Kubitschek, n° 1.830, sala 32, bloco 2, Vila Nova Conceição, CEP 04543-900, inscrita no CNPJ sob o nº 57.369.679/0001-08, devidamente autorizada à prestação dos serviços de administração de carteira de valores mobiliários, por meio do Ato Declaratório CVM nº 22.910, de 08 de janeiro de 2025 (\"Gestora\") Gestora Ext EXT CAPITAL LTDA., sociedade limitada com sede na Rua Clodomiro Amazonas, nº 247, cj."
+    },
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "ios, por meio do Ato Declaratório CVM nº 22.910, de 08 de janeiro de 2025 (\"Gestora\") Gestora Ext EXT CAPITAL LTDA., sociedade limitada com sede na Rua Clodomiro Amazonas, nº 247, cj. 111, Itaim Bibi, CEP 04537- 010, na cidade de São Paulo/SP, inscrita no CNPJ/MF sob nº 48.089.509/0001-89, devidamente credenciada pela CVM para o exercício da atividade de administração de títulos e valores mobiliários, nos termos do Ato Declaratório nº 20.615, de 28 de fevereiro de 2023. Gestoras Gestora Valora e Gestora Ext quando referidas em conjunto. Considerando estrutura de cogestão, para todos os fins deste Regulamento e quaisquer documentos que dele façam parte, se utilizado o termo -se considerar ambas as gestoras, em conjunto e/ou individualmente, conforme suas respectivas atribuições. Razão entre (a) somatório dos valores das"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "de Critérios de elegibilidade dos Direitos Creditórios, definidos no item 8.1 do Anexo. Custodiante BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou o seu sucessor a qualquer título. CVM Comissão de Valores Mobiliários. Data da 1ª Integralização Data da 1ª (primeira) integralização de Cotas. Data de Aquisição Cada data em que ocorrer a aquisição dos Direitos Creditórios pelo Fundo. 4 Data de Início do Fundo Data da 1ª (primeira) integralização de Cotas, independentemente do ti"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Tudo Serviços (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título. Agente de Cobrança TUDO SERVIÇOS S.A., com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, Bairro Coaçu, CEP 61760-000, inscrita no CNPJ/MF sob n.º 27.852.506/0001-85 ou qualquer outro prestador de serviço contratado pelas Gestoras para cobrar e receber os Direitos Creditórios Cedidos vencidos e não pagos. Operador do Caixa Econômica Federal Percentual mínima de 67% (sessenta e sete) do Patrimônio Alocação Mínima Líquido a ser mantido em Direitos Creditórios Cedidos e/ou cotas investidas de Fundos em Direitos Creditórios, conforme definido pelo Conselho Monetário Nacional e CVM. ANBIMA Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. Anexo Anexo descritivo da Classe, o qual será"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "ual ou superior a grau de investimento por Agência de Classificação de Risco local. Investidores Autorizados Investidores qualificados, conforme definidos na Resolução CVM nº 30, de 11 de maio de 2021. nº significa a Lei 8.036, de 11 de maio de 1990, conforme alterada ou qualquer lei que venha a substitui-la, que dispõe sobre o Fundo de Garantia do Tempo de Serviço; é a (i) TUDO SERVIÇOS S/A, sociedade por ações com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, Bairro Coaçu, CEP 61760-000, inscrita no CNPJ/MF sob nº 27.852.506/0001-85 ou qualquer outra empresa devidamente habilitada no BACEN. 9 Patrimônio Líquido Patrimônio líquido da Classe. Política de Cobrança Política de cobrança dos Direitos Creditórios Cedidos inadimplidos, adotada pelo Agente de Cobrança, conforme o Suplemento B do Anexo. Política de Crédito Política de concessão de crédito, ado"
+    }
+   ],
+   "legacy": {
+    "value": "Fundo qualificados; oferta desta série exclusiva a profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 12,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "3. PRAZO DE DURAÇÃO DO FUNDO 3.1 O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado. 4. PRESTADORES DE SERVIÇOS ESSENCIAIS 4.1 A administração fiduciária do Fundo será realizada pelo BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de 11 administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90. 4.2 A gestão do Fundo será realizada pela Gestora Ext e Gestora Valora. 5."
+    }
+   ],
+   "legacy": {
+    "value": "Fundo qualificados; oferta desta série exclusiva a profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Parcelas pagas pelo saque-aniversário via agente operador do FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "948986",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/07/2025",
+     "page": 71,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948986",
+     "excerpt": "parte geral do Regulamento, aplicáveis tanto no singular quanto no plural. I. Recebimento Ordinário dos Direitos Creditórios Os pagamentos das parcelas das CCBs serão realizados mediante consignação do Saque Aniversário. Todas as parcelas das CCBs deverão ser transferidas pelo Agente Operador do FGTS diretamente para Conta de Liquidação e serão automaticamente transferidos para uma conta de arrecadação de titularidade do Endossante, onde o agente da conta de arrecadação deverá realizar a devida conciliação e segregação, a fim de repassá-los para Conta do Fundo. II."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa idade do devedor",
+   "sources": []
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Regulamento não fixa parcela mínima",
+   "sources": []
+  }
+ },
+ "leitura": "CCBs de saque-aniversário FGTS da Tudo Serviços; subordinação de 10% e CCB de até 144 meses.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

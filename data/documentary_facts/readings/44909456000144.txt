@@ -1,0 +1,58 @@
+# portado de 47640584000123 (44909456000144)
+type: Energia solar
+q23: * "Página 46 de 112 (oitocentos e cinquenta mil reais) por Grupo Econômico"
+q1: * "“Endossante” significa cada Instituição Financeira Parceira que tenha concedido um empréstimo a um Devedor"
+q2: * "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração"
+q3: * "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade"
+q4: * "se pessoa jurídica, R$850.000,00"
+q5: * "significa a razão entre o somatório do valor das Cotas Subordinadas em Subordinação circulação e o Patrimônio Líquido Ajustado da Classe, conforme apurada Sênior”"
+q6: * "Mezanino” apurada pela Administradora em cada Dia Útil, equivalente a, no mínimo"
+q7: * "Taxa de Administração equivalente ao percentual ao ano, calculado e apropriado sobre o Patrimônio Líquido"
+q8: * "De R$ 0,00 a R$ 500.000.000,00 0,095% a.a."
+q9: * "De R$ 0,00 a R$ 100.000.000,00 0,50% a.a."
+q10: * "gestão fiduciária, conforme montante constante da tabela abaixo, observado o valor mínimo mensal de R$18.500,00"
+q11: * "será devido à Custodiante, pelo serviço de custódia, o valor correspondente a 0,05%"
+q12: * "“Administradora” Significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q13: * "“Gestora” significa a RÉGIA CAPITAL LTDA."
+q14: * "“Custodiante” significa a Administradora, atuando na qualidade de custodiante"
+q15: * "18.1. São Eventos de Avaliação"
+q16: * "19.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências"
+q17: * "a revolvência dos Direitos Creditórios, desde que respeitado o disposto neste Regulamento"
+q18: * "Política de Provisão para Devedores Duvidosos constante do Complemento III"
+q19: * "Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance"
+q20: * "O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e de Cotas Subordinadas Mezanino"
+q21: * "Equipamentos. Nos termos do artigo 1.361"
+q22: * "os Direitos Creditórios devidos por Devedores pessoas físicas com idade igual ou superior a 60 (sessenta) anos não deverão representar mais que 10%"
+receivables: CCBs de financiamento de projetos de geração solar | q2,q3
+originator: Instituição Financeira Parceira de cada financiamento | q1
+assignor: Instituição Financeira Parceira (endossante) | q1
+debtor: PF e PJ que financiam projetos de geração de energia | q2
+recourse: Endossante responde só por existência e formalização do crédito | q1
+eligibility: CCB formalizada com a parceira; ofertada integralmente; filtros do anexo | q3
+debtor_limit: PJ até R$ 850 mil por grupo; exceções até 1% do PL; PF 60+ ≤ 10% | q4,q23,q22
+assignor_limit: Não previsto | Anexo limita por devedor, não por instituição parceira
+term_max: n/d | Prazo máximo da CCB não localizado no texto extraído
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino / Júnior | q20
+sub_senior: 20% nos 24 primeiros meses, depois 25% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL | value=25
+sub_mezz: 10% nos 24 primeiros meses, depois 12,5% · jr/PL | q6 | basis=jr/PL | value=12.5
+sub_check: Diária pela administradora sobre o PL ajustado | q5
+reserve: Reserva de despesas e encargos calculada pela administradora | q7
+pdd: Política de provisão do complemento III | q18
+eval_triggers: Relatório de monitoramento não enviado em 15 DU; rating sem atualização | q15
+liquidation: Evento de insolvência e demais itens do capítulo 19 | q16
+revolving: Revolvência permitida | q17
+amortization: n/d | Cronograma definido nos apêndices de cada série
+admin_fee: 0,095% a.a. até R$ 500 mi, regressiva; mín. R$ 15,5 mil, depois R$ 23 mil | q7,q8
+mgmt_fee: 0,50% a.a. até R$ 100 mi, regressiva até 0,10%; mín. R$ 18,5 mil/mês | q9,q10
+perf_fee: Não prevista | Regulamento veda taxa de performance | q19
+target_senior: n/d | Meta de remuneração definida nos apêndices, fora do acervo
+target_mezz: n/d | Meta de remuneração definida nos apêndices, fora do acervo
+administrator: Genial Investimentos CVM | q12
+manager: Régia Capital | q13
+custodian: Genial Investimentos (a administradora); 0,05% a.a., mín. R$ 3 mil | q14,q11,q12
+servicer: n/d | Consultor de cobrança sem nome no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado; prazo por série | q20
+real_collateral: Alienação fiduciária dos equipamentos solares, registrada em cartório | q21
+leitura: Financiamento solar com subordinação de 20% subindo a 25% em 24 meses; PJ até R$ 850 mil por grupo.

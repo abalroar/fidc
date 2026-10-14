@@ -1,0 +1,61 @@
+# portado de 26749095000134 (08417544000165)
+type: Educacional
+q101: * "Devedores” Os alunos das Instituições de Ensino ou intercambistas contratantes das"
+q102: * "Cedente”). 2. Originação e Concessão do Crédito Após receber as informações"
+q103: * "Cedentes” Cedentes Instituições de Ensino e Cedentes Bancos “Cedentes Bancos” As"
+q104: * "Agente de Cobrança Extraordinária. 3.8.2.2 A Gestora também é responsável pela"
+q105: * "Coobrigação dos Cedentes. Os Cedentes, seus controladores, sociedades por eles direta"
+q106: * "originados pelo Itaú Unibanco S.A. ou suas Afiliadas. a. Para fins"
+q107: * "por Devedores Solidários. 5.1.1 Caso o Custo de Crédito-Programa Intercâmbio seja"
+q108: * "mesmo Devedor em uma determinada data de verificação, não poderá ser"
+q109: * "Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio"
+q110: * "Subclasses” As subclasses de Cotas da Classe Única “Subclasse de Cotas"
+q111: * "Subclasse de Cotas Mezanino” A subclasse de Cotas Mezanino da Classe"
+q112: * "Relação Mínima Por Camadas” Mezanino A: enquanto existente, a relação mínima"
+q113: * "Reserva de Amortização” Reserva a ser constituída, a partir da 1ª"
+q114: * "Reserva de Despesas e Encargos” Reserva a ser constituída, a partir"
+q115: * "novas aquisições de Direitos Creditórios – Programas de Intercâmbio até que"
+q116: * "amortizações de Cotas Seniores e de Cotas Subordinadas Mezanino, conforme o"
+q117: * "Meta de Remuneração: Taxa DI, acrescida de Sobretaxa Mezanino A, da"
+q118: * "Custodiante” Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A., sociedade"
+q119: * "Agente de Cobrança Extraordinária” A Pravaler S.A., ou sua respectiva sucessora"
+q120: * "investidores profissionais, nos termos do Artigo 11 da Resolução da CVM"
+q121: * "Prazo de Duração” Prazo de duração de Emissão, compreendido entre a"
+q1: * "Índice de Atraso Superior a 90 Dias supere o percentual de 8,5%"
+q2: * "equivalente a 22% (vinte e dois por cento), observado que, caso o Índice de Atraso Superior a 60 Dias"
+q3: * "montante equivalente 0,50% (cinquenta centésimos por cento) ao ano sobre o Patrimônio Líquido"
+q4: * "0,05% (cinco centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo"
+q5: * "e PRAVALER S.A., socieda"
+q6: * "inscrita no CNPJ sob o nº 36.113.876/0001-91"
+receivables: Crédito estudantil (matrícula e mensalidades) e intercâmbio | q101,q102
+originator: Bancos parceiros e instituições de ensino, via programa Pravaler | q103,q104
+assignor: Cedentes bancos e instituições de ensino | q103
+debtor: Alunos e intercambistas, com devedor solidário quando previsto | q101
+recourse: Sem coobrigação dos cedentes | q105
+eligibility: Não cedido pelo Itaú; intercâmbio suspenso se custo de crédito > 2% | q106,q107
+debtor_limit: Menor entre 0,5% do PL e R$ 400 mil por devedor | q108
+assignor_limit: Não previsto | Regulamento não limita concentração por cedente
+term_max: n/d | Prazo máximo dos contratos não localizado no regulamento | why=A leitura anterior trata de elegibilidade, não de prazo
+allocation: ≥ 50% do PL em direitos creditórios | q109 | value=50
+quota_structure: Sênior / Mezanino (A e B) / Júnior | q110,q111
+sub_senior: 22% · subord./PL; sobe se atraso > 60 dias passar de 6% | q2 | basis=mez+jr/PL | value=22
+sub_mezz: Mezanino A: mínimo de 2% do PL | q112
+sub_check: n/d | Frequência de apuração e prazo de cura não localizados
+reserve: Reservas de amortização e de despesas e encargos | q113,q114
+pdd: n/d | Regra de provisão sem trecho localizável no texto extraído | why=A leitura anterior não tem fonte localizável no acervo
+eval_triggers: Atraso > 90 dias acima de 8,5% ou > 180 dias acima de 6% | q1
+liquidation: n/d | Eventos de liquidação definidos no regulamento; lista não localizada no texto extraído | why=A leitura anterior trata de gatilhos de avaliação, registrados na linha própria
+revolving: Novas cessões admitidas; intercâmbio suspenso se custo de crédito > 2% | q115
+amortization: Metas por série, condicionadas a caixa e prioridades | q116
+admin_fee: 0,50% a.a. do PL; mín. R$ 25,6 mil/mês | q3
+mgmt_fee: 0,05% a.a. do PL | q4
+perf_fee: Não prevista | Regulamento: não serão cobradas taxas de performance
+target_senior: n/d | Sobretaxa de cada série definida no suplemento; não localizada no acervo
+target_mezz: DI + sobretaxa da mezanino A (10ª emissão) | q117
+administrator: Oliveira Trust DTVM | q6,q118
+manager: Pravaler | q5
+custodian: Oliveira Trust DTVM | q118
+servicer: Pravaler (cobrança extraordinária) | q119
+investors: Profissionais | q120
+duration: Indeterminado; séries com prazo próprio | q121
+leitura: Crédito estudantil do Pravaler com subordinação mínima de 22% e gatilho de atraso > 90 dias em 8,5%.
