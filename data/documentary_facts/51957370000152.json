@@ -1,0 +1,779 @@
+{
+ "schema_version": 1,
+ "cnpj": "51957370000152",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ANGÁ FGTS I - RESPONSABILIDADE LIMITADA",
+ "fund_type": "FGTS",
+ "reviewed_at": "2026-10-14T08:00:36Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1025473",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "03/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473"
+  },
+  "D2": {
+   "document_id": "574128",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "20/12/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574128"
+  },
+  "D3": {
+   "document_id": "573210",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "16/12/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=573210"
+  },
+  "D4": {
+   "document_id": "571218",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "15/12/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=571218"
+  },
+  "D5": {
+   "document_id": "525830",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "15/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=525830"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FGTS",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de antecipação do saque-aniversário do FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 14,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "“Direitos Creditórios”: Os direitos creditórios performados, representados pelas CCB, oriundos de operações de empréstimo pessoal para antecipação do Saque-Aniversário FGTS, realizadas entre o Cedente e os respectivos Devedores e garantidas por Cessão Fiduciária;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "Ativos; 11/88 Corporativo | Interno “CCB”: As cédulas de crédito bancário emitidas ou a serem emitidas pelos Devedores em favor do Cedente, nos termos da Lei nº 10.931, de 2 de agosto de 2004, conforme alterada, que poderão ser emitidas e assinadas por meio eletrônico; “Cedente”: O BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, ou seu sucessor a qualquer título;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de antecipação do saque-aniversário FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Banco Votorantim",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "que poderão ser emitidas e assinadas por meio eletrônico; “Cedente”: O BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, ou seu sucessor a qualquer título; “Cessão Fiduciária”: A Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saque-Aniversário, nos termos do artigo 20-D, §3º da Lei nº 8.036, da Resolução CCFGTS 958 e do artigo 66-B da Lei 4.728, que garantirá o pagamento dos Direitos Creditórios devidos pelo respectivo Devedor;"
+    }
+   ],
+   "legacy": {
+    "value": "Banco Votorantim/Banco BV",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Banco Votorantim, sem coobrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "que poderão ser emitidas e assinadas por meio eletrônico; “Cedente”: O BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, ou seu sucessor a qualquer título; “Cessão Fiduciária”: A Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saque-Aniversário, nos termos do artigo 20-D, §3º da Lei nº 8.036, da Resolução CCFGTS 958 e do artigo 66-B da Lei 4.728, que garantirá o pagamento dos Direitos Creditórios devidos pelo respectivo Devedor;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 22,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "3.14.2. Os Direitos Creditórios Elegíveis cedidos à Classe A não contarão com coobrigação do Cedente. Contudo, ainda que não haja coobrigação, nos termos deste item, o Cedente será responsável, pela existência, certeza, liquidez, exigibilidade, conteúdo, exatidão, veracidade, legitimidade, validade e correta formalização dos Direitos Creditórios Elegíveis que comporão a carteira da Classe A, nos termos do artigo 295 do Código Civil Brasileiro. 3.14.3."
+    }
+   ],
+   "legacy": {
+    "value": "Banco Votorantim/Banco BV",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Titulares de conta do FGTS emitentes das CCBs",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "Ativos; 11/88 Corporativo | Interno “CCB”: As cédulas de crédito bancário emitidas ou a serem emitidas pelos Devedores em favor do Cedente, nos termos da Lei nº 10.931, de 2 de agosto de 2004, conforme alterada, que poderão ser emitidas e assinadas por meio eletrônico; “Cedente”: O BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, ou seu sucessor a qualquer título;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física titular de conta FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação; cedente responde pela existência e formalização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 22,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "3.14.2. Os Direitos Creditórios Elegíveis cedidos à Classe A não contarão com coobrigação do Cedente. Contudo, ainda que não haja coobrigação, nos termos deste item, o Cedente será responsável, pela existência, certeza, liquidez, exigibilidade, conteúdo, exatidão, veracidade, legitimidade, validade e correta formalização dos Direitos Creditórios Elegíveis que comporão a carteira da Classe A, nos termos do artigo 295 do Código Civil Brasileiro. 3.14.3."
+    }
+   ],
+   "legacy": {
+    "value": "Transferência irrevogável; desconformidade original pode resolver a cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "CCB prefixada, adimplente, até a série sênior mais longa",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 24,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "atendimento aos Critérios de Elegibilidade será considerada como definitiva. 5.5. A validação pela Gestora dos Critérios de Elegibilidade ocorrerá, exclusivamente, através das informações disponibilizadas pelo Cedente, conforme aplicável. 5.6."
+    }
+   ],
+   "legacy": {
+    "value": "CCB prefixada e adimplente; vencimento até a série sênior mais longa",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor até R$ 120 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 24,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "asse A; (iii) os Direitos Creditórios possuem taxas de juros prefixadas; (iv) saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); e (v) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, conforme definido no Contrato de Cessão. 5.3. Na hipótese de o Direito Creditório perder qualquer Critério de Elegibilidade após sua aquisição pela Classe A, a Classe A e seus Cotistas não terão qualquer direito de regresso contra a Gestora, a Administradora, o Custodiante e/ou o Cedente, salvo na existência comprovada de má-fé, culpa ou dolo. 5.4. Observados os termos e as condições do presente Anexo Descritivo A, a verificação do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 5.5. A validação pela Gestora dos Critérios de Elegibilidade ocorrerá, exclusivamente, através das informações disponibilizadas pelo Cedente, conforme aplicável. 5.6."
+    }
+   ],
+   "legacy": {
+    "value": "Saldo por devedor ≤ R$ 120 mil na aquisição",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Banco Votorantim",
+   "sources": [],
+   "legacy": {
+    "value": "Saldo por devedor ≤ R$ 120 mil na aquisição",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Vencimento limitado à série sênior mais longa, sem prazo fixo",
+   "sources": [],
+   "legacy": {
+    "value": "CCB prefixada e adimplente; vencimento até a série sênior mais longa",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios; 67% para fins tributários",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "“Agente Operador do A Caixa Econômica Federal; FGTS”: “Alocação Mínima”: A alocação de, ao menos, 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM nº 175; “Alocação Mínima A alocação de, ao menos, 67% (sessenta e sete por cento) do Tributária”: Patrimônio Líquido em Direitos Creditórios, nos termos dos artigos 18, 19 e 24 da Lei nº 14.754/23, para fins de enquadramento do Fundo e da Classe A como Entidade de Investimento sujeita ao Regime Específico dos Fundos Não 10/88 Corporativo | Interno Sujeitos à Tributação Periódica; “ANBIMA”: A Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; “Anexo Descritivo A”: O anexo descritivo desta Classe A, que rege o seu funcionamento de modo complementar ao disciplinado no Regulamento."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50% do PL regulatório; 67% para enquadramento tributário",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "Tesouraria, Controladoria Custodiante. e Escrituração A Classe A é constituída por 3 (três) subclasses de Cotas, quais Subclasses sejam: Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Juniores. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o regime de distribuição, seguirão o disposto Emissão e Regime de no respectivo Apêndice de Cotas e no instrumento que aprova Distribuição de Cotas a emissão de Cotas, sendo certo que não haverá direito de preferência dos Cotistas na aquisição de eventuais novas Cotas que venham a ser emitidas. Capital Autorizado Não há. As Cotas ofertadas publicamente serão depositadas para distribuição no mercado primário e para negociação no mercado secundário em ambiente de bolsa de valores ou Negociação entidade do mercado de balcão organizado."
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/04/2025, p. 18"
+   }
+  },
+  "sub_senior": {
+   "display": "10% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "9.11. A Classe A deverá observar a Razão de Garantia de 10% (dez por cento). Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe A deve ser representado pela soma do valor total das Cotas Subordinadas em circulação (“Índice de Subordinação”). 9.12. A Classe A deverá observar a Razão de Garantia Mezanino de 5% (cinco por cento)."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/04/2025, p. 38"
+   }
+  },
+  "sub_mezz": {
+   "display": "5% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "9.11. A Classe A deverá observar a Razão de Garantia de 10% (dez por cento). Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe A deve ser representado pela soma do valor total das Cotas Subordinadas em circulação (“Índice de Subordinação”). 9.12. A Classe A deverá observar a Razão de Garantia Mezanino de 5% (cinco por cento)."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração dos índices não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 5%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para despesas e reserva de liquidez",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 43,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "12.1. Sem prejuízo da Reserva de Liquidez, a Classe A deverá, desde a Data de Subscrição Inicial de Cotas Seniores e de Cotas Subordinadas Mezanino, constituir e manter uma reserva de caixa, constituída por Disponibilidades, em montante equivalente a 03 (três) meses de despesas estimadas da Classe A, com tais valores devendo ser apurados pela Administradora no último Dia Útil de cada mês (“Reserva de Caixa”). 12.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas + liquidez de 1% do PL, limitada a R$ 5 mi",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/04/2025, p. 43"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 51,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "a na cessão respectiva, , de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas da Administradora, este último disponível na sua página na rede mundial de computadores. 18.3 Caso os Direitos Creditórios Inadimplidos, bem como eventuais multas sejam, de alguma forma, recuperados após o provisionamento ou contabilização de perdas acima referido, tais valores serão destinados exclusiva e integralmente à carteira da Classe A, e o Custodiante deverá então reverter a provisão ou os prejuízos, conforme o caso. 18.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Arrecadação abaixo de 93% ou atraso acima de 10%, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 41,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "a data de amortização imediatamente subsequente à verificação do desenquadramento; (xv) caso o Índice de Arrecadação foi inferior à 93% (noventa e três por cento) em 2 (duas) Datas de Verificação nos últimos 12 (doze) meses; (xvi) caso o Índice de Atraso foi superior à 10% (dez por cento) em uma Data de Verificação; e (xvi) na hipótese de declaração da invalidade, nulidade ou ineficácia do Contrato de Cessão por ordem judicial e/ou por qualquer autoridade governamental. 10.2. Na ocorrência de quaisquer dos Eventos de Avaliação, a Administradora, independentemente de qualquer procedimento adicional, deverá (i) suspender imediatamente o pagamento de qualquer parcela de amortização de Cotas em andamento, se houver, e os procedimentos de aquisição de Direitos Creditórios; e (ii) convocar, no prazo de 5 (cinco) dias contados da ocorrência de quaisquer dos Eventos de Avaliação, uma Assembleia Especial de Cotistas para decidir se o Evento de Avaliação constitui um Evento de Liquidação. 10.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "deste Anexo Descritivo A e da regulamentação aplicável. 10. EVENTOS DE AVALIAÇÃO 10.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à Gestora comunicar à Administradora para convocar uma Assembleia Especial de Cotistas para deliberar sobre a continuidade da Classe A ou sua liquidação antecipada e consequente definição do cronograma de pagamentos aos Cotistas (cada um, um “Evento de Avaliação”): (i) caso aplicável, o rebaixamento da classificação de risco de qualquer Série de Cotas Seniores ou Subordinadas Mezanino em circulação em 2 (dois) níveis abaixo da classificação de risco em vigor, excetuando-se as hipóteses de rebaixamento da classificação de risco em razão de alteração/substituição da Agência de Classificação de Risco da Classe A;"
+    }
+   ],
+   "legacy": {
+    "value": "Arrecadação < 93% em 2 datas/12 meses; atraso > 10% em uma data",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/04/2025, p. 41"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Arrecadação < 93% em 2 datas/12 meses; atraso > 10% em uma data",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não trata de revolvência explicitamente",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Ordem: despesas, reservas, sênior, mezanino e júnior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 44,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "6) após o pagamento integral da amortização das Cotas Seniores, pagamento de amortização de principal e/ou rendimentos das Cotas Subordinadas Mezanino; 7) após o pagamento integral da amortização das Cotas Subordinadas Mezanino, pagamento de amortização de principal e/ou rendimentos das Cotas Subordinadas Juniores da Classe A; e 8) eventual recurso remanescente será distribuído entre as Cotas Seniores e, caso tenha sido solicitada a amortização das Cotas"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas/derivativos → reservas → sênior → mezanino → júnior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "Percentual por faixa de PL; mín. R$ 15,5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 33,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "controladoria e escrituração, a Classe A pagará à Administradora uma Taxa de Administração de acordo com as respectivas faixas de Patrimônio Líquido da Classe A, conforme tabela abaixo, observado o montante mínimo mensal de R$ 15.500,00 (quinze mil e quinhentos reais) para o Administrador e para o Custodiante (“Taxa de Administração”): Patrimônio Líquido da Classe A Taxa do Administrador (% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,13%/0,11%/0,08% a.a. por faixa de PL; mínimo R$ 15,5 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/04/2025, p. 33"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Percentual por faixa de PL; mín. R$ 7 mil/mês, mais tributos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 34,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "Classe A, conforme tabela abaixo, observado o montante mínimo mensal de R$ 7.000,00 (sete mil reais) (“Taxa de Gestão”): Patrimônio Líquido da Classe A Taxa de Gestão (% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,42%/0,44%/0,40% a.a. por faixa de PL; mínimo R$ 7 mil/mês + tributos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/04/2025, p. 34"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "(respectivamente, “CVM” e “Resolução CVM nº 175”), terá como principais características: Prazo de Duração Indeterminado. BANCO DAYCOVAL S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, por meio do Ato ADMINISTRADORA Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou sua sucessora a qualquer título (“Administradora”). ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "ou sua sucessora a qualquer título (“Administradora”). ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº 09.452.272/0001-05, devidamente autorizada pela CVM para o GESTORA exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 9.837, de 14 de maio de 2008 (“Gestora” e, quando referido conjuntamente e indistintamente com a Administradora, os “Prestadores de Serviços Essenciais”). Foro Aplicável Foro da Cidade de São Paulo, Estado de São Paulo. Encerramento do Último Dia Útil do mês de setembro de cada ano. Exercício Social"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "Tem o significado que lhe é atribuído neste Anexo Descritivo A; Elegibilidade”: “Custodiante”: O BANCO DAYCOVAL S.A., acima qualificado; “CVM”: A Comissão de Valores Mobiliários; “Data de Adaptação”: 07 de outubro de 2024, data em que o Fundo foi adaptado para a regras previstas na Resolução CVM nº 175; “Data de Aquisição”: Cada Data de Aquisição de Direitos Creditórios Elegíveis pela Classe A; “Data de Subscrição A data da primeira integralização de Cotas da Classe A; Inicial”: “Data de Verificação”: É todo o último Dia Útil de cada mês calendário; “Declarações de Tem o significado que lhe é atribuído neste Anexo Descritivo A;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Banco Votorantim (cedente), como agente de cobrança",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "aplicável, é a agência classificadora de risco das de Risco”: Cotas; “Agente de Cobrança”: O Cedente ou seu sucessor a qualquer título, que atuará (i) no auxílio à cobrança ordinários dos Direitos Creditórios cedidos; e (ii) na cobrança extraordinária dos Direitos Creditórios Inadimplidos; “Agente Operador do A Caixa Econômica Federal; FGTS”: “Alocação Mínima”: A alocação de, ao menos, 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM nº 175;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "que poderão ser emitidas e assinadas por meio eletrônico; “Cedente”: O BANCO VOTORANTIM S.A., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Avenida das Nações Unidas, nº 14.171, Torre A, 18º andar, CEP 04794-000, inscrita no CNPJ sob o nº 59.588.111/0001-03, ou seu sucessor a qualquer título; “Cessão Fiduciária”: A Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saque-Aniversário, nos termos do artigo 20-D, §3º da Lei nº 8.036, da Resolução CCFGTS 958 e do artigo 66-B da Lei 4.728, que garantirá o pagamento dos Direitos Creditórios devidos pelo respectivo Devedor;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "dade e liquidez dos títulos componentes de sua Carteira. Público-Alvo Investidores Profissionais. Responsabilidades dos Responsabilidade Limitada, nos termos da Resolução CVM nº Cotistas 175. Custódia Custodiante. Tesouraria, Controladoria Custodiante. e Escrituração A Classe A é constituída por 3 (três) subclasses de Cotas, quais Subclasses sejam: Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Juniores. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o regime de distribuição, seguirão o disposto Emissão e Regime de no respectivo Apêndice de Cotas e no instrumento que aprova Distribuição de Cotas a emissão de Cotas, sendo certo que não haverá direito de preferência dos Cotistas na aquisição de eventuais novas"
+    }
+   ],
+   "legacy": {
+    "value": "Fechado; indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "(respectivamente, “CVM” e “Resolução CVM nº 175”), terá como principais características: Prazo de Duração Indeterminado. BANCO DAYCOVAL S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, por meio do Ato ADMINISTRADORA Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou sua sucessora a qualquer título (“Administradora”). ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº"
+    }
+   ],
+   "legacy": {
+    "value": "Fechado; indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Cessão fiduciária do saque-aniversário, parcial ou total",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1025473",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/04/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+     "excerpt": "Devedores possuem aos Saque-Aniversário, nos termos do artigo 20-D, §3º da Lei nº 8.036, da Resolução CCFGTS 958 e do artigo 66-B da Lei 4.728, que garantirá o pagamento dos Direitos Creditórios devidos pelo respectivo Devedor;"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão fiduciária do saque-aniversário, parcial ou total",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa idade do devedor",
+   "sources": [],
+   "legacy": {
+    "value": "CCB prefixada e adimplente; vencimento até a série sênior mais longa",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Regulamento não fixa parcela mínima",
+   "sources": [],
+   "legacy": {
+    "value": "CCB prefixada e adimplente; vencimento até a série sênior mais longa",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "CCBs de saque-aniversário FGTS do Banco Votorantim; subordinação de 10% (júnior ≥ 5%) e devedor até R$ 120 mil.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
