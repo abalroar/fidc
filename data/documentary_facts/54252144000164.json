@@ -1,0 +1,787 @@
+{
+ "schema_version": 1,
+ "cnpj": "54252144000164",
+ "name": "J17 FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FINANCEIRO - RESPONSABILIDADE LIMITADA",
+ "fund_type": "FGTS",
+ "reviewed_at": "2026-10-14T01:19:39Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1223382",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "08/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382"
+  },
+  "D2": {
+   "document_id": "1075648",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "30/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1075648"
+  },
+  "D3": {
+   "document_id": "939658",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "03/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=939658"
+  },
+  "D4": {
+   "document_id": "893915",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "04/05/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=893915"
+  },
+  "D5": {
+   "document_id": "771582",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "08/03/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=771582"
+  },
+  "D6": {
+   "document_id": "1072289",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "29/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072289"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FGTS",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de antecipação do saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 49,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "tórios performados oriundos de operações de empréstimo pessoal, formalizadas por CCBs emitidas por Devedores em favor do Credor Original, e garantidas por cessão fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei 8.036 e da Resolução CCFGTS 958 ou qualquer outro normativo que venha a substituí-la. \"Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Adquiridos\" Classe. \"Direitos Creditórios Significam os Direitos Creditórios que atendam aos Elegíveis\" respectivos Critérios de Elegibilidade e às Condições de Transferência estabelecidos no Capítulo Quinto deste Anexo Descritivo, bem como os demais termos e condições da Política de Investimento. 55 Clicksign 6380746d-cc37-4351-afd4-a65ea33b1e38 \"Direitos Creditórios Signif"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de antecipação de saque-aniversário FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "J17, credor original pela plataforma J17",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1072289",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "29/12/2025",
+     "page": 51,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072289",
+     "excerpt": "\"Credor Original\" Significa a J17. \"Critérios de Significam os critérios de elegibilidade a serem verificados Elegibilidade\" pelo Gestor em cada Data de Aquisição, conforme descritos no Capítulo Quinto deste Anexo Descritivo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 44,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "normativos do Governo Federal. \"Cedente\" Significa a J17 e, apenas para as Aquisições Iniciais, o Metropolitana FIDC-NP. \"Classe\" ou \"Classe Única\" Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. \"Condições de Significam as condições de transferência a serem verificadas e Transferência\" validadas pelo Consultor Especializado, em cada Data de Aquisição, conforme descritas no Capítulo Quinto deste Anexo Descritivo. \"Condições Para Emissão Significam as seguintes condições para que sejam realizadas de Novas Cotas\" emissões de novas Cotas Seniores, Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Júnior, exceto quando se tratar da 1ª Emissão de Cotas da Classe, na qual as características e condições serão aprovadas e est"
+    }
+   ],
+   "legacy": {
+    "value": "J17, credor original; originação na Plataforma J17",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "J17 (e Metropolitana FIDC-NP nas aquisições iniciais)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 44,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "normativos do Governo Federal. \"Cedente\" Significa a J17 e, apenas para as Aquisições Iniciais, o Metropolitana FIDC-NP. \"Classe\" ou \"Classe Única\" Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. \"Condições de Significam as condições de transferência a serem verificadas e Transferência\" validadas pelo Consultor Especializado, em cada Data de Aquisição, conforme descritas no Capítulo Quinto deste Anexo Descritivo. \"Condições Para Emissão Significam as seguintes condições para que sejam realizadas de Novas Cotas\" emissões de novas Cotas Seniores, Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Júnior, exceto quando se tratar da 1ª Emissão de Cotas da Classe, na qual as características e condições serão aprovadas e est"
+    }
+   ],
+   "legacy": {
+    "value": "J17, credor original; originação na Plataforma J17",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Titulares de FGTS optantes do saque-aniversário",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 71,
+     "clause": "Anexo VIII, cl. 5.27",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "s Cedentes ou suas partes relacionadas. CRITÉRIOS DE ELEGIBILIDADE 5.27. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, inclusive atendimento às Condições de Transferência, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) o Direito Creditório não deve estar vencido e pendente de pagamento na Data de Aquisição; (ii) o Direito Creditório deve ser devido por pessoas físicas titulares de contas vinculadas do FGTS e que estejam com a opção da modalidade de Saque Aniversário vigente na data da contratação do empréstimo e emissão de CCBs, e que figurem na qualidade de emissores das CCBs e portanto devedores dos Direitos Creditórios; (iii) a data de vencimento da 1ª (primeira) parcela dos Direitos Creditórios deve ocorrer dentro de, no máximo, 365 (trezentos e sessenta e cinco) dias corridos contados da respectiva Data de Aquisição; (iv) o fluxo de pagamento de principal e de juros dos Direitos Creditórios deve ser anual e sem carência;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física titular de conta FGTS e optante pelo saque-aniversário",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de transferência",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Não vencido; devedor titular de FGTS com saque-aniversário; prazo e duration",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 71,
+     "clause": "Anexo VIII, cl. 5.27",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "s Cedentes ou suas partes relacionadas. CRITÉRIOS DE ELEGIBILIDADE 5.27. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, inclusive atendimento às Condições de Transferência, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) o Direito Creditório não deve estar vencido e pendente de pagamento na Data de Aquisição; (ii) o Direito Creditório deve ser devido por pessoas físicas titulares de contas vinculadas do FGTS e que estejam com a opção da modalidade de Saque Aniversário vigente na data da contratação do empréstimo e emissão de CCBs, e que figurem na qualidade de emissores das CCBs e portanto devedores dos Direitos Creditórios; (iii) a data de vencimento da 1ª (primeira) parcela dos Direitos Creditórios deve ocorrer dentro de, no máximo, 365 (trezentos e sessenta e cinco) dias corridos contados da respectiva Data de Aquisição; (iv) o fluxo de pagamento de principal e de juros dos Direitos Creditórios deve ser anual e sem carência;"
+    },
+    {
+     "doc": "D6",
+     "document_id": "1072289",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "29/12/2025",
+     "page": 74,
+     "clause": "Anexo VIII, cl. 5.27",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072289",
+     "excerpt": "pelo Fundo, em benefício da Classe, não poderá ser superior a 144 (cento e quarenta e quatro) meses contados a partir da Data de Aquisição; (vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o duration da carteira de Direitos Creditórios da Classe não poderá ser inferior a 24 (vinte e quatro) meses nem superior a 36 (trinta e seis) meses; (vii) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB;"
+    }
+   ],
+   "legacy": {
+    "value": "Adimplente; prazo 15 dias a 144 meses; duration da carteira 24–36 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/06/2026, Anexo VIII, cl. 5.27"
+   }
+  },
+  "debtor_limit": {
+   "display": "Valor de face por devedor ≤ R$ 100 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 70,
+     "clause": "Anexo VIII, cl. 5.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "abelecido em contrário, os quais devem ser observados ao longo do prazo de duração da Classe. 5.21. O Limite de Concentração em Direitos Creditórios de um mesmo Devedor e pessoas coobrigadas (incluindo-se seu respectivo Grupo Econômico) a qualquer tempo deverá ser de, no máximo, R$ 100.000,00 (cem mil reais). 5.22. Em razão da vedação prevista no item 5.5.1 acima, não há previsão de Limite de Concentração em Direitos Creditórios originados ou cedidos pelo Administrador, Custodiante, Gestor e suas partes relacionadas. 5.23. O Limite de Concentração em Ativos Financeiros de emissão ou que envolvam retenção de risco por parte do Administrador, Gestor e suas partes relacionadas, com a finalidade exclusiva de realizar a gestão de caixa e liquidez do Fundo, poderá ser de até 33% (trinta e três por cento) do Patrimônio Líquido da Classe. 5.24. A Classe poderá realizar operações com derivativos com o objetivo de proteção patrimonial, ou, desde que não resulte em exposição a risco de capital, para troca de indexador a que os ativos estão indexados e o índice de referência de cada Subclasse, nos termos da política de hedge prevista no Anexo VII. 5.25."
+    }
+   ],
+   "value": 100000.0,
+   "legacy": {
+    "value": "Valor de face por devedor ≤ R$ 100 mil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente principal J17",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 44,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "normativos do Governo Federal. \"Cedente\" Significa a J17 e, apenas para as Aquisições Iniciais, o Metropolitana FIDC-NP. \"Classe\" ou \"Classe Única\" Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. \"Condições de Significam as condições de transferência a serem verificadas e Transferência\" validadas pelo Consultor Especializado, em cada Data de Aquisição, conforme descritas no Capítulo Quinto deste Anexo Descritivo. \"Condições Para Emissão Significam as seguintes condições para que sejam realizadas de Novas Cotas\" emissões de novas Cotas Seniores, Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Júnior, exceto quando se tratar da 1ª Emissão de Cotas da Classe, na qual as características e condições serão aprovadas e est"
+    }
+   ],
+   "legacy": {
+    "value": "Valor de face por devedor ≤ R$ 100 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/06/2026, Anexo VIII"
+   }
+  },
+  "term_max": {
+   "display": "Até 144 meses; duration da carteira limitada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 72,
+     "clause": "Anexo VIII, cl. 5.27",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "vencimento, individualmente, de cada Direito Creditório adquirido pelo Fundo, em benefício da Classe, não poderá ser superior a 144 (cento e quarenta e quatro) meses contados a partir da Data de Aquisição; (vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o duration da carteira de Direitos Creditórios da Classe não poderá ser inferior a 24 (vinte e quatro) meses nem superior a 36 (trinta e seis) meses; (vii) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; (viii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ix) os Direitos Creditórios não estejam vencidos na respectiva Data de Aquisição e Pagamento e nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor; (x) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos Direitos Creditórios Adquiridos;"
+    }
+   ],
+   "legacy": {
+    "value": "Adimplente; prazo 15 dias a 144 meses; duration da carteira 24–36 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/06/2026, Anexo VIII, cl. 5.27"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": []
+  },
+  "quota_structure": {
+   "display": "Sênior e mezanino por séries / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 109,
+     "clause": "Anexo VIII, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "o Líquido da Classe) 10.1. Desde a 1ª Data de Integralização de Cotas Seniores até a última Data de Resgate, o Índice de Subordinação Sênior deverá ser igual ou superior a 15% (quinze por cento) de seu Patrimônio Líquido (\"Índice de Subordinação Mínimo Sênior\"). 10.2. Desde a 1ª Data de Integralização de Cotas Subordinadas Mezanino até a última Data de Resgate, o Índice de Subordinação Mezanino deverá ser igual ou superior a 5% (cinco por cento) de seu Patrimônio Líquido (\"Índice de Subordinação Mínimo Mezanino\"). 10.3. Sem prejuízo do Índice de Subordinação Mínimo, a Gestora deverá buscar manter níveis alvo de subordinação de 15% para Cotas Seniores e 5% para Cotas Subordinadas Mezanino. 10.4."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 109,
+     "clause": "Anexo VIII, cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "10.2. Desde a 1ª Data de Integralização de Cotas Subordinadas Mezanino até a última Data de Resgate, o Índice de Subordinação Mezanino deverá ser igual ou superior a 5% (cinco por cento) de seu Patrimônio Líquido (\"Índice de Subordinação Mínimo Mezanino\"). 10.3. Sem prejuízo do Índice de Subordinação Mínimo, a Gestora deverá buscar manter níveis alvo de subordinação de 15% para Cotas Seniores e 5% para Cotas Subordinadas Mezanino. 10.4. Caso o Índice de Subordinação seja inferior ao Índice de Subordinação Mínimo, o Gestor deverá comunicar imediatamente o Administrador, e esta deverá comunicar aos titulares de Cotas Subordinadas para que decidam se realizarão aporte adicional de recursos para o reenquadramento da Classe ao Índice de Subordinação Mínimo, mediante a emissão, subscrição e integralização de novas Cotas Subordinadas. 115 Clicksign 6380746d-cc37-4351-afd4-a65ea33b1e38 10.4.1."
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 15%; júnior/PL ≥ 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/06/2026, Anexo VIII, cl. 10.1"
+   }
+  },
+  "sub_senior": {
+   "display": "15% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 109,
+     "clause": "Anexo VIII, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "o Líquido da Classe) 10.1. Desde a 1ª Data de Integralização de Cotas Seniores até a última Data de Resgate, o Índice de Subordinação Sênior deverá ser igual ou superior a 15% (quinze por cento) de seu Patrimônio Líquido (\"Índice de Subordinação Mínimo Sênior\"). 10.2. Desde a 1ª Data de Integralização de Cotas Subordinadas Mezanino até a última Data de Resgate, o Índice de Subordinação Mezanino deverá ser igual ou superior a 5% (cinco por cento) de seu Patrimônio Líquido (\"Índice de Subordinação Mínimo Mezanino\"). 10.3. Sem prejuízo do Índice de Subordinação Mínimo, a Gestora deverá buscar manter níveis alvo de subordinação de 15% para Cotas Seniores e 5% para Cotas Subordinadas Mezanino. 10.4."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 15%; júnior/PL ≥ 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/06/2026, Anexo VIII, cl. 10.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "5% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 109,
+     "clause": "Anexo VIII, cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "10.2. Desde a 1ª Data de Integralização de Cotas Subordinadas Mezanino até a última Data de Resgate, o Índice de Subordinação Mezanino deverá ser igual ou superior a 5% (cinco por cento) de seu Patrimônio Líquido (\"Índice de Subordinação Mínimo Mezanino\"). 10.3. Sem prejuízo do Índice de Subordinação Mínimo, a Gestora deverá buscar manter níveis alvo de subordinação de 15% para Cotas Seniores e 5% para Cotas Subordinadas Mezanino. 10.4. Caso o Índice de Subordinação seja inferior ao Índice de Subordinação Mínimo, o Gestor deverá comunicar imediatamente o Administrador, e esta deverá comunicar aos titulares de Cotas Subordinadas para que decidam se realizarão aporte adicional de recursos para o reenquadramento da Classe ao Índice de Subordinação Mínimo, mediante a emissão, subscrição e integralização de novas Cotas Subordinadas. 115 Clicksign 6380746d-cc37-4351-afd4-a65ea33b1e38 10.4.1."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Desde a 1ª integralização até o último resgate",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 109,
+     "clause": "Anexo VIII, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "o Líquido da Classe) 10.1. Desde a 1ª Data de Integralização de Cotas Seniores até a última Data de Resgate, o Índice de Subordinação Sênior deverá ser igual ou superior a 15% (quinze por cento) de seu Patrimônio Líquido (\"Índice de Subordinação Mínimo Sênior\"). 10.2. Desde a 1ª Data de Integralização de Cotas Subordinadas Mezanino até a última Data de Resgate, o Índice de Subordinação Mezanino deverá ser igual ou superior a 5% (cinco por cento) de seu Patrimônio Líquido (\"Índice de Subordinação Mínimo Mezanino\"). 10.3. Sem prejuízo do Índice de Subordinação Mínimo, a Gestora deverá buscar manter níveis alvo de subordinação de 15% para Cotas Seniores e 5% para Cotas Subordinadas Mezanino. 10.4."
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 15%; júnior/PL ≥ 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 08/06/2026, Anexo VIII, cl. 10.1"
+   }
+  },
+  "reserve": {
+   "display": "3 meses de despesas; reserva adicional para MTM de derivativos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1072289",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "29/12/2025",
+     "page": 60,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072289",
+     "excerpt": "\"Reserva de Despesas de Significa a reserva equivalente a, no mínimo, 3 (três) meses de Encargos\" despesas e encargos da Classe, a ser constituída e controlada pelo Administrador, para fins de cobertura dos encargos e despesas da Classe, observado o disposto no item 9.12 deste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas; reserva adicional para MTM dos derivativos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Provisão por devedor com efeito vagão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 146,
+     "clause": "Anexo VIII, cl. 14.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "da do respectivo Devedor, em decorrência da situação e monitoramento do crédito inadimplente. 14.7. A provisão para Devedores duvidosos atingirá os demais créditos do mesmo Devedor, ou seja, ocorrerá o chamado \"efeito vagão\". CAPÍTULO QUINZE – DIVULGAÇÃO DE INFORMAÇÕES 15. Divulgação de Fatos Relevantes. O Administrador é obrigado a divulgar, ampla e imediatamente, qualquer ato ou fato relevante relativo à Classe, por meio de comunicado enviado aos Cotistas da Classe Única, de modo a garantir aos Cotistas acesso às informações que possam, direta ou indiretamente, influir em suas decisões de adquirir, alienar ou manter 152 Clicksign 6380746d-cc37-4351-afd4-a65ea33b1e38 suas Cotas, se for o caso, observado que é responsabilidade dos demais prestadores de serviços, especialmente do Gestor, informar imediatamente ao Administrador sobre os fatos relevantes que venham a ter conhecimento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no texto extraído",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "Lista do item 11.7, além das hipóteses legais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 118,
+     "clause": "Anexo VIII, cl. 11.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "e Capítulo. 11.7. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: I- se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; II - se o Patrimônio Líquido da Classe se tornar igual ou inferior à soma do valor de todas as Cotas Seniores; III - se, durante 90 (noventa) dias consecutivos (incluindo os primeiros 3 (três) meses de operação da Classe), o Patrimônio Líquido diário médio for inferior a R$ 1.000.000,00 (um milhão de reais); IV - nos casos em que houver determinação da CVM, nos termos previstos na Resolução CVM 175/22; e V- não substituição dos prestadores de serviço do Fundo e/ou da Classe, no caso de renúncia e/ou destituição do respectivo prestador de serviço, nos termos estipulados no Regulamento, neste Anexo Descritivo e nos respectivos contratos de prestação de serviço;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência até o fim do período de investimento da 3ª série sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 66,
+     "clause": "Anexo VIII, cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "bilidade aos Cotistas por parte do Fundo, do Administrador, do Gestor e/ou do Custodiante. 5.3. A Classe adotará estratégia de revolvência dos Direitos Creditórios apenas até o final do Período de Investimento das Cotas Seniores da 3ª (terceira) série, de forma que novos Direitos Creditórios poderão ser adquiridos pela Classe utilizando recursos oriundos da liquidação dos Direitos Creditórios Adquiridos apenas até tal data, observada ainda a Ordem de Alocação de Recursos e o disposto no item 9.15 abaixo. 5.4. A Classe deverá, para fins da Resolução CVM 175/22, ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da 1ª Data de Integralização das Cotas da Classe Única. 5.5. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisições revolventes até fim do investimento da 3ª série sênior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Mensal após a carência, conforme suplementos",
+   "sources": [],
+   "legacy": {
+    "value": "Mensal no 5º DU após carência; investimento de 6/7 meses por suplemento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,01% a.a. do PL; mín. R$ 1 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 64,
+     "clause": "Anexo VIII, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": ": a) Taxa de Administração. Pelos serviços a serem desempenhados pelo Administrador, será devida pela Classe Única a taxa de administração equivalente a 0,01% a.a. (um centésimo por cento ao ano), incidente sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 1.000,00 (mil reais); b) Taxa de Gestão. Pelos serviços a serem desempenhados pelo Gestor, será devida pela Classe Única a taxa de gestão equivalente a 0,10% a.a. (dez décimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, respeitando o valor mínimo mensal de R$ 8.500,00 (oito mil e quinhentos reais), corrigidos anualmente pela variação positiva do Índice Nacional de Preços ao Consumidor Amplo – IPCA divulgado pelo Instituto Brasileiro de Geografia e Estatística – IBGE ou, na sua falta, pelo índice que vier a substituí-lo; c) Taxa Máxima de Custódia."
+    }
+   ],
+   "legacy": {
+    "value": "0,01% a.a. do PL; mínimo R$ 1 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,10% a.a. do PL; mín. R$ 8,5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 64,
+     "clause": "Anexo VIII, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "ensal de R$ 1.000,00 (mil reais); b) Taxa de Gestão. Pelos serviços a serem desempenhados pelo Gestor, será devida pela Classe Única a taxa de gestão equivalente a 0,10% a.a. (dez décimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, respeitando o valor mínimo mensal de R$ 8.500,00 (oito mil e quinhentos reais), corrigidos anualmente pela variação positiva do Índice Nacional de Preços ao Consumidor Amplo – IPCA divulgado pelo Instituto Brasileiro de Geografia e Estatística – IBGE ou, na sua falta, pelo índice que vier a substituí-lo; c) Taxa Máxima de Custódia. Pelos serviços a serem desempenhados pelo Custodiante, será devida pela Classe Única a taxa máxima de custódia equivalente a 0,14% (quatorze centésimos por cento ao ano), incidente sobre o Patrimônio Líquido do Fundo, oberservado o valor mínimo mensal de R$ 16.000,00 (dezesseis mil reais); d) Remuneração do Consultor Especializado."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a. do PL; mínimo R$ 8,5 mil/mês; IPCA anual positivo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + 2,50% a 1,40% a.a. (séries I a IV)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1072289",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "29/12/2025",
+     "page": 156,
+     "clause": "Anexo VIII, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072289",
+     "excerpt": "zação composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de uma sobretaxa de 2,50% (dois inteiros e cinquenta centésimos por cento) a.a. observado que esse percentual será acrescido de 1,00% (um inteiro por cento) ao mês caso a Meta de Remuneração esperada não seja paga aos Cotistas na respectiva Data de Pagamento (a partir da respectiva Data de Pagamento até o efetivo pagamento da Meta de Remuneração atrasada, quando voltará a ser de 2,50% (dois inteiros e 156 cinquenta centésimos por cento) a.a, sem prejuízo do disposto no item 11, inciso (v) do Anexo Descritivo). Período de Investimento: 6 (seis) meses a partir da 1ª Data de Integralização das Cotas Seniores da 2ª (segunda) série. Datas de Pagamento: Todo 5º (quinto) Dia Útil de cada mês, sendo observada a carência durante o Período de Investimento."
+    },
+    {
+     "doc": "D6",
+     "document_id": "1072289",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "29/12/2025",
+     "page": 165,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072289",
+     "excerpt": "zação composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de uma sobretaxa de 1,40% (um inteiro e quarenta centésimos por cento) a.a. observado que esse percentual será acrescido de 1,00% (um inteiro por 165 cento) ao mês caso a Meta de Remuneração esperada não seja paga aos Cotistas na respectiva Data de Pagamento (a partir da respectiva Data de Pagamento até o efetivo pagamento da Meta de Remuneração atrasada, quando voltará a ser de 1,40% (um inteiro e quarenta centésimos por cento) a.a, sem prejuízo do disposto no item 11, inciso (v) do Anexo Descritivo). Período de Investimento: 6 (seis) meses a partir da 1ª Data de Integralização das Cotas Seniores da 4ª Série. Datas de Pagamento: Todo 5º (quinto) Dia Útil de cada mês, sendo observada a carência durante o Período de Investimento."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior I–IV: DI + 2,50/2,00/2,00/1,40% a.a.; mezanino: +5,00/4,25/4,25/3,90%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/12/2025, Anexo VIII, cl. 7"
+   }
+  },
+  "target_mezz": {
+   "display": "DI + 5,00% a.a. na 1ª série, menor nas seguintes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1072289",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "29/12/2025",
+     "page": 170,
+     "clause": "Anexo VIII, cl. 10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072289",
+     "excerpt": "zação composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de uma sobretaxa de 5,00% (cinco inteiros por cento) a.a., observado que esse percentual será acrescido de 1,00% (um inteiro por cento) ao mês caso a Meta de Remuneração esperada não seja paga aos Cotistas na respectiva Data de Pagamento (a partir da respectiva Data de Pagamento até o efetivo pagamento da Meta de 170 Remuneração atrasada, quando voltará a ser de 5,00% (cinco inteiros por cento) a.a, sem prejuízo do disposto no item 11, inciso (v) do Anexo Descritivo). Período de Investimento: 6 (seis) meses a partir da 1ª Data de Integralização das Cotas Subordinadas Mezanino da 2ª (segunda) série. Datas de Pagamento: Todo 5º (quinto) dia útil do mês, observado o período de carência equivalente ao Período de Investimento."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior I–IV: DI + 2,50/2,00/2,00/1,40% a.a.; mezanino: +5,00/4,25/4,25/3,90%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/12/2025, Anexo VIII, cl. 10"
+   }
+  },
+  "administrator": {
+   "display": "Limine Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 5,
+     "clause": "Anexo VIII, cl. 1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "omo outras avenças. \"Administrador\" Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Doutor Cardoso de Melo, nº 1184, Conj. 91, 9º andar, CEP 04.548-004, Vila Olímpia, inscrita no CNPJ sob o nº. 24.361.690/0001-72, devidamente autorizada para tanto através do Ato Declaratório da CVM nº 16.206, de 08 de maio de 2018. \"Agência de Classificação Significa uma das seguintes agências de classificação de risco: de Risco\" (a) Standard & Poor’s, Ratings do Brasil Ltda.; (b) Fitch Ratings Brasil Ltda.; (c) Moody’s América Latina Ltda.;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Buriti Investimentos Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 9,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "ionalizado pela B3. \"Gestor\" Significa a BURITI INVESTIMENTOS GESTORA DE RECURSOS LTDA., inscrita no CNPJ sob o nº 44.696.473/0001-40, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Pedroso Alvarenga, 1.254, 4º andar, conj. 41, Itaim Bibi, CEP 04531-912, credenciada pela CVM para gestão de carteiras pelo Ato Declaratório CVM nº 20.002, de 26/07/2022. \"Instituições Financeiras Qualquer uma das seguintes instituições financeiras: Autorizadas\" (a) Banco Bradesco S.A.; (b) Banco Santander (Brasil) S.A.; 15 Clicksign 6380746d-cc37-4351-afd4-a65ea33b1e38 (c) Banco do Brasil S.A.; (d) Caixa Econômica Federal; (e) Itaú Unibanco S.A.;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Limine Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 5,
+     "clause": "Anexo VIII, cl. 1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "omo outras avenças. \"Administrador\" Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Doutor Cardoso de Melo, nº 1184, Conj. 91, 9º andar, CEP 04.548-004, Vila Olímpia, inscrita no CNPJ sob o nº. 24.361.690/0001-72, devidamente autorizada para tanto através do Ato Declaratório da CVM nº 16.206, de 08 de maio de 2018. \"Agência de Classificação Significa uma das seguintes agências de classificação de risco: de Risco\" (a) Standard & Poor’s, Ratings do Brasil Ltda.; (b) Fitch Ratings Brasil Ltda.; (c) Moody’s América Latina Ltda.;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 14,
+     "clause": "Anexo VIII, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "elo Código Civil, e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.2. O Fundo terá prazo de duração indeterminado, sendo que cada Classe, Subclasse e série de Cotas possuirá prazo de duração próprio, conforme descrito no respectivo Anexo Descritivo, Apêndice e Suplemento, conforme o caso. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.3. O patrimônio do Fundo será formado inicialmente pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices e Suplementos, os quais integram o presente Regulamento. 2.3.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Cessão fiduciária do saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1223382",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "08/06/2026",
+     "page": 49,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223382",
+     "excerpt": "tórios performados oriundos de operações de empréstimo pessoal, formalizadas por CCBs emitidas por Devedores em favor do Credor Original, e garantidas por cessão fiduciária da totalidade ou de parte dos direitos do Devedor aos Saques Aniversário, nos termos da Lei 8.036 e da Resolução CCFGTS 958 ou qualquer outro normativo que venha a substituí-la. \"Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Adquiridos\" Classe. \"Direitos Creditórios Significam os Direitos Creditórios que atendam aos Elegíveis\" respectivos Critérios de Elegibilidade e às Condições de Transferência estabelecidos no Capítulo Quinto deste Anexo Descritivo, bem como os demais termos e condições da Política de Investimento. 55 Clicksign 6380746d-cc37-4351-afd4-a65ea33b1e38 \"Direitos Creditórios Signif"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão fiduciária do saque-aniversário; lastro e bloqueio por contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Limite de idade não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplente; prazo 15 dias a 144 meses; duration da carteira 24–36 meses",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Valor mínimo de parcela não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplente; prazo 15 dias a 144 meses; duration da carteira 24–36 meses",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Antecipação de FGTS da J17 com 15% de subordinação e devedor ≤ R$ 100 mil; sênior entre DI + 2,50% e DI + 1,40%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
