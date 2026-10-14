@@ -1,0 +1,45 @@
+# Canaã FIAGRO (Genial Investimentos; Genial Gestão) — Classe I: imóveis rurais e títulos do agro
+type: Agro/FIAGRO
+q1: * "O objetivo da Classe I é a obtenção de renda e ganho de capital a serem auferidos mediante o investimento em ativos do agronegócio"
+q2: * "dos demais ativos mencionados nesta Política de Investimentos estará limitado a 49% (quarenta e nove por cento) do Patrimônio Líquido da Classe"
+q3: * "2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q4: * "3.1. GENIAL GESTÃO LTDA., inscrita CNPJ: 22.119.959/0001-83"
+q5: * "2.1. A Classe I é destinada a Investidores Qualificados"
+q6: * "Prazo de Duração 2.5. Indeterminado, sendo certo que as Subclasses terão suas Cotas amortizadas nos prazos determinados nos respectivos Apêndices"
+q7: * "2.6. A Classe I conta com 4 (quatro) Subclasses"
+q8: * "2.3.2 A Reserva de Caixa será verificada pelo Gestor mensalmente"
+q10: * "com taxa mínima total de 0,10% (dez centésimos"
+receivables: Imóveis rurais (aquisição e arrendamento), CRA, CRI, LCA e LCI do agro | q1
+agro_backing: Imóveis rurais arrendados e títulos do agronegócio | q1
+originator: — | FIAGRO de ativos-alvo; não há originador de recebíveis
+assignor: — | Não há cessão de direitos creditórios
+debtor: — | Exposição a arrendatários e emissores dos títulos
+recourse: — | Não aplicável a imóveis e títulos adquiridos
+eligibility: Imóveis rurais sem irregularidade ambiental; títulos do agronegócio | q1
+debtor_limit: Demais ativos (fora dos imóveis) limitados a 49% do PL | q2 | value=49
+assignor_limit: — | Não há cedentes
+term_max: — | Não aplicável
+allocation: n/d | Alocação mínima em imóveis não fixada em trecho contínuo
+quota_structure: Classe I com 4 subclasses | q7
+sub_senior: n/d | Proteção entre subclasses definida nos apêndices
+sub_mezz: n/d | Proteção entre subclasses definida nos apêndices
+sub_check: n/d | Periodicidade de apuração não localizada
+reserve: Reserva de caixa verificada mensalmente pelo gestor | q8
+pdd: — | Não aplicável a imóveis rurais
+eval_triggers: n/d | Eventos de avaliação não localizados em trecho contínuo
+liquidation: n/d | Eventos de liquidação não localizados em trecho contínuo
+revolving: — | Não aplicável
+amortization: Amortização das subclasses nos prazos dos apêndices | q6
+admin_fee: Taxa por faixa de PL, com taxa mínima total de 0,10% a.a. | q10
+mgmt_fee: n/d | Parcela do gestor incluída na taxa por faixa, sem trecho separado
+perf_fee: n/d | Taxa de performance, se houver, conforme anexo
+target_senior: n/d | Meta definida no apêndice de cada subclasse
+target_mezz: n/d | Meta definida no apêndice de cada subclasse
+administrator: Genial Investimentos Corretora de Valores | q3
+manager: Genial Gestão | q4
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: — | Não aplicável
+investors: Investidores qualificados | q5
+duration: Indeterminado (subclasses com prazos próprios) | q6
+collateral: — | Não aplicável a imóveis próprios
+leitura: FIAGRO de imóveis rurais arrendados e títulos do agro; demais ativos limitados a 49% do PL.
