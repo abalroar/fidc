@@ -1,0 +1,697 @@
+{
+ "schema_version": 1,
+ "cnpj": "55983705000168",
+ "name": "CRÉDITO UNIVERSITÁRIO IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Educacional",
+ "reviewed_at": "2026-10-14T08:03:24Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1149324",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "26/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324"
+  },
+  "D2": {
+   "document_id": "1296078",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "18/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1296078"
+  },
+  "D3": {
+   "document_id": "1170453",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "08/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1170453"
+  },
+  "D4": {
+   "document_id": "1158367",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "09/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1158367"
+  },
+  "D5": {
+   "document_id": "974385",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "18/08/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=974385"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Educacional",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Financiamento estudantil de serviços educacionais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 31,
+     "clause": "cl. 9.3.17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "/ou de patrimônio aos Cotistas. 9.3.17 Risco de Originação – Modificação de Créditos por Decisão Judicial. Os Direitos Creditórios são oriundos de contratos de financiamento de serviços educacionais, que podem eventualmente ter suas condições questionadas em juízo pelos respectivos Devedores, incluindo em razão dos juros e encargos decorrentes do financiamento. Não pode ser afastada a possibilidade de os Devedores lograrem êxito nas demandas ajuizadas. Nessa hipótese, os Direitos Creditórios podem ter seus valores reduzidos ou até ser anulados em decisão judicial, o que afetaria negativamente o patrimônio do Fundo. 9.3.18 Observância das Regras de Subordinação entre as Diferentes Subclasses de Cotas Para Efeitos de Amortização, Resgate e Distribuição de Rendimentos."
+    }
+   ],
+   "legacy": {
+    "value": "Crédito estudantil para matrículas e semestralidades; empréstimos/financiamentos e programas elegíveis.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Instituições de ensino, bancos e o FIDC Crédito Universitário III",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 112,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "da Lei nº 10.931, de 2 de agosto de 2004, conforme em vigor. “Cedentes” Significam, em conjunto, os Cedentes Instituições de Ensino, os Cedentes Bancos e o Cedente FIDC Crédito Universitário III “Cedentes Instituições Financeiras” As instituições financeiras que celebrarem, de tempos em tempos, (i) Contratos de Empréstimos com os Devedores para financiamento de serviços educacionais prestados pelas Instituições de Ensino e (ii) 111 Público Contratos de Cessão com o Fundo, com objetivo de ceder Direitos Creditórios, sendo certo que tais instituições financeiras não poderão participar do Fundo na qualidade de Cotistas. “Cedentes Instituições de Ensino” As instituições de e"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes bancos/instituições financeiras e instituições de ensino, conforme contrato; Pravaler presta gestão/originação operacional.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Instituições de ensino, bancos e o FIDC Crédito Universitário III",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 112,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "da Lei nº 10.931, de 2 de agosto de 2004, conforme em vigor. “Cedentes” Significam, em conjunto, os Cedentes Instituições de Ensino, os Cedentes Bancos e o Cedente FIDC Crédito Universitário III “Cedentes Instituições Financeiras” As instituições financeiras que celebrarem, de tempos em tempos, (i) Contratos de Empréstimos com os Devedores para financiamento de serviços educacionais prestados pelas Instituições de Ensino e (ii) 111 Público Contratos de Cessão com o Fundo, com objetivo de ceder Direitos Creditórios, sendo certo que tais instituições financeiras não poderão participar do Fundo na qualidade de Cotistas. “Cedentes Instituições de Ensino” As instituições de e"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes bancos/instituições financeiras e instituições de ensino, conforme contrato; Pravaler presta gestão/originação operacional.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Alunos das instituições de ensino, com devedores solidários",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 121,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "r primeiro “Data de Verificação” O último Dia Útil de cada mês calendário. “Devedores” Os alunos das Instituições de Ensino que tenham valores a pagar referentes aos Direitos Creditórios, nos termos dos Contratos de Empréstimo. “Devedores Cedidos” Significam os Devedores dos Direitos Creditórios efetivamente cedidos ao Fundo, nos termos dos respectivos Contratos de Cessão. “Devedores Solidários” Pessoas físicas que assumam, nos Contratos de Empréstimo, a responsabilidade solidária pela liquidação das obrigações dos Devedores contraídas em razão dos referidos Contratos de Empréstimo."
+    }
+   ],
+   "legacy": {
+    "value": "Alunos ou representantes, com devedor solidário nos contratos sujeitos à condição contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Cedente responde só por existência, autenticidade e formalização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 45,
+     "clause": "cl. 9.8.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "ciedades sob controle comum não respondem pelo pagamento dos Direitos Creditórios ou pela solvência dos Devedores. Cada Cedente é somente responsável, na Data de Aquisição e Pagamento, pela existência, autenticidade e correta formalização dos respectivos Direitos Creditórios, de acordo com o previsto no presente Regulamento e no respectivo Contrato de Cessão. Assim, na hipótese de inadimplência dos Direitos Creditórios, poderá haver impacto negativo no patrimônio e na rentabilidade do Fundo. 45 Público 9.8.9 Dação em Pagamento de Direitos Creditórios e Ativos Financeiros. No caso de liquidação antecipada do Fundo, a Assembleia Geral poderá deliberar pelo resgate das Cotas mediante dação em pagamento de Direitos Creditórios e de Ativos Financeiros. Ademais, os Cotistas Seniores dissidentes na Assembleia Geral que aprove que a ocorrência de determinado Evento de Avaliação não constitui Evento de Liquidação Antecipada e/ou a interrupção da liquidação antecipada do Fundo no caso de Evento de Liquidação Antecipada poderão optar por resgatar suas Cotas Seniores por meio de recebimento de Direitos Creditórios e de Ativos Financeiros."
+    }
+   ],
+   "legacy": {
+    "value": "Condições de cessão, resolução e recompra em contratos; vícios/culpa/dolo sujeitos a responsabilização.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Critérios próprios para as duas primeiras cessões e para as seguintes",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 57,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "SÃO 12.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios. (a) Critérios de Elegibilidade a serem observados exclusivamente em relação à primeira e segunda Data de Oferta de Direitos Creditórios: (i) do total de Direitos Creditórios ofertados ao Fundo, apenas 20% (vinte por cento) poderão estar vencidos e pendentes de pagamento, considerando, para fins deste critério de verificação e para fins de verificação do volume inadimplente, o valor presente dos Direitos Creditórios. Entende-se por Direito Creditório vencido e pendente de pagamento, qualquer título em atraso a partir do 1º (primeiro) dia após o seu vencimento. (b) Critérios de Elegibilidade a serem observados exclusivamente em relação às demais Datas de Oferta de Direitos Creditórios: (i) que a carteira do Fundo, em valor presente, tenha até 2% (dois por cento) de Direitos Creditórios com prazo máximo de vencimento superior a 4.000 (quatro mil) dias corridos contados de suas respectivas Datas de Aquisição e Pagamento, não excedendo o limite de 6.000 (seis mil) dias corridos;"
+    }
+   ],
+   "legacy": {
+    "value": "Primeiras duas cessões admitem até 20% vencidos (valor presente); cessões seguintes têm critérios próprios.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/03/2026, cl. 12.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: menor entre 0,5% do PL e R$ 800 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 58,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "57 Público dos seguintes valores contábeis: (a) o equivalente a 0,5% (zero vírgula cinco por cento) do Patrimônio Líquido, ou (b) R$ 800.000,00 (oitocentos mil reais) , observado o disposto no item 10.6. O valor presente líquido total de que trata este item será calculado de acordo com a fórmula a seguir: VPLndc= NDC1 + NDC2 + NDCn t1 t2 (1+i) (1+i) (1+i) tn Onde: VPLndc = Valor presente líquido dos Direitos Creditórios a serem adquiridos relativos a um determinado Devedor. NDC = Valor futuro, em sua respectiva data de vencimento, de cada novo Direito Creditório relativo a um determinado Devedor a ser adquirido pelo Fundo i = Taxa de desconto a ser utilizada na aquisição dos novos Direitos Creditórios em questão. t = Intervalo de tempo correspondente ao período entre a data de aquisição e a data de vencimento do novo Direito Creditório em questão, expressa na mesma unidade temporal que a taxa de desconto. 12.2 O enquadramento dos Direitos Creditórios que o Fundo p"
+    }
+   ],
+   "value": 0.5,
+   "legacy": {
+    "value": "Mesmo devedor/coobrigado até 20%/PL, sujeito às demais condições de cessão.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/03/2026, cl. 12.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Mesmo devedor/coobrigado até 20%/PL, sujeito às demais condições de cessão.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo dos contratos não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Primeiras duas cessões admitem até 20% vencidos (valor presente); cessões seguintes têm critérios próprios.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 110,
+     "clause": "cl. 25.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "Devedores recebidos diretamente em conta de titularidade do Fundo. “Alocação Mínima” Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Elegíveis. “Amortização de Principal” Valor calculado de acordo com o item 14.8 do Regulamento em relação a cada série de Cotas Seniores e Cotas Subordinadas Mezanino. “Amortização Extraordinária” Significa a amortização extraordinária das Cotas Subordinadas Júnior, que poderá ser realizada exclusivamente nos termos 109 Público previstos no Regulamento, em especial no Capítulo 15 e Capítulo 16. “ANBIMA” Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Anexo” Significa qualquer anexo a este Regulamento, os quais constituem parte integrante e inseparável do presente Reg"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL em DC elegíveis.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 67,
+     "clause": "cl. 13.7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "ntegralização de Cotas Seniores e de Cotas Subordinadas Mezanino, conforme aplicável, pelos Investidores Autorizados, o Índice de Cobertura não poderá ser inferior a 100% (cem por cento), considerando-se pro forma as integralizações a serem realizadas, conforme informações fornecidas pelo coordenador líder da Oferta Pública em questão. 13.7.1.1. Para fins de enquadramento da carteira do Fundo aos critérios acima previstos, em cada data de integralização de Cotas Seniores e de Cotas Subordinadas Mezanino pelos Investidores Autorizados, poderão ser emitidas Cotas Subordinadas Júnior pelo Fundo, as quais serão subscritas e integralizadas exclusivamente pela Gestora ou por outra entidade por ela indicada. 13.7.2. As Cotas serão subscritas e integralizadas pelo valor atualizado da Cota desde a 1ª Data de Integralização de Cotas da respectiva Subclasse ou série até o dia da efetiva integralização. 13.7.3. As Cotas serão integralizadas à vista, no ato da subscrição, ou mediante chamada de capital, a ser realizada pela Administradora, de acordo com orientação da Gestora, conforme definido no respectivo Apêndice, em moeda corrente nacional, por meio (i) da B3 (Balcão B3), caso as Cotas estejam custodiadas na B3 (Balcão B3);"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior, subordinadas mezanino e júnior; termos finais por série devem ser confirmados em apêndices.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "Índice de cobertura de no mínimo 100%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 67,
+     "clause": "cl. 13.7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "ntegralização de Cotas Seniores e de Cotas Subordinadas Mezanino, conforme aplicável, pelos Investidores Autorizados, o Índice de Cobertura não poderá ser inferior a 100% (cem por cento), considerando-se pro forma as integralizações a serem realizadas, conforme informações fornecidas pelo coordenador líder da Oferta Pública em questão. 13.7.1.1. Para fins de enquadramento da carteira do Fundo aos critérios acima previstos, em cada data de integralização de Cotas Seniores e de Cotas Subordinadas Mezanino pelos Investidores Autorizados, poderão ser emitidas Cotas Subordinadas Júnior pelo Fundo, as quais serão subscritas e integralizadas exclusivamente pela Gestora ou por outra entidade por ela indicada. 13.7.2. As Cotas serão subscritas e integralizadas pelo valor atualizado da Cota desde a 1ª Data de Integralização de Cotas da respectiva Subclasse ou série até o dia da efetiva integralização. 13.7.3. As Cotas serão integralizadas à vista, no ato da subscrição, ou mediante chamada de capital, a ser realizada pela Administradora, de acordo com orientação da Gestora, conforme definido no respectivo Apêndice, em moeda corrente nacional, por meio (i) da B3 (Balcão B3), caso as Cotas estejam custodiadas na B3 (Balcão B3);"
+    }
+   ],
+   "basis": "cobertura",
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção da mezanino definida nos apêndices",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Na integralização de seniores e mezanino, pro forma",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 67,
+     "clause": "cl. 13.7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "ntegralização de Cotas Seniores e de Cotas Subordinadas Mezanino, conforme aplicável, pelos Investidores Autorizados, o Índice de Cobertura não poderá ser inferior a 100% (cem por cento), considerando-se pro forma as integralizações a serem realizadas, conforme informações fornecidas pelo coordenador líder da Oferta Pública em questão. 13.7.1.1. Para fins de enquadramento da carteira do Fundo aos critérios acima previstos, em cada data de integralização de Cotas Seniores e de Cotas Subordinadas Mezanino pelos Investidores Autorizados, poderão ser emitidas Cotas Subordinadas Júnior pelo Fundo, as quais serão subscritas e integralizadas exclusivamente pela Gestora ou por outra entidade por ela indicada. 13.7.2. As Cotas serão subscritas e integralizadas pelo valor atualizado da Cota desde a 1ª Data de Integralização de Cotas da respectiva Subclasse ou série até o dia da efetiva integralização. 13.7.3. As Cotas serão integralizadas à vista, no ato da subscrição, ou mediante chamada de capital, a ser realizada pela Administradora, de acordo com orientação da Gestora, conforme definido no respectivo Apêndice, em moeda corrente nacional, por meio (i) da B3 (Balcão B3), caso as Cotas estejam custodiadas na B3 (Balcão B3);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas para 1 mês de atividade",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 78,
+     "clause": "cl. 15.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "es para a constituição da Reserva de Amortização, representando apenas um objetivo a ser perseguido. 15.8 A Reserva de Despesas e Encargos deverá ser equivalente a 100% (cem por cento) do valor estimado para todas as despesas e os encargos referentes a 1 (um) mês de atividade do Fundo. 15.8.1 Na hipótese de a Reserva de Despesas e Encargos e a Reserva de Amortização deixarem de atender aos limites de enquadramento descrito neste Capítulo 15, a Gestora, por conta e ordem do Fundo, deverá destinar todos os recursos do Fundo, em moeda corrente nacional, para sua recomposição, nos termos do Capítulo 16 deste Regulamento. 15.9 A Reserva de Fluxo de Caixa será determinada como o montante de Disponibilidades a ser mantido pelo Fundo para que este seja capaz de cumprir com seu fluxo futuro de obrigações durante o Horizonte de Fluxo de Caixa, incluindo pagamentos de amortização, despesas e encargos e cessões correspondentes aos Devedores Cedidos, conforme determinado pela Gestora através de procedimento descrito abaixo: 15.9.1 A Gestora deverá estimar, com relação ao Horizonte de Fluxo de Caixa, os fluxos futuros de (i) (a) pagamentos de amortizações de Cotas Seniores e de Cotas Subordinadas Mezanino, conforme o caso, (b) encargos e despesas e (c) preços de cessões de Direitos Creditórios relacionados aos Devedores Ced"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas de 1 mês; próxima amortização de 100% até 5 DU antes; maior entre despesas+amortização e fluxo futuro.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/03/2026, cl. 15.8"
+   }
+  },
+  "pdd": {
+   "display": "Provisão acompanhada por crédito com atraso acima de 60 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "do novo produto detalhar as suas características; (5) atrasos de cada Direito Creditório; (6) provisão para cada Direito Creditório em atraso acima de 60 (sessenta) dias; (7) volume de recuperação e de renegociação de cada Direito Creditório; e (8) volume de write off de cada Direito Creditório, assim entendidos os Direitos Creditórios que estiverem vencidos e não pagos há 360 (trezentos e sessenta) dias ou mais (considerando o método de arrasto); (b) as seguintes demonstrações financeiras: (1) anuais, com notas explicativas e parecer de auditoria, da Gestora e do Fundo e consolidado; (x) aprovar a cessão, a terceiros, de Direitos Creditórios adquiridos; (xi) elaborar e encaminhar à Administradora, em até 40 (quarenta) dias após o encerramento do trimestre civil a que se referir, relatório contendo as informações requeridas no artigo 27, §3º, do Anexo Normativo II;"
+    }
+   ],
+   "legacy": {
+    "value": "Renegociados mantêm provisionamento de inadimplência; exceção para atraso <90 dias e fluxo sem novo inadimplemento.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/03/2026, p. 10"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falta de relatório mensal da gestora, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 89,
+     "clause": "cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "egular a Assembleia Geral a que comparecerem todos os Cotistas do Fundo. 19. EVENTOS DE AVALIAÇÃO 19.1 São Eventos de Avaliação: (i) não divulgação, pela Gestora, (a) de relatório mensal contendo os parâmetros especificados no item 5.4(viii) acima; e/ou (b) mediante solicitação, relatório contendo os parâmetros especificados no item 5.4(viii) acima, conforme os respectivos prazos, e não sanada no prazo de 10 (dez) Dias Úteis contados da notificação de não divulgação;"
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramentos, descumprimentos e eventos de prestadores; aquisição em desacordo com critérios >5%/PL aparece como evento.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/03/2026, cl. 19.1"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação sobre evento de avaliação ou determinação da CVM",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 95,
+     "clause": "cl. 20.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "sembleia Geral seja cancelada. 20. EVENTOS DE LIQUIDAÇÃO ANTECIPADA E LIQUIDAÇÃO DO FUNDO 20.1 São Eventos de Liquidação Antecipada: (i) caso seja deliberado, em Assembleia Geral, que um Evento de Avaliação configura um Evento de Liquidação Antecipada; (ii) por determinação da CVM, em caso de violação de normas legais e/ou regulamentares; (iii) caso a Assembleia Geral não defina um substituto para a Administradora, para a Gestora ou para o Custodiante, conforme o caso; e (iv) se durante 90 (noventa) dias consecutivos o Patrimônio Líquido médio do Fundo for inferior a R$1.000.000,00 (um milhão de reais). 20.2 A Administradora deverá, caso ocorra qualquer Evento de Liquidação Antecipada, simultaneamente: (i) no caso do Evento de Liquidação previsto no item 20.1(ii), dar ciência de tal fato aos Cotistas, convocando a Assembleia Geral, para confirmar a liquidação do Fundo ou decidir pela interrupção dos procedimentos de liquidação do Fundo, bem como para definir eventuais procedimentos adicionais a serem adotados; (ii) suspender imediatamente a aquisição de novos Direitos Creditórios e a realização da Amortização Extraordinária;"
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramentos, descumprimentos e eventos de prestadores; aquisição em desacordo com critérios >5%/PL aparece como evento.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/03/2026, cl. 20.1"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Novas aquisições não detalhadas em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Novas cessões permitidas sob critérios/reservas; suspensas por eventos; fluxo longo de crédito estudantil.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Despesas/reservas e cotas prioritárias antes de júnior; evento altera alocação e suspende novas aquisições.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,17% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 12,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "RA E DEMAIS TAXAS DO FUNDO 6.1 Taxa de Administração. O Fundo pagará pelos serviços de administração, uma Taxa de Administração equivalente a: 0,17% (dezessete centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada Dia Útil, pagáveis mensalmente, devida a primeira no último dia útil do mês em que ocorrer a primeira integralização de Cotas do 12 Público Fundo e as demais no 5º (quinto) dia útil dos meses subsequentes. A taxa prevista nesse item terá o piso mensal equivalente a R$ 19.000,00 (dezenove mil reais). 6.1.1. Pelos serviços de verificação de lastro será devido o valor correspondente a R$5.000,00 (cinco mil reais) por mês até o limite de R$1.500 (mil e quinhentos) contratos verificados trimestralmente acrescido de R$1,10 (um real e dez centavos) por contrato adicional ao 1.500º. 6.1.2. A título de taxa de escrituração do Fundo será devido o valor correspondente a R$2.000,00 (dois mil reais) mensais. 6.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "0,17% a.a./PL; mínimo R$ 19 mil/mês; lastro/escrituração e setup constituem adicionais previstos.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/03/2026, cl. 6.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,10% a.m. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 13,
+     "clause": "cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "Gestão. A taxa de gestão será devida pelo Fundo em decorrência da prestação dos serviços da Gestora (“Taxa de Gestão”), a qual será equivalente a: ao montante de 0,10% a.m. (dez centésimos por cento ao mês), incidente sobre o Patrimônio Líquido do Fundo. 13 Público 6.2.1. A Taxa de Gestão será calculada e provisionada diariamente, com base no Patrimônio Líquido do Dia Útil imediatamente anterior, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao dos serviços prestados. 6.2.2. A Gestora pode estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pelo Fundo aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão. 6.3. Taxa de Custódia."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% ao mês/PL; pagamento até 5º DU do mês seguinte.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 14,
+     "clause": "cl. 6.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "s. 6.6. Inexistência de Taxas Adicionais. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 14 Público 7. SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORA 7.1. A Administradora e a Gestora podem renunciar à administração ou à gestão do Fundo, conforme o caso, mediante aviso publicado no Periódico do Fundo utilizado para divulgação de informações do Fundo, por correio eletrônico ou por meio de carta (com aviso de recebimento) endereçada a cada Cotista, desde que a Administradora convoque, no mesmo ato, Assembleia Geral, a se realizar em no máximo 15 (quinze) dias contados da convocação, para decidir sobre (i) a substituição da Administradora e/ou da Gestora, conforme o caso; ou (ii) a liquidação do Fundo. 7.2."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 3,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "o artigo 86 da Resolução CVM nº 160/22. 4. PRESTADORES DE SERVIÇOS ESSENCIAIS 4.1 O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, bloco 07, Grupo 201 – Barra da Tijuca, inscrita no CNPJ sob o nº 36.113.876/0001-91. 4.2 O Fundo é gerido pela PRAVALER S.A., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras valores mobiliários, por meio do Ato Declaratório nº 7.577, de 14 de janeiro de 2004, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Dra. Ruth Cardoso, nº 7.221, 21º andar, Pinheiros, CEP 05425-902, inscrita no CNPJ sob o nº 04.531.065/0001-14. 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Pravaler",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 3,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "º 3434, bloco 07, Grupo 201 – Barra da Tijuca, inscrita no CNPJ sob o nº 36.113.876/0001-91. 4.2 O Fundo é gerido pela PRAVALER S.A., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras valores mobiliários, por meio do Ato Declaratório nº 7.577, de 14 de janeiro de 2004, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Dra. Ruth Cardoso, nº 7.221, 21º andar, Pinheiros, CEP 05425-902, inscrita no CNPJ sob o nº 04.531.065/0001-14. 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 119,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "verificados pela Gestora, conforme estabelecidos no item 12 do Regulamento. “Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, n.º 3434, bloco 07, Grupo 201 – Barra da Tijuca, inscrita no CNPJ sob o nº 36.113.876/0001-91, ou sua sucessora a qualquer título. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Aquisição e Pagamento” Cada data em que ocorra a celebração de Termo de Cessão ou do Contrato de Cessão, confor"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Pravaler (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 110,
+     "clause": "cl. 25.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "108 Público “Agente de Cobrança” A PRAVALER S.A., ou sua respectiva sucessora a qualquer título, contratada para realizar a cobrança dos Direitos Creditórios, nos termos do Contrato de Cobrança. “Agente de Guarda” Empresa contratada pelo Custodiante para prestação dos serviços de [nota e verificação do lastro dos Documentos Comprobatórios, nos termos do Contrato de Guarda, sem prejuízo da responsabilidade do Custodiante. “Agentes de Recebimento” Quaisquer das seguintes instituições financeiras: Banco Bradesco S.A., Itaú Unibanco S.A., Banco do Brasil S.A., Caixa Econômica Federal, Banco Santander (Brasil) S.A. e Banco Safra S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 132,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "duração do Fundo, nos termos da Resolução CVM nº 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários brasileiro; (iii) será realizada sob o rito de registro automático de distribuição, nos termos da Resolução CVM nº 160/22;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada de prazo indeterminado; cotas/séries com prazo próprio; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149324",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/03/2026",
+     "page": 2,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149324",
+     "excerpt": "E DURAÇÃO E PÚBLICO-ALVO 3.1 O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado, podendo a Assembleia Geral estabelecer regras e condições para a limitação de tal prazo e ainda deliberar pela liquidação do Fundo, sendo que cada Emissão de Cotas terá o Prazo de Duração estipulado no respectivo Apêndice. 3.2 Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores Autorizados, observado que, no âmbito da Oferta, as Cotas Seniores e as Cotas Subordinadas Mezanino serão subscritas e integralizadas exclusivamente por Investidores 2 Público Profissionais, não obstante os prazos previstos no inciso II do artigo 86 da Resolução CVM nº 160/22. 4."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada de prazo indeterminado; cotas/séries com prazo próprio; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Crédito estudantil da Pravaler; devedor ≤ 0,5% do PL e índice de cobertura de no mínimo 100%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
