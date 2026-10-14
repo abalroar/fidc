@@ -1,0 +1,55 @@
+# Fator Tarken FIAGRO (QI CTVM; FAR Fator; consultoria Tarken)
+type: Agro/FIAGRO
+q1: * "“Cedente” significa um titular de Direitos Creditórios, que realiza transferência do referido Direito Creditório ao Fundo"
+q2: * "8.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento"
+q3: * "(m) os 20 (vinte) maiores Devedores não podem representar mais que 40%"
+q4: * "Patrimônio Líquido alocado em Direitos Creditórios cedidos por um mesmo Cedente, ressalvado que, até 31 de outubro de 2027"
+q5: * "Estado (UF) Limite de Concentração MT 50% PR 40% GO 30% SP 30% MG 30% Demais (individualmente) 20%"
+q6: * "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q7: * "Taxa de Administração (inclui os serviços de administração, custódia e controladoria): o valor correspondente a (i) 0,20%"
+q8: * "Taxa de Gestão: o valor correspondente a 0,40% (quarenta centésimos por cento) ao ano"
+q9: * "5.5. Será cobrada da Classe uma Taxa de Performance, a ser paga diretamente à Gestora, correspondente a 6,67%"
+q10: * "“Administradora” significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q11: * "“Gestora” significa a FAR – FATOR ADMINISTRAÇÃO DE RECURSOS LTDA"
+q12: * "“Custodiante” significa a Administradora"
+q13: * "“Consultora Especializada” significa a TARKEN SOFTWARE LTDA."
+q14: * "caso o Índice de Atraso (241-360 dias) seja superior a 3% (três por cento)"
+q15: * "8.4. Revolvência. Na hipótese em que a Classe tiver disponibilidade de caixa"
+q16: * "A Classe é exclusivamente destinada a Investidores Profissionais"
+q17: * "A Classe terá prazo de duração indeterminado"
+q18: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q19: * "acrescida de sobretaxa de 15% (quinze por cento) ao ano"
+receivables: Créditos agroindustriais: CPR-F, duplicatas, CDCA, promissórias e CCB | o1
+originator: Cedentes do agronegócio, com crédito avaliado pela Tarken | q1,q13
+assignor: Cedentes diversos; cedente ≤ 25% do PL (exceção temporária Albaugh) | q4
+debtor: Produtores e empresas do agronegócio | q2
+recourse: Cessão irrevogável com garantias; recompras conforme contrato | o10
+eligibility: Título ≥ R$ 100; em reais; não vencido; prazo de 15 a 360 dias | q2
+debtor_limit: 20 maiores devedores ≤ 40% do PL; MT ≤ 50%, PR ≤ 40% por UF | q3,q5
+assignor_limit: Cedente ≤ 25% do PL, com exceção para Albaugh até 2027 | q4
+term_max: De 15 a 360 dias | q2
+allocation: > 50% do PL em direitos creditórios | q6 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q19
+sub_senior: n/d | Índice de subordinação não localizado no regulamento vigente | why=Resposta anterior vem de versão de 2025 do regulamento
+sub_mezz: n/d | Índice de subordinação não localizado no regulamento vigente
+sub_check: n/d | Índice de subordinação não localizado no regulamento vigente | why=Resposta anterior vem de versão de 2025 do regulamento
+reserve: Não prevista | Sem reserva específica para amortização | o39
+pdd: Perda por redução ao valor recuperável | q18
+eval_triggers: Atrasos por faixa (241–360 > 3%), recompras > 10%, renegociações > 5% | q14
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído | why=Resposta anterior lista eventos de avaliação, registrados na linha própria
+revolving: Revolvência com caixa de pagamentos, se atendidos os critérios | q15
+amortization: n/d | Cronograma definido nos apêndices das séries
+admin_fee: 0,20% a.a. até R$ 100 mi; 0,15% acima; inclui custódia | q7,o57
+mgmt_fee: 0,40% a.a. do PL; mín. R$ 15 mil/mês | q8,o60
+perf_fee: 6,67% do excedente da júnior sobre DI + 15% a.a. | q9,q19
+target_senior: n/d | Apêndice da série sênior não está no acervo
+target_mezz: n/d | Apêndice da série mezanino não está no acervo
+administrator: QI CTVM | q10
+manager: FAR – Fator Administração de Recursos | q11
+custodian: QI CTVM (a administradora) | q12,q10
+servicer: Tarken Software (consultoria de crédito) | q13
+investors: Investidores profissionais | q16
+duration: Indeterminado | q17
+agro_backing: CPR-F, duplicatas, CDCA, NPs e CCBs do agronegócio | o1
+collateral: Seguro de crédito cobrindo ≥ 90% dos 10 maiores devedores | o81
+leitura: Crédito agro multicedente com 20 maiores devedores ≤ 40% e MT ≤ 50% do PL; performance de 6,67% sobre DI + 15%.
