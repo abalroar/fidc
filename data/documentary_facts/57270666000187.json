@@ -1,0 +1,693 @@
+{
+ "schema_version": 1,
+ "cnpj": "57270666000187",
+ "name": "MOBILITAS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T12:53:44Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "769277",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "31/10/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277"
+  },
+  "D2": {
+   "document_id": "769275",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "31/10/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769275"
+  },
+  "D3": {
+   "document_id": "769047",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/10/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769047"
+  },
+  "D4": {
+   "document_id": "768055",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/10/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=768055"
+  },
+  "D5": {
+   "document_id": "764084",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "24/10/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=764084"
+  },
+  "D6": {
+   "document_id": "740765",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "11/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740765"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de transações de cartão dos cedentes, presenciais ou por link",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "7 DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 Direitos Creditórios Os direitos creditórios de tempos em tempos detidos pelos Cedentes em face da Devedora, nos termos da respectiva Proposta Comercial, decorrentes de Transações de Pagamento, presenciais ou virtuais através de link de pagamento ou débito, realizadas pelos Usuários com a utilização de Instrumentos de Pagamentos para a aquisição de bens ou serviços junto aos Cedentes, equivalentes ao valor atualizado remanescente das Transações de Pagamento, após o desconto das taxas que constituem a remuneração das Bandeiras, dos Emissores e da respectiva Devedora, na qualidade de Credenciador Principal, nos termos da Proposta"
+    },
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "respectiva UR em favor dos Cedentes, antes da sua efetiva cessão à Classe, devem constar no relatório pelo menos as seguintes informações: (a) data de liquidação (vencimento); (b) identificação do Arranjo de Pagamento (Bandeira); (c) identificação dos Cedentes; (d)"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de transações de pagamento, presenciais ou por link, de lojistas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes (estabelecimentos)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "Ativos Financeiros com a mesma rentabilidade proporcionada pelos Direitos Creditórios. 14.8.2. Outros riscos relacionados aos Cedentes A Classe adquirirá somente Direitos Creditórios cedidos pelos Cedentes. Os Cedentes podem, a qualquer momento, deixar de originar e ceder novos Direitos Creditórios à Classe. Adicionalmente, os Cedentes podem descumprir as obrigações assumidas nos Documentos do Fundo, incluindo, mas não se limitando a: (a) a disponibilização de determinados Documentos Comprobatórios e dos Documentos Adicionais; e (b) o pagamento de obrigações devidas nos termos do Contrato de Cessão. Tais descumprimentos poderão afetar os recebimentos dos recursos oriundos dos Direitos Creditórios Cedidos e, consequentemente, afetar negativamente o patrimônio da Classe. 14.8.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes múltiplos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "Ativos Financeiros com a mesma rentabilidade proporcionada pelos Direitos Creditórios. 14.8.2. Outros riscos relacionados aos Cedentes A Classe adquirirá somente Direitos Creditórios cedidos pelos Cedentes. Os Cedentes podem, a qualquer momento, deixar de originar e ceder novos Direitos Creditórios à Classe. Adicionalmente, os Cedentes podem descumprir as obrigações assumidas nos Documentos do Fundo, incluindo, mas não se limitando a: (a) a disponibilização de determinados Documentos Comprobatórios e dos Documentos Adicionais; e (b) o pagamento de obrigações devidas nos termos do Contrato de Cessão. Tais descumprimentos poderão afetar os recebimentos dos recursos oriundos dos Direitos Creditórios Cedidos e, consequentemente, afetar negativamente o patrimônio da Classe. 14.8.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Credenciadoras como Redecard e Cielo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "ntegralização de Cotas de qualquer Subclasse. Devedora(s) REDECARD INSTITUIÇÃO DE PAGAMENTO S.A., sociedade por ações com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Tenente Mauro de Miranda, nº 36, Bloco D, 7º andar parte, Jabaquara, CEP 04345-030, inscrita no CNPJ/MF sob o nº 01.425.787/0001-04, e/ou CIELO S.A. INSTITUIÇÃO DE PAGAMENTO, sociedade por ações com sede na Cidade de Barueri, Estado de São Paulo, na Alameda Xingu, nº 512, 21º ao 25º andares, CEP 06455-030, inscrita no CNPJ/MF sob o nº 01.027.058/0001-91, e/ou GETNET ADQUIRÊNCIA E SERVIÇOS PARA MEIOS DE PAGAMENTO S.A."
+    },
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": ", inscrita no CNPJ/MF sob o nº 01.425.787/0001-04, e/ou CIELO S.A. INSTITUIÇÃO DE PAGAMENTO, sociedade por ações com sede na Cidade de Barueri, Estado de São Paulo, na Alameda Xingu, nº 512, 21º ao 25º andares, CEP 06455-030, inscrita no CNPJ/MF sob o nº 01.027.058/0001-91, e/ou GETNET ADQUIRÊNCIA E SERVIÇOS PARA MEIOS DE PAGAMENTO S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Redecard, Cielo e Getnet; outras adquirentes exigem aprovação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Taxa de cessão ≥ CDI + 5% a.a.; em reais, entre outros",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser adquiridos desde que seja observada a Taxa de Cessão; (ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação; (iv) adicionalmente ao item acima, os Direitos Creditórios não poderão ter vencimento superior a 24 (vinte e quatro) meses, sendo o prazo médio de 8 (oito) meses, a contar da respectiva Data de Aquisição e Pagamento; DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 (v) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza na Data de Aquisição e Pagamento, conforme verificado pela sua disponibilidade no Sistema de Registro;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 14,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "Taxa mínima de cessão dos Direitos Creditórios para o Fundo, a qual deverá corresponder a, no mínimo, 100% (cem por cento) do CDI, acrescido de sobretaxa (spread) equivalente a 5% (cinco por cento) ao ano. Termo(s) de Cessão Significa o termo de cessão a ser celebrado entre o Fundo, representado pelo Administrador, a Gestora e os respectivos Cedentes, em cada Data de Aquisição, para formalizar a aquisição dos Direitos Creditórios pelo Fundo, substancialmente na forma estabelecida no Contrato de Cessão. Transação de Pagamento Operação de pagamento, pelo Usuário, para a aquisição de bens e/ou serviços junto ao respectivo Recebedor Credenciado, mediante a utilização de quaisquer Instrumentos de Pagamento, no âmbito de um ou mais"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limites por devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 52,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "mente a Investidores Profissionais, a Classe não estará sujeita limites de concentração de sua carteira por devedor, emissor ou tipo de Direito Creditório, nos termos do artigo 76 do Anexo I da RCVM 175, sem prejuízo do disposto na Cláusula 7.2 acima. 7.4. Adicionalmente, os Direitos Creditórios não poderão: (i) estar inadimplidos, em atraso ou prorrogados, quando de sua aquisição pelo Fundo; e (ii) os Direitos Creditórios devem atender a Taxa Mínima de Cessão. 7.5. As cessões de Direitos Creditórios à Classe serão realizadas em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 7.6. Na aquisição dos Direitos Creditórios, a Gestora deverá verificar se todos os Documentos Comprobatórios compreendem todos os documentos necessários para protesto, cobrança ou execução judicial dos Direitos Creditórios cedidos, nos termos da regulamentação aplicável, sem prejuízo da análise conjunta com a Administradora, em razão de suas obrigações acessórias à aquisição dos Direitos Creditórios. 7.7."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado em trecho contínuo",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": []
+  },
+  "allocation": {
+   "display": "> 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 51,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "parcela superior a 67% (sessenta e sete por cento) de seu Patrimônio Líquido representada por Direitos Creditórios Alocação Mínima . DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 7.3."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "DC >67% PL em até 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 31/10/2024, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "diariamente, representar o percentual mínimo de 10% (dez por cento). Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior/PL ≥10%; apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 31/10/2024, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "10% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "diariamente, representar o percentual mínimo de 10% (dez por cento). Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 5.2."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "Júnior/PL ≥10%; apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino descrita",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "diariamente, representar o percentual mínimo de 10% (dez por cento). Isso significa que, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior/PL ≥10%; apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 31/10/2024, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "Maior entre 90 dias de despesas e 1% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 57,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 1% (um por cento) do Patrimônio Líquido da Classe na data de apuração. 10.4. O montante referente à Reserva de Despesas deverá ser mantido pela Administradora de forma devidamente segregada no patrimônio da Classe e/ou do Fundo, em moeda corrente nacional, ou em Ativos Financeiros de liquidez imediata. 10.5."
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre despesas de 90 dias e 1% PL; principal D−30 e juros D−15",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 31/10/2024, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução do valor de recuperação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 30,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "r recuperável dos Ativos da Classe, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 12.8. Os Direitos Creditórios cedidos que venham a ser inadimplidos pela Devedora permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 12.9."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de avaliação não localizados em trecho contínuo",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados em trecho contínuo",
+   "sources": []
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,06% a.a. até R$ 500 mi de PL; 0,05% acima, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "7.600,00 (sete mil e seiscentos reais) e ao valor máximo mensal correspondente a: (i) 0,06% a.a.(seis centésimos por cento ao ano) sob o Patrimonio Líquido da Classe, caso esse seja de até R$ 300.000.000,00 (trezentos milhões de reais); (ii) 0,06% a.a.(seis centésimos por cento ao ano) sob o Patrimônio Líquido da Classe, caso esse corresponda à no mínimo R$ 300.000.000,00 (trezentos milhões de reais) e no máximo R$ 500.000.000,00 (quinhentos milhões de reais); e (iii) 0,05% a.a.(cinco centésimos por cento ao ano) sob o Pa"
+    }
+   ],
+   "legacy": {
+    "value": "0,06% a.a. PL até R$ 500 mi; 0,05% acima; mínimo R$ 7,6 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 31/10/2024, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Faixas de 0,09% a 0,07% a.a., com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 51,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "mil e quinhentos reais) e ao valor máximo de: (i) 0,09% a.a.(nove centésimos por cento ao ano) sob o Patrimônio Líquido da Classe, caso esse seja inferior ou igual a R$ 300.000.000,00 (trezentos milhões de reais); (ii) 0,08% a.a.(oito centésimos por cento ao ano) sob o Patrimônio Líquido da Classe, caso este seja correspondente ao valor de R$ 300.000.000,00 (trezentos milhões de reais) e no máximo R$ 500.000.000,00 (quinhentos milhões de reais); e (iii) 0,07% a.a.(sete centésimos por ce"
+    }
+   ],
+   "legacy": {
+    "value": "0,09%/0,08%/0,07% a.a. por faixas R$ 300/500 mi; mínimo R$ 8,5 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 31/10/2024, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Limine Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. Administradora A LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade limitada, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor Cardoso de Melo, nº 1.184, 9º andar, conjunto 91, Vila Olímpia, CEP 04548-004, inscrita no CNPJ sob o nº 24.361.690/0001-72, autorizada pela CVM para o exercício profissional da administração da carteira de valores mobiliários, por meio do Ato Declaratório nº 16.206, de 08 de maio de 2018, ou seu sucessor a qualquer título Agência de Classificação de Agência de classificação de risco que poderá ser Risco contratada pela Gestora, em nome do Fundo, para realizar a av"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Kanastra Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "os constituídos na forma prevista na RCVM 175. Gestora A KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 19.724, de 7 de abril de 2022, com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, sala 802, inscrita no CNPJ sob o nº 44.870.662/0001-98, ou sua sucessora a qualquer título. Grupo Linhares As seguintes sociedades: (i) ARES COMERCIAL DE MOTOS LTDA, inscrita no CNPJ sob o nº 07.256.867/0001-51; (ii) TERRA SANTA MOTOS LTDA, inscrita no CNPJ sob o nº 02.317.298/0001-93;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Limine Trust DTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "à Classe. CVM A Comissão de Valores Mobiliários. Custodiante A Administradora. 6 DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 Data de Aquisição e Pagamento Data em que ocorrer a assinatura de cada Contrato de Cessão ou Termo de Cessão, conforme aplicável, e o pagamento do preço de aquisição do respectivo Direito Creditório pela Administradora, em nome do Fundo, conforme procedimentos de originação e verificação de lastro dispostos no Capítulo 7 deste Regulamento. Data de Verificação Significa o 5º (quinto) Dia Útil de cada mês, iniciando-se no 5º (quinto) Dia Útil do mês imediatamente posterior à"
+    },
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. Administradora A LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade limitada, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor Cardoso de Melo, nº 1.184, 9º andar, conjunto 91, Vila Olímpia, CEP 04548-004, inscrita no CNPJ sob o nº 24.361.690/0001-72, autorizada pela CVM para o exercício profissional da administração da carteira de valores mobiliários, por meio do Ato Declaratório nº 16.206, de 08 de maio de 2018, ou seu sucessor a qualquer título Agência de Classificação de Agência de classificação de risco que poderá ser Risco contratada pela Gestora, em nome do Fundo, para realizar a av"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Cobrança extraordinária por agente ainda a contratar",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 28,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "adora não forem partes relacionadas do originador ou dos respectivos Cedentes e, caso a Classe não seja destinada exclusivamente a Investidores Profissionais, (ii) a Gestora, a Entidade Registradora Contratada e a Administradora não forem partes relacionadas entre si, nos termos da regulamentação aplicável. DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 CONDIÇÕES GERAIS APLICÁVEIS AO MOBILITAS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 9.4. É vedado à Administradora e à Gestora, em suas respectivas esferas de atuação, aceitar que as garantias prestadas em favor da Classe sejam formalizadas em nome de terceiros, ressalvada a possibilidade de formalização de garantias em favor da Administradora, da Gestora ou de agentes de garantias que representem o Fundo e/ou a Classe como titular da garantia, os quais devem diligenciar para segregá-las adequadamente dos seus próprios patrimônios, respondendo, inclusive, caso não o façam pelos danos que causarem ao Fundo e/ou à Classe. 9.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 26,
+     "clause": "cl. 2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "5.1. O funcionamento do Fundo terá início na primeira Data da 1ª Integralização. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas em conformidade com o disposto neste Regulamento. 5.2. O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 CONDIÇÕES GERAIS APLICÁVEIS AO MOBILITAS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 6. DA POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 6.1. A Classe do Fundo terá como objetivo proporcionar aos Cotistas a valorização de suas Cotas, por meio da aplicação dos recursos da Classe do Fundo preponderantemente na aquisição de Direitos Creditórios. 6.2. A descrição dos Direitos Creditórios passíveis de aquisição pela Classe, bem como as regras de enquadramento e concentração encontram-se descritos no respectivo Anexo da Classe Única. 7."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Direitos dos cedentes contra as credenciadoras por transações de pagamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "7 DocuSign Envelope ID: 7D1CB252-434A-48D2-A736-98D9EE3A7959 Direitos Creditórios Os direitos creditórios de tempos em tempos detidos pelos Cedentes em face da Devedora, nos termos da respectiva Proposta Comercial, decorrentes de Transações de Pagamento, presenciais ou virtuais através de link de pagamento ou débito, realizadas pelos Usuários com a utilização de Instrumentos de Pagamentos para a aquisição de bens ou serviços junto aos Cedentes, equivalentes ao valor atualizado remanescente das Transações de Pagamento, após o desconto das taxas que constituem a remuneração das Bandeiras, dos Emissores e da respectiva Devedora, na qualidade de Credenciador Principal, nos termos da Proposta"
+    },
+    {
+     "doc": "D1",
+     "document_id": "769277",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/10/2024",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769277",
+     "excerpt": "ntegralização de Cotas de qualquer Subclasse. Devedora(s) REDECARD INSTITUIÇÃO DE PAGAMENTO S.A., sociedade por ações com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Tenente Mauro de Miranda, nº 36, Bloco D, 7º andar parte, Jabaquara, CEP 04345-030, inscrita no CNPJ/MF sob o nº 01.425.787/0001-04, e/ou CIELO S.A. INSTITUIÇÃO DE PAGAMENTO, sociedade por ações com sede na Cidade de Barueri, Estado de São Paulo, na Alameda Xingu, nº 512, 21º ao 25º andares, CEP 06455-030, inscrita no CNPJ/MF sob o nº 01.027.058/0001-91, e/ou GETNET ADQUIRÊNCIA E SERVIÇOS PARA MEIOS DE PAGAMENTO S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de transações de pagamento, presenciais ou por link, de lojistas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Mecanismo de trava não descrito em trecho contínuo",
+   "sources": []
+  },
+  "dilution": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Tratamento de cancelamentos não localizado em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Recebíveis de cartão dos cedentes contra Redecard e Cielo; júnior ≥ 10% do PL e cessão ≥ CDI + 5% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

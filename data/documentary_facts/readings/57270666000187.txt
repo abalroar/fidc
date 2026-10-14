@@ -1,0 +1,50 @@
+# Mobilitas FIDC (Limine Trust; Kanastra; recebíveis de lojistas contra credenciadoras)
+type: Cartão/adquirência
+q1: * "Direitos Creditórios Os direitos creditórios de tempos em tempos detidos pelos Cedentes em face da Devedora"
+q2: * "evedora(s) REDECARD INSTITUIÇÃO DE PAGAMENTO S.A."
+q3: * "CIELO S.A. INSTITUIÇÃO DE PAGAMENTO"
+q4: * "seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser adquiridos desde que seja observada a Taxa de Cessão"
+q5: * "a qual deverá corresponder a, no mínimo, 100% (cem por cento) do CDI, acrescido de sobretaxa (spread) equivalente a 5%"
+q6: * "por devedor, emissor ou tipo de Direito Creditório, nos termos do artigo 76 do Anexo I da RCVM 175"
+q8: * "Gestora A KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA."
+q9: * "Administradora A LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q10: * "Custodiante A Administradora"
+q11: * "destinada exclusivamente a Investidores Profissionais"
+q12: * "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas"
+q13: * "provisão para perdas. A perda por redução no valor de recuperação será mensurada"
+q15: * "14.8.2. Outros riscos relacionados aos Cedentes A Classe adquirirá somente Direitos Creditórios cedidos pelos Cedentes"
+receivables: Recebíveis de transações de cartão dos cedentes, presenciais ou por link | q1,o64
+card_receivables: Direitos dos cedentes contra as credenciadoras por transações de pagamento | q1,q2
+originator: Cedentes (estabelecimentos) | q15
+assignor: Cedentes múltiplos | q15
+debtor: Credenciadoras como Redecard e Cielo | q2,q3
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão
+eligibility: Taxa de cessão ≥ CDI + 5% a.a.; em reais, entre outros | q4,q5
+debtor_limit: Sem limites por devedor (classe para profissionais) | q6
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo
+term_max: n/d | Prazo máximo não localizado em trecho contínuo
+allocation: > 67% do PL em direitos creditórios | o19 | value=67
+quota_structure: Sênior / Subordinada júnior | o22
+sub_senior: 10% · júnior/PL | o22 | basis=jr/PL | value=10
+sub_mezz: — | Sem cota mezanino descrita
+sub_check: Diária | o22
+reserve: Maior entre 90 dias de despesas e 1% do PL | o32
+pdd: Perda por redução do valor de recuperação | q13
+eval_triggers: n/d | Eventos de avaliação não localizados em trecho contínuo
+liquidation: n/d | Eventos de liquidação não localizados em trecho contínuo
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,06% a.a. até R$ 500 mi de PL; 0,05% acima, com mínimo mensal | o46
+mgmt_fee: Faixas de 0,09% a 0,07% a.a., com mínimo mensal | o49
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Limine Trust DTVM | q9
+manager: Kanastra Administração de Recursos | q8
+custodian: Limine Trust DTVM (a administradora) | q10,q9
+servicer: n/d | Cobrança extraordinária por agente ainda a contratar
+investors: Investidores profissionais | q11
+duration: Indeterminado | q12
+card_lock: n/d | Mecanismo de trava não descrito em trecho contínuo
+dilution: n/d | Tratamento de cancelamentos não localizado em trecho contínuo
+leitura: Recebíveis de cartão dos cedentes contra Redecard e Cielo; júnior ≥ 10% do PL e cessão ≥ CDI + 5% a.a.
