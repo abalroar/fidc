@@ -1,0 +1,51 @@
+# Indie Merx Raiz I Crédito Agro FIDC (Limine Trust; Indie Capital e cogestora Kanastra; originadora Merx)
+type: Agro/FIAGRO
+q15: * "Faixa de Patrimônio Líquido da Taxa de Valor Mínimo Mensal Classe Administração Até R$ 200.000.000,00"
+q1: * "Administrador” Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q2: * "Gestor” Significa a INDIE CAPITAL INVESTIMENTOS LTDA."
+q3: * "Cogestor” Significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA."
+q4: * "“Originadora” Significa a MERX CARBON SISTEMAS E COMERCIO LTDA."
+q5: * "Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora"
+q6: * "seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição"
+q7: * "por Devedor/Grupo Econômico deverá ser de até: (a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F"
+q8: * "Até que a totalidade das Cotas Seniores sejam resgatadas, o Índice de Subordinação Sênior deverá corresponder, no mínimo, a 25,00%"
+q9: * "Subordinação Mezanino deverá corresponder, no mínimo, a 15,00% (quinze inteiros por cento)"
+q10: * "Não será cobrada dos Cotistas qualquer taxa de performance"
+q11: * "destinada exclusivamente a Investidores Profissionais"
+q12: * "prazo de duração indeterminado, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo"
+q13: * "provisão para perdas que incidirá sobre o saldo total do Devedor (vencido e a vencer)"
+q14: * "Eventos de Liquidação Significam quaisquer dos eventos de liquidação antecipada"
+receivables: CPR-F de produtores rurais e cooperativas, emitidas ou cedidas | o1
+agro_backing: CPR-F de produtores ligadas à venda de grãos a cerealistas | o75,o8
+originator: Merx Carbon Sistemas e Comércio (originadora) | q4
+assignor: n/d | CPR-F emitidas à classe ou cedidas, sem cedente único nomeado
+debtor: Produtores rurais e cooperativas indicados pela Merx | q5
+recourse: n/d | Recompra e coobrigação regidas pelos instrumentos de cada operação
+eligibility: CPR-F conforme garantia e prazo, com cessão fiduciária | q6,o11
+debtor_limit: Por devedor ou grupo: de 0,5% (sem garantia adicional) a 4% do PL | q7,o14 | value=0.5
+assignor_limit: — | Não há cedente único
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 67% do PL em direitos creditórios elegíveis | o21 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q8,q9
+sub_senior: 25% · subord./PL | q8 | basis=mez+jr/PL | value=25
+sub_mezz: 15% · júnior/PL | q9 | basis=jr/PL | value=15
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Liquidez ≥ 3% do PL; reserva para pagamentos projetados | o36
+pdd: Provisão sobre o saldo total do devedor (efeito vagão) | q13
+eval_triggers: Atrasos acima de 25% e 15% por faixa, entre outros | o42
+liquidation: Eventos descritos no anexo descritivo da classe | q14
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada subclasse
+admin_fee: 0,11% a.a. até R$ 200 mi de PL, 0,12% acima; mín. R$ 8.800/mês | q15
+mgmt_fee: Gestor 0,38% a.a., mais parcela do cogestor | o55
+perf_fee: Não prevista | Regulamento veda taxa de performance | q10
+target_senior: n/d | Meta definida no apêndice de cada subclasse
+target_mezz: n/d | Meta definida no apêndice de cada subclasse
+administrator: Limine Trust DTVM | q1
+manager: Indie Capital, com cogestão da Kanastra | q2,q3
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | q11
+duration: Indeterminado (subclasses com prazo próprio) | q12
+collateral: Cessão fiduciária e garantias adicionais (penhor de grãos, imóvel) | o78
+leitura: CPR-F de produtores originadas pela Merx; subordinação de 25% (júnior ≥ 15%) e devedor sem garantia ≤ 0,5% do PL.

@@ -1,0 +1,732 @@
+{
+ "schema_version": 1,
+ "cnpj": "54857414000160",
+ "name": "INDIE MERX RAIZ I CRÉDITO AGRO FIDC DO AGRONEGÓCIO - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T12:49:51Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1263627",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627"
+  },
+  "D2": {
+   "document_id": "808216",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "23/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=808216"
+  },
+  "D3": {
+   "document_id": "688943",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "27/06/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=688943"
+  },
+  "D4": {
+   "document_id": "687999",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "27/06/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=687999"
+  },
+  "D5": {
+   "document_id": "644514",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "23/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644514"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CPR-F de produtores rurais e cooperativas, emitidas ou cedidas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 66,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "“Direitos Creditórios” Significam os Direitos Creditórios Cessão e os Direitos Creditórios Emissão, em conjunto."
+    }
+   ],
+   "legacy": {
+    "value": "CPR-F emitidas à classe ou cedidas; financiamento de produtores rurais e cooperativas.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Merx Carbon Sistemas e Comércio (originadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 76,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "de cunho fiscal. “Ordem de Alocação de Tem seu significado atribuído no item 8.20 abaixo. Recursos” “Originadora” Significa a MERX CARBON SISTEMAS E COMERCIO LTDA., acima qualificada. “Parâmetros Mínimos” Significam as informações mínimas referentes ao cronograma de pagamento de Cotas, a serem incluídas no respectivo Apêndice: (i) Datas de Pagamento, (ii) Meta de Remuneração; (iii) fórmula de cálculo de Meta de Remuneração; (iv) Data de Resgate; (v) Data de Resgate Esperada; e (vi) Meta de Amortização de Principal. “Participação da Cota no Significa, com relação a cada Dia Útil, a razão entre (i) o Valor Saldo de Cotas Unitário de Referência de tal Cota; e (ii) o somatório dos Valores Subordinadas Júnior” Unitários de Referência de todas as Cotas Subordinadas Júnior. 78 “Participação da Cota no Significa, com relação a cada Dia Útil, a razão entre (i) o Valor Saldo de Cotas Unitário de Referência de tal Cota;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "CPR-F emitidas à classe ou cedidas, sem cedente único nomeado",
+   "sources": []
+  },
+  "debtor": {
+   "display": "Produtores rurais e cooperativas indicados pela Merx",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 84,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "TOS CREDITÓRIOS E DIREITOS CREDITÓRIOS INADIMPLIDOS 3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento. 3.2. A Originadora celebrou com o Gestor, este agindo em nome do Fundo, em benefício da Classe, o Contrato de Consultoria, Cobrança e Originação, que regulará, entre outras matérias, 86 os termos e condições da indicação dos Devedores e dos Cedentes que irão originar os Direitos Creditórios Emissão e Direitos Creditórios Cessão, respectivamente, bem como os procedimentos operacionais da aquisição dos referidos Direitos Creditórios pela Classe. 3.3. A Originadora, quando da indicação de Devedores à Classe e/ou oferta e/ou Cedentes para cessão de Direitos Creditórios Cessão à Classe, observará a política vigente de cadastro, originação e concessão de crédito, cujos principais termos e condições estão dispostos no Anexo IV deste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Produtor rural PF/PJ ou cooperativa; recebíveis ligados à venda de grãos a cerealistas.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelos instrumentos de cada operação",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "CPR-F conforme garantia e prazo, com cessão fiduciária",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 92,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "os Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo Econômico deverá ser de até: (a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional; (b) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional e atendam, cumulativamente, aos seguintes requisitos: (1) seja apresentado, até a respectiva Data de Aquisição o comprovante de entrega de grãos pelo Devedor ao respectivo Cerealista; e (2) a CPR-F possua prazo de vencimento de, no máximo, 60 (sessenta) dias; (c) 2,00% (dois inteiros por cento) do Patrimônio Líquido no caso de CPR-F com Garantia Adicional de penhor agrícola e/ou alienação fiduciária de grãos;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 92,
+     "clause": "Anexo, cl. 3.19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "4. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÃO DE AQUISIÇÃO 4.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo Econômico deverá ser de até: (a) 0,5% (cinquenta cent"
+    }
+   ],
+   "legacy": {
+    "value": "CPR-F conforme garantia/prazo; cessão fiduciária com cobertura mínima e política de originação.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou grupo: de 0,5% (sem garantia adicional) a 4% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 92,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "s pelo Cogestor, até a Data de Aquisição: (i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo Econômico deverá ser de até: (a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional; (b) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional e atendam, cumulativamente, aos seguintes requisitos: (1) seja apresentado, até a respectiva Data de Aquisição o comprovante de entrega de grãos pelo Devedor ao respectivo Cerealista; e (2) a CPR-F possua prazo de vencimento de, no máximo, 60 (sessenta) dias; (c) 2,00% (dois inteiros por cento) do Patrimônio Líquido no caso de CPR-F com Garantia Adicional de penhor agrícola e/ou alienação fiduciária de grãos; e (d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR-F com Garantia Adicional de alienação fiduciária de imóvel rural e de penhor agrícola e/ou alienação fiduciária de grãos, sendo que esta última não poderá ultrapassar 2,00% (dois inteiros por cento) do Patrimônio Líquido;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 75,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "Adicionais das respectivas CPR-F, sendo equivalente a (i) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional; (ii) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional e atendam, cumulativamente, aos seguintes requisitos: (a) seja apresentado, até a respectiva Data de Aquis"
+    }
+   ],
+   "value": 0.5,
+   "legacy": {
+    "value": "Devedor/grupo 0,5%/1,5%/2%/4% do PL por garantia; sem garantia ≤25%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/06/2026, Anexo, cl. 4.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Não há cedente único",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor/grupo 0,5%/1,5%/2%/4% do PL por garantia; sem garantia ≤25%/PL.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "CPR-F conforme garantia/prazo; cessão fiduciária com cobertura mínima e política de originação.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 56,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) Investimento” do Patrimônio Líquido da Classe em Direitos Creditórios Elegíveis. “Amortização de Significa, com relação a cada Data de Pagamento, a amortização de Principal” parcela do valor de principal das Cotas, calculado nos termos deste Anexo Descritivo e do respectivo Apêndice, conforme aplicável."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL em DC elegíveis.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 74,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "a razão entre (i) o valor total das Cotas Subordinadas e (ii) Sênior” o Patrimônio Líquido da Classe. Até que a totalidade das Cotas Seniores sejam resgatadas, o Índice de Subordinação Sênior deverá corresponder, no mínimo, a 25,00% (vinte e cinco inteiros por cento). “Índices de Significam o Índice de Subordinação Mezanino e o Índice de Subordinação Mínimos” Subordinação Sênior, quando referidos em conjunto. “Inpasa” Significa a INPASA AGROINDUSTRIAL S/A., sociedade anônima fechada, com sede na cidade de Sinop, Estado do Mato Grosso, na ROD BR 163 KM 817, S/N, Zona Rural, CEP 78.559-899, inscrita no CNPJ sob o nº 29.316.596/0001-15 e seu Grupo Econômico. “Instituições Qualquer instituição financeira à qual tenha sido atribuído Financeiras classificação de risco (rating) igual ou superior a “AAA(bra)” em Autorizadas” escala nacional, por alguma das seguintes agência classificadoras de risco: Standard & Poor’s Ratings do Brasil Ltda., Moody’s Local BR Agência de Classificação de Risco Ltda."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 74,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "ônio Líquido da Classe. Até que a totalidade das Cotas Seniores sejam resgatadas, o Índice de Subordinação Mezanino deverá corresponder, no mínimo, a 15,00% (quinze inteiros por cento). “Índice de Subordinação Significa a razão entre (i) o valor total das Cotas Subordinadas e (ii) Sênior” o Patrimônio Líquido da Classe. Até que a totalidade das Cotas Seniores sejam resgatadas, o Índice de Subordinação Sênior deverá corresponder, no mínimo, a 25,00% (vinte e cinco inteiros por cento). “Índices de Significam o Índice de Subordinação Mezanino e o Índice de Subordinação Mínimos” Subordinação Sênior, quando referidos em conjunto. “Inpasa” Significa a INPASA AGROINDUSTRIAL S/A., sociedade anônima fechada, com sede na cidade de Sinop, Estado do Mato Grosso, na ROD BR 163 KM 817, S/N, Zona Rural, CEP 78.559-899, inscrita no CNPJ sob o nº 29.316.596/0001-15 e seu Grupo Econômico. “Instituições Qualquer instituição financeira à qual tenha sido atribuído Financeiras classificação de risco (rating) igual ou superior a “AAA(bra)” em Autorizadas” escala"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥25%/PL; júnior ≥15%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/06/2026, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 74,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "a razão entre (i) o valor total das Cotas Subordinadas e (ii) Sênior” o Patrimônio Líquido da Classe. Até que a totalidade das Cotas Seniores sejam resgatadas, o Índice de Subordinação Sênior deverá corresponder, no mínimo, a 25,00% (vinte e cinco inteiros por cento). “Índices de Significam o Índice de Subordinação Mezanino e o Índice de Subordinação Mínimos” Subordinação Sênior, quando referidos em conjunto. “Inpasa” Significa a INPASA AGROINDUSTRIAL S/A., sociedade anônima fechada, com sede na cidade de Sinop, Estado do Mato Grosso, na ROD BR 163 KM 817, S/N, Zona Rural, CEP 78.559-899, inscrita no CNPJ sob o nº 29.316.596/0001-15 e seu Grupo Econômico. “Instituições Qualquer instituição financeira à qual tenha sido atribuído Financeiras classificação de risco (rating) igual ou superior a “AAA(bra)” em Autorizadas” escala nacional, por alguma das seguintes agência classificadoras de risco: Standard & Poor’s Ratings do Brasil Ltda., Moody’s Local BR Agência de Classificação de Risco Ltda."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Subordinadas ≥25%/PL; júnior ≥15%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/06/2026, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "15% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 74,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "ônio Líquido da Classe. Até que a totalidade das Cotas Seniores sejam resgatadas, o Índice de Subordinação Mezanino deverá corresponder, no mínimo, a 15,00% (quinze inteiros por cento). “Índice de Subordinação Significa a razão entre (i) o valor total das Cotas Subordinadas e (ii) Sênior” o Patrimônio Líquido da Classe. Até que a totalidade das Cotas Seniores sejam resgatadas, o Índice de Subordinação Sênior deverá corresponder, no mínimo, a 25,00% (vinte e cinco inteiros por cento). “Índices de Significam o Índice de Subordinação Mezanino e o Índice de Subordinação Mínimos” Subordinação Sênior, quando referidos em conjunto. “Inpasa” Significa a INPASA AGROINDUSTRIAL S/A., sociedade anônima fechada, com sede na cidade de Sinop, Estado do Mato Grosso, na ROD BR 163 KM 817, S/N, Zona Rural, CEP 78.559-899, inscrita no CNPJ sob o nº 29.316.596/0001-15 e seu Grupo Econômico. “Instituições Qualquer instituição financeira à qual tenha sido atribuído Financeiras classificação de risco (rating) igual ou superior a “AAA(bra)” em Autorizadas” escala"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Subordinadas ≥25%/PL; júnior ≥15%/PL.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Liquidez ≥ 3% do PL; reserva para pagamentos projetados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 124,
+     "clause": "Anexo, cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "deverá corresponder a, no mínimo, 3,00% (três inteiros por cento) do Patrimônio Líquido da Classe. A Classe fará jus a todos os rendimentos sobre todos os Ativos Financeiros investidos pela Classe. 9.1.1. A Reserva de Liquidez deverá corresponder a 75% (setenta e cinco por cento) do valor projetado para as despesas e pagamentos de Amortização de Principal e de Remuneração das Cotas, 30 (trinta) dias antes da Data de Pagamento, sendo que, 15 (quinze) dias antes da Data do Pagamento, a Reserva de Liquidez deverá corresponder a 100% (cem por"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidez ≥3%/PL; 75% dos pagamentos projetados, 100% a 15 dias do pagamento.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/06/2026, Anexo, cl. 9.1"
+   }
+  },
+  "pdd": {
+   "display": "Provisão sobre o saldo total do devedor (efeito vagão)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 51,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "2. Base de Cálculo da PDD A parcela do Devedor com maior atraso definirá o percentual de provisão para perdas que incidirá sobre o saldo total do Devedor (vencido e a vencer). 3. Baixa para Prejuízo Os Direitos Creditórios Inadimplidos deverão ser integralmente provisionados e baixados para prejuízo (write-off) após a ocorrência de atraso superior a 365 (trezentos e sessenta e cinco) dias. 4."
+    }
+   ],
+   "legacy": {
+    "value": "Efeito vagão por devedor; 100% desde 90 dias de atraso na régua documental.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/06/2026, Anexo"
+   }
+  },
+  "eval_triggers": {
+   "display": "Atrasos acima de 25% e 15% por faixa, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 130,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "(xxxiii) caso em qualquer Data de Verificação, caso o Índice de Inadimplemento (15-180 dias) seja superior a 25,00% (vinte e cinco inteiros por cento); (xxxiv) em qualquer mês, com base no último Dia Útil de cada mês, caso o Índice de Inadimplemento (30-180 dias) seja superior a 15,00% (quinze inteiros por cento), conforme apurado na respectiva Data de Verificação;"
+    }
+   ],
+   "legacy": {
+    "value": "Atrasos 15–180 >25%, 30–180 >15%, 90–180 >3%; fórmulas e curas próprias.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/06/2026, Anexo"
+   }
+  },
+  "liquidation": {
+   "display": "Eventos descritos no anexo descritivo da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 8,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "ignificam quaisquer dos eventos de avaliação descritos no Anexo Descritivo da Classe Única. “Eventos de Liquidação Significam quaisquer dos eventos de liquidação antecipada Antecipada” descritos no Anexo Descritivo da Classe Única. “FGC” Significa o Fundo Garantidor de Créditos. “Fundo” Significa o INDIE MERX RAIZ I CRÉDITO AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO AGRONEGÓCIO – RESPONSABILIDADE LIMITADA. “FUNDOS21” Significa o Fundos21 – Módulo de Fundos, ambiente de negociação secundária, administrado e operacionalizado pela B3. 8 “Gestor” Significa a INDIE CAPITAL INVESTIMENTOS LTDA., sociedade empresária de responsabilidade limitada, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Diogo Moreira, nº 132, conjuntos 101, 102, 103 e 104, Pinheiros, CEP 05423-010, inscrita no CNPJ sob o nº 14.359.791/0001-55, autorizada pela CVM a prestar o serviço de gestão de carteira de v"
+    }
+   ],
+   "legacy": {
+    "value": "Atrasos 15–180 >25%, 30–180 >15%, 90–180 >3%; fórmulas e curas próprias.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/06/2026, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada subclasse",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,11% a.a. até R$ 200 mi de PL, 0,12% acima; mín. R$ 8.800/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 161,
+     "clause": "Anexo, cl. 13.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "eira proporcional ao patrimônio líquido de cada Classe. 162 Faixa de Patrimônio Líquido da Taxa de Valor Mínimo Mensal Classe Administração Até R$ 200.000.000,00 R$8.800 (oito mil e 0,11% a.a. (duzentos milhões de reais) oitocentos reais) A partir de R$ 200.000.01,00 R$8.800 (oito mil e 0,12% a.a. (duzentos milhões e um reais) oitocentos reais) 13.12. A Taxa de Administração será paga mensalmente, no último Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil. 13.13. O Administrador poderá estabelecer que parcelas da Taxa de Administração sejam pagas diretamente pelo Fundo aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 13.14. Taxa de Gestão."
+    }
+   ],
+   "legacy": {
+    "value": "0,11%/0,12% a.a. até/acima PL R$ 200 mi; mínimo R$ 8,8 mil/mês.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "Gestor 0,38% a.a., mais parcela do cogestor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 161,
+     "clause": "Anexo, cl. 13.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "Documentos Comprobatórios, o valor correspondente a 0,38% (trinta e oito centésimos por cento) ao ano sobre o valor do Patrimônio Líquido; e (ii) o Cogestor cobrará, pelos serviços de gestão profissional da Carteira, o valorcorrespondente a um percentual incidente sobre o valor do Patrimônio Líquido, definido conforme tabela abaixo, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, respeitado o valor mínimo mensal previsto abaixo: 163 Faixa de Pat"
+    }
+   ],
+   "legacy": {
+    "value": "Gestor 0,38% a.a.; cogestor 0,07%/0,06% a.a., corte R$ 200 mi; mínimo cogestor R$ 6,5 mil/mês.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/06/2026, Anexo, cl. 13.14"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 163,
+     "clause": "Anexo, cl. 13.18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "as respectivas ofertas, conforme a Resolução CVM 160/22, e alterações posteriores. 13.18. Taxa de Performance. Não será cobrada dos Cotistas qualquer taxa de performance. 13.19. Inexistência de Taxas Adicionais. Não serão cobradas taxas de ingresso ou de saída pelo Administrador. 14. ENCARGOS DA CLASSE 14.1. São os encargos previstos no Capítulo 9 da parte geral do Regulamento, bem como as seguintes despesas: (i) despesas com a contratação do Consultor Especializado e Agente de Formalização; (ii) despesas incorridas para a efetivação do Monitoramento das Garantias; (iii) despesas incorridas em razão da cobrança dos Direitos Creditórios Inadimplidos; (iv) despesas com o registro de Direitos Creditórios em Entidades Registradoras; (v) despesas incorridas com o arresto de bens, contratação de fretes para recebimento de grãos, relatórios de auditoria de constituição das Garantias, conforme aplicável, serviços de notificação extrajudicial, além de despesas com locomoção para renegociação de operações da Classe; (vi) despesas incorridas com a contratação de assessores legais para a realização de Ofertas Públicas;"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada subclasse",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Limine Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 3,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "data da primeira integralização de Cotas de determinada de Cotas” subclasse ou série de Cotas. “Administrador” Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., com sede na Cidade e Estado de São Paulo, na Avenida Doutor Cardoso de Melo, nº 1184, 9º andar, conjunto 91, inscrita no CNPJ sob o nº 24.361.690/0001-72, devidamente autorizada à prestação dos serviços de administração de carteira de títulos e valores mobiliários através do Ato Declaratório da CVM nº 16.206, de 08 de maio de 2018 ou seu sucessor legal a qualquer título. “Agência de Classificação Significa a agência classificadora de risco, autorizada a prestar tais de Risco” serviços junto à CVM, que poderá ser contratada pelo Fundo para a classificação de risco das Cotas, conforme aplicável. 3 “Agente de Controladoria” Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., conforme acima qualifica"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Indie Capital, com cogestão da Kanastra",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 9,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "negociação secundária, administrado e operacionalizado pela B3. 8 “Gestor” Significa a INDIE CAPITAL INVESTIMENTOS LTDA., sociedade empresária de responsabilidade limitada, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Diogo Moreira, nº 132, conjuntos 101, 102, 103 e 104, Pinheiros, CEP 05423-010, inscrita no CNPJ sob o nº 14.359.791/0001-55, autorizada pela CVM a prestar o serviço de gestão de carteira de valores mobiliários por meio do Ato Declaratório nº 12.046, de 23 de novembro de 2011. “IGP-M” Significa o Índice Geral de Preços do Mercado – IGP-M, calculado e divulgado pela Fundação Getúlio Vargas (FGV). “Índices de Monitoramento” Significam os índices de monitoramento a serem calculados e verificados nas Datas de Verificação pelo Gestor, conforme o caso, nos termos do Anexo Descritivo. “Instituições Financeiras Significam quaisquer instituições financeiras autorizada"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 60,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "além da Czarnikow, CHS do Brasil, CJ, ALZ e Amaggi e seus respectivos Grupos Econômicos; “Cogestor” Significa a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade empresária de responsabilidade limitada com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, Torre Empresarial Sul, 8º andar, sala 802, Bairro Jardim Sul, CEP 38411-848, inscrita no CNPJ sob o nº 44.870.662/0001-98, autorizada pela Comissão de Valores Mobiliários – CVM a prestar o serviço de gestão de carteira de valores mobiliários por meio do Ato Declaratório nº 19.724, de 07 deabril de 2022, contratado pelo Gestor para exercer as atividades de gestão da Carteira da Classe, em conjunto com o Gestor, nos termosdo Contrato de Cogestão. “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Júnior, que deverá observar os Índices de Subordinação Mínimos, sem a intermediação de instituições financeiras integrantes do sistema brasileiro de distrib"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 10,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "durante o prazo de duração do Fundo, nos termos da Resolução CVM 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários brasileiro; (iii) será realizada sob o rito de registro automático de distribuição, nos termos da Resolução CVM 160/22; e (iv) poderá ser cancelada caso não haja a colocação do montante mínimo das respectivas Subclasses, em sua respectiva proporção, conforme assim definidos no Anexo Descritivo da Classe Única e nos respectivos Apêndices. 10 “Ordem de Alocação de Tem seu significado atribuído no respectivo Anexo Descritivo. Recursos” “Patrimônio Líquido” Significa o patrimônio líquido da Classe Única, correspondente à diferença entre (i) o valor agregado dos ativos da Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, responsabilidade limitada e duração indeterminada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado (subclasses com prazo próprio)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 13,
+     "clause": "Anexo, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "conforme alterada, e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.2. O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral das Cotas de todas as suas Classes, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.3. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. 2.4. Limitação de Responsabilidade."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, responsabilidade limitada e duração indeterminada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "CPR-F de produtores ligadas à venda de grãos a cerealistas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 66,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "Adquiridos decorrentes das CPR-F emitidas diretamente em favor da Classe e/ou cedidas pelo Cedente à Classe, conforme o caso. “Direitos Creditórios” Significam os Direitos Creditórios Cessão e os Direitos Creditórios Emissão, em conjunto. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Classe."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 66,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "“Devedores” Significam os Devedores que são produtores rurais, pessoas físicas e/ou jurídicas, e/ou cooperativas de produtores rurais, indicadas pela Originadora e que sejam devedores dos Direitos Creditórios Adquiridos decorrentes das CPR-F emitidas diretamente em favor da Classe e/ou cedidas pelo Cedente à Classe, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "CPR-F emitidas à classe ou cedidas; financiamento de produtores rurais e cooperativas.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "Cessão fiduciária e garantias adicionais (penhor de grãos, imóvel)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1263627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/06/2026",
+     "page": 75,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+     "excerpt": "Creditórios Elegíveis ofertados, será baseado nas Garantias Adicionais das respectivas CPR-F, sendo equivalente a (i) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional; (ii) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional e atendam, cumulativamente, aos seguin"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão fiduciária e garantias adicionais; penhor/alienação de grãos ou imóvel conforme operação.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "CPR-F de produtores originadas pela Merx; subordinação de 25% (júnior ≥ 15%) e devedor sem garantia ≤ 0,5% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
