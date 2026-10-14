@@ -1,0 +1,47 @@
+# Saga FIDC Crédito Privado (Oliveira Trust; Oliveira Trust Servicer; notas comerciais do Grupo Saga)
+type: Outros
+q1: * "Direitos Creditórios são originados pelos Devedores, por meio da emissão das Notas Comerciais, as quais serão subscritas e integralizadas pelo Fundo de forma primária"
+q2: * "“Devedores” Significa qualquer pessoa jurídica com sede no Brasil, integrante do Grupo Saga, que tenha emitido as Notas Comerciais"
+q3: * "seguintes Critérios de Elegibilidade, a serem verificados pelo Gestor, na Data de Aquisição: (i) as Notas Comerciais deverão ser emitidas pelos Devedores"
+q4: * "Significa a alocação de, pelo menos, 90% (noventa por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios Elegíveis"
+q5: * "Significa o resultado da razão entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 33,33%"
+q6: * "Não será cobrada dos Cotistas qualquer taxa de performance"
+q7: * "Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q8: * "“Gestor” Significa a OLIVEIRA TRUST SERVICER S.A."
+q9: * "destinada exclusivamente a Investidores Profissionais; (ii) será intermediada"
+q10: * "prazo de duração indeterminado, sendo que cada Classe ou Subclasse de Cotas, conforme o caso, poderá ter um prazo de duração específico"
+q11: * "provisão para perdas do Administrador, também disponível em seu site"
+q12: * "Eventos de Liquidação Significam quaisquer dos eventos de liquidação antecipada Antecipada” descritos no Anexo Descritivo"
+q13: * "Agente de Cobrança” Significa o prestador de serviços de cobrança que vier a ser contratado pelo Gestor"
+receivables: Notas comerciais de sociedades do Grupo Saga, subscritas no primário | q1,q2
+originator: — | Fundo subscreve títulos; não há originador de recebíveis
+assignor: — | Subscrição primária, sem cedente
+debtor: Empresas do Grupo Saga emissoras das notas comerciais | q2
+recourse: — | Não aplicável a notas comerciais subscritas
+eligibility: Notas comerciais em reais, vincendas, emitidas pelas devedoras | q3,o10
+debtor_limit: Concentração no Grupo Saga, devedor econômico único | q2
+assignor_limit: — | Não há cedentes
+term_max: n/d | Vencimento limitado à última cota sênior, sem prazo fixo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 90% do PL em direitos creditórios elegíveis | q4 | value=90
+quota_structure: Sênior / Subordinada | q5
+sub_senior: 33,33% · subord./PL | q5 | basis=jr/PL | value=33.33
+sub_mezz: — | Sem cota mezanino
+sub_check: Apurado pelo gestor | q5
+reserve: Reserva inicial e reserva mínima de custos e encargos | o29
+pdd: Manual de provisão para perdas do administrador | q11
+eval_triggers: n/d | Eventos de avaliação descritos no anexo, sem trecho contínuo
+liquidation: Eventos descritos no anexo descritivo da classe | q12
+revolving: — | Não aplicável a notas comerciais subscritas
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Taxa global de 0,22% a.a. do PL, com mínimo mensal | o44
+mgmt_fee: Incluída na taxa global | o44
+perf_fee: Não prevista | Regulamento veda taxa de performance | q6
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q7
+manager: Oliveira Trust Servicer | q8
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança a ser contratado pelo gestor | q13
+investors: Investidores profissionais | q9
+duration: Indeterminado (séries com prazo próprio) | q10
+leitura: Notas comerciais do Grupo Saga subscritas no primário; subordinação de 33,33% e alocação mínima de 90%.
