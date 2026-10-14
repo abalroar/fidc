@@ -1,0 +1,51 @@
+# Cobuccio FIDC (QI CTVM; Carmel Gestora; cedentes Brasil Card e coligadas)
+type: Cartão/adquirência
+q14: * "7.8.1. A Classe deverá observar o limite de 4% (quatro por cento) de seu Patrimônio Líquido"
+q1: * "“Cedentes” Significam: (i) a Brasil Card e suas Coligadas; (ii) os Estabelecimentos Comerciais, representados pela Bolt Card"
+q2: * "“Brasil Card” é a BRASIL CARD INSTITUIÇÃO DE PAGAMENTOS LTDA."
+q3: * "Devedores” são os Devedores (sacados) dos Direitos Creditórios, que são, conforme o caso: (i) portadores de Cartões Brasil Card"
+q4: * "seguintes Critérios de Elegibilidade para todos os Direitos Creditórios: (a) os Direitos Creditórios deverão ser provenientes de Direitos Creditórios de Antecipação"
+q5: * "reserva de caixa equivalente a, no mínimo, 3 (três) meses de despesas ordinárias do Fundo"
+q6: * "São eventos de avaliação: (i) renúncia da Administradora ou da Gestora à administração ou gestão do Fundo"
+q7: * "“Administradora” é a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q8: * "“Gestora” é a CARMEL GESTORA DE ATIVOS LTDA."
+q9: * "Custodiante” é a Administradora"
+q10: * "destinada exclusivamente a Investidores Profissionais"
+q11: * "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia de Cotistas"
+q12: * "provisão para devedores duvidosos, e serão determinados com data base do último Dia Útil do mês calendário anterior"
+q13: * "Cobrança Extraordinária, por meio do qual a Brasil Card e a Instituição Financeira Conveniada, conforme cada caso, são contratados como prestadores de serviço de cobrança"
+receivables: Financiamentos de fatura, antecipações e CCBs pessoais da Brasil Card | o1
+card_receivables: Financiamento de faturas e transações dos cartões Brasil Card | o1,q3
+originator: Brasil Card e coligadas | q1,q2
+assignor: Brasil Card, coligadas e estabelecimentos representados pela Bolt Card | q1
+debtor: Portadores dos cartões Brasil Card, entre outros | q3
+recourse: Aquisição definitiva sem regresso nem coobrigação do cedente | o12
+eligibility: Antecipações e financiamentos não vencidos; prazo médio ≤ 180 dias | o15,q4
+debtor_limit: Por devedor ou coobrigado: até 4% do PL, com exceções da norma | q14 | value=4
+assignor_limit: n/d | Limite por cedente não fixado em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Prazo individual de até 40 meses | o15
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | o25 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | o28
+sub_senior: Sem mezanino emitido: júnior ≥ 75% do PL | o28 | basis=jr/PL | value=75
+sub_mezz: n/d | Condições com mezanino emitido não localizadas em trecho contínuo
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de caixa de ao menos 3 meses de despesas | q5
+pdd: Índices calculados líquidos de PDD na data base mensal | q12
+eval_triggers: Renúncia de prestador essencial, entre outros | q6
+liquidation: Atraso no pagamento da sênior e insolvência, entre outros | o44
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: Despesas, reserva, sênior e depois subordinadas | o50
+admin_fee: 0,13% a.a. do PL | o53
+mgmt_fee: 0,10% a.a. do PL | o56
+perf_fee: n/d | Regulamento não fixa taxa de performance própria
+target_senior: n/d | Meta definida no suplemento de cada série
+target_mezz: n/d | Meta definida no suplemento de cada série
+administrator: QI CTVM | q7
+manager: Carmel Gestora de Ativos | q8
+custodian: QI CTVM (a administradora) | q9,q7
+servicer: Brasil Card e instituição conveniada (cobrança extraordinária) | q13
+investors: Investidores profissionais | q10
+duration: Indeterminado | q11
+card_lock: n/d | Mecanismo de trava não descrito em trecho contínuo
+dilution: n/d | Tratamento de cancelamentos não localizado em trecho contínuo
+leitura: Crédito dos cartões Brasil Card com júnior ≥ 75% do PL (sem mezanino) e devedor ≤ 4% do PL.
