@@ -326,8 +326,13 @@ def _render_active_analysis_bar(selected_portfolio: PortfolioRecord, *, compact:
         columns = st.columns([5.0, 1.2, 1.2] if management_renderer else [5.0, 1.2], vertical_alignment="center")
         detail_col, action_col = columns[:2]
         with detail_col:
-            st.markdown(f"**{selected_portfolio.name}**")
-            st.caption(f"{fund_count} fundo{'s' if fund_count != 1 else ''}" if compact else f"{kind_label} | {fund_count} fundo{'s' if fund_count != 1 else ''}")
+            if compact:
+                st.markdown(_entity_title_html(selected_portfolio), unsafe_allow_html=True)
+                if fund_count > 1:
+                    st.caption(f"{fund_count} fundos")
+            else:
+                st.markdown(f"**{selected_portfolio.name}**")
+                st.caption(f"{kind_label} | {fund_count} fundo{'s' if fund_count != 1 else ''}")
         with action_col:
             if st.button(
                 "Trocar" if compact else "Trocar análise",
@@ -340,6 +345,24 @@ def _render_active_analysis_bar(selected_portfolio: PortfolioRecord, *, compact:
         if management_renderer:
             with columns[2], st.popover("Gerenciar", type="tertiary"):
                 management_renderer()
+
+
+def _entity_title_html(portfolio: PortfolioRecord) -> str:
+    """The analysed entity, named once; a single fund carries its legal identity."""
+    from services.identifier_utils import format_cnpj
+
+    identity = ""
+    if len(portfolio.funds) == 1:
+        fund = portfolio.funds[0]
+        identity = (
+            "<details class='portfolio-scope-identity'><summary aria-label='Identificação do fundo'>"
+            "<span aria-hidden='true'>i</span></summary>"
+            f"<div>{escape(str(fund.display_name or portfolio.name))}<br>CNPJ {escape(format_cnpj(fund.cnpj))}</div></details>"
+        )
+    return (
+        f"<div class='portfolio-entity'><div class='portfolio-entity-title' role='heading' aria-level='2'>"
+        f"{escape(portfolio.name)}</div>{identity}</div>"
+    )
 
 
 def build_temporary_portfolio_from_cnpj(

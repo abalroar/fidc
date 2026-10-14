@@ -761,12 +761,16 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
             progress_bar.progress(int(round(normalized * 100)))
 
 
-def render_period_selector(*, state_prefix: str, title: str = "Período da análise", context_label: str | None = None) -> ImePeriodSelection:
+def render_period_selector(
+    *, state_prefix: str, title: str = "Período da análise", context_label: str | None = None, show_caption: bool = True,
+) -> ImePeriodSelection:
     """Public period selector — reused by app.py as a global control shared across tabs."""
-    return _render_period_selector(state_prefix=state_prefix, title=title, context_label=context_label)
+    return _render_period_selector(state_prefix=state_prefix, title=title, context_label=context_label, show_caption=show_caption)
 
 
-def _render_period_selector(*, state_prefix: str, title: str = "Período da análise", context_label: str | None = None) -> ImePeriodSelection:
+def _render_period_selector(
+    *, state_prefix: str, title: str = "Período da análise", context_label: str | None = None, show_caption: bool = True,
+) -> ImePeriodSelection:
     caption_prefix = f"{context_label}: " if context_label else ""
     end_month = current_default_end_month()
     max_options = _period_month_options(end_month, months_back=59)
@@ -814,7 +818,8 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
             f"{_format_month_option_label(period.start_month)} "
             f"→ {_format_month_option_label(period.end_month)}"
         )
-        st.caption(caption_prefix + period_str)
+        if show_caption:
+            st.caption(caption_prefix + period_str)
     else:
         start_default = default_period.start_month
         start_index = max_options.index(start_default) if start_default in max_options else 0
@@ -847,10 +852,11 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 st.session_state[custom_key] = False
                 st.rerun()
         period = build_custom_period(start_month=start_month, end_month=end_month_selected)
-        st.caption(
-            caption_prefix + f"{_format_month_option_label(period.start_month)} "
-            f"→ {_format_month_option_label(period.end_month)}"
-        )
+        if show_caption:
+            st.caption(
+                caption_prefix + f"{_format_month_option_label(period.start_month)} "
+                f"→ {_format_month_option_label(period.end_month)}"
+            )
 
     return period
 
