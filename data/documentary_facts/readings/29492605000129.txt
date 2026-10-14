@@ -1,0 +1,59 @@
+# Gazin FIDC Multissegmentos (Finaxis; Petra Capital; Entidades Gazin e Gazincred)
+type: Duplicatas/multicedente
+q1: D1 "ndo serão representados por Notas Fiscais Eletrônicas (NF-e), Notas Fiscais Eletrônicas de Consumo (NFC-e) e Cédulas de Crédito Bancário (CCBs)"
+q2: D1 "A Gazin Holding, a Cedente Especial, bem como seus respectivos controladores"
+q3: D1 "GAZINCRED S.A. SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO"
+q4: D1 "as Cedentes Outro, as Entidades Gazin e a Cedente Especial"
+q5: D1 "(i) no mínimo 85% (oitenta e cinco por cento) dos Direitos Creditórios Cedidos devem corresponder a Direitos Creditórios devidos por, ou Cedidos com Coobrigação"
+q6: D1 "estará limitada a 5% (cinco por cento) do Patrimônio Líquido do Fundo"
+q7: D1 "O Fundo somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade"
+q8: D1 "até 465 (quatrocentos e sessenta e cinco) dias contados da respectiva Data de Aquisição"
+q9: D1 "50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Cedidos"
+q10: D1 "O Índice de Subordinação será considerado enquadrado sempre que corresponder a, no mínimo, 51%"
+q11: D1 "referente aos 6 (seis) meses subsequentes"
+q12: D1 "política de provisão para devedores duvidosos da Administradora"
+q13: D1 "24.2 São considerados Eventos de Avaliação: (a) inobservância, pela Administradora"
+q14: D1 "24.3 São considerados Eventos de Liquidação: (a) caso seja deliberado na Assembleia"
+q15: D1 "Será permitida a revolvência da carteira do Fundo"
+q16: D1 "calculados em forma de cascata, sendo o valor total devido equivalente à somatória"
+q17: D1 "7.2 Pela prestação dos serviços de gestão do Fundo, o Fundo pagará à Gestora a Taxa Mínima de Gestão"
+q18: D1 "FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente"
+q19: D1 "PETRA CAPITAL GESTÃO DE INVESTIMENTOS LTDA."
+q20: D1 "BANCO FINAXIS S.A., instituição financeira devidamente autorizada pela CVM"
+q21: D1 "Gazin Indústria e Comércio de Móveis e Eletrodomésticos S.A."
+q22: D1 "Investidores profissionais, conforme definidos na regulamentação aplicável"
+q23: D1 "O Fundo terá prazo de duração indeterminado"
+q24: D1 "quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída"
+receivables: NF-e, NFC-e e CCBs das atividades das cedentes | q1
+originator: Entidades Gazin (Gazin Holding e Gazincred) | q2,q3
+assignor: Entidades Gazin, Gazincred e outros cedentes | q4,q3
+debtor: Clientes das cedentes ou entidades Gazin, por crédito ou coobrigação | q5
+recourse: Ao menos 85% devidos ou coobrigados por entidades Gazin | q5
+eligibility: Em reais, não vencidos, devedor sem atraso, prazo até 465 dias | q7,q8
+debtor_limit: Devedores fora do grupo Gazin: até 5% do PL cada | q6 | value=5
+sacado_limit: Devedores fora do grupo Gazin: até 5% do PL cada | q6 | value=5
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Até 465 dias da aquisição | q8
+allocation: ≥ 50% do PL em direitos creditórios | q9 | value=50
+quota_structure: Sênior / Júnior | q10
+sub_senior: 51% · subord./PL | q10 | basis=jr/PL | value=51
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Encargos de 6 meses e reserva para amortização sênior | q11
+pdd: Pela política de PDD da administradora | q12
+eval_triggers: Falha de prestador de serviço, entre outros | q13
+liquidation: Avaliação convertida em liquidação pela assembleia, entre outros | q14
+revolving: Revolvência permitida | q15
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Faixas em cascata sobre o PL, com valor mínimo | q16
+mgmt_fee: Faixas em cascata sobre o PL, com mínimo mensal | q17
+perf_fee: Não prevista | Regulamento veda outras taxas, como a de performance | q24
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: — | Sem cota mezanino
+administrator: Finaxis CTVM | q18
+manager: Petra Capital | q19
+custodian: Banco Finaxis | q20
+servicer: Gazin Indústria e Comércio | q21
+investors: Investidores profissionais | q22
+duration: Indeterminado | q23
+leitura: Crédito do grupo Gazin, com 85% devido ou coobrigado por ele; subordinação de 51% e terceiros ≤ 5% do PL.

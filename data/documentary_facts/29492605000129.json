@@ -1,0 +1,752 @@
+{
+ "schema_version": 1,
+ "cnpj": "29492605000129",
+ "name": "GAZIN FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSEGMENTOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T13:04:03Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1117213",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "NF-e, NFC-e e CCBs das atividades das cedentes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 30,
+     "clause": "Suplemento F, cl. 11.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "Características dos Direitos Creditórios 11.1.1 Os Direitos Creditórios a serem adquiridos pelo Fundo serão representados por Notas Fiscais Eletrônicas (NF-e), Notas Fiscais Eletrônicas de Consumo (NFC-e) e Cédulas de Crédito Bancário (CCBs), originados de operações de correntes das atividades do objeto social das Cedentes, realizadas no segmento de MULTISSEGMENTOS. 11.1.1.1 É vedada a aquisição de direitos creditórios não-padronizados, conforme definidos no artigo 2º, caput, XIII, do Anexo Normativo II à Resolução CVM nº 175/22. 11.1.1.2 Os Direitos Creditórios a serem adquiridos pelo Fundo poderão contar com garantias reais ou fidejussórias, prestadas pelos respectivos Devedores ou por terceiros. 11.1.1.3 Os Direitos Creditórios serão adquiridos pelo Fundo por meio do Contrato de Cessão firmado entre o Fundo e os Cedentes, bem como, conforme aplicável, eventuais devedores solidários e/ou Coobrigados, preferencialmente acompanhados de todos os direitos, privilégios, preferências, prerrogativas, ações e garantias assegurados aos seus titulares. 11.1.2"
+    }
+   ],
+   "legacy": {
+    "value": "NF-e/NFC-e e CCBs originadas de atividades multissegmentos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Entidades Gazin (Gazin Holding e Gazincred)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 8,
+     "clause": "Suplemento F",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "Cedidos. “Entidades Gazin” A Gazin Holding, a Cedente Especial, bem como seus respectivos controladores, diretos ou indiretos, as respectivas sociedades controladas ou sob controle comum. Para fins desta definição, “controle”, “controlador”, “controlada” e termos conexos terão o significado atribuído pelo artigo 116 da Lei nº 6.404, de 15 de dezembro de 1976, conforme alterada. “Eventos de Avaliação” Eventos definidos no item 24.2 deste Regulamento cuja ocorrência enseja a imediata convocação da Assembleia para deliberar se tais eventos constituem Eventos de Liquidação. FINAXIS - SP FINAXIS - PR Ouvidoria Av."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 5,
+     "clause": "Suplemento F",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "endosso. “Cedente Especial” GAZINCRED S.A. SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO, instituição financeira com sede na Cidade de Douradina, Estado do FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte, térreo, loja 08 Rua Pasteur, 463, 11º andar 0800 601 1313 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br Paraná, na Rod PR 82, KM 01, S/N, inscrita no CNPJ sob o nº 11.760.553/0001-69. “Cedentes” Significa, em conjunto ou indistintamente, as Cedentes Outro, as Entidades Gazin e a Cedente Especial. “Código ANBIMA” Código de Administração e Gestão de Recursos de Terceiros, da ANBIMA. “Conta Vinculada”"
+    }
+   ],
+   "legacy": {
+    "value": "Entidades Gazin e demais cedentes elegíveis",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Entidades Gazin, Gazincred e outros cedentes",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 6,
+     "clause": "Suplemento F",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "1.760.553/0001-69. “Cedentes” Significa, em conjunto ou indistintamente, as Cedentes Outro, as Entidades Gazin e a Cedente Especial. “Código ANBIMA” Código de Administração e Gestão de Recursos de Terceiros, da ANBIMA. “Conta Vinculada” Contas especiais de titularidade de cada um dos Cedentes, movimentada pelo Custodiante, na qual serão recebidos os recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, quando aplicável. “Contrato de Cessão” Contratos celebrados entre o Fundo e cada um dos Cedentes e eventuais devedores solidários e/ou Coobrigados, no qual serão estabelecidos os termos e condições para a cessão dos Direitos Creditórios"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 5,
+     "clause": "Suplemento F",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "endosso. “Cedente Especial” GAZINCRED S.A. SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO, instituição financeira com sede na Cidade de Douradina, Estado do FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte, térreo, loja 08 Rua Pasteur, 463, 11º andar 0800 601 1313 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br Paraná, na Rod PR 82, KM 01, S/N, inscrita no CNPJ sob o nº 11.760.553/0001-69. “Cedentes” Significa, em conjunto ou indistintamente, as Cedentes Outro, as Entidades Gazin e a Cedente Especial. “Código ANBIMA” Código de Administração e Gestão de Recursos de Terceiros, da ANBIMA. “Conta Vinculada”"
+    }
+   ],
+   "legacy": {
+    "value": "Entidades Gazin e demais cedentes elegíveis",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Clientes das cedentes ou entidades Gazin, por crédito ou coobrigação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 31,
+     "clause": "Suplemento F, cl. 11.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br (i) no mínimo 85% (oitenta e cinco por cento) dos Direitos Creditórios Cedidos devem corresponder a Direitos Creditórios devidos por, ou Cedidos com Coobrigação, de uma ou mais Entidades Gazin; e/ou (ii) a concentração por Devedor em relação a Direitos Creditórios que não sejam devidos por, ou Cedidos com Coobrigação de, uma ou mais Entidades Gazin, estará limitada a 5% (cinco por cento) do Patrimônio Líquido do Fundo. 11.1.2.3 É expressamente vedada qualquer forma de antecipação de recursos por qualquer dos Prestadores de Serviços Essenciais ou dos Demais Prestadores de Serviços aos Cedentes, para posterior reembolso pelo Fundo. 11.1.3 Será permitida a revolvência da carteira do Fundo, ou seja, a aquisição de novos Direitos Creditórios pelo Fundo com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração do Fundo, respeitada a ordem de alocação de recursos prevista na cláusula 20 do presente Regulamento. 11.1.4 O processo d"
+    }
+   ],
+   "legacy": {
+    "value": "Devedores deNF-e/NFC-e e CCBs; granularidade por operação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Ao menos 85% devidos ou coobrigados por entidades Gazin",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 31,
+     "clause": "Suplemento F, cl. 11.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br (i) no mínimo 85% (oitenta e cinco por cento) dos Direitos Creditórios Cedidos devem corresponder a Direitos Creditórios devidos por, ou Cedidos com Coobrigação, de uma ou mais Entidades Gazin; e/ou (ii) a concentração por Devedor em relação a Direitos Creditórios que não sejam devidos por, ou Cedidos com Coobrigação de, uma ou mais Entidades Gazin, estará limitada a 5% (cinco por cento) do Patrimônio Líquido do Fundo. 11.1.2.3 É expressamente vedada qualquer forma de antecipação de recursos por qualquer dos Prestadores de Serviços Essenciais ou dos Demais Prestadores de Serviços aos Cedentes, para posterior reembolso pelo Fundo. 11.1.3 Será permitida a revolvência da carteira do Fundo, ou seja, a aquisição de novos Direitos Creditórios pelo Fundo com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração do Fundo, respeitada a ordem de alocação de recursos prevista na cláusula 20 do presente Regulamento. 11.1.4 O processo d"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão definitiva/irrevogável; cedente responde pela existência/validade/formalização",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Em reais, não vencidos, devedor sem atraso, prazo até 465 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 32,
+     "clause": "Suplemento F, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "cinco) Dias Úteis a contar da sua identificação. 12. CRITÉRIOS DE ELEGIBILIDADE 12.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora ou por terceiro por ela subcontratado, nos termos do item 6.2.3 acima: (a) sejam representados em moeda corrente nacional; (b) não estejam vencidos, no momento de sua cessão para o Fundo; (c) não sejam devidos por Devedores que, na Data de Aquisição, apresentem qualquer valor em atraso há mais de 30 (trinta) dias corridos; (d) tenham prazo máximo de vencimento de até 465 (quatrocentos e sessenta e cinco) dias contados da respectiva Data de Aquisição; e FINAXIS - SP FINAXIS - PR Ouvidoria Av."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 32,
+     "clause": "Suplemento F, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "valor em atraso há mais de 30 (trinta) dias corridos; (d) tenham prazo máximo de vencimento de até 465 (quatrocentos e sessenta e cinco) dias contados da respectiva Data de Aquisição; e FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte, térreo, loja 08 Rua Pasteur, 463, 11º andar 0800 601 1313 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br (e) considerada pro forma cada aquisição, sejam observados os Limites de Concentração e as Reservas. 12.1.1 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora, ou por terceiro por ela subcontratado, na respectiva Data de Aquisição. 12.1.2 Observados os termos e condições do presente Regulamento, a verificação pela Gestora do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 12.2 O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critério de Elegibilidade, por qualquer motivo, após a sua aquisição pelo Fundo"
+    }
+   ],
+   "legacy": {
+    "value": "Lastro comprovável por notas fiscais/CCBs; não padronizados vedados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedores fora do grupo Gazin: até 5% do PL cada",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 31,
+     "clause": "Suplemento F, cl. 11.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "devidos por, ou Cedidos com Coobrigação de, uma ou mais Entidades Gazin, estará limitada a 5% (cinco por cento) do Patrimônio Líquido do Fundo. 11.1.2.3 É expressamente vedada qualquer forma de antecipação de recursos por qualquer dos Prestadores de Serviços Essenciais ou dos Demais Prestadores de Serviços aos Cedentes, para posterior reembolso pelo Fundo. 11.1.3 Será permitida a revolvência da carteira do Fundo, ou seja, a aquisição de novos Direitos Creditórios pelo Fundo com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração do Fundo, respeitada a ordem de alocação de recursos prevista na cláusula 20 do presente Regulamento. 11.1.4 O processo de originação dos Direitos Creditórios e a Política de Crédito, adotada pelos Cedentes Especiais na originação dos Direitos Creditórios, encontram-se descritos no Suplemento B deste Regulamento."
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "≥ 85% crédito devido/coobrigado por Gazin; outros devedores≤ 5% PL desde 18/02/2026",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F, cl. 11.1.2"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "≥ 85% crédito devido/coobrigado por Gazin; outros devedores≤ 5% PL desde 18/02/2026",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Até 465 dias da aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 32,
+     "clause": "Suplemento F, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "valor em atraso há mais de 30 (trinta) dias corridos; (d) tenham prazo máximo de vencimento de até 465 (quatrocentos e sessenta e cinco) dias contados da respectiva Data de Aquisição; e FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte, térreo, loja 08 Rua Pasteur, 463, 11º andar 0800 601 1313 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br (e) considerada pro forma cada aquisição, sejam observados os Limites de Concentração e as Reservas. 12.1.1 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora, ou por terceiro por ela subcontratado, na respectiva Data de Aquisição. 12.1.2 Observados os termos e condições do presente Regulamento, a verificação pela Gestora do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 12.2 O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critério de Elegibilidade, por qualquer motivo, após a sua aquisição pelo Fundo"
+    }
+   ],
+   "legacy": {
+    "value": "Lastro comprovável por notas fiscais/CCBs; não padronizados vedados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 4,
+     "clause": "Suplemento F",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "Cotas. “Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Cedidos. “Alocação Mínima Tributária” Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos Creditórios, nos FINAXIS - SP FINAXIS - PR Ouvidoria Av."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios≥ 50% PL; requisito tributário distinto≥ 67% carteira",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 44,
+     "clause": "Suplemento F, cl. 15.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "serão estabelecidas no Apêndice da respectiva emissão. 15.2 Índice de Subordinação 15.2.1 O Índice de Subordinação será considerado enquadrado sempre que corresponder a, no mínimo, 51% (cinquenta e um por cento). FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte, térreo, loja 08 Rua Pasteur, 463, 11º andar 0800 601 1313 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br 15.2.2 Na hipótese de desenquadramento do Índice de Subordinação, os Cotistas titulares das Cotas Juniores, conforme o caso, serão comunicados pela Gestora em até 2 (dois) Dias Úteis contados da verificação do desenquadramento. 15.2.3 Os Cotistas deverão responder à comunicação da Gestora, até o 5º (quinto) Dia Útil subsequente à data do seu recebimento, informando, por escrito, se desejam ou não integralizar novas Cotas Juniores, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "Índice de subordinação mínimo 51%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F, cl. 15.2.1"
+   }
+  },
+  "sub_senior": {
+   "display": "51% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 44,
+     "clause": "Suplemento F, cl. 15.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "serão estabelecidas no Apêndice da respectiva emissão. 15.2 Índice de Subordinação 15.2.1 O Índice de Subordinação será considerado enquadrado sempre que corresponder a, no mínimo, 51% (cinquenta e um por cento). FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte, térreo, loja 08 Rua Pasteur, 463, 11º andar 0800 601 1313 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br 15.2.2 Na hipótese de desenquadramento do Índice de Subordinação, os Cotistas titulares das Cotas Juniores, conforme o caso, serão comunicados pela Gestora em até 2 (dois) Dias Úteis contados da verificação do desenquadramento. 15.2.3 Os Cotistas deverão responder à comunicação da Gestora, até o 5º (quinto) Dia Útil subsequente à data do seu recebimento, informando, por escrito, se desejam ou não integralizar novas Cotas Juniores, conforme o caso."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 51.0,
+   "legacy": {
+    "value": "Índice de subordinação mínimo 51%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Índice de subordinação mínimo 51%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Encargos de 6 meses e reserva para amortização sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 54,
+     "clause": "Suplemento F, cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "o Fundo até a liquidação do Fundo, equivalente à estimativa do valor necessário para o pagamento dos encargos do Fundo, referente aos 6 (seis) meses subsequentes. 19.2 Observada a ordem de alocação de recursos prevista na cláusula 20 do presente Regulamento, a Administradora deverá manter a Reserva de Amortização, por conta e ordem do Fundo, e mantida exclusivamente em Ativos Financeiros de Liquidez, até 10 (dez) dias antes de cada data de resgate ou amortização, o saldo deverá ser equivalente a 100% (cem por cento) da estimativa do valor necessário para a amortização ou o resgate das Cotas. 19.3 Os recursos da Reserva de Encargos e da Reserva de Amortização serão mantidos em cotas de fundos de investimento classificados como “Renda Fixa” ou “Fundos de Investimento Renda Fixa Referenciados DI” (conforme definidos na regulamentação aplicável), com liquidez diária, cujas políticas de investimento admitam a alocação de recursos exclusivamente nos ativos identificados nas alíneas “(a)” a “(c)” do item 10.3 acima. 19.3.1 No âmbito da gestão da carteira do Fundo, a Gestora deverá observar a manutenção da Reserva de Encargos e da Reserva de Amortização, sem prejuízo da responsabi"
+    }
+   ],
+   "legacy": {
+    "value": "6 meses de encargos; 100% próxima amortização atéD–10",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F, cl. 19.1"
+   }
+  },
+  "pdd": {
+   "display": "Pela política de PDD da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 15,
+     "clause": "Suplemento F",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "(u) elaborar a metodologia de provisão de perdas dos Direitos Creditórios, mantendo a política de provisão para devedores duvidosos da Administradora atualizada e em conformidade com as boas práticas de mercado, a legislação, a regulamentação e a autorregulação aplicáveis, em especial, o Código ANBIMA e as Regras e Procedimentos ANBIMA; e (v) elaborar a metodologia de apreçamento dos Ativos Financeiros de Liquidez, mantendo o manual de apreçamento de ativos da Administradora atualizado e em conformidade com as boas práticas de mercado, a legislação, a regulamentação e a autorregulação aplicáveis, em especial, o Código ANBIMA e as Regras e Procedimentos ANBIMA. 6.1.3 A Administradora poderá subcontratar prestadores de serviços para auxiliá-la no cumprimento das obrigações previstas no presente Regulamento, notadamente nesta cláusula 6, observadas as disposições legais e regulamentares aplicáveis e sem prejuízo da responsabilidade da Administradora. 6.2 Obrigações da Gestora"
+    }
+   ],
+   "legacy": {
+    "value": "Metodologia de controladoria/custodiante; avaliar recuperação e política de provisões",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eval_triggers": {
+   "display": "Falha de prestador de serviço, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 64,
+     "clause": "Suplemento F, cl. 24.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "VALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 24.1 O Fundo poderá ser liquidado por deliberação da Assembleia. 24.2 São considerados Eventos de Avaliação: (a) inobservância, pela Administradora, pelo Custodiante ou pela Gestora, de seus deveres e obrigações previstos neste Regulamento, bem como de suas atribuições previstas no Acordo Operacional ou em outros contratos existentes referentes ao funcionamento do Fundo, verificada pela Administradora, pelo Custodiante, pela Gestora ou por qualquer dos Cotistas, desde que, uma vez notificada para sanar ou justificar o descumprimento, a Administradora, o Custodiante ou a Gestora, conforme o caso, não o sane ou justifique no prazo de 15 (quinze) Dias Úteis contado do recebimento da referida notificação; (b) na hipótese de resilição do Contrato de Custódia ou renúncia do Custodiante, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (c) renúncia de quaisquer dos Prestadores de Serviços Essenciais, sem que tenham sido tomadas tempestivamente as providências previstas na cláusula 8 deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramento, PL negativo e falhas de prestadores; Gazin DL/EBITDA≤ 2, 50 x",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F, cl. 24.1"
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida em liquidação pela assembleia, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 66,
+     "clause": "Suplemento F, cl. 24.2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "rovadas pela Assembleia, as medidas previstas nos itens 24.2.1 (b) e 24.2.2(b) acima deverão ser cessadas. 24.3 São considerados Eventos de Liquidação: (a) caso seja deliberado na Assembleia que um Evento de Avaliação constitui um Evento de Liquidação; (b) caso o Patrimônio Líquido seja, a qualquer momento, inferior a R$ 1.000.000,00 (um milhão de reais) por 90 (noventa) dias consecutivos; (c) renúncia da Administradora sem que a Assembleia Geral eficazmente nomeie instituição habilitada para substituí-la, nos termos estabelecidos neste Regulamento; (d) renúncia de quaisquer dos Prestadores de Serviços Essenciais sem que a Assembleia Geral eficazmente nomeie instituição habilitada para substituí-lo, nos termos estabelecidos neste Regulamento; (e) por determinação da CVM, em caso de violação de normas legais ou regulamentares; (f) sempre que assim decidido pelos Cotistas em Assembleia Geral especialmente convocada para tal fim; (g) intervenção ou liquidação extrajudicial do Custodiante, Administradora, ou Gestora, sem a sua efetiva substituição nos termos deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramento, PL negativo e falhas de prestadores; Gazin DL/EBITDA≤ 2, 50 x",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F, cl. 24.2.4"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 31,
+     "clause": "Suplemento F, cl. 11.1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "dores de Serviços aos Cedentes, para posterior reembolso pelo Fundo. 11.1.3 Será permitida a revolvência da carteira do Fundo, ou seja, a aquisição de novos Direitos Creditórios pelo Fundo com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração do Fundo, respeitada a ordem de alocação de recursos prevista na cláusula 20 do presente Regulamento. 11.1.4 O processo de originação dos Direitos Creditórios e a Política de Crédito, adotada pelos Cedentes Especiais na originação dos Direitos Creditórios, encontram-se descritos no Suplemento B deste Regulamento. Tendo em vista que os Direitos Creditórios a serem adquiridos pelo Fundo dos Cedentes Outros poderão ser variados e de naturezas distintas, não é possível prever e, portanto, não está contida no presente Regulamento a descrição dos processos de originação ou da política de concessão de crédito adotada por cada Cedente Outro quando da originação dos Direitos Creditórios, tampouco os fatores de risco específicos associados a tais processos ou política."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência permitida durante toda duração, respeitada waterfall",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos e reservas precedem pagamentos e novas aquisições",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Faixas em cascata sobre o PL, com valor mínimo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 19,
+     "clause": "Suplemento F, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "), equivalente a (a) os percentuais ao ano incidentes sobre as faixas do Patrimônio Líquido indicadas na tabela abaixo (calculados em forma de cascata, sendo o valor total devido equivalente à somatória dos valores proporcionais apurados para cada faixa do Patrimônio Líquido), com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor FINAXIS - SP FINAXIS - PR Ouvidoria Av. Paulista, 1842, Torre Norte, térreo, loja 08 Rua Pasteur, 463, 11º andar 0800 601 1313 01310-923 São Paulo SP 80250-104 Curitiba PR www.finaxis.com.br mensal mínimo de R$ 29.750,00 (vinte e nove mil e setecentos e cinquenta reais) acrescidos (b) das taxas por evento previstas no Suplemento A deste Regulamento. Faixa do Patrimônio Líquido Percentual ao ano Até R$ 500.000.000,00 (quinhentos milhões de reais) 0,1913% De R$ 500.000.000,01 (quinhentos milhões de reais e um 0,1488% centavo) até R$ 1.000.000.000,00 (um bilhão de reais) De R$ 1.000.000.000,01 (um bilhão de reais e um centavo) até"
+    }
+   ],
+   "legacy": {
+    "value": "0, 1913% a 0, 1275% a.a. em faixas; mínimoR$ 29.750/mês + eventos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Faixas em cascata sobre o PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 20,
+     "clause": "Suplemento F, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "0,1275% milhões de reais e um centavo) 7.2 Pela prestação dos serviços de gestão do Fundo, o Fundo pagará à Gestora a Taxa Mínima de Gestão (“Taxa Mínima de Gestão”), equivalente aos percentuais ao ano incidentes sobre as faixas do Patrimônio Líquido indicadas na tabela abaixo (calculados em forma de cascata, sendo o valor total devido equivalente à somatória dos valores proporcionais apurados para cada faixa do Patrimônio Líquido), com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mensal mínimo de R$ 5.250,00 (cinco mil e duzentos e cinquenta reais). Faixa do Patrimônio Líquido Percentual ao ano Até R$ 500.000.000,00 (quinhentos milhões de reais) 0,0338% De R$ 500.000.000,01 (quinhentos milhões de reais e um 0,0263% centavo) até R$ 1.000.000.000,00 (um bilhão de reais) De R$ 1.000.000.000,01 (um bilhão de reais e um centavo) até R$ 1.500.000.000,00 (um bilhão e quinhentos milhões de 0,0244% reais) A partir de R$ 1.500.000.000,01 (um b"
+    }
+   ],
+   "legacy": {
+    "value": "0, 0338% a 0, 0225% a.a. em faixas; mínimoR$ 5.250/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F, cl. 7.1"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda outras taxas, como a de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 22,
+     "clause": "Suplemento F, cl. 7.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "ectiva oferta, conforme a Resolução CVM nº 160, de 13 de julho de 2022. 7.10 Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 8. SUBSTITUIÇÃO DOS PRESTADORES DE SERVIÇOS ESSENCIAIS 8.1 A Administradora e a Gestora deverão ser substituídas nas hipóteses de (a) descredenciamento, por decisão da CVM, para o exercício profissional de administração de carteira de valores mobiliários, nas categorias de administrador fiduciário e gestor de recursos, respectivamente; (b) renúncia;"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Seniores 3ª e 4ª: DI + 0, 80% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": [],
+   "legacy": {
+    "value": "Seniores 3ª e 4ª: DI + 0, 80% a.a.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "Finaxis CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 3,
+     "clause": "Suplemento F, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "Serviços Essenciais. “Administradora” FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.547, de 18 de outubro de 2001, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.842, Torre Norte, térreo, loja 8, Bela Vista, CEP 01310-923, inscrita no CNPJ sob o nº 03.317.692/0001-94, ou a sua sucessora a qualquer título. “Agente de Cobrança” Gazin Indústria e Comércio de Móveis e"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Petra Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 9,
+     "clause": "Suplemento F",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "grupo econômico. “Gestora” PETRA CAPITAL GESTÃO DE INVESTIMENTOS LTDA., sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 9.664, de 28 de dezembro de 2007, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.842, Torre Norte, térreo, loja 8, Sala Petra, Bela Vista, CEP 01310-200, inscrita no CNPJ sob o nº 09.204.714/0001-96, ou a sua sucessora a qualquer título. “IGP-DI”"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Finaxis",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 4,
+     "clause": "Suplemento F, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "das garantias dos Direitos Creditórios Cedidos. “Agente Escriturador” BANCO FINAXIS S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de escrituração de valores mobiliários, nos termos do Ato Declaratório CVM nº 12.692, de 21 de novembro de 2012, com sede na cidade de Curitiba, Estado do Paraná, na Rua Pasteur, nº 463, 11º andar, Água Verde, CEP 80250-104, inscrita no CNPJ sob o nº 11.758.741/0001-52, ou o seu sucessor a qualquer título, contratado pela Administradora, em nome do Fundo, para prestar os serviços de escrituração das Cotas. “Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Gazin Indústria e Comércio",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 3,
+     "clause": "Suplemento F, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "a qualquer título. “Agente de Cobrança” Gazin Indústria e Comércio de Móveis e Eletrodomésticos S.A., inscrita no CNPJ sob o nº 77.941.490/0001-55, com sede na Cidade de Douradina, Estado do Paraná, na Rodovia Antonio Pedroso, KM 01, S/N ou o seu sucessor a qualquer título, contratado pela Gestora, em nome do Fundo, para prestar os serviços de cobrança extrajudicial ou judicial dos Direitos Creditórios Cedidos vencidos e não pagos. FINAXIS - SP FINAXIS - PR Ouvidoria Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 10,
+     "clause": "Suplemento F",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "série, conforme definido no respectivo Apêndice. “Investidores Autorizados” Investidores profissionais, conforme definidos na regulamentação aplicável. “Patrimônio Líquido” Patrimônio líquido do Fundo. “Patrimônio Líquido Negativo” Patrimônio Líquido negativo, que ocorrerá sempre que os valores das obrigações do Fundo (passivos) superarem a soma de todos os seus ativos. “Política de Cobrança” Política de cobrança dos Direitos Creditórios Cedidos inadimplidos, adotada pelo Agente de Cobrança, conforme o Suplemento C deste Regulamento. “Política de Crédito” Política de concessão de crédito, adotada pelo Cedente na originação dos Direitos Creditórios, conforme o Suplemento B deste Regulamento. “Prestadores de Serviços Essenciais” A Administrado"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo indeterminado; público conforme investidores autorizados e apêndice",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 12,
+     "clause": "Suplemento F, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "PRAZO DE DURAÇÃO 3.1 O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado. 3.1.1 O prazo de duração de cada subclasse ou série de Cotas será definido no respectivo Apêndice. 4. PÚBLICO-ALVO 4.1 As Cotas serão destinadas exclusivamente aos Investidores Autorizados. 5. PRESTADORES DE SERVIÇOS ESSENCIAIS 5.1 A administração fiduciária do Fundo será realizada pela Administradora. 5.2 A gestão do Fundo será realizada pela Gestora. 6. OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADES DOS PRESTADORES DE SERVIÇOS ESSENCIAIS 6.1 Obrigações da Administradora 6.1.1 A Administradora, observadas as limitações estabelecidas no Regulamento e na legislação e na regulamentação aplicáveis, tem poderes para praticar os atos necessários à administração do Fundo, na sua respectiva esfera de atuação. FINAXIS - SP FINAXIS - PR Ouvidoria Av."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo indeterminado; público conforme investidores autorizados e apêndice",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Devedores fora do grupo Gazin: até 5% do PL cada",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/02/2026",
+     "page": 31,
+     "clause": "Suplemento F, cl. 11.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117213",
+     "excerpt": "devidos por, ou Cedidos com Coobrigação de, uma ou mais Entidades Gazin, estará limitada a 5% (cinco por cento) do Patrimônio Líquido do Fundo. 11.1.2.3 É expressamente vedada qualquer forma de antecipação de recursos por qualquer dos Prestadores de Serviços Essenciais ou dos Demais Prestadores de Serviços aos Cedentes, para posterior reembolso pelo Fundo. 11.1.3 Será permitida a revolvência da carteira do Fundo, ou seja, a aquisição de novos Direitos Creditórios pelo Fundo com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração do Fundo, respeitada a ordem de alocação de recursos prevista na cláusula 20 do presente Regulamento. 11.1.4 O processo de originação dos Direitos Creditórios e a Política de Crédito, adotada pelos Cedentes Especiais na originação dos Direitos Creditórios, encontram-se descritos no Suplemento B deste Regulamento."
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "≥ 85% crédito devido/coobrigado por Gazin; outros devedores≤ 5% PL desde 18/02/2026",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/02/2026, Suplemento F, cl. 11.1.2"
+   }
+  }
+ },
+ "leitura": "Crédito do grupo Gazin, com 85% devido ou coobrigado por ele; subordinação de 51% e terceiros ≤ 5% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
