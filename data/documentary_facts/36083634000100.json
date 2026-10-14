@@ -1,0 +1,702 @@
+{
+ "schema_version": 1,
+ "cnpj": "36083634000100",
+ "name": "BRASIL MICROCRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Outros",
+ "reviewed_at": "2026-10-14T01:54:00Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1337361",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361"
+  },
+  "D2": {
+   "document_id": "178767",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "11/12/2019",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=178767"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Outros",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de lojistas SumUp, garantidas por recebíveis futuros de cartão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "cl. 3.28",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "uisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já fossem integrantes da carteira da Classe no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "Pessoa física que exerça atividade econômica e/ou pessoa jurídica, “Devedores” micro, pequena ou média empresa que utiliza a plataforma eletrônica de pagamentos da SumUp Pagamentos Ltda. para viabilizar as suas respectivas transações de pagamento, que emite a CCB em favor da Instituição Financeira Parceira com o objetivo de realizar uma operação de Crédito Parcelado e que apresenta Receita Operacional Bruta inferior a R$ 4.800.00,00 (quatro milhões e oitocentos mil reais) no ano imediatamente anterior à contratação do crédito, conforme Metodologia de Apuração de Receita Operacional Bruta pela Originadora. “Dia Útil” Qualquer dia que não seja (a) sábado, domingo ou feriado declarado nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "SumUp Soluções de Pagamento (subcredenciadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "cl. 14.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "ssem a ser objeto de classificação de risco. “Agente de Cobrança A” A SUMUP SOLUÇÕES DE PAGAMENTO BRASIL LTDA., subcredenciadora com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP 05425- 020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20. “Agente de Cobrança B” A UNIONCOBRA ASSESSORIA DE COBRANÇA LTDA., com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Instituições financeiras parceiras emissoras das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 11,
+     "clause": "cl. 3.17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "ira eleita contendo no mínimo: (i) dados cadastrais dos Devedores; (ii) características gerais da operação de crédito. 3.18. A Instituição Financeira Parceira aprova a operação, emite a CCB eletrônica com previsão da adoção de parcela da agenda futura de direitos creditórios decorrentes de operações de crédito junto a Originadora como meio de pagamento do empréstimo e, quando aplicável e possível, realiza o registro de cessão fiduciária em Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. garantia de referida agenda futura de direitos creditórios junto à Central Interbancária de Pagamentos (“CIP”) ou outra câmara de liquidação nos termos da Resolução nº 4.734 do Banco Central do Brasil ou outra que venha alterá-la ou substituí-la. 3.19. A Classe compra, mediante assinatura de Termo de Cessão e Endosso, as CCBs da Instituição Financeira Parceira (respeitando os Critérios de Elegibilidade). 3.20. A Originadora instrui a Instituição Financeira Parceira a realizar o desembolso da CCB na conta de pagamento do Devedor. 3.21."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Micro, pequenas e médias empresas usuárias da SumUp",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "Pessoa física que exerça atividade econômica e/ou pessoa jurídica, “Devedores” micro, pequena ou média empresa que utiliza a plataforma eletrônica de pagamentos da SumUp Pagamentos Ltda. para viabilizar as suas respectivas transações de pagamento, que emite a CCB em favor da Instituição Financeira Parceira com o objetivo de realizar uma operação de Crédito Parcelado e que apresenta Receita Operacional Bruta inferior a R$ 4.800.00,00 (quatro milhões e oitocentos mil reais) no ano imediatamente anterior à contratação do crédito, conforme Metodologia de Apuração de Receita Operacional Bruta pela Originadora. “Dia Útil” Qualquer dia que não seja (a) sábado, domingo ou feriado declarado nacional;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Cessão fiduciária dos recebíveis futuros do lojista",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "cl. 3.28",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "uisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já fossem integrantes da carteira da Classe no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "CCB com garantia de recebíveis; custo efetivo < 4% a.m.; não vencida",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "cl. 3.28",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "uisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já fossem integrantes da carteira da Classe no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "cl. 3.28",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "ue sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem custo efetivo total para o tomador final de recursos inferior a 4% (quatro inteiros por cento) ao mês, incluindo a taxa de juros da CCB, e o Imposto sobre Operações Financeiras – IOF, eventual seguro prestamista, eventual taxa de análise do crédito e taxa de emissão da CCB (“Custo Efetivo Total para os Devedores”); 12 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (g) não sejam emitidos por Devedores inadimplentes com a Classe na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico do Administrador, da Gestora, do Custodiante, do Escriturador ou da Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada ao Administrador, informando as sociedades integrantes de seu grupo econômico;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Exposição por devedor de até R$ 200 mil",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "cl. 3.28",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "adquiridos como se já fossem integrantes da carteira da Classe no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem custo efetivo total para o tomador final de recursos inferior a 4% (quatro inteiros por cento) ao mês, incluindo a taxa de juros da CCB, e o Imposto sobre Operações Financeiras – IOF, eventual seguro prestamista, eventual taxa de análise do crédito e taxa de emissão da CCB (“Custo Efetivo Total para os Devedores”); 12 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (g) não sejam emitidos por Devedores inadimplentes com a Classe na Data de Pagamento do Preço de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por instituição parceira não fixado no regulamento",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo das CCBs não fixado no regulamento",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios após 90 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 25,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "as na carteira por Direito Creditório, considerado desde sua aquisição pela Classe, não sejam atendidos; (i) não observância do prazo de 90 (noventa) dias corridos contados da data da primeira integralização ou do prazo adicional concedido pela CVM para alocação dos recursos da Classe na aquisição de Direitos Creditórios em montante que corresponda a, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe; (j) destituição do Administrador, da Gestora, do Custodiante ou da Originadora, por Justa Causa, nos termos do Regulamento e/ou deste Anexo; (k) caso a Gestora, a Originadora, o Administrador, o Custodiante ou qualquer de suas partes relacionadas entre com pedido de recuperação judicial, ou de homologação de recuperação extrajudicial, ou tenha contra si determinação de submissão ao Regime de Administração Especial Temporária, a quem aplicável, ou requerimento de falência ou insolvência não elidido no prazo legal; (l) o rebaixamento do rating inicialmente conferido às Cotas da Classe em 2 (dois) níveis ou mais; (m) se, uma vez concluídas as Chamadas de Capital, durante 3 (três) meses consecutivos o Patrimônio Líquido médio do Fundo for inferior a R$ 500.000,00 (quinhentos mil reais);"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Razão de Subordinação 2.8. Em cada data de integralização de Cotas Seniores deverão ser integralizadas Cotas Subordinadas na proporção de 13% (treze por cento) da respectiva integralização de Cotas (“Razão de Subordinação”), conforme detalhamento dos Apêndices. Ordem de Alocação 2.9. Diariamente, o Administrador deverá, por meio dos competentes débitos e créditos realizados na conta de titularidade da Classe, alocar os recursos decorrentes da integralização das Cotas e do recebimento de recursos provenientes da carteira da Classe, na seguinte ordem, conforme aplicável: (a) pagamento de despesas e encargos de responsabilidade da Classe, devidos nos termos deste Anexo e da legislação aplicável; (b) constituição da Reserva de Amortização; (c) se aplicável, pagamento da Amortização Extraordinária; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (d) caso seja uma Data de Pagamento, pagamento da Remuneração Sênior com referência às Cotas Seniores em Circulação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_senior": {
+   "display": "Subordinadas = 13% de cada integralização de seniores",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Razão de Subordinação 2.8. Em cada data de integralização de Cotas Seniores deverão ser integralizadas Cotas Subordinadas na proporção de 13% (treze por cento) da respectiva integralização de Cotas (“Razão de Subordinação”), conforme detalhamento dos Apêndices. Ordem de Alocação 2.9. Diariamente, o Administrador deverá, por meio dos competentes débitos e créditos realizados na conta de titularidade da Classe, alocar os recursos decorrentes da integralização das Cotas e do recebimento de recursos provenientes da carteira da Classe, na seguinte ordem, conforme aplicável: (a) pagamento de despesas e encargos de responsabilidade da Classe, devidos nos termos deste Anexo e da legislação aplicável; (b) constituição da Reserva de Amortização; (c) se aplicável, pagamento da Amortização Extraordinária; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (d) caso seja uma Data de Pagamento, pagamento da Remuneração Sênior com referência às Cotas Seniores em Circulação;"
+    }
+   ],
+   "basis": "jr/PL",
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Na integralização de cada série sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Razão de Subordinação 2.8. Em cada data de integralização de Cotas Seniores deverão ser integralizadas Cotas Subordinadas na proporção de 13% (treze por cento) da respectiva integralização de Cotas (“Razão de Subordinação”), conforme detalhamento dos Apêndices. Ordem de Alocação 2.9. Diariamente, o Administrador deverá, por meio dos competentes débitos e créditos realizados na conta de titularidade da Classe, alocar os recursos decorrentes da integralização das Cotas e do recebimento de recursos provenientes da carteira da Classe, na seguinte ordem, conforme aplicável: (a) pagamento de despesas e encargos de responsabilidade da Classe, devidos nos termos deste Anexo e da legislação aplicável; (b) constituição da Reserva de Amortização; (c) se aplicável, pagamento da Amortização Extraordinária; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (d) caso seja uma Data de Pagamento, pagamento da Remuneração Sênior com referência às Cotas Seniores em Circulação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para despesas e encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 40,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "nstituída pelo Administrador para fazer frente à Amortização Sênior. “Reserva de Caixa” A reserva para pagamento de despesas e encargos da Classe, conforme prevista no Anexo. “SELIC” É o Sistema Especial de Liquidação e Custódia. “Suplemento das Cotas Suplemento adotado à emissão passada das Cotas Seniores, conforme Seniores” modelo constante no Apenso ao Apêndice. “Taxa DI” Significa a variação acumulada das taxas médias diárias do Depósito Interfinanceiro – DI de um dia, “over extra-grupo”, expressas na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. calculadas e divulgadas diariamente pela B3S.A – Brasil, Bolsa, Balcão, no informativo diário di"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não descrito no regulamento",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Descumprimento da política de investimentos por 30 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "cl. 5.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "ontrato de cobrança celebrado pela Classe. 6. EVENTOS DE AVALIAÇÃO E DE LIQUIDAÇÃO 6.1. São considerados Eventos de Avaliação da Classe quaisquer das seguintes ocorrências: (a) não atendimento à Política de Investimentos, por prazo superior a 30 (trinta) dias corridos consecutivos do recebimento de notificação acerca do não atendimento à Política de Investimentos; (b) inobservância pelo Administrador, pelo Custodiante, pela Gestora ou pela Originadora de seus deveres e obrigações previstos neste Anexo, nas leis e demais normativos nos termos da legislação vigente (incluindo, sem limitações, as instruções da CVM), bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento da Classe, verificada por quaisquer dos prestadores citados neste item ou pelos Cotistas, desde que, se notificado para sanar ou justificar o descumprimento, o prestador envolvido, conforme o caso, não o sane no prazo de 30 (trinta) dias corridos contados do recebimento da referida notificação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Falência ou intervenção de prestador ou da originadora, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 26,
+     "clause": "cl. 6.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "sempre que assim decidido pelos Cotistas em Assembleia Especial especialmente convocada para tal fim; (d) decretação de falência, intervenção ou liquidação extrajudicial do Custodiante, Administrador, Gestora ou Originadora, sem a sua efetiva substituição nos termos do Regulamento e deste Anexo, (e) caso a Originadora, antes do término do Período de Investimentos: (i) descumpra quaisquer de suas obrigações no âmbito do Contrato de Cessão, que não seja objeto de cura no prazo de 10 (dez) Dias Úteis, a contar do recebimento de notificação da Originadora nesse sentido; (ii) atue com dolo, culpa, má-fé ou cometa fraude no desempenho de suas funções e responsabilidades, desde que devidamente comprovada por decisão judicial transitada em julgado; (iii) tenha sua falência, intervenção, liquidação ou recuperação judicial ou extrajudicial decretada, deferida ou homologada, exceto caso revertida dentro do prazo legal, conforme aplicável; (iv) atue em desacordo com a Lei Anticorrupção, evidenciada por decisão judicial transitada em julgado; e/ou (v) ocasione a resolução, término ou resilição do contrato de cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Aquisições durante o período de investimento de 5 anos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "cl. 2.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "o de duração da Classe poderá deliberar acerca de eventual reajuste da Taxa de Administração. Período de Investimento 2.6. Período de 05 (cinco) anos contados a partir da primeira integralização de Cotas da Classe, o qual poderá ser prorrogado por até 1 (um) ano. Período de Desinvestimento 2.7. Período que se iniciará no Dia Útil seguinte ao encerramento do Período de Investimento até o encerramento da Classe. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Razão de Subordinação 2.8. Em cada data de integralização de Cotas Seniores deverão ser integralizadas Cotas Subordinadas na proporção de 13% (treze por cento) da respectiva integralização de Cotas (“Razão de Subordinação”), conforme detalhamento dos Apêndices. Ordem de Alocação 2.9."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Amortização sênior pelo apêndice, após período de investimento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "cl. 14.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "a amortização extraordinária obrigatória da CCB, conforme previsto em cada CCB. “Amortização Sênior” É a amortização de parcela do principal das Cotas Seniores, conforme efetivamente realizada em determinada Data de Pagamento, calculada Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. e paga nos termos previstos no Apêndice específico das Cotas Seniores. “Amortização Subordinada” É a amortização de parcela do principal das Cotas Subordinadas e da remuneração das Cotas Subordinadas, que inclui todo o excedente de recursos de titularidade da Classe após o pagamento da Remuneração Sênior e da Amortização Sênior, conforme efetivamente realizada em determinada Data de Pagamento, calculada e paga nos termos"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "cl. 2.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "o de duração da Classe poderá deliberar acerca de eventual reajuste da Taxa de Administração. Período de Investimento 2.6. Período de 05 (cinco) anos contados a partir da primeira integralização de Cotas da Classe, o qual poderá ser prorrogado por até 1 (um) ano. Período de Desinvestimento 2.7. Período que se iniciará no Dia Útil seguinte ao encerramento do Período de Investimento até o encerramento da Classe. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Razão de Subordinação 2.8. Em cada data de integralização de Cotas Seniores deverão ser integralizadas Cotas Subordinadas na proporção de 13% (treze por cento) da respectiva integralização de Cotas (“Razão de Subordinação”), conforme detalhamento dos Apêndices. Ordem de Alocação 2.9."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,13% a.a. do PL (administração e gestão), com mínimo escalonado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "ária, gestão da carteira, controladoria de ativos e passivos da Classe e outros previstos neste Anexo e no Regulamento, a Classe pagará uma taxa máxima de administração equivalente a 0,13% (treze centésimos por cento) ao ano sobre seu Patrimônio Líquido, garantindo-se ao Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Administrador o valor mínimo mensal de: 1º ano a partir da primeira integralização de Cotas R$37.000,00 De maio a dezembro de 2022 R$52.000,00 De janeiro a junho (inclusive) de 2023 R$15.000,00 De julho a dezembro (inclusive) de 2023 R$20.000,00 De janeiro a dezembro (inclusive) de 2024 R$30.000,00 A partir de janeiro de 2025 R$45.000,00 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa de 0,13% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "ária, gestão da carteira, controladoria de ativos e passivos da Classe e outros previstos neste Anexo e no Regulamento, a Classe pagará uma taxa máxima de administração equivalente a 0,13% (treze centésimos por cento) ao ano sobre seu Patrimônio Líquido, garantindo-se ao Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Administrador o valor mínimo mensal de: 1º ano a partir da primeira integralização de Cotas R$37.000,00 De maio a dezembro de 2022 R$52.000,00 De janeiro a junho (inclusive) de 2023 R$15.000,00 De julho a dezembro (inclusive) de 2023 R$20.000,00 De janeiro a dezembro (inclusive) de 2024 R$30.000,00 A partir de janeiro de 2025 R$45.000,00 5.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "CDI + 2,40% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 56,
+     "clause": "Suplemento, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "da Primeira Emissão: R$ 200.769.000,00 (duzentos milhões, setecentos e sessenta e nove mil reais). b. Meta de Remuneração: CDI + 2,40% a.a. (dois inteiros e quarenta centésimos por cento ao ano). c. Condições de Remuneração, Amortização e Resgate: Se o patrimônio do Fundo permitir, a Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Remuneração Sênior e a Amortização Sênior serão pagas em cada Data de Pagamento, de acordo com a ordem de alocação de recursos prevista no Capítulo XIV do Regulamento. As Cotas deverão ser resgatadas até a última Data de Pagamento, que corresponde à data do término do prazo de duração da respectiva série de Cotas Seniores, pelo seu respectivo valor contábil. d. Data de Pagamento: 10º (décimo) Dia Útil de cada mês vigente. e. Amortização Senior Durante o Período de Investimento: A partir do 25º (vigésimo quinto) mês, inclusive, e até o 60º (sexagésimo) mês, inclusive, as Amortizações Seniores ocorrerão conforme previsto na cláusula 13.3 do Regulamento. f."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "o código CD89-A861-7A42-4A86. 2. PRESTADORES DE SERVIÇOS Administrador 2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., CNPJ: 27.652.684/0001- 62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. Gestor 2.2. GENIAL GESTÃO LTDA, CNPJ: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, expedido em 30 de setembro de 2015. 2.2.1. A Gestora é a responsável pela seleção de todos os ativos da carteira das Classes, estando por sua responsabilidade a negociação e gestão dos títulos e valores mobiliários. 1 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Outros Serviços 2.3. Os demais serviços eventualmente desempenhados pelo Administrador e/ou pela Gestora, assim como os prestadores de serviços que venham a ser por eles contratados, estarão indicados no website do Administrador. Responsabilidade dos Prestadores de Serviços 2.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "DE VALORES MOBILIÁRIOS S.A., CNPJ: 27.652.684/0001- 62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. Gestor 2.2. GENIAL GESTÃO LTDA, CNPJ: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, expedido em 30 de setembro de 2015. 2.2.1. A Gestora é a responsável pela seleção de todos os ativos da carteira das Classes, estando por sua responsabilidade a negociação e gestão dos títulos e valores mobiliários. 1 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Outros Serviços 2.3. Os demais serviços eventualmente desempenhados pelo Administrador e/ou pela Gestora, assim como os prestadores de serviços que venham a ser por eles contratados, estarão indicados no website do Administrador. Responsabilidade dos Prestadores de Serviços 2.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 37,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "ituições Financeiras Parceiras. “Critérios de Elegibilidade” Os critérios estabelecidos no Anexo. “Custodiante” A Administradora, podendo contratar terceiro, inclusive parte relacionada, devendo ser devidamente habilitado e autorizado para a prestação de serviço. “Custo Efetivo Total para os O custo efetivo total para os Devedores, o que inclui taxa de juros da Devedores” CCB, e o Imposto sobre Operações Financeiras – IOF, eventual seguro prestamista, eventual taxa de análise do crédito e taxa de emissão da CCB, que deverá ser inferior a 4% (quatro inteiros por cento) ao mês. “CVM” A Comissão de Valores Mobiliários. “Data de Pagamento do Preço Data de pagamento do Preço de Aquisição dos Direitos Creditórios Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. de Aquisição” Adquiridos, em moeda corrente nacional,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "o código CD89-A861-7A42-4A86. 2. PRESTADORES DE SERVIÇOS Administrador 2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., CNPJ: 27.652.684/0001- 62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. Gestor 2.2. GENIAL GESTÃO LTDA, CNPJ: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, expedido em 30 de setembro de 2015. 2.2.1. A Gestora é a responsável pela seleção de todos os ativos da carteira das Classes, estando por sua responsabilidade a negociação e gestão dos títulos e valores mobiliários. 1 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Outros Serviços 2.3. Os demais serviços eventualmente desempenhados pelo Administrador e/ou pela Gestora, assim como os prestadores de serviços que venham a ser por eles contratados, estarão indicados no website do Administrador. Responsabilidade dos Prestadores de Serviços 2.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "SumUp (agente de cobrança A)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "cl. 14.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "iação de risco das Cotas, caso as Cotas passem a ser objeto de classificação de risco. “Agente de Cobrança A” A SUMUP SOLUÇÕES DE PAGAMENTO BRASIL LTDA., subcredenciadora com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP 05425- 020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20. “Agente de Cobrança B” A UNIONCOBRA ASSESSORIA DE COBRANÇA LTDA., com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 8,
+     "clause": "cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "tas de Subclasses específicas. 2. CARACTERÍSTICAS DA CLASSE Público-Alvo 2.1. O Anexo desta Classe é compatível com as faculdades e restrições aplicáveis aos investidores profissionais. 2.1.1. Aportes de empregados e sócios da Gestora e Administrador: Vedado. 8 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Responsabilidade dos Cotistas 2.2. Ilimitada. Regime Condominial 2.3. Fechado Prazo de Duração 2.4. 6 (seis) anos, contados a partir da primeira integralização de Cotas da Classe. 2.5. O prazo de duração poderá ser prorrogado por até 2 (dois) períodos de 1 (um) ano cada mediante deliberação dos Cotistas em Assembleia Especial, sendo certo que a Assembleia Especial convocada para deliberar a prorrogação do prazo de duração da Classe poderá deliberar acerca de eventual reajuste da Taxa de Administração. Período de Investimento 2.6. Período de 05 (cinco) anos contados a partir da primeira integralização de Cotas da Classe, o qual poderá ser prorrogado por até 1 (um) ano. Período de Desinvestimento 2.7."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "6 anos, prorrogável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337361",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337361",
+     "excerpt": "89-A861-7A42-4A86. Responsabilidade dos Cotistas 2.2. Ilimitada. Regime Condominial 2.3. Fechado Prazo de Duração 2.4. 6 (seis) anos, contados a partir da primeira integralização de Cotas da Classe. 2.5. O prazo de duração poderá ser prorrogado por até 2 (dois) períodos de 1 (um) ano cada mediante deliberação dos Cotistas em Assembleia Especial, sendo certo que a Assembleia Especial convocada para deliberar a prorrogação do prazo de duração da Classe poderá deliberar acerca de eventual reajuste da Taxa de Administração. Período de Investimento 2.6. Período de 05 (cinco) anos contados a partir da primeira integralização de Cotas da Classe, o qual poderá ser prorrogado por até 1 (um) ano. Período de Desinvestimento 2.7. Período que se iniciará no Dia Útil seguinte ao encerramento do Período de Investimento até o encerramento da Classe. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Razão de Subordinação 2.8."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "CCBs de lojistas SumUp com garantia de recebíveis; sênior CDI + 2,40% a.a. e devedor até R$ 200 mil.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

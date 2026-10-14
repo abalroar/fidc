@@ -1,0 +1,55 @@
+# Brasil Microcrédito FIDC (Genial Investimentos; Genial Gestão; originadora SumUp)
+type: Outros
+q1: * "micro, pequena ou média empresa que utiliza a plataforma eletrônica de pagamentos da SumUp Pagamentos Ltda."
+q2: * "A SUMUP SOLUÇÕES DE PAGAMENTO BRASIL LTDA., subcredenciadora com sede na cidade de São Paulo"
+q3: * "(b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros"
+q4: * "3.18. A Instituição Financeira Parceira aprova a operação, emite a CCB eletrônica"
+q6: * "observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais)"
+q7: * "(f) incorporem custo efetivo total para o tomador final de recursos inferior a 4% (quatro inteiros por cento) ao mês"
+q8: * "(i) não observância do prazo de 90 (noventa) dias corridos contados da data da primeira integralização"
+q9: * "2.8. Em cada data de integralização de Cotas Seniores deverão ser integralizadas Cotas Subordinadas na proporção de 13%"
+q10: * "Reserva de Caixa” A reserva para pagamento de despesas e encargos da Classe"
+q11: * "6.1. São considerados Eventos de Avaliação da Classe quaisquer das seguintes ocorrências"
+q12: * "(d) decretação de falência, intervenção ou liquidação extrajudicial do Custodiante, Administrador, Gestora ou Originadora"
+q13: * "2.6. Período de 05 (cinco) anos contados a partir da primeira integralização de Cotas da Classe"
+q14: * "a Classe pagará uma taxa máxima de administração equivalente a 0,13% (treze centésimos por cento) ao ano"
+q16: * "Meta de Remuneração: CDI + 2,40% a.a."
+q17: * "2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q18: * "2.2. GENIAL GESTÃO LTDA"
+q19: * "“Custodiante” A Administradora, podendo contratar terceiro"
+q20: * "Agente de Cobrança A” A SUMUP SOLUÇÕES DE PAGAMENTO BRASIL LTDA."
+q21: * "2.1. O Anexo desta Classe é compatível com as faculdades e restrições aplicáveis aos investidores profissionais"
+q22: * "2.4. 6 (seis) anos, contados a partir da primeira integralização de Cotas da Classe"
+q23: * "Amortização Sênior” É a amortização de parcela do principal das Cotas Seniores"
+receivables: CCBs de lojistas SumUp, garantidas por recebíveis futuros de cartão | q3,q1
+originator: SumUp Soluções de Pagamento (subcredenciadora) | q2
+assignor: Instituições financeiras parceiras emissoras das CCBs | q4
+debtor: Micro, pequenas e médias empresas usuárias da SumUp | q1
+recourse: Cessão fiduciária dos recebíveis futuros do lojista | q3
+eligibility: CCB com garantia de recebíveis; custo efetivo < 4% a.m.; não vencida | q3,q7
+debtor_limit: Exposição por devedor de até R$ 200 mil | q6 | value=none
+assignor_limit: n/d | Limite por instituição parceira não fixado no regulamento
+term_max: n/d | Prazo máximo das CCBs não fixado no regulamento
+allocation: ≥ 50% do PL em direitos creditórios após 90 dias | q8 | value=50
+quota_structure: Sênior / Subordinada | q9
+sub_senior: Subordinadas = 13% de cada integralização de seniores | q9 | basis=jr/PL | value=none
+sub_mezz: — | Sem cota mezanino
+sub_check: Na integralização de cada série sênior | q9
+reserve: Reserva de caixa para despesas e encargos | q10
+pdd: n/d | Critério de provisão não descrito no regulamento
+eval_triggers: Descumprimento da política de investimentos por 30 dias, entre outros | q11
+liquidation: Falência ou intervenção de prestador ou da originadora, entre outros | q12
+revolving: Aquisições durante o período de investimento de 5 anos | q13
+amortization: Amortização sênior pelo apêndice, após período de investimento | q23,q13
+admin_fee: 0,13% a.a. do PL (administração e gestão), com mínimo escalonado | q14
+mgmt_fee: Incluída na taxa de 0,13% a.a. | q14
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: CDI + 2,40% a.a. | q16
+target_mezz: — | Sem cota mezanino
+administrator: Genial Investimentos Corretora de Valores | q17
+manager: Genial Gestão | q18
+custodian: Genial Investimentos (a administradora) | q19,q17
+servicer: SumUp (agente de cobrança A) | q20
+investors: Investidores profissionais | q21
+duration: 6 anos, prorrogável | q22
+leitura: CCBs de lojistas SumUp com garantia de recebíveis; sênior CDI + 2,40% a.a. e devedor até R$ 200 mil.
