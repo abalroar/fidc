@@ -1,0 +1,716 @@
+{
+ "schema_version": 1,
+ "cnpj": "49920525000134",
+ "name": "IS GREEN SOLFÁCIL III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Energia solar",
+ "reviewed_at": "2026-10-14T08:13:31Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1076645",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "30/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645"
+  },
+  "D2": {
+   "document_id": "1076643",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "30/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076643"
+  },
+  "D3": {
+   "document_id": "489187",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "10/07/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=489187"
+  },
+  "D4": {
+   "document_id": "489185",
+   "kind": "Instrumento de emissão",
+   "title": "Outros Documentos",
+   "date": "07/07/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=489185"
+  },
+  "D5": {
+   "document_id": "484650",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "27/06/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=484650"
+  },
+  "D6": {
+   "document_id": "483146",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "27/06/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=483146"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Energia solar",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de financiamento de sistemas solares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "a data devida para o referido evento o Dia Útil imediatamente seguinte. Significam todos os direitos creditórios originários de operações de “Direitos Financiamento Solar para aquisição de Sistemas Solares, formalizadas Creditórios” por meio da emissão de CCBs pelos respectivos Devedores em favor dos Endossantes Iniciais, que devem ser Direitos Creditórios Pré-fixados. 9 Significam os Direitos Creditórios adquiridos pela Classe dos “Direitos Creditórios Endossantes, nos termos do Contrato de Endosso e dos Termos de Adquiridos” Endosso celebrados entre o Fundo, em nome da Classe e representado pela Gestora e os respectivos Endossantes. Significam todos os Direitos Creditórios Adquiridos, em atraso, vencidos, “Direitos Creditórios antecipadamente ou não, e não pagos pelos Devedores na respectiva Inadimplidos” data de vencimento. “Direitos Creditórios Significam todos os Direitos Creditórios que possuem taxas pré-fixadas. Pré-fixados” Significam em conjunto: (i) recursos em c"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "Significa o financiamento obtido pelo Devedor junto a uma Instituição “Financiamento Financeira Parceira, formalizado por meio da emissão de uma CCB, para Solar” aquisição de Sistemas Solares. “Formulário de Tem o significado que lhe é atribuído na Cláusula 4.3 do Anexo 12 Metodologia ESG” Descritivo. Significa o Green Bond Framework, de novembro de 2023, da Solfácil, “Framework” cuja elegibilidade será confirmada pelo Avaliador Independente por meio do Parecer, conforme atualizado de tempos em tempos. “Framework Régia” Tem o significado que lhe atribuído na Cláusula 4.1 deste Regulamento. Significa o IS GREEN SOLFÁCIL III FUNDO DE INVESTIMENTO EM “Fundo” DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Significa a RÉGIA CAPITAL LTDA, sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 22.117, de 24 de maio de 2024, com sede na “Gestora” cidade"
+    }
+   ],
+   "legacy": {
+    "value": "Financiamento de sistemas solares, representado por CCBs.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Instituições financeiras parceiras via plataforma Solfácil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "Significa o financiamento obtido pelo Devedor junto a uma Instituição “Financiamento Financeira Parceira, formalizado por meio da emissão de uma CCB, para Solar” aquisição de Sistemas Solares. “Formulário de Tem o significado que lhe é atribuído na Cláusula 4.3 do Anexo 12 Metodologia ESG” Descritivo. Significa o Green Bond Framework, de novembro de 2023, da Solfácil, “Framework” cuja elegibilidade será confirmada pelo Avaliador Independente por meio do Parecer, conforme atualizado de tempos em tempos. “Framework Régia” Tem o significado que lhe atribuído na Cláusula 4.1 deste Regulamento. Significa o IS GREEN SOLFÁCIL III FUNDO DE INVESTIMENTO EM “Fundo” DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Significa a RÉGIA CAPITAL LTDA, sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 22.117, de 24 de maio de 2024, com sede na “Gestora” cidade"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 4,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "os serviços de classificação de risco, ou sua sucessora a qualquer título. Significa a Solfácil, ou seu respectivo sucessor a qualquer título, “Agente de contratado para realizar a cobrança dos Direitos Creditórios Cobrança” Inadimplidos, nos termos do Contrato de Cobrança. Significa a empresa eventualmente contratada pela Administradora para prestação dos serviços de guarda eletrônica dos Documentos “Agente de Guarda” Comprobatórios, conforme o caso, nos termos do Contrato de Depósito, caso aplicável. Significa cada uma das instituições que poderão ser contratadas pelo Custodiante em nome da Classe (ou pelo Agente de Cobrança e seus “Agente de subcontratados, sob supervisão do Custodiante) para cobrança bancária Recebimento” dos boletos de pagamento dos Direitos Creditórios Adquiridos, sendo os valores pagos pelos Devedores recebidos na Conta da Classe. “Alienação Significa a alienação fiduciária sobre Equipamentos objeto de cada Fiduciária de Contrato de Alienação Fiduciária de Equipamentos. Equipamentos”"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Instituições financeiras parceiras emissoras das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "Significa o financiamento obtido pelo Devedor junto a uma Instituição “Financiamento Financeira Parceira, formalizado por meio da emissão de uma CCB, para Solar” aquisição de Sistemas Solares. “Formulário de Tem o significado que lhe é atribuído na Cláusula 4.3 do Anexo 12 Metodologia ESG” Descritivo. Significa o Green Bond Framework, de novembro de 2023, da Solfácil, “Framework” cuja elegibilidade será confirmada pelo Avaliador Independente por meio do Parecer, conforme atualizado de tempos em tempos. “Framework Régia” Tem o significado que lhe atribuído na Cláusula 4.1 deste Regulamento. Significa o IS GREEN SOLFÁCIL III FUNDO DE INVESTIMENTO EM “Fundo” DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Significa a RÉGIA CAPITAL LTDA, sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 22.117, de 24 de maio de 2024, com sede na “Gestora” cidade"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas e jurídicas que financiam sistemas solares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "Significa o financiamento obtido pelo Devedor junto a uma Instituição “Financiamento Financeira Parceira, formalizado por meio da emissão de uma CCB, para Solar” aquisição de Sistemas Solares. “Formulário de Tem o significado que lhe é atribuído na Cláusula 4.3 do Anexo 12 Metodologia ESG” Descritivo. Significa o Green Bond Framework, de novembro de 2023, da Solfácil, “Framework” cuja elegibilidade será confirmada pelo Avaliador Independente por meio do Parecer, conforme atualizado de tempos em tempos. “Framework Régia” Tem o significado que lhe atribuído na Cláusula 4.1 deste Regulamento. Significa o IS GREEN SOLFÁCIL III FUNDO DE INVESTIMENTO EM “Fundo” DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Significa a RÉGIA CAPITAL LTDA, sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 22.117, de 24 de maio de 2024, com sede na “Gestora” cidade"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas e jurídicas que financiam sistemas solares.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Endosso definitivo; recompra/resolução e indenização condicionadas ao contrato de transferência.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Adimplente; PF até 71 anos; prazo médio da carteira limitado",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 88,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "física, na data de emissão da CCB, ser de 71 (setenta e um) anos; e (xi) os Direitos Creditórios devem estar aderentes à categoria de “Energia Renovável”, conforme definida pelas diretrizes dos Princípios para Títulos Verdes, 88 estabelecida pela ICMA, e em linha com o Guia para Ofertas de Títulos ESG, divulgado pela ANBIMA."
+    }
+   ],
+   "legacy": {
+    "value": "Adimplente; PF até 71 anos/PJ ≥2 anos; carência até 185 dias; nominal PF R$ 350 mil/PJ R$ 600 mil; prazo médio 2.000 dias.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/12/2025, cl. 14.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor individual até 0,10% do PL; 10 maiores ≤ 1%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 89,
+     "clause": "cl. 14.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "s seguintes limites de concentração, considerando- se pro forma a aquisição pretendida: (a) o valor dos Direitos Creditórios devidos por um Devedor individualmente não deverá representar mais de 0,10% (um décimo por cento) do Patrimônio Líquido do Fundo; e (b) o grupo dos 10 (dez) maiores Devedores não poderá ser devedor de Direitos Creditórios cujo valor supere 1% (um inteiro por cento) do Patrimônio Líquido do Fundo; (ii) considerada pro forma a aquisição pretendida, o conjunto de Direitos Creditórios integrantes da carteira da Classe deverá ter uma taxa de retorno igual ou superior a 23% (vinte e três por cento) ao ano, levando em consideração o Preço de Aquisição; (iii) considerada pro forma a cessão pretendida, a Média Ponderada dos prazos de vencimento das CCBs integrantes do patrimônio do Fundo deverá ser de no máximo 2.000 (dois mil) dias; (iv) o prazo máximo de cada Direito Creditório Pré-fixado deverá ser de 3.845 (três mil oitocentos e quarenta e cinco) dias, contados da data de emissão da CCB;"
+    }
+   ],
+   "value": 0.1,
+   "legacy": {
+    "value": "Devedor ≤0,10%/PL; top 10 ≤1%/PL; taxa mínima dos créditos 23% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/12/2025, cl. 14.2"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por instituição parceira não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor ≤0,10%/PL; top 10 ≤1%/PL; taxa mínima dos créditos 23% a.a.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo individual não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplente; PF até 71 anos/PJ ≥2 anos; carência até 185 dias; nominal PF R$ 350 mil/PJ R$ 600 mil; prazo médio 2.000 dias.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Alocação mínima sem trecho contínuo localizado",
+   "sources": [],
+   "legacy": {
+    "value": "67%/PL em direitos creditórios, conforme definição vigente.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Mezanino B / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "tre o somatório do valor das Cotas “Índice de Subordinadas em circulação e o Patrimônio Líquido, conforme apurada Subordinação pela Gestora em cada Dia Útil, equivalente a, no mínimo, 25,00% (vinte Sênior” e cinco por cento). Significam, em conjunto e indistintamente, o Índice de Subordinação “Índices de Mezanino A, Índice de Subordinação Mezanino B e o Índice de Subordinação” Subordinação Sênior. Significam as empresas prestadoras de serviços de engenharia que “Integradores instalam os Equipamentos em residências e/ou estabelecimentos Solares” comerciais e que tenham sido aprovados para operar por meio da Plataforma Solfácil. Os investidores autorizados a adquirir as Cotas, os quais (i) quando da subscrição de Cotas no âmbito de uma oferta pública nos termos da “Investidores Resolução CVM 160, poderão ser investidores profissionais, conforme Autorizados” definidos no artigo 11 da Resolução CVM 30, ou investidores qualificados, conforme definidos no artigo 12 da Resolução CVM 30, devendo o público alvo ser especificado no Apêndice da respectiva"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "as “Índice de Subordinadas Júnior somada ao valor das Cotas Subordinadas Mezanino Subordinação B em circulação e o Patrimônio Líquido, conforme apurada pela Gestora Mezanino A” em cada Dia Útil, equivalente a, no mínimo 10,00% (dez por cento). Significa a razão mínima admitida entre o somatório do valor das Cotas “Índice de Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme Subordinação apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo 4,00% Mezanino B” (quatro por cento). Significa a razão mínima admitida entre o somatório do valor das Cotas Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme “Índice de apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo 12,00% Subordinação (doze por cento), a qual deve ser considerada exclusivamente para fins Mezanino Teto” das condições para Amortização das Cotas Subordinadas Júnior previstas na Cláusula 26.3.1(v). Significa a razão mínima admitida entre o somatório do valor das Cotas “Índice de Subordinadas em circulação e o Patrimônio Líquido, conforme apurada Subordinação pela Gestora em cada Dia Útil, equivalente a, no mínim"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥25%/PL; mezanino B + júnior ≥10%/PL; júnior ≥4%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/12/2025, p. 15"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "tre o somatório do valor das Cotas “Índice de Subordinadas em circulação e o Patrimônio Líquido, conforme apurada Subordinação pela Gestora em cada Dia Útil, equivalente a, no mínimo, 25,00% (vinte Sênior” e cinco por cento). Significam, em conjunto e indistintamente, o Índice de Subordinação “Índices de Mezanino A, Índice de Subordinação Mezanino B e o Índice de Subordinação” Subordinação Sênior. Significam as empresas prestadoras de serviços de engenharia que “Integradores instalam os Equipamentos em residências e/ou estabelecimentos Solares” comerciais e que tenham sido aprovados para operar por meio da Plataforma Solfácil. Os investidores autorizados a adquirir as Cotas, os quais (i) quando da subscrição de Cotas no âmbito de uma oferta pública nos termos da “Investidores Resolução CVM 160, poderão ser investidores profissionais, conforme Autorizados” definidos no artigo 11 da Resolução CVM 30, ou investidores qualificados, conforme definidos no artigo 12 da Resolução CVM 30, devendo o público alvo ser especificado no Apêndice da respectiva"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Subordinadas ≥25%/PL; mezanino B + júnior ≥10%/PL; júnior ≥4%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/12/2025, p. 15"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A protegida por ≥ 10% (júnior + mezanino B)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "as “Índice de Subordinadas Júnior somada ao valor das Cotas Subordinadas Mezanino Subordinação B em circulação e o Patrimônio Líquido, conforme apurada pela Gestora Mezanino A” em cada Dia Útil, equivalente a, no mínimo 10,00% (dez por cento). Significa a razão mínima admitida entre o somatório do valor das Cotas “Índice de Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme Subordinação apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo 4,00% Mezanino B” (quatro por cento). Significa a razão mínima admitida entre o somatório do valor das Cotas Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme “Índice de apurada pela Gestora em cada Dia Útil, equivalente a, no mínimo 12,00% Subordinação (doze por cento), a qual deve ser considerada exclusivamente para fins Mezanino Teto” das condições para Amortização das Cotas Subordinadas Júnior previstas na Cláusula 26.3.1(v). Significa a razão mínima admitida entre o somatório do valor das Cotas “Índice de Subordinadas em circulação e o Patrimônio Líquido, conforme apurada Subordinação pela Gestora em cada Dia Útil, equivalente a, no mínim"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pela gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "tre o somatório do valor das Cotas “Índice de Subordinadas em circulação e o Patrimônio Líquido, conforme apurada Subordinação pela Gestora em cada Dia Útil, equivalente a, no mínimo, 25,00% (vinte Sênior” e cinco por cento). Significam, em conjunto e indistintamente, o Índice de Subordinação “Índices de Mezanino A, Índice de Subordinação Mezanino B e o Índice de Subordinação” Subordinação Sênior. Significam as empresas prestadoras de serviços de engenharia que “Integradores instalam os Equipamentos em residências e/ou estabelecimentos Solares” comerciais e que tenham sido aprovados para operar por meio da Plataforma Solfácil. Os investidores autorizados a adquirir as Cotas, os quais (i) quando da subscrição de Cotas no âmbito de uma oferta pública nos termos da “Investidores Resolução CVM 160, poderão ser investidores profissionais, conforme Autorizados” definidos no artigo 11 da Resolução CVM 30, ou investidores qualificados, conforme definidos no artigo 12 da Resolução CVM 30, devendo o público alvo ser especificado no Apêndice da respectiva"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥25%/PL; mezanino B + júnior ≥10%/PL; júnior ≥4%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/12/2025, p. 15"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas e encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 109,
+     "clause": "cl. 22.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "Reserva de Despesas e Encargos; (xiv) caso a Taxa DI de um Dia Útil seja maior ou igual a 200% (duzentos por cento) da Taxa DI do Dia Útil imediatamente anterior; (xv) caso a Instituição Financeira Parceira deixe de atender aos requisitos de capital mínimo necessários para a consecução das atividades reguladas constantes do seu objeto social, conforme definidos na legislação aplicável, eventos esses que deverão ser informados pela respectiva Instituição Financeira Parceira à Administradora, nos termos do Co"
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de despesas e encargos; insolvência, reserva insuficiente e DC posteriores ao vencimento das cotas disparam avaliação.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Política de provisão em anexo; faixa por atraso e renegociação exige aplicação ao contrato.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eval_triggers": {
+   "display": "Atraso do estoque acima de 12%; relatório não enviado, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 14,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "superior a 12% (doze por cento): Somatório do Saldo Contábil das CCBs(*) com atraso superior à 90 (noventa)dias na Data de Verificação “Índice de Atraso de Somatório do Saldo Contábil das CCBs nas respectivas datas de endosso Estoque” (*) o somatório do saldo contábil das CCBs utilizado será o do 1º (primeiro) mês em que a CCB atingir 90 (noventa) dias de atraso, sendo certo que serão consi"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 108,
+     "clause": "cl. 22",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "uncionamento do Fundo na CVM, nos termos do artigo 125 da Resolução CVM 175. 22. EVENTOS DE AVALIAÇÃO 22.1 São Eventos de Avaliação: (i) não divulgação, pela Administradora, do Relatório de Monitoramento, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Monitoramento o envio do referido relatório não seja sanado pela Administradora; (ii) a Agência Classificadora de Risco não divulgar a atualização trimestral da classificação de risco referente às Cotas Seniores e Cotas Subordinadas Mezanino por prazo igual ou superior a 90 (noventa) dias, sem a substituição da Agência Classificadora de Risco; (iii) amortização de Cotas Subordinadas em montantes agregados superiores aos definidos no presente Anexo Descritivo, desde que os valores pagos em excesso em tal amortização não sejam devolvidos à Classe; (iv) caso a Classe deixe de atender a qualquer dos Índices de Subordinação, desde que os Cotistas titulares de Cotas Subordinadas Júnior não adotem as providências de recomposição indicadas na Cláusula 15.7.4 acima, no prazo ali previsto;"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso estoque acima de 12%/parcelas acima de 8,50%; desenquadramento sem cura em 10 dias úteis altera amortização para sequencial.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/12/2025, p. 14"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Atraso estoque acima de 12%/parcelas acima de 8,50%; desenquadramento sem cura em 10 dias úteis altera amortização para sequencial.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não detalhada em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Recursos seguem compras e amortização conforme regimes; revolvência irrestrita não demonstrada.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "Pro rata; sequencial após desalavancagem",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 105,
+     "clause": "cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "(vi) em cada Data de Pagamento, o pagamento das Amortizações das Cotas Subordinadas Mezanino B até o resgate integral das Cota Subordinadas Mezanino B; (vii) em cada Data de Pagamento, o pagamento da Amortização Júnior Repasse de Swap, conforme o item 17.3.3 acima; e (viii) em cada Data de Pagamento, o pagamento das Amortizações das Cotas Subordinadas Júnior, até o resgate integral das Cotas Subordinadas Junior."
+    }
+   ],
+   "legacy": {
+    "value": "Amortização pro rata; desalavancagem aciona sequencial; realavancagem após três verificações enquadradas, com restrições.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,04% a.a. do PL; mín. R$ 8 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 52,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "8.000,00 (oito mil reais) e (b) 0,04% (quatro centésimos por cento) ao ano sobre o Patrimônio Líquido (“Taxa de Administração”). 7.2 Pelos serviços de gestão será cobrada da Classe para pagamento à Gestora um valor equivalente ao que for maior entre (a) o valor mínimo mensal de R$ 10.000,00 (dez mil reais) e (b) 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido, sendo que tal valor não será incrementado de deduções e retenções fiscais de qualquer natureza (“Taxa de Gestão”)."
+    }
+   ],
+   "legacy": {
+    "value": "0,04% a.a./PL; mínimo R$ 8 mil/mês.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 52,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "e (b) 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido, sendo que tal valor não será incrementado de deduções e retenções fiscais de qualquer natureza (“Taxa de Gestão”)."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a./PL; mínimo R$ 10 mil/mês; sem gross-up.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/12/2025, cl. 7.2"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 3,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "cordo “Acordo Operacional para Fundos de Investimento em Direitos Operacional” Creditórios” celebrado entre os Prestadores de Serviços Essenciais. Significa o BANCO DAYCOVAL S.A., instituição devidamente autorizada pela CVM por meio do Ato Declaratório nº 17.552, de 05 de dezembro de 2019, à prestação de serviços de administração de carteira de títulos e “Administradora” valores mobiliários, inscrita no CNPJ/MF sob o nº 62.232.889/0001-90, com sede na Cidade e Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, ou seu sucessor a qualquer título. Significa a empresa especializada contratada encarregada da “Agência classificação de risco das Cotas cuja classificação de risco não tenha sido Classificadora de dispensada, nos termos deste Regulamento e da regulamentação Risco” aplicável, escolhida a critério da Gestora dentre uma das seguintes 3 empresas: Standard & Poor’s, Ratings do Brasi"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Régia Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "FUNDO DE INVESTIMENTO EM “Fundo” DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Significa a RÉGIA CAPITAL LTDA, sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 22.117, de 24 de maio de 2024, com sede na “Gestora” cidade do Rio de Janeiro, Estado do Rio de Janeiro, na rua Humaitá, nº 275, Pavimento 07 (partes 1 e 2) e Pavimento 08 (partes 1 e 2), correspondentes ao 11º e 12º andar, respectivamente, CEP 22261-005, inscrita no CNPJ sob o nº 54.464.258/0001-78. Significam a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade autorizada pela CVM a exercer a atividade de gestão de carteira de valores mobiliários, conforme Ato Declaratório CVM nº 9.837, expedido em 14 de maio de 2008, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP 05676-120,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho localizável",
+   "sources": []
+  },
+  "servicer": {
+   "display": "Solfácil (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 4,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "os serviços de classificação de risco, ou sua sucessora a qualquer título. Significa a Solfácil, ou seu respectivo sucessor a qualquer título, “Agente de contratado para realizar a cobrança dos Direitos Creditórios Cobrança” Inadimplidos, nos termos do Contrato de Cobrança. Significa a empresa eventualmente contratada pela Administradora para prestação dos serviços de guarda eletrônica dos Documentos “Agente de Guarda” Comprobatórios, conforme o caso, nos termos do Contrato de Depósito, caso aplicável. Significa cada uma das instituições que poderão ser contratadas pelo Custodiante em nome da Classe (ou pelo Agente de Cobrança e seus “Agente de subcontratados, sob supervisão do Custodiante) para cobrança bancária Recebimento” dos boletos de pagamento dos Direitos Creditórios Adquiridos, sendo os valores pagos pelos Devedores recebidos na Conta da Classe. “Alienação Significa a alienação fiduciária sobre Equipamentos objeto de cada Fiduciária de Contrato de Alienação Fiduciária de Equipamentos. Equipamentos”"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 47,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "site da Gestora no endereço: https://jgp.com.br/esg/conheca-nossa-metodologia/. 5. PÚBLICO-ALVO DA CLASSE 5.1 A Classe é destinada a Investidores Autorizados que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira da Classe, e aceitem os riscos associados aos investimentos da Classe. 6. DEMAIS PRESTADORES DE SERVIÇOS Auditor Independente 6.1 O Auditor Independente deverá ser contratado pela Administradora, com a função de auditar as demonstrações contábeis da Classe. Entidade Registradora 6.2 Caso necessário, nos termos da regulamentação aplicável, a Entidade Registradora deverá ser contratada pela Administradora, para fazer o registro dos Direitos Creditórios Adquiridos à Classe em sistema eletrônico de registro autorizado pelo BACEN. (a) A Entidade Registradora não poderá ser Parte Relacionada à Gestora ou, se houver, ao consultor especializado. (b) Nos termos do artigo 37, parágrafo único, do Anexo Normativo II à Resolução CVM 175, serão isentos do registro na Entidade Registradora os Direitos Creditórios Adquiridos que estejam regi"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada de prazo indeterminado; séries com prazo próprio; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1076645",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/12/2025",
+     "page": 23,
+     "clause": "cl. 2.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+     "excerpt": "22 3. PRAZO DE DURAÇÃO 3.1. O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado, sendo que cada série de Cotas Seniores e subclasse de Cotas Subordinadas Mezanino terá o Prazo de Duração estipulado no respectivo Apêndice. (a) O prazo de duração do Fundo poderá ser alterado por deliberação dos Cotistas reunidos em Assembleia Geral, observado o disposto neste Regulamento. (b) Na hipótese de o prazo de duração do Fundo encerrar-se em qualquer dia que não seja um Dia Útil, a liquidação do Fundo será efetuada no primeiro Dia Útil subsequente. (c) O término do prazo de duração do Fundo não afetará o cumprimento das obrigações do Fundo que tenham se tornado exigíveis até o último dia do referido prazo de duração, inclusive. 3.2."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada de prazo indeterminado; séries com prazo próprio; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "real_collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantia sobre equipamentos sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Equipamentos solares em alienação fiduciária; formalização e registro sujeitos às condições contratuais.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Financiamento solar via Solfácil com subordinação de 25% e devedor individual ≤ 0,10% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
