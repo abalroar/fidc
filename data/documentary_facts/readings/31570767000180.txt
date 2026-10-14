@@ -1,0 +1,61 @@
+# FIDC Tradepay Varejo I (Hemera; Solis; cedente Trademaster)
+type: Duplicatas/multicedente
+q1: * "são os direitos creditórios performados originados no âmbito Creditórios: dos Convênios"
+q2: * "Cedente ou TRADEMASTER INSTITUIÇÃO DE PAGAMENTO, SERVIÇOS Trademaster"
+q3: * "Conveniado: os fornecedores de mercadorias, produtos ou serviços que celebrem Convênios com o Cedente"
+q4: * "Devedores: os devedores dos Direitos de Crédito Elegíveis"
+q5: * "tendo a Cedente até 2 (dois) dias úteis para solucionar ou recomprar esses títulos"
+q6: * "Direitos Creditórios deverão atender, na Data de Aquisição, cumulativamente aos Critérios de Elegibilidade a seguir relacionados"
+q7: * "devidos pelo mesmo Devedor não podem representar mais de 5% (cinco por cento) do Patrimônio Líquido da Classe"
+q8: * "terão uma concentração máxima por Convênio, equivalente 30% (trinta por cento)"
+q9: * "no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis"
+q10: * "13.1. A partir da emissão de Cotas Seniores e/ou de Cotas Subordinadas Mezanino, as seguintes subordinações mínimas"
+q11: * "II - As Cotas Subordinadas Júnior deverão representar, no mínimo, 5% (cinco por cento) do Patrimônio Líquido da Classe"
+q12: * "13.2. Na hipótese de desenquadramento dos percentuais mencionados no item acima, por 5 (cinco) Dias Úteis"
+q13: * "Reserva de Caixa: é a reserva a ser constituída e verificada diariamente pela GESTORA"
+q14: * "17.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à ADMINISTRADORA ou à GESTORA convocar"
+q15: * "III caso a Inadimplência de 30 dias seja superior a 15% (quinze por cento)"
+q16: * "Revolvência: significa a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros"
+q17: * "a ADMINISTRADORA receberá da Classe uma remuneração equivalente a 0,22% (vinte e dois centésimos por cento)"
+q18: * "Patrimônio Líquido Remuneração de R$ 0,00 a R$ 200.000.000,00 0,63%"
+q19: * "sse quaisquer outras taxas, tais como taxa de performance, ingresso e/ou saída"
+q20: * "ADMINISTRADORA: HEMERA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA"
+q21: * "GESTORA: a SOLIS INVESTIMENTOS S.A."
+q22: * "CUSTODIANTE: é a ADMINISTADORA"
+q23: * "AGENTE DE é a TRADEMASTER INSTITUIÇÃO DE PAGAMENTO, COBRANÇA"
+q24: * "1.1. A Classe única de Cotas do FUNDO destina-se ao público em geral"
+q25: * "3.1. O prazo de duração desta Classe é indeterminado"
+q26: * "Manual de é a Política Interna de Metodologias de Provisão de Perdas"
+receivables: Duplicatas performadas de conveniados do varejo, via convênios da Trademaster | q1,q3
+originator: Conveniados (fornecedores) com convênio com a Trademaster | q3,q2
+assignor: Trademaster Instituição de Pagamento | q2
+debtor: Devedores das duplicatas dos conveniados | q4
+recourse: Cedente recompra títulos não processados em até 2 dias úteis | q5
+eligibility: Vencimento após a aquisição; devedor sem atraso > 10 dias com a classe | q6
+debtor_limit: Por devedor: 5% do PL; 4% após PL de R$ 800 mi | q7 | value=5
+sacado_limit: Por devedor: 5% do PL; 4% após PL de R$ 800 mi | q7 | value=5
+assignor_limit: Por convênio: 30% do PL, um único até 40% | q8 | value=30
+term_max: n/d | Prazo máximo dos títulos não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios | q9 | value=50
+quota_structure: Sênior / Mezanino A / Mezanino / Subordinada júnior | q10
+sub_senior: 20% · subord./PL | q10 | basis=mez+jr/PL | value=20
+sub_mezz: Júnior ≥ 5% do PL; júnior + mezanino A ≥ 10% | q11 | basis=jr/PL | value=5
+sub_check: Diária; desenquadramento por 5 dias úteis aciona aporte | q10,q12
+reserve: Reserva de caixa verificada diariamente pela gestora | q13
+pdd: Política de provisão de perdas da administradora (ANBIMA) | q26
+eval_triggers: Rebaixamento de rating da sênior, entre outros | q14
+liquidation: Inadimplência de 30 dias acima de 15%, entre outros | q15
+revolving: Revolvência com recursos da carteira | q16
+amortization: n/d | Cronograma definido no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,22% a.a. do PL | q17
+mgmt_fee: 0,63% a.a. até R$ 200 mi de PL, regressiva | q18
+perf_fee: Não prevista | Regulamento veda taxa de performance | q19
+target_senior: n/d | Benchmark definido no suplemento de cada série
+target_mezz: n/d | Benchmark em branco no modelo de suplemento
+administrator: Hemera DTVM | q20
+manager: Solis Investimentos | q21
+custodian: Hemera DTVM (a própria administradora) | q22,q20
+servicer: Trademaster (agente de cobrança) | q23
+investors: Público em geral (subordinadas só para qualificados) | q24
+duration: Indeterminado | q25
+leitura: Duplicatas de conveniados da Trademaster; subordinação de 20% e devedor ≤ 5% do PL.

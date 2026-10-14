@@ -1,0 +1,810 @@
+{
+ "schema_version": 1,
+ "cnpj": "31570767000180",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS TRADEPAY VAREJO I - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T07:47:43Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1203635",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "25/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635"
+  },
+  "D2": {
+   "document_id": "1251803",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "17/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1251803"
+  },
+  "D3": {
+   "document_id": "1231736",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1231736"
+  },
+  "D4": {
+   "document_id": "1228204",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "25/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1228204"
+  },
+  "D5": {
+   "document_id": "1213559",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1213559"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Duplicatas performadas de conveniados do varejo, via convênios da Trademaster",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 25,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "Classe; Devedores: os devedores dos Direitos de Crédito Elegíveis; Direitos são os direitos creditórios performados originados no âmbito Creditórios: dos Convênios, decorrentes de operações realizadas pelos Conveniados no segmento comercial e cedidos pelo Cedente de acordo com os critérios de composição e diversificação estabelecidos pela legislação vigente e neste Anexo, sendo tais direitos de crédito representados pelos Documentos Representativos do Crédito; Direitos os Direitos Creditórios que atendam cumulativamente aos Creditórios Critérios de Elegibilidade para serem cedidos à Classe nos Elegíveis: termos do Contrato de Cessão; Direitos os Direitos Creditórios adquiridos pela Classe que não forem Creditórios devidamente pagos na data de seus respectivos vencimentos; Inadimplidos: Documentos Significam as duplicatas mercantis emitidas pelo Conveniado, Adicionais: em formato analógico, eletrônico ou digital, a pedido da Cedente ou da Classe nas situações previstas nos Convênios;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 24,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "nças celebrado entre o FUNDO, representado pela GESTORA, e o AGENTE DE COBRANÇA; Conveniado: os fornecedores de mercadorias, produtos ou serviços que celebrem Convênios com o Cedente; Convênio: significa cada convênio celebrado entre o Cedente e cada Conveniado; Critérios de são os critérios que devem ser atendidos pelos Direitos Elegibilidade: Creditórios Elegíveis, cuja validação é feita pela GESTORA; Página 24 de 80 Data de Aquisição: é cada data de aquisição de Direitos Creditórios Elegíveis pela Classe; Devedores: os devedores dos Direitos de Crédito Elegíveis; Direitos são os direitos creditórios performados originados no âmbito Creditórios: dos Convênios, decorrentes de operações realizadas pelos Conveniados no segmento comercial e cedidos pelo Cedente de acordo com os critérios de composição e diversificação estabelecidos pela legislação vigente e neste Anexo, sendo tais direitos de crédito representados pelos Documentos Representativos do Crédito;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos comerciais performados originados em convênios",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Conveniados (fornecedores) com convênio com a Trademaster",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 24,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "nças celebrado entre o FUNDO, representado pela GESTORA, e o AGENTE DE COBRANÇA; Conveniado: os fornecedores de mercadorias, produtos ou serviços que celebrem Convênios com o Cedente; Convênio: significa cada convênio celebrado entre o Cedente e cada Conveniado; Critérios de são os critérios que devem ser atendidos pelos Direitos Elegibilidade: Creditórios Elegíveis, cuja validação é feita pela GESTORA; Página 24 de 80 Data de Aquisição: é cada data de aquisição de Direitos Creditórios Elegíveis pela Classe; Devedores: os devedores dos Direitos de Crédito Elegíveis; Direitos são os direitos creditórios performados originados no âmbito Creditórios: dos Convênios, decorrentes de operações realizadas pelos Conveniados no segmento comercial e cedidos pelo Cedente de acordo com os critérios de composição e diversificação estabelecidos pela legislação vigente e neste Anexo, sendo tais direitos de crédito representados pelos Documentos Representativos do Crédito;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 24,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "o Bradesco S/A, responsável pela cobrança ordinária COBRANÇA: dos boletos bancários dos Direitos Creditórios; Cedente ou TRADEMASTER INSTITUIÇÃO DE PAGAMENTO, SERVIÇOS Trademaster: E PARTICIPAÇÕES S.A., sociedade anônima, com sede na cidade e estado de São Paulo, na Avenida Paulista, nº 1063, 6º andar, Bela Vista, CEP 01311-200, inscrita CNPJ/MF sob o número 19.394.639/0001-27; Conta Vinculada: é a conta especial de titularidade da Trademaster junto à Hemera Distribuidora de Títulos e Valores Mobiliários Ltda., agência n°: 0001-9 e conta corrente n°: 80162-5, sob contrato, destinada a acolher depósitos a serem feitos pelos Devedores e ali mantidos em custódia, para liberação para a Conta da Classe, movimentada exclusivamente pelo CUSTODIANTE e/ou qualquer outra conta especial instituída pelas partes junto a instituição financeira ou de pagamento, sob contrato, destinada a receber pagamentos dos devedores e manter os recursos em custódia, para liberação caso satisfeitos determinados requisitos, a sere"
+    }
+   ],
+   "legacy": {
+    "value": "Cedente e conveniados comerciais conforme contratos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Trademaster Instituição de Pagamento",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 24,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "o Bradesco S/A, responsável pela cobrança ordinária COBRANÇA: dos boletos bancários dos Direitos Creditórios; Cedente ou TRADEMASTER INSTITUIÇÃO DE PAGAMENTO, SERVIÇOS Trademaster: E PARTICIPAÇÕES S.A., sociedade anônima, com sede na cidade e estado de São Paulo, na Avenida Paulista, nº 1063, 6º andar, Bela Vista, CEP 01311-200, inscrita CNPJ/MF sob o número 19.394.639/0001-27; Conta Vinculada: é a conta especial de titularidade da Trademaster junto à Hemera Distribuidora de Títulos e Valores Mobiliários Ltda., agência n°: 0001-9 e conta corrente n°: 80162-5, sob contrato, destinada a acolher depósitos a serem feitos pelos Devedores e ali mantidos em custódia, para liberação para a Conta da Classe, movimentada exclusivamente pelo CUSTODIANTE e/ou qualquer outra conta especial instituída pelas partes junto a instituição financeira ou de pagamento, sob contrato, destinada a receber pagamentos dos devedores e manter os recursos em custódia, para liberação caso satisfeitos determinados requisitos, a sere"
+    }
+   ],
+   "legacy": {
+    "value": "Cedente e conveniados comerciais conforme contratos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Devedores das duplicatas dos conveniados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 25,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "80 Data de Aquisição: é cada data de aquisição de Direitos Creditórios Elegíveis pela Classe; Devedores: os devedores dos Direitos de Crédito Elegíveis; Direitos são os direitos creditórios performados originados no âmbito Creditórios: dos Convênios, decorrentes de operações realizadas pelos Conveniados no segmento comercial e cedidos pelo Cedente de acordo com os critérios de composição e diversificação estabelecidos pela legislação vigente e neste Anexo, sendo tais direitos de crédito representados pelos Documentos Representativos do Crédito; Direitos os Direitos Creditórios que atendam cumulativamente aos Creditórios Critérios de Elegibilidade para serem cedidos à Classe nos Elegíveis: termos do Contrato de Cessão; Direitos os Direitos Creditórios adquiridos pela Classe que não forem Creditórios devidamente pagos na data de seus respectivos vencimentos;"
+    }
+   ],
+   "legacy": {
+    "value": "Devedores dos créditos comerciais cedidos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Cedente recompra títulos não processados em até 2 dias úteis",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 34,
+     "clause": "cl. 9.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "de não efetivação do DE/PARA por parte do BANCO DE COBRANÇA em favor da Classe, a GESTORA informa a Cedente o ocorrido, tendo a Cedente até 2 (dois) dias úteis para solucionar ou recomprar esses títulos não Página 34 de 80 processados no DE/PARA. Novas cessões à Classe somente serão acatadas quando a carteira de cobrança da Classe no BANCO DE COBRANÇA refletir fielmente os títulos adquiridos pela Classe. CAPÍTULO X POLÍTICA DE COBRANÇA DOS DIREITOS CREDITÓRIOS ELEGÍVEIS E DOS DIREITOS CREDITÓRIOS INADIMPLIDOS 10.1. O recebimento ordinário dos Direitos Creditórios será efetuado por meio do pagamento de boletos bancários e/ou qualquer outro mecanismo de transferência de recursos autorizado pelo BACEN, sendo certo que recursos provenientes do pagamento dos Direitos Creditórios efetuados pelos Devedores serão direcionados para as Contas Vinculadas ou diretamente para a Conta da Classe. 10.2. O AGENTE DE COBRANÇA será responsável pela cobrança dos Direitos Creditórios Inadimplidos de titularidade da Classe. 10.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão irrevogável; limites e eventos derecompra; contratação individual necessária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Vencimento após a aquisição; devedor sem atraso > 10 dias com a classe",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 31,
+     "clause": "cl. 5.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "DE ELEGIBILIDADE Página 30 de 80 6.1. Os Direitos Creditórios deverão atender, na Data de Aquisição, cumulativamente aos Critérios de Elegibilidade a seguir relacionados, que deverão ser validados pela GESTORA previamente à aquisição pela Classe: a) a data de vencimento dos Direitos Creditórios deve ser posterior à sua Data de Aquisição; b) os Devedores não poderão estar inadimplentes com a Classe por mais de 10 (dez) dias corridos consecutivos; c) a data de vencimento dos Direitos Creditórios não poderá ser inferior a 05 (cinco) dias corridos; d) os Direitos Creditórios em seu valor presente deduzido de sua PDD, devidos pelo mesmo Devedor não podem representar mais de 5% (cinco por cento) do Patrimônio Líquido da Classe. A partir do momento em que o Patrimônio Líquido da Classe atingir o montante de R$ 800.000.000,00 (oitocentos milhões de reais), os Direitos Creditórios em seu valor presente deduzido de sua PDD, devidos pelo mesmo Devedor não podem representar mais de 4% (quatro por cento) do Patrimônio Líquido da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Performados; mínimo 200 devedores; prazo médio/cessão eformalização contratual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 5.21"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: 5% do PL; 4% após PL de R$ 800 mi",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 31,
+     "clause": "cl. 5.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "ferior a 05 (cinco) dias corridos; d) os Direitos Creditórios em seu valor presente deduzido de sua PDD, devidos pelo mesmo Devedor não podem representar mais de 5% (cinco por cento) do Patrimônio Líquido da Classe. A partir do momento em que o Patrimônio Líquido da Classe atingir o montante de R$ 800.000.000,00 (oitocentos milhões de reais), os Direitos Creditórios em seu valor presente deduzido de sua PDD, devidos pelo mesmo Devedor não podem representar mais de 4% (quatro por cento) do Patrimônio Líquido da Classe; e) O valor correspondente ao somatório do valor presente deduzido de sua PDD, dos Direitos Creditórios devidos pelos 05 (cinco) maiores Devedores, não poderá representar (i) até 30 de dezembro de 2022 (inclusive), mais do que 20% (vinte por cento) do Patrimônio Líquido da Classe e (ii) após 30 de dezembro de 2022 (exclusive), mais do que 15% (quinze por cento) do patrimônio líquido da Classe; f) O valor correspondente ao somatório do valor presente deduzido de sua PDD, dos Direitos Creditórios devidos pelos 20 (vinte) maiores Devedores, não poderá representar mais do que 40% (quarenta por cento) do Patrimônio Líquido da Classe;"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "Convênio≤ 30%, um até 40%; devedor≤ 5% PL, cai a 4% apósPLR$ 800 mi; top 5≤ 15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 5.21"
+   }
+  },
+  "assignor_limit": {
+   "display": "Por convênio: 30% do PL, um único até 40%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 28,
+     "clause": "cl. 5.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "2.1. Os Direitos Creditórios a serem cedidos à Classe, decorrentes dos Convênios aprovados e formalizados pelo Cedente, terão uma concentração máxima por Convênio, equivalente 30% (trinta por cento), sendo admitido, contudo, que um único Convênio tenha uma concentração máxima de até 40% (quarenta por cento), critério este que será controlado e monitorado pela GESTORA. 5.2.2. Os Direitos Creditórios a serem cedidos deverão ser registrados em uma Registradora em até 05 (cinco) Dias Úteis contados de suas respectivas Datas de Aquisição pela Classe. 5.3. A presente Classe do FUNDO deverá alocar, em até 180 (cento) dias contados da primeira data de integralização das suas cotas, no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis. 5.4. É vedado à ADMINISTRADORA e ao CUSTODIANTE, ou partes a eles relacionadas, ceder ou originar, direta ou indiretamente, Direitos Creditórios à Classe, bem como adquirir Direitos Creditórios da Classe. 5.4.1. A Classe não poderá adquirir ativos de emissão ou que envolvam coobrigação da ADMINISTRADORA, do CUSTODIANTE, da GESTORA ou dos demais prestadores de serviços do FUNDO e suas Partes Relacionadas, tal como definidas pelas regras contábeis pertinentes. 5.5."
+    }
+   ],
+   "value": 30.0,
+   "legacy": {
+    "value": "Convênio≤ 30%, um até 40%; devedor≤ 5% PL, cai a 4% apósPLR$ 800 mi; top 5≤ 15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 5.2.1"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo dos títulos não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Performados; mínimo 200 devedores; prazo médio/cessão eformalização contratual",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 28,
+     "clause": "cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "ente Classe do FUNDO deverá alocar, em até 180 (cento) dias contados da primeira data de integralização das suas cotas, no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis. 5.4. É vedado à ADMINISTRADORA e ao CUSTODIANTE, ou partes a eles relacionadas, ceder ou originar, direta ou indiretamente, Direitos Creditórios à Classe, bem como adquirir Direitos Creditórios da Classe. 5.4.1. A Classe não poderá adquirir ativos de emissão ou que envolvam coobrigação da ADMINISTRADORA, do CUSTODIANTE, da GESTORA ou dos demais prestadores de serviços do FUNDO e suas Partes Relacionadas, tal como definidas pelas regras contábeis pertinentes. 5.5. A cessão dos Direitos Creditórios Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade para a Classe, em caráter definitivo, juntamente com todos os direitos, garantias, privilégios, preferências, prerrogativas, ações e acessórios a estes relacionadas. Página 28 de 80 5.6."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios≥ 50% PL ematé 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 5.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 38,
+     "clause": "cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "gresso e/ou saída. CAPÍTULO XIII SUBORDINAÇÕES MÍNIMAS 13.1. A partir da emissão de Cotas Seniores e/ou de Cotas Subordinadas Mezanino, as seguintes subordinações mínimas deverão ser observadas no FUNDO e verificadas todo Dia Útil pela ADMINISTRADORA: I – As Cotas Subordinadas Júnior as Cotas Subordinadas Mezanino, em conjunto, deverão representar, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe; Página 38 de 80 II - As Cotas Subordinadas Júnior deverão representar, no mínimo, 5% (cinco por cento) do Patrimônio Líquido da Classe; e III - As Cotas Subordinadas Junior e as Cotas Subordinadas Mezanino “A” deverão representar, em conjunto, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe. 13.2."
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinado≥ 20% PL; júnior≥ 5%; júnior+mezaninoA≥ 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 12.3"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 38,
+     "clause": "cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "gresso e/ou saída. CAPÍTULO XIII SUBORDINAÇÕES MÍNIMAS 13.1. A partir da emissão de Cotas Seniores e/ou de Cotas Subordinadas Mezanino, as seguintes subordinações mínimas deverão ser observadas no FUNDO e verificadas todo Dia Útil pela ADMINISTRADORA: I – As Cotas Subordinadas Júnior as Cotas Subordinadas Mezanino, em conjunto, deverão representar, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe; Página 38 de 80 II - As Cotas Subordinadas Júnior deverão representar, no mínimo, 5% (cinco por cento) do Patrimônio Líquido da Classe; e III - As Cotas Subordinadas Junior e as Cotas Subordinadas Mezanino “A” deverão representar, em conjunto, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe. 13.2."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Total subordinado≥ 20% PL; júnior≥ 5%; júnior+mezaninoA≥ 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 12.3"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 5% do PL; júnior + mezanino A ≥ 10%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 39,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "nio Líquido da Classe; Página 38 de 80 II - As Cotas Subordinadas Júnior deverão representar, no mínimo, 5% (cinco por cento) do Patrimônio Líquido da Classe; e III - As Cotas Subordinadas Junior e as Cotas Subordinadas Mezanino “A” deverão representar, em conjunto, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe. 13.2. Na hipótese de desenquadramento dos percentuais mencionados no item acima, por 5 (cinco) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I - A ADMINISTRADORA comunicará, imediatamente, tal ocorrência aos Cotistas detentores de Cotas Subordinadas Junior, através do envio de correspondência ou de correio eletrônico, pela qual: a) noticiará o fato e solicitará aos Cotistas detentores de Cotas Subordinadas Junior que providenciem o restabelecimento das Subordinações Mínimas dentro de um prazo de 5 (cinco) Dias Úteis consecutivos contados do recebimento da comunicação; b) informará aos Cotistas detentores de Cotas Subordinadas Junior o número mínimo de Cotas Subordinadas Junior e os respectivos valores para subscrição, que deverão ser subscritas para que se possa restabelecer as Subordinações Mínimas, e;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária; desenquadramento por 5 dias úteis aciona aporte",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 38,
+     "clause": "cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "gresso e/ou saída. CAPÍTULO XIII SUBORDINAÇÕES MÍNIMAS 13.1. A partir da emissão de Cotas Seniores e/ou de Cotas Subordinadas Mezanino, as seguintes subordinações mínimas deverão ser observadas no FUNDO e verificadas todo Dia Útil pela ADMINISTRADORA: I – As Cotas Subordinadas Júnior as Cotas Subordinadas Mezanino, em conjunto, deverão representar, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe; Página 38 de 80 II - As Cotas Subordinadas Júnior deverão representar, no mínimo, 5% (cinco por cento) do Patrimônio Líquido da Classe; e III - As Cotas Subordinadas Junior e as Cotas Subordinadas Mezanino “A” deverão representar, em conjunto, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe. 13.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 39,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "dinadas Mezanino “A” deverão representar, em conjunto, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe. 13.2. Na hipótese de desenquadramento dos percentuais mencionados no item acima, por 5 (cinco) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I - A ADMINISTRADORA comunicará, imediatamente, tal ocorrência aos Cotistas detentores de Cotas Subordinadas Junior, através do envio de correspondência ou de correio eletrônico, pela qual: a) noticiará o fato e solicitará aos Cotistas detentores de Cotas Subordinadas Junior que providenciem o restabelecimento das Subordinações Mínimas dentro de um prazo de 5 (cinco) Dias Úteis consecutivos contados do recebimento da comunicação; b) informará aos Cotistas detentores de Cotas Subordinadas Junior o número mínimo de Cotas Subordinadas Junior e os respectivos valores para subscrição, que deverão ser subscritas para que se possa restabelecer as Subordinações Mínimas, e; c) Interrupção das cessões até o restabelecimento da subordinação mínima. II - Os Cotistas detentores de Cotas Subordinadas Junior deverão subscrever e integralizar, dentro do prazo mencionado no inciso I, (a), acima, tantas Cotas Subordinadas quantas sejam necessárias para restabelecer as Subordinações Mínimas;"
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinado≥ 20% PL; júnior≥ 5%; júnior+mezaninoA≥ 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 12.3"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa verificada diariamente pela gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 27,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "inanceiros para pagamento da amortização, onde tal reserva não se confunde com a Reserva de Caixa. Reserva de Caixa: é a reserva a ser constituída e verificada diariamente pela GESTORA, mantido pela Classe em Ativos Financeiros, para o pagamento de despesas e encargos ordinários, referentes à operacionalização da Classe, nunca inferior ao somatório das despesas e encargos ordinários de operacionalização da Classe para o período de 6 (seis) meses antecedentes, desconsiderando o mês atual do cálculo; Revolvência: significa a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira de Direitos Creditórios; Subordinação é o somatório do valor total das Cotas Subordinadas Júnior e Mínima Mezanino das Cotas Subordinadas Mezanino “A” conforme estabelecido Numérica: no item 13.1., III deste Anexo; Subordinação é o somatório do valor total das Cotas Subordinadas Júnior Mínima Mezanino conforme estabelecido no item 13.1., II deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Política de provisão de perdas da administradora (ANBIMA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "nvestidor são os investidores qualificados, conforme definidos na Qualificado: Resolução CVM 30; Manual de é a Política Interna de Metodologias de Provisão de Perdas Provisionamento: da ADMINISTRADORA registrado junto a ANBIMA; Oferta Automática: é toda e qualquer distribuição pública de Cotas sob o regime do rito de registro automático de distribuição, nos termos da Resolução CVM 160; Oferta Ordinária: é toda e qualquer distribuição pública de Cotas sob o regime do rito de registro ordinário de distribuição, nos termos da Resolução CVM 160; Parte Geral: significa a parte geral do Regulamento do FUNDO, que contém as regras comuns a todas as Classes de Cotas; Partes Relacionadas: as partes relacionadas tal como definidas pelas regras contábeis expedidas pela CVM que tratam dessa matéria; Patrimônio Líquido: a soma das disponibilidades, mais o valor da carteira, mais os valores a receber, menos as exigibilidades e provisões de cada Classe; Periódico: é o Diário Comércio Indústria & Serviços;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rebaixamento de rating da sênior, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 53,
+     "clause": "cl. 16.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "e Créditos - FGC. CAPÍTULO XVII EVENTOS DE AVALIAÇÃO DA CLASSE 17.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à ADMINISTRADORA ou à GESTORA convocar uma Assembleia Especial de Cotistas da Classe para que esta delibere sobre a continuidade da Classe ou sua liquidação antecipada, e consequente definição de cronograma de pagamentos dos Cotistas: I - Rebaixamento da classificação de risco de qualquer Série de Cotas Seniores em circulação em 02 (dois) níveis abaixo da classificação de risco originalmente atribuída; II - Desenquadramento das Subordinações Mínimas por 10 (dez) Dias Úteis consecutivos; Página 53 de 80 III – Impossibilidade, por qualquer motivo, de aquisição de Direitos Creditórios Elegíveis por um prazo superior a 30 (trinta) dias consecutivos; IV - Renúncia de qualquer prestador de serviços contratado para prestar serviços para o FUNDO, desde que não substituído no prazo de 60 (sessenta) Dias Úteis contados da renúncia;"
+    }
+   ],
+   "legacy": {
+    "value": "Recompra mensal> 10% carteira; NPL/média móvel e repasses; liquidação over 30> 15%, over 60> 12, 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 16.3"
+   }
+  },
+  "liquidation": {
+   "display": "Inadimplência de 30 dias acima de 15%, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 55,
+     "clause": "cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; III caso a Inadimplência de 30 dias seja superior a 15% (quinze por cento); IV caso a Inadimplência de 60 dias seja superior a 12,5% (doze virgula cinco por cento); V Após 90 (noventa) dias da data da primeira integralização de Cotas da Classe, manutenção do Patrimônio Líquido diário da Classe inferior a R$ 1.000.000,00 (um milhão de reais) por período de 90 (noventa) dias consecutivos; VI caso a Média Móvel seja superior a 6% (seis por cento) durante 3 (três) meses consecutivos; e VII caso a Média Móvel seja superior a 6% (seis por cento), em qualquer mês, e a Classe não esteja atendendo as Subordinações Mínimas. 18.2. Na ocorrência de qualquer dos Eventos de Liquidação da Classe, independentemente de qualquer procedimento adicional, a ADMINISTRADORA e a GESTORA, nas esferas de suas respectivas competências, deverão (i) suspender imediatamente o pagamento de qualquer resgate ou amortização em andamento, se houver, e os procedimentos de aquisição de Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Recompra mensal> 10% carteira; NPL/média móvel e repasses; liquidação over 30> 15%, over 60> 12, 5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 18.1"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com recursos da carteira",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 27,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "Classe para o período de 6 (seis) meses antecedentes, desconsiderando o mês atual do cálculo; Revolvência: significa a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira de Direitos Creditórios; Subordinação é o somatório do valor total das Cotas Subordinadas Júnior e Mínima Mezanino das Cotas Subordinadas Mezanino “A” conforme estabelecido Numérica: no item 13.1., III deste Anexo; Subordinação é o somatório do valor total das Cotas Subordinadas Júnior Mínima Mezanino conforme estabelecido no item 13.1., II deste Anexo; “A”: Subordinação é o somatório do valor total das Cotas Subordinadas, conforme Mínima Sênior: estabelecido no item 13.1., I deste Anexo; Subordinações significa a Subordinação Mínima Sênior, a Subordinação Mínimas: Mínima Mezanino Numérica e a Subordinação Mínima Mezanino \"A\", quando designadas em conjunto;"
+    }
+   ],
+   "legacy": {
+    "value": "Aquisições sucessivas; suspensão nos eventos de avaliação/liquidação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Conforme série/suplemento; cronograma fechado não identificado nesta leitura",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,22% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 37,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "TAXAS 12.1. Pelos serviços de administração, distribuição, custódia, controladoria e escrituração, a ADMINISTRADORA receberá da Classe uma remuneração equivalente a 0,22% (vinte e dois centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido Página 37 de 80 da Classe. Adicionalmente, será devida à ADMINISTRADORA uma remuneração mensal de R$ 750,00 (setecentos e cinquenta reais) (“Taxa de Administração”). 12.1.1. A Taxa de Administração será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos). 12.1.2. Todos os impostos diretos incidentes sobre as remunerações do destaque, mas não se limitando a ISS, PIS e COFINS, que venham a incidir sobre os valores decorrentes da prestação dos serviços, serão acrescidos aos valores a serem pagos pela Classe, nas alíquotas vigentes nas respectivas datas de pagamento. 12.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "0, 22% a.a./PL +R$ 750/mês; tributos acrescidos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 12.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,63% a.a. até R$ 200 mi de PL, regressiva",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 38,
+     "clause": "cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "da pela Classe à GESTORA uma remuneração incidente sobre o Patrimônio Líquido da Classe (“Taxa de Gestão”): Patrimônio Líquido Remuneração de R$ 0,00 a R$ 200.000.000,00 0,63% a.a. de R$ 200.000.000,01 a R$ 0,50% a.a. 500.000.000,00 Acima de R$ 500.000.000,01 0,375% a.a. 12.2.1. A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos). 12.2.2. Os valores mensais, expressos acima, serão corrigidos pela variação positiva do IPCA, ou por outro índice que vier a substituí-los por Lei, contados do início da prestação dos serviços. 12.2.3. A GESTORA pode estabelecer que parcelas da Taxa de Gestão sejam pagas, pelo FUNDO, diretamente aos prestadores de serviço por ela contratados em nome do FUNDO, desde que o somatório dessas parcelas não exceda o montante total da referida taxa. 12.3."
+    }
+   ],
+   "legacy": {
+    "value": "0, 63% /0, 50% /0, 375% a.a. por faixas de PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 12.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 38,
+     "clause": "cl. 12.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "rio dessas parcelas não exceda o montante total da referida taxa. 12.3. Não poderão ser cobradas dos Cotistas desta Classe quaisquer outras taxas, tais como taxa de performance, ingresso e/ou saída. CAPÍTULO XIII SUBORDINAÇÕES MÍNIMAS 13.1. A partir da emissão de Cotas Seniores e/ou de Cotas Subordinadas Mezanino, as seguintes subordinações mínimas deverão ser observadas no FUNDO e verificadas todo Dia Útil pela ADMINISTRADORA: I – As Cotas Subordinadas Júnior as Cotas Subordinadas Mezanino, em conjunto, deverão representar, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe; Página 38 de 80 II - As Cotas Subordinadas Júnior deverão representar, no mínimo, 5% (cinco por cento) do Patrimônio Líquido da Classe; e III - As Cotas Subordinadas Junior e as Cotas Subordinadas Mezanino “A” deverão representar, em conjunto, no mínimo, 10% (dez por cento) do Patrimônio Líquido da Classe. 13.2."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido no suplemento de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark em branco no modelo de suplemento",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Hemera DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 4,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "É o acordo operacional celebrado entre a ADMINISTRADORA e a GESTORA; ADMINISTRADORA: HEMERA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA, com sede e foro na Cidade de Curitiba, PR, na Avenida Água Verde, 1413, Loja 801, Andar 08, Condomínio Podolan Água Verde, Água Verde, CEP 80620-200, inscrita no CNPJ/MF sob n.º 39.669.186/0001- 01, devidamente autorizada à prestação dos serviços de administração de carteira de títulos e valores mobiliários pela CVM de acordo com o Ato Declaratório nº 19.131, de 1 de outubro de 2021, ou quem lhe vier a suceder; ANBIMA: é a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; Anexo(s): significa(m) a(s) parte(s) do Regulamento do FUNDO essenciais à constituição de Classes de Cotas, que regem o funcionamento das Classes de modo complementar ao disciplinado pelo Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Solis Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "EITOS CREDITÓRIOS TRADEPAY VAREJO I - RESPONSABILIDADE LIMITADA; GESTORA: a SOLIS INVESTIMENTOS S.A., com sede na cidade e estado de São Paulo, na Avenida Pedroso de Morais, nº 1.553, conjuntos 42/51/52 e 54, Pinheiros, CEP 05419-001, inscrita no CNPJ/MF sob nº 17.254.708/0001-71, devidamente credenciada pela CVM para o exercício da atividade de administração de títulos e valores mobiliários, Página 6 de 80 nos termos do Ato Declaratório nº 13.427, de 6 de dezembro de 2013; Instrução CVM 489: a Instrução CVM nº 489, de 14 de janeiro de 2011 e suas alterações; Investidor são os investidores profissionais, conforme definidos na Profissional: Resolução CVM 30; Investidor são os investidores qualificados, conforme definidos na Qualificado: Resolução CVM 30;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Hemera DTVM (a própria administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 6,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "ista Subordinado o investidor que venha adquirir Cotas Subordinadas Mezanino: Mezanino de emissão do FUNDO; CUSTODIANTE: é a ADMINISTADORA; CVM: a Comissão de Valores Mobiliários; Dia Útil: todo e qualquer dia que não seja sábado, domingo ou feriado nacional ou, ainda, dias em que, por qualquer motivo, não haja expediente bancário ou dias em que não funcionar o mercado financeiro em âmbito nacional, na cidade São Paulo/SP; Encargos: despesas específicas que podem ser debitadas diretamente da Classe de Cotas, não estando inclusas nas taxas destinadas aos prestadores de serviços essenciais; Escrituradora: É a ADMINISTRADORA; Eventos de as situações descritas no Capítulo XIII da Parte Geral; Liquidação do Fundo: FUNDO: o FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS TRADEPAY VAREJO I - RESPONSABILIDADE LIMITADA;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 4,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "É o acordo operacional celebrado entre a ADMINISTRADORA e a GESTORA; ADMINISTRADORA: HEMERA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA, com sede e foro na Cidade de Curitiba, PR, na Avenida Água Verde, 1413, Loja 801, Andar 08, Condomínio Podolan Água Verde, Água Verde, CEP 80620-200, inscrita no CNPJ/MF sob n.º 39.669.186/0001- 01, devidamente autorizada à prestação dos serviços de administração de carteira de títulos e valores mobiliários pela CVM de acordo com o Ato Declaratório nº 19.131, de 1 de outubro de 2021, ou quem lhe vier a suceder; ANBIMA: é a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; Anexo(s): significa(m) a(s) parte(s) do Regulamento do FUNDO essenciais à constituição de Classes de Cotas, que regem o funcionamento das Classes de modo complementar ao disciplinado pelo Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Trademaster (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 24,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "se aplicável; Risco: Página 23 de 80 AGENTE DE é a TRADEMASTER INSTITUIÇÃO DE PAGAMENTO, COBRANÇA: SERVIÇOS E PARTICIPAÇÕES S.A., sociedade anônima, com sede na cidade e estado de São Paulo, na Avenida Paulista, nº 1063, 6º andar, Bela Vista, CEP 01311-200, inscrita CNPJ/MF sob o número 19.394.639/0001-27; Amortização é a amortização das Cotas realizada nas respectivas datas de Programada: amortização programadas para as Cotas, conforme cronograma definido nos respectivos Suplementos, e na forma deste Regulamento; Ativos são os ativos listados no item 5.14 deste Anexo I; Financeiros: BANCO DE é o Banco Bradesco S/A, responsável pela cobrança ordinária COBRANÇA: dos boletos bancários dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Público em geral (subordinadas só para qualificados)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 23,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "LIDADE LIMITADA CAPÍTULO I PÚBLICO-ALVO E RESPONSABILIDADE DOS COTISTAS 1.1. A Classe única de Cotas do FUNDO destina-se ao público em geral, observado os termos da regulamentação aplicável. 1.1.1. É vedada a aquisição de Cotas Subordinadas pelo público em geral, sendo certo que referidas Cotas Subordinadas somente poderão ser adquiridas por Investidores Qualificados. 1.2. A responsabilidade dos Cotistas está limitada ao valor por eles subscrito. Neste sentido, os Cotistas somente serão obrigados a integralizar as Cotas que efetivamente vierem a subscrever, respeitadas as condições estabelecidas no respectivo boletim de subscrição e neste Regulamento. Assim, caso não haja saldo subscrito e não integralizado de cotas, ou compromisso de subscrição e integralização de cotas assumido contratualmente, de forma expressa e por escrito pelos cotias, os cotistas não serão obrigados a realizar novos aportes de recursos ao Fundo, mesmo na hipótese de a Classe apresentar patrimônio líquido negativo e/ou não ter ativos suficientes para fazer frente a suas obrigações passivas. 1.3."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; público específico conforme suplemento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 23,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "de regime fechado. CAPÍTULO III PRAZO DE DURAÇÃO 3.1. O prazo de duração desta Classe é indeterminado. CAPÍTULO IV DEFINIÇÕES 4.1. Os termos e expressões previstos neste Anexo, indicados em letra maiúscula, no singular ou no plural, terão os significados a seguir atribuídos e se sobrepõem e prevalecem em relação às definições previstas na Parte Geral do Regulamento: Agência de a agência classificadora de risco das Cotas quando emitidas Classificação de pela Classe, quando e se aplicável; Risco: Página 23 de 80 AGENTE DE é a TRADEMASTER INSTITUIÇÃO DE PAGAMENTO, COBRANÇA: SERVIÇOS E PARTICIPAÇÕES S.A., sociedade anônima, com sede na cidade e estado de São Paulo, na Avenida Paulista, nº 1063, 6º andar, Bela Vista, CEP 01311-200, inscrita CNPJ/MF sob o número 19.394.639/0001-27;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; público específico conforme suplemento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Por devedor: 5% do PL; 4% após PL de R$ 800 mi",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1203635",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/05/2026",
+     "page": 31,
+     "clause": "cl. 5.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+     "excerpt": "ferior a 05 (cinco) dias corridos; d) os Direitos Creditórios em seu valor presente deduzido de sua PDD, devidos pelo mesmo Devedor não podem representar mais de 5% (cinco por cento) do Patrimônio Líquido da Classe. A partir do momento em que o Patrimônio Líquido da Classe atingir o montante de R$ 800.000.000,00 (oitocentos milhões de reais), os Direitos Creditórios em seu valor presente deduzido de sua PDD, devidos pelo mesmo Devedor não podem representar mais de 4% (quatro por cento) do Patrimônio Líquido da Classe; e) O valor correspondente ao somatório do valor presente deduzido de sua PDD, dos Direitos Creditórios devidos pelos 05 (cinco) maiores Devedores, não poderá representar (i) até 30 de dezembro de 2022 (inclusive), mais do que 20% (vinte por cento) do Patrimônio Líquido da Classe e (ii) após 30 de dezembro de 2022 (exclusive), mais do que 15% (quinze por cento) do patrimônio líquido da Classe; f) O valor correspondente ao somatório do valor presente deduzido de sua PDD, dos Direitos Creditórios devidos pelos 20 (vinte) maiores Devedores, não poderá representar mais do que 40% (quarenta por cento) do Patrimônio Líquido da Classe;"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "Convênio≤ 30%, um até 40%; devedor≤ 5% PL, cai a 4% apósPLR$ 800 mi; top 5≤ 15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/05/2026, cl. 5.21"
+   }
+  }
+ },
+ "leitura": "Duplicatas de conveniados da Trademaster; subordinação de 20% e devedor ≤ 5% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
