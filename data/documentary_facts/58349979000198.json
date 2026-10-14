@@ -1,0 +1,697 @@
+{
+ "schema_version": 1,
+ "cnpj": "58349979000198",
+ "name": "VOLKSWAGEN TERA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RECEBÍVEIS COMERCIAIS RESP LTDA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T13:00:19Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "826213",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213"
+  },
+  "D2": {
+   "document_id": "826212",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "28/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826212"
+  },
+  "D3": {
+   "document_id": "843410",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "17/02/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=843410"
+  },
+  "D4": {
+   "document_id": "826216",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "28/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826216"
+  },
+  "D5": {
+   "document_id": "822808",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "04/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=822808"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis comerciais de veículos Volkswagen novos, inclusive não performados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 41,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "11.2.1. O Fundo adquirirá, preponderantemente, os Direitos Creditórios decorrentes de operações de venda de Produtos para pagamento a prazo, realizadas entre Cedente e cada Devedor. 11.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis comerciais de veículos Volkswagen novos; admite créditos não performados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Volkswagen do Brasil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 85,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "\"Cedente\" significa a VOLKSWAGEN DO BRASIL INDÚSTRIA DE VEÍCULOS AUTOMOTORES LTDA., sociedade empresária, com sede na cidade de São Bernardo do Campo, Estado de São Paulo, na Estrada Marginal da Via Anchieta, s/n, Km 23,5, CEP 09823-901, inscrita no CNPJ sob 85"
+    }
+   ],
+   "legacy": {
+    "value": "Volkswagen do Brasil e filiais identificadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Volkswagen do Brasil e filiais identificadas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 85,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "\"Cedente\" significa a VOLKSWAGEN DO BRASIL INDÚSTRIA DE VEÍCULOS AUTOMOTORES LTDA., sociedade empresária, com sede na cidade de São Bernardo do Campo, Estado de São Paulo, na Estrada Marginal da Via Anchieta, s/n, Km 23,5, CEP 09823-901, inscrita no CNPJ sob 85"
+    }
+   ],
+   "legacy": {
+    "value": "Volkswagen do Brasil e filiais identificadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Clientes pulverizados e locadoras como Movida, Unidas e LM",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 88,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "\"Devedores\" significam os clientes da Cedente que tenham adquirido Produtos e sejam devedores dos Direitos Creditórios, compostos por Devedores Concentrados e Devedores Pulverizados."
+    }
+   ],
+   "legacy": {
+    "value": "Clientes pulverizados e concentrados Movida, Unidas e LM; pulverizados recebem produto após pagamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação da cedente; resolução por vício ou cancelamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 21,
+     "clause": "cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "nta o limite máximo de remuneração possível para esta Subclasse de Cotas. (b) Ausência de coobrigação da Cedente ou de terceiros. A Cedente não responde pelo pagamento dos Direitos Creditórios Cedidos ou pela solvência dos Devedores. O pagamento dos Direitos Creditórios Cedidos não conta com coobrigação ou garantia de quaisquer terceiros. Na hipótese de inadimplemento dos Direitos Creditórios Cedidos, portanto, poderá haver um impacto negativo no patrimônio e na rentabilidade do Fundo. (c) Fatores macroeconômicos. Como o Fundo aplicará seus recursos preponderantemente nos Direitos Creditórios Cedidos, dependerá da solvência dos Devedores para distribuição de rendimentos aos Cotistas. A solvência dos Devedores pode ser afetada por fatores macroeconômicos, tais como elevação das taxas de juros, aumento da inflação e baixos índices de crescimento econômico. Na ocorrência de um ou mais desses eventos, poderá haver o aumento do inadimplemento dos Direitos Creditórios Cedidos, afetando negativamente os resultados do Fundo e provocando perdas patrimoniais aos Cotistas. (d) Risco de Originação; Modificação de Créditos por Decisão Judicial."
+    },
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 46,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra a Cedente, a Administradora, a Gestora, o Custodiante, o Agente de Cobrança ou qualquer de seus controladores diretos ou indiretos, sociedades, direta ou indiretamente, controladas, sociedades coligadas ou sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo. 11.4."
+    }
+   ],
+   "legacy": {
+    "value": "Resolução por vício/inelegibilidade/cancelamento; desenquadramento posterior não gera regresso, salvo culpa ou dolo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Em reais, não vencidos; devedor adimplente, entre outros",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 45,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "11.3.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade na Data de Aquisição e Pagamento: (a) os Direitos Creditórios são expressos em Reais (BRL); (b) os Direitos Creditórios não podem estar vencidos; (c) o Devedor não pode estar inadimplente em relação a suas obrigações pecuniárias perante o Fundo ou perante a Cedente, sendo que nesse último caso, a verificação pela Gestora será realizada exclusivamente por meio de declaração da Cedente do Termo de Cessão; (d) o Preço de Aquisição deve observar a Taxa Mínima de Cessão; (e) os Direitos Creditórios não podem ser devidos por Devedores que sejam do Grupo Econômico da Cedente (exceto LM); (f) os Direitos Creditórios devem ter data de vencimento anterior à Data de Resgate das Cotas Seniores; (g) os Direitos Creditórios devidos por Devedores Pulverizados devem possuir prazo máximo a contar da Data de Aquisição e Pagamento igual ou inferior a 60 (sessenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos BRL; devedor adimplente; pulverizado ≤60 dias, concentrado ≤180 dias; vencimento antes do resgate sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, cl. 11.3"
+   }
+  },
+  "debtor_limit": {
+   "display": "Pulverizado ≤ 3% do PL; grupo concentrado ≤ 25% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 46,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "Devedor Pulverizado, considerada pro forma a aquisição de Direitos Creditórios pretendida, não seja superior a 3% (três por cento) do Patrimônio Líquido do Fundo, considerada pro forma a aquisição (\"Índice de Concentração – Pulverizados\"); (j) o Valor dos Direitos Creditórios devidos por Devedores Concentrados do mesmo Grupo Econômico, considerada pro forma a aquisição de Direitos Creditórios pretendida, não seja superior a 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo, considerada pro forma a aquisição (\"Índice de Concentração – Concentrados\"); 11.3.2. O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora em cada Data de Aquisição e Pagamento, sempre levando em consideração o conjunto de Direitos Creditórios de forma agregada."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Pulverizado ≤3% do PL; grupo concentrado ≤25% do PL; grupo da cedente vedado, exceto LM",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Volkswagen do Brasil",
+   "sources": [],
+   "legacy": {
+    "value": "Pulverizado ≤3% do PL; grupo concentrado ≤25% do PL; grupo da cedente vedado, exceto LM",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Pulverizados até 60 dias; concentrados até 180 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 45,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "a contar da Data de Aquisição e Pagamento igual ou inferior a 60 (sessenta) dias; 45 INTERNAL Docusign Envelope ID: AD576499-2256-4E77-BDC2-EC68E564E07B (h) os Direitos Creditórios devidos por Devedores Concentrados devem possuir prazo máximo a contar da Data de Aquisição e Pagamento igual ou inferior a 180 (cento e oitenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos BRL; devedor adimplente; pulverizado ≤60 dias, concentrado ≤180 dias; vencimento antes do resgate sênior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "Alvo ≥ 95% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 83,
+     "clause": "cl. 27.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "\"Alocação Alvo\" significa o percentual mínimo de 95% (noventa e cinco por cento) do Patrimônio Líquido da Classe mantido em Direitos Creditórios Cedidos."
+    }
+   ],
+   "value": 95.0,
+   "legacy": {
+    "value": "Alvo ≥95% do PL; fiscal ≥67% após 180 dias; regulatório ≥50% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, cl. 27.1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 94,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "AL Docusign Envelope ID: AD576499-2256-4E77-BDC2-EC68E564E07B \"Índice de Subordinação\" significa a relação mínima admitida entre o somatório do valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, equivalente a 25% (vinte e cinco por cento). \"Índices de Atraso\" significa o Índice de Atraso 30 e o Índice de Atraso 90, quando referidos em conjunto. \"Índices de Concentração\" significa o Índice de Concentração – Concentrados, o Índice de Concentração – Pulverizados e a Quantidade Mínima de Devedores, quando referidos em conjunto. \"Instituição Autorizada\" significa qualquer das seguintes instituições financeiras: (a) Itaú Unibanco S.A.; (b) Banco Bradesco S.A.; (c) Banco Santander (Brasil) S.A.; (d) Banco do Brasil S.A.;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥25%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, p. 94"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 94,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "AL Docusign Envelope ID: AD576499-2256-4E77-BDC2-EC68E564E07B \"Índice de Subordinação\" significa a relação mínima admitida entre o somatório do valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, equivalente a 25% (vinte e cinco por cento). \"Índices de Atraso\" significa o Índice de Atraso 30 e o Índice de Atraso 90, quando referidos em conjunto. \"Índices de Concentração\" significa o Índice de Concentração – Concentrados, o Índice de Concentração – Pulverizados e a Quantidade Mínima de Devedores, quando referidos em conjunto. \"Instituição Autorizada\" significa qualquer das seguintes instituições financeiras: (a) Itaú Unibanco S.A.; (b) Banco Bradesco S.A.; (c) Banco Santander (Brasil) S.A.; (d) Banco do Brasil S.A.;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Subordinadas / PL ≥25%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Subordinadas / PL ≥25%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "3 meses de despesas; reserva de remuneração na carência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 76,
+     "clause": "cl. 21.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "referente aos 3 (três) meses subsequentes. Os recursos utilizados para composição da Reserva de Despesas e Encargos serão obrigatoriamente mantidos em Disponibilidades. 21.2. Adicionalmente, a Gestora deverá manter, exclusivamente em Disponibilidades, durante o Período de Carência, a Reserva de Remuneração, 15 (quinze) dias antes para pagamento de Remuneração, de acordo com o disposto nos itens abaixo. 21.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas; reserva de remuneração desde D-15 durante carência; regime sequencial exige saldo total de cotas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, cl. 21.1"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Atraso acima dos limites por tipo de cliente; relatório não divulgado, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 46,
+     "clause": "cl. 11.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "Índice de Atraso 30 10% (dez por cento) em relação a Direitos Creditórios devidos por Devedores Concentrados e 3% (três por cento) em 46 INTERNAL Docusign Envelope ID: AD576499-2256-4E77-BDC2-EC68E564E07B"
+    },
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 67,
+     "clause": "cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "ta da sua realização. 18. EVENTOS DE AVALIAÇÃO 18.1. São Eventos de Avaliação: (a) não divulgação, pela Gestora, do Relatório de Monitoramento, não sanada no prazo máximo de 5 (cinco) Dias Úteis a contar da data em que o Relatório de Monitoramento deveria ter sido originalmente divulgado; (b) caso a Quantidade Mínima de Devedores prevista no item 11.1.4 não seja observada na Data de Verificação Trimestral, desde que tal situação não seja sanada no prazo de até 30 (trinta) dias contados da notificação enviada pela Administradora à Cedente nesse sentido; (c) caso a Reserva de Despesas e Encargos permaneça desenquadrada por prazo superior a 10 (dez) Dias Úteis;"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso 30: 10% concentrados/3% pulverizados; atraso 90: 5%/1,5%; índices de recompra/resolução têm janelas próprias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, cl. 11.4"
+   }
+  },
+  "liquidation": {
+   "display": "Evento de avaliação convertido em liquidação ou insolvência, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 70,
+     "clause": "cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "everão ser cessadas. 19. EVENTOS DE LIQUIDAÇÃO 19.1. São Eventos de Liquidação: (a) caso seja deliberado, em Assembleia de Cotistas, que um Evento de Avaliação configura um Evento de Liquidação; (b) caso seja declarada a insolvência do Fundo, nos termos do Código Civil; (c) determinação da CVM, nos termos previstos na Resolução CVM 175; 70 INTERNAL Docusign Envelope ID: AD576499-2256-4E77-BDC2-EC68E564E07B (d) cessação definitiva, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, pela Gestora ou pelo Custodiante, sem que tenha havido sua efetiva substituição por outro prestador de serviços, observados os procedimentos e prazos descritos no Capítulo 9 deste Regulamento; (e) resilição, ou rescisão ou aditamento, sem aprovação da Assembleia de Cotistas, do Contrato de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso 30: 10% concentrados/3% pulverizados; atraso 90: 5%/1,5%; índices de recompra/resolução têm janelas próprias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, cl. 19.1"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência durante o período de carência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 38,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "rá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade, sendo permitida a Revolvência dos Direitos Creditórios durante o Período de Carência. 11.1.4. Em cada Data de Verificação Trimestral, o Fundo deverá deter o investimento em Direitos Creditórios devidos por no mínimo 100 (cem) Devedores de diferentes Grupos Econômicos (\"Quantidade Mínima de Devedores\"). 38 INTERNAL Docusign Envelope ID: AD576499-2256-4E77-BDC2-EC68E564E07B 11.1.5. No prazo de até 180 (cento e oitenta) dias contados da Data de Início do Fundo, a Classe deverá observar a Alocação Mínima – Entidade de Investimento. 11.1.6. A parcela do Patrimônio Líquido não alocada em Direitos Creditórios Cedidos poderá ser mantida em moeda corrente nacional ou aplicada nos seguintes Ativos Financeiros: (a) títulos públicos federais - Tesouro Selic;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Data de referência dia 15; cronograma, carência e resgate remetidos ao apêndice não preenchido",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Faixas marginais a partir de 0,195% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 15,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "bem como a remuneração de custódia e controladoria, remuneração em montante equivalente a 0,195% (cento e noventa e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo até R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), acrescido de 0,125% (cento e vinte e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo entre R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) e R$ 500.000.000,00 (quinhentos milhões de reais), acrescido de 0,10% (um décimo por cento) ao ano sobre o Patrimônio Líquido do Fu"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais a.a.: 0,195%/0,125%/0,10%/0,05%/0,03% do PL; cortes R$ 250/500/1.000/1.500 mi; mínimo R$ 25 mil/mês; IGP-M",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, cl. 8.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "25% da taxa de administração",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 16,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "neste item terá o piso de R$ 25.000,00 (vinte e cinco mil reais) mensais. 25% (vinte e cinco por cento) da Taxa de Administração prevista neste item 8.1 será devida à Gestora e comporá a Taxa de Gestão. 8.1.1. A título de taxa de escrituração do Fundo será devido à Administradora o valor equivalente a R$2.500,00 (dois mil e quinhentos reais) mensais. 8.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "25% da taxa de administração; adicional único R$ 35 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/01/2025, cl. 8.1"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 4,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "4. PRESTADORES DE SERVIÇOS ESSENCIAIS 4.1. Administradora 4.1.1. O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Sala 201, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002, neste ato representado na forma do seu estatuto social. 4.1.2. A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem poderes para praticar todos os atos necessários à administração do Fundo na sua respectiva esfera de atuação. 4 INTERNAL Docusign Envelope ID: AD576499-2256-4E77-BDC2-EC68E564E07B 4.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 8,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "idades do terceiro contratado relacionadas ao Fundo. 4.2. Gestora 4.2.1. O Fundo é gerido pela OLIVEIRA TRUST SERVICER S.A., instituição devidamente autorizada pela CVM por meio do Ato Declaratório nº 7.446, de 13 de outubro de 2003, à prestação de serviços de gestão de carteira de títulos e valores mobiliários, inscrita no CNPJ sob o nº 02.150.453/0001-20, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, sala 202, CEP 22640-102, Barra da Tijuca. 4.2.2. A Gestora presta ao Fundo os serviços de gestão profissional dos Direitos Creditórios Cedidos e dos Ativos Financeiros integrantes da carteira do Fundo. A Gestora, observadas as limitações legais e regulamentares e as previstas neste Regulamento, tem poderes para praticar os atos necessários à gestão da carteira de ativos da Classe, na sua respectiva esfera de atuação. 4.2.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança extrajudicial não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 4,
+     "clause": "cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "(noventa) dias consecutivos, estes devem ser imediatamente liquidados pela Administradora. 2.3. A Classe é destinada a Investidores Profissionais que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo e que aceitem os riscos associados aos investimentos realizados pelo Fundo. 2.4. Para fins do disposto nas \"Regras e Procedimentos do Código de Administração e Gestão de Recursos de Terceiros\" de 30 de novembro de 2023 (\"Regras e Procedimentos ANBIMA\"), o Fundo é classificado como um fundo de investimento em direitos creditórios do tipo \"Agro, Indústria e Comércio\", com foco de atuação em \"Recebíveis Comerciais\". 2.5. Os Cotistas da Classe terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18 da Resolução CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. 3. PRAZO DE DURAÇÃO 3.1. O funcionamento do Fundo terá início na Data de Início do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Somente investidores profissionais; resgate das subordinadas após todas as seniores",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado (séries com prazo próprio)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 4,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": ". PRAZO DE DURAÇÃO 3.1. O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas Seniores terá o Prazo de Duração estipulado no respectivo Apêndice. 4. PRESTADORES DE SERVIÇOS ESSENCIAIS 4.1. Administradora 4.1.1. O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, Bloco 07, Sala 201, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002, neste ato representado na forma do seu estatuto social. 4.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Somente investidores profissionais; resgate das subordinadas após todas as seniores",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Pulverizado ≤ 3% do PL; grupo concentrado ≤ 25% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "826213",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/01/2025",
+     "page": 46,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+     "excerpt": "Devedor Pulverizado, considerada pro forma a aquisição de Direitos Creditórios pretendida, não seja superior a 3% (três por cento) do Patrimônio Líquido do Fundo, considerada pro forma a aquisição (\"Índice de Concentração – Pulverizados\"); (j) o Valor dos Direitos Creditórios devidos por Devedores Concentrados do mesmo Grupo Econômico, considerada pro forma a aquisição de Direitos Creditórios pretendida, não seja superior a 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo, considerada pro forma a aquisição (\"Índice de Concentração – Concentrados\"); 11.3.2. O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora em cada Data de Aquisição e Pagamento, sempre levando em consideração o conjunto de Direitos Creditórios de forma agregada."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Pulverizado ≤3% do PL; grupo concentrado ≤25% do PL; grupo da cedente vedado, exceto LM",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Recebíveis de veículos Volkswagen; subordinação de 25%, pulverizado ≤ 3% e grupo concentrado ≤ 25% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
