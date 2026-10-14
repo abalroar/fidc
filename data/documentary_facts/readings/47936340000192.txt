@@ -1,0 +1,57 @@
+# FIDC Opea Agro Insumos (Vórtx; Opea Gestora; cedente BASF) — regulamento consolidado na assembleia de 06/11/2025
+type: Agro/FIAGRO
+q1: id1038524 "Significam os direitos creditórios do agronegócio performados, vincendos, existentes"
+q2: id1038524 "A BASF S.A., sociedade por ações de capital fechado"
+q3: id1038524 "cujas cessões não contarão com coobrigação"
+q4: id1038524 "máximo de vencimento de até 360 (trezentos e"
+q5: id1038524 "A aplicação de recursos em Direitos Creditórios e outros ativos de responsabilidade ou coobrigação de um mesmo Devedor está limitada a 20%"
+q6: id1038524 "O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Elegíveis"
+q7: id1038524 "significa a razão entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, que deverá ser apurada pela Gestora; e deverá corresponder a, no mínimo, 25%"
+q8: id1038524 "significa a razão entre o valor total das Cotas Subordinadas Junior e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 0,5%"
+q9: id1038524 "Para efeito de recomposição do Fundo de Despesa, o valor mínimo será de R$ 300.000,00"
+q10: id1038524 "Qualquer dos seguintes eventos será considerado um Evento de Avaliação: a) violação das declarações"
+q11: id1038524 "a) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; b) não pagamento de Remuneração às Cotas Seniores"
+q12: id1038524 "será pago à Administradora o valor correspondente a 0,15%"
+q13: id1038524 "a Gestora fará jus à remuneração (i) flat de 0,50%"
+q14: id1038524 "pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na Rua Gilberto Sabino"
+q15: id1038524 "A OPEA GESTORA DE RECURSOS LTDA., com sede na Cidade de São Paulo"
+q16: id1038524 "A VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada, ou sua sucessora a qualquer título, na qualidade de custodiante"
+q17: id1038524 "A Classe Única será destinada à Investidores Profissionais e à Investidores Qualificados"
+q18: id1038524 "A Classe Única terá prazo de duração indeterminado"
+q19: id1038524 "valor de face dos Direitos Creditórios que são Operação de Barter a 20%"
+q20: id1038524 "editórios que sejam Pessoa Física deverá ser no máximo 15%"
+q21: id1038524 "de provisão para perdas por redução no valor de recuperação"
+receivables: Vendas a prazo de insumos agrícolas da BASF, admitida indexação cambial | q1
+agro_backing: Direitos do agronegócio performados, com notas fiscais de insumos | q1
+originator: BASF | q2
+assignor: BASF | q2
+debtor: n/d | Perfil de devedores não descrito em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+recourse: Sem coobrigação da cedente | q3
+eligibility: Prazo até 360 dias; Barter ≤ 20% e pessoa física ≤ 15% do PL | q4,q19,q20
+debtor_limit: Por devedor: até 20% do PL | q5 | value=20
+assignor_limit: — | Cedente única: BASF
+term_max: Até 360 dias da aquisição | q4
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | q6 | value=50
+quota_structure: Sênior / Subordinada Mezanino / Subordinada Júnior | q7,q8
+sub_senior: 25% · subord./PL | q7 | basis=mez+jr/PL | value=25
+sub_mezz: 0,5% · júnior/PL | q8 | basis=jr/PL | value=0.5
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Fundo de despesas recomposto ao mínimo de R$ 300 mil | q9
+pdd: PDD pelo manual da administradora | q21
+eval_triggers: Violação de declarações da cedente, entre outros | q10
+liquidation: Evento de avaliação convertido ou remuneração sênior não paga, entre outros | q11
+revolving: n/d | Regra de revolvência não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,15% a.a. do PL, mínimo R$ 5 mil, e implantação de R$ 25 mil | q12
+mgmt_fee: Flat de 0,50% do integralizado, mais parcela anual sobre o PL | q13
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Vórtx DTVM | q14
+manager: Opea Gestora | q15
+custodian: Vórtx DTVM | q16
+servicer: n/d | Agentes de cobrança não nomeados em trecho contínuo
+investors: Investidores profissionais e qualificados | q17
+duration: Indeterminado | q18
+collateral: n/d | Garantias dos créditos não descritas em trecho contínuo
+leitura: Insumos da BASF sem coobrigação; subordinação de 25% e devedor ≤ 20% do PL.
