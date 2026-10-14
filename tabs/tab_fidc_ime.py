@@ -1542,7 +1542,7 @@ def _render_credit_risk_section(
                     cobertura_df,
                     title=None,
                     y_title="%",
-                    color_range=[COVERAGE_LINE_COLOR],
+                    color_range=["#111111" if portfolio_mode else COVERAGE_LINE_COLOR],
                     show_point_labels=False,
                     show_end_labels=True,
                     point_size=64,
@@ -4261,11 +4261,18 @@ def _line_history_chart(
         axis=alt.Axis(**x_axis_kwargs),
     )
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
+    y_scale = _quant_scale_with_headroom(scale_values, percent_like="%" in y_title)
+    index_values = pd.to_numeric(scale_values, errors="coerce").dropna()
+    if portfolio_mode and y_title == "Índice base 100" and not index_values.empty:
+        # An index is read around 100; a zero floor squeezes every class into one line.
+        span = float(index_values.max() - index_values.min())
+        pad = max(span * 0.15, 1.0)
+        y_scale = alt.Scale(domain=[float(index_values.min()) - pad, float(index_values.max()) + pad], zero=False, nice=False)
     y_encoding = alt.Y(
         "valor:Q",
         title=y_title,
         axis=y_axis,
-        scale=_quant_scale_with_headroom(scale_values, percent_like="%" in y_title),
+        scale=y_scale,
     )
     base = (
         alt.Chart(chart_df)

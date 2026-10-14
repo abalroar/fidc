@@ -61,7 +61,8 @@ def render_documentary_facts(portfolio: Any) -> None:
     st.markdown(NOTE_CSS, unsafe_allow_html=True)
     if view.competence:
         st.caption(f"Leitura documental por fundo, com fonte em cada célula. Confronto com o IME de "
-                   f"{competence_label(view.competence)}, posição comum da cesta.")
+                   f"{competence_label(view.competence)}, última competência da base documental comum a todos "
+                   "os fundos; as demais abas podem mostrar uma posição mais recente.")
     else:
         st.caption("Leitura documental por fundo, com fonte em cada célula. Sem competência de IME comum à cesta; confronto suspenso.")
     st.caption("— não se aplica ao fundo · n/d não localizado nos documentos lidos (motivo em Pendências)")

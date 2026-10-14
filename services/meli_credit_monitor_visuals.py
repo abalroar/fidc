@@ -20,8 +20,13 @@ AXIS = "#000000"
 STANDARD_CHART_HEIGHT = 360
 SPLIT_PANEL_HEIGHT = 150
 SPLIT_PANEL_SPACING = 8
+# Dados de Carteira uses the page palette (Estrutura): brand orange as the
+# accent, near-black ink and grey for volume series. Other pages keep theirs.
+PORTFOLIO_INK = "#111111"
+PORTFOLIO_ACCENT = "#FF5A00"
+PORTFOLIO_VOLUME = "#8C8C8C"
 # Portfolio comparisons can exceed four series; tints keep the product palette.
-PORTFOLIO_SERIES_COLORS = [PRIMARY, SECONDARY, "#8C8C8C", "#F2B27A", "#4F4F4F", "#A85A0E", "#C4C4C4", "#6E6E6E"]
+PORTFOLIO_SERIES_COLORS = [PORTFOLIO_INK, PORTFOLIO_ACCENT, "#8C8C8C", "#FFB07F", "#4F4F4F", "#B34000", "#C4C4C4", "#6E6E6E"]
 COHORT_COLORS = ["#D9D9D9", "#BDBDBD", "#A0A0A0", "#838383", "#666666", "#4A4A4A", "#242424", "#000000"]
 
 
@@ -91,7 +96,8 @@ def npl_severity_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = False
             color=alt.Color(
                 "serie:N",
                 title="NPL",
-                scale=alt.Scale(domain=["NPL 1-90d", "NPL 91-360d"], range=[PRIMARY, SECONDARY]),
+                scale=alt.Scale(domain=["NPL 1-90d", "NPL 91-360d"],
+                                range=[PORTFOLIO_VOLUME, PORTFOLIO_ACCENT] if portfolio_mode else [PRIMARY, SECONDARY]),
                 legend=None if portfolio_mode and chart_df.loc[chart_df["valor"].notna(), "serie"].nunique() <= 1 else alt.Legend(orient="bottom"),
             ),
             order=alt.Order("stack_order:Q", sort="ascending"),
@@ -103,7 +109,10 @@ def npl_severity_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = False
         )
     )
     label_layers = _bar_label_layers(
-        _stacked_bar_edge_labels(chart_df, x_sort=x_sort[-1:] if portfolio_mode else x_sort),
+        _stacked_bar_edge_labels(
+            chart_df, x_sort=x_sort[-1:] if portfolio_mode else x_sort,
+            colors=(PORTFOLIO_INK, PORTFOLIO_ACCENT) if portfolio_mode else (PRIMARY, SECONDARY),
+        ),
         x=alt.X("competencia:N", sort=x_sort, axis=_category_axis(portfolio_mode=portfolio_mode)),
     )
     return _style_chart(alt.layer(bars, *label_layers).properties(height=STANDARD_CHART_HEIGHT,
@@ -130,7 +139,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = F
     x = alt.X("competencia_label:N", title="Competência", sort=x_sort, axis=_category_axis(portfolio_mode=portfolio_mode))
     bars = (
         alt.Chart(df)
-        .mark_bar(color=PRIMARY)
+        .mark_bar(color=PORTFOLIO_VOLUME if portfolio_mode else PRIMARY)
         .encode(
             x=x,
             y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis(portfolio_mode=portfolio_mode, values=df["carteira_scaled"])),
@@ -146,7 +155,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = F
         bar_label_df = bar_label_df.tail(1)
     bar_label = (
         alt.Chart(bar_label_df)
-        .mark_text(align="right", baseline="middle", dx=-8, dy=-8, color=PRIMARY, fontSize=11, fontWeight=600)
+        .mark_text(align="right", baseline="middle", dx=-8, dy=-8, color=PORTFOLIO_INK if portfolio_mode else PRIMARY, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
             y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis(portfolio_mode=portfolio_mode, values=df["carteira_scaled"])),
@@ -160,9 +169,10 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = F
     )
     if portfolio_mode and not has_yoy:
         return _style_chart(bar_chart)
+    yoy_color = PORTFOLIO_ACCENT if portfolio_mode else SECONDARY
     line = (
         alt.Chart(df)
-        .mark_line(point=alt.OverlayMarkDef(filled=True, fill=SECONDARY, color=SECONDARY, size=42), color=SECONDARY, strokeWidth=2)
+        .mark_line(point=alt.OverlayMarkDef(filled=True, fill=yoy_color, color=yoy_color, size=42), color=yoy_color, strokeWidth=2)
         .encode(
             x=x,
             y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis(grid=True)),
@@ -180,7 +190,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = F
     )
     line_label = (
         alt.Chart(line_label_df)
-        .mark_text(align="right", baseline="middle", dx=-8, dy=-12, color=SECONDARY, fontSize=11, fontWeight=600)
+        .mark_text(align="right", baseline="middle", dx=-8, dy=-12, color=yoy_color, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
             y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis()),
@@ -274,7 +284,7 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8, portfolio_mod
         relabel = {cohort: _cohort_display_label(cohort) for cohort in recent}
         df["cohort"] = df["cohort"].map(lambda value: relabel.get(value, value))
         color_domain = [relabel[cohort] for cohort in recent]
-        color_range = _spread_greys(len(color_domain) - 1) + [SECONDARY] if color_domain else color_range
+        color_range = _spread_greys(len(color_domain) - 1) + [PORTFOLIO_ACCENT] if color_domain else color_range
     x = alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"], axis=_category_axis(portfolio_mode=portfolio_mode))
     y_scale = _tight_percent_scale(df["valor_pct"])
     if portfolio_mode:
@@ -336,7 +346,7 @@ def research_roll_seasonality_chart(roll_df: pd.DataFrame, *, metric_id: str, po
     if portfolio_mode:
         month_domain = [label.lower() for label in month_domain]
     series_domain = sorted(df["series_name"].dropna().unique().tolist())
-    colors = _seasonality_colors(series_domain)
+    colors = (_spread_greys(len(series_domain) - 1) + [PORTFOLIO_ACCENT]) if portfolio_mode and series_domain else _seasonality_colors(series_domain)
     x = alt.X("month_label:N", title="Mês do ano", sort=month_domain, axis=_category_axis(portfolio_mode=portfolio_mode))
     line = (
         alt.Chart(df)
@@ -420,7 +430,7 @@ def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]
     if chart_df.empty:
         return _empty_chart()
     x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
-    color_range = _palette_for_domain(color_domain)
+    color_range = _portfolio_palette(color_domain) if portfolio_mode else _palette_for_domain(color_domain)
     x = alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis(portfolio_mode=portfolio_mode))
     observed_series = chart_df.loc[chart_df["valor"].notna(), "serie"].drop_duplicates().tolist()
     if portfolio_mode:
@@ -594,14 +604,16 @@ def _line_label_layers(
     return layers
 
 
-def _stacked_bar_edge_labels(chart_df: pd.DataFrame, *, x_sort: list[str]) -> pd.DataFrame:
+def _stacked_bar_edge_labels(
+    chart_df: pd.DataFrame, *, x_sort: list[str], colors: tuple[str, str] = (PRIMARY, SECONDARY),
+) -> pd.DataFrame:
     if chart_df.empty or not x_sort:
         return pd.DataFrame(columns=["competencia", "serie", "label_y", "label_text", "label_color", "label_dx", "label_dy", "label_align"])
     rows: list[dict[str, object]] = []
     edge_competencias = [x_sort[0]]
     if x_sort[-1] != x_sort[0]:
         edge_competencias.append(x_sort[-1])
-    series_order = [("NPL 1-90d", PRIMARY), ("NPL 91-360d", SECONDARY)]
+    series_order = [("NPL 1-90d", colors[0]), ("NPL 91-360d", colors[1])]
     for edge_index, competencia in enumerate(edge_competencias):
         align = "right" if edge_index == 0 else "left"
         dx = -12 if edge_index == 0 else 12
