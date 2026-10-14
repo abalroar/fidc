@@ -29,9 +29,9 @@ assignor: Empresas Randoncorp e suas controladas e filiais | q2
 debtor: Concessionárias, distribuidores e clientes finais da Randoncorp | q3
 recourse: Cedentes respondem só por existência e formalização, não pela solvência | q4
 eligibility: Devedor sem atraso > 15 dias; prazo mínimo de 12 dias até o vencimento | q5
-debtor_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6
-sacado_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6
-assignor_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6
+debtor_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6 | value=none
+sacado_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6 | value=none
+assignor_limit: Sem limite (classe para profissionais, dispensada do art. 45) | q6 | value=none
 term_max: n/d | Regulamento fixa prazo mínimo, não máximo
 allocation: ≥ 50% do PL em direitos creditórios | q7 | value=50
 quota_structure: Sênior / Subordinada | q8
