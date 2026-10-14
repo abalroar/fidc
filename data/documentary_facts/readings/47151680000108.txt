@@ -1,0 +1,47 @@
+# Farm Tech IBBA I FIDC (Oliveira Trust; Farmtech Gestão; multicedente agro)
+type: Agro/FIAGRO
+q1: * "Administrador Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q2: * "Gestor Significa a FARMTECH GESTÃO DE RECURSOS LTDA."
+q3: * "seguintes Critérios de Elegibilidade: (a) não poderão estar vencidos e devem possuir valor fixo e determinado ou determinável"
+q4: * "mesmo Devedor, considerado individualmente, não poderá representar concentração superior ao menor entre (a) R$ 5.000.000,00"
+q5: * "Significa a alocação de, no mínimo, 50% (cinquenta por Investimento cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis"
+q6: * "Taxa de Gestão O Gestor cobrará o valor correspondente a 1% (um por cento) ao ano sobre o valor do Patrimônio Líquido"
+q7: * "Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência dos Direitos Creditórios"
+q8: * "Agente de Cobrança Significa a LUCHESI ADVOGADOS"
+q9: * "prazo de duração indeterminado. 3. PRESTADORES DE SERVIÇOS"
+q10: * "Taxa de Performance pagamentos da Taxa de Performance, as quais deverão acontecer no último Dia Útil dos meses de julho e novembro"
+receivables: Vendas agro a prazo: duplicatas, notas fiscais, CPR-F e promissórias | o1
+agro_backing: Duplicatas, CPR-F e promissórias do agronegócio, inclusive a performar | o91
+originator: Distribuidores de produtos agro e seus clientes | o7
+assignor: Distribuidores de produtos agro (multicedente) | o7
+debtor: Clientes dos distribuidores do agronegócio | o7
+recourse: Coobrigação pode existir ou não, conforme contrato | o13
+eligibility: Não vencidos; valor fixo ou determinável; em reais | q3
+debtor_limit: Por cliente: menor entre R$ 5 mi e 1% do PL | q4 | value=1
+assignor_limit: Distribuidor ou grupo ≤ 5% do PL, com exceções | o19 | value=5
+term_max: n/d | Faixas de prazo sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | q5 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | o30
+sub_senior: PL/sênior ≥ 125% | o30 | basis=PL/sr | value=125
+sub_mezz: n/d | Índice ponderado remetido ao apêndice | why=Resposta anterior remete fator ao apêndice
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Despesas e meta de pagamentos do período de liquidez; piso de 1% do PL | o40
+pdd: Provisão escalonada de 0,5% (1–15 dias) a 100% (> 180 dias) | o43
+eval_triggers: Inadimplência, resoluções e renegociações acima dos limites, entre outros | o46
+liquidation: n/d | Eventos descritos no anexo, sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Revolvência admitida, observada a ordem de alocação | q7
+amortization: Despesas, reservas, sênior, mezanino, júnior e aquisições | o55
+admin_fee: 0,11% a.a. até R$ 250 mi de PL, 0,08% acima, com mínimo mensal | o60
+mgmt_fee: 1% a.a. do PL, com mínimo mensal | q6
+perf_fee: Prevista, paga em julho e novembro após remunerações e amortizações | q10
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Oliveira Trust DTVM | q1
+manager: Farmtech Gestão de Recursos | q2
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: Luchesi Advogados (cobrança judicial) | q8
+investors: Investidores qualificados | o81
+duration: Indeterminado | q9
+collateral: n/d | Garantias dos títulos não descritas em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+sacado_limit: Por cliente: menor entre R$ 5 mi e 1% do PL | q4 | value=1
+leitura: Multicedente agro de distribuidores; PL/sênior ≥ 125% e cliente ≤ 1% do PL ou R$ 5 mi.
