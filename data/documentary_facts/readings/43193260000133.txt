@@ -1,0 +1,57 @@
+# Residence Club FIDC (BRL Trust; Carmel e Urca; cedentes desenvolvedoras de multipropriedade)
+type: Imobiliário
+q1: D1 "representativos do conjunto das parcelas mensais, consecutivas e irreajustáveis, de pagamento do saldo do preço de aquisição da Fração Imobiliária"
+q2: D1 "Significa a sociedade responsável pelo desenvolvimento deum Empreendimento e que venha a ser aprovada em Assembleia Geral de Cotistas"
+q3: D1 "Significa a Pessoa que celebre uma Promessa de Compra e Venda com a Cedente, com a finalidade de adquirir uma Fração Imobiliária"
+q4: D1 "no limite de até 20% (vinte por cento) de seu Patrimônio Líquido"
+q5: D1 "o prazo médio dos Direitos Creditórios, considerada pro forma a aquisiçãopretendida, deve ser igual ou inferior a 48"
+q6: D1 "alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios"
+q7: D1 "a qual deverá, diariamente, representar o percentual mínimo de 200% (duzentos por cento). Isso significa que, no mínimo, 50%"
+q8: D1 "representar o percentual mínimo de 142,85% (cento e quarenta e dois inteiros e oitenta e cinco centésimos por cento). Isso significa que, no mínimo, 30,00%"
+q9: D1 "Razões de Garantia e os Índices de Subordinação serão apurados pela Carmel todo Dia Útil"
+q10: D1 "Significa a reserva a ser constituída pelas Gestoras para fazer frente ao somatório da Meta de Amortização"
+q11: D1 "deverá ser registrada uma provisão para perdas"
+q12: D1 "14.1 São considerados Eventos de Avaliação: (a) caso, após 30 (trinta) dias contados da primeira data de integralização"
+q13: D1 "São considerados Eventos de Liquidação Antecipada quaisquer dos seguintes eventos: (a) caso seja deliberado em Assembleia Geral de Cotistas"
+q14: D1 "0,20% a.a. (vinte centésimos por cento ao ano) sobre o Patrimônio Líquido doFundo, observado o mínimo mensal de R$15.000,00"
+q15: D1 "0,50% a.a. (cinquenta centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$ 25.000,00"
+q16: D1 "Significa a Administradora BRL TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q17: D1 "Significa a CARMEL GESTORA DE ATIVOS LTDA."
+q18: D1 "e a Urca Gestão de Recursos Ltda."
+q19: D3 "A Oferta será destinada exclusivamente a investidores profissionais"
+q20: D1 "O Fundo terá prazo de duração indeterminado"
+q21: D1 "quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída"
+q22: D1 "que pode incluir, sem limitação, a alienação fiduciária do imóvel onde será construído o respectivo Empreendimento"
+receivables: Parcelas de promessas de compra de frações em multipropriedade | q1
+originator: Empresas desenvolvedoras de empreendimentos aprovadas em assembleia | q2
+assignor: Empresas desenvolvedoras de empreendimentos aprovadas em assembleia | q2
+debtor: Compradores de frações imobiliárias em multipropriedade | q3
+recourse: n/d | Coobrigação das cedentes não definida em trecho contínuo
+eligibility: Prazo médio ≤ 48 meses e devedor sem atraso relevante, entre outros | q5
+debtor_limit: Por devedor ou coobrigado: até 20% do PL | q4 | value=20
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo
+term_max: Prazo médio da carteira até 48 meses | q5
+allocation: ≥ 50% do PL em direitos creditórios | q6 | value=50
+quota_structure: Sênior / Subordinada Mezanino / Subordinada Júnior | q7,q8
+sub_senior: 50% · subord./PL (PL/sênior ≥ 200%) | q7 | basis=mez+jr/PL | value=50
+sub_mezz: Júnior ≥ 30,00% das subordinadas | q8 | basis=jr/PL
+sub_check: Diária, pela gestora Carmel | q9
+reserve: Reserva de amortização para a meta das cotas | q10
+pdd: Provisão por redução no valor recuperável | q11
+eval_triggers: Alocação em direitos creditórios abaixo do mínimo, entre outros | q12
+liquidation: Avaliação convertida em liquidação pela assembleia, entre outros | q13
+revolving: n/d | Regra de revolvência não localizada em trecho contínuo
+amortization: n/d | Cronograma definido no suplemento de cada série
+admin_fee: 0,20% a.a. do PL, mínimo R$ 15 mil por mês | q14
+mgmt_fee: 0,50% a.a. do PL, mínimo R$ 25 mil por mês | q15
+perf_fee: Não prevista | Regulamento veda outras taxas, como a de performance | q21
+target_senior: n/d | Meta definida no suplemento de cada série
+target_mezz: n/d | Meta definida no suplemento de cada série
+administrator: BRL Trust DTVM | q16
+manager: Carmel Gestora e Urca Gestão | q17,q18
+custodian: BRL Trust DTVM | q16
+servicer: n/d | Agente de cobrança extraordinária não nomeado em trecho contínuo
+investors: Investidores profissionais (oferta de 2023) | q19
+duration: Indeterminado | q20
+real_collateral: Pode haver alienação fiduciária do imóvel do empreendimento | q22
+leitura: Parcelas de frações em multipropriedade; subordinação de 50% do PL e devedor ≤ 20% do PL.

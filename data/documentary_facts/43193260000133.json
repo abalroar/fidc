@@ -1,0 +1,715 @@
+{
+ "schema_version": 1,
+ "cnpj": "43193260000133",
+ "name": "RESIDENCE CLUB FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Imobiliário",
+ "reviewed_at": "2026-10-14T13:05:42Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1044387",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "17/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387"
+  },
+  "D2": {
+   "document_id": "470871",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "29/05/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=470871"
+  },
+  "D3": {
+   "document_id": "455909",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "03/05/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=455909"
+  },
+  "D4": {
+   "document_id": "455901",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "03/05/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=455901"
+  },
+  "D5": {
+   "document_id": "455447",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "02/05/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=455447"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Imobiliário",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Parcelas de promessas de compra de frações em multipropriedade",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 57,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "os Significam todos os direitos de crédito a serem adquiridospelo Fundo, representativos do conjunto das parcelas mensais, consecutivas e irreajustáveis, de pagamento do saldo do preço de aquisição da Fração Imobiliária, pelos Devedores. Direitos Creditórios Adquiridos Significam os Direitos Creditórios adquiridos pelo Fundo. Dívidas Significam (a) todos os endividamentos das Cedentes no quediz respeito a empréstimos de qualquer instituição financeira, incluindo, sem limitação, obrigações relativas a cartas de crédito; (b) todas as obrigações das Cedentesrepresentadas por debêntures, notas promissórias ou outros títulos e/ou valores mobiliários representativos de dívida;"
+    }
+   ],
+   "legacy": {
+    "value": "Promessas de compra e venda de frações imobiliárias em multipropriedade",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Empresas desenvolvedoras de empreendimentos aprovadas em assembleia",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 53,
+     "clause": "cl. 20.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "osCreditórios Adquiridos e Ativos Financeiros. Cedente Significa a sociedade responsável pelo desenvolvimento deum Empreendimento e que venha a ser aprovada em Assembleia Geral de Cotistas, nos termos deste Regulamento. Classe Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas neste Regulamento 53 CMN Significa o Conselho Monetário Nacional. Chamada de Capital Significa cada chamada de capital aos Cotistas para aportar recursos no Fundo, mediante a integralização parcial ou total das Cotas que tenham sido subscritas por cada um dos Cotistas, nos termos dos respectivos Compromissos de Investimento, condicionadas ao cumprimento dos Milestones dos Empreendimentos estabelecidos em todos os Contrato de Cessão em vigor. Compromisso de Investimento"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Empresas desenvolvedoras de empreendimentos aprovadas em assembleia",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 53,
+     "clause": "cl. 20.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "osCreditórios Adquiridos e Ativos Financeiros. Cedente Significa a sociedade responsável pelo desenvolvimento deum Empreendimento e que venha a ser aprovada em Assembleia Geral de Cotistas, nos termos deste Regulamento. Classe Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas neste Regulamento 53 CMN Significa o Conselho Monetário Nacional. Chamada de Capital Significa cada chamada de capital aos Cotistas para aportar recursos no Fundo, mediante a integralização parcial ou total das Cotas que tenham sido subscritas por cada um dos Cotistas, nos termos dos respectivos Compromissos de Investimento, condicionadas ao cumprimento dos Milestones dos Empreendimentos estabelecidos em todos os Contrato de Cessão em vigor. Compromisso de Investimento"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Compradores de frações imobiliárias em multipropriedade",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 57,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "as. Data de Verificação Significa o 5º (quinto) Dia Útil de cada mês. Devedores Significa a Pessoa que celebre uma Promessa de Compra e Venda com a Cedente, com a finalidade de adquirir uma Fração Imobiliária, nos termos da Lei de Multipropriedade Imobiliária. Dias Úteis Significa qualquer dia, de segunda a sexta-feira, exceto (i) feriados ou dias em que, por qualquer motivo, não houver expediente comercial ou bancário no Estado ou na sede social da Administradora;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação das cedentes não definida em trecho contínuo",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Prazo médio ≤ 48 meses e devedor sem atraso relevante, entre outros",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 6,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "r obrigações pecuniárias perante o Fundo; (d) ser devidos por Devedor que seja uma pessoa física ou jurídica; (e) o prazo médio dos Direitos Creditórios, considerada pro forma a aquisiçãopretendida, deve ser igual ou inferior a 48 (quarenta e oito) meses; (f) ser devido por Devedor cujos Direitos Creditórios, considerada pro forma a aquisição pretendida, representem agregadamente não mais que 0,6% (seis décimos por cento) do Patrimônio Líquido do Fundo; (g) a soma dos Direitos Creditórios devidos pelos 10 (dez) maiores Devedores doFundo não poderá representar mais do que 5% (cinco por cento) do valor totalda carteira de Direitos Creditórios do Fundo; (h) a soma dos Direitos Creditórios devidos pelos 30 (trinta) maiores Devedores do Fundo não poderá representar mais do que 12% (doze por cento) do valor total da carteira de Direitos Creditórios do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou coobrigado: até 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 4,
+     "clause": "cl. 2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "O Fundo poderá adquirir Ativos Financeiros de um mesmo Devedor ou de coobrigação de uma mesma pessoa ou entidade, no limite de até 20% (vinte por cento) de seu Patrimônio Líquido, observadas as exceções e qualificações previstas na RCVM 175. O processo de originação dos Direitos Creditórios e a política de crédito adotada pelas Cedentes encontram-se descritos no ANEXO II – PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E POLÍTICA DE CRÉDITO E PERFIL DE CRÉDITO a este Regulamento. 2.5 Após a celebração de cada Termo de Cessão, o Agente de Recebimento e/ou a respectiva Cedente, conforme o caso, deverá tomar todas as medidas necessárias para que os Direitos Creditórios Adquiridos sejam creditados diretamente na conta corrente de titularidade do Fundo, exceto no caso de Direitos Creditórios pagos por meio de cartão de crédito ou qualquer outra Forma de Pagamento que não permita o pagamento diretamente na conta corrente de titularidade do Fundo, caso em que o pagamento deverá ser realizado em uma conta corrente de movimentação restrita de titularidade da Cedente ou de sua Controladora, movimentada exclusivamente pelo Custodiante, com transferência diária para a conta corrente de titularidade do Fundo (“Conta Vinculada”), observadas as Formas de Pagamento se"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado em trecho contínuo",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Prazo médio da carteira até 48 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 6,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "r obrigações pecuniárias perante o Fundo; (d) ser devidos por Devedor que seja uma pessoa física ou jurídica; (e) o prazo médio dos Direitos Creditórios, considerada pro forma a aquisiçãopretendida, deve ser igual ou inferior a 48 (quarenta e oito) meses; (f) ser devido por Devedor cujos Direitos Creditórios, considerada pro forma a aquisição pretendida, representem agregadamente não mais que 0,6% (seis décimos por cento) do Patrimônio Líquido do Fundo; (g) a soma dos Direitos Creditórios devidos pelos 10 (dez) maiores Devedores doFundo não poderá representar mais do que 5% (cinco por cento) do valor totalda carteira de Direitos Creditórios do Fundo; (h) a soma dos Direitos Creditórios devidos pelos 30 (trinta) maiores Devedores do Fundo não poderá representar mais do que 12% (doze por cento) do valor total da carteira de Direitos Creditórios do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 4,
+     "clause": "cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "o respectivo Contrato de Cessão. 2.3 Decorridos 90 (noventa) dias do início das suas atividades, o Fundo deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios. 2.4 O Fundo poderá adquirir Ativos Financeiros de um mesmo Devedor ou de coobrigação de uma mesma pessoa ou entidade, no limite de até 20% (vinte por cento) de seu Patrimônio Líquido, observadas as exceções e qualificações previstas na RCVM 175. O processo de originação dos Direitos Creditórios e a política de crédito adotada pelas Cedentes encontram-se descritos no ANEXO II – PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E POLÍTICA DE CRÉDITO E PERFIL DE CRÉDITO a este Regulamento. 2.5 Após a celebração de cada Termo de Cessão, o Agente de Recebimento e/ou a respectiva Cedente, conforme o caso, deverá tomar todas as medidas necessárias para que os Direitos Creditórios Adquiridos sejam creditados diretamente na conta corrente de titularidade do Fundo, exceto no caso de Direitos Creditórios pagos por meio de cartão de crédito ou qualquer outra Forma de Pagamento que não permita o pagamento diretamente na conta corrente de titularidade do Fundo, caso em que o pagamento deverá ser realizado em uma conta corrente de movimentação restrita de titularidade da Cedente ou de su"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC ≥50% PL após90 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada Mezanino / Subordinada Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 26,
+     "clause": "cl. 10.1.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "bordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 200% (duzentos por cento). Isso significa que, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 10.1.5.2 O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 142,85% (cento e quarenta e dois inteiros e oitenta e cinco centésimos por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 26,
+     "clause": "cl. 10.1.5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "e o valor das Cotas Subordinadas Junior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 142,85% (cento e quarenta e dois inteiros e oitenta e cinco centésimos por cento). Isso significa que, no mínimo, 30,00% (trinta por cento) do Patrimônio Líquido das Subclasses Subordinadas deve ser representado por Cotas Subordinadas Júnior em circulação. 10.1.5.3 As Razões de Garantia e os Índices de Subordinação serão apurados pela Carmel todo Dia Útil e divulgados aos cotistas e Administradora diariamente. 10.1.5.4 Na hipótese de desenquadramento da Razão de Garantia ou dos Índices de Subordinação, a Carmel deverá, imediatamente, comunicar a Administradora, a Urca e os Cotistas sobre o referido desenquadramento bem como informar qual será o plano de ação, para que, em até 5 (cino) Dias Úteis, a Administradora comunique os Cotistas detentores de Cotas Subordinadas Júnior sobre o desenquadramento e sobre o número de Cotas Subordinadas Júnior que deverá ser subscrito e integralizado para restabelecer a Razão de Garantia ou Índices de Subordinação, observado ainda o que dispuser a respeito o Compromisso de Investimento assinado entre os titulares de Cotas Subordinadas Júnior e o Fundo. 10.1.5.5 Os Cotistas detentores de Cotas Subordinadas Júnior deverão subscrever e integralizar tantas Cotas Subord"
+    }
+   ],
+   "legacy": {
+    "value": "Redação inconsistente: razão200% descrita como subordinadas/PL50%; júnior 142,85% como30%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 17/11/2025, cl. 10.1.5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · subord./PL (PL/sênior ≥ 200%)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 26,
+     "clause": "cl. 10.1.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "bordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 200% (duzentos por cento). Isso significa que, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 10.1.5.2 O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 142,85% (cento e quarenta e dois inteiros e oitenta e cinco centésimos por cento)."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Redação inconsistente: razão200% descrita como subordinadas/PL50%; júnior 142,85% como30%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 17/11/2025, cl. 10.1.5.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 30,00% das subordinadas",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 26,
+     "clause": "cl. 10.1.5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "e o valor das Cotas Subordinadas Junior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 142,85% (cento e quarenta e dois inteiros e oitenta e cinco centésimos por cento). Isso significa que, no mínimo, 30,00% (trinta por cento) do Patrimônio Líquido das Subclasses Subordinadas deve ser representado por Cotas Subordinadas Júnior em circulação. 10.1.5.3 As Razões de Garantia e os Índices de Subordinação serão apurados pela Carmel todo Dia Útil e divulgados aos cotistas e Administradora diariamente. 10.1.5.4 Na hipótese de desenquadramento da Razão de Garantia ou dos Índices de Subordinação, a Carmel deverá, imediatamente, comunicar a Administradora, a Urca e os Cotistas sobre o referido desenquadramento bem como informar qual será o plano de ação, para que, em até 5 (cino) Dias Úteis, a Administradora comunique os Cotistas detentores de Cotas Subordinadas Júnior sobre o desenquadramento e sobre o número de Cotas Subordinadas Júnior que deverá ser subscrito e integralizado para restabelecer a Razão de Garantia ou Índices de Subordinação, observado ainda o que dispuser a respeito o Compromisso de Investimento assinado entre os titulares de Cotas Subordinadas Júnior e o Fundo. 10.1.5.5 Os Cotistas detentores de Cotas Subordinadas Júnior deverão subscrever e integralizar tantas Cotas Subord"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pela gestora Carmel",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 26,
+     "clause": "cl. 10.1.5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "nio Líquido das Subclasses Subordinadas deve ser representado por Cotas Subordinadas Júnior em circulação. 10.1.5.3 As Razões de Garantia e os Índices de Subordinação serão apurados pela Carmel todo Dia Útil e divulgados aos cotistas e Administradora diariamente. 10.1.5.4 Na hipótese de desenquadramento da Razão de Garantia ou dos Índices de Subordinação, a Carmel deverá, imediatamente, comunicar a Administradora, a Urca e os Cotistas sobre o referido desenquadramento bem como informar qual será o plano de ação, para que, em até 5 (cino) Dias Úteis, a Administradora comunique os Cotistas detentores de Cotas Subordinadas Júnior sobre o desenquadramento e sobre o número de Cotas Subordinadas Júnior que deverá ser subscrito e integralizado para restabelecer a Razão de Garantia ou Índices de Subordinação, observado ainda o que dispuser a respeito o Compromisso de Investimento assinado entre os titulares de Cotas Subordinadas Júnior e o Fundo. 10.1.5.5 Os Cotistas detentores de Cotas Subordinadas Júnior deverão subscrever e integralizar tantas Cotas Subordinadas Júnior quantas sejam necessárias para restabelecer as Razões de Garantia e os Índices de Subordinação em até 5 (cinco) Dias Úteis contados da data do recebimento da comunicação da Administradora, observado ainda o que dispuser a re"
+    }
+   ],
+   "legacy": {
+    "value": "Redação inconsistente: razão200% descrita como subordinadas/PL50%; júnior 142,85% como30%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 17/11/2025, cl. 10.1.5.3"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de amortização para a meta das cotas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 65,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "para todos os fins. Regulamento Significa o presente regulamento do Fundo. Reserva de Amortização Significa a reserva a ser constituída pelas Gestoras para fazer frente ao somatório da Meta de Amortização das Cotas Seniores e das Cotas Subordinadas, na forma descrita na cláusula 12.4 do Regulamento. Reserva de Provisão Significa a reserva a ser constituída peça Administradora exclusivamente em caso de Evento de Venda."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Provisão por redução no valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 38,
+     "clause": "cl. 13.3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "pre que houver evidência de redução no valor recuperável dos ativos do Fundo, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 14.3 As provisões dos Direitos Creditórios Inadimplidos deverão ser observadas conforme manual de marcação a mercado da administradora, disposto no site a seguir: https:www.apexgroup.com/apex- brazil 14.3.3.1 Os Direitos Creditórios Adquiridos que venham a ficar inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 13.3.4 É obrigatória a divulgação, em notas explicativas às demonstrações financeiras anuais doFundo, de informações que abranjam, no mínimo, o montante, a natureza e as faixas de vencimento dos ativos integrantes da carteira do Fundo e, caso aplicável, de mercado dos ativos, segregados por tip"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Alocação em direitos creditórios abaixo do mínimo, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 38,
+     "clause": "cl. 14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "reitos Creditórios Adquiridos de titularidade do Fundo será atribuída às Cotas Seniores. 14. Eventos de Avaliação 14.1 São considerados Eventos de Avaliação: (a) caso, após 30 (trinta) dias contados da primeira data de integralização de Cotas, o Fundo mantiver, por período superior a 15 (quinze) dias úteis, menos de 75% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) o desenquadramento das Razões de Garantia e dos Índices de Subordinação, sem que haja o seu restabelecimento no prazo descrito na cláusula 10.1.5.6; (c) a verificação de que os Direitos Creditórios Adquiridos foram adquiridos pelo Fundo em desacordo com qualquer dos Critérios de Elegibilidade ou Condições de Cessão previstas neste Regulamento no momento de sua aquisição, e que tais Direitos Creditórios não tenham sido recomprados pela Cedente dentro de, no máximo, 10 (dez) dias contados do recebimento pela Cedente de notificação da Administradora, do Custodiante e/ou das Gestoras neste sentido;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida em liquidação pela assembleia, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 43,
+     "clause": "cl. 15.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "42 15. Eventos de Liquidação Antecipada e Liquidação do Fundo 15.1 São considerados Eventos de Liquidação Antecipada quaisquer dos seguintes eventos: (a) caso seja deliberado em Assembleia Geral de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação Antecipada; (b) caso a Administradora deixe de convocar a Assembleia Geral de Cotistas, nos termos deste Regulamento, na hipótese da ocorrência de qualquer Evento de Avaliação; (c) (i) decretação de intervenção, liquidação ou regime de administração especial temporário da Cedente; (ii) decretação de falência de qualquer Cedente ou parte relacionada; (iii) pedido de autofalência de qualquer Cedente ou parte relacionada; (iv) pedido de falência de qualquer Cedenteou parte relacionada formulado por terceiros não elidido no prazo legal; e (v) pedido de recuperação judicial ou extrajudicial formulado por qualquer Cedente ou parte relacionada (“Evento de Insolvência”). Os eventos elencados neste item deverão ser previamente comunicados pelas Gestoras à Administradora;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regra de revolvência não localizada em trecho contínuo",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. do PL, mínimo R$ 15 mil por mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 18,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "passivos do Fundo, e distribuição de Cotas, o Fundo pagará uma remuneração calculada conforme descrito abaixo: (a) 0,20% a.a. (vinte centésimos por cento ao ano) sobre o Patrimônio Líquido doFundo, observado o mínimo mensal de R$15.000,00(quinze mil reais), corrigidos anualmente pelo IPCA, referente aos serviços de administração do Fundo (“Taxa do Administrador”); (b) 0,10% a.a. (dez centésimos por cento ao ano) sobre o Patrimônio Líquido doFundo, corrigidos anualmente pelo IPCA, referente aos serviços de custódia dos ativos do Fundo (“Taxa de Custódia”); (c) 0,50% a.a. (cinquenta centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$ 25.000,00 (vinte e cincomil reais), referente aos serviços de gestão da 18 Carteira (“Taxa de Gestão”); (d) 2,50% (dois inteiros e cinquenta centésimos por cento) sobre o Patrimônio Líquido do Fundo devidos a cada Gestora destituída e/ou substituída sem Justa Causa, em caso de destituição e/ou substituição de qualquer das Gestoras semJusta Causa, nos termos da cláusula 9.2.5, abaixo (“Taxa de Gestão Extraordinária”); (e) 0,25% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. PL; mínimo R$ 15 mil/mês; IPCA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,50% a.a. do PL, mínimo R$ 25 mil por mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 18,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": ", corrigidos anualmente pelo IPCA, referente aos serviços de custódia dos ativos do Fundo (“Taxa de Custódia”); (c) 0,50% a.a. (cinquenta centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$ 25.000,00 (vinte e cincomil reais), referente aos serviços de gestão da 18 Carteira (“Taxa de Gestão”); (d) 2,50% (dois inteiros e cinquenta centésimos por cento) sobre o Patrimônio Líquido do Fundo devidos a cada Gestora destituída e/ou substituída sem Justa Causa, em caso de destituição e/ou substituição de qualquer das Gestoras semJusta Causa, nos termos da cláusula 9.2.5, abaixo (“Taxa de Gestão Extraordinária”); (e) 0,25% a.a. (vinte e cinco centésimos por cento ao ano) sobre o valor dos Direitos Creditórios que compõem o Patrimônio Líquido do Fundo, observadoo mínimo mensal de R$ 12.500,00 (doze mil e quinhentos reais), referente aos serviços de consultoria especializada (“Taxa de Consultoria Especializada”);"
+    }
+   ],
+   "legacy": {
+    "value": "0,50% a.a. PL; mínimo R$ 25 mil/mês; extraordinária2,50% por destituição sem justa causa",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda outras taxas, como a de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 20,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "Custodiante e aos demais prestadores de serviços do Fundo, até o limite desta. 7.2 Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 8. Substituição e Renúncia da Administradora 8.1 Mediante aviso prévio de 90 (noventa) dias, por meio eletrônico e através de carta com aviso de recebimento endereçada a cada Cotista, a Administradora poderá renunciar à administração do Fundo, desde que convoque, no mesmo ato, Assembleia Geral de Cotistas para decidir sobresua substituição ou sobre a liquidação do Fundo, nos termos da legislação aplicável e do dispostono Capítulo 18 abaixo. 8.2 Caso a Administradora não seja substituída no prazo estabelecido na RCVM 175 e/ou na hipótese de deliberação voluntária pela liquidação do Fundo, a Administradora obriga-se a permanecer no exercício de sua função até o cancelamento do registro do Fundo na CVM. 8.2.1 A Administradora deverá, sem qualquer custo adicional para o Fundo, colocar à disposição da instituição que vier a substituí-la, no prazo de 10 (dez) dias úteis contados da data da deliberação da sua substituição, todos os registros, relatórios, extratos, bancos de dados e demais informações sobre o Fundo, e sua respectiva administração, que tenham sido obtidos,"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "BRL Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "egistro dos depositários e câmaras e sistemas de liquidação. Custodiante Significa a Administradora BRL TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. CVM Significa a Comissão de Valores Mobiliários. Data de Aquisição Significa a Data de pagamento pelo Fundo a cada Cedente do Preço de Aquisição dos Direitos Creditórios Adquiridos, em moeda corrente nacional, nos termos do respectivo Termo de Cessão. Data de Oferta de Direitos É toda data em que uma Cedente ofertar Direitos. Creditórios Creditórios para cessão ao Fundo, por meio do envio ao Custodiante do arquivo de remessa, nos termos do Contratode Cessão. Data de Pagamento Significa a data em que serão pagas as Metas de Amortização das Cotas Seniores e das Cotas Subordinadas Mezanino, conforme determinado nos respectivos Suplementos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Carmel Gestora e Urca Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 60,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "Significa o Residence Club Fundo de Investimentos em Direitos Creditórios. Gestoras Significa a CARMEL GESTORA DE ATIVOS LTDA., sociedade situada na Av Paulista, nº 1009, conj 2010, BelaVista, CEP 01311-919, na Cidade de São Paulo, Estado de São Paulo, inscrita no CNPJ/MF sob o nº 24.515.907/0001- 51, credenciada pela CVM para gestão de carteiras pelo Ato Declaratório CVM nº 15.385, de 15/12/2016, ou sua sucessora a qualquer título, e a Urca Gestão de Recursos Ltda., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Rua Urussuí, nº 125, conj 101 e 102, Itaim Bibi, CEP 04541-050, inscrita no CNPJ/MF sob nº 31.818.879/0001-07, credenciada pela CVM para gestão de carteiras pelo Ato Declaratório CVM nº 17.317, de 12 de agosto de 2019, ou sua sucessora a qualquer título. Índice de Cobertura Significa o índice calculado a partir do 13º (décimo terceiro) mês a conta da primeira Data de Integralização das Cotas Seniores"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 60,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "carteiras pelo Ato Declaratório CVM nº 15.385, de 15/12/2016, ou sua sucessora a qualquer título, e a Urca Gestão de Recursos Ltda., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Rua Urussuí, nº 125, conj 101 e 102, Itaim Bibi, CEP 04541-050, inscrita no CNPJ/MF sob nº 31.818.879/0001-07, credenciada pela CVM para gestão de carteiras pelo Ato Declaratório CVM nº 17.317, de 12 de agosto de 2019, ou sua sucessora a qualquer título. Índice de Cobertura Significa o índice calculado a partir do 13º (décimo terceiro) mês a conta da primeira Data de Integralização das Cotas Seniores pela seguinte formula: razão entre (i) a média dos últimos 3 (três) meses anteriores a Data de Verificação do recurso transitado na Conta do Fundo oriundo do pagamento dos Direitos Creditórios e (ii) o valor da próxima Meta de Amortização das Cotas Seniores somado ao valor da próxima Meta de Amortização das Cotas Subordinadas Mezanino."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "BRL Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "egistro dos depositários e câmaras e sistemas de liquidação. Custodiante Significa a Administradora BRL TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. CVM Significa a Comissão de Valores Mobiliários. Data de Aquisição Significa a Data de pagamento pelo Fundo a cada Cedente do Preço de Aquisição dos Direitos Creditórios Adquiridos, em moeda corrente nacional, nos termos do respectivo Termo de Cessão. Data de Oferta de Direitos É toda data em que uma Cedente ofertar Direitos. Creditórios Creditórios para cessão ao Fundo, por meio do envio ao Custodiante do arquivo de remessa, nos termos do Contratode Cessão. Data de Pagamento Significa a data em que serão pagas as Metas de Amortização das Cotas Seniores e das Cotas Subordinadas Mezanino, conforme determinado nos respectivos Suplementos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança extraordinária não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais (oferta de 2023)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "455909",
+     "kind": "Instrumento de emissão",
+     "title": "Anúncio de Início",
+     "date": "03/05/2023",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=455909",
+     "excerpt": "tadas que não forem efetivamente subscritas e integralizadas durante o período de distribuição deverão ser canceladas. A Oferta será destinada exclusivamente a investidores profissionais, assim definidos nos termos do artigo 11 da Resolução CVM nº 30, de 11 de maio de 2021, conforme alterada (“Investidores Profissionais”), estando, portanto, sujeita ao rito automático de registro de oferta pública de distribuição de valores mobiliários, nos termos do artigo 26, inciso VII, alínea (a) da Resolução CVM 160 (“Oferta”), com a intermediação do Coordenador Líder, sob o regime de melhores esforços, nos termos do Contrato de Estruturação, Coordenação e Distribuição Pública, sob o Regime de Melhores Esforços de Colocação, de Cotas Seniores da 3ª Série e Cotas Subordinadas Mezanino Classe B do Residence Club Fundo de Investimento em Direitos Creditórios, celebrado em 17 de abril de 2023, entre Coordenador Líder, o Fundo, representado por sua instituição administradora SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, à prestação de serviços de administração de carteira de títulos e valores mobiliários, inscrita no CNPJ/MF sob o nº 62.285.390/0001-40 (“Administ"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 2,
+     "clause": "cl. 1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "ompetentes 1.3 O funcionamento do Fundo terá início na Data de Subscrição Inicial das Cotas de qualquer subclasse. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral de Cotistas em conformidade com o disposto neste Regulamento, e ainda, nas hipóteses expressamente previstas na RCVM 175. 1.4 O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 1.5 O Fundo é classificado como Fundo Tipo II, um fundo de investimento em direitos creditórios do tipo ANBIMA “Financeiro”, com foco de atuação em “Crédito Imobiliário”, nos termos das Diretrizes do Código de Administração de Recursos de Terceiros da ANBIMA. 2 2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "real_collateral": {
+   "display": "Pode haver alienação fiduciária do imóvel do empreendimento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1044387",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "17/11/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044387",
+     "excerpt": "ao Fundo, em garantia da obrigação de recompra prevista no referido documento, uma garantia real ou fidejussória, que pode incluir, sem limitação, a alienação fiduciária do imóvel onde será construído o respectivo Empreendimento. Não há garantia de que quaisquer de tais garantias, ainda que sejam contratadas, serão aperfeiçoadas, por fatores diversos que podem incluir, sem limitação, a negativa do registro da garantia pelos cartórios de registro de imóveis competentes. Neste caso, a obrigação de recompra não contará com a garantia contratada. (n) Risco de Fungibilidade. Nos termos dos Contratos de Cessão, caso venham a receber, por qualquer motivo, recursos relativos aos Direitos Creditórios Adquiridos, as Cedentes obrigam-se a transferir referidos montantes para a conta corrente de titularidade do Fundo em até 1 (um) Dias Úteis a contar da data de seu recebimento. Não há garantia de que as Cedentes irão repassar tais recursos para a conta corrente do Fundo na forma estabelecida em tais contratos, situação em que o Fundo poderá sofrer perdas, podendo inclusive incorrer em custos para reaver tais recursos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Parcelas de frações em multipropriedade; subordinação de 50% do PL e devedor ≤ 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
