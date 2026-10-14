@@ -1,0 +1,56 @@
+# Agromercantil Crédito Agro FIDC (Limine Trust; Oriz Asset; cedente Agromercantil)
+type: Agro/FIAGRO
+q1: D1 "os direitos creditórios originados de operações realizadas no segmento do agronegócio"
+q2: D1 "a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de Uberlândia"
+q3: D1 "em caráter definitivo com ou sem coobrigação do Cedente pelo adimplemento dos Direitos Creditórios Cedidos"
+q4: D1 "os Direitos Creditórios deverão ter prazo de vencimento máximo de 360"
+q5: D1 "a Classe deverá observar o Índice de Subordinação, que deverá ser igual ou superior a 30%"
+q6: D1 "O Índice de Subordinação deverá ser apurado em todo Dia Útil pelo Administrador"
+q7: D1 "São considerados Eventos de Avaliação da Classe Única quaisquer dos seguintes eventos"
+q8: D1 "são considerados Eventos de Liquidação da Classe Única: I. deliberação da Assembleia Geral"
+q9: D1 "A Classe Única pagará uma Taxa de Administração ao Administrador, equivalente ao percentual de 0,30%"
+q10: D1 "O Fundo pagará uma Taxa de Gestão ao Gestor, equivalente ao percentual de 0,50%"
+q11: D1 "a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q12: D1 "a ORIZ ASSET MANAGEMENT LTDA."
+q13: D1 "o Administrador, devidamente habilitada pela CVM para a prestação dos serviços de custódia"
+q14: D1 "prestador de serviço contratado em nome do Fundo, pelo Gestor, para cobrar e receber Direitos Creditórios Inadimplidos"
+q15: D1 "O Fundo terá prazo de duração indeterminado"
+q16: D1 "podendo ser aplicados ou reinvestidos em novos Direitos Creditórios"
+q17: D1 "Caso o Gestor verifique não ser possível a formação da Reserva de Amortização"
+q18: D1 "tendo em vista que a Classe Única é restrita a Investidores Profissionais"
+q19: D1 "va do agronegócio que mantêm relacionamento comercial com o Cedente"
+q20: D1 "Para devedores que não se enquadrem nos níveis acima, os limites máximos de exposição"
+receivables: Duplicatas de vendas no agronegócio, com arquivo XML | q1,o16
+agro_backing: Duplicatas de vendas da Agromercantil a clientes do agronegócio | q1,q2
+originator: Agromercantil | q2
+assignor: Agromercantil e filiais | q2
+debtor: Clientes do agronegócio com relação comercial com a cedente | q19
+recourse: Com ou sem coobrigação da cedente, conforme a cessão | q3
+eligibility: Vencimento de 7 a 360 dias da duplicata, não vencidos, entre outros | o16,q4
+debtor_limit: Devedores sem nível especial: 2,5% do PL cada, 5% no grupo | q20 | value=2.5
+assignor_limit: — | Cedente única: Agromercantil
+term_max: Até 360 dias da emissão da duplicata | q4
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | o27 | value=50
+quota_structure: Sênior / Subordinada Júnior | q5
+sub_senior: 30% · subord./PL | q5 | basis=jr/PL | value=30
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária, pelo administrador | q6
+reserve: Reserva de amortização; sem ela, aquisições são suspensas | q17,o40
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Falta de amortização ou resgate sênior, entre outros | q7
+liquidation: Deliberação em assembleia ou avaliação convertida, entre outros | q8
+revolving: Recursos podem ser reinvestidos em novos direitos creditórios | q16
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,30% a.a. do PL, com mínimo mensal escalonado | q9
+mgmt_fee: 0,50% a.a. do PL, mínimo R$ 22,6 mil por mês | q10
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: — | Sem cota mezanino
+administrator: Limine Trust DTVM | q11
+manager: Oriz Asset | q12
+custodian: Limine Trust DTVM (o próprio administrador) | q13,q11
+servicer: Agromercantil | q14,q2
+investors: Investidores profissionais | q18
+duration: Indeterminado | q15
+collateral: n/d | Garantias dos créditos não descritas em trecho contínuo
+leitura: Duplicatas agro da Agromercantil; subordinação de 30% com apuração diária e prazo até 360 dias.
