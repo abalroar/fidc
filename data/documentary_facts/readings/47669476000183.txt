@@ -1,0 +1,52 @@
+# Inova Credtech II FIDC (Finaxis; Petra Capital; Banco Finaxis)
+type: Duplicatas/multicedente
+q17: * "o saldo da reserva deverá ser equivalente a 50% (cinquenta por cento) do valor integral da amortização ou resgate"
+q1: * "riamente originados através de antecipação de recebíveis junto da cedente e de fornecedores da cedente"
+q2: * "deverão ser adquiridos por uma taxa mínima de cessão de 100% (cem por cento) da Taxa DI"
+q3: * "Limite de até a 3,0% (três por cento) do Patrimônio Líquido do Fundo por Cedente"
+q4: * "Limite de até 1,0% (um por cento) do Patrimônio Líquido do Fundo por sacado"
+q5: * "8.13. Após a Data da 1ª Integralização de Cotas Seniores, a Subordinação deverá corresponder a, no mínimo, 25%"
+q6: * "www.finaxis.com.br sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior"
+q7: * "de administração fiduciária, gestão, controladoria e escrituração: a taxa será de 0,35%"
+q8: * "“Administradora”: o FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q9: * "“Gestora”: a PETRA CAPITAL GESTÃO DE INVESTIMENTOS LTDA."
+q10: * "“Custodiante”: o BANCO FINAXIS S.A."
+q11: * "O Fundo será destinado exclusivamente a Investidores Qualificados"
+q12: * "O Fundo terá prazo de duração indeterminado"
+q13: * "Eventos de Avaliação: (a) inobservância pela Administradora, pelo Custodiante e/ou pela Gestora"
+q14: * "O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor"
+q15: * "Os Cedentes são responsáveis pela existência, certeza, conteúdo, exatidão"
+q16: * "aquisição pelo Fundo de Direitos Creditórios, observando-se a Política de Investimentos"
+receivables: Antecipação de recebíveis de cedentes e de seus fornecedores | q1
+originator: Cedentes e fornecedores das cedentes | q1
+assignor: Cedentes diversos; até 3% do PL por cedente | q3
+debtor: Sacados diversos; até 1% do PL por sacado | q4
+recourse: Cedente responde por existência e formalização do crédito | q15
+eligibility: Taxa ≥ 100% do DI; devedor sem atraso > 60 dias; prazo ≤ 365 (médio ≤ 180) | q2
+debtor_limit: Sacado ≤ 1% do PL, por grupo econômico | q4
+assignor_limit: Cedente ≤ 3% do PL, por grupo econômico | q3
+term_max: Até 365 dias; prazo médio da carteira ≤ 180 dias | q2
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino / Júnior | q5,q6
+sub_senior: 25% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 12,5% · jr/PL (25% sem mezanino) | q6 | basis=jr/PL
+sub_check: Diária pela administradora | q6
+reserve: Reserva de amortização: 50% antes da data e 100% até 10 dias antes | q17
+pdd: Provisão por devedor, conforme a norma contábil | q14
+eval_triggers: Inobservância de deveres por prestadores sem cura em 5 DU, entre outros | q13
+liquidation: n/d | Eventos de liquidação não localizados separadamente no texto extraído
+revolving: Aquisições contínuas pela ordem de alocação | q16
+amortization: n/d | Cronograma definido nos suplementos das séries | why=Resposta anterior também não localizou o cronograma
+admin_fee: 0,35% a.a. do PL (administração e gestão); mín. R$ 14 mil, depois R$ 18 mil | q7
+mgmt_fee: Incluída na taxa conjunta de 0,35% a.a. | q7
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Benchmark sênior definido nos suplementos, fora do acervo
+target_mezz: n/d | Benchmark mezanino definido nos suplementos, fora do acervo
+administrator: Finaxis CTVM | q8
+manager: Petra Capital Gestão de Investimentos | q9
+custodian: Banco Finaxis | q10
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores qualificados | q11
+duration: Indeterminado | q12
+sacado_limit: Sacado ≤ 1% do PL, por grupo econômico | q4
+leitura: Antecipação pulverizada com 25% de subordinação, cedente ≤ 3% e sacado ≤ 1% do PL; taxa total de 0,35% a.a.
