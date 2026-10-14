@@ -1,0 +1,64 @@
+# Leo Madeiras FIDC Meios de Pagamento (Genial Investimentos; Genial Gestão; subcredenciadora Leo Meios de Pagamentos)
+type: Cartão/adquirência
+q1: * "ou parcelada, para a aquisição de serviços ou materiais para marcenaria e indústrias de móveis"
+q2: * "“Cedentes” significam os Marceneiros e as Entidades da Rede Leo"
+q3: * "significa a Subcredenciadora, na qualidade de devedora dos"
+q4: * "“Subcredenciadora” significa a LEO MEIOS DE PAGAMENTOS LTDA."
+q5: * "haverá a Resolução de Cessão do Direito Creditório Adquirido sujeito a qualquer das hipóteses descritas acima"
+q6: * "4.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade"
+q7: * "540 (quinhentos e quarenta) dias e não terá prazo de vencimento superior à Data de Amortização Final"
+q8: * "3.18. Limite de Concentração por Devedor. Exceto se previsto de forma diversa no Apêndice"
+q9: * "3.9. Alocação Mínima. Decorridos 180 (cento e oitenta) dias do início das atividades da Classe"
+q10: * "3.10. Alocação Mínima Adicional. Adicionalmente ao descrito na regulamentação"
+q11: * "significa a proporção mínima obrigatória de 10% (dez por cento) de Cotas Subordinadas da Classe"
+q12: * "significa a proporção mínima obrigatória de 5% (cinco por cento) de Cotas Subordinadas Júnior da Classe"
+q13: * "5.2. Reserva de Despesas: A Classe deverá estabelecer uma Reserva de Despesa equivalente a, no mínimo"
+q14: * "13.1. São Eventos de Avaliação: (i) caso a Classe deixe de efetuar o pagamento"
+q15: * "13.5. São eventos que ensejam a liquidação antecipada da Classe, a ser deliberada em Assembleia Especial"
+q16: * "3.11. Revolvência. Será permitida a aquisição de novos Direitos Creditórios"
+q17: * "taxa de administração correspondente aos percentuais descritos na tabela a seguir calculados sobre cada faixa do Patrimônio Líquido"
+q18: * "7.3. Pelos serviços de gestão, a Classe pagará uma taxa de gestão equivalente a 10% (dez inteiros por cento)"
+q19: * "cobrança de qualquer taxa de performance"
+q20: * "as Cotas Seniores e as Cotas Subordinadas Mezanino possuirão como rentabilidade alvo remuneração determinada no respectivo Apêndice"
+q21: * "2.1. O Fundo é administrado pelo GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S"
+q22: * "GENIAL GESTÃO LTDA., instituição devidamente autorizada pela CVM"
+q23: * "2.1. Os serviços de custódia qualificada dos Direitos Creditórios e demais Ativos Financeiros da Classe serão exercidos pelo GENIAL"
+q24: * "2.14. A Classe é destinada a Investidores Profissionais"
+q25: * "2.10. Prazo de Duração. A Classe tem prazo de duração indeterminado"
+q26: * "(v) a ocorrência de Chargeback ou Cancelamento da Transação de Pagamento pelo Cedente"
+q27: * "a Taxa de Administração da Classe terá um valor mínimo mensal de R$ 30.000,00"
+receivables: Vendas com cartão de marceneiros da Rede Leo, à vista ou parceladas | q1,q2
+card_receivables: Recebíveis de cartão devidos pela subcredenciadora Leo Meios de Pagamentos | q3,q4
+originator: Marceneiros e entidades da Rede Leo | q2
+assignor: Marceneiros e entidades da Rede Leo | q2
+debtor: Leo Meios de Pagamentos (subcredenciadora) | q3,q4
+recourse: Resolução da cessão em chargeback, cancelamento ou fraude | q5,q26
+eligibility: Transações de pagamento da Rede Leo; prazo até 540 dias, médio ≤ 145 | q6,q7
+debtor_limit: Sem limite de 20% por devedor (classe para profissionais) | q8
+assignor_limit: n/d | Limite por cedente não fixado no regulamento
+term_max: Até 540 dias; prazo médio da carteira ≤ 145 dias | q7
+allocation: ≥ 67% do PL após 180 dias; ≥ 80% após 120 dias (adicional) | q9,q10 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q11,q12
+sub_senior: 10% · subord./PL | q11 | basis=mez+jr/PL | value=10
+sub_mezz: 5% · subord./PL | q12 | basis=jr/PL | value=5
+sub_check: Diária, pela administradora | q11
+reserve: Reserva de despesas para 3 meses | q13
+pdd: n/d | Critério de provisão não descrito no regulamento
+eval_triggers: Atraso de amortização ou remuneração não sanado em 2 dias úteis, entre outros | q14
+liquidation: Determinação da CVM ou falta de créditos elegíveis, entre outros | q15
+revolving: Revolvência com recursos da carteira | q16
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,17% a.a. até R$ 300 mi de PL, regressiva até 0,09%; mín. R$ 30 mil/mês | q17,q27
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês (já incluída) | q18
+perf_fee: Não prevista | Regulamento veda taxa de performance | q19
+target_senior: n/d | Benchmark definido no apêndice de cada série | q20
+target_mezz: n/d | Benchmark definido no apêndice de cada subclasse
+administrator: Genial Investimentos Corretora de Valores | q21
+manager: Genial Gestão | q22
+custodian: Genial Investimentos Corretora de Valores | q23
+servicer: n/d | Agente de cobrança não nomeado no regulamento
+investors: Investidores profissionais | q24
+duration: Indeterminado | q25
+card_lock: n/d | Mecanismo de trava do domicílio não descrito no regulamento
+dilution: Chargeback ou cancelamento gera resolução da cessão | q26,q5
+leitura: Recebíveis de cartão de marceneiros da Rede Leo contra a subcredenciadora; subordinação de 10% (júnior ≥ 5%).

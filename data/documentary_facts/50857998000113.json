@@ -1,0 +1,871 @@
+{
+ "schema_version": 1,
+ "cnpj": "50857998000113",
+ "name": "LEO MADEIRAS FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T01:57:18Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1338023",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023"
+  },
+  "D2": {
+   "document_id": "1337719",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337719"
+  },
+  "D3": {
+   "document_id": "1076194",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "05/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076194"
+  },
+  "D4": {
+   "document_id": "1019278",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "24/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1019278"
+  },
+  "D5": {
+   "document_id": "1019277",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "24/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1019277"
+  },
+  "D6": {
+   "document_id": "1017183",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "17/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017183"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas com cartão de marceneiros da Rede Leo, à vista ou parceladas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "utilização de Instrumentos de Pagamento, na modalidade à vista “Direitos Creditórios” ou parcelada, para a aquisição de serviços ou materiais para marcenaria e indústrias de móveis, conforme aplicável, após o desconto das taxas que constituem a remuneração das Bandeiras, dos Emissores e das Credenciadoras e da Subcredenciadora, conforme o caso, bem como de outras eventuais retenções previstas nas regras do Arranjo de Pagamento e/ou no respectivo. significam as entidades autorizadas pelo BACEN a exercer a atividade de registro de recebíveis de Arranjos de Pagamentos, “Entidades Registradoras” inclusive para fins da Resolução CMN 4.734/19 e da Resolução BCB 264/22. significa o LEO MADEIRAS FUNDO DE INVESTIMENTO EM"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Leo, instrumento este utilizado em Transações de Pagamento. “Cedentes” significam os Marceneiros e as Entidades da Rede Leo, que, a seu exclusivo critério, cedem a totalidade ou parte de seus respectivos 56 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para Corporativo verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. | Interno Direitos Creditórios Elegíveis à Classe e, para tanto, tenham realizado e/ou venham a realizar Formalização(ões) Eletrônica(s) de Cessão com a Classe, sendo os Marceneiros e as Entidades da Rede Leo (que não a Leo Madeiras) representados pelo Agente de Formalização, na qualidade de sua mandatária, nos termos dos"
+    }
+   ],
+   "legacy": {
+    "value": "Cartões à vista/parcelados dos clientes de marceneiros e entidades da Rede Leo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Marceneiros e entidades da Rede Leo",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Leo, instrumento este utilizado em Transações de Pagamento. “Cedentes” significam os Marceneiros e as Entidades da Rede Leo, que, a seu exclusivo critério, cedem a totalidade ou parte de seus respectivos 56 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para Corporativo verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. | Interno Direitos Creditórios Elegíveis à Classe e, para tanto, tenham realizado e/ou venham a realizar Formalização(ões) Eletrônica(s) de Cessão com a Classe, sendo os Marceneiros e as Entidades da Rede Leo (que não a Leo Madeiras) representados pelo Agente de Formalização, na qualidade de sua mandatária, nos termos dos"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes: marceneiros e entidades da Rede Leo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Marceneiros e entidades da Rede Leo",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Leo, instrumento este utilizado em Transações de Pagamento. “Cedentes” significam os Marceneiros e as Entidades da Rede Leo, que, a seu exclusivo critério, cedem a totalidade ou parte de seus respectivos 56 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para Corporativo verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. | Interno Direitos Creditórios Elegíveis à Classe e, para tanto, tenham realizado e/ou venham a realizar Formalização(ões) Eletrônica(s) de Cessão com a Classe, sendo os Marceneiros e as Entidades da Rede Leo (que não a Leo Madeiras) representados pelo Agente de Formalização, na qualidade de sua mandatária, nos termos dos"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes: marceneiros e entidades da Rede Leo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Leo Meios de Pagamentos (subcredenciadora)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 59,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Data de Referência. significa a Subcredenciadora, na qualidade de devedora dos “Devedor” Direitos Creditórios. significam os Direitos Creditórios Elegíveis cedidos pelos Cedentes “Direitos Creditórios à Classe na forma e nos termos das Condições Gerais de Cessão e Adquiridos” dos Termos de Uso Leo, observados os respectivos Critérios de Elegibilidade e a Política de Investimento da Classe. significam os Direitos Creditórios Adquiridos, em relação aos quais “Direitos Creditórios o Devedor esteja em atraso, seja no todo ou em parte, no Adquiridos Inadimplidos” cumprimento de suas respectivas obrigações contratuais. “Direitos Creditórios significam os Direitos Creditórios que atendam, cumulativamente,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 65,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Entidades Registradoras, conforme aplicável. “Subcredenciadora” significa a LEO MEIOS DE PAGAMENTOS LTDA., inscrita no CNPJ/MF sob o nº 47.920.770/0001-16 que (i) habilita recebedores para a aceitação de Instrumentos de Pagamento emitido por Instituições de Pagamento ou por instituição financeira (Emissor) participante de um mesmo Arranjo de Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Resolução da cessão em chargeback, cancelamento ou fraude",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "do Preço de Aquisição pelo Agente de Liquidação aos Cedentes, nos termos do Contrato de Agente de Liquidação, haverá a Resolução de Cessão do Direito Creditório Adquirido sujeito a qualquer das hipóteses descritas acima, obrigando-se o Agente de Formalização, na qualidade de representante dos Cedentes, realizar o pagamento do preço de resolução de cessão previsto nas Condições Gerais de Cessão, passando o Agente de Formalização ter o direito de cobrar os respectivos valores dos Cedentes. Nos termos das Condições Gerais de Cessão e do Contrato de Agente de Liquidação, a Leo Madeiras presta fiança à Classe, obrigando-se, ou seus sucessores a qualquer título, como fiadora e principal pagadora, solidariamente responsável com o Agente de Liquidação, em conformidade com o artigo 818 do Código Civil, pelo integral, fiel e pontual cumprimento da obrigação do Agente de Liquidação em realizar (i) o pagamento do preço de resolução de cessão e (ii) o pagamento do Preço de Aquisição, conforme disposto nas Condições Gerais de Cessão. 4.9."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "ão, pela Classe, de Direitos Creditórios em virtude de declaração falsa ou incorreta realizada pelos Cedentes; (v) a ocorrência de Chargeback ou Cancelamento da Transação de Pagamento pelo Cedente, caso o Direito Creditório em questão não tenha sido recebido pela Classe na respectiva data de vencimento; (vi) caso a transferência de Direitos Creditórios à Classe configure fraude contra credores, fraude de execução, fraude de execução fiscal ou, ainda, fraude falimentar; e/ou (vii) não comprovação de transferência do Preço de Aquisição pelo Agente de Liquidação aos Cedentes, nos termos do Contrato de Agente de Liquidação, haverá a Resolução de Cessão do Direito Creditório Adquirido sujeito a qualquer das hipóteses descritas acima, obrigando-se o Agente de Formalização, na qualidade de representante dos Cedentes, realizar o pagamento do preço de resolução de cessão previsto nas Condições Gerais de Cessão, passando o Agente de Formalização ter o direito de cobrar os respectivos valores dos Cedentes."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Transações de pagamento da Rede Leo; prazo até 540 dias, médio ≤ 145",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 21,
+     "clause": "cl. 3.22",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "erificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 4.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes, sendo certo que o Agente de Formalização representará os respectivos Cedentes para fins da cessão; (ii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Clientes dos Marceneiros utilizando-se de Instrumentos de Pagamento para serviços e produtos junto aos Marceneiros e as Entidades da Rede Leo; (iii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 22,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "data de aquisição de cada Direito Creditório pela Classe e a data de seu vencimento deverá ser de, no máximo, 540 (quinhentos e quarenta) dias e não terá prazo de vencimento superior à Data de Amortização Final de quaisquer Séries de Cotas Sênior e/ou Subclasses ou Séries de Cotas Subordinadas Mezanino, entre estas, a com prazo mais longo; (v) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro forma a aquisição pretendida, não poderá exceder 145 (cento e quarenta e cinco) dias; (vi) o Preço de Aquisição, considerada pro forma a aquisição pretendida, deverá observar a Taxa Mínima de Cessão; (vii) os Direitos Creditórios deverão ser devidos pelo Devedor; e (viii) os Direitos Creditórios deverão estar disponíveis para cessão no Sistema de Registro, conforme consulta a ser realizada pelo Custodiante. 4.2. A Verificação do Lastro dos Direitos Creditórios ."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo≤540 dias, média≤145; título≤R$ 1 mi e comprometimento≤99% do valor de face",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 3.22"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite de 20% por devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 21,
+     "clause": "cl. 3.17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "a atuação do Gestor no tocante a tal atribuição, nos termos das disposições regulatórias aplicáveis. 3.18. Limite de Concentração por Devedor. Exceto se previsto de forma diversa no Apêndice, a Classe poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros dos Devedores, sem a observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido uma vez que a Classe é destinada exclusivamente a Investidores Profissionais, nos termos do §37, I, do artigo 45 do Anexo Normativo II da Resolução CVM 175.] 3.19. A Classe poderá realizar operações nas quais a Administradora, a Gestora, o Custodiante ou seus controladores diretos ou indiretos, sociedades, direta ou indiretamente, controladas, sociedades coligadas ou sociedades sob controle comum, incluindo fundos de zeragem administrados por qualquer um deles, atuem na condição de contraparte, desde que com a finalidade exclusiva de realizar a gestão de caixa e liquidez da Classe. 3.20. Ausência de Garantias. As aplicações da Classe não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) do Agente de Liquidação; (vi) de qualquer mecanismo de seguro;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não fixado no regulamento",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Até 540 dias; prazo médio da carteira ≤ 145 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 22,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "data de aquisição de cada Direito Creditório pela Classe e a data de seu vencimento deverá ser de, no máximo, 540 (quinhentos e quarenta) dias e não terá prazo de vencimento superior à Data de Amortização Final de quaisquer Séries de Cotas Sênior e/ou Subclasses ou Séries de Cotas Subordinadas Mezanino, entre estas, a com prazo mais longo; (v) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro forma a aquisição pretendida, não poderá exceder 145 (cento e quarenta e cinco) dias; (vi) o Preço de Aquisição, considerada pro forma a aquisição pretendida, deverá observar a Taxa Mínima de Cessão; (vii) os Direitos Creditórios deverão ser devidos pelo Devedor; e (viii) os Direitos Creditórios deverão estar disponíveis para cessão no Sistema de Registro, conforme consulta a ser realizada pelo Custodiante. 4.2. A Verificação do Lastro dos Direitos Creditórios ."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo≤540 dias, média≤145; título≤R$ 1 mi e comprometimento≤99% do valor de face",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 4.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL após 180 dias; ≥ 80% após 120 dias (adicional)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 20,
+     "clause": "cl. 3.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "ela B3 ou em instituições ou entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 3.9. Alocação Mínima. Decorridos 180 (cento e oitenta) dias do início das atividades da Classe, este deverá ter alocado, no mínimo, 67% (sessenta e sete por cento), e, no máximo, 100% (cem por cento) de seu Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos da regulamentação aplicável, observadas as demais disposições contidas neste Anexo. 3.10. Alocação Mínima Adicional. Adicionalmente ao descrito na regulamentação para a alocação mínima em Direitos Creditórios e respectivo prazo, decorridos 120 (cento e vinte) dias do início das atividades da Classe, esta deverá ter alocado, no mínimo, 80% (oitenta por cento) de seu Patrimônio Líquido em Direitos Creditórios Elegíveis. A cada nova integralização de Cotas, haverá um prazo de 90 (noventa) dias para reenquadramento do montante adicional integralizado à Alocação Mínima Adicional. 3.11. Revolvência."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 20,
+     "clause": "cl. 3.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "veis, nos termos da regulamentação aplicável, observadas as demais disposições contidas neste Anexo. 3.10. Alocação Mínima Adicional. Adicionalmente ao descrito na regulamentação para a alocação mínima em Direitos Creditórios e respectivo prazo, decorridos 120 (cento e vinte) dias do início das atividades da Classe, esta deverá ter alocado, no mínimo, 80% (oitenta por cento) de seu Patrimônio Líquido em Direitos Creditórios Elegíveis. A cada nova integralização de Cotas, haverá um prazo de 90 (noventa) dias para reenquadramento do montante adicional integralizado à Alocação Mínima Adicional. 3.11. Revolvência. Será permitida a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira da Classe, nos termos do artigo 21, inciso VI, do Anexo Normativo II, observada a ordem de alocação de recursos prevista no Capítulo 5 deste Anexo. 3.12. É vedada a aquisição de Direitos Creditórios, direta ou indiretamente originados ou cedidos pela Administradora, pela Gestora ou partes a eles relacionadas. 3.13. A Classe não realizará investimentos no exterior. 3.14. Ativos Financeiros."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "DC≥67% PL após 180 dias; adicional≥80% PL após 120 dias, cura 90 dias para novo aporte",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 3.8"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Patrimônio Líquido. “Índice de Subordinação significa a proporção mínima obrigatória de 10% (dez por cento) de Cotas Subordinadas da Classe, em relação ao seu Patrimônio Sênior” Líquido, a ser apurada diariamente pela Administradora. “Índice de Subordinação significa a proporção mínima obrigatória de 5% (cinco por cento) de Cotas Subordinadas Júnior da Classe, em relação ao seu Mezanino” Patrimônio Líquido, a ser apurada diariamente pela Administradora. “Índices de Subordinação” Ssgnificam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando referidos em cojunto ou indistintamente. significa a verificação, pelo Custodiante, em um determinado trimes"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Líquido, a ser apurada diariamente pela Administradora. “Índice de Subordinação significa a proporção mínima obrigatória de 5% (cinco por cento) de Cotas Subordinadas Júnior da Classe, em relação ao seu Mezanino” Patrimônio Líquido, a ser apurada diariamente pela Administradora. “Índices de Subordinação” Ssgnificam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando referidos em cojunto ou indistintamente. significa a verificação, pelo Custodiante, em um determinado trimestre, de que o percentual de Documentos Comprobatórios que “Inconsistência Relevante” apresente divergências em relação aos parâmetros apresentados na oferta de Direitos Creditórios (quando de suas respectivas aquisições) seja superior a 3% (três por c"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL≥10%; júnior / PL≥5% para mezanino",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 62"
+   }
+  },
+  "sub_senior": {
+   "display": "10% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Patrimônio Líquido. “Índice de Subordinação significa a proporção mínima obrigatória de 10% (dez por cento) de Cotas Subordinadas da Classe, em relação ao seu Patrimônio Sênior” Líquido, a ser apurada diariamente pela Administradora. “Índice de Subordinação significa a proporção mínima obrigatória de 5% (cinco por cento) de Cotas Subordinadas Júnior da Classe, em relação ao seu Mezanino” Patrimônio Líquido, a ser apurada diariamente pela Administradora. “Índices de Subordinação” Ssgnificam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando referidos em cojunto ou indistintamente. significa a verificação, pelo Custodiante, em um determinado trimes"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "Subordinadas / PL≥10%; júnior / PL≥5% para mezanino",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 62"
+   }
+  },
+  "sub_mezz": {
+   "display": "5% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Líquido, a ser apurada diariamente pela Administradora. “Índice de Subordinação significa a proporção mínima obrigatória de 5% (cinco por cento) de Cotas Subordinadas Júnior da Classe, em relação ao seu Mezanino” Patrimônio Líquido, a ser apurada diariamente pela Administradora. “Índices de Subordinação” Ssgnificam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando referidos em cojunto ou indistintamente. significa a verificação, pelo Custodiante, em um determinado trimestre, de que o percentual de Documentos Comprobatórios que “Inconsistência Relevante” apresente divergências em relação aos parâmetros apresentados na oferta de Direitos Creditórios (quando de suas respectivas aquisições) seja superior a 3% (três por c"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pela administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 62,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Patrimônio Líquido. “Índice de Subordinação significa a proporção mínima obrigatória de 10% (dez por cento) de Cotas Subordinadas da Classe, em relação ao seu Patrimônio Sênior” Líquido, a ser apurada diariamente pela Administradora. “Índice de Subordinação significa a proporção mínima obrigatória de 5% (cinco por cento) de Cotas Subordinadas Júnior da Classe, em relação ao seu Mezanino” Patrimônio Líquido, a ser apurada diariamente pela Administradora. “Índices de Subordinação” Ssgnificam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando referidos em cojunto ou indistintamente. significa a verificação, pelo Custodiante, em um determinado trimes"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL≥10%; júnior / PL≥5% para mezanino",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 62"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas para 3 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "tização integral das Cotas Subordinadas Júnior, observado o disposto neste Anexo. Reservas 5.2. Reserva de Despesas: A Classe deverá estabelecer uma Reserva de Despesa equivalente a, no mínimo, o montante estimado de despesas ordinárias da Classe para o período de 3 (três) meses, a ser calculada mensalmente, devendo ser constituída e controlada pela Administradora, para fins de cobertura de encargos e despesas da Classe, observado o disposto no Regulamento e neste Anexo. 23 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para Corporativo verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. | Interno 5.3."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas; próxima amortização constituída desdeD-30",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 5.1"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não descrito no regulamento",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Atraso de amortização ou remuneração não sanado em 2 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 43,
+     "clause": "cl. 12.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "13. EVENTOS DE AVALIAÇÃO E DE LIQUIDAÇÃO Eventos de Avaliação 13.1. São Eventos de Avaliação: (i) caso a Classe deixe de efetuar o pagamento: (a) integral de qualquer das Amortizações Programadas ou pagamento de Remuneração das Cotas Seniores e/ou das Cotas Subordinadas Mezanino, na respectiva Data de Amortização Programada ou Data de Amortização da Remuneração, e não regularizado no prazo de até 2 (dois) Dias Úteis; e (b) amortização integral das Cotas Seniores e/ou das Cotas Subordinadas Mezanino, na respectiva Data de Amortização Final; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. (ii) caso no Dia Útil imediatamente anterior a qualquer Data de Amortização Programada das Cotas Seniores e/ou das Cotas Subordinadas Mezanino, o valor dos recursos segregados na Reserva de Amortização não corresponda, no mínimo, ao valor da próxima Amortização Programada, conforme disposto nos respectivos Apêndices;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou falta de créditos elegíveis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 46,
+     "clause": "cl. 13.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "patrimonial de tais Cotas Seniores e/ou Cotas Subordinadas Mezanino. Eventos de Liquidação 13.5. São eventos que ensejam a liquidação antecipada da Classe, a ser deliberada em Assembleia Especial: (i) nos casos em que houver determinação da CVM, nos termos previstos em norma; (ii) impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade ou as Condições de Cessão especificados no Anexo; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. (iii) se for deliberado em Assembleia Especial que um Evento de Avaliação constitui Evento de Liquidação; (iv) na hipótese de inexistência de Direitos Creditórios na carteira da Classe ou na hipótese de inexigibilidade, por qualquer meio judicial, dos Direitos Creditórios Adquiridos porventura existentes, por período superior a 60 (sessenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com recursos da carteira",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 20,
+     "clause": "cl. 3.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "(noventa) dias para reenquadramento do montante adicional integralizado à Alocação Mínima Adicional. 3.11. Revolvência. Será permitida a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira da Classe, nos termos do artigo 21, inciso VI, do Anexo Normativo II, observada a ordem de alocação de recursos prevista no Capítulo 5 deste Anexo. 3.12. É vedada a aquisição de Direitos Creditórios, direta ou indiretamente originados ou cedidos pela Administradora, pela Gestora ou partes a eles relacionadas. 3.13. A Classe não realizará investimentos no exterior. 3.14. Ativos Financeiros. A parcela do patrimônio líquido da Classe que não seja alocada em Direitos Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. Creditórios será necessariamente mantida em moeda corrente nacional e/ou alocada, pela Gestora, nos Ativos Financeiros. 3.15. Realização de Operações com Derivativos."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência permitida conforme ordem de alocação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos; despesas; sênior; mezanino; reserva de amortização; júnior",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,17% a.a. até R$ 300 mi de PL, regressiva até 0,09%; mín. R$ 30 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "tração 7.1. A Classe pagará, pelos serviços de administração fiduciária, escrituração e controladoria, taxa de administração correspondente aos percentuais descritos na tabela a seguir calculados sobre cada faixa do Patrimônio Líquido: Patrimônio Líquido % ao ano calculado com base no Patrimônio Líquido da Classe até R$ 300.000.000,00 0,17% de R$300.000.000,00 até 0,15% R$650.000.000,00 de R$650.000.000,00 até 0,13% R$1.000.000.000,00 acima de R$1.000.000.000,00 0,09% 7.1.1. Taxa Mínima de Administração. Sem prejuízo do disposto na tabela acima, a Taxa de Administração da Classe terá um valor mínimo mensal de R$ 30.000,00 (trinta mil reais). Referidos valores deverão ser atualizados a cada 12 (doze) meses conforme variação positiva do IGPM/FGV. 7.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "cl. 7.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "0,09% 7.1.1. Taxa Mínima de Administração. Sem prejuízo do disposto na tabela acima, a Taxa de Administração da Classe terá um valor mínimo mensal de R$ 30.000,00 (trinta mil reais). Referidos valores deverão ser atualizados a cada 12 (doze) meses conforme variação positiva do IGPM/FGV. 7.2. A Taxa de Administração será paga pela Classe, mensalmente, no 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas, sendo vedada qualquer participação nos resultados auferidos pela Classe, inclusive, sem limitação, Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. cobrança de qualquer taxa de performance. Os referidos valores dispostos no item 7.1.1 acima serão atualizados a cada período de 12 (doze) meses, contado da data de início das atividades da Classe ou na menor periodicidade admitida em lei, pelo IGPM/FGV ou, na sua falta, por outro índice, a critério da Administradora. Taxa de Gestão 7.3."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais 0,17%/0,15%/0,13%/0,09% a.a. PL (300/650/1.000 mi); mínimo R$ 30 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "10% da taxa de administração, até R$ 4 mil/mês (já incluída)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "IGPM/FGV ou, na sua falta, por outro índice, a critério da Administradora. Taxa de Gestão 7.3. Pelos serviços de gestão, a Classe pagará uma taxa de gestão equivalente a 10% (dez inteiros por cento) calculado sobre o valor da Taxa de Administração, limitado a R$4.000,00 (quatro mil) reais mensais. Este valor faz parte da Taxa de Administração. Taxa de Custódia 7.4. O Custodiante cobrará, pelos serviços de custódia qualificada, o percentual de 0,02% (dois centésimos por cento) ao ano sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$ 5.000,00 (cinco mil reais), o que for maior. O referido valor mínimo disposto acima será atualizado a cada período de 12 (doze) meses, contado da data de início das atividades da Classe ou na menor periodicidade admitida em lei, pelo IGPM/FGV ou, na sua falta, por outro índice, a critério do Custodiante."
+    }
+   ],
+   "legacy": {
+    "value": "10% da taxa de administração, limitada a R$ 4 mil/mês; já incluída",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. cobrança de qualquer taxa de performance. Os referidos valores dispostos no item 7.1.1 acima serão atualizados a cada período de 12 (doze) meses, contado da data de início das atividades da Classe ou na menor periodicidade admitida em lei, pelo IGPM/FGV ou, na sua falta, por outro índice, a critério da Administradora. Taxa de Gestão 7.3. Pelos serviços de gestão, a Classe pagará uma taxa de gestão equivalente a 10% (dez inteiros por cento) calculado sobre o valor da Taxa de Administração, limitado a R$4.000,00 (quatro mil) reais mensais. Este valor faz parte da Taxa de Administração. Taxa de Custódia 7.4. O Custodiante cobrará, pelos serviços de custódia qualificada, o percentual de 0,02% (dois centésimos por cento) ao ano sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$ 5.000,00 (cinco mil reais), o que for maior."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido no apêndice de cada série",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 37,
+     "clause": "cl. 9.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "preferência, prioridade ou subordinação entre os titulares de Cotas Subordinadas Mezanino; e (vii) as Cotas Seniores e as Cotas Subordinadas Mezanino possuirão como rentabilidade alvo remuneração determinada no respectivo Apêndice (“Benchmark”). 9.12. As Cotas Subordinadas Júnior a serem subscritas e integralizadas exclusivamente por Parte Relacionada da Leo Madeiras, em montante equivalente, no mínimo, à proporção dos Índices de Subordinação, terão as seguintes características, vantagens, direitos e obrigações: (i) subordinam-se às Cotas Seniores e as Cotas Subordinadas Mezanino para efeito de amortização e/ou Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. amortização integral, observados os termos deste Anexo; (ii) somente poderão ser amortizadas e/ou amortizadas integralmente, bem como receber o pagamento a título de retorno, após a amortização integral das Cotas Seniores e das Cotas Subordinadas Mezanino, nos termos deste Anexo;"
+    }
+   ]
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido no apêndice de cada subclasse",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 1.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "2. PRESTADORES DE SERVIÇOS ESSENCIAIS Administradora 2.1. O Fundo é administrado pelo GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A., sociedade por ações, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Praia de Botafogo, 228, sala 913, CEP 22.250- 040, Botafogo, inscrita no CNPJ sob o nº 27.652.684/0001-62, autorizada a administrar carteira de valores mobiliários, na categoria “administrador fiduciário”, conforme Ato Declaratório Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. CVM nº 6.819, de 17 de maio de 2002. 2.1.1. Incluem-se entre as obrigações da Administradora aquelas dispostas nos artigos 82 e 83, conforme aplicáveis, e 104 da Resolução CVM 175 e no artigo 30 do Anexo Normativo II da Resolução CVM 175. Sem prejuízo de outras obrigações legais e regulamentares, a Administradora obriga-se a: (i) prestar os seguintes serviços ao Fundo: (a) tesouraria, controle e processamento de ativos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "tisign.com.br e utilize o código 4196-D448-BE61-F757. significa GENIAL GESTÃO LTDA., instituição devidamente autorizada pela CVM para prestação dos serviços de administração de carteira de títulos e valores mobiliários através do Ato Declaratório nº 14.519, expedido em 05 de setembro de 2015 “Gestora” inscrita no CNPJ/MF sob o nº 22.119.959/0001-83, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Brigadeiro Faria Lima, n° 3400, Conj 91 - Parte, ou sua sucessora a qualquer título. “Índices de Subordinação” tem o significado atribuído no respectivo Anexo. 16 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para Corporativo verificar as assinaturas vá ao site http://assinaturas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 7,
+     "clause": "cl. 2.9.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "erificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 2.1. Os serviços de custódia qualificada dos Direitos Creditórios e demais Ativos Financeiros da Classe serão exercidos pelo GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A., sociedade por ações, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Praia de Botafogo, 228, sala 913, CEP 22.250- 040, Botafogo, inscrita no CNPJ sob o nº 27.652.684/0001-62, autorizada a administrar carteira de valores mobiliários, na categoria “administrador fiduciário”, conforme Ato Declaratório CVM nº 6.819, de 17 de maio de 2002 2.2. Substituição do Custodiante. O Custodiante poderá ser substituído mediante notificação por escrito da Administradora ao Custodiante acerca da ocorrência de quaisquer dos seguintes eventos: (i) deliberação em Assembleia Geral, nos termos deste Regulamento; (ii) inadimplemento, de forma comprovada, de qualquer das obrigações assumidas pelo Custodiante nos termos deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no regulamento",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 19,
+     "clause": "cl. 2.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "ciais”, conforme “Anexo Complementar V - Regras e Procedimentos para FIDC”, de 31 de março de 2025”. 2.14. A Classe é destinada a Investidores Profissionais que busquem rentabilidade, no longo prazo, compatível com a Política de Investimento, composição e diversificação da carteira da Classe, e aceitem os Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. riscos associados aos investimentos da Classe. 2.15. Responsabilidade dos Cotistas. Os Cotistas da Classe terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18 da Resolução CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. 3. DO OBJETIVO DA CLASSE, DA POLÍTICA DE INVESTIMENTOS E DA COMPOSIÇÃO DA CARTEIRA 3.1. Objetivo da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, indeterminada; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 19,
+     "clause": "cl. 2.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "izações durante o prazo de vigência do Fundo, nos termos deste Regulamento e do respectivo Apêndice. 2.10. Prazo de Duração. A Classe tem prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e Subclasse ou Série de Cotas Subordinadas Mezanino terá o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 2.10.1. O funcionamento da Classe terá início na 1ª (primeira) data de integralização de Cotas. 2.11. Objeto. A Classe é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios Elegíveis e demais Ativos Financeiros, durante seu prazo de duração, de acordo com a Política de Investimento e conforme previsto na Resolução CVM 175 e no Anexo Normativo II. 2.12. O patrimônio da Classe será representado por 3 (três) Subclasses de Cotas, as Cotas Seniores, as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. As Cotas Seniores e as Cotas Subordinadas Mezanino poderão ser emitidas em múltiplas Séries."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, indeterminada; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "Recebíveis de cartão devidos pela subcredenciadora Leo Meios de Pagamentos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 59,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Data de Referência. significa a Subcredenciadora, na qualidade de devedora dos “Devedor” Direitos Creditórios. significam os Direitos Creditórios Elegíveis cedidos pelos Cedentes “Direitos Creditórios à Classe na forma e nos termos das Condições Gerais de Cessão e Adquiridos” dos Termos de Uso Leo, observados os respectivos Critérios de Elegibilidade e a Política de Investimento da Classe. significam os Direitos Creditórios Adquiridos, em relação aos quais “Direitos Creditórios o Devedor esteja em atraso, seja no todo ou em parte, no Adquiridos Inadimplidos” cumprimento de suas respectivas obrigações contratuais. “Direitos Creditórios significam os Direitos Creditórios que atendam, cumulativamente,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 65,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "Entidades Registradoras, conforme aplicável. “Subcredenciadora” significa a LEO MEIOS DE PAGAMENTOS LTDA., inscrita no CNPJ/MF sob o nº 47.920.770/0001-16 que (i) habilita recebedores para a aceitação de Instrumentos de Pagamento emitido por Instituições de Pagamento ou por instituição financeira (Emissor) participante de um mesmo Arranjo de Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Cartões à vista/parcelados dos clientes de marceneiros e entidades da Rede Leo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Mecanismo de trava do domicílio não descrito no regulamento",
+   "sources": []
+  },
+  "dilution": {
+   "display": "Chargeback ou cancelamento gera resolução da cessão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "ão, pela Classe, de Direitos Creditórios em virtude de declaração falsa ou incorreta realizada pelos Cedentes; (v) a ocorrência de Chargeback ou Cancelamento da Transação de Pagamento pelo Cedente, caso o Direito Creditório em questão não tenha sido recebido pela Classe na respectiva data de vencimento; (vi) caso a transferência de Direitos Creditórios à Classe configure fraude contra credores, fraude de execução, fraude de execução fiscal ou, ainda, fraude falimentar; e/ou (vii) não comprovação de transferência do Preço de Aquisição pelo Agente de Liquidação aos Cedentes, nos termos do Contrato de Agente de Liquidação, haverá a Resolução de Cessão do Direito Creditório Adquirido sujeito a qualquer das hipóteses descritas acima, obrigando-se o Agente de Formalização, na qualidade de representante dos Cedentes, realizar o pagamento do preço de resolução de cessão previsto nas Condições Gerais de Cessão, passando o Agente de Formalização ter o direito de cobrar os respectivos valores dos Cedentes."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338023",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338023",
+     "excerpt": "do Preço de Aquisição pelo Agente de Liquidação aos Cedentes, nos termos do Contrato de Agente de Liquidação, haverá a Resolução de Cessão do Direito Creditório Adquirido sujeito a qualquer das hipóteses descritas acima, obrigando-se o Agente de Formalização, na qualidade de representante dos Cedentes, realizar o pagamento do preço de resolução de cessão previsto nas Condições Gerais de Cessão, passando o Agente de Formalização ter o direito de cobrar os respectivos valores dos Cedentes. Nos termos das Condições Gerais de Cessão e do Contrato de Agente de Liquidação, a Leo Madeiras presta fiança à Classe, obrigando-se, ou seus sucessores a qualquer título, como fiadora e principal pagadora, solidariamente responsável com o Agente de Liquidação, em conformidade com o artigo 818 do Código Civil, pelo integral, fiel e pontual cumprimento da obrigação do Agente de Liquidação em realizar (i) o pagamento do preço de resolução de cessão e (ii) o pagamento do Preço de Aquisição, conforme disposto nas Condições Gerais de Cessão. 4.9."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de cartão de marceneiros da Rede Leo contra a subcredenciadora; subordinação de 10% (júnior ≥ 5%).",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
