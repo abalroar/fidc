@@ -1,0 +1,52 @@
+# Lavoro Agro FIAGRO-DC (Vórtx; Kanastra; cedentes do grupo Lavoro)
+type: Agro/FIAGRO
+q1: * "significa, individualmente, na qualidade de cedentes dos Direitos Creditórios à esta Classe (i) a LAVORO AGROCOMERCIALS.A."
+q2: * "que as atividades de comercialização e/ou fornecimento dos Produtos, em especial os fertilizantes, adubos, agrotóxicos, defensivos agrícolas"
+q3: * "rá realizada sem direito de regresso contra ou coobrigação das Cedentes ou de qualquer outra Pessoa"
+q4: * "seguintes Critérios de Elegibilidade, a serem verificados pelo Gestor, na Data de Aquisição: (a) os Direitos Creditórios devem ter valor expresso em moeda corrente nacional"
+q5: * "Índice de Subordinação Seniores for igual ou superior a 40%"
+q6: * "Índice de Subordinação Mezanino A (conforme prevista no Apêndice de Cotas da Subclasse Subordinadas Mezanino A) for igual ou superior a 25%"
+q7: * "Reserva de Despesas e Encargos equivalente ao montante suficiente para pagamento das despesas e encargos estimados pelo Administrador para os 6 (seis) meses subsequentes"
+q8: * "São considerados Eventos de Avaliação da Classe quaisquer das seguintes ocorrências: (a) inobservância pelo Gestor"
+q9: * "São considerados Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: i. caso o Contrato de Cessão seja, por qualquer motivo, resilido"
+q10: * "revolvência da carteira da Classe durante todo o prazo de duração da Classe, respeitada a Ordem de Alocação"
+q11: * "4.1 A administração fiduciária do Fundo será exercida pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA"
+q12: * "4.2 A gestão do Fundo será exercida pela KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA"
+q13: * "Custodiante é o Administrador, ou a sua sucessora a qualquer título"
+q14: * "Investidores Profissionais que buscam rentabilidade, no longo prazo"
+q15: * "prazo de duração indeterminado"
+q16: * "provisão para devedores duvidosos do Manual de PDD Administrador"
+receivables: Vendas a prazo de insumos agrícolas das revendas do grupo Lavoro | q1,q2
+agro_backing: Fertilizantes, defensivos e sementes vendidos a produtores | q2
+originator: Lavoro Agrocomercial e demais revendas cedentes | q1
+assignor: Lavoro Agrocomercial, Agrocontato e outras revendas, sem coobrigação | q1,q3
+debtor: Produtores rurais clientes das revendas | q2
+recourse: Sem regresso nem coobrigação das cedentes | q3
+eligibility: Em reais, representados pelos documentos comprobatórios, entre outros | q4
+debtor_limit: n/d | Limite por devedor não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: n/d | Alocação mínima não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Mezanino A / Subordinada júnior | q5,q6
+sub_senior: 40% · subord./PL (na integralização da sênior) | q5 | basis=mez+jr/PL | value=40
+sub_mezz: Mezanino A protegida por ≥ 25% | q6 | basis=jr/PL | value=25
+sub_check: Pro forma, na integralização de cada subclasse | q5
+reserve: Despesas e encargos estimados para 6 meses | q7
+pdd: Manual de PDD do administrador | q16
+eval_triggers: Inobservância de deveres por gestor, custodiante ou cedentes, entre outros | q8
+liquidation: Resilição do contrato de cessão, entre outros | q9
+revolving: Revolvência durante todo o prazo da classe | q10
+amortization: n/d | Cronograma definido no apêndice de cada subclasse | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: n/d | Taxa de administração não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+mgmt_fee: n/d | Taxa de gestão não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+perf_fee: n/d | Taxa de performance remetida a encargos, sem percentual localizado
+target_senior: n/d | Meta definida no apêndice de cada subclasse
+target_mezz: n/d | Meta definida no apêndice de cada subclasse
+administrator: Vórtx DTVM | q11
+manager: Kanastra Administração de Recursos | q12
+custodian: Vórtx DTVM (o administrador) | q13,q11
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | q14
+duration: Indeterminado | q15
+collateral: n/d | Garantias dos títulos não descritas em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Insumos agrícolas das revendas Lavoro sem coobrigação; subordinação de 40% e mezanino A protegida por 25%.
