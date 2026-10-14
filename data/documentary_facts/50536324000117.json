@@ -1,0 +1,774 @@
+{
+ "schema_version": 1,
+ "cnpj": "50536324000117",
+ "name": "MAQNELSON FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T12:57:26Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "918862",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "04/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862"
+  },
+  "D2": {
+   "document_id": "938955",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "02/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=938955"
+  },
+  "D3": {
+   "document_id": "927920",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "17/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927920"
+  },
+  "D4": {
+   "document_id": "925758",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "13/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=925758"
+  },
+  "D5": {
+   "document_id": "925755",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "11/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=925755"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de máquinas e equipamentos agrícolas do grupo Maqnelson",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 73,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "a de subscrição de Cotas; (v) Modificação de Créditos por Decisão Judicial. Os Direitos Creditórios são oriundos de pagamentos devidos pelas Devedoras à Cedente. As condições das vendas realizadas pelas Cedentes podem ser questionadas em juízo pelas respectivas Devedoras, sendo que estas podem lograr êxito nas demandas ajuizadas. Nessa hipótese, os Direitos Creditórios Cedidos podem ter seus valores reduzidos, serem anulados ou até serem considerados nulos em decisão judicial, o que, em qualquer caso, afetará negativamente o patrimônio do Fundo; (vi) Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis. Os Direitos Creditórios a serem adquiridos pelo Fundo são os Direitos Creditórios Elegíveis, observados os Critérios de Elegibilidade e a Política de Investimento do Fundo, cedidos pelas Cedentes à Classe, nos termos do Contrato de Cessão e respectivos Termos de Cessão, decorrentes de valores devidos pelas Devedoras à Cedente."
+    },
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 91,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "dos Direitos Creditórios inadimplidos. Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 “Agrícola” MAQNELSON AGRÍCOLA LTDA., sociedade de responsabilidade limitada, com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida Paulo Roberto Cunha Santos, nº 2505, Bairro Roosevelt, CEP 38.401-117, inscrita no CNPJ sob o n° 07.791.111/0001-02. “Alocação Mínima” O percentual mínimo superior a 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Tributária” Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos"
+    }
+   ],
+   "legacy": {
+    "value": "Vendas performadas de tratores, máquinas, peças, implementos, irrigação e drones.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Maqnelson Agrícola, Eleva e Irrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 95,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "Reserva de Liquidez. Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 “Cedentes” Significa, quando em conjunto, a Agrícola, a Eleva e a Irrigação. “Chaves de Acesso da NF-e” É um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição da Cedente. “Classe Única” A classe única de Cotas do Fundos, organizada como condomínio fechado, cuja responsabilidade dos Cotistas é limitada ao seu capital subscrito,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 91,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "dos Direitos Creditórios inadimplidos. Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 “Agrícola” MAQNELSON AGRÍCOLA LTDA., sociedade de responsabilidade limitada, com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida Paulo Roberto Cunha Santos, nº 2505, Bairro Roosevelt, CEP 38.401-117, inscrita no CNPJ sob o n° 07.791.111/0001-02. “Alocação Mínima” O percentual mínimo superior a 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Tributária” Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Maqnelson Agrícola, Eleva e Irrigação",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 95,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "Reserva de Liquidez. Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 “Cedentes” Significa, quando em conjunto, a Agrícola, a Eleva e a Irrigação. “Chaves de Acesso da NF-e” É um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição da Cedente. “Classe Única” A classe única de Cotas do Fundos, organizada como condomínio fechado, cuja responsabilidade dos Cotistas é limitada ao seu capital subscrito,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 91,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "dos Direitos Creditórios inadimplidos. Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 “Agrícola” MAQNELSON AGRÍCOLA LTDA., sociedade de responsabilidade limitada, com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida Paulo Roberto Cunha Santos, nº 2505, Bairro Roosevelt, CEP 38.401-117, inscrita no CNPJ sob o n° 07.791.111/0001-02. “Alocação Mínima” O percentual mínimo superior a 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Tributária” Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Produtores rurais compradores (devedoras)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 73,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "a de subscrição de Cotas; (v) Modificação de Créditos por Decisão Judicial. Os Direitos Creditórios são oriundos de pagamentos devidos pelas Devedoras à Cedente. As condições das vendas realizadas pelas Cedentes podem ser questionadas em juízo pelas respectivas Devedoras, sendo que estas podem lograr êxito nas demandas ajuizadas. Nessa hipótese, os Direitos Creditórios Cedidos podem ter seus valores reduzidos, serem anulados ou até serem considerados nulos em decisão judicial, o que, em qualquer caso, afetará negativamente o patrimônio do Fundo; (vi) Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis. Os Direitos Creditórios a serem adquiridos pelo Fundo são os Direitos Creditórios Elegíveis, observados os Critérios de Elegibilidade e a Política de Investimento do Fundo, cedidos pelas Cedentes à Classe, nos termos do Contrato de Cessão e respectivos Termos de Cessão, decorrentes de valores devidos pelas Devedoras à Cedente."
+    }
+   ],
+   "legacy": {
+    "value": "Clientes das cedentes; adimplentes com o fundo na cessão.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Cessão inclui garantias; resolução/recompra nos eventos do contrato.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Em reais; prazo de 15 a 720 dias, com exceções",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 134,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "órios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ii) considerada pro forma a cessão dos Direitos Creditórios, estes deverão ter prazo máximo de vencimento em até 720 (setecentos e vinte) dias, com exceção de até 40% (quarenta por cento) do Patrimônio Líquido do Fundo que poderá aceitar Direitos Creditórios com prazo de até 1.440 (mil quatrocentos e quarenta) dias e 10% (dez por cento) do Patrimônio Líquido do Fundo que poderá aceitar Direitos Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 Creditórios com prazo de até 1.800 (mil e oitocentos) dias, contados, em todos os casos, a partir da respectiva Data de Aquisição; (iii) o prazo médio dos Direitos Creditórios por Devedora deverá ser de, no máximo, 37 (trinta e sete) meses; (iv) os Direitos Creditórios deverão ter prazo de vencimento, no mínimo, 15 (quinze) dias após a respectiva Data de Oferta;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 134,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "máximo de vencimento em até 720 (setecentos e vinte) dias, com exceção de até 40% (quarenta por cento) do Patrimônio Líquido do Fundo que poderá aceitar Direitos Creditórios com prazo de até 1.440 (mil quatrocentos e quarenta) dias e 10% (dez por cento) do Patrimônio Líquido do Fundo que poderá aceitar Direitos Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 Creditórios com prazo de até 1.800 (mil e oitocentos) dias, contados, em todos os"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos 15–720 dias; exceções 40%/PL até 1.440 e 10%/PL até 1.800 dias; média por devedora ≤37 meses.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedora até 3% do PL; key accounts até 5% nos primeiros 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 135,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados pelas Cedentes junto ao Custodiante, ressalvados os Devedores KA, que, nos primeiros 180 (cento e oitenta) dias contados da primeira data de integralização de Cotas do Fundo, poderão representar, considerados individualmente, concentração de até 5% (cinco por cento) do Patrimônio Líquido;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Devedora 3%/PL; KA 5% nos primeiros 180 dias; Irrigação+Eleva ≤15%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Devedora 3%/PL; KA 5% nos primeiros 180 dias; Irrigação+Eleva ≤15%/PL.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Até 720 dias, com exceções até 1.800 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 134,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "máximo de vencimento em até 720 (setecentos e vinte) dias, com exceção de até 40% (quarenta por cento) do Patrimônio Líquido do Fundo que poderá aceitar Direitos Creditórios com prazo de até 1.440 (mil quatrocentos e quarenta) dias e 10% (dez por cento) do Patrimônio Líquido do Fundo que poderá aceitar Direitos Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 Creditórios com prazo de até 1.800 (mil e oitocentos) dias, contados, em todos os"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos 15–720 dias; exceções 40%/PL até 1.440 e 10%/PL até 1.800 dias; média por devedora ≤37 meses.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% da carteira em direitos creditórios (fins tributários)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 91,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Tributária” Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos Creditórios, nos termos dos artigos 18, 19 e 24 da Lei nº 14.754, de 12 de dezembro de 2023, para fins de enquadramento como Entidade de Investimento sujeita ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. “Amortização” Com relação a uma Data de Amortização, a amortização de parcela do Valor Principal de Referência referente às Cotas Seniores, conforme efetivamente realizada em tal data, calculada nos termos deste Regulamento e do respectivo Apêndice. “Amortização Extraordinári"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Direitos creditórios >67%/PL até 180 dias; tributária ≥67%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 109,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "Mínima seja de, ao menos, 52% (cinquenta e dois por cento). “Limite Superior de Remuneração” Com relação a cada Data de Pagamento, o valor determinado de acordo com a seguinte fórmula: Valor Unitário de Referência Corrigido Antes da Amortização – Valor Principal de Referênc"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥50%/PL; amortização extraordinária exige pro forma ≥52%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 111,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "respectivas alterações. “Relação Mínima” Relação mínima admitida entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, a qual deverá ser apurada pela Gestora e deverá corresponder a, no mínimo, 50% (cinquenta inteiros por cento). “Reserva de Caixa” A reserva a ser constituída, equivalente a 100% (cem por cento) do valor da próxima Amortização de principal e/ou pagamento de Remuneração das Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 Cotas, conforme o caso, a ser acumulada com, no mínimo, 30 (trinta) dias de antecedência em relação à próxima Data de Amortização prevista no respectivo Apêndice. “Reserva de Liquidez” A reserva de liquidez a ser constituída, equivalente a, no mínimo, 3 (três) meses de"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Subordinadas ≥50%/PL; amortização extraordinária exige pro forma ≥52%.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Subordinadas ≥50%/PL; amortização extraordinária exige pro forma ≥52%.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de liquidez para despesas; reserva da próxima amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 111,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "“Reserva de Caixa” A reserva a ser constituída, equivalente a 100% (cem por cento) do valor da próxima Amortização de principal e/ou pagamento de Remuneração das Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 Cotas, conforme o caso, a ser acumulada com, no mínimo, 30 (trinta) dias de antecedência em relação"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidez: 3 meses de despesas; próxima amortização/remuneração: 100% desde 30 dias antes.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 109,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "https://www.oliveiratrust.com.br. “Manual de PDD” Significa o manual de provisão para devedores duvidosos da Administradora, o qual se encontra disponível no website: https://www.oliveiratrust.com.br. “Meta de Amortização” Caso a Amortização Sequencial esteja em curso, é o Valor Principal de Referência Corrigido Antes da Amortização e caso a Amortização Pro Rata esteja em curso, será o disposto no respectivo Apêndice. Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 “Notas Fiscais Bens” Significam as notas fiscais eletrônicas (consubstanciadas em arquivos XML certificados digitalmente das notas fiscais de remessa de Bens, que se encontrem registradas eletronicamente em"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Índice de cobertura abaixo do mínimo, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 139,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "nos últimos 12 (doze) meses; (b) do Índice de Cobertura a nível inferior a 0,98 (noventa e oito centésimos) em qualquer Data de Verificação; (ii) o não pagamento integral da Meta de Amortização das Cotas Seniores em até 5 (cinco) Dias Úteis após uma Data de Pagamento em que a Amortização Pro Rata esteja em curso;"
+    }
+   ],
+   "legacy": {
+    "value": "Cobertura <1 recorrente ou <0,98 pontual; falha de reserva/subordinação leva à desalavancagem.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Cobertura <1 recorrente ou <0,98 pontual; falha de reserva/subordinação leva à desalavancagem.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência interrompida em amortização sequencial",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 47,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "Pagamento, caso a Amortização Sequencial esteja em curso: (i) pagamento das despesas e encargos da Classe; (ii) constituição e/ou recomposição da Reserva de Liquidez; e (iii) constituição e/ou recomposição da Reserva de Caixa, Amortização e resgate das Cotas, conforme aplicável."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisição revolvente; regimes de amortização pro rata e sequencial.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Encargos, reservas, sênior, subordinadas e créditos; sequencial em eventos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 47,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "Pagamento, caso a Amortização Sequencial esteja em curso: (i) pagamento das despesas e encargos da Classe; (ii) constituição e/ou recomposição da Reserva de Liquidez; e (iii) constituição e/ou recomposição da Reserva de Caixa, Amortização e resgate das Cotas, conforme aplicável."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos → reservas → sênior → subordinadas/excesso → créditos; sequencial interrompe revolvência.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,01875% a.a. do PL, com mínimo mensal (IPCA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 131,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "de cotas, custódia e controladoria de ativos, e será equivalente a 0,01875% (mil oitocentos e setenta e cinco centésimos de milésimo) ao ano, incidentes sobre o Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 Patrimônio Líquido do Fundo, observado o mínimo mensal de R$15.000,00 (quinze mil reais), caso o Patrimônio da Classe seja de até R$50.000.000,00 (cinquenta milhões de reais) e de R$16.875,00 (dezesseis mil oitocentos e setenta e cinco reais) caso o Pat"
+    }
+   ],
+   "legacy": {
+    "value": "0,01875% a.a./PL; piso R$ 15 mil até PL R$ 50 mi, R$ 16,875 mil acima; IPCA.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,0625% a.a. do PL (extenso diverge), com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 132,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "creditórios adquiridos e pela remuneração dos prestadores de serviço contratados pela Gestora. A Taxa de Gestão será equivalente a 0,0625% (seiscentos e vinte e cinco centésimos por cento) ao ano, incidentes sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$5.000 (cinco mil reais), caso o Patrimônio da Classe seja de até R$50.000.000,00 (cinquenta milhões de reais) e de R$5.625,00 (cinco mil seiscentos e vinte e cinco reais) caso o Patrimônio do Fundo seja maior que R$50.000.000,00 (cinquenta milhões de reais) (“Taxa de Gestão”). (iii) Taxa Máxima de Custódia: A taxa de custódia está englobada na Taxa de Administração e, portanto, limita-se ao valor da Taxa de Administração. 3.1.1. As taxas previstas neste Capítulo serão calculadas e provisionadas diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis e devida a primeira no último Dia Útil do mês que ocorrer a 1ª Data de Integralização de Cotas e as demais no último Dia Útil dos meses subsequentes. 3.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Numérico 0,0625% a.a.; extenso divergente; piso R$ 5 mil/R$ 5,625 mil, corte PL R$ 50 mi.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 133,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "te a R$500,00 (quinhentos reais) por mês. 3.3. TAXA DE INGRESSO OU SAÍDA. TAXA DE PERFORMANCE. Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas. 4. DIREITOS CREDITÓRIOS, DOCUMENTOS COMPROBATÓRIOS E DOCUMENTOS COMPLEMENTARES 4.1. Os direitos creditórios a serem adquiridos pela Classe Única consistem em direitos creditórios performados originados da venda a prazo de Bens, representados pelos Documentos Comprobatórios, conforme o caso, detidas pelas Cedentes contra as Devedoras (“Direitos Creditórios”). 4.2."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 129,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "um) ano e encerra-se em 30 de junho de cada ano. 2. PRESTADORES DE SERVIÇOS 2.1. Administradora. O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, segundo andar, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91 (“Administradora”). Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 2.2. Gestora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 130,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "36.113.876/0001-91 (“Administradora”). Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 2.2. Gestora. A gestão da carteira do Fundo é realizada pela OLIVEIRA TRUST SERVICER S.A., sociedade por ações de capital fechado, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, sala 202, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ sob o n.º 02.150.453/0001-20, habilitada para a administração de carteiras de fundos de investimento conforme Ato Declaratório CVM nº 7.446, de 13 de outubro de 2003 (“Gestora”). 2.2.1. A Gestora, observadas as limitações previstas neste Regulamento, na lei e na regulamentação aplicável, tem poderes para praticar os atos necessários à gestão da carteira do Fundo. 2.2.2. No âmbito das diligências relacionadas à aquisição de Direitos Creditórios, a Gestora deve verificar a existência, integridade e titularidade do lastro dos Direitos Creditórios. A verificação dos Documentos Comprobatórios será realizada pela Gestora, ou empresa por ela contratada, de forma individualizada e integral. 2.2.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante citado sem nome em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 25,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "a do limite de 20% (vinte por cento) do Patrimônio Líquido da Classe Única, tendo em vista que a Classe é destinada exclusivamente a Investidores Profissionais, nos termos do parágrafo 7º do artigo 45 do Anexo Normativo II da Resolução CVM 175, sem prejuízo dos Critérios de Elegibilidade relacionados à concentração por Devedora de Direitos Creditórios do mesmo grupo econômico, conforme aplicável. 3.5.3 A Gestora envidará seus melhores esforços para que a Classe Única mantenha o prazo médio de sua carteira de Ativos Financeiros em níveis que possibilitem o enquadramento do Fundo, para fins tributários, como fundo de investimento de longo prazo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 129,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "aos investimentos da Classe Única. 1.3. PRAZO DE DURAÇÃO. A Classe Única terá prazo de duração indeterminado. 1.4. EXERCÍCIO SOCIAL. O exercício social da Classe Única tem duração de 1 (um) ano e encerra-se em 30 de junho de cada ano. 2. PRESTADORES DE SERVIÇOS 2.1. Administradora. O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, segundo andar, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91 (“Administradora”). Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 2.2. Gestora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Vendas de máquinas agrícolas e irrigação a produtores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 91,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "dos Direitos Creditórios inadimplidos. Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0 “Agrícola” MAQNELSON AGRÍCOLA LTDA., sociedade de responsabilidade limitada, com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida Paulo Roberto Cunha Santos, nº 2505, Bairro Roosevelt, CEP 38.401-117, inscrita no CNPJ sob o n° 07.791.111/0001-02. “Alocação Mínima” O percentual mínimo superior a 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Tributária” Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos"
+    },
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 73,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "a de subscrição de Cotas; (v) Modificação de Créditos por Decisão Judicial. Os Direitos Creditórios são oriundos de pagamentos devidos pelas Devedoras à Cedente. As condições das vendas realizadas pelas Cedentes podem ser questionadas em juízo pelas respectivas Devedoras, sendo que estas podem lograr êxito nas demandas ajuizadas. Nessa hipótese, os Direitos Creditórios Cedidos podem ter seus valores reduzidos, serem anulados ou até serem considerados nulos em decisão judicial, o que, em qualquer caso, afetará negativamente o patrimônio do Fundo; (vi) Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis. Os Direitos Creditórios a serem adquiridos pelo Fundo são os Direitos Creditórios Elegíveis, observados os Critérios de Elegibilidade e a Política de Investimento do Fundo, cedidos pelas Cedentes à Classe, nos termos do Contrato de Cessão e respectivos Termos de Cessão, decorrentes de valores devidos pelas Devedoras à Cedente."
+    }
+   ],
+   "legacy": {
+    "value": "Vendas performadas de tratores, máquinas, peças, implementos, irrigação e drones.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas em trecho contínuo",
+   "sources": []
+  },
+  "sacado_limit": {
+   "display": "Devedora até 3% do PL; key accounts até 5% nos primeiros 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "918862",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/06/2025",
+     "page": 135,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+     "excerpt": "poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados pelas Cedentes junto ao Custodiante, ressalvados os Devedores KA, que, nos primeiros 180 (cento e oitenta) dias contados da primeira data de integralização de Cotas do Fundo, poderão representar, considerados individualmente, concentração de até 5% (cinco por cento) do Patrimônio Líquido;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Devedora 3%/PL; KA 5% nos primeiros 180 dias; Irrigação+Eleva ≤15%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/06/2025, Anexo"
+   }
+  }
+ },
+ "leitura": "Vendas de máquinas agrícolas do grupo Maqnelson; subordinação de 50% e devedora ≤ 3% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

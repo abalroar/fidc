@@ -1,0 +1,50 @@
+# Maqnelson FIDC (Oliveira Trust; Oliveira Trust Servicer; cedentes do grupo Maqnelson)
+type: Agro/FIAGRO
+q15: * "Relação mínima admitida entre o valor total das Cotas Subordinadas e o Patrimônio Líquido, a qual deverá ser apurada pela Gestora e deverá corresponder a, no mínimo, 50%"
+q1: * "“Cedentes” Significa, quando em conjunto, a Agrícola, a Eleva e a Irrigação"
+q2: * "“Agrícola” MAQNELSON AGRÍCOLA LTDA."
+q3: * "Direitos Creditórios são oriundos de pagamentos devidos pelas Devedoras à Cedente"
+q4: * "seguintes Critérios de Elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional"
+q6: * "Alocação Mínima Tributária” Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos Creditórios"
+q7: * "Taxa de Gestão será equivalente a 0,0625% (seiscentos e vinte e cinco centésimos por cento) ao ano"
+q8: * "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q9: * "2.1. Administradora. O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "2.2. Gestora. A gestão da carteira do Fundo é realizada pela OLIVEIRA TRUST SERVICER S.A."
+q11: * "destinada exclusivamente a Investidores Profissionais, nos termos do parágrafo 7º do artigo 45"
+q12: * "prazo de duração indeterminado. 1.4. EXERCÍCIO SOCIAL"
+q13: * "provisão para devedores duvidosos da Administradora, o qual se encontra disponível no website"
+receivables: Vendas a prazo de máquinas e equipamentos agrícolas do grupo Maqnelson | q3,q2
+agro_backing: Vendas de máquinas agrícolas e irrigação a produtores | q2,q3
+originator: Maqnelson Agrícola, Eleva e Irrigação | q1,q2
+assignor: Maqnelson Agrícola, Eleva e Irrigação | q1,q2
+debtor: Produtores rurais compradores (devedoras) | q3
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Em reais; prazo de 15 a 720 dias, com exceções | q4,o15
+debtor_limit: Devedora até 3% do PL; key accounts até 5% nos primeiros 180 dias | o18 | value=3
+sacado_limit: Devedora até 3% do PL; key accounts até 5% nos primeiros 180 dias | o18 | value=3
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Até 720 dias, com exceções até 1.800 dias | o15
+allocation: ≥ 67% da carteira em direitos creditórios (fins tributários) | q6 | value=67
+quota_structure: Sênior / Subordinada | o28
+sub_senior: 50% · subord./PL | q15 | basis=jr/PL | value=50
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de liquidez para despesas; reserva da próxima amortização | o38
+pdd: Manual de provisão da administradora | q13
+eval_triggers: Índice de cobertura abaixo do mínimo, entre outros | o43
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Revolvência interrompida em amortização sequencial | o50
+amortization: Encargos, reservas, sênior, subordinadas e créditos; sequencial em eventos | o50
+admin_fee: 0,01875% a.a. do PL, com mínimo mensal (IPCA) | o54
+mgmt_fee: 0,0625% a.a. do PL (extenso diverge), com mínimo mensal | q7
+perf_fee: Não prevista | Regulamento veda taxa de performance | q8
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q9
+manager: Oliveira Trust Servicer | q10
+custodian: n/d | Custodiante citado sem nome em trecho contínuo
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | q11
+duration: Indeterminado | q12
+collateral: n/d | Garantias dos títulos não descritas em trecho contínuo
+leitura: Vendas de máquinas agrícolas do grupo Maqnelson; subordinação de 50% e devedora ≤ 3% do PL.
