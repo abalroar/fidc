@@ -1,0 +1,53 @@
+# portado de 43616659000180 (52343195000176)
+type: Agro/FIAGRO
+q19: * "Relação Mínima deverá corresponder, no mínimo, a 117,65%"
+q1: * "Syngenta Significa a SYNGENTA PROTEÇÃO DE CULTIVOS LTDA."
+q2: * "Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos"
+q3: * "4.13. Critérios de Elegibilidade. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente"
+q4: * "deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Oferta"
+q5: * "não poderão representar concentração superior a 5% (cinco por cento) do Patrimônio Líquido, com exceção de determinado(s) Distribuidor(es)"
+q6: * "Relação Mínima Significa a razão entre (i) o Patrimônio Líquido da Classe Única; e (ii) o valor total das Cotas Seniores"
+q7: * "o Administrador, o Custodiante e o Agente de Controladoria cobrarão o valor correspondente a 0,20%"
+q8: * "Taxa de Gestão Gestor cobrará o valor correspondente a 0,8%"
+q9: * "Administrador e Significa a OLIVEIRA TRUST DISTRIBUIDORA DE Custodiante TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "Gestor Significa a FARMTECH GESTÃO DE RECURSOS LTDA."
+q11: * "Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência"
+q12: * "são considerados Eventos de Liquidação Antecipada do Fundo q"
+q13: * "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador"
+q14: * "O público-alvo da Classe Única é composto exclusivamente por Investidores Profissionais"
+q15: * "A Classe Única terá prazo de duração indeterminado, sendo que cada série de Cotas"
+q18: * "da cessão de Direitos Creditórios Cessão por Cedentes ao Fundo"
+receivables: Títulos da cadeia de defensivos Syngenta (distribuidores e produtores) | q2,q1
+originator: Syngenta Proteção de Cultivos e distribuidores de produtos | q1,q2
+assignor: Cedentes da cadeia Yara, inclusive distribuidores coobrigados | q18
+debtor: Distribuidores de produtos e clientes da cadeia de insumos | q2
+recourse: n/d | Coobrigação e garantias definidas nos contratos de cessão
+eligibility: Não vencidos; em reais; ≥ 30 dias; vence antes da amortização sênior | q3,q4
+debtor_limit: Distribuidor/grupo ≤ 5% do PL, com exceções especiais | q5
+assignor_limit: Não previsto | Regulamento limita por devedor, não por cedente
+term_max: Vencimento anterior à amortização total esperada da sênior | q4
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Mezanino / Júnior | q6
+sub_senior: PL/sênior ≥ 117,65% | q19 | basis=PL/sr | value=117.65
+sub_mezz: n/d | Índice próprio da mezanino não localizado no texto extraído
+sub_check: Relação mínima apurada até o resgate total da sênior | q19
+reserve: n/d | Valor da reserva de liquidez não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: Manual de provisão para perdas da administradora | q13
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+liquidation: Lista do anexo, além das hipóteses legais | q12
+revolving: Revolvência admitida, pela ordem de alocação | q11
+amortization: n/d | Metas e datas remetidas aos apêndices das séries | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,20% a.a. do PL (inclui custódia); mín. R$ 33 mil/mês | q7
+mgmt_fee: 0,8% a.a. do PL; mínimo de R$ 40 mil nos 3 primeiros meses | q8
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Sobretaxa definida nos apêndices, fora do acervo
+target_mezz: n/d | Sobretaxa definida nos apêndices, fora do acervo
+administrator: Oliveira Trust DTVM | q9
+manager: Farmtech Gestão de Recursos | q10
+custodian: Oliveira Trust DTVM | q9
+servicer: n/d | Agentes de cobrança contratados pela gestora, sem nome no trecho lido
+investors: Investidores profissionais | q14
+duration: Indeterminado; prazo próprio por série | q15
+agro_backing: Vendas de defensivos Syngenta via distribuidores e produtores | q1,q2
+collateral: n/d | Garantias não descritas no texto extraído
+leitura: Cadeia de defensivos Syngenta com PL/sênior ≥ 117,65% e distribuidor ≤ 5% do PL; gestão 0,8% a.a.

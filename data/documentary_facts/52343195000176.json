@@ -1,0 +1,683 @@
+{
+ "schema_version": 1,
+ "cnpj": "52343195000176",
+ "name": "FARMTECH SYNGENTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T01:03:44Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "791944",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "27/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944"
+  },
+  "D2": {
+   "document_id": "701245",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "18/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701245"
+  },
+  "D3": {
+   "document_id": "695723",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "10/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=695723"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Títulos da cadeia de defensivos Syngenta (distribuidores e produtores)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 16,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "stos a serem incorridos com Contratos de Derivativos. Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos que tenham emitido Direitos Creditórios Emitidos Distribuidor em favor da Classe Única; (ii) no caso de Direitos Creditórios Cessão, os Clientes que sejam devedores de Direitos Creditórios Cessão cedidos por um Cedente;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "Referenciais, conforme definição do respectivo Apêndice. Syngenta Significa a SYNGENTA PROTEÇÃO DE CULTIVOS LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Doutor Rubens Gomes Bueno, nº 691, 11º e 13º andares, Torre Sigma, CEP 04730- 000, inscrita no CNPJ sob o nº 60.744.463/0001-90, responsável pela prestação de serviços de indicação de Distribuidores de Produtos para fins de emissão, cessão e/ou originação de Direitos Creditórios, nos termos do Acordo Operacional Syngenta. Taxa de Tem seu significado atribuído no item 13.2 do Anexo Administração Descritivo. Taxa de Gestão Tem seu significado atribuído no item 13.3 do Anexo"
+    }
+   ],
+   "legacy": {
+    "value": "Crédito agro: compra a prazo e custeio; NF, confissão de dívida, CPR-F e NP; LF permitida",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Syngenta Proteção de Cultivos e distribuidores de produtos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "Referenciais, conforme definição do respectivo Apêndice. Syngenta Significa a SYNGENTA PROTEÇÃO DE CULTIVOS LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Doutor Rubens Gomes Bueno, nº 691, 11º e 13º andares, Torre Sigma, CEP 04730- 000, inscrita no CNPJ sob o nº 60.744.463/0001-90, responsável pela prestação de serviços de indicação de Distribuidores de Produtos para fins de emissão, cessão e/ou originação de Direitos Creditórios, nos termos do Acordo Operacional Syngenta. Taxa de Tem seu significado atribuído no item 13.2 do Anexo Administração Descritivo. Taxa de Gestão Tem seu significado atribuído no item 13.3 do Anexo"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 16,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "stos a serem incorridos com Contratos de Derivativos. Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos que tenham emitido Direitos Creditórios Emitidos Distribuidor em favor da Classe Única; (ii) no caso de Direitos Creditórios Cessão, os Clientes que sejam devedores de Direitos Creditórios Cessão cedidos por um Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes da cadeia Yara, inclusive distribuidores coobrigados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 53,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "de Produtos ou Clientes, em favor da Classe Única (ou do Fundo, em benefício da Classe Única); e (iii) da cessão de Direitos Creditórios Cessão por Cedentes ao Fundo. 4.4.1. A aquisição dos Direitos Creditórios pela Classe Única será realizada com base nos termos e condições estabelecidos nos respectivos Contratos de - 57 - Docusign Envelope ID: 91A28562-90F0-4EA0-A713-0FBB27102A5F Cessão e nos respectivos Acordos de Originação, conforme o caso, por meio: (i) da celebração de Termo de Cessão entre a Classe Única (ou o Fundo, em benefício da Classe Única) e o respectivo Cedente, com a cessão dos respectivos Direitos Creditórios Cessão de titularidade do Cedente ao Fundo; e/ou (ii) da emissão de Direitos Creditórios Emitidos diretamente por Emissores, sejam estes Distribuidores de Produtos ou Clientes, em favor da Classe Única (ou do Fundo, em benefício da Classe Única). 4.4.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Distribuidores de produtos e clientes da cadeia de insumos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 16,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "stos a serem incorridos com Contratos de Derivativos. Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos que tenham emitido Direitos Creditórios Emitidos Distribuidor em favor da Classe Única; (ii) no caso de Direitos Creditórios Cessão, os Clientes que sejam devedores de Direitos Creditórios Cessão cedidos por um Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação e garantias definidas nos contratos de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Não vencidos; em reais; ≥ 30 dias; vence antes da amortização sênior",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 58,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "ões até sua efetiva substituição pela nova entidade contratada pelo Fundo para tanto. 4.13. Critérios de Elegibilidade. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, além das Condições de Aquisição, na respectiva Data de Oferta, aos seguintes Critérios de Elegibilidade: (i) não poderão estar vencidos e devem possuir valor fixo e determinado ou determinável; (ii) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (iii) deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Oferta ao Fundo, com exceção dos Direito Creditório Emitido Distribuidor, os quais não possuirão prazo mínimo de vencimento; (iv) deverão ter data de vencimento anterior à última Data de Amortização Total Esperada das Cotas Seniores em circulação;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 58,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "(ii) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (iii) deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Oferta ao Fundo, com exceção dos Direito Creditório Emitido Distribuidor, os quais não possuirão prazo mínimo de vencimento; (iv) deverão ter data de vencimento anterior à última Data de Amortização Total Esperada das Cotas Seniores em circulação; - 62 - Docusign Envelope ID: 91A28562-90F0-4EA0-A713-0FBB27102A5F (v) os Direitos Creditórios Emitidos Clientes e os Direitos Creditórios Cessão, deverão ter prazo de vencimento até 360 (trezentos e sessenta) dias, com exceção de até 10% (dez por cento) do Patrimônio Líquido da Classe Única que poderá aceitar que esses Direitos Creditórios Emitidos Clientes e Direitos Creditórios Cessão tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos contados, em qualquer caso, a partir da respectiva Data de Oferta de tais Direitos Creditórios Emitidos Clientes e Direitos Creditórios Ces"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Distribuidor/grupo ≤ 5% do PL, com exceções especiais",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 60,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "de Produtos, considerada em conjunto com os demais integrantes do seu Grupo Econômico, não poderão representar concentração superior a 5% (cinco por cento) do Patrimônio Líquido, com exceção de determinado(s) Distribuidor(es) de Produtos especiais que, considerados em conjunto com os demais integrantes do seu Grupo Econômico, poderão representar concentração superior a 5% (cinco por cento) do Patrimônio Líquido, conforme previamente aprovados pelo Gestor no âmbito do Acordo Operacional;"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor, não por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Vencimento anterior à amortização total esperada da sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 58,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "(ii) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (iii) deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Oferta ao Fundo, com exceção dos Direito Creditório Emitido Distribuidor, os quais não possuirão prazo mínimo de vencimento; (iv) deverão ter data de vencimento anterior à última Data de Amortização Total Esperada das Cotas Seniores em circulação; - 62 - Docusign Envelope ID: 91A28562-90F0-4EA0-A713-0FBB27102A5F (v) os Direitos Creditórios Emitidos Clientes e os Direitos Creditórios Cessão, deverão ter prazo de vencimento até 360 (trezentos e sessenta) dias, com exceção de até 10% (dez por cento) do Patrimônio Líquido da Classe Única que poderá aceitar que esses Direitos Creditórios Emitidos Clientes e Direitos Creditórios Cessão tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos contados, em qualquer caso, a partir da respectiva Data de Oferta de tais Direitos Creditórios Emitidos Clientes e Direitos Creditórios Ces"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Direitos creditórios elegíveis ≥50% PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 27,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "o em conjunto com o Anexo Descritivo da Classe Única. Relação Mínima Significa a razão entre (i) o Patrimônio Líquido da Classe Única; e (ii) o valor total das Cotas Seniores, que deverá corresponder, no mínimo, a 115,29% (cento e quinze inteiros e vinte e nove centésimos por cento, observado o disposto no item 11.1 (v) abaixo. Após os primeiros 6 (seis) meses do - 31 - Docusign Envelope ID: 91A28562-90F0-4EA0-A713-0FBB27102A5F Fundo, inclusive (contados da 1ª Data de Integralização de Cotas Seniores), até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no mínimo, a 117,65% (cento e dezessete inteiros e sessenta e cinco centésimos por cento), observado o disposto no item 11.1 (v) abaixo. Remuneração do"
+    }
+   ],
+   "legacy": {
+    "value": "PL/seniores ≥115,29% inicialmente; ≥117,65% após 6 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 117,65%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 28,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "s Seniores), até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no mínimo, a 117,65% (cento e dezessete inteiros e sessenta e cinco centésimos por cento), observado o disposto no item 11.1 (v) abaixo. Remuneração do Significa a Taxa de Gestão e da parcela da Taxa de Gestor Performance devida ao Gestor pela prestação dos serviços de gestão da Carteira, ou prestadores de serviços contratados pelo Gestor, conforme indicado pelo próprio Gestor, observadas as disposições do respectivo Anexo Descritivo e/ou do Acordo Operacional. Remuneração Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe Única (ou pelo Fundo em benefício da Classe Única) aos Cot"
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 117.65,
+   "legacy": {
+    "value": "PL/seniores ≥115,29% inicialmente; ≥117,65% após 6 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no texto extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Relação mínima apurada até o resgate total da sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 28,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "s Seniores), até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no mínimo, a 117,65% (cento e dezessete inteiros e sessenta e cinco centésimos por cento), observado o disposto no item 11.1 (v) abaixo. Remuneração do Significa a Taxa de Gestão e da parcela da Taxa de Gestor Performance devida ao Gestor pela prestação dos serviços de gestão da Carteira, ou prestadores de serviços contratados pelo Gestor, conforme indicado pelo próprio Gestor, observadas as disposições do respectivo Anexo Descritivo e/ou do Acordo Operacional. Remuneração Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe Única (ou pelo Fundo em benefício da Classe Única) aos Cot"
+    }
+   ],
+   "legacy": {
+    "value": "PL/seniores ≥115,29% inicialmente; ≥117,65% após 6 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor da reserva de liquidez não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Despesas e meta de amortização durante períodos de liquidez de março–maio e julho–setembro",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 150,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "e ajustadas mensalmente e abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador disponível em http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4 89.pdf, observado o disposto acima. Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui um comportamento de atrasos substancialmente diferente ao estimado pela política de provisão, esta poderá ser revista por ambas as partes em conjunto, observado os percentuais mínimos de provisionamento constantes na tabela acima. Fica desde já certo que não haverá reversão de provisão no caso de Direitos Creditórios Adquiridos renegociados. - 154 - JUR_SP - 53250737v1 - 13189004.529757 Docusign Envelope ID: 91A28562-90F0-4EA0-A713-0FBB27102A5F ADENDO VI AO ANEXO DESCRITIVO DO REGULAMENTO DO FARMTECH SYNGENTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Atrasos 61–360 >15%, 91–360 >7,5%, 181–360 >3% acionam avaliação",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "liquidation": {
+   "display": "Lista do anexo, além das hipóteses legais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 103,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "11.6. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada do Fundo qualquer das seguintes ocorrências: (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (ii) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Amortização Total, período que não estará sujeito a prazo de cura;"
+    }
+   ],
+   "legacy": {
+    "value": "Atrasos 61–360 >15%, 91–360 >7,5%, 181–360 >3% acionam avaliação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência admitida, pela ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 64,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "pelo Gestor. 5.14. Segmento Econômico dos Direitos Creditórios: Agronegócio. 5.15. Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência dos Direitos Creditórios que compõe a carteira da Classe Única. 5.15.1. É permitido ao Gestor vender Direitos Creditórios ao Distribuidor de Produtos originador dos respectivos Direitos Creditórios e/ou à terceiros por preço inferior ao Preço de Aquisição desembolsado pela Classe Única para a aquisição do respectivo Direito Creditório e atualizado pela taxa de desconto praticada pelo Fundo quando do investimento calculado até a data da efetiva venda a determinado Distribuidor de Produtos. 5.16. O Fundo, em benefício da Classe Única, poderá realizar operações com Derivativos exclusivamente com o objetivo de proteção patrimonial."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Metas e datas remetidas aos apêndices das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. do PL (inclui custódia); mín. R$ 33 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 134,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "de Administração Administração terá a seguinte composição: (i) o Administrador, o Custodiante e o Agente de Controladoria cobrarão o valor correspondente a 0,20% (vinte centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido da Classe Única em cada Dia Útil, observado o mínimo mensal de R$ 33.000,00 (trinta e três mil reais). Exclusivamente até o 3º (terceiro) mês (inclusive) contado a partir da 1ª Data de Integralização de Cotas Seniores, o mínimo mensal deste item corresponderá a R$ 23.000,00; e (ii) será acrescido à remuneração do Custodiante: (a) o valor de R$ 2.000,00 (dois mil reais) mensais, pelos serviços de escrituração de Cotas do Fundo; (b) o valor de R$ 5.000,00 (cinco mil reais) mensais, pelos serviços de verificação de lastro dos Direitos Creditórios integrantes da carteira da Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. PL; mínimo R$ 33 mil/mês, R$ 23 mil nos 3 primeiros meses; inclui custódia/controladoria",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,8% a.a. do PL; mínimo de R$ 40 mil nos 3 primeiros meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 135,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "Taxa de Gestão será devida pelo Fundo Taxa de Gestão Gestor cobrará o valor correspondente a 0,8% (oitenta centésimos por cento) ao ano sobre o valor do Patrimônio Líquido, observado que: (a) entre a 1ª Data de Integralização de Cotas Seniores (exclusive) e os 3 (três) meses subsequentes (inclusive), será aplicável o valor mínimo mensal de R$ 40.000,00 (quarenta mil reais) a tal remuneração; e (b) após o período a que se refere o item (a) acima (exclusive), será aplicável o valor mínimo mensal de R$ 133.000,00 (cento e trinta e três mil reais) a tal remuneração, provisionados, conforme o caso, diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido da Classe Única em cada Dia Útil: 13.2.4.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,80% a.a. PL; mínimo R$ 40 mil inicial e R$ 133 mil após 3 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/11/2024, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 5,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "rte integrante e inseparável do presente Regulamento. Administrador e Significa a OLIVEIRA TRUST DISTRIBUIDORA DE Custodiante TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002, , na qualidade de instituição administradora do Fundo e de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Farmtech Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 21,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "estabelecidas pelo Gestor no âmbito do Acordo Operacional. Gestor Significa a FARMTECH GESTÃO DE RECURSOS LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 4.509, conjunto 91, CEP 04538-133, Itaim Bibi, inscrita no CNPJ sob o nº 20.043.909/0001-34, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 13.185, de 13 de agosto de 2014, na qualidade de gestor da Carteira. Grupo Econômico Significa cada conglomerado econômico de pessoas que controlem, sejam controladas por, ou estejam sob controle comum de determinada entidade ou que estejam sob o controle das mesmas pessoas físic"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 5,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "rte integrante e inseparável do presente Regulamento. Administrador e Significa a OLIVEIRA TRUST DISTRIBUIDORA DE Custodiante TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002, , na qualidade de instituição administradora do Fundo e de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agentes de cobrança contratados pela gestora, sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 53,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "BB27102A5F 3. PÚBLICO-ALVO DA CLASSE ÚNICA E INVESTIMENTO MÍNIMO 3.1. O público-alvo da Classe Única é composto exclusivamente por Investidores Profissionais. 3.2. Investimento Mínimo. Não há investimento inicial mínimo na Classe Única. 4. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO, DIVERSIFICAÇÃO DA CARTEIRA, ORIGINAÇÃO, FORMALIZAÇÃO, COBRANÇA E CRITÉRIOS DE ELEGIBILIDADE DOS DIREITOS CREDITÓRIOS DA CLASSE ÚNICA 4.1. O objetivo da Classe Única é proporcionar aos seus Cotistas a valorização de suas Cotas, por meio da aquisição de Direitos Creditórios Elegíveis e de Ativos Financeiros. 4.2. Os Direitos Creditórios que comporão a carteira da Classe Única deverão atender aos respectivos Critérios de Elegibilidade, conforme disciplinados no item4.13 abaixo. 4.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 52,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "disposições legais e normativas que lhe forem aplicáveis. 2.2. Prazo de Duração. A Classe Única terá prazo de duração indeterminado, sendo que cada série de Cotas, conforme o caso, terá prazo de Amortização Total determinado, conforme descrito nos respectivos Apêndices. Não obstante o disposto acima, a Classe Única será liquidada quando da Amortização Total de todas as suas Cotas. 2.3. Objeto. A Classe Única é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios Elegíveis e demais Ativos Financeiros, durante seu prazo de vigência, de acordo com a Política de Investimento descrita no Capítulo 3 deste Anexo Descritivo. 2.4. Composição do Patrimônio da Classe Única. O patrimônio da Classe Única será formado pela composição do patrimônio das subclasses de Cotas emitidas pela Classe Única, cujas características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração e amortização das Cotas seguem descritos nos Capítulos 6 e 8 deste Anexo Descritivo. 2.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Vendas de defensivos Syngenta via distribuidores e produtores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "Referenciais, conforme definição do respectivo Apêndice. Syngenta Significa a SYNGENTA PROTEÇÃO DE CULTIVOS LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Doutor Rubens Gomes Bueno, nº 691, 11º e 13º andares, Torre Sigma, CEP 04730- 000, inscrita no CNPJ sob o nº 60.744.463/0001-90, responsável pela prestação de serviços de indicação de Distribuidores de Produtos para fins de emissão, cessão e/ou originação de Direitos Creditórios, nos termos do Acordo Operacional Syngenta. Taxa de Tem seu significado atribuído no item 13.2 do Anexo Administração Descritivo. Taxa de Gestão Tem seu significado atribuído no item 13.3 do Anexo"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791944",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/11/2024",
+     "page": 16,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+     "excerpt": "stos a serem incorridos com Contratos de Derivativos. Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos que tenham emitido Direitos Creditórios Emitidos Distribuidor em favor da Classe Única; (ii) no caso de Direitos Creditórios Cessão, os Clientes que sejam devedores de Direitos Creditórios Cessão cedidos por um Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "Crédito agro: compra a prazo e custeio; NF, confissão de dívida, CPR-F e NP; LF permitida",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias não descritas no texto extraído",
+   "sources": []
+  }
+ },
+ "leitura": "Cadeia de defensivos Syngenta com PL/sênior ≥ 117,65% e distribuidor ≤ 5% do PL; gestão 0,8% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

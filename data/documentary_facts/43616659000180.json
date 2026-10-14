@@ -1,0 +1,752 @@
+{
+ "schema_version": 1,
+ "cnpj": "43616659000180",
+ "name": "TALÓ 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T01:03:28Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "791844",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844"
+  },
+  "D2": {
+   "document_id": "291563",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "09/09/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=291563"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Títulos da cadeia de insumos agrícolas Yara (distribuidores e produtores)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 17,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "tos a serem incorridos com Contratos de Derivativos. Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos que tenham emitido Direitos Creditórios Emitidos Distribuidor em favor da Classe Única; (ii) no caso de Direitos Creditórios Cessão, (a) os Clientes que sejam devedores de Direitos Creditórios Cessão cedidos por um Cedente, e (b) os Distribuidores de Produtos que sejam Cedentes, na qualidade de coobrigados dos Direitos Creditórios Cessão por eles cedidos, de acordo com as disposições dos respectivos Contratos de Cessão;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 33,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "ursos prevista no Capítulo Sétimo do Anexo Descritivo. Yara Significa a YARA BRASIL FERTILIZANTES S.A., sociedade por ações com sede na Avenida Carlos Gomes, nº 1672, na - 40 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 Cidade de Porto Alegre, Estado do Rio Grande do Sul, inscrita no CNPJ sob o nº 92.660.604/0001-82. CAPÍTULO 2 - DENOMINAÇÃO, FORMA, PRAZO DE DURAÇÃO E COMPOSIÇÃO DO PATRIMÔNIO DO FUNDO 2.1. Denominação. O Fundo é TALÓ 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 2.2. Forma. O Fundo é constituído sob a forma de condomínio fechado, e será regido por este Regulamento, pela Resolução CVM 175 e pela Resolução CMN 2.907 e pelas disposições legais e normativas que lhe forem aplicáveis. 2.3."
+    }
+   ],
+   "legacy": {
+    "value": "CPR-F, notas promissórias, CDCA, notas fiscais e confissões de dívida da cadeia de insumos agrícolas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Yara Brasil Fertilizantes e distribuidores de produtos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 33,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "ursos prevista no Capítulo Sétimo do Anexo Descritivo. Yara Significa a YARA BRASIL FERTILIZANTES S.A., sociedade por ações com sede na Avenida Carlos Gomes, nº 1672, na - 40 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 Cidade de Porto Alegre, Estado do Rio Grande do Sul, inscrita no CNPJ sob o nº 92.660.604/0001-82. CAPÍTULO 2 - DENOMINAÇÃO, FORMA, PRAZO DE DURAÇÃO E COMPOSIÇÃO DO PATRIMÔNIO DO FUNDO 2.1. Denominação. O Fundo é TALÓ 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 2.2. Forma. O Fundo é constituído sob a forma de condomínio fechado, e será regido por este Regulamento, pela Resolução CVM 175 e pela Resolução CMN 2.907 e pelas disposições legais e normativas que lhe forem aplicáveis. 2.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 17,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "tos a serem incorridos com Contratos de Derivativos. Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos que tenham emitido Direitos Creditórios Emitidos Distribuidor em favor da Classe Única; (ii) no caso de Direitos Creditórios Cessão, (a) os Clientes que sejam devedores de Direitos Creditórios Cessão cedidos por um Cedente, e (b) os Distribuidores de Produtos que sejam Cedentes, na qualidade de coobrigados dos Direitos Creditórios Cessão por eles cedidos, de acordo com as disposições dos respectivos Contratos de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Yara e distribuidores de produtos nas operações definidas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Cedentes da cadeia Yara, inclusive distribuidores coobrigados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 54,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "de Produtos ou Clientes, em favor da Classe Única (ou do Fundo, em benefício da Classe Única); e (iii) da cessão de Direitos Creditórios Cessão por Cedentes ao Fundo. 4.4.1. A aquisição dos Direitos Creditórios pela Classe Única será realizada com base nos termos e condições estabelecidos nos respectivos Contratos de - 61 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 Cessão e no Acordo Operacional Yara, conforme o caso, por meio: (i) da celebração de Termo de Cessão entre a Classe Única (ou o Fundo, em benefício da Classe Única) e o respectivo Cedente, com a cessão dos respectivos Direitos Creditórios Cessão de titularidade do Cedente ao Fundo; e/ou (ii) da emissão de Direitos Creditórios Emitidos diretamente por Emissores, sejam estes Distribuidores de Produtos ou Clientes, em favor da Classe Única (ou do Fundo, em benefício da Classe Única). 4.4.2."
+    }
+   ],
+   "legacy": {
+    "value": "Yara e distribuidores de produtos nas operações definidas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Distribuidores de produtos e clientes da cadeia de insumos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 17,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "tos a serem incorridos com Contratos de Derivativos. Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos que tenham emitido Direitos Creditórios Emitidos Distribuidor em favor da Classe Única; (ii) no caso de Direitos Creditórios Cessão, (a) os Clientes que sejam devedores de Direitos Creditórios Cessão cedidos por um Cedente, e (b) os Distribuidores de Produtos que sejam Cedentes, na qualidade de coobrigados dos Direitos Creditórios Cessão por eles cedidos, de acordo com as disposições dos respectivos Contratos de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Clientes e distribuidores de insumos agrícolas aprovados na política de crédito",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Fiança irrevogável da Yara, conforme acordo operacional",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 21,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "pêndice. FGC Significa o Fundo Garantidor de Créditos. Fiança Significa a garantia de fiança prestada pela Yara, em caráter irrevogável e irretratável, perante o Fundo, para garantir o fiel e exato cumprimento das obrigações de pagamento dos Devedores, conforme especificado no Acordo Operacional - 28 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 Yara, nos termos da Cláusula Oitava do Acordo Operacional Yara e conforme os termos e condições ali estabelecidos. Fornecedor(es) Significam os fornecedores de Produtos oportunamente aprovados pelo Gestor, nos termos previstos neste Regulamento, que poderão receber os valores relativos à aquisição de Direitos Creditórios pela Classe Única, conforme o caso, na forma dos respe"
+    }
+   ],
+   "legacy": {
+    "value": "Regresso/coobrigação conforme instrumentos; aquisição facultativa Yara sujeita a limite 10% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; em reais; 30 dias a 18 meses; vence antes do resgate sênior",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 59,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "s até sua efetiva substituição pela nova entidade contratada pelo Fundo para tanto. 4.13. Critérios de Elegibilidade. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, além das Condições de Aquisição, na respectiva Data de Oferta, aos seguintes Critérios de Elegibilidade: (i) não poderão estar vencidos e devem possuir valor fixo e determinado; (ii) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (iii) deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição pela Classe Única; (iv) deverão ter data de vencimento anterior à última Data de Resgate Esperada (conforme definida no respectivo Apêndice) das Cotas Seniores em circulação; - 66 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 (v) deverão ter prazo máximo de vencimento em até 18 (dezoito) meses;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 60,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "66 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 (v) deverão ter prazo máximo de vencimento em até 18 (dezoito) meses; (vi) considerando-se pro forma a aquisição pretendida, a soma do valor de face dos Direitos Creditórios cujas Datas de Pagamento dos Direitos Creditórios Elegíveis ocorram em prazo superior a 1 (um) ano a contar da respectiva Data de Aquisição pela Classe Única, deverão ser limitados a 5% (cinco por cento) do Patrimônio Líquido; (vii) considerando-se pro forma a cessão pretendida, a soma do valor de face dos Direitos Creditórios devidos de um mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados junto ao Custodiante; (viii) considerando-se pro forma a cessão pretendida, a soma do valor de face dos Direitos Creditórios devidos de um mesmo Devedor cujo rating atribuído pela Yara seja do Patrimônio Líquido;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos vincendos em reais; prazo ≥ 30 dias e anterior ao resgate esperado; > 1 ano limitado a 5% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor/grupo ≤ 3% do PL; até 10% com relacionamento < 2 anos",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 60,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "ii) considerando-se pro forma a cessão pretendida, a soma do valor de face dos Direitos Creditórios devidos de um mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados junto ao Custodiante; (viii) considerando-se pro forma a cessão pretendida, a soma do valor de face dos Direitos Creditórios devidos de um mesmo Devedor cujo rating atribuído pela Yara seja do Patrimônio Líquido; (ix) considerando-se pro forma a cessão pretendida, a soma do valor de face dos Direitos Creditórios cujos não poderão representar concentração superior a 2% (dois por cento) do Patrimônio Líquido; e (x) não poderão ser devidos por Devedor (considerado em conjunto com os demais integrantes do seu Grupo Econômico) que esteja inadimplente com o Fundo. 4.13.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade na Data de Oferta Direitos Creditórios."
+    },
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 62,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "idos por Devedores que tenham no mínimo 2 (dois) anos de relacionamento com a Yara, com exceção de até 10% (dez por cento) do Patrimônio Líquido, que poderá ser alocado em Direitos Creditórios devidos por Devedores com tempo de relacionamento inferior a 2 (dois) anos; e (vi) os Direitos Creditórios não poderão ser devidos por Devedores que tenham firmado renegociações com o Fundo com relação aos respectivos Direitos Creditórios e as quais ainda não tenham sido devidamente quitadas pelos correspondentes Devedores. 4.14.1."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Devedor/grupo até 3% PL; relacionamento Yara ≥ 2 anos, com exceção limitada a 10% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor, não por cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor/grupo até 3% PL; relacionamento Yara ≥ 2 anos, com exceção limitada a 10% PL",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "De 30 dias a 18 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 59,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "s até sua efetiva substituição pela nova entidade contratada pelo Fundo para tanto. 4.13. Critérios de Elegibilidade. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, além das Condições de Aquisição, na respectiva Data de Oferta, aos seguintes Critérios de Elegibilidade: (i) não poderão estar vencidos e devem possuir valor fixo e determinado; (ii) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (iii) deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição pela Classe Única; (iv) deverão ter data de vencimento anterior à última Data de Resgate Esperada (conforme definida no respectivo Apêndice) das Cotas Seniores em circulação; - 66 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 (v) deverão ter prazo máximo de vencimento em até 18 (dezoito) meses;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 60,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "66 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 (v) deverão ter prazo máximo de vencimento em até 18 (dezoito) meses; (vi) considerando-se pro forma a aquisição pretendida, a soma do valor de face dos Direitos Creditórios cujas Datas de Pagamento dos Direitos Creditórios Elegíveis ocorram em prazo superior a 1 (um) ano a contar da respectiva Data de Aquisição pela Classe Única, deverão ser limitados a 5% (cinco por cento) do Patrimônio Líquido; (vii) considerando-se pro forma a cessão pretendida, a soma do valor de face dos Direitos Creditórios devidos de um mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados junto ao Custodiante; (viii) considerando-se pro forma a cessão pretendida, a soma do valor de face dos Direitos Creditórios devidos de um mesmo Devedor cujo rating atribuído pela Yara seja do Patrimônio Líquido;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos vincendos em reais; prazo ≥ 30 dias e anterior ao resgate esperado; > 1 ano limitado a 5% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Piso 50% PL em direitos creditórios; 67% para objetivo tributário específico",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 29,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "em conjunto com o Anexo Descritivo da Classe Única. Relação Mínima Significa a razão entre (i) o Patrimônio Líquido da Classe Única; e (ii) o valor total das Cotas Seniores. Até que a totalidade das Cotas Seniores seja resgatada, a Relação Mínima deverá corresponder, no mínimo, a 133,33% (cento e trinta e três inteiros e trinta e três centésimos por cento), observado o disposto no item 10.1 (v) abaixo. Remuneração Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe Única (ou pelo Fundo em benefício da Classe Única) aos Cotistas em tal data, conforme o caso, definida nos termos do Anexo Descritivo, acrescida de eventual Prêmio de Excesso de Spread Júnior referente às Cotas Subordinadas Júnior. Reserva de Liquidez Significa a rese"
+    }
+   ],
+   "legacy": {
+    "value": "PL/cotas seniores ≥ 133, 33%; índices de subordinação próprios ≥ 1, 00",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 133,33%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 29,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "em conjunto com o Anexo Descritivo da Classe Única. Relação Mínima Significa a razão entre (i) o Patrimônio Líquido da Classe Única; e (ii) o valor total das Cotas Seniores. Até que a totalidade das Cotas Seniores seja resgatada, a Relação Mínima deverá corresponder, no mínimo, a 133,33% (cento e trinta e três inteiros e trinta e três centésimos por cento), observado o disposto no item 10.1 (v) abaixo. Remuneração Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe Única (ou pelo Fundo em benefício da Classe Única) aos Cotistas em tal data, conforme o caso, definida nos termos do Anexo Descritivo, acrescida de eventual Prêmio de Excesso de Spread Júnior referente às Cotas Subordinadas Júnior. Reserva de Liquidez Significa a rese"
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 133.33,
+   "legacy": {
+    "value": "PL/cotas seniores ≥ 133, 33%; índices de subordinação próprios ≥ 1, 00",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no texto extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Relação mínima apurada até o resgate total da sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 29,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "em conjunto com o Anexo Descritivo da Classe Única. Relação Mínima Significa a razão entre (i) o Patrimônio Líquido da Classe Única; e (ii) o valor total das Cotas Seniores. Até que a totalidade das Cotas Seniores seja resgatada, a Relação Mínima deverá corresponder, no mínimo, a 133,33% (cento e trinta e três inteiros e trinta e três centésimos por cento), observado o disposto no item 10.1 (v) abaixo. Remuneração Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe Única (ou pelo Fundo em benefício da Classe Única) aos Cotistas em tal data, conforme o caso, definida nos termos do Anexo Descritivo, acrescida de eventual Prêmio de Excesso de Spread Júnior referente às Cotas Subordinadas Júnior. Reserva de Liquidez Significa a rese"
+    }
+   ],
+   "legacy": {
+    "value": "PL/cotas seniores ≥ 133, 33%; índices de subordinação próprios ≥ 1, 00",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor da reserva de liquidez não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Despesas e pagamentos esperados no período de liquidez; piso 1% PL para despesas; reforço 12–18 meses antes de resgates",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 152,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "ajustadas mensalmente e abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador disponível em http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4 89.pdf, observado o disposto acima. Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui um comportamento de atrasos substancialmente diferente ao estimado pela política de provisão, esta poderá ser revista por ambas as partes em conjunto, observado os percentuais mínimos de provisionamento constantes na tabela acima. Fica desde já certo que não haverá reversão de provisão no caso de Direitos Creditórios Adquiridos renegociados. - 159 - JUR_SP - 51025945v8 - 13189004.529210 Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 ADENDO VI AO ANEXO DESCRITIVO DO REGULAMENTO DO TALÓ 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE"
+    }
+   ],
+   "legacy": {
+    "value": "Atraso: 0, 5% em 1–15 dias; 1% 16–30; 3% 31–60; 10% 61–90; 30% 91–120; 50% 121–150; 70% 151–180; 100%≥ 181",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Violações de índices, aquisição inelegível ≥ 2% PL e falhas da Yara/prestadores, com cura",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "liquidation": {
+   "display": "Lista do anexo, além das hipóteses legais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 104,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "10.6. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada do Fundo qualquer das seguintes ocorrências: (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (ii) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Amortização Total, período que não estará sujeito a prazo de cura;"
+    }
+   ],
+   "legacy": {
+    "value": "Violações de índices, aquisição inelegível ≥ 2% PL e falhas da Yara/prestadores, com cura",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência admitida, pela ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 64,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "zada pelo Gestor. 4.26. Segmento Econômico dos Direitos Creditórios: Agronegócio. 4.27. Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência dos Direitos Creditórios que compõe a carteira da Classe Única. 4.27.1. É permitido ao Gestor vender Direitos Creditórios ao Distribuidor de Produtos originador dos respectivos Direitos Creditórios e/ou à terceiros por preço inferior ao Preço de Aquisição desembolsado pela Classe Única para a aquisição do respectivo Direito Creditório e atualizado pela taxa de desconto praticada pelo Fundo quando do investimento calculado até a data da efetiva venda a determinado Distribuidor de Produtos. 4.28. O Fundo, em benefício da Classe Única, poderá realizar operações com Derivativos exclusivamente com o objetivo de proteção patrimonial."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisições enquanto permitidas pela fase e ordens de alocação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Metas e datas remetidas aos apêndices das séries",
+   "sources": [],
+   "legacy": {
+    "value": "Pro rata ou sequencial conforme fase; encargos e reserva precedem remuneração/principal",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. do PL (inclui custódia); mín. R$ 33 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 136,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "dministração o terá a seguinte composição: (i) o Administrador, o Custodiante e o Agente de Controladoria cobrarão o valor correspondente a 0,20% (vinte centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido da Classe Única em cada Dia Útil, observado o mínimo mensal de R$ 33.000,00 (trinta e três mil reais). Exclusivamente até o 3º (terceiro) mês (inclusive) contado a partir da 1ª Data de Integralização de Cotas Seniores, o mínimo mensal deste item corresponderá a R$ 23.000,00; e (ii) será acrescido à remuneração do Custodiante: (a) o valor de R$ 2.000,00 (dois mil reais) mensais, pelos serviços de escrituração de Cotas do Fundo; (b) o valor de R$ 5.000,00 (cinco mil reais) mensais, pelos serviços de verificação de lastro dos Direitos Creditórios integrantes da carteira da Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "0, 20% a.a./PL; mínimo R$ 33 mil/mês, R$ 23 mil nos 3 primeiros meses; IPCA e tributos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,8% a.a. do PL; mínimo de R$ 40 mil nos 3 primeiros meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 137,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "Taxa de Gestão será devida pelo Fundo Taxa de Gestão Gestor cobrará o valor correspondente a 0,8% (oitenta centésimos por cento) ao ano sobre o valor do Patrimônio Líquido, observado que: (a) entre a 1ª Data de Integralização de Cotas Seniores (exclusive) e os 3 (três) meses subsequentes (inclusive), será aplicável o valor mínimo mensal de R$ 40.000,00 (quarenta mil reais) a tal remuneração; e (b) após o período a que se refere o item (a) acima (exclusive), será aplicável o valor mínimo mensal de R$ 133.000,00 (cento e trinta e três mil reais) a tal remuneração, provisionados, conforme o caso, diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido da Classe Única em cada Dia Útil: 12.2.4.1."
+    }
+   ],
+   "legacy": {
+    "value": "0, 80% a.a./PL; mínimo R$ 40 mil nos 3 primeiros meses e R$ 133 mil depois",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 5,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "- 11 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 Administrador e Significa a OLIVEIRA TRUST DISTRIBUIDORA DE Custodiante TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22640- 102, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002, , na qualidade de instituição administradora do Fundo e de custodiante dos ativos integrantes da Carteira, responsável pela custódia qual"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Farmtech Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 22,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "estabelecidas pelo Gestor no âmbito do Acordo Operacional. Gestor Significa a FARMTECH GESTÃO DE RECURSOS LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 4.509, conjunto 91, CEP 04538-133, Itaim Bibi, inscrita no CNPJ sob o nº 20.043.909/0001-34, devidamente credenciada como - 29 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 13.185, de 13 de agosto de 2014, na qualidade de gestor da Carteira. Grupo Econômico Significa cada conglomerado econômico de pessoas que controlem, sejam controladas por, ou estejam sob controle"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 5,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "- 11 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 Administrador e Significa a OLIVEIRA TRUST DISTRIBUIDORA DE Custodiante TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22640- 102, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002, , na qualidade de instituição administradora do Fundo e de custodiante dos ativos integrantes da Carteira, responsável pela custódia qual"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agentes de cobrança contratados pela gestora, sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 54,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "589EB093 3. PÚBLICO-ALVO DA CLASSE ÚNICA E INVESTIMENTO MÍNIMO 3.1. O público-alvo da Classe Única é composto exclusivamente por Investidores Profissionais. 3.2. Investimento Mínimo. Não há investimento inicial mínimo na Classe Única. 4. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO, DIVERSIFICAÇÃO DA CARTEIRA, ORIGINAÇÃO, FORMALIZAÇÃO, COBRANÇA E CRITÉRIOS DE ELEGIBILIDADE DOS DIREITOS CREDITÓRIOS DA CLASSE ÚNICA 4.1. O objetivo da Classe Única é proporcionar aos seus Cotistas a valorização de suas Cotas, por meio da aquisição de Direitos Creditórios Elegíveis e de Ativos Financeiros. 4.2. Os Direitos Creditórios que comporão a carteira da Classe Única deverão atender aos respectivos Critérios de Elegibilidade, conforme disciplinados no item4.13 abaixo. 4.2.1. O Fundo também aplicará parte dos seus recursos em Ativos Financeiros, em estrita observância dos critérios de seleção, composição e diversificação previstos neste Capítulo. 4.3."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo indeterminado; profissionais; liquidação após amortização total das cotas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 53,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "isposições legais e normativas que lhe forem aplicáveis. 2.2. Prazo de Duração. A Classe Única terá prazo de duração indeterminado, sendo que cada série de Cotas, conforme o caso, terá prazo de Amortização Total determinado, conforme descrito nos respectivos Apêndices. Não obstante o disposto acima, a Classe Única será liquidada quando da Amortização Total de todas as suas Cotas. 2.3. Objeto. A Classe Única é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios Elegíveis e demais Ativos Financeiros, durante seu prazo de vigência, de acordo com a Política de Investimento descrita no Capítulo 3 deste Anexo Descritivo. 2.4. Composição do Patrimônio da Classe Única."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo indeterminado; profissionais; liquidação após amortização total das cotas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "Vendas de fertilizantes Yara via distribuidores e produtores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 33,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "ursos prevista no Capítulo Sétimo do Anexo Descritivo. Yara Significa a YARA BRASIL FERTILIZANTES S.A., sociedade por ações com sede na Avenida Carlos Gomes, nº 1672, na - 40 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 Cidade de Porto Alegre, Estado do Rio Grande do Sul, inscrita no CNPJ sob o nº 92.660.604/0001-82. CAPÍTULO 2 - DENOMINAÇÃO, FORMA, PRAZO DE DURAÇÃO E COMPOSIÇÃO DO PATRIMÔNIO DO FUNDO 2.1. Denominação. O Fundo é TALÓ 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 2.2. Forma. O Fundo é constituído sob a forma de condomínio fechado, e será regido por este Regulamento, pela Resolução CVM 175 e pela Resolução CMN 2.907 e pelas disposições legais e normativas que lhe forem aplicáveis. 2.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 17,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "tos a serem incorridos com Contratos de Derivativos. Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos que tenham emitido Direitos Creditórios Emitidos Distribuidor em favor da Classe Única; (ii) no caso de Direitos Creditórios Cessão, (a) os Clientes que sejam devedores de Direitos Creditórios Cessão cedidos por um Cedente, e (b) os Distribuidores de Produtos que sejam Cedentes, na qualidade de coobrigados dos Direitos Creditórios Cessão por eles cedidos, de acordo com as disposições dos respectivos Contratos de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "CPR-F, notas promissórias, CDCA, notas fiscais e confissões de dívida da cadeia de insumos agrícolas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "Fiança irrevogável da Yara",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791844",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 21,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+     "excerpt": "pêndice. FGC Significa o Fundo Garantidor de Créditos. Fiança Significa a garantia de fiança prestada pela Yara, em caráter irrevogável e irretratável, perante o Fundo, para garantir o fiel e exato cumprimento das obrigações de pagamento dos Devedores, conforme especificado no Acordo Operacional - 28 - Corporativo | Interno Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093 Yara, nos termos da Cláusula Oitava do Acordo Operacional Yara e conforme os termos e condições ali estabelecidos. Fornecedor(es) Significam os fornecedores de Produtos oportunamente aprovados pelo Gestor, nos termos previstos neste Regulamento, que poderão receber os valores relativos à aquisição de Direitos Creditórios pela Classe Única, conforme o caso, na forma dos respe"
+    }
+   ],
+   "legacy": {
+    "value": "Fiança Yara irrevogável conforme Acordo Operacional; validar cobertura por modalidade",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Cadeia de fertilizantes Yara com fiança da Yara, PL/sênior ≥ 133,33% e devedor ≤ 3% do PL; gestão 0,8% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

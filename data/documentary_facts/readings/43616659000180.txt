@@ -1,0 +1,54 @@
+# Taló 1 FIDC (Oliveira Trust; Farmtech Gestão; cadeia de insumos Yara)
+type: Agro/FIAGRO
+q1: * "Yara Significa a YARA BRASIL FERTILIZANTES S.A."
+q2: * "Devedores Significam: (i) no caso de Direitos Creditórios Emitidos Distribuidor, os Distribuidores de Produtos"
+q3: * "4.13. Critérios de Elegibilidade. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente"
+q4: * "deverão ter prazo máximo de vencimento em até 18 (dezoito) meses"
+q5: * "devidos de um mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), não poderão representar concentração superior a 3%"
+q6: * "Relação Mínima Significa a razão entre (i) o Patrimônio Líquido da Classe Única; e (ii) o valor total das Cotas Seniores"
+q7: * "o Administrador, o Custodiante e o Agente de Controladoria cobrarão o valor correspondente a 0,20%"
+q8: * "Taxa de Gestão Gestor cobrará o valor correspondente a 0,8%"
+q9: * "Administrador e Significa a OLIVEIRA TRUST DISTRIBUIDORA DE Custodiante TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "Gestor Significa a FARMTECH GESTÃO DE RECURSOS LTDA."
+q11: * "4.27. Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência"
+q12: * "são considerados Eventos de Liquidação Antecipada do Fundo q"
+q13: * "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador"
+q14: * "O público-alvo da Classe Única é composto exclusivamente por Investidores Profissionais"
+q15: * "A Classe Única terá prazo de duração indeterminado, sendo que cada série de Cotas"
+q16: * "Fiança Significa a garantia de fiança prestada pela Yara, em caráter irrevogável e irretratável"
+q17: * "10% (dez por cento) do Patrimônio Líquido, que poderá ser alocado em Direitos Creditórios devidos por Devedores com tempo de relacionamento inferior a 2"
+q18: * "da cessão de Direitos Creditórios Cessão por Cedentes ao Fundo"
+receivables: Títulos da cadeia de insumos agrícolas Yara (distribuidores e produtores) | q2,q1
+originator: Yara Brasil Fertilizantes e distribuidores de produtos | q1,q2
+assignor: Cedentes da cadeia Yara, inclusive distribuidores coobrigados | q18
+debtor: Distribuidores de produtos e clientes da cadeia de insumos | q2
+recourse: Fiança irrevogável da Yara, conforme acordo operacional | q16
+eligibility: Não vencidos; em reais; 30 dias a 18 meses; vence antes do resgate sênior | q3,q4
+debtor_limit: Devedor/grupo ≤ 3% do PL; até 10% com relacionamento < 2 anos | q5,q17
+assignor_limit: Não previsto | Regulamento limita por devedor, não por cedente
+term_max: De 30 dias a 18 meses | q3,q4
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Mezanino / Júnior | q6
+sub_senior: PL/sênior ≥ 133,33% | q6 | basis=PL/sr | value=133.33
+sub_mezz: n/d | Índice próprio da mezanino não localizado no texto extraído
+sub_check: Relação mínima apurada até o resgate total da sênior | q6
+reserve: n/d | Valor da reserva de liquidez não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: Manual de provisão para perdas da administradora | q13
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+liquidation: Lista do anexo, além das hipóteses legais | q12
+revolving: Revolvência admitida, pela ordem de alocação | q11
+amortization: n/d | Metas e datas remetidas aos apêndices das séries | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,20% a.a. do PL (inclui custódia); mín. R$ 33 mil/mês | q7
+mgmt_fee: 0,8% a.a. do PL; mínimo de R$ 40 mil nos 3 primeiros meses | q8
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Sobretaxa definida nos apêndices, fora do acervo
+target_mezz: n/d | Sobretaxa definida nos apêndices, fora do acervo
+administrator: Oliveira Trust DTVM | q9
+manager: Farmtech Gestão de Recursos | q10
+custodian: Oliveira Trust DTVM | q9
+servicer: n/d | Agentes de cobrança contratados pela gestora, sem nome no trecho lido
+investors: Investidores profissionais | q14
+duration: Indeterminado; prazo próprio por série | q15
+agro_backing: Vendas de fertilizantes Yara via distribuidores e produtores | q1,q2
+collateral: Fiança irrevogável da Yara | q16
+leitura: Cadeia de fertilizantes Yara com fiança da Yara, PL/sênior ≥ 133,33% e devedor ≤ 3% do PL; gestão 0,8% a.a.
