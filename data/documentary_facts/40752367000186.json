@@ -1,0 +1,723 @@
+{
+ "schema_version": 1,
+ "cnpj": "40752367000186",
+ "name": "MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T07:56:42Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "864357",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "19/03/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357"
+  },
+  "D2": {
+   "document_id": "230752",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "29/10/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=230752"
+  },
+  "D3": {
+   "document_id": "846588",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "21/02/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=846588"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado INSS originadas pela Plataforma MT",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 9,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "eitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INSS previamente à cessão de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos Creditórios MT decorrentes das CCB possa ser feito por Consignação (“Direitos Creditórios MT”).; e (ii) (ii.A) Direitos, títulos e/ou valores mobiliários representativos de créditos originados no âmbito de operações de sociedades integrantes do conglomerado econômico de instituições f inanceiras classificadas como S1 pelo BACEN, desde que não representem títulos de emissão ou coobrigação de instituições financeiras, bem como cotas de fundos de investimento que invistam preponderantemente nestes direitos, títulos e/ou valores mobiliários;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 35,
+     "clause": "cl. 15.1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "gativamente a rentabilidade da Classe. (v ) Risco operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (vi ) Risco de validação das informações para reconciliação dos Direitos Creditórios adquiridos pela Classe: as inf ormações para reconciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os benef iciários e pensionistas do INSS cujas folhas de benefícios serão sujeitas a desconto no mês relevante, nos valores acordados ao ef etuar a Consignação, e qualquer glosa será enviada pelo INSS/Dataprev ao Cedente, que imediatamente enviará essas inf ormações ao CUSTODIANTE."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de consignado INSS pela Plataforma MT; TVM elegíveis de conglomerados S1",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes MT com convênio INSS, via Plataforma MT",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 9,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "eitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INSS previamente à cessão de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos Creditórios MT decorrentes das CCB possa ser feito por Consignação (“Direitos Creditórios MT”).; e (ii) (ii.A) Direitos, títulos e/ou valores mobiliários representativos de créditos originados no âmbito de operações de sociedades integrantes do conglomerado econômico de instituições f inanceiras classificadas como S1 pelo BACEN, desde que não representem títulos de emissão ou coobrigação de instituições financeiras, bem como cotas de fundos de investimento que invistam preponderantemente nestes direitos, títulos e/ou valores mobiliários;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes MT, por endosso das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 9,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "eitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INSS previamente à cessão de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos Creditórios MT decorrentes das CCB possa ser feito por Consignação (“Direitos Creditórios MT”).; e (ii) (ii.A) Direitos, títulos e/ou valores mobiliários representativos de créditos originados no âmbito de operações de sociedades integrantes do conglomerado econômico de instituições f inanceiras classificadas como S1 pelo BACEN, desde que não representem títulos de emissão ou coobrigação de instituições financeiras, bem como cotas de fundos de investimento que invistam preponderantemente nestes direitos, títulos e/ou valores mobiliários;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Aposentados e pensionistas do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 35,
+     "clause": "cl. 15.1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "gativamente a rentabilidade da Classe. (v ) Risco operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (vi ) Risco de validação das informações para reconciliação dos Direitos Creditórios adquiridos pela Classe: as inf ormações para reconciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os benef iciários e pensionistas do INSS cujas folhas de benefícios serão sujeitas a desconto no mês relevante, nos valores acordados ao ef etuar a Consignação, e qualquer glosa será enviada pelo INSS/Dataprev ao Cedente, que imediatamente enviará essas inf ormações ao CUSTODIANTE."
+    }
+   ],
+   "legacy": {
+    "value": "Beneficiários/pensionistas INSS; devedor do TVM conforme instrumento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Endosso definitivo em preto; resolução/opção de venda conforme contrato",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "CCB com todas as parcelas vincendas; principal ≥ R$ 200; devedor até 76 anos",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 10,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "a de juros prefixada e vencimento f inal anterior ao vencimento f inal da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inf erior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 11,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "(vi ) os Direitos Creditórios Elegíveis não poderão ser devidos por Devedores que tenham acima de 76 (setenta e seis) anos na data de emissão da respectiva CCB. 4.7.1 Todos os Documentos Comprobatórios MT deverão ser disponibilizados pelo Cedente MT e/ou pelo Agente de Retenção/Cobrança ao GESTOR na data de aquisição do respectivo Direito Creditório MT pela Classe, sujeito à resolução da respectiva cessão, de acordo com os termos do Contrato de Cessão. 4.7.2 Todos os Documentos Suporte deverão ser disponibilizados pelo Cedente MT e/ou pelo Agente de Retenção/Cobrança ao GESTORem até 5 (cinco) Dias Úteis contados da data de aquisição do respectivo Direito Creditório MT pela Classe, sujeito à resolução da respectiva cessão, de acordo com os termos do Contrato de Cessão. 4.7.3 O GESTOR deverá preparar e enviar ao ADMINISTRADOR e aos Cotistas, em cada Dia Útil, até as 16:00 (horário de Brasília), um relatório evidenciando (i) a conf ormidade dos Direitos Creditórios contidos em cada respectivo Arquivo de Financiamento com cada Cri tério de"
+    }
+   ],
+   "legacy": {
+    "value": "CCB prefixada/adimplente; valor principal ≥ R$ 200; prazo conforme limite legal",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor até R$ 85 mil (R$ 150 mil em exceções)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 10,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "á ser inf erior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade;"
+    }
+   ],
+   "legacy": {
+    "value": "Por devedor R$ 85 mil; até R$ 150 mil para faixa etária ≤ 60a11m29d e bloco ≤ 5% dos DC",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/03/2025, cl. 4.7"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Por devedor R$ 85 mil; até R$ 150 mil para faixa etária ≤ 60a11m29d e bloco ≤ 5% dos DC",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo segue o limite legal do consignado INSS",
+   "sources": [],
+   "legacy": {
+    "value": "CCB prefixada/adimplente; valor principal ≥ R$ 200; prazo conforme limite legal",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Alocação mínima não localizada em trecho contínuo",
+   "sources": []
+  },
+  "quota_structure": {
+   "display": "Subclasse única, cotas pari passu",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 14,
+     "clause": "cl. 5.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "os direitos dos titulares das Cotas contra o Patrimônio Líquido nos termos deste Regulamento, são pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação entre os titulares de Cotas. Emissão, Subscrição e Integralização das Cotas 5.5 A primeira emissão de Cotas da Classe compreendeu a emissão de 300.000 (trezentas mil) Cotas, com valor unitário de emissão inicial de R$ 1.000,00 (mil reais), totalizando o valor de até R$ 300.000.000,00 (trezentos milhões de reais) e f oram oferecidas publicamente sob o regime de melhores esforços de acordo com o sistema estabelecido pela Instrução CVM nº 476 . 5.6 Após a primeira emissão, eventuais novas emissões de Cotas somente poderão ser realizadas com a aprovação de Assembleia Especial de Cotistas, observados os quóruns específicos, conforme aplicável, sendo que o valor de emissão, o volume e demais características pertinentes à nova emissão corresponderão àquelas estabelecidas em ref erida Assembleia Especial de Cotistas. 5.7 As Cotas serão subscritas e integralizadas pelo respectivo Valor Unitário, nos termos deste Regulamento e do respectivo Apêndice ou Suplemento, quando houver;"
+    }
+   ],
+   "legacy": {
+    "value": "Subclasse única, pari passu; sem prioridade/subordinação entre cotas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cotas pari passu, sem subordinação",
+   "sources": [],
+   "legacy": {
+    "value": "Subclasse única, pari passu; sem prioridade/subordinação entre cotas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem índice de subordinação",
+   "sources": [],
+   "legacy": {
+    "value": "Subclasse única, pari passu; sem prioridade/subordinação entre cotas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa não fixada no regulamento",
+   "sources": []
+  },
+  "pdd": {
+   "display": "PDD conforme Instrução CVM 489 e manual do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 17,
+     "clause": "cl. 8.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "Liquidez será reduzido pelo valor da provisão ef etuada ou perda reconhecida. 8.3.1 O ef eito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Art. 13 da Instrução CVM 489, sendo f acultada a análise individualizada dos Direitos Creditórios, observada a BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 10 Glossário do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA metodologia de avaliação descrita no manual do ADMINISTRADOR ou, ainda, no manual do CUSTODIANTE. CAPÍTULO 9 – ASSEMBLEIA ESPECIAL DE COTISTAS 9.1 Sem prejuízo de outros requisitos e inf ormações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas. 9.2 A Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas, sem prejuízo das demais disposições previstas na regulamentação aplicável, incluindo, mas não se lim"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Intervenção ou liquidação do cedente, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 19,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "UIDAÇÃO, E PROCEDIMENTOS DE LIQUIDAÇÃO ANTECIPADA Eventos de Avaliação 10.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i ) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Cedente ou do Agente da Conta Vinculada; (ii) não cumprimento, pelo Cedente, de qualquer de suas obrigações estabelecidas no Contrato de Cessão ou neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justif icado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Cedente, de notif icação, por escrito, enviada pelo ADMINISTRADOR, inf ormando-o da ocorrência do respectivo evento; (iii) não cumprimento, pelo Cedente, de sua obrigação de entregar os Arquivos Dataprev ao GESTOR dentro do prazo estabelecido neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 02 (dois) Dias Úteis a partir do recebimento, pelo Cedente, de notificação, por escrito, enviada pelo GESTOR, inf ormando-o da ocorrência do respectivo evento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Saída do custodiante sem substituição, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 21,
+     "clause": "cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "racterizado quaisquer dos Eventos de Liquidação. Eventos de Liquidação 10.3 As seguintes hipóteses são consideradas Eventos de Liquidação: (i ) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) na hipótese de resilição do Contrato de Custódia ou renúncia do CUSTODIANTE, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (iii) renúncia do ADMINISTRADOR sem que a Assembleia Especial de Cotistas ef icazmente nomeie instituição habilitada para substituí-lo, nos termos estabelecidos neste Regulamento; (iv ) por determinação da CVM, em caso de violação de normas legais ou regulamentares; (v ) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada para tal f im; (vi ) intervenção ou liquidação extrajudicial do CUSTODIANTE, ADMINISTRADOR, ou GESTOR, sem a sua ef etiva substituição nos termos deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Recursos da carteira podem comprar novos créditos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 13,
+     "clause": "cl. 4.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "OS RESPONSABILIDADE LIMITADA suas partes relacionadas; Revolvência da Carteira de Direitos Creditórios 4.13 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo Cedente e/ou desinvestimento de Ativo Recuperado, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios e/ou destinados à Amortização das Cotas, conforme decisão do GESTOR e desde que observada a ordem de alocação de recursos def inida no Capítulo 7. Regras, procedimentos e limites para efetuar cessão de direitos creditórios para os cedentes e suas partes relacionadas 4.14 Com relação aos Direitos Creditórios MT, a Classe poderá ter o direito de vender Direitos Creditórios MT ao Agente de Retenção/Cobrança (opção de venda), se as respectivas declarações e garantias f oram prestadas pelo Agente de Retenção/Cobrança, de acordo com os termos, condições, f ormalidades e preços de resolução de cessão e opção de venda detalhados no Contrato de Cessão. 4.15 Com relação aos Direitos Creditórios TVM, considerando que não há cedentes, endossantes ou contrapartes predeterminados para a aquisição do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Amortizações conforme deliberação dos cotistas",
+   "sources": [],
+   "legacy": {
+    "value": "Rendimentos distribuídos por amortização/resgate conforme deliberação",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "Taxa agregada dos fundos PDL, com parcela percentual e mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 29,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "roladoria de ativos e passivo, e gestão de carteira prestados aos Fundos PDL, o Administrador f ará jus a uma “Taxa do Administrador Agregada” nos seguintes moldes: o valor correspondente a correspondente à soma de (i) 0,60% (setenta centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja igual ou inf erior a R$ 300.000.000,00 (trezentos milhões de reais); (ii) 0,55% (sessenta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$ 300.000.000,00 (trezentos milhões de reais) e igual ou inf erior a R$ 500.000.000,00 (quinhentos milhões de reais); (iii) 0.50% (sessenta centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$ 500.000.000,00 (quinhentos milhões de reais) e igual ou inf erior a R$700.000.000,00 (setecentos milhões de reais); (iv) 0,45% (cinquenta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$ 700.000.000,00 (setecentos milhões de reais) e igual ou inf erior a R$ 1.000.000.000.000,00 (um bilhão de reais);"
+    }
+   ],
+   "legacy": {
+    "value": "Rateio da taxa agregada Fundos PDL; mínimo R$ 20 mil/mês; taxas exigem validação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/03/2025, cl. 12.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa agregada do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 29,
+     "clause": "cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "roladoria de ativos e passivo, e gestão de carteira prestados aos Fundos PDL, o Administrador f ará jus a uma “Taxa do Administrador Agregada” nos seguintes moldes: o valor correspondente a correspondente à soma de (i) 0,60% (setenta centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja igual ou inf erior a R$ 300.000.000,00 (trezentos milhões de reais); (ii) 0,55% (sessenta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$ 300.000.000,00 (trezentos milhões de reais) e igual ou inf erior a R$ 500.000.000,00 (quinhentos milhões de reais); (iii) 0.50% (sessenta centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$ 500.000.000,00 (quinhentos milhões de reais) e igual ou inf erior a R$700.000.000,00 (setecentos milhões de reais); (iv) 0,45% (cinquenta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$ 700.000.000,00 (setecentos milhões de reais) e igual ou inf erior a R$ 1.000.000.000.000,00 (um bilhão de reais);"
+    }
+   ],
+   "legacy": {
+    "value": "Incluída no conjunto de serviços da taxa agregada; parcela própria não segregada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 29,
+     "clause": "cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "viços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 12.3 Não serão cobradas da Classe ou dos Cotistas taxas de perf ormance, de ingresso ou de saída. Taxa Máxima de Custódia BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 22 Glossário do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 12.4 Pelos serviços de custódia qualificada dos Direitos Creditórios e dos Ativos Financeiros de Liquidez não será devida nenhuma remuneração ao CUSTODIANTE, de modo que taxa máxima de custódia a ser paga pela Classe ao CUSTODIANTE corresponde a 0% (zero por cento) ao ano. Remuneração do Agente de Retenção/Cobrança 12.5 Para a prestação de serviços à Classe, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auf erida todo Dia Útil e paga mensalmente, a título de Encargo da Classe, a qual será calculada com base na seguinte f órmula: 𝑜𝑛𝑑𝑒: 𝐶𝑅 = 𝑣𝑎𝑙𝑜𝑟 𝑑𝑜 𝑃𝑎𝑡𝑟𝑖𝑚ô𝑛𝑖𝑜 𝐿í𝑞𝑢𝑖𝑑𝑜 𝑎𝑙𝑜𝑐𝑎𝑑𝑜 𝑒𝑚 𝐷𝑖𝑟𝑒𝑖𝑡𝑜𝑠 𝐶𝑟𝑒𝑑𝑖𝑡ó𝑟𝑖𝑜𝑠 𝐸𝑙𝑒𝑔í𝑣𝑒𝑖𝑠 𝑜𝑟𝑖𝑔𝑖𝑛𝑎𝑑𝑜𝑠 𝑎 𝑝𝑎𝑟𝑡𝑖𝑟 𝑑𝑒 03 𝑑𝑒 𝑗𝑢𝑛ℎ𝑜 𝑑𝑒 2022 . 𝐶𝑅 ∗= 𝑣𝑎𝑙𝑜𝑟"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Subclasse única sem meta de rentabilidade",
+   "sources": [],
+   "legacy": {
+    "value": "Cota patrimonial; sem DI + spread contratual para subclasse única",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": [],
+   "legacy": {
+    "value": "Cota patrimonial; sem DI + spread contratual para subclasse única",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "otistas reunidos em assembleia geral de cotistas. BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade Anônima, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, ADMINISTRADOR Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 59.281.253/0001-23 e credenciada como administradora de carteira, de acordo com o Ato Declaratório CVM nº 8.695, de 20 de março de 2006 (“ADMINISTRADOR”). BTG Pactual Asset Management S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BTG Pactual Asset Management DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "CVM nº 8.695, de 20 de março de 2006 (“ADMINISTRADOR”). BTG Pactual Asset Management S.A. Distribuidora de Títulos e Valores Mobiliários, instituição f inanceira constituída sob a f orma de uma sociedade por ações, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, 501, 5º andar (parte), CEP 22.250-040, inscrita no CNPJ sob nº GESTOR 29.650.082/0001-00, devidamente credenciada junto à CVM para operar como administradora de carteira de valores mobiliários nos termos do Ato Declaratório CVM nº 5.968, de 10 de maio de 2000 (“GESTOR” e, quando ref erido conjuntamente e indistintamente com o ADMINISTRADOR, os “Prestadores de Serviços Essenciais”). 1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 8,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "s como Investidores Prof issionais. Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Custódia e Tesouraria Torre Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (“CUSTODIANTE”). Controladoria e Escrituração ADMINISTRADOR. Subclasses Única. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem Emissão e Regime de como o regime de distribuição seguirão o disposto no instrumento que Distribuição de Cotas aprova a emissão de Cotas, que disporá acerca da eventual existência de direito de pref erência dos Cotistas. Capital Autorizado Não há. As Cotas poderão ser admitidas à negociação em bolsa de valores ou Negociação entidade de balcã"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Tudo Serviços (agente de retenção e cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 40,
+     "clause": "cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "administração de carteiras de valores mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006; “Agente de Retenção/Cobrança”: significa a Tudo Serviços S.A., sociedade por ações com sede no município de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, CEP 61.760-000, inscrita no CNPJ sob nº 27.852.506/0001-85; “Agente Escriturador”: O ADMINISTRADOR, o qual se encontra devidamente habilitado pela CVM para prestar os serviços de escrituração das Cotas, ou seu sucessor a qualquer título; \"ANBIMA\": Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; \"Código ANBIMA\": Código ANBIMA de Regulação e Melhores Práticas para Administração de Recursos de Terceiros “Anexos”: tem o signif icado atribuído no Art. 3, inciso IV, da Resolução CVM 175, Parte Geral; “Apêndice”: cada um dos apêndices que integram este Anexo, descritivos de cada Subclasse de Cotas ou de aspectos aplicáveis à Classe; \"Arquivos Dataprev\": Arquivo de Consignações e Arquivo de Glosa fornecidos mensalmente pela Dataprev a cada Cedente MT, contendo a totalidade das operações pendentes de crédito consignado concedidas pelo Cedente MT e indicando todos os Direitos Creditórios MT devidos mediante Consignação na próxima data de liquidação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Único cotista profissional ou grupo indissociável",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 8,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "componentes de sua carteira. Público-Alvo Destinado exclusivamente a um único cotista ou grupo de cotistas vinculados por interesse único e indissociável, classificados como Investidores Prof issionais. Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Custódia e Tesouraria Torre Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (“CUSTODIANTE”). Controladoria e Escrituração ADMINISTRADOR. Subclasses Única. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem Emissão e Regime de como o regime de distribuição seguirão o disposto no instrumento que Distribuição de Cotas aprova a emissão de Cotas, que disporá acerca da eventual existência"
+    }
+   ],
+   "legacy": {
+    "value": "Fechado, indeterminado; único cotista ou grupo indissociável profissional",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "tações aplicáveis, que terá como principais características: Classe de Cotas Classe única. Prazo de Duração Indeterminado, exceto se de outra forma vier a ser deliberado pelos cotistas reunidos em assembleia geral de cotistas. BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade Anônima, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, ADMINISTRADOR Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 59.281.253/0001-23 e credenciada como administradora de carteira, de acordo com o Ato Declaratório CVM nº 8.695, de 20 de março de 2006 (“ADMINISTRADOR”). BTG Pactual Asset Management S.A."
+    }
+   ],
+   "legacy": {
+    "value": "Fechado, indeterminado; único cotista ou grupo indissociável profissional",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Desconto em folha do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 35,
+     "clause": "cl. 15.1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "gativamente a rentabilidade da Classe. (v ) Risco operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (vi ) Risco de validação das informações para reconciliação dos Direitos Creditórios adquiridos pela Classe: as inf ormações para reconciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os benef iciários e pensionistas do INSS cujas folhas de benefícios serão sujeitas a desconto no mês relevante, nos valores acordados ao ef etuar a Consignação, e qualquer glosa será enviada pelo INSS/Dataprev ao Cedente, que imediatamente enviará essas inf ormações ao CUSTODIANTE."
+    }
+   ],
+   "legacy": {
+    "value": "Consignação INSS/Dataprev; garantias do TVM conforme instrumento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "Devedor de até 76 anos na emissão da CCB",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 11,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "(vi ) os Direitos Creditórios Elegíveis não poderão ser devidos por Devedores que tenham acima de 76 (setenta e seis) anos na data de emissão da respectiva CCB. 4.7.1 Todos os Documentos Comprobatórios MT deverão ser disponibilizados pelo Cedente MT e/ou pelo Agente de Retenção/Cobrança ao GESTOR na data de aquisição do respectivo Direito Creditório MT pela Classe, sujeito à resolução da respectiva cessão, de acordo com os termos do Contrato de Cessão. 4.7.2 Todos os Documentos Suporte deverão ser disponibilizados pelo Cedente MT e/ou pelo Agente de Retenção/Cobrança ao GESTORem até 5 (cinco) Dias Úteis contados da data de aquisição do respectivo Direito Creditório MT pela Classe, sujeito à resolução da respectiva cessão, de acordo com os termos do Contrato de Cessão. 4.7.3 O GESTOR deverá preparar e enviar ao ADMINISTRADOR e aos Cotistas, em cada Dia Útil, até as 16:00 (horário de Brasília), um relatório evidenciando (i) a conf ormidade dos Direitos Creditórios contidos em cada respectivo Arquivo de Financiamento com cada Cri tério de"
+    }
+   ],
+   "legacy": {
+    "value": "CCB prefixada/adimplente; valor principal ≥ R$ 200; prazo conforme limite legal",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/03/2025, cl. 4.7"
+   }
+  },
+  "installment_min": {
+   "display": "Principal mínimo de R$ 200 por CCB",
+   "status": "confirmed",
+   "unit": "brl",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "864357",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/03/2025",
+     "page": 10,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864357",
+     "excerpt": "a de juros prefixada e vencimento f inal anterior ao vencimento f inal da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inf erior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade;"
+    }
+   ],
+   "value": 200.0,
+   "legacy": {
+    "value": "CCB prefixada/adimplente; valor principal ≥ R$ 200; prazo conforme limite legal",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Consignado INSS da Plataforma MT em cotas pari passu; devedor até 76 anos e saldo até R$ 85 mil.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

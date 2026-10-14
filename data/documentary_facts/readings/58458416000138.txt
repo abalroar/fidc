@@ -1,72 +1,62 @@
-# portado de 60010416000112 (58458416000138)
-type: Consignado privado
-q101: * "Direitos Creditórios serão adquiridos pela Classe sempre de acordo com a"
-q102: * "Direitos Creditórios decorrentes das CCB seja f eito por Consignação e/ou"
-q103: * "originados no âmbito de operações de empréstimo consignado concedido pelo Endossante"
-q104: * "Endossante”: a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída"
-q105: * "Devedores”: cada pessoa f ísica que possua vínculo empregatício f ormalizado"
-q106: * "coobrigação do Endossante, da plena titularidade desse Direito Creditório, juntamente com"
-q107: * "Critérios de Elegibilidade 4.4 A Classe somente poderá adquirir os Direitos"
-q108: * "3,00% (três por cento) do Patrimônio Líquido da Classe. Ativos Financeiros"
-q109: * "por Devedores que tenham acima de 64 (sessenta e quatro) anos"
-q110: * "prazo máximo de vencimento equivalente ao prazo remanescente do Período de"
-q111: * "vencimento final anterior ao vencimento f inal da Classe; BTG Pactual"
-q112: * "50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios,"
-q113: * "sessenta e sete por cento) de direitos creditórios de acordo com"
-q114: * "Cotas Seniores”: São as cotas de subclasse sênior, emitidas pela Classe;"
-q115: * "Índice de Subordinação”: signif ica a razão mínima admitida entre: (a)"
-q116: * "apurado todo Dia Útil e será acessível aos Cotistas da Classe"
-q117: * "desenquadramento do Índice de Subordinação por 10 (dez) dias úteis consecutivos;"
-q118: * "provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor"
-q119: * "10 (dez) dias úteis consecutivos; (iii) não cumprimento, pelo Endossante, de"
-q120: * "24 (vinte e quatro) meses, contados da Data da 1ª Integralização"
-q121: * "0,40% (quarenta centésimos por cento) por ano sobre o Patrimônio Líquido"
-q122: * "Taxa de Gestão”: a taxa mensal que é devida ao Gestor,"
-q123: * "Benchmark Sênior Adicional”: o parâmetro adicional de rentabilidade a ser buscado"
-q124: * "Administrador”: a BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e"
-q125: * "Gestor”: a BTG Pactual Asset Management S.A. Distribuidora de Títulos e"
-q126: * "Custodiante”: o Banco BTG Pactual S.A., instituição financeira, com sede no"
-q127: * "Agente de Retenção/Cobrança”: significa a Tudo Serviços S.A., sociedade por ações"
-q128: * "Público-Alvo interesse único e indissociável, classificados como Investidores Prof issionais. Banco"
-q129: * "Público-Alvo das Cotas Subordinadas”: significa um único Cotista ou grupo de"
-q130: * "Prazo de Duração da Classe”: é o prazo de duração da"
-q131: * "Convênio Consignado Privado”: habilitação f irmada entre o Endossante e a"
-q132: * "64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte"
-q1: * "se, após 90 (noventa) dias do início das atividades do Fundo, o Patrimônio Líquido diário"
-q2: * "as Cotas serão amortizadas mensalmente, em regime de caixa"
-q3: * "não sanados em até 2 (dois) Dias Úteis contados do prazo final do respectivo evento"
-receivables: CCB eletrônica de consignado privado (CLT), averbada na Dataprev | q101,q102
-originator: Parati CFI, via Plataforma MT | q103,q104
-assignor: Parati CFI (endossante único) | q104
-debtor: Trabalhador CLT com CTPS digital (eSocial cat. 101) | q105
-recourse: Sem coobrigação; recompra compulsória e opção de venda ao agente | q106
-eligibility: CCB prefixada vencendo antes da classe; TVM ≤ 3% do PL | q107,q108
-debtor_limit: R$ 150 mil | q109
-assignor_limit: Endossante único; CDB/RDB dele ≤ R$ 25 mi | q110
-term_max: Até o prazo legal; vencimento antes do fim da classe | q111
-allocation: ≥ 50% do PL (67% para fins tributários) | q112,q113 | value=50
-quota_structure: Sênior (séries) / Subordinada | q114
-sub_senior: 5% · subord./PL | q115 | basis=jr/PL
-sub_mezz: — | Sem cota mezanino
-sub_check: Diária; 10 DU fora do índice gera avaliação | q116,q117
-reserve: Não prevista | Regulamento sem cláusula de reserva de caixa ou liquidez
-pdd: ICVM 489 e manual do administrador; sem curva no regulamento | q118
-eval_triggers: Índice fora por 10 DU; falhas do endossante sem cura em 2 a 10 DU | q119,q3
-liquidation: PL < R$ 1 mi por 90 dias; prestador sem substituto; CVM/AGC | q1
-revolving: 24 meses da 1ª integralização | q120
-amortization: Mensal após o investimento, em caixa, com índice atendido | q2
-admin_fee: 0,40% a.a. do PL; mín. R$ 20 mil/mês (IPCA) | q121
-mgmt_fee: Incluída na taxa de administração | q122
-perf_fee: Não prevista | Regulamento sem taxa de performance
-target_senior: CDI + 15% do excesso de spread; teto CDI + 6% a.a. | q123 | why=Spread de 4,80% da leitura anterior não consta dos documentos locais
-target_mezz: — | Sem cota mezanino
-administrator: BTG Pactual Serviços Financeiros DTVM | q124
-manager: BTG Pactual Asset Management | q125
-custodian: Banco BTG Pactual | q126
-servicer: Tudo Serviços (agente de retenção e cobrança) | q127
-investors: Profissionais; subordinada restrita ao grupo do agente | q128,q129
-duration: Indeterminado | q130
-payroll: Convênio do endossante com a Dataprev (consignado privado) | q131
-age_limit: ≤ 64 anos, 11 meses e 29 dias na emissão | q132
-installment_min: Não prevista | Regulamento não fixa parcela mínima
-leitura: Consignado CLT com colchão de 5% (subord./PL), endossante único Parati e teto de R$ 150 mil por devedor.
+# portado de 62010175000137 (58458416000138)
+type: FGTS
+q25: * "das Cotas Subordinadas Mezanino será equivalente a 100% (cem por cento) da Taxa DI, acrescida exponencialmente de sobretaxa (spread) de 3,80%"
+q24: * "das Cotas Seniores será equivalente a 100% (cem por cento) da Taxa DI, acrescida exponencialmente de sobretaxa (spread) de 1,20%"
+q1: * "Direitos Creditórios são originados no âmbito de operações de empréstimos pessoais concedidos por um Endossante a um Devedor, por meio da Plataforma MT"
+q2: * "Endossante”: QI Sociedade de Crédito Direto S.A."
+q3: * "Agente de Retenção/Cobrança”: Tudo Serviços S.A."
+q4: * "(i) os Direitos Creditórios deverão ser representados por CCB cujos Devedores sejam exclusivamente pessoas físicas"
+q5: * "mesmo Devedor, considerando, pro forma, a aquisição pretendida, deverá respeitar os seguintes limites de concentração"
+q6: * "alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios"
+q7: * "Índice de Subordinação Sênior”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Mezanino"
+q8: * "Índice de Subordinação Mezanino”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Júnior"
+q9: * "Reserva de Liquidez”: significa a reserva a ser constituída e reestabelecida mensalmente pelo ADMINISTRADOR"
+q10: * "provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado"
+q11: * "Eventos de Avaliação: (i) em caso de regime de administração especial temporária"
+q12: * "Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação"
+q13: * "4.16 Cada emissão de Cotas da Classe poderá ter um determinado período de investimento"
+q14: * "13.1 Pelos serviços de administração, custódia, tesouraria, controladoria e escrituração, a Classe pagará a Taxa de Administração"
+q15: * "13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão"
+q16: * "13.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída"
+q17: * "Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda., instituição financeira constituída sob a forma de sociedade limitada"
+q18: * "Solis Investimentos Ltda., sociedade limitada com sede na cidade de São Paulo"
+q19: * "MOBILIÁRIOS LTDA., acima qualificada (“CUSTODIANTE”)"
+q20: * "Público-Alvo Investidores Profissionais"
+q21: * "prazo de duração da Classe é indeterminado"
+q22: * "coobrigação nem direito de regresso da Classe contra o Endossante"
+q23: * "taxa de endosso pré-fixada, equivalente à Taxa DI, acrescida de 4,75%"
+receivables: CCBs de empréstimo com garantia do saque-aniversário do FGTS, via Plataforma MT | q1,q4
+originator: Endossantes via Plataforma MT (QI SCD e Parati) | q2,q1
+assignor: QI SCD ou Parati, por endosso das CCBs | q2
+debtor: Pessoas físicas titulares de saque-aniversário | q4
+recourse: Sem coobrigação nem regresso, salvo má-fé, culpa ou dolo | q22
+eligibility: CCB de pessoa física com garantia do saque-aniversário; taxa ≥ DI + 4,75% a.a. | q4,q23
+debtor_limit: Maior devedor até R$ 150 mil; 10 maiores até R$ 1 mi | q5 | value=none
+assignor_limit: n/d | Limite por endossante não fixado no regulamento | why=Resposta anterior trata de limites por devedor, não por endossante
+term_max: n/d | Prazo máximo das CCBs não localizado no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios | q6 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q7,q8
+sub_senior: 13,5% no período de investimento; 15% depois · subord./PL | q7 | basis=mez+jr/PL | value=15
+sub_mezz: Júnior 3,5% no período de investimento; 5% depois | q8 | basis=jr/PL | value=5
+sub_check: Diária, pelo gestor | q7
+reserve: Liquidez: maior entre 2 meses de despesas e 0,66% do PL | q9
+pdd: PDD conforme Instrução CVM 489 e manual do administrador | q10
+eval_triggers: Intervenção, falência ou recuperação do endossante, entre outros | q11
+liquidation: Determinação da CVM ou saída do administrador, entre outros | q12
+revolving: Período de investimento definido em cada emissão | q13
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior descreve ordem de alocação, não cronograma
+admin_fee: Percentual por faixa de PL; mín. R$ 15 mil/mês nos 36 primeiros meses | q14
+mgmt_fee: 0,20% a.a. até R$ 200 mi de PL, regressiva até 0,16%; mín. R$ 8 mil/mês | q15
+perf_fee: Não prevista | Regulamento veda taxa de performance | q16
+target_senior: DI + 1,20% a.a. (taxa teto, 1ª série) | q24
+target_mezz: DI + 3,80% a.a. (1ª série) | q25
+administrator: Vórtx DTVM | q17
+manager: Solis Investimentos | q18
+custodian: Vórtx DTVM | q19
+servicer: Tudo Serviços (agente de retenção e cobrança) | q3
+investors: Investidores profissionais | q20
+duration: Indeterminado | q21
+payroll: Desconto do saque-aniversário do FGTS como meio de pagamento | q4
+age_limit: n/d | Regulamento não fixa idade do devedor | why=Resposta anterior trata de prazo, não de idade
+installment_min: n/d | Regulamento não fixa parcela mínima | why=Resposta anterior trata de prazo, não de parcela
+leitura: CCBs de saque-aniversário FGTS da Plataforma MT; subordinação de 15% após o período de investimento.
