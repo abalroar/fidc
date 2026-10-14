@@ -1,0 +1,53 @@
+# RecargaPay I FIDC (Genial Investimentos; Genial Gestão; devedora RecargaPay)
+type: Cartão/adquirência
+q1: * "Direitos Creditórios são os direitos creditórios detidos, de tempos em tempos, pelos Clientes Pagadores, incluindo transação SDWO"
+q2: * "Devedor é, em relação aos Direitos Creditórios, a RecargaPay"
+q3: * "Cedentes são: (i) os Clientes Pagadores que, representados pela RecargaPay"
+q4: * "Coobrigação. A Classe adquirirá Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo e sem qualquer direito de regresso"
+q5: * "A Classe poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros de um mesmo devedor, ou de coobrigação de uma mesma Pessoa, sem a observância do limite de 20%"
+q6: * "Subordinação é a proporção mínima obrigatória de 50% (cinquenta por cento) entre o valor da totalidade das Cotas Subordinadas"
+q7: * "São eventos de avaliação (“Eventos de Avaliação”): (i) caso o Fundo deixe de efetuar o pagamento"
+q8: * "Eventos de Liquidação”): (i) impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade"
+q9: * "Taxa de Administração a ser paga à Administradora, o percentual de 0,18% (dezoito centésimos por cento) ao ano"
+q10: * "Taxa de Gestão será equivalente a 10% (dez por cento) sobre a Taxa de Administração, limitada a R$4.000,00"
+q11: * "administrado pela GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A."
+q12: * "gestão da carteira do Fundo é realizada pela GENIAL GESTÃO LTDA."
+q13: * "Custodiante É a Administradora ou terceiro, devidamente habilitado e autorizado"
+q14: * "destinada exclusivamente a Investidores Profissionais"
+q15: * "prazo de duração de 20 (vinte) anos, o qual poderá ser prorrogado por decisão da Assembleia Geral"
+q16: * "Alocação Mínima”), e, no máximo, 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios Elegíveis"
+receivables: Direitos de clientes e estabelecimentos contra a RecargaPay por transações | q1
+card_receivables: Saldos de transações de pagamento devidos pela RecargaPay | q1,q2
+originator: Clientes pagadores e estabelecimentos, representados pela RecargaPay | q3
+assignor: Clientes pagadores representados pela RecargaPay, entre outros | q3
+debtor: RecargaPay (devedora única) | q2
+recourse: Aquisição definitiva, sem direito de regresso | q4
+eligibility: Em reais; carteira sem inadimplidos; taxa mínima cobre benchmark e despesas | o13
+debtor_limit: Sem o limite de 20% por devedor (classe para profissionais) | q5
+assignor_limit: n/d | Limite por cedente não aplicável a clientes pulverizados | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: Até 100% do PL em direitos creditórios elegíveis; mínimo regulatório | q16 | value=none
+quota_structure: Sênior / Subordinada | q6
+sub_senior: 50% · subord./PL | q6 | basis=mez+jr/PL | value=50
+sub_mezz: — | Sem mezanino descrito
+sub_check: Diária | q6
+reserve: Despesas de ≥ 3 meses; reserva de aquisição para o dia útil seguinte | o36
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Atraso da sênior; reservas e subordinação sem cura, entre outros | q7,o39
+liquidation: Impossibilidade de adquirir créditos elegíveis, entre outros | q8
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,18% a.a. do PL, com mínimo mensal | q9
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês | q10
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Genial Investimentos Corretora de Valores | q11
+manager: Genial Gestão | q12
+custodian: Genial Investimentos (a administradora) | q13,q11
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | q14
+duration: 20 anos, prorrogável | q15
+card_lock: n/d | Mecanismo de trava não descrito em trecho contínuo
+dilution: n/d | Tratamento de cancelamentos não localizado em trecho contínuo
+leitura: Saldos de transações contra a RecargaPay como devedora única; subordinação de 50% do PL.
