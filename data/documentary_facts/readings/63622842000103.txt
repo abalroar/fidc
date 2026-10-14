@@ -1,0 +1,48 @@
+# Desbrava Uno Artigos Esportivos FIDC (Intrag; Itaú Asset; notas comerciais incentivadas)
+type: Outros
+q1: * "são os direitos creditórios passíveis de investimento pelo Fundo, representados pelas Notas Comerciais emitidas por Devedores"
+q2: * "Os emissores, devedores e/ou garantidores dos Direitos Creditórios ou Ativos Financeiros"
+q3: * "destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de concentração máxima por Devedor, cedente ou originador"
+q4: * "é o percentual mínimo de 85% (oitenta e cinco por cento) do Patrimônio Líquido da Classe que deverá ser alocado em Direitos Creditórios"
+q5: * "Índice de Subordinação deve corresponder, a todo tempo, a, no mínimo, 50%"
+q6: * "é a reserva equivalente a, no mínimo, 12 (doze) meses de Encargos da Classe"
+q7: * "19.1 São considerados eventos de avaliação do Fundo"
+q8: * "19.2 São considerados eventos de liquidação do Fundo"
+q9: * "equivalente a 0,05% (cinco centésimos por cento) ao ano incidente sobre o Patrimônio Líquido da Classe"
+q10: * "equivalente a 0,10% (dez centésimos por cento) ao ano incidente sobre o Patrimônio Líquido da Classe"
+q11: * "é a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q12: * "é a Itaú Unibanco Asset Management Ltda."
+q13: * "é o Itaú Unibanco S.A."
+q14: * "provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado"
+receivables: Notas comerciais incentivadas (Lei 12.431) de projetos de investimento | q1
+originator: — | Fundo subscreve títulos; não há originador de recebíveis
+assignor: — | Aquisição no primário ou secundário, sem cedente
+debtor: Emissores das notas comerciais | q2,q1
+recourse: — | Não aplicável a títulos subscritos
+eligibility: n/d | Critérios de elegibilidade sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+debtor_limit: Sem limite de concentração por devedor (classe para profissionais) | q3
+assignor_limit: — | Não há cedentes
+term_max: n/d | Prazo dos títulos definido em cada emissão | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 85% do PL em direitos creditórios | q4 | value=85
+quota_structure: Sênior / Subordinada | q5
+sub_senior: 50% · subord./PL | q5 | basis=jr/PL | value=50
+sub_mezz: — | Sem cota mezanino
+sub_check: A todo tempo | q5
+reserve: Reserva de despesas de ao menos 12 meses de encargos | q6
+pdd: PDD conforme Instrução CVM 489 | q14
+eval_triggers: Saída de prestador essencial, entre outros | q7
+liquidation: PL abaixo do mínimo após 90 dias, entre outros | q8
+revolving: n/d | Revolvência não tratada em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido no apêndice de cada subclasse | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,05% a.a. do PL | q9
+mgmt_fee: 0,10% a.a. do PL | q10
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: — | Sem cota mezanino
+administrator: Intrag DTVM | q11
+manager: Itaú Unibanco Asset Management | q12
+custodian: Itaú Unibanco | q13
+servicer: n/d | Agente de cobrança extraordinária só se contratado
+investors: Investidores profissionais | q3
+duration: n/d | Prazo de duração não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Notas comerciais incentivadas de projetos de investimento; subordinação de 50% e alocação mínima de 85%.
