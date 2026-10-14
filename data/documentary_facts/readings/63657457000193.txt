@@ -1,0 +1,58 @@
+# MSV3 FIDC Recebíveis Comerciais (QI CTVM; Vinci Gestora; cedentes do grupo Manserv)
+type: Duplicatas/multicedente
+q1: D1 "na aquisição de direitos creditórios performados oriundos da prestação de serviços pelas Cedentes aos D"
+q2: D1 "A Manserv Montagem e Manutenção S.A., inscrita no CNPJ sob o nº 54.183.587/0001-40, a LSI Logística S.A."
+q3: D1 "As Cedentes são responsáveis pela existência e, conforme previsto no respectivo Contrato de Cessão, pela correta formalização"
+q4: D1 "o prazo de vencimento dos Direitos Creditórios não poderá ser superior a 120"
+q5: D1 "Devedores do mesmo Grupo Econômico que não sejam Devedores Especiais não poderá ser superior a 3,5%"
+q6: D1 "itórios devidos por Devedores Especiais do mesmo Grupo Econômico, não poderá ser superior a 20%"
+q7: D1 "O percentual mínimo de 67% (sessenta e sete por cento)"
+q8: D1 "Subordinadas Júnior em relação ao Patrimônio Líquido, deverá ser equivalente a, no mínimo, 35%"
+q9: D1 "o percentual de Cotas Subordinadas Júnior em relação ao Patrimônio Líquido deverá ser equivalente a, no mínimo, 25%"
+q10: D1 "A reserva a ser constituída em Disponibilidades pela Administradora para o pagamento de despesas e encargos do Fundo"
+q11: D1 "será provisionado o percentual do Valor do Direito Creditório relativo aos Direitos Creditórios Inadimplidos por faixa de atraso"
+q12: D1 "São Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Monitoramento"
+q13: D1 "São Eventos de Liquidação quaisquer das seguintes ocorrências: (i) caso seja deliberado, em Assembleia de Cotistas"
+q14: D1 "recursos para a aquisição de Direitos Creditórios de forma revolvente"
+q15: D1 "A Taxa de Administração será correspondente a 0,25%"
+q16: D1 "A Taxa de Gestão será correspondente a 0,45%"
+q17: D1 "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q18: D1 "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração"
+q19: D1 "VINCI GESTORA DE RECURSOS LTDA."
+q20: D1 "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia"
+q21: D1 "A Manserv Investimentos ou sua sucessora a qualquer título"
+q22: D1 "A Classe Única é destinada exclusivamente a Investidores Profissionais"
+q23: D1 "A Classe Única terá prazo de duração indeterminado"
+receivables: Recebíveis performados de serviços prestados pelas cedentes | q1
+originator: Grupo Manserv (Manserv e LSI) | q2
+assignor: Manserv Montagem, LSI Logística, LSI Serviços e Manserv Facilities | q2
+debtor: Clientes das cedentes, com lista aprovada de devedores | q1,o16
+recourse: Cedentes respondem pela existência e formalização dos créditos | q3
+eligibility: Em reais, vincendos, prazo até 120 dias, devedor aprovado | o16,q4
+debtor_limit: Grupo comum ≤ 3,5% do PL; grupo especial ≤ 20% | q5,q6 | value=3.5
+sacado_limit: Grupo comum ≤ 3,5% do PL; grupo especial ≤ 20% | q5,q6 | value=3.5
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo
+term_max: Até 120 dias da aquisição | q4
+allocation: ≥ 67% do PL em direitos creditórios | q7 | value=67
+quota_structure: Sênior / Subordinada Mezanino / Subordinada Júnior | q8,q9
+sub_senior: 35% · mez+jr/PL | q8 | basis=mez+jr/PL | value=35
+sub_mezz: 25% · jr/PL | q9 | basis=jr/PL | value=25
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de despesas e encargos em disponibilidades | q10
+pdd: Régua de provisão por faixa de atraso | q11
+eval_triggers: Relatório de monitoramento não divulgado, entre outros | q12
+liquidation: Avaliação convertida em liquidação pela assembleia, entre outros | q13
+revolving: Aquisições de forma revolvente | q14
+amortization: n/d | Cronograma definido no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,25% a.a. do PL, com mínimo mensal | q15
+mgmt_fee: 0,45% a.a. do PL, com mínimo mensal | q16
+perf_fee: Não prevista | Regulamento afasta taxa de performance | q17
+target_senior: n/d | Meta definida no suplemento de cada série
+target_mezz: n/d | Meta definida no suplemento de cada série
+administrator: QI CTVM | q18
+manager: Vinci Gestora | q19
+custodian: QI CTVM | q20
+servicer: Manserv Investimentos | q21
+investors: Investidores profissionais | q22
+duration: Indeterminado | q23
+leitura: Serviços do grupo Manserv; subordinação de 35%, júnior ≥ 25% e prazo até 120 dias.
