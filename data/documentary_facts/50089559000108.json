@@ -1,0 +1,705 @@
+{
+ "schema_version": 1,
+ "cnpj": "50089559000108",
+ "name": "AGRICONNECTION FIAGRO",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T08:22:36Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "999633",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "26/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633"
+  },
+  "D2": {
+   "document_id": "998644",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "23/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998644"
+  },
+  "D3": {
+   "document_id": "993030",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "12/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993030"
+  },
+  "D4": {
+   "document_id": "559270",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "17/10/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=559270"
+  },
+  "D5": {
+   "document_id": "556713",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "17/11/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556713"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Títulos de operações comerciais e financeiras do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "uer dia, exceto sábados, domingos ou feriados declarados nacionais. “Direitos Creditórios” significa os direitos creditórios a serem adquiridos de uma Cedente e que sejam representados por Títulos. “Direitos Creditórios Adquiridos” significa os Direitos Creditórios adquiridos pelo Fundo. “Direitos Creditórios significa os Direitos Creditórios vencidos e não pagos; Inadimplidos” “Duplicata – Variação Cambial” significa uma duplicata emitida por uma Cedente contra um Devedor, a qual esteja sujeita à variação cambial;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 7,
+     "clause": "cl. 7.3.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "lastro dos Direitos Creditórios representados por operações financeiras, comerciais e de serviços e/ou correta formalização dos Direitos Creditórios, nos limites de suas atribuições regulamentares, conforme metodologia constante do Anexo VII."
+    }
+   ],
+   "legacy": {
+    "value": "Títulos de operações comerciais/financeiras e de serviços do agronegócio",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Agriconnection Importadora e Exportadora de Insumos Agrícolas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 44,
+     "clause": "cl. 24.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "rosso, na Av. Manoel Genildo de Araújo, nº 188, Sala 02, Campo Real II. “Cedentes” significa a Agriconnection. “Chamada de Capital” significa a chamada para integralização realizada pela Administradora, sob a orientação da Gestora, de forma que o Cotista do Fundo integralize Cotas do Fundo, caso não tenha o feito a vista no momento da subscrição das Cotas, observado a sua aplicabilidade prevista no respectivo Suplemento e no Boletim de Subscrição. “Classe” significa a Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas neste Regulamento. “CMN” significa o Conselho Monetário Nacional. “CNPJ/MF” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Economia. “Código Anbima” signific"
+    },
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 44,
+     "clause": "cl. 24.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "imentos do Fundo, formada por Direitos Creditórios e Ativos Financeiros. “Agriconnection” significa a AGRICONNECTION IMPORTADORA E EXPORTADORA DE INSUMOS AGRÍCOLAS LTDA., sociedade limitada, inscrita no CNPJ/MF sob o nº 39.496.730/0001-60, com sede na Cidade de Campo Verde, Estado do Mato Grosso, na Av. Manoel Genildo de Araújo, nº 188, Sala 02, Campo Real II. “Cedentes” significa a Agriconnection. “Chamada de Capital” significa a chamada para integralização realizada pela Administradora, sob a orientação da Gestora, de forma que o Cotista do Fundo integralize Cotas do Fundo, caso não tenha o feito a vista no momento da subscrição das Cotas, observado a sua aplicabilidade prevista no respectivo Suplemento e no Boletim de Subscrição. “Classe” significa a Classe única de Cotas, constituída sob a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Agriconnection",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 44,
+     "clause": "cl. 24.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "rosso, na Av. Manoel Genildo de Araújo, nº 188, Sala 02, Campo Real II. “Cedentes” significa a Agriconnection. “Chamada de Capital” significa a chamada para integralização realizada pela Administradora, sob a orientação da Gestora, de forma que o Cotista do Fundo integralize Cotas do Fundo, caso não tenha o feito a vista no momento da subscrição das Cotas, observado a sua aplicabilidade prevista no respectivo Suplemento e no Boletim de Subscrição. “Classe” significa a Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas neste Regulamento. “CMN” significa o Conselho Monetário Nacional. “CNPJ/MF” significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Economia. “Código Anbima” signific"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Clientes do agronegócio, sem atraso na aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 12,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "sejam dolarizados, salvo se contratada proteção cambial. (d) não podem estar vencidos; (e) não tenham prazo de vencimento superior a 360 (trezentos e sessenta) dias; (f) os respectivos Devedores não apresentem, na Data da Aquisição e Pagamento, qualquer valor em atraso com o Fundo; (g) os Direitos Creditórios Adquiridos não poderão ter prazo de vencimento superior ao vencimento da Cota Sênior mais longa existente; (h) sejam observadas a Taxa Mínima de Desconto Produtos de Importação e a Taxa Mínima de Desconto Produtos Performados; 16 c970e6ff-aa29-4e3d-893e-f8b1e1a5cb27 (i) os 10 (dez) maiores Devedores dos Direitos Creditórios adquiridos não podem representar mais de 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Títulos performados, nominal ≥ R$ 100, prazo ≤ 360 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 12,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) sejam representados por Títulos com valor nominal mínimo de R$ 100,00 (cem reais); (b) sejam representados por Títulos exclusivamente performados; (c) não sejam dolarizados, salvo se contratada proteção cambial. (d) não podem estar vencidos; (e) não tenham prazo de vencimento superior a 360 (trezentos e sessenta) dias; (f) os respectivos Devedores não apresentem, na Data da Aquisição e Pagamento, qualquer valor em atraso com o Fundo; (g) os Direitos Creditórios Adquiridos não poderão ter prazo de vencimento superior ao vencimento da Cota Sênior mais longa existente; (h) sejam observadas a Taxa Mínima de Desconto Produtos de Importação e a Taxa Mínima de Desconto Produtos Performados; 16 c970e6ff-aa29-4e3d-893e-f8b1e1a5cb27 (i) os 10 (dez) maiores Devedores dos Direitos Creditórios adquiridos não podem representar mais de 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 12,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "sejam dolarizados, salvo se contratada proteção cambial. (d) não podem estar vencidos; (e) não tenham prazo de vencimento superior a 360 (trezentos e sessenta) dias; (f) os respectivos Devedores não apresentem, na Data da Aquisição e Pagamento, qualquer valor em atraso com o Fundo; (g) os Direitos Creditórios Adquiridos não poderão ter prazo de vencimento superior ao vencimento da Cota Sênior mais longa existente; (h) sejam observadas a Taxa Mínima de Desconto Produtos de Importação e a Taxa Mínima de Desconto Produtos Performados; 16 c970e6ff-aa29-4e3d-893e-f8b1e1a5cb27 (i) os 10 (dez) maiores Devedores dos Direitos Creditórios adquiridos não podem representar mais de 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Performados e não vencidos; nominal≥R$ 100; prazo≤360 dias; cambial exige proteção",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: até 5% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 13,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "esentar mais de 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo; e (j) a concentração máxima por Devedores dos Direitos de Crédito deve ser de até 5% (cinco por cento), calculados com base no Patrimônio Líquido do Fundo 11.1.1 Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Aquisição: (a) a formalização de constituição e da aquisição para o Fundo dos Direitos Creditórios tenha sido aprovada pela Gestora (b) as eventuais garantias dos Direitos Creditórios estejam plenamente válidas, eficazes e devidamente constituídas, conforme declaração da respectiva Cedente nesse sentido; (c) estarem livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza na data da respectiva transferência ao Fundo, conforme declaração da respectiva Cedente nesse sentido;"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Agriconnection",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Até 360 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 12,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "sejam dolarizados, salvo se contratada proteção cambial. (d) não podem estar vencidos; (e) não tenham prazo de vencimento superior a 360 (trezentos e sessenta) dias; (f) os respectivos Devedores não apresentem, na Data da Aquisição e Pagamento, qualquer valor em atraso com o Fundo; (g) os Direitos Creditórios Adquiridos não poderão ter prazo de vencimento superior ao vencimento da Cota Sênior mais longa existente; (h) sejam observadas a Taxa Mínima de Desconto Produtos de Importação e a Taxa Mínima de Desconto Produtos Performados; 16 c970e6ff-aa29-4e3d-893e-f8b1e1a5cb27 (i) os 10 (dez) maiores Devedores dos Direitos Creditórios adquiridos não podem representar mais de 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Performados e não vencidos; nominal≥R$ 100; prazo≤360 dias; cambial exige proteção",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/09/2025, cl. 11.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 43,
+     "clause": "cl. 24.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "o nº 01.861.016/0001-51, ou sua sucessora a qualquer título. “Alocação Mínima” significa o percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Assembleia Geral de Cotistas” significa a Assembleia Geral de Cotistas, ordinária ou extraordinária. “Ativos Financeiros” significa os ativos indicados na Cláusula 0 do Regulamento, que poderão compor o Patrimônio Líquido. “B3” significa a B3 S.A."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC ≥50% PL conforme definição de alocação mínima",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 51,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "circulação, a qual deverá corresponder a, pelo menos, 125% (cento e vinte e cinco por cento), de modo que as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior em circulação deverão corresponder a, pelo menos, 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo. Assim sendo, por consequência, as Cotas Seniores em circulação corresponderão a, no máximo, 75% (setenta e cinco por cento) do Patrimônio Líquido do Fundo. “Índice de Subordinação Júnior” significa a relação mínima admitida entre as Cotas Subordinadas Júnior em circulação e o Patrimônio Líquido do Fundo, a qual deverá corresponder a, pelo 55 c970e6ff-aa29-4e3d-893e-f8b1e1a5cb27 menos, 15% (quinze por cento). “Índices de Subordinação” significa, em conjunto ou isoladamente, o Índice de Subordinação Júnior e o Índice de Subordinação Sênior, conforme aplicável."
+    }
+   ],
+   "legacy": {
+    "value": "Divergência:PL/sênior≥125% descrito como subordinadas≥25% PL e sênior≤75%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/09/2025, p. 51"
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 125%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 51,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "circulação, a qual deverá corresponder a, pelo menos, 125% (cento e vinte e cinco por cento), de modo que as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior em circulação deverão corresponder a, pelo menos, 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo. Assim sendo, por consequência, as Cotas Seniores em circulação corresponderão a, no máximo, 75% (setenta e cinco por cento) do Patrimônio Líquido do Fundo. “Índice de Subordinação Júnior” significa a relação mínima admitida entre as Cotas Subordinadas Júnior em circulação e o Patrimônio Líquido do Fundo, a qual deverá corresponder a, pelo 55 c970e6ff-aa29-4e3d-893e-f8b1e1a5cb27 menos, 15% (quinze por cento). “Índices de Subordinação” significa, em conjunto ou isoladamente, o Índice de Subordinação Júnior e o Índice de Subordinação Sênior, conforme aplicável."
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 125.0,
+   "legacy": {
+    "value": "Divergência:PL/sênior≥125% descrito como subordinadas≥25% PL e sênior≤75%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/09/2025, p. 51"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção da mezanino não localizada em trecho contínuo",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Divergência:PL/sênior≥125% descrito como subordinadas≥25% PL e sênior≤75%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Despesas de 6 meses, com piso de 1% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 51,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "Fundo a serem incorridos nos próximos 6 (seis) meses calendário imediatamente subsequente ao mês calendário em que for efetuado o respectivo provisionamento, sendo que a provisão será de no mínimo o valor correspondente a 1% (um por cento) do Patrimônio Líquido do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas6 meses, piso1% PL; pagamento35% emD−60 e100% emD−30",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 26/09/2025, p. 51"
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução do valor de recuperação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 31,
+     "clause": "cl. 16.3.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "o no valor recuperável dos ativos do Fundo, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 16.3.3.1 Os Direitos Creditórios Inadimplidos permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 16.3.4 É obrigatória a divulgação, em notas explicativas às demonstrações financeiras anuais do Fundo, de informações que abranjam, no mínimo, o montante, a natureza e as faixas de vencimento dos ativos integrantes da carteira do Fundo e, caso aplicável, de mercado dos ativos, segregados por tipo de ativo, bem como os parâmetros utilizados na determinação desses valores. 17."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Inobservância de deveres por prestadores, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 37,
+     "clause": "cl. 21.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "de não existam Cotas em circulação, por deliberação da Administradora. Evento de Avaliação 21.2 São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências: (a) inobservância pela Administradora, pela Gestora, pela Consultora Especializada e/ou pelo Custodiante de seus deveres e obrigações previstos neste Regulamento, nas leis e demais normativos nos termos da legislação vigente (incluindo, sem limitações, as instruções da CVM), bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento do Fundo, não sanado no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação; (b) renúncia da Gestora, da Consultora Especializada, da Administradora e/ou do Custodiante a qualquer tempo e por qualquer motivo, sem que haja (i) a indicação de um substituto em Assembleia Geral de Cotistas no prazo de 120 (cento e vinte) dias; ou (ii) a efetiva substituição destes prestadores de serviço no prazo de 60 (sessenta) dias após transcorrido o prazo indicado no item (i) acima;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": []
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada emissão",
+   "sources": [],
+   "legacy": {
+    "value": "Calendário do suplemento termina30/11/2029; atribuição ao fundo pendente por CNPJ divergente",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,15% a.a. do PL; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 8,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "O Fundo pagará, pela prestação dos serviços de administração, escrituração, custódia e controladoria, uma taxa de administração equivalente a 0,15% (quinze centésimos por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 15.000,00 (quinze mil reais). 8.1.1 O Fundo pagará pela prestação do serviço de gestão o equivalente a 0,10% (dez centésimos por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 7.500,00 (sete mil e quinhentos reais) (“Taxa de Gestão”); 8.1.2 Tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe, o presente Regulamento não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE. A remuneração dos distribuidores que venham a ser contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos da respectiva oferta, conforme a Resolução CVM nº 160, de 13 de julho de 2022 (“Taxa Máxima de Distribuição”), conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "0,15% a.a. PL; mínimo R$ 15 mil/mês; inclui custódia/escrituração/controladoria",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,10% a.a. do PL; mín. R$ 7,5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 8,
+     "clause": "cl. 8.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "8.1.1 O Fundo pagará pela prestação do serviço de gestão o equivalente a 0,10% (dez centésimos por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 7.500,00 (sete mil e quinhentos reais) (“Taxa de Gestão”); 8.1.2 Tendo em vista que não há distribuidores das Cotas que prestem serviços de forma contínua à Classe, o presente Regulamento não prevê uma taxa máxima de distribuição, nos termos do Ofício-Circular-Conjunto nº 1/2023/CVM/SIN/SSE."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a. PL; mínimo R$ 7,5 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada emissão",
+   "sources": [],
+   "legacy": {
+    "value": "Suplemento sênior diverge 1,90% numérico/3,90% extenso; identificação usa CNPJ do administrador",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada emissão",
+   "sources": [],
+   "legacy": {
+    "value": "Suplemento sênior diverge 1,90% numérico/3,90% extenso; identificação usa CNPJ do administrador",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 43,
+     "clause": "cl. 24.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "rie de Cotas. “Acordo Operacional” significa o acordo feito entre Administradora e Gestora. “Administradora” significa a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Avenida Brigadeiro Faria Lima, nº 1355 – 5º andar, inscrita no CNPJ/MF sob o nº 62.285.390/0001- 40, ou sua sucessora a qualquer título. “Agência Classificadora de significa cada agência classificadora de risco de Risco” primeira linha, devidamente qualificada para a prestação de tais serviços e registrada perante a Comissão de Valores Mobiliários - CVM, que venha a ser contratada pelo Fundo, mediante i"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "FAR – Fator Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 48,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "produtivas agroindustriais. “Fundo” significa o AGRICONNECTION FIAGRO. “Gestora” significa a FAR – FATOR ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade limitada, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Renato Paes de Barros, 1.017, 12º andar, Itaim Bibi, inscrita no CNPJ/MF sob o nº 01.861.016/0001-51, autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 4.407, de 18 de julho de 1997 ou sua sucessora a qualquer título. “Instituições Bancárias significa o Banco do Brasil S.A, a Caixa Econômica Autorizadas” Federal, o Itaú Unibanco S.A., o Banco Bradesco S.A., e o Banco Santander (Brasil) S.A., quando referidos em conjunto. “Instrução CVM nº 489/11” significa a Instrução da CVM nº 489, de 14 de janeiro"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 46,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "m favor da Agriconnection no âmbito de uma Duplicata – Variação Cambial. “Custodiante” significa a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., qualificada acima, ou seu sucessor a qualquer título. “CVM” significa a Comissão de Valores Mobiliários. “Data de Aquisição e significa cada data do pagamento do preço de aquisição Pagamento” dos Direitos Creditórios Adquiridos pelo Fundo à respectiva Cedente. “Data de Resgate” significa a data de Resgate de cada Subclasse de Cotas, conforme especificada no Suplemento, ou nas hipóteses de liquidação antecipada e Resgate antecipado. 50 c970e6ff-aa29-4e3d-893e-f8b1e1a5cb27 “Datas de Verificação” significa cada data de celebração de um Termo de Endosso, na qual a Administradora verificará o cumprimento dos Índices de Subordinação"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 3,
+     "clause": "cl. 2.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "VM 160, quando da negociação das Cotas no âmbito do mercado secundário, a negociação das Cotas (a) objeto de Oferta destinada a Investidores Profissionais somente poderá ser realizada (i) livremente entre Investidores Profissionais; (ii) com Investidores Qualificados, após o decurso de 6 (seis) meses da data de encerramento da oferta; e (b) objeto de Oferta destinada a Investidores Qualificados poderá ser realizada livremente entre Investidores Qualificados. 2.3 O Fundo é classificado como Fundo “Agro, Indústria e Comércio”, com atributo foco de atuação em “Agronegócio” nos termos das Regras e Procedimentos de Administração de Recursos de Terceiros da ANBIMA."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado (emissões com prazo próprio)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 3,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "3.1 O funcionamento do Fundo terá início na 1ª Data de Integralização de Cotas do Fundo. O Fundo terá prazo de duração indeterminado, observado o prazo de duração da respectiva emissão de Cotas, nos termos de seu Suplemento. O Fundo pode, ainda, ser liquidado por deliberação da Assembleia Geral de Cotistas em conformidade com o disposto neste Regulamento, e ainda, nas hipóteses expressamente previstas na RCVM 175. 3.2 O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo 4. ADMINISTRADORA 4.1 O Fundo é administrado pela Administradora. 5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Títulos de vendas de insumos agrícolas da Agriconnection",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 44,
+     "clause": "cl. 24.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "imentos do Fundo, formada por Direitos Creditórios e Ativos Financeiros. “Agriconnection” significa a AGRICONNECTION IMPORTADORA E EXPORTADORA DE INSUMOS AGRÍCOLAS LTDA., sociedade limitada, inscrita no CNPJ/MF sob o nº 39.496.730/0001-60, com sede na Cidade de Campo Verde, Estado do Mato Grosso, na Av. Manoel Genildo de Araújo, nº 188, Sala 02, Campo Real II. “Cedentes” significa a Agriconnection. “Chamada de Capital” significa a chamada para integralização realizada pela Administradora, sob a orientação da Gestora, de forma que o Cotista do Fundo integralize Cotas do Fundo, caso não tenha o feito a vista no momento da subscrição das Cotas, observado a sua aplicabilidade prevista no respectivo Suplemento e no Boletim de Subscrição. “Classe” significa a Classe única de Cotas, constituída sob a"
+    },
+    {
+     "doc": "D1",
+     "document_id": "999633",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "26/09/2025",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999633",
+     "excerpt": "uer dia, exceto sábados, domingos ou feriados declarados nacionais. “Direitos Creditórios” significa os direitos creditórios a serem adquiridos de uma Cedente e que sejam representados por Títulos. “Direitos Creditórios Adquiridos” significa os Direitos Creditórios adquiridos pelo Fundo. “Direitos Creditórios significa os Direitos Creditórios vencidos e não pagos; Inadimplidos” “Duplicata – Variação Cambial” significa uma duplicata emitida por uma Cedente contra um Devedor, a qual esteja sujeita à variação cambial;"
+    }
+   ],
+   "legacy": {
+    "value": "Títulos de operações comerciais/financeiras e de serviços do agronegócio",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Títulos de insumos agrícolas da Agriconnection; PL/sênior ≥ 125%, devedor ≤ 5% do PL e prazo até 360 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

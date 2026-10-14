@@ -1,0 +1,52 @@
+# Agriconnection FIAGRO (Singulare; FAR – Fator; cedente Agriconnection)
+type: Agro/FIAGRO
+q1: * "Cedentes” significa a Agriconnection"
+q2: * "“Agriconnection” significa a AGRICONNECTION IMPORTADORA E EXPORTADORA DE INSUMOS AGRÍCOLAS LTDA."
+q3: * "Direitos Creditórios” significa os direitos creditórios a serem adquiridos de uma Cedente e que sejam representados por Títulos"
+q4: * "seguintes Critérios de Elegibilidade: (a) sejam representados por Títulos com valor nominal mínimo de R$ 100,00 (cem reais); (b) sejam representados por Títulos exclusivamente performados"
+q5: * "prazo de vencimento superior a 360 (trezentos e sessenta) dias"
+q6: * "por Devedores dos Direitos de Crédito deve ser de até 5% (cinco por cento), calculados com base no Patrimônio Líquido do Fundo"
+q7: * "Alocação Mínima” significa o percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido"
+q8: * "125% (cento e vinte e cinco por cento), de modo que as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior em circulação deverão corresponder"
+q9: * "São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências"
+q10: * "taxa de administração equivalente a 0,15% (quinze centésimos por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 15.000,00"
+q11: * "“Administradora” significa a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q12: * "“Gestora” significa a FAR – FATOR ADMINISTRAÇÃO DE RECURSOS LTDA."
+q13: * "“Custodiante” significa a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q14: * "destinada a Investidores Profissionais somente poderá ser realizada (i) livremente entre Investidores Profissionais"
+q15: * "prazo de duração indeterminado, observado o prazo de duração da respectiva emissão de Cotas"
+q16: * "provisão para perdas. A perda por redução no valor de recuperação será mensurada"
+receivables: Títulos de operações comerciais e financeiras do agronegócio | q3,o1
+agro_backing: Títulos de vendas de insumos agrícolas da Agriconnection | q2,q3
+originator: Agriconnection Importadora e Exportadora de Insumos Agrícolas | q1,q2
+assignor: Agriconnection | q1
+debtor: Clientes do agronegócio, sem atraso na aquisição | q5
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão
+eligibility: Títulos performados, nominal ≥ R$ 100, prazo ≤ 360 dias | q4,q5
+debtor_limit: Por devedor: até 5% do PL | q6 | value=5
+assignor_limit: — | Cedente única: Agriconnection
+term_max: Até 360 dias | q5
+allocation: ≥ 50% do PL em direitos creditórios | q7 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q8
+sub_senior: PL/sênior ≥ 125% | q8 | basis=PL/sr | value=125
+sub_mezz: n/d | Proteção da mezanino não localizada em trecho contínuo
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Despesas de 6 meses, com piso de 1% do PL | o35
+pdd: Perda por redução do valor de recuperação | q16
+eval_triggers: Inobservância de deveres por prestadores, entre outros | q9
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no suplemento de cada emissão | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,15% a.a. do PL; mín. R$ 15 mil/mês | q10
+mgmt_fee: 0,10% a.a. do PL; mín. R$ 7,5 mil/mês | o54
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no suplemento de cada emissão | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no suplemento de cada emissão | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Singulare CTVM | q11
+manager: FAR – Fator Administração de Recursos | q12
+custodian: Singulare CTVM | q13
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores profissionais | q14
+duration: Indeterminado (emissões com prazo próprio) | q15
+collateral: n/d | Garantias dos títulos não descritas em trecho contínuo
+leitura: Títulos de insumos agrícolas da Agriconnection; PL/sênior ≥ 125%, devedor ≤ 5% do PL e prazo até 360 dias.
