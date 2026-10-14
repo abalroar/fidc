@@ -1,61 +1,46 @@
-# portado de 57028406000108 (42462306000100)
+# IS Green Solfácil II FIDC (Genial Investimentos; Angá; plataforma Solfácil)
 type: Energia solar
-q101: * "Originador”). 2.11 Nos termos do artigo 1.368-D do Código Civil, sem"
-q102: * "Critérios de Elegibilidade 6.1 O Fundo somente poderá utilizar os recursos"
-q103: * "Cedente” significa cada Credor Original ou Instituição Financeira Parceira, ou Fundo"
-q104: * "por Devedor e o prazo mais longo é de 126 (cento"
-q105: * "126 (cento e vinte e seis) meses; 113 Clicksign b8ca4ad9-37c5-4515-bbe4-e473f4f5b94b (x)"
-q106: * "350.000,00 (trezentos e cinquenta mil reais) se o Devedor for pessoa"
-q107: * "mesmo Devedor (incluindo integrantes de seu respectivo Grupo Econômico), conforme aplicável,"
-q108: * "Alocação Mínima - Regulatório” O percentual mínimo de 50% (cinquenta por"
-q109: * "Alocação Mínima - Entidade de O percentual mínimo de 67% (sessenta"
-q110: * "5% Mezanino A 2 Cotas Subordinadas 2,5% Mezanino B 9.3 O"
-q111: * "Índice de Subordinação referente às Cotas Subordinadas Júnior será de 2%"
-q112: * "Amortização Sequencial” O regime de amortização das Cotas, a ser adotado"
-q113: * "3 (três) meses subsequentes. 17.2. Caso aplicável, conforme especificado no Anexo"
-q114: * "Direitos Creditórios serão calculadas pela Administradora e instruídas ao Custodiante, de"
-q115: * "90 será aplicável à Classe Única. 10.2 O Índice de Rolagem"
-q116: * "Amortização das Cotas Públicas serão determinadas (i) de forma a utilizar"
-q117: * "0,10% a.a. (dez centésimos por cento ao ano) sobre o Patrimônio"
-q118: * "0,20% a.a. (vinte centésimos por cento ao ano) sobre o Patrimônio"
-q119: * "Agente de Cobrança Extraordinária”), de acordo com os termos e condições"
-q120: * "Prazo de Duração” O prazo de duração de cada série de"
-q1: * "11.1 Os patamares de risco aplicáveis ao Fundo serão conforme tabela abaixo"
-q2: * "LIMINE TRUST DISTRIBUIDORA"
-q3: * "A gestão da carteira do Fundo é realizada por RÉGIA CAPITAL"
-q4: * "Promessa de Cessão de Direitos Creditórios Sem Coobrigação"
-q5: * "a Classe Única é destinada a Investidores Qualificados"
-q6: * "executar a respectiva Alienação Fiduciária de Equipamentos"
-receivables: CCB de financiamento de sistemas solares (PF e PJ) | q101,q102
-originator: Solfácil, por sua plataforma digital | q101
-assignor: Credor original, IFs parceiras ou fundos com originação Solfácil | q103
-debtor: Pessoas físicas e jurídicas que financiam sistemas solares | q104
-recourse: Sem coobrigação do cedente (contrato de cessão) | q4
-eligibility: Integrador não bloqueado; CCB ≤ 126 meses, carência ≤ 185 dias | q102,q105
-debtor_limit: R$ 350 mil (PF) e R$ 700 mil (PJ) por CCB; 20% do PL por devedor | q106,q107
-assignor_limit: Não previsto | Cedentes ligados à originação Solfácil; sem limite por cedente no regulamento
-term_max: 126 meses; carência ≤ 185 dias | q105
-allocation: ≥ 50% do PL (67% para fins tributários) | q108,q109 | value=50
-quota_structure: Sênior / Mez. A / Mez. B / Júnior (Solfácil) | q110,q111
-sub_senior: Cobertura sênior ≥ 133,3% (desalavancagem 1) ou 130,7% (nível 2) | q1 | basis=cobertura | value=133.3
-sub_mezz: Mez. A ≥ 5% · Mez. B ≥ 2,5% · Júnior ≥ 2% do PL | q110,q111
-sub_check: Verificação pela gestora; rompimento leva ao regime sequencial | q112
-reserve: Despesas de 3 meses e reserva de MTM do hedge | q113
-pdd: Manual da administradora, com regras do anexo da classe | q114
-eval_triggers: Atraso 90 > 15% desalavanca; rolagem 90 > 1,6% gera avaliação | q1,q115
-liquidation: n/d | Eventos de liquidação definidos no anexo descritivo; lista não localizada no texto extraído | why=A leitura anterior trata de gatilhos de desalavancagem, registrados nas linhas de cobertura e gatilhos
-revolving: n/d | Período de aquisição definido por regime e série; não localizado no texto extraído | why=A leitura anterior não indica período nem fonte localizável
-amortization: Pró-rata por metas; sequencial após desalavancagem | q116,q112
-admin_fee: 0,10% a.a. do PL; mín. R$ 10.833,33/mês | q117
-mgmt_fee: 0,20% a.a. do PL; mín. R$ 18,5 mil/mês | q118
-perf_fee: Não prevista | Regulamento: não serão cobradas taxas de performance
-target_senior: n/d | Meta de cada série definida no suplemento, não localizado no acervo
-target_mezz: n/d | Meta de cada subclasse definida no suplemento, não localizado no acervo
-administrator: Limine Trust DTVM | q2
-manager: Régia Capital | q3
-custodian: n/d | Custodiante definido no anexo de definições da classe; nome não localizado no texto extraído
-servicer: Solfácil (cobrança extraordinária) | q119
-investors: Qualificados | q5
-duration: Prazo por série sênior e por subclasse mezanino | q120
-real_collateral: Alienação fiduciária dos equipamentos; desligamento remoto | q6
-leitura: Solar da Solfácil com cobertura sênior mínima de 133,3% e desalavancagem se o atraso 90 passar de 15%.
+q1: * "s Devedores para aquisição de Sistemas Solares"
+q2: * "Solfácil Energia Solar e Serviços Financeiros Ltda."
+q3: * "ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA."
+q4: * "GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela"
+q5: * "na qualidade de administradora e custodiante do Fundo"
+q6: * "Subordinadas em circulação e o Patrimônio Líquido, conforme apurada em Sênior” cada Dia Útil, equivalente a, no mínimo, 20,00%"
+q7: * "Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme apurada Mezanino” em cada Dia Útil, equivalente a, no mínimo 4,5%"
+q8: * "os Creditórios devidos por um Devedor individualmente não deverá representar mais de 2% (dois por cento) do Patrimônio Líquido do Fundo"
+q9: * "São considerados Eventos de Avaliação: (i) não divulgação, pela Administradora, do Relatório de Monitoramento"
+q10: * "destinadas exclusivamente aos Investidores Autorizados"
+q11: * "O Fundo terá prazo indeterminado de duração"
+receivables: CCBs de financiamento de sistemas solares | q1
+originator: Solfácil Energia Solar e Serviços Financeiros | q2
+assignor: Instituições financeiras endossantes das CCBs | q1
+debtor: Pessoas físicas e jurídicas que financiam sistemas solares | q1
+recourse: n/d | Recompra e resolução regidas pelo contrato de transferência | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: n/d | Critérios de elegibilidade sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+debtor_limit: Devedor individual até 2% do PL | q8 | value=2
+assignor_limit: n/d | Limite por endossante não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: n/d | Prazo individual não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios; 67% para fins tributários | o27 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q6,q7
+sub_senior: 20% · subord./PL | q6 | basis=mez+jr/PL | value=20
+sub_mezz: Júnior ≥ 4,5% do PL | q7 | basis=jr/PL | value=4.5
+sub_check: Diária | q6
+reserve: 3 meses de despesas ordinárias estimadas | o40
+pdd: n/d | Critério de provisão não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+eval_triggers: Falta do relatório de monitoramento em 15 dias úteis, entre outros | q9,o46
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: n/d | Aquisições durante a carência, sem trecho contínuo localizado | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: Despesas, reserva e amortizações; compras durante a carência | o55
+admin_fee: Maior entre mínimo mensal mais 0,12% a.a. e faixas percentuais de PL | o59
+mgmt_fee: 0,12% a.a. do PL | o62
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Genial Investimentos Corretora de Valores | q4
+manager: Angá Administração de Recursos | q3
+custodian: Genial Investimentos (a administradora) | q5,q4
+servicer: n/d | Agente de cobrança não nomeado em trecho localizável
+investors: Investidores autorizados | q10
+duration: Indeterminado | q11
+real_collateral: n/d | Garantia sobre equipamentos sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+leitura: Financiamento solar da Solfácil com subordinação de 20% (júnior ≥ 4,5%) e devedor ≤ 2% do PL.

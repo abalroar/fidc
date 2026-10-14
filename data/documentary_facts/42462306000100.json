@@ -1,0 +1,692 @@
+{
+ "schema_version": 1,
+ "cnpj": "42462306000100",
+ "name": "IS GREEN SOLFÁCIL II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Energia solar",
+ "reviewed_at": "2026-10-14T08:12:46Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1337967",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967"
+  },
+  "D2": {
+   "document_id": "1337682",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337682"
+  },
+  "D3": {
+   "document_id": "217316",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "20/05/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=217316"
+  },
+  "D4": {
+   "document_id": "896879",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "05/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=896879"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Energia solar",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de financiamento de sistemas solares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "termos da Lei nº 10.931, tendo como “CCBs” objeto um financiamento aos Devedores para aquisição de Sistemas Solares. Classe única de Cotas. Uma vez que o Fundo é constituído com classe única de Cotas, todas as referências à Classe no Regulamento serão entendidas como “Classe” referências ao Fundo e vice-versa. \"CMN” O Conselho Monetário Nacional. A Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada. “Código Civil” “Condições de Condições de cessão dos Direitos Creditórios, definidas no item 9.4 do Anexo. Cessão” A conta corrente a ser aberta e mantida pelo Fundo junto a uma Instituição “Conta do Fundo” Autorizada, que será movimentada exclusivamente mediante instruções do Custodiante. Cada “Instrumento Particular de Constituição de Alienação Fiduciária sobre “Contrato de"
+    }
+   ],
+   "legacy": {
+    "value": "Financiamento de sistemas solares, representado por CCBs.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Solfácil Energia Solar e Serviços Financeiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "termos deste Regulamento e da regulamentação aplicável. Solfácil Energia Solar e Serviços Financeiros Ltda., pessoa jurídica de “Agente de direito privado, com sede com sede na Rua Ferreira de Araújo, 202, Pinheiros, Cobrança” ou na cidade de São Paulo, Estado de São Paulo, CEP 05.428-000, inscrita no “Solfácil” CNPJ/MF sob o no 31.931.053/0001-50. Significa cada uma das instituições que poderão ser contratadas para cobrança bancária dos boletos de pagamento dos Direitos Creditórios “Agente de Adquiridos, sendo os valores pagos pelos Devedores recebidos na Conta do Recebimento” Fundo. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. A garantia de alienação fiduciária so"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Instituições financeiras endossantes das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "termos da Lei nº 10.931, tendo como “CCBs” objeto um financiamento aos Devedores para aquisição de Sistemas Solares. Classe única de Cotas. Uma vez que o Fundo é constituído com classe única de Cotas, todas as referências à Classe no Regulamento serão entendidas como “Classe” referências ao Fundo e vice-versa. \"CMN” O Conselho Monetário Nacional. A Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada. “Código Civil” “Condições de Condições de cessão dos Direitos Creditórios, definidas no item 9.4 do Anexo. Cessão” A conta corrente a ser aberta e mantida pelo Fundo junto a uma Instituição “Conta do Fundo” Autorizada, que será movimentada exclusivamente mediante instruções do Custodiante. Cada “Instrumento Particular de Constituição de Alienação Fiduciária sobre “Contrato de"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas e jurídicas que financiam sistemas solares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "termos da Lei nº 10.931, tendo como “CCBs” objeto um financiamento aos Devedores para aquisição de Sistemas Solares. Classe única de Cotas. Uma vez que o Fundo é constituído com classe única de Cotas, todas as referências à Classe no Regulamento serão entendidas como “Classe” referências ao Fundo e vice-versa. \"CMN” O Conselho Monetário Nacional. A Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada. “Código Civil” “Condições de Condições de cessão dos Direitos Creditórios, definidas no item 9.4 do Anexo. Cessão” A conta corrente a ser aberta e mantida pelo Fundo junto a uma Instituição “Conta do Fundo” Autorizada, que será movimentada exclusivamente mediante instruções do Custodiante. Cada “Instrumento Particular de Constituição de Alienação Fiduciária sobre “Contrato de"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas e jurídicas que financiam sistemas solares.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de transferência",
+   "sources": [],
+   "legacy": {
+    "value": "Endosso definitivo; recompra/resolução e indenização condicionadas ao contrato de transferência.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "list",
+   "reason": "Critérios de elegibilidade sem trecho contínuo localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplente; PF até 70 anos/PJ ≥2 anos; carência do crédito até 180 dias; nominal PF R$ 300 mil/PJ R$ 500 mil; prazo médio 2.400 dias.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor individual até 2% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 52,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "de concentração, considerando-se pro forma a aquisição pretendida: (a) o valor dos Direitos Creditórios devidos por um Devedor individualmente não deverá representar mais de 2% (dois por cento) do Patrimônio Líquido do Fundo; e Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. (b) o grupo dos 10 (dez) maiores Devedores não poderá ser devedor de Direitos Creditórios cujo valor supere 10% (dez por cento) do Patrimônio Líquido do Fundo; (ii) considerada pro forma a aquisição pretendida, o conjunto de Direitos Creditórios Pré- fixados integrantes da carteira do Fundo deverá ter uma taxa de retorno igual ou superior a 16,50% (dezesseis inteiros e cinquenta centésimos por cento) ao ano; (iii) considerada pro forma a aquisição pretendida, o conjunto de Direitos Creditórios Pós- fixados integrantes da carteira do Fundo deverá ter uma taxa de retorno igual ou superior a 11,75% (onze inteiros e setenta e cinco centésimos por cento) ao ano;"
+    }
+   ],
+   "value": 2.0,
+   "legacy": {
+    "value": "Limites por devedor/grupo e carteira constam das condições de cessão; exige controle individualizado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por endossante não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Limites por devedor/grupo e carteira constam das condições de cessão; exige controle individualizado.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo individual não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplente; PF até 70 anos/PJ ≥2 anos; carência do crédito até 180 dias; nominal PF R$ 300 mil/PJ R$ 500 mil; prazo médio 2.400 dias.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios; 67% para fins tributários",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "896879",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/05/2025",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=896879",
+     "excerpt": "Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser “Alocação Mínima” mantido em Direitos Creditórios Cedidos. Página 2 de 103 Docusign Envelope ID: 72662769-87E6-4556-BA9F-6AB2312BD30F A alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido em Direitos Creditórios El"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50%/PL em DC; enquadramento tributário de 67% distinto.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "Significa a razão mínima admitida entre o somatório do valor das Cotas “Relação Mínima Subordinadas em circulação e o Patrimônio Líquido, conforme apurada em Sênior” cada Dia Útil, equivalente a, no mínimo, 20,00% (vinte por cento). Significam, em conjunto e indistintamente, a Relação Mínima Mezanino e a “Relações Mínimas” Relação Mínima Sênior. Significa o relatório contendo as informações previstas no item 6.2(hh) do “Relatório de Regulamento. Monitoramento” Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. A reserva constituída a ser constituída em Disponibilidades pela “Reserva de Caixa” Administradora para o pagamento de despesas e encargos do Fundo. “Resolução CMN Significa a Resolução do CMN n°2.907, de 29 de novembro de 2001, nº 2.907” conforme alterada."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "Significa a razão mínima admitida entre o somatório do valor das Cotas “Relação Mínima Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme apurada Mezanino” em cada Dia Útil, equivalente a, no mínimo 4,5% (quatro e meio por cento). Significa a razão mínima admitida entre o somatório do valor das Cotas “Relação Mínima Subordinadas em circulação e o Patrimônio Líquido, conforme apurada em Sênior” cada Dia Útil, equivalente a, no mínimo, 20,00% (vinte por cento). Significam, em conjunto e indistintamente, a Relação Mínima Mezanino e a “Relações Mínimas” Relação Mínima Sênior. Significa o relatório contendo as informações previstas no item 6.2(hh) do “Relatório de Regulamento. Monitoramento” Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. A reserva constituída a ser constituí"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥20%/PL; júnior ≥4,5%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 12"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "Significa a razão mínima admitida entre o somatório do valor das Cotas “Relação Mínima Subordinadas em circulação e o Patrimônio Líquido, conforme apurada em Sênior” cada Dia Útil, equivalente a, no mínimo, 20,00% (vinte por cento). Significam, em conjunto e indistintamente, a Relação Mínima Mezanino e a “Relações Mínimas” Relação Mínima Sênior. Significa o relatório contendo as informações previstas no item 6.2(hh) do “Relatório de Regulamento. Monitoramento” Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. A reserva constituída a ser constituída em Disponibilidades pela “Reserva de Caixa” Administradora para o pagamento de despesas e encargos do Fundo. “Resolução CMN Significa a Resolução do CMN n°2.907, de 29 de novembro de 2001, nº 2.907” conforme alterada."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Subordinadas ≥20%/PL; júnior ≥4,5%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 12"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 4,5% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "Significa a razão mínima admitida entre o somatório do valor das Cotas “Relação Mínima Subordinadas Júnior em circulação e o Patrimônio Líquido, conforme apurada Mezanino” em cada Dia Útil, equivalente a, no mínimo 4,5% (quatro e meio por cento). Significa a razão mínima admitida entre o somatório do valor das Cotas “Relação Mínima Subordinadas em circulação e o Patrimônio Líquido, conforme apurada em Sênior” cada Dia Útil, equivalente a, no mínimo, 20,00% (vinte por cento). Significam, em conjunto e indistintamente, a Relação Mínima Mezanino e a “Relações Mínimas” Relação Mínima Sênior. Significa o relatório contendo as informações previstas no item 6.2(hh) do “Relatório de Regulamento. Monitoramento” Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. A reserva constituída a ser constituí"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 4.5,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "Significa a razão mínima admitida entre o somatório do valor das Cotas “Relação Mínima Subordinadas em circulação e o Patrimônio Líquido, conforme apurada em Sênior” cada Dia Útil, equivalente a, no mínimo, 20,00% (vinte por cento). Significam, em conjunto e indistintamente, a Relação Mínima Mezanino e a “Relações Mínimas” Relação Mínima Sênior. Significa o relatório contendo as informações previstas no item 6.2(hh) do “Relatório de Regulamento. Monitoramento” Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. A reserva constituída a ser constituída em Disponibilidades pela “Reserva de Caixa” Administradora para o pagamento de despesas e encargos do Fundo. “Resolução CMN Significa a Resolução do CMN n°2.907, de 29 de novembro de 2001, nº 2.907” conforme alterada."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥20%/PL; júnior ≥4,5%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 12"
+   }
+  },
+  "reserve": {
+   "display": "3 meses de despesas ordinárias estimadas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "896879",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/05/2025",
+     "page": 82,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=896879",
+     "excerpt": "mínimo equivalente a 3 (três) meses de despesas ordinárias estimadas da Classe, estimado com base na média simples das despesas ordinárias incorridas nos últimos 12 (doze) meses, se disponível. 15.1.1. Os recursos da Reserva de Caixa integrarão o patrimônio da Classe e constituirão uma provisão para o pagamento de todo e qualquer passivo financeiro, despesas ou encargos de responsabilidade da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas ordinárias estimadas, com referência à média dos últimos 12 meses.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/05/2025, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Política de provisão em anexo; faixa por atraso e renegociação exige aplicação ao contrato.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falta do relatório de monitoramento em 15 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 84,
+     "clause": "cl. 17.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "car as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 17.2. São considerados Eventos de Avaliação: (i) não divulgação, pela Administradora, do Relatório de Monitoramento, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Monitoramento o envio do referido relatório não seja sanado pela Administradora; (ii) caso contratada, a Agência Classificadora de Risco não divulgue a atualização trimestral da classificação de risco referente às Cotas Seniores e Cotas Subordinadas Mezanino por prazo igual ou superior a 90 (noventa) dias, sem a substituição da Agência Classificadora de Risco;"
+    },
+    {
+     "doc": "D4",
+     "document_id": "896879",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/05/2025",
+     "page": 85,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=896879",
+     "excerpt": "17.2. São considerados Eventos de Avaliação: (i) não divulgação, pela Administradora, do Relatório de Monitoramento, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Monitoramento o envio do referido relatório não seja sanado pela Administradora;"
+    }
+   ],
+   "legacy": {
+    "value": "Desenquadramento das relações mínimas, reservas, rating e continuidade da Solfácil/servicer; cura específica por evento.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Desenquadramento das relações mínimas, reservas, rating e continuidade da Solfácil/servicer; cura específica por evento.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Aquisições durante a carência, sem trecho contínuo localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisição de direitos creditórios durante período de carência; demais recursos seguem waterfall.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "Despesas, reserva e amortizações; compras durante a carência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "896879",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/05/2025",
+     "page": 83,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=896879",
+     "excerpt": "(iii) pagamento das Amortizações das Cotas conforme item 14.3 acima; (iv) caso, após a Amortização de Cotas do item acima e no limite do valor das Cotas Seniores e das Cotas Subordinadas Mezanino, o valor remanescente poderá, a exclusivo critério dos Cotistas Subordinados Júnior, ser alocado da seguinte forma: a) o valor remanescente multiplicado pela razão entre valor das Cotas Seniores e a soma (i) do valor da"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas → reserva → amortizações; compras de crédito durante carência e remanescentes conforme 16.2.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/05/2025, Anexo"
+   }
+  },
+  "admin_fee": {
+   "display": "Maior entre mínimo mensal mais 0,12% a.a. e faixas percentuais de PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "896879",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/05/2025",
+     "page": 46,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=896879",
+     "excerpt": "a) o maior entre: (1) o valor mínimo mensal de R$21.000,00 (vinte e um mil reais) acrescido de 0,12% (doze centésimos por cento) ao ano, ou (2) o percentual ao ano aplicado sobre cada faixa do Patrimônio Líquido do Fundo, inclusive, conforme indicado na tabela abaixo: Patrimônio Líquido % ao ano calculado sobre o Patrimônio Líquido"
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre R$ 21 mil/mês + 0,12% a.a./PL e faixas 0,13%/0,10%/0,08% a.a.; mínimo reajustado por IPCA.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/05/2025, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,12% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "896879",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/05/2025",
+     "page": 47,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=896879",
+     "excerpt": "de 0,12% (doze centésimos por cento) ao ano incidente sobre o Patrimônio Líquido, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, a ser corrigida anualmente pela variação acumulada do IPCA, a partir da data de início do funcionamento da Classe A. 6.3."
+    }
+   ],
+   "legacy": {
+    "value": "0,12% a.a./PL; correção anual IPCA nos termos de 6.2; mínimo mensal não previsto na cláusula.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/05/2025, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "” celebrado entre os Prestadores de Serviços Essenciais. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM, por meio do Ato Declaratório nº 6.819, de 17 de maio de 2002, à prestação de serviços de administração de carteira de títulos e valores mobiliários, inscrita no CNPJ sob o nº “Administrador(a)” Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. 27.652.684/0001-62, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 913, Botafogo, CEP 22.250-040, ou seu sucessor a qualquer título. Agência classificadora de risco registrada na CVM que poderá ser contratada “Agência pela Gestora, em nome do Fundo, para prestar os serviços de classificação de Classificadora de risco das Co"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "TADA, CNPJ 42.462.306/0001-00. ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Torre Capital Building, Cidade Jardim, CEP “Gestor ou Gestora” 05676-120, inscrita no CNPJ sob o nº 09.452.272/0001-05, devidamente autorizada pela CVM para o exercício da atividade de administração de Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 9.837, de 14 de maio de 2008. “IGP-M” Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio Vargas. “Inconsistência Signifi"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 94,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "om sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 913, Botafogo, CEP 22.250-040, na qualidade de administradora e custodiante do Fundo (“Administradora”), para o cálculo do valor a ser provisionado pelo Fundo para cobertura de perdas por Devedores duvidosos. 2. Dos Procedimentos de Classificação e Provisionamento A Administradora, de forma independente, realizará o cálculo de provisionamento de perdas baseado em metodologia descrita abaixo, seguindo critérios consistentes e passíveis de verificação."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "” celebrado entre os Prestadores de Serviços Essenciais. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM, por meio do Ato Declaratório nº 6.819, de 17 de maio de 2002, à prestação de serviços de administração de carteira de títulos e valores mobiliários, inscrita no CNPJ sob o nº “Administrador(a)” Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. 27.652.684/0001-62, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 913, Botafogo, CEP 22.250-040, ou seu sucessor a qualquer título. Agência classificadora de risco registrada na CVM que poderá ser contratada “Agência pela Gestora, em nome do Fundo, para prestar os serviços de classificação de Classificadora de risco das Co"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho localizável",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 40,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "icamente por Rodrigo Godoy e Cintia Santana. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente aos Investidores Autorizados. 4. DEMAIS PRESTADORES DE SERVIÇOS Demais Prestadores de Serviços contratados pela Administradora, em nome do Fundo 4.1 A Administradora poderá contratar, em nome do Fundo, terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. (d) registro dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; prazo indeterminado da classe e prazos de séries nos apêndices.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337967",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 15,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337967",
+     "excerpt": "PRAZO DE DURAÇÃO DO FUNDO 3.1 O funcionamento do Fundo terá início na Data de Início do Fundo. O Fundo terá prazo indeterminado de duração, sendo que cada emissão de Cotas Seniores e de Cotas Subordinadas Mezanino terá o Prazo de Duração estipulado no respectivo Suplemento. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. 3.2 O término do prazo de duração do Fundo não afetará o cumprimento das obrigações do Fundo que tenham se tornado exigíveis até o último dia do referido prazo de duração, inclusive. 3.3 O prazo de duração do Fundo poderá ser alterado por deliberação dos Cotistas reunidos em Assembleia, observado o disposto neste Regulamento. 3.4 Na hipótese de o prazo de duração do Fundo encerrar-se em qualquer dia que não seja um Dia Útil, a liquidação do Fundo será efetuada no primeiro Dia Útil subsequente. 4."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; prazo indeterminado da classe e prazos de séries nos apêndices.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "real_collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantia sobre equipamentos sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Equipamentos solares em alienação fiduciária; formalização e registro sujeitos às condições contratuais.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Financiamento solar da Solfácil com subordinação de 20% (júnior ≥ 4,5%) e devedor ≤ 2% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
