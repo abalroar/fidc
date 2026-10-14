@@ -1,0 +1,59 @@
+# portado de 33254370000104 (28472333000132)
+type: Crédito pessoal
+q101: * "60 (sessenta) meses para as CCBs Veículos; ou (b) a 25"
+q102: * "alienação fiduciária de veículo automotor leve (autos e/ou motos). Para todos"
+q103: * "originados pelos Cedentes na medida em que comercializem produtos e/ou serviços"
+q104: * "concedido pelas Instituições Financeiras Parceiras, e com intermediação do Mercado Pago"
+q105: * "direito de regresso contra os Cedentes, a Administradora, a Gestora, o"
+q106: * "cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, conforme"
+q107: * "180 (cento e oitenta) dias do início das atividades do Fundo,"
+q108: * "Subclasse” significam as subclasses de Cotas da Classe do Fundo, as"
+q109: * "Índice de Subordinação Júnior“ significa a razão, a ser apurada pela"
+q110: * "Índice de Subordinação “ significa a relação mínima, a ser apurada"
+q111: * "25% 7% ≥ R ≥ 5,01% 30% 5,01% > R ≥"
+q112: * "reenquadramento do Índice de Subordinação e do Índice de Subordinação Júnior"
+q113: * "3 (três) Datas de Pagamento. 13.4 Respeitadas as regras e a"
+q114: * "provisionamento para devedores duvidosos disposta no manual da Administradora. 53 Docusign"
+q115: * "0,01% (um centésimo por cento), o que deverá ser comunicado pela"
+q116: * "prazo máximo de 180 (cento e oitenta) dias, contados a partir"
+q117: * "amortização das Cotas Seniores de acordo com a ordem de alocação"
+q118: * "0,07% (sete centésimos por cento) do Patrimônio Líquido do Fundo, garantindo-se"
+q119: * "0,20% 39 Docusign Envelope ID: C734C7B4-F58D-4EB0-92FC-FCC07825E238 % ao ano calculado com"
+q120: * "Administradora” significa a BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos"
+q121: * "Gestora“ significa a POLÍGONO CAPITAL LTDA., sociedade de responsabilidade limitada, com"
+q122: * "Custodiante“ significa o Banco BTG Pactual S.A., instituição financeira, com sede"
+q123: * "Agente de Cobrança” significa o Mercado Pago, contratado para a prestação"
+q124: * "Agente de Recebimento” significa o Mercado Pago, contratado para a prestação"
+q125: * "Investidores Profissionais“ significam os investidores, conforme definidos no artigo 11, da"
+receivables: CCB de crédito parcelado, CCB Veículo (alienação fiduciária) e recebíveis PPV | q101,q102,q103
+originator: IFs parceiras (CCB) e lojistas cedentes (PPV), via Mercado Pago | q104,q103
+assignor: IFs parceiras e lojistas da plataforma Mercado Pago | q104,q103
+debtor: Tomadores de CCB e compradores na plataforma (PPV) | q104,q103
+recourse: Sem regresso contra cedentes, salvo culpa ou dolo | q105
+eligibility: CCB Veículo ≤ 60 meses e demais ≤ 25 meses; PPV de cedentes cadastrados | q101
+debtor_limit: Sem limite por emissor (dispensa regulatória) | q106
+assignor_limit: Sem limite por emissor (dispensa regulatória) | q106
+term_max: 60 meses (veículos); 25 meses (demais CCBs) | q101
+allocation: ≥ 50% do PL (67% para fins tributários) | q107,q106 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q108,q109
+sub_senior: 25% · subord./PL; 30% ou 35% se o excesso de retorno cair | q110,q111 | basis=mez+jr/PL | value=25
+sub_mezz: n/d | Índice júnior medido sobre mezanino + júnior; mínimo não localizado no regulamento
+sub_check: A cada data de cálculo; júnior pode aportar para reenquadrar | q110,q112
+reserve: Reserva de remuneração sênior: próximas 3 datas de pagamento | q113
+pdd: Manual de PDD da administradora | q114
+eval_triggers: Alocação < 67% por 30 dias; excesso de spread < 0,01% acelera a sênior | q114,q115
+liquidation: Prestador sem substituto em 180 dias, entre outros | q116
+revolving: n/d | Regra de reinvestimento não localizada no regulamento
+amortization: Sênior conforme apêndice; mezanino pro rata se o índice for mantido | q117
+admin_fee: 0,07% a.a. do PL; mín. R$ 15 mil/mês | q118
+mgmt_fee: 0,20% a.a. até R$ 2,1 bi de PL agregado; menor acima | q119
+perf_fee: Não prevista | Regulamento: não serão cobradas taxas de performance
+target_senior: n/d | Meta definida em cada suplemento, não localizado com a taxa | why=DI + 3,00% da leitura anterior não tem fonte localizável no acervo
+target_mezz: n/d | Suplementos das cotas mezanino não localizados | why=A leitura anterior trata da cota sênior, não da mezanino
+administrator: BTG Pactual Serviços Financeiros DTVM | q120
+manager: Polígono Capital | q121
+custodian: Banco BTG Pactual | q122
+servicer: Mercado Pago (cobrança e recebimento) | q123,q124
+investors: Profissionais | q125
+duration: n/d | Prazo do fundo não localizado no texto; séries têm datas próprias | why=A leitura anterior trata do calendário de uma série sênior, sem fonte localizável
+leitura: Crédito pessoal, veículos e PPV do Mercado Pago com subordinação de 25% do PL, subindo a 30% ou 35%.

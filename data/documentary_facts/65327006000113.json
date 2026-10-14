@@ -1,0 +1,691 @@
+{
+ "schema_version": 1,
+ "cnpj": "65327006000113",
+ "name": "LARCA V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADO DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T01:21:54Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1323417",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "16/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417"
+  },
+  "D2": {
+   "document_id": "1323416",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "16/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323416"
+  },
+  "D3": {
+   "document_id": "1305384",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "31/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1305384"
+  },
+  "D4": {
+   "document_id": "1305348",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "31/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1305348"
+  },
+  "D5": {
+   "document_id": "1129527",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "24/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1129527"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado das Forças Armadas e de servidores federais (SIAPE)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 128,
+     "clause": "Anexo, cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "4.2. Os Direitos Creditórios são originados nos termos dos Convênios celebrados pelo respectivo Cedente/Endossante com os seguintes Entes Consignantes: (i) o Comando do Exército, por intermédio da Secretaria de Economia e Finanças (SEF) (“Exército”), com execução processada pelo sistema de consignações eConsig e repasse realizado pelo Centro de Pagamento do Exército (CPEx), para viabilizar a concessão de empréstimo consignado a militares da ativa, ina"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de consignado das Forças Armadas e servidores federais SIAPE",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Originador e cedente/endossante definidos no anexo de definições",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 25,
+     "clause": "Anexo, cl. 3.17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "role comum não respondem pelo pagamento dos Direitos Creditórios Transferidos ou pela solvência dos Devedores. O Cedente/Endossante é somente responsável pela existência e, caso previsto no respectivo Contrato de Transferência, pela correta formalização, certeza e legitimidade dos respectivos Direitos Creditórios Transferidos, de acordo com o previsto neste Regulamento, no respectivo Contrato de Transferência e na legislação vigente, observado o disposto no Anexo Definições Específicas da Classe. Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 3.18. A Administradora, a Gestora, o Custodiante, o Consultor Especializado, o Originador, o Agente de Cobrança Extraordinária, os outros prestadores de serviços do Fundo, seus respectivos controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum não respondem pelo pagamento dos Direitos Creditórios Transferidos ou pela solvência dos Devedores. 3.19."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedente/endossante do anexo de definições, sem nome no texto lido",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 25,
+     "clause": "Anexo, cl. 3.17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "role comum não respondem pelo pagamento dos Direitos Creditórios Transferidos ou pela solvência dos Devedores. O Cedente/Endossante é somente responsável pela existência e, caso previsto no respectivo Contrato de Transferência, pela correta formalização, certeza e legitimidade dos respectivos Direitos Creditórios Transferidos, de acordo com o previsto neste Regulamento, no respectivo Contrato de Transferência e na legislação vigente, observado o disposto no Anexo Definições Específicas da Classe. Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 3.18. A Administradora, a Gestora, o Custodiante, o Consultor Especializado, o Originador, o Agente de Cobrança Extraordinária, os outros prestadores de serviços do Fundo, seus respectivos controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum não respondem pelo pagamento dos Direitos Creditórios Transferidos ou pela solvência dos Devedores. 3.19."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Militares e pensionistas das Forças Armadas; servidores SIAPE",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 128,
+     "clause": "Anexo, cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "4.2. Os Direitos Creditórios são originados nos termos dos Convênios celebrados pelo respectivo Cedente/Endossante com os seguintes Entes Consignantes: (i) o Comando do Exército, por intermédio da Secretaria de Economia e Finanças (SEF) (“Exército”), com execução processada pelo sistema de consignações eConsig e repasse realizado pelo Centro de Pagamento do Exército (CPEx), para viabilizar a concessão de empréstimo consignado a militares da ativa, ina"
+    }
+   ],
+   "legacy": {
+    "value": "Militares, aposentados e pensionistas Exército/Marinha/Aeronáutica; servidores SIAPE",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Endossante responde por existência e formalização, não pela solvência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 25,
+     "clause": "Anexo, cl. 3.17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "role comum não respondem pelo pagamento dos Direitos Creditórios Transferidos ou pela solvência dos Devedores. O Cedente/Endossante é somente responsável pela existência e, caso previsto no respectivo Contrato de Transferência, pela correta formalização, certeza e legitimidade dos respectivos Direitos Creditórios Transferidos, de acordo com o previsto neste Regulamento, no respectivo Contrato de Transferência e na legislação vigente, observado o disposto no Anexo Definições Específicas da Classe. Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 3.18. A Administradora, a Gestora, o Custodiante, o Consultor Especializado, o Originador, o Agente de Cobrança Extraordinária, os outros prestadores de serviços do Fundo, seus respectivos controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum não respondem pelo pagamento dos Direitos Creditórios Transferidos ou pela solvência dos Devedores. 3.19."
+    }
+   ],
+   "legacy": {
+    "value": "Contratos de transferência definem resolução e recompra/compra obrigatória",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; devedor adimplente; saldo por devedor escalonado por idade",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 138,
+     "clause": "Anexo, cl. 4.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "o item 7.3.3 do Anexo Descritivo. 5. 5. Critérios de Elegibilidade e Declarações de Transferência 5.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”): (i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de Aquisição e Pagamento; (ii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos; (iii) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 139,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "editórios pelo Fundo, o saldo devedor total, em valor presente, dos Direitos Creditórios Transferidos devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo: Idade do Devedor Saldo devedor máximo De 18 até 64 anos, 11 meses e 29 dias R$350.000,00 De 65 até 66 anos, 11 meses e 29 dias R$250.000,00 De 67 até 69 anos, 11 meses e 29 dias R$200.000,00 De 70 até 71 anos, 11 meses e 29 dias R$125.000,00 (viii) na respectiva Data de Aquisição e Pagamento, o respectivo Devedor deve ter entre 18 (dezoito) e 72 (setenta e dois) anos de idade, exclusive; (ix) a soma (a) da idade de cada um dos Devedores na Data de Aquisição e Pagamento dos respectivos Direitos Creditórios; com (b) o prazo final, em dias corridos, do vencimento da última parcela da respectiva CCB não poderá ser superior a 78 (setenta e oito) anos e 2 (dois) meses, inclusive;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor escalonado por idade (até R$ 350 mil de 18 a 64 anos)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 139,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "editórios pelo Fundo, o saldo devedor total, em valor presente, dos Direitos Creditórios Transferidos devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo: Idade do Devedor Saldo devedor máximo De 18 até 64 anos, 11 meses e 29 dias R$350.000,00 De 65 até 66 anos, 11 meses e 29 dias R$250.000,00 De 67 até 69 anos, 11 meses e 29 dias R$200.000,00 De 70 até 71 anos, 11 meses e 29 dias R$125.000,00 (viii) na respectiva Data de Aquisição e Pagamento, o respectivo Devedor deve ter entre 18 (dezoito) e 72 (setenta e dois) anos de idade, exclusive; (ix) a soma (a) da idade de cada um dos Devedores na Data de Aquisição e Pagamento dos respectivos Direitos Creditórios; com (b) o prazo final, em dias corridos, do vencimento da última parcela da respectiva CCB não poderá ser superior a 78 (setenta e oito) anos e 2 (dois) meses, inclusive;"
+    }
+   ],
+   "value": 350000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado no texto extraído",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo da CCB não localizado no trecho lido",
+   "sources": []
+  },
+  "allocation": {
+   "display": "> 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 67,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "Risco de concentração em Ativos Financeiros. Em até 180 (cento e oitenta) dias do início de suas atividades, a classe de cotas deve possuir parcela superior a 67% (sessenta e sete por cento) de seu patrimônio líquido representada por Direitos Creditórios podendo o Fundo manter até 33% (trinta e três por cento) de sua carteira aplicada em Ativos Financeiros. Alterações no cenário macroeconômico que possam comprometer a capacidade de pagamento, bem como alterações nas condições financeiras dos emissores dos Ativos Financeiros e/ou na percepção do mercado acerca de tais emissores, podem trazer impactos significativos aos preços e liquidez dos Ativos Financeiros, provocando perdas para o Fundo e para os Cotistas. Ademais, a falta de capacidade e/ou disposição de pagamento de qualquer dos emissores dos Ativos Financeiros acarretará perdas para o Fundo, podendo este, inclusive, incorrer em custos com o fim de recuperar os seus créditos. O não-pagamento dos Ativos Financeiros integrantes da carteira do Fundo e os custos administrativos e de recuperação de créditos do Fundo poderão fazer com que o Fundo sofra uma perda patrimonial significativa, o que afetaria negativamente a rentabilidade das Cotas. Fatores macroeconômicos."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "DC >67% PL em até 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/09/2026, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior (Larca ≥ 35% da júnior)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 144,
+     "clause": "Anexo, cl. 8.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "dinadas Júnior em circulação em sua posse, livres de ônus ou gravames (“Investimento Mínimo LARCA”). 8.5. O Índice de Subordinação referente à Subclasse de Cotas Subordinadas Júnior, ou seja, a relação mínima entre o valor correspondente à totalidade das Cotas Subordinadas Júnior e o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 5% (cinco por cento) na Data de Início do Fundo. 8.6. Na hipótese de desenquadramento dos Índices de Subordinação, os Cotistas titulares das Cotas Subordinadas Júnior serão comunicados pela Gestora em até 5 (cinco) Dias Úteis contados da verificação do desenquadramento. Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 8.6.1. Os Cotistas titulares das Cotas Subordinadas Júnior deverão responder à comunicação da Gestora, até o 5º (quinto) Dia Útil subsequente à data do seu recebimento, informando, por escrito, se desejam ou não integralizar novas Cotas Subordinadas Júnior, conforme o caso."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 144,
+     "clause": "Anexo, cl. 8.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "rtes Relacionadas LARCA e/ou fundos de investimento investidos pela LARCA e/ou pelas Partes Relacionadas LARCA deverão (i) subscrever, no mínimo, 35% (trinta e cinco por cento) das Cotas Subordinadas Júnior objeto de cada emissão; (ii) manter, durante o prazo de duração da Classe, no mínimo, 35% (trinta e cinco por cento) das Cotas Subordinadas Júnior objeto de cada emissão; e (iii) manter, durante o prazo de duração da Classe, pelo menos 35% (trinta e cinco por cento) das Cotas Subordinadas Júnior em circulação em sua posse, livres de ônus ou gravames (“Investimento Mínimo LARCA”). 8.5. O Índice de Subordinação referente à Subclasse de Cotas Subordinadas Júnior, ou seja, a relação mínima entre o valor correspondente à totalidade das Cotas Subordinadas Júnior e o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 5% (cinco por cento) na Data de Início do Fundo. 8.6. Na hipótese de desenquadramento dos Índices de Subordinação, os Cotistas titulares das Cotas Subordinadas Júnior serão comunicados pela Gestora em até 5 (cinco) Dias Úteis contados da verificação do desenquadramento. Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 8.6.1."
+    }
+   ],
+   "legacy": {
+    "value": "Inicial: júnior+mezz A+B/PL ≥20%; júnior+mezz B/PL ≥10%; júnior/PL ≥5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/09/2026, Anexo, cl. 8.4"
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índices da sênior e mezanino definidos em apêndices, fora do acervo",
+   "sources": [],
+   "legacy": {
+    "value": "Inicial: júnior+mezz A+B/PL ≥20%; júnior+mezz B/PL ≥10%; júnior/PL ≥5%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 5% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 144,
+     "clause": "Anexo, cl. 8.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "dinadas Júnior em circulação em sua posse, livres de ônus ou gravames (“Investimento Mínimo LARCA”). 8.5. O Índice de Subordinação referente à Subclasse de Cotas Subordinadas Júnior, ou seja, a relação mínima entre o valor correspondente à totalidade das Cotas Subordinadas Júnior e o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 5% (cinco por cento) na Data de Início do Fundo. 8.6. Na hipótese de desenquadramento dos Índices de Subordinação, os Cotistas titulares das Cotas Subordinadas Júnior serão comunicados pela Gestora em até 5 (cinco) Dias Úteis contados da verificação do desenquadramento. Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 8.6.1. Os Cotistas titulares das Cotas Subordinadas Júnior deverão responder à comunicação da Gestora, até o 5º (quinto) Dia Útil subsequente à data do seu recebimento, informando, por escrito, se desejam ou não integralizar novas Cotas Subordinadas Júnior, conforme o caso."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Desenquadramento comunicado aos subordinados em até 5 DU",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 144,
+     "clause": "Anexo, cl. 8.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "dinadas Júnior em circulação em sua posse, livres de ônus ou gravames (“Investimento Mínimo LARCA”). 8.5. O Índice de Subordinação referente à Subclasse de Cotas Subordinadas Júnior, ou seja, a relação mínima entre o valor correspondente à totalidade das Cotas Subordinadas Júnior e o Patrimônio Líquido, deverá ser equivalente a, no mínimo, 5% (cinco por cento) na Data de Início do Fundo. 8.6. Na hipótese de desenquadramento dos Índices de Subordinação, os Cotistas titulares das Cotas Subordinadas Júnior serão comunicados pela Gestora em até 5 (cinco) Dias Úteis contados da verificação do desenquadramento. Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 8.6.1. Os Cotistas titulares das Cotas Subordinadas Júnior deverão responder à comunicação da Gestora, até o 5º (quinto) Dia Útil subsequente à data do seu recebimento, informando, por escrito, se desejam ou não integralizar novas Cotas Subordinadas Júnior, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "Inicial: júnior+mezz A+B/PL ≥20%; júnior+mezz B/PL ≥10%; júnior/PL ≥5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/09/2026, Anexo, cl. 8.4"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor das reservas não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Refinanciamento: 0,25% PL; despesas e MTM negativo em reservas próprias",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "Direitos creditórios líquidos de provisão para devedores duvidosos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 37,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "premissas: (i) o saldo devedor dos Direitos Creditórios e o Valor Presente Ajustado dos Direitos Creditórios serão considerados líquidos de provisão para devedores duvidosos, e serão determinados com referência da Data Base de Índices; (ii) o valor das Disponibilidades será determinado com referência na Data Base de Índices, líquido da Reserva de Despesas e Encargos e da Reserva de MTM; Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 (iii) o Índice de Cobertura Mezanino deverá ser calculado considerando pro forma o pagamento da Meta de Amortização das Cotas Seniores e das Cotas Subordinadas Mezanino no mês em questão, tanto para efeitos do cálculo de saldo de Cotas Seniores e das Cotas Subordinadas Mezanino em circulação quanto para efeitos da determinação do valor das Disponibilidades;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Relatório de gestão não divulgado em 15 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 56,
+     "clause": "Anexo, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "FA0FE9F1 14. CAPÍTULO 14 – EVENTOS DE AVALIAÇÃO 14.1. Sem prejuízo dos Eventos de Avaliação Adicionais previstos no Anexo Definições Específicas da Classe, são Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Gestão em até 15 (quinze) Dias Úteis contados da Data de Envio do Relatório de Gestão; (ii) amortização de Cotas Subordinadas Júnior em desconformidade com este Anexo Descritivo e, se for o caso, com o Anexo Definições Específicas da Classe, exceto se os valores pagos incorretamente sejam devolvidos à Classe, podendo a devolução ser realizada por meio de subscrição e integralização de novas Cotas Subordinadas Júnior no prazo de 3 (três) Dias Úteis contados da data em que a amortização tenha sido realizada em desconformidade com este Anexo Descritivo e, se for o caso, com o Anexo Definições Específicas da Classe; (iii) amortização de Cotas Subordinadas Mezanino em desconformidade com este Anexo Descritivo e, se for o caso, com o Anexo Definições Específicas da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação definidos no anexo de definições, não lido",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Revolvência durante o período de investimento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 142,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "vés da aquisição de Direitos Creditórios, podendo utilizar os recursos decorrentes da liquidação dos Direitos Creditórios Transferidos para adquirir novos Direitos Creditórios (revolvência) durante o Período de Investimento, ressalvada a possibilidade de utilização de recursos decorrentes da liquidação de Direitos Creditórios Transferidos para a realização de operações de Refinanciamento até o encerramento do Período de Refinanciamento, desde que atendidos todos os Critérios de Elegibilidade e todas as Declarações de Transferência em todos os casos. 6.2. Não obstante o disposto no Capítulo 11 do Anexo Descritivo, a aquisição de Direitos Creditórios somente será permitida de forma ampla durante o Período de Investimento, exceto no âmbito de operações de Refinanciamento, que poderão ser adquiridas durante o Período de Refinanciamento. 6.3. O Período de Investimento será encerrado de forma antecipada (i) caso o Valor Total da 1ª (Primeira) Emissão de Cotas seja totalmente integralizado pelos Investidores Autorizados; (ii) caso esteja em curso um Evento de Aceleração de Vencimento; ou (iii) em decorrência de deliberação dos Cotistas reunidos em Assembleia de Cotistas."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisições durante período de investimento; refinanciamento tem janela específica",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,15% a.a. do PL; mín. R$ 12,5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 125,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "escrituração de cotas e remuneração dos prestadores de serviço contratados pela Administradora. A Taxa de Administração será correspondente a 0,15% a.a. (quinze centésimos por cento ao ano) sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$ 12.500,00 (doze mil e quinhentos reais). Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 3.1.2. Taxa de Gestão. A Taxa de Gestão será devida pelo Fundo à Gestora pela prestação dos serviços de gestão de carteira do Fundo e pela remuneração dos prestadores de serviço contratados pela Gestora. A Taxa de Gestão será equivalente a 0,50% a.a. (cinquenta centésimos por cento ao ano) sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$ 20.000,00 (vinte mil reais). 3.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "0,15% a.a. PL; mínimo R$ 12,5 mil/mês; inclui controladoria/escrituração",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,50% a.a. do PL; mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 126,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "de gestão de carteira do Fundo e pela remuneração dos prestadores de serviço contratados pela Gestora. A Taxa de Gestão será equivalente a 0,50% a.a. (cinquenta centésimos por cento ao ano) sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$ 20.000,00 (vinte mil reais). 3.1.3. Adicionalmente à remuneração devida à Administradora e/ou à Gestora, conforme o caso, será devido à Administradora e/ou à Gestora, conforme o caso, o valor de R$ 770,00 (setecentos e setenta reais) por hora de trabalho, caso seja necessário o desenvolvimento de trabalhos que excedam o escopo ordinário dos serviços prestados por parte da Administradora e/ou da Gestora, conforme o caso, para eventual alteração de condições operacionais do Fundo após sua 1ª (primeira) integralização, bem como se faça necessária a participação em reuniões ou conferências telefônicas e assembleias gerais presenciais ou virtuais."
+    }
+   ],
+   "legacy": {
+    "value": "0,50% a.a. PL; mínimo R$ 20 mil/mês; servicing adicional não incluído",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 128,
+     "clause": "Anexo, cl. 3.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "erta, nos termos da regulamentação aplicável. 3.6. Taxa de Ingresso ou Saída. Taxa de Performance. Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas. 4. 4. Direitos Creditórios, Documentos Comprobatórios e Documentos Complementares Características gerais dos Direitos Creditórios: 4.1. Os direitos creditórios a serem adquiridos pela Classe Única são decorrentes de operações de Empréstimo Consignado e são representados por CCB emitidas pelos Devedores em favor de um Cedente/Endossante, cujo pagamento é feito por meio de Consignação (“Direitos Creditórios”). 4.2."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa definida nos apêndices, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 3,
+     "clause": "cl. 1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "145A-8EB5-83C2-DE41FA0FE9F1 2. CAPÍTULO 2 – DOS PRESTADORES DE SERVIÇOS DO FUNDO 2.1. Administração. O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, conforme Ato Declaratório CVM nº 21.369, de 20 de outubro de 2023, ou sua sucessora a qualquer título (“Administradora”). 2.1.1. A Administradora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à administração do Fundo. 2.1.2. Incluem-se entre as obrigações da Administradora aquelas dispostas nos artigos 82 e 83, conforme aplicáveis, 104 e 106 da parte geral da Resolução CVM 175 e nos artigos 30 e 31 do Anexo Normativo II da Resolução CVM 175."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Valora Renda Fixa Estruturados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 6,
+     "clause": "cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "trole sobre a movimentação da documentação relativa aos Direitos Creditórios. 2.2. Gestão. A gestão da carteira do Fundo é realizada pela VALORA RENDA FIXA ESTRUTURADOS LTDA., sociedade limitada com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Presidente Juscelino Kubitschek, nº 1.830, sala 32, bloco 2, Vila Nova Conceição, CEP 04543-900, inscrita no CNPJ sob o nº 57.369.679/0001-08, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria gestor de recursos, por meio do Ato Declaratório CVM nº 22.910, de 8 de janeiro de 2025, ou sua sucessora a qualquer título (“Gestora”). 2.2.1. A Gestora, observadas as limitações previstas neste Regulamento, na lei e na regulamentação aplicável, tem poderes para praticar os atos necessários à gestão da carteira do Fundo. 2.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante definido no anexo de definições, não lido",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança extraordinária sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo definido no anexo de definições, não lido",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "é um fundo de investimento em direitos creditórios constituído sob a forma de condomínio de natureza especial, em regime fechado e com prazo de duração indeterminado, inscrito no CNPJ sob o nº 65.327.006/0001-13 (“Fundo”), regido pelo presente Regulamento, pelo Código Civil, pela Resolução do CMN nº 2.907, de 29 de novembro de 2001, pela parte geral e pelo Anexo Normativo II da Resolução CVM 175 e pelas demais disposições legais e regulamentares aplicáveis. 1.2. O Fundo possui uma única classe de Cotas, a qual possui subclasses, na forma do §3º, do artigo 5º, da parte geral da Resolução CVM 175 e conforme disposto no Anexo Descritivo que compõe o Anexo I a este Regulamento, observadas ainda as disposições específicas previstas no Anexo Definições Específicas da Classe que compõe o Anexo VI a este Regulamento, sendo vedada a afetação ou a vinculação, a qualquer título, de parcela do patrimônio do Fundo a qualquer subclasse de Cotas. 1.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Consignação em folha do Exército e do SIAPE",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 129,
+     "clause": "Anexo, cl. 4.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "vas, seguros e ações a eles relacionados, bem como reajustes monetários, juros e encargos. 4.4. Os Direitos Creditórios serão sempre adquiridos pelo Fundo, em cada Data de Aquisição e Pagamento, nos termos de cada Contrato de Transferência, mediante (i) a celebração, eletrônica, de Termo de Transferência no qual serão definidos, respectivamente, os Direitos Creditórios transferidos ao Fundo e o Preço de Aquisição correspondente; (ii) endosso em preto das CCB; e (iii) a transferência dos respectivos Direitos Creditórios junto à Entidade Registradora. 4.4.1. Cada Contrato de Transferência preverá determinados eventos cuja ocorrência gera ao Fundo o direito de resolver a Transferência dos Direitos Creditórios Transferidos, com a consequente resolução da Transferência, ou o direito de exigir a recompra de tais Direitos Creditórios Transferidos pelo respectivo Cedente/Endossante, ou a compra de tais Direitos Creditórios Transferidos pelo respectivo Originador, conforme o caso. Docusign Envelope ID: 1AA738E2-145A-8EB5-83C2-DE41FA0FE9F1 4.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "Saldo máximo cai com a idade do devedor (faixas a partir de 65 anos)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1323417",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 139,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323417",
+     "excerpt": "editórios pelo Fundo, o saldo devedor total, em valor presente, dos Direitos Creditórios Transferidos devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo: Idade do Devedor Saldo devedor máximo De 18 até 64 anos, 11 meses e 29 dias R$350.000,00 De 65 até 66 anos, 11 meses e 29 dias R$250.000,00 De 67 até 69 anos, 11 meses e 29 dias R$200.000,00 De 70 até 71 anos, 11 meses e 29 dias R$125.000,00 (viii) na respectiva Data de Aquisição e Pagamento, o respectivo Devedor deve ter entre 18 (dezoito) e 72 (setenta e dois) anos de idade, exclusive; (ix) a soma (a) da idade de cada um dos Devedores na Data de Aquisição e Pagamento dos respectivos Direitos Creditórios; com (b) o prazo final, em dias corridos, do vencimento da última parcela da respectiva CCB não poderá ser superior a 78 (setenta e oito) anos e 2 (dois) meses, inclusive;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Valor mínimo de parcela não localizado no texto extraído",
+   "sources": []
+  }
+ },
+ "leitura": "Consignado federal (Forças Armadas e SIAPE) com júnior ≥ 5% do PL e saldo por devedor limitado por idade.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
