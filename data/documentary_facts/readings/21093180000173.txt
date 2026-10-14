@@ -1,0 +1,47 @@
+# Fiper FIDC (Oliveira Trust; Oliveira Trust Servicer; cartões Vuon Card)
+type: Crédito pessoal
+q1: * "cartões de crédito emitidos pela Vuon Card que configurem Direitos Creditórios de Faturas, Direitos Creditórios de Acordos e Direitos Creditórios CCBs"
+q2: * "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição"
+q3: * "Creditórios Elegíveis e Ativos Financeiros de um mesmo Devedor, ou de coobrigação de uma mesma Pessoa, podendo o Fundo adquirir 100%"
+q4: * "Isso significa que, no mínimo, 20% (vinte por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação"
+q5: * "11.2 O Índice de Subordinação das Cotas Subordinadas Júnior será a relação mínima"
+q6: * "atividades, a Classe deve possuir parcela superior a 67% (sessenta e sete por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q7: * "o ano sobre o Patrimônio Líquido; observado o valor mínimo mensal de R$ 17.000,00 (dezessete mil reais) (“Taxa de Administração”)"
+q8: * "o ano sobre o Patrimônio Líquido; observado o valor mínimo mensal de R$ 17.000,00 (dezessete mil reais) (“Taxa de Gestão”)"
+q9: * "Os serviços de administração e custódia serão realizados pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "A atividade de gestão da carteira será realizada pela OLIVEIRA TRUST SERVICER S.A."
+q11: * "A Administradora e o Custodiante constituirão provisão para devedores duvidosos (PDD) com base em perdas esperadas"
+q12: * "O Fundo terá prazo de duração indeterminado"
+q14: * "só poderá adquirir Direitos Creditórios cedidos por Cedentes ou Endossantes que não estejam sob intervenção"
+receivables: Faturas, acordos e CCBs de cartões de crédito Vuon Card | q1
+originator: Vuon Card (emissora dos cartões) | q1
+assignor: Cedentes e endossantes não sujeitos a intervenção ou recuperação | q14
+debtor: Pessoas físicas portadoras de cartões Vuon | q1
+recourse: n/d | Cessão e endosso regidos pelos contratos, fora do texto lido | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Com lastro documental; vencidos ou a vencer; prazo ≤ 24 meses | q2
+debtor_limit: Até 20% do PL por devedor; cedente até 100% do PL | q3
+assignor_limit: Cedente pode chegar a 100% do PL | q3
+term_max: Até 24 meses | q2
+allocation: > 67% do PL em direitos creditórios | q6 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q4,q5
+sub_senior: 20% · (mez.+jr.)/PL | q4 | basis=mez+jr/PL
+sub_mezz: Júnior ≥ 20% do patrimônio subordinado | q5 | value=none
+sub_check: Diária | q4
+reserve: n/d | Valor da reserva de caixa não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: PDD por perdas esperadas, conforme manual da administradora | q11
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+liquidation: n/d | Lista de eventos de liquidação não localizada no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: n/d | Revolvência não detalhada no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido nos suplementos das séries | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Faixas sobre o PL; mín. R$ 17 mil/mês | q7
+mgmt_fee: Faixas sobre o PL; mín. R$ 17 mil/mês | q8
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Benchmark sênior definido em suplemento, fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Benchmark mezanino definido em suplemento, fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Oliveira Trust DTVM | q9
+manager: Oliveira Trust Servicer | q10
+custodian: Oliveira Trust DTVM | q9
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+duration: Indeterminado | q12
+leitura: Cartões Vuon Card (faturas, acordos e CCBs) com 20% de subordinação; cedente pode concentrar 100% do PL.
