@@ -1,0 +1,46 @@
+# Natura Pay FIDC Crédito Pessoal (Oliveira Trust; Oliveira Trust Servicer; endossante Natura &Co Pay SCD)
+type: Crédito pessoal
+q1: * "significa a NATURA & CO PAY SOCIEDADE DE SCD” CRÉDITO DIRETO S"
+q2: * "“Devedoras” significam as consultoras da Natura Cosméticos que obtenham financiamento, mediante a emissão de CCB"
+q3: * "Direitos Creditórios” significam os recebíveis alienados pela Endossante à Classe, originados no âmbito de operações de financiamentos concedidos pela Natura SCD às Devedoras"
+q4: * "coobrigação da Endossante, sem prejuízo do disposto no Contrato de Endosso, em especial em relação às Hipóteses de Recompra Compulsória"
+q5: * "destinada exclusivamente a investidores profissionais, a carteira da Classe não está sujeita a qualquer outro limite de concentração por devedor"
+q6: * "a Classe deverá ter alocado, no mínimo, 70% (setenta por cento) do seu Patrimônio Líquido em Direitos Creditórios"
+q7: * "percentual mínimo de 25,26% (vinte e cinco inteiros e vinte e seis centésimos por cento)"
+q8: * "Eventos de Avaliação”): (i) aquisição de Direitos Creditórios em desacordo com os Critérios de Elegibilidade"
+q9: * "Eventos de Liquidação”): (i) por determinação da CVM, em caso de descumprimento de disposição legal ou regulamentar"
+q10: * "“Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q11: * "gestão da carteira de ativos do Fundo será realizada pela OLIVEIRA TRUST SERVICER S.A."
+q12: * "prazo de duração indeterminado, regido pelo presente regulamento"
+receivables: CCBs de financiamento a consultoras para compra de produtos Natura | q3,q2
+originator: Natura &Co Pay SCD | q1
+assignor: Natura &Co Pay SCD, por endosso | q1,q3
+debtor: Consultoras da Natura Cosméticos | q2
+recourse: Sem coobrigação da endossante, salvo recompra compulsória | q4
+eligibility: CCB de R$ 100 a R$ 5 mil, entre outros critérios | o14
+debtor_limit: Sem limite adicional por devedor (classe para profissionais) | q5
+assignor_limit: — | Endossante única: Natura &Co Pay SCD
+term_max: n/d | Limite de parcelas sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 70% do PL em direitos creditórios | q6 | value=70
+quota_structure: Sênior / Subordinada | q7
+sub_senior: 25,26% · subord./PL | q7 | basis=jr/PL | value=25.26
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária | o27
+reserve: n/d | Reserva sem valor localizado em trecho contínuo
+pdd: Régua de provisão crescente por faixa de atraso | o40
+eval_triggers: Aquisição fora dos critérios de elegibilidade, entre outros | q8
+liquidation: Determinação da CVM ou deliberação de assembleia, entre outros | q9
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: Encargos, reservas, sênior, subordinadas e aquisições | o49
+admin_fee: 0,126% a.a. do PL (extenso diverge), com mínimo mensal | o52
+mgmt_fee: 0,054% a.a. do PL (extenso diverge), com mínimo mensal | o55
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q10
+manager: Oliveira Trust Servicer | q11
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança citado sem nome em trecho contínuo
+investors: Investidores profissionais | q5
+duration: Indeterminado | q12
+leitura: Crédito a consultoras da Natura via Natura Pay SCD; subordinação de 25,26% e alocação mínima de 70%.
