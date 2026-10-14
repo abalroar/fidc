@@ -1,0 +1,47 @@
+# Vitae FIC FIDC (ID CTVM; Via Invest Gestora)
+type: FIC
+q1: * "67% (sessenta e sete por cento) de seu Patrimônio Líquido em classes de cotas de outros fundos de investimento em direitos creditórios"
+q2: * "Artigo 29. O investimento da Classe em cotas de uma mesma classe pode exceder 25% (vinte e cinco por cento) do Patrimônio Líquido da Classe"
+q3: * "(a) Índice de Subordinação Sênior: representado pela relação mínima a ser observada entre o valor das Cotas Seniores e o Patrimônio Líquido da Classe"
+q4: * "Índice de Subordinação Mezanino: representado pela relação mínima a ser observada entre o valor das Cotas Subordinadas Mezanino"
+q5: * "Taxa de Administração da Classe, a ser paga à Admintradora pelos serviços prestados à Classe, corresponde ao percentual anual de 0,05%"
+q6: * "Taxa de Gestão da Classe, a ser paga à Gestora pelos serviços prestados à Classe, corresponde ao percentual anual de 0,05%"
+q7: * "O Fundo é administrado pela ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada"
+q8: * "O Fundo é gerido pela VIA INVEST GESTORA DE RECURSOS LTDA, acima qualificada"
+q9: * "Custodiante”: ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada"
+q10: * "provisão para perdas, seguirá o disposto na Instrução CVM n° 489"
+q11: * "Avaliação, Eventos de Liquidação Antecipada seguem descritos no Anexo da Classe"
+receivables: Cotas de outros FIDCs, com exposição indireta a direitos creditórios | q1
+originator: — | FIC: originação ocorre nos fundos investidos
+assignor: — | FIC: cessões ocorrem nos fundos investidos
+debtor: — | FIC: devedores estão nos fundos investidos
+recourse: — | FIC: coobrigação definida nos fundos investidos
+eligibility: Cotas de classes de FIDC aderentes à política | q1
+debtor_limit: Uma mesma classe investida pode passar de 25% e chegar a 100% do PL | q2 | value=none
+assignor_limit: — | FIC: cessões ocorrem nos fundos investidos
+term_max: — | FIC: prazo dos créditos definido nos fundos investidos
+allocation: ≥ 67% do PL em cotas de outros FIDCs | q1 | value=67
+investee: Não nomeados: classes de FIDC aderentes à política | Regulamento não identifica as classes investidas
+investee_share: ≥ 67% do PL em cotas de FIDCs | q1 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q3,q4
+sub_senior: Índice fixa sênior ≥ 50% do PL (piso de sênior, não de subordinação) | q3 | value=none
+sub_mezz: Índice fixa mezanino ≥ 25% do PL | q4 | value=none
+sub_check: Diária | q3
+reserve: n/d | Reserva de caixa não fixada no regulamento
+pdd: Instrução CVM 489 e manual de PDD da administradora | q10
+eval_triggers: n/d | Eventos remetidos ao anexo, sem lista localizada | q11
+liquidation: n/d | Eventos remetidos ao anexo, sem lista localizada | q11
+revolving: n/d | Reinvestimento não detalhado no regulamento
+amortization: n/d | Amortizações definidas nos suplementos
+admin_fee: 0,05% a.a. do PL; mín. R$ 5 mil/mês | q5
+mgmt_fee: 0,05% a.a. do PL; mín. R$ 5 mil/mês | q6
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta em branco no modelo de suplemento
+target_mezz: n/d | Meta em branco no modelo de suplemento
+administrator: ID CTVM | q7
+manager: Via Invest Gestora de Recursos | q8
+custodian: ID CTVM | q9
+servicer: — | FIC: cobrança ocorre nos fundos investidos
+investors: n/d | Público-alvo definido no anexo e nos suplementos
+duration: n/d | Prazo definido no anexo da classe
+leitura: FIC gerido pela Via Invest com ≥ 67% em cotas de FIDCs; uma classe investida pode chegar a 100% do PL.
