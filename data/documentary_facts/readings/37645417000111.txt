@@ -1,0 +1,49 @@
+# Ubyfol Agro III FIAGRO-FIDC (Vórtx; Brave Gestora; cedente Uby Agroquímica) — regulamento D2 de 13/07/2026
+type: Agro/FIAGRO
+q1: D2 "26. Cedente: Uby Agroquímica S.A., sociedade com sede na cidade de Uberaba"
+q2: D2 "coobrigação do Cedente ou com compromisso de recompra dos Direitos Creditórios elegíveis cedidos ao Fundo"
+q3: D2 "Subordinação Mínima das Subclasses Mezanino e Sênior, que passam a ser: (i) de 10% (dez por cento) para 5% (cinco por cento)"
+q4: D2 "Taxa de Administração à Administradora, equivalente ao percentual de 0,20% (vinte centésimos por cento), ao ano"
+q5: D2 "Taxa de Gestão à Gestora, equivalente ao percentual de 1% (um por cento), ao ano"
+q6: D2 "2. Administradora: a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q7: D2 "67. Gestora: a Brave Gestora de Recursos Ltda."
+q8: D2 "46. Custodiante: a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q9: D2 "Agente de Cobrança: A Gestora, ou seu sucessor a qualquer título"
+q10: D2 "destinada a investidores profissionais"
+q11: D2 "prazo de duração indeterminado, regido pelo presente Regulamento"
+q12: D2 "Eventos de Avaliação: as situações descritas em cada Anexo Descritivo, cuja ocorrência gerará a interrupção do processo de aquisição"
+q13: D2 "Eventos de Liquidação: as situações descritas em cada Anexo Descritivo, cuja ocorrência dará início ao processo de liquidação"
+receivables: Recebíveis de venda de insumos agrícolas da Uby Agroquímica | q1
+agro_backing: Vendas a prazo de defensivos e fertilizantes da Uby Agroquímica | q1
+originator: Uby Agroquímica | q1
+assignor: Uby Agroquímica, sem coobrigação | q1,q2
+debtor: Produtores e revendas clientes da Uby | q1
+recourse: Sem coobrigação nem recompra pelo cedente na inadimplência | q2
+eligibility: Prazo de 10 a 360 dias; devedor sem atraso relevante com a classe | o14
+debtor_limit: n/d | Limites por devedor definidos no anexo, sem trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+assignor_limit: — | Cedente única: Uby Agroquímica
+term_max: Prazo de até 360 dias | o14
+allocation: > 50% do PL em direitos creditórios | o24 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q3
+sub_senior: 25% · subord./PL (reduzido de 30%) | q3 | basis=mez+jr/PL | value=25
+sub_mezz: 5% · júnior/PL (reduzido de 10%) | q3 | basis=jr/PL | value=5
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Despesas e encargos estimados dos 2 meses seguintes | o36
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Situações do anexo descritivo que interrompem aquisições | q12
+liquidation: Situações do anexo descritivo que dão início à liquidação | q13
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,20% a.a. do PL, com mínimo mensal | q4
+mgmt_fee: 1% a.a. do PL, com mínimo mensal | q5
+perf_fee: n/d | Taxa de performance remetida ao anexo descritivo
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Vórtx DTVM | q6
+manager: Brave Gestora de Recursos | q7
+custodian: Vórtx DTVM | q8
+servicer: Brave (gestora), como agente de cobrança | q9,q7
+investors: Investidores profissionais | q10
+duration: Indeterminado | q11
+collateral: n/d | Garantias dos recebíveis não descritas em trecho contínuo
+leitura: Recebíveis de insumos da Uby Agroquímica sem coobrigação; subordinação de 25% (júnior ≥ 5%) e prazo até 360 dias.
