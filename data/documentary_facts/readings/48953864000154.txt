@@ -1,0 +1,49 @@
+# FIDC Asaas II (Oliveira Trust; Oliveira Trust Servicer; cedente Asaas) — liquidação antecipada aprovada em 25/07/2025
+type: Cartão/adquirência
+q1: * "Significa a ASAAS GESTÃO FINANCEIRA INSTITUIÇÃO DE PAGAMENTOS S.A."
+q2: * "Significa (i) a REDECARD S.A."
+q3: * "o limite de concentração em relação a tal Devedora é de 20% (vinte por cento) do Patrimônio Líquido"
+q4: * "Cedente é responsável somente pela existência, validade e correta formalização dos respectivos Direitos Creditórios Cedidos"
+q5: * "Subordinação de 15% (quinze por cento)"
+q6: * "Reserva de Caixa, cujo valor será equivalente ao montante necessário para a realização da amortização da próxima parcela de Cotas Seniores"
+q7: * "Taxa de Administração equivalente a 0,073% (setenta e três centésimos por cento por cento) ao ano sobre o Patrimônio Líquido"
+q8: * "Taxa de Gestão equivalente a 0,074% (setenta e quatro centésimos por cento) ao ano sobre o Patrimônio Líquido"
+q9: * "A TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. ADMINISTRADORA OLIVEIRA TRUST SERVICER S.A. GESTOR"
+q10: * "destinada a Investidores Autorizados que busquem rentabilidade, no longo prazo"
+q11: * "Provisão para Perdas em Ativos de Crédito, disponível em sua página na rede mundial de computadores"
+q12: * "Coobrigação. A Classe adquirirá Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo e sem qualquer direito de regresso"
+receivables: URs de cartão da Asaas registradas, contra credenciadoras | o71
+card_receivables: URs de cartão da Asaas contra Redecard, Cielo e Adyen | o71,q2
+originator: Asaas Gestão Financeira Instituição de Pagamentos | q1
+assignor: Asaas Gestão Financeira | q1
+debtor: Credenciadoras Redecard, Cielo e Adyen | q2,q3
+recourse: Aquisição definitiva, sem regresso nem coobrigação do cedente | q12,q4
+eligibility: UR onerada até 95%; créditos adimplentes, entre outros | o13
+debtor_limit: Adyen ≤ 20% do PL; demais credenciadoras sem esse limite | q3 | value=20
+assignor_limit: — | Cedente única: Asaas
+term_max: n/d | Faixas de prazo sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 80% do PL em direitos creditórios (histórico) | o23 | value=80
+quota_structure: Sênior / Subordinada | q5
+sub_senior: 15% · subord./PL | q5 | basis=jr/PL | value=15
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária | o26
+reserve: Reserva de caixa para a próxima amortização sênior | q6
+pdd: Política de provisão para perdas da administradora | q11
+eval_triggers: Assembleia de 25/07/2025 aprovou liquidação antecipada | o41
+liquidation: Liquidação antecipada aprovada para julho de 2025 | o41
+revolving: — | Fundo em liquidação
+amortization: Liquidação: encargos e resgate integral das subordinadas | o47
+admin_fee: 0,073% a.a. do PL (numeral diverge do extenso) | q7
+mgmt_fee: 0,074% a.a. do PL (numeral diverge do extenso) | q8
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no suplemento de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q9
+manager: Oliveira Trust Servicer | q9
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança só se contratado
+investors: Investidores autorizados | q10
+duration: Indeterminado (liquidação aprovada em julho de 2025) | o41
+card_lock: URs registradas em favor da classe | o71
+dilution: n/d | Tratamento de cancelamentos não localizado em trecho contínuo
+leitura: URs de cartão da Asaas com subordinação de 15%; liquidação antecipada aprovada em julho de 2025.
