@@ -1,56 +1,61 @@
-# portado de 53270983000142 (54810968000102)
+# portado de 53179862000190 (54810968000102)
 type: FGTS
-q1: * "Credor Original Significa a QI SOCIEDADE DE CRÉDITO DIRETO S.A."
-q2: * "stimo pessoal realizadas entre o Credor Original e os respectivos Devedores e garantidos por Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saques-Aniversário"
-q3: * "5.1. Em cada cessão de Direitos Creditórios à Classe A, os Direitos Creditórios devem atender, cumulativamente, aos seguintes Critérios de Elegibilidade"
-q4: * "o saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00"
-q5: * "A relação equivalente a, no mínimo, 20% (vinte por cento) entre Sênior o valor das Cotas Subordinadas"
-q6: * "A relação equivalente a, no mínimo, 8% (oito por cento) entre: Mezanino (a) o valor das Cotas Subordinadas Jún"
-q7: * "Até R$ 500 milhões 0,10% De R$ 500 milhões a R$ 1 0,08% R$ 12.000,00 0,03% R$ 3.500,00"
-q8: * "Patrimônio Líquido da Classe A Taxa de Gestão (% a.a.) Até R$ 500 milhões 0,67%"
-q9: * "Não serão cobradas dos Cotistas taxas de performance, ingresso e saída"
-q10: * "Administradora Significa O BANCO DAYCOVAL S.A."
-q11: * "Custodiante É o BANCO DAYCOVAL S.A."
-q12: * "ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo"
-q13: * "10.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à Administradora convocar uma Assembleia Especial"
-q14: * "Público-Alvo Investidores Profissionais"
-q15: * "Prazo de Duração Indeterminado"
-q16: * "ursos financeiros originados na carteira de Direitos Creditórios (revolvência)"
-q17: * "O cálculo da provisão para perdas na recuperação dos Direitos Creditórios Inadimplidos será realizado conforme conceitos definidos no Adendo IV"
-q18: * "contratos de correspondente bancário com a Originadora e sejam responsáveis por emitir as CCB endossá-las"
-q19: * "100% CDI + 1,80% a.a."
-receivables: CCBs de empréstimo pessoal garantidas pelo saque-aniversário FGTS | q2
-originator: QI SCD (credor original) e endossantes correspondentes | q1,q18
-assignor: endossantes ligados à originadora por correspondência bancária | q18
-debtor: Pessoas físicas titulares de FGTS com saque-aniversário | q2
-recourse: n/d | Recompra e resolução regidas pelos contratos de endosso
-eligibility: Devedor sem atraso no fundo; saldo ≤ R$ 120 mil por devedor | q3,q4
-debtor_limit: Saldo por devedor ≤ R$ 120 mil | q4
-assignor_limit: Não previsto | Regulamento limita por devedor, não por endossante
-term_max: n/d | Prazo máximo da CCB não localizado no texto extraído
-allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
-quota_structure: Sênior / Mezanino / Júnior | q5,q6
-sub_senior: 20% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
-sub_mezz: 8% · jr/PL | q6 | basis=jr/PL
-sub_check: Apuração conforme o anexo | q5
-reserve: n/d | Valor das reservas de caixa e liquidez não localizado no texto extraído
-pdd: Provisão conforme o adendo IV do anexo | q17
-eval_triggers: Intervenção ou falência de endossante ou do credor original, entre outros | q13
-liquidation: n/d | Eventos de liquidação não localizados separadamente no texto extraído
-revolving: Revolvência com recursos da carteira | q16
-amortization: n/d | Cronograma definido nos suplementos das séries
-admin_fee: 0,10% a.a. até R$ 500 mi, regressiva; mín. R$ 12 mil; custódia 0,03% | q7
-mgmt_fee: 0,67% a.a. até R$ 500 mi | q8
-perf_fee: Não prevista | Regulamento veda taxa de performance | q9
-target_senior: CDI + 1,80% a.a. (série sênior, nas demonstrações de 2024) | q19
-target_mezz: n/d | Suplemento da mezanino não está no acervo
-administrator: Banco Daycoval | q10
-manager: Angá Administração de Recursos | q12
-custodian: Banco Daycoval (0,03% a.a.; mín. R$ 3.500/mês) | q11,q7
-servicer: n/d | Agente de cobrança não nomeado no trecho lido
-investors: Investidores profissionais | q14
-duration: Indeterminado | q15
-payroll: Cessão fiduciária do saque-aniversário FGTS | q2
-age_limit: n/d | Limite de idade não localizado no texto extraído
-installment_min: n/d | Valor mínimo de parcela não localizado no texto extraído
-leitura: Antecipação de FGTS originada pela QI SCD com 20% de subordinação e júnior ≥ 8%; saldo por devedor ≤ R$ 120 mil.
+q1: * "Direitos Creditórios Os pagamentos das parcelas das CCBs serão realizados mediante consignação do Saque Aniversário"
+q2: * "é a (i) TUDO SERVIÇOS S/A, sociedade por ações com sede na Cidade de Eusébio"
+q3: * "Direitos Creditórios são garantidos pela Cessão Fiduciária ou Alienação Fiduciária dos Direitos aos Saques-Aniversários"
+q4: * "seguintes Critérios de Elegibilidade, a serem verificados pela Gestora"
+q5: * "o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00"
+q6: * "e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144"
+q8: * "67% (sessenta e sete) do Patrimônio Alocação Mínima Líquido a ser mantido em Direitos Creditórios Cedidos"
+q9: * "Subordinação Sênior deverá ser equivalente a, no mínimo, 10% (dez por cento) do Patrimônio Líquido"
+q10: * "o Índice de Subordinação Mezanino A deverá ser equivalente a, no mínimo, 5% (cinco por cento) do Patrimônio Líquido"
+q11: * "a Gestora Ext deverá manter a Reserva de Caixa, por conta e ordem da Classe"
+q12: * "provisão para perdas da Administradora, também disponível na sua página"
+q13: * "17.1 São considerados Eventos de Avaliação: (a) Rebaixamento da classificação de risco"
+q14: * "17.2 A Classe será liquidada única e exclusivamente nas seguintes hipóteses"
+q15: * "revolvência da carteira da Classe, ou seja, a aquisição de novos Direitos Creditórios pela Classe"
+q16: * "5.1 Pela prestação dos serviços de administração fiduciária do Fundo, a Classe pagará à Administradora a Taxa de Administração"
+q17: * "a Classe pagará às Gestoras a Taxa de Gestão, equivalente a 0,85"
+q18: * "Administradora BANCO DAYCOVAL S.A."
+q19: * "Gestora Valora VALORA RENDA FIXA ESTRUTURADOS LTDA."
+q20: * "Gestora Ext EXT CAPITAL LTDA."
+q21: * "Custodiante BANCO DAYCOVAL S.A."
+q22: * "Agente de Cobrança TUDO SERVIÇOS S.A."
+q23: * "Investidores Autorizados Investidores qualificados, conforme definidos na Resolução CVM nº 30"
+q24: * "prazo de duração indeterminado. 4. PRESTADORES DE SERVIÇOS ESSENCIAIS"
+q25: * "b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB"
+receivables: CCBs com antecipação do saque-aniversário do FGTS | q1,q3
+originator: Tudo Serviços (endossante) | q2
+assignor: Tudo Serviços, por endosso das CCBs | q2
+debtor: Trabalhadores titulares de contas do FGTS | q3
+recourse: Garantia fiduciária dos direitos ao saque-aniversário | q3
+eligibility: Totalidade das parcelas da CCB; devedor sem atraso com a classe | q4,q25
+debtor_limit: Parcelas por devedor até R$ 200 mil | q5 | value=none
+assignor_limit: — | Endossante única: Tudo Serviços
+term_max: CCB de até 144 meses | q6
+allocation: ≥ 67% do PL em direitos creditórios | q8 | value=67
+quota_structure: Sênior / Mezanino A / Mezanino B / Subordinada júnior | q9,q10
+sub_senior: 10% · subord./PL | q9 | basis=mez+jr/PL | value=10
+sub_mezz: Mezanino A: 5% do PL | q10 | basis=jr/PL | value=5
+sub_check: n/d | Periodicidade de apuração dos índices não localizada
+reserve: Menor entre R$ 500 mil e 3 meses de despesas | q11
+pdd: Manual de provisão para perdas da administradora | q12
+eval_triggers: Rebaixamento de rating em 2 níveis, entre outros | q13
+liquidation: Determinação da CVM ou deliberação sobre evento de avaliação | q14
+revolving: Revolvência durante todo o prazo da classe | q15
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,12% a.a. até R$ 250 mi de PL, regressiva até 0,05%; mín. R$ 12 mil/mês | q16
+mgmt_fee: 0,85% a.a. do PL, rateada entre as gestoras | q17
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Banco Daycoval | q18
+manager: Valora Renda Fixa e EXT Capital | q19,q20
+custodian: Banco Daycoval | q21
+servicer: Tudo Serviços (agente de cobrança) | q22
+investors: Investidores qualificados | q23
+duration: Indeterminado | q24
+payroll: Parcelas pagas pelo saque-aniversário via agente operador do FGTS | q1
+age_limit: n/d | Regulamento não fixa idade do devedor
+installment_min: n/d | Regulamento não fixa parcela mínima
+leitura: CCBs de saque-aniversário FGTS da Tudo Serviços; subordinação de 10% e CCB de até 144 meses.

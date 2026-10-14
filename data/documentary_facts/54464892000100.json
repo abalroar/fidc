@@ -1,0 +1,785 @@
+{
+ "schema_version": 1,
+ "cnpj": "54464892000100",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES II",
+ "fund_type": "FGTS",
+ "reviewed_at": "2026-10-14T07:55:23Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1033290",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "10/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033290"
+  },
+  "D2": {
+   "document_id": "884293",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "23/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293"
+  },
+  "D3": {
+   "document_id": "921382",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "10/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=921382"
+  },
+  "D4": {
+   "document_id": "829655",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "31/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=829655"
+  },
+  "D5": {
+   "document_id": "826235",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "28/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826235"
+  },
+  "D6": {
+   "document_id": "823583",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "21/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823583"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FGTS",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de empréstimo com garantia do saque-aniversário do FGTS, via Plataforma MT",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 11,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "itórios serão adquiridos integralmente pela Classe, sempre de acordo com a Política de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimos pessoais concedidos por um Endossante a um Devedor, por meio da Plataforma MT, e representados por CCBs devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. 4.2.1 Cada Endossante deve ter celebrado um Convênio FGTS, previamente à cessão de Direitos Creditórios ao FUNDO, para que, após a averbação dos Direitos Creditórios na CEF, o pagamento regular do Saque Aniversário em garantia dos Direitos Creditórios seja feito por meio de transferência de parte ou da totalidade dos recursos do Saque-aniversário a que o Devedor faz jus diretamente ao Endossante. 4.2.2 Em caráter excepcional e mediante decisão discricionária do GESTOR, desde que aprovada por unanimidade em Assembleia Especial de Cotistas, a Classe poderá adquirir (a) até que seja concluída a aquisição do Endossante Parati – Crédito, Financiamento e Investimento S.A."
+    },
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 13,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "e apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios deverão ser representados por CCB cujos Devedores sejam exclusivamente pessoas físicas, desde que estejam livres e desembaraçados de quaisquer ônus, exceto pelo ônus decorrente do endosso das CCB; (ii) os Direitos Creditórios serão adquiridos pelo Preço de Compra; (iii) os Direitos Creditórios devem ser decorrentes de cada uma das parcelas vincendas de uma CCB emitida eletronicamente por um Devedor, em favor do Endossante, representando um empréstimo pessoal com garantia de cessão fiduciária dos valores referentes ao Saque-aniversário a que faz jus o Devedor, nos termos da Lei nº 8.036 e da Resolução nº 958 do Conselho Curador do FGTS, de forma que parte do Saque-aniversário do Devedor seja utilizada para liquidar as parcelas devidas da CCB, de acordo com os procedimentos estabelecidos pelo respectivo Convênio FGTS; (iv) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e/ou inadimplidos e não pagos à Classe e/ou recomprados da Classe em razão de fraude;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Endossantes via Plataforma MT (QI SCD e Parati)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 83,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "asse, conforme aplicável, previstos no CAPÍTULO 3 da Parte Geral e no Capítulo 3 do Anexo I, ambos deste Regulamento; “Endossante”: QI Sociedade de Crédito Direto S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na Cidade de São Paulo, Estado do São Paulo, na Avenida Brigadeiro Faria Lima, 2.391, 1° andar, cj 12, CEP 01452-000, inscrita no CNPJ/MF sob nº 32.402.502/0001-35, observado o disposto no item 5.1 da ata da Assembleia Especial de Cotistas realizada em 30 de janeiro de 2025; ou Parati - Crédito, Financiamento e Investimento S.A., instituição financeira, constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, nº 2796, sala 804, Santa Luiza, CEP 29045-402, inscrita no CNPJ sob no 03.311.443/0001-91, conforme o caso; “Entidades Registradoras” são instituições autorizadas pelo BACEN para realizar as atividades de registro e de constituição, alteração e desconstituição de ônus e gravames sobre ativos financeiros registrados; “Eventos de Avaliação”: os eventos de avaliação descritos no item 11.1 deste Anexo; “Eventos de Liquidação”: os eventos de liquidação descritos no item 11.3 deste Anexo;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 11,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "itórios serão adquiridos integralmente pela Classe, sempre de acordo com a Política de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimos pessoais concedidos por um Endossante a um Devedor, por meio da Plataforma MT, e representados por CCBs devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. 4.2.1 Cada Endossante deve ter celebrado um Convênio FGTS, previamente à cessão de Direitos Creditórios ao FUNDO, para que, após a averbação dos Direitos Creditórios na CEF, o pagamento regular do Saque Aniversário em garantia dos Direitos Creditórios seja feito por meio de transferência de parte ou da totalidade dos recursos do Saque-aniversário a que o Devedor faz jus diretamente ao Endossante. 4.2.2 Em caráter excepcional e mediante decisão discricionária do GESTOR, desde que aprovada por unanimidade em Assembleia Especial de Cotistas, a Classe poderá adquirir (a) até que seja concluída a aquisição do Endossante Parati – Crédito, Financiamento e Investimento S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "QI SCD ou Parati, por endosso das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 83,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "asse, conforme aplicável, previstos no CAPÍTULO 3 da Parte Geral e no Capítulo 3 do Anexo I, ambos deste Regulamento; “Endossante”: QI Sociedade de Crédito Direto S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na Cidade de São Paulo, Estado do São Paulo, na Avenida Brigadeiro Faria Lima, 2.391, 1° andar, cj 12, CEP 01452-000, inscrita no CNPJ/MF sob nº 32.402.502/0001-35, observado o disposto no item 5.1 da ata da Assembleia Especial de Cotistas realizada em 30 de janeiro de 2025; ou Parati - Crédito, Financiamento e Investimento S.A., instituição financeira, constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, nº 2796, sala 804, Santa Luiza, CEP 29045-402, inscrita no CNPJ sob no 03.311.443/0001-91, conforme o caso; “Entidades Registradoras” são instituições autorizadas pelo BACEN para realizar as atividades de registro e de constituição, alteração e desconstituição de ônus e gravames sobre ativos financeiros registrados; “Eventos de Avaliação”: os eventos de avaliação descritos no item 11.1 deste Anexo; “Eventos de Liquidação”: os eventos de liquidação descritos no item 11.3 deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas titulares de saque-aniversário",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 13,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "e apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios deverão ser representados por CCB cujos Devedores sejam exclusivamente pessoas físicas, desde que estejam livres e desembaraçados de quaisquer ônus, exceto pelo ônus decorrente do endosso das CCB; (ii) os Direitos Creditórios serão adquiridos pelo Preço de Compra; (iii) os Direitos Creditórios devem ser decorrentes de cada uma das parcelas vincendas de uma CCB emitida eletronicamente por um Devedor, em favor do Endossante, representando um empréstimo pessoal com garantia de cessão fiduciária dos valores referentes ao Saque-aniversário a que faz jus o Devedor, nos termos da Lei nº 8.036 e da Resolução nº 958 do Conselho Curador do FGTS, de forma que parte do Saque-aniversário do Devedor seja utilizada para liquidar as parcelas devidas da CCB, de acordo com os procedimentos estabelecidos pelo respectivo Convênio FGTS; (iv) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e/ou inadimplidos e não pagos à Classe e/ou recomprados da Classe em razão de fraude;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação nem regresso, salvo má-fé, culpa ou dolo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 15,
+     "clause": "cl. 4.7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "arações e Garantias dos Créditos, conforme previsto no Contrato de Endosso, após seu endosso à Classe, não haverá coobrigação nem direito de regresso da Classe contra o Endossante, o ADMINISTRADOR, o CUSTODIANTE, o GESTOR e/ou o Agente de Retenção/Cobrança, exceto em caso de má-fé, culpa ou dolo comprovado, hipótese em que a parte que agiu com má-fé, culpa ou dolo comprovado poderá ser responsabilizada pelas perdas incorridas pela Classe em relação aos respectivos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "CCB de pessoa física com garantia do saque-aniversário; taxa ≥ DI + 4,75% a.a.",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 13,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "e apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios deverão ser representados por CCB cujos Devedores sejam exclusivamente pessoas físicas, desde que estejam livres e desembaraçados de quaisquer ônus, exceto pelo ônus decorrente do endosso das CCB; (ii) os Direitos Creditórios serão adquiridos pelo Preço de Compra; (iii) os Direitos Creditórios devem ser decorrentes de cada uma das parcelas vincendas de uma CCB emitida eletronicamente por um Devedor, em favor do Endossante, representando um empréstimo pessoal com garantia de cessão fiduciária dos valores referentes ao Saque-aniversário a que faz jus o Devedor, nos termos da Lei nº 8.036 e da Resolução nº 958 do Conselho Curador do FGTS, de forma que parte do Saque-aniversário do Devedor seja utilizada para liquidar as parcelas devidas da CCB, de acordo com os procedimentos estabelecidos pelo respectivo Convênio FGTS; (iv) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e/ou inadimplidos e não pagos à Classe e/ou recomprados da Classe em razão de fraude;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 89,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "dossante quando da realização de cada endosso, que deverá observar a Taxa de Endosso Mínima. “Taxa de Endosso Mínima”: taxa de endosso pré-fixada, equivalente à Taxa DI, acrescida de 4,75% (quatro inteiros e setenta e cinco centésimos) ao ano, desde que o “Ágio”, assim entendido como a diferença entre a taxa juros da CCB e a Taxa de Endosso, seja igual ou inferior a 20% (vinte por cento). Caso o GESTOR ou o Agente de Retenção/Cobrança observem que o Ágio seja superior a 20% (vinte por cento), devem informar imediatamente o Endossante, que em até 01 (um) dia útil adequará o processamento da Taxa de Endosso, de forma a ajustá-la ao limite de 20% (vinte por cento). A observância da porcentagem do Ágio é de responsabilidade exclusiva do Agente de Retenção/Cobrança e do GESTOR, sendo que os Direitos Creditórios endossados no período em que a Taxa de Endosso Mínima estava em discussão entre as Partes não terão coobrigação nem direito de regresso perante a Endossante; “Taxa de Gestão”: a taxa mensal que é devida ao GESTOR, nos termos do item 13.4 deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Maior devedor até R$ 150 mil; 10 maiores até R$ 1 mi",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 14,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": ",00 (dez reais); (vi) a soma dos Preços de Compra das CCBs constantes da carteira da Classe que sejam devidas por um mesmo Devedor, considerando, pro forma, a aquisição pretendida, deverá respeitar os seguintes limites de concentração: Devedores Valor Maior Devedor R$150.000,00 5 Maiores Devedores R$600.000,00 10 Maiores Devedores R$1.000.000,00 15 Maiores Devedores R$1.500.000,00 20 Maiores Devedores R$2.000.000,00 50 Maiores Devedores R$5.000.000,00 100 Maiores R$10.000.000,00 Devedores (vii) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente (i) a 145 (cento e quarenta e cinco) meses contados da data de emissão de cada CCB; ou (ii) ao prazo de vencimento das Cotas Seniores da 2ª Série, o que for menor; (viii) a CCB será endossada com todas as suas parcelas vincendas; (ix) considerado, pro forma, o endosso pretendido, a Taxa de Endosso média ponderada da carteira deverá ser maior que a Taxa DI acrescida de 4,75% (quatro inteiros e setenta e cinco centésimos por cento) ao ano;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por endossante não fixado no regulamento",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo das CCBs não localizado no regulamento",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 18,
+     "clause": "cl. 4.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "rteira 4.10 Decorridos 180 (cento e oitenta) dias da Data da 1ª Integralização de Cotas, a Classe deverá manter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios. 4.11 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto no item 4.20 abaixo e Ativos Financeiros de Liquidez devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado, ainda que devidos e/ou de responsabilidade ou coobrigação dos Prestadores de Serviço Essenciais, outros prestadores de serviço da Classe, e/ou suas Partes Relacionadas. 4.12 É vedado à Classe, direta ou indiretamente e, nos termos da legislação aplicável adquirir Direitos Creditórios que sejam cedidos e/ou originados pelo ADMINISTRADOR e/ou pelo GESTOR, ou partes a eles relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto. 4.12.1 A Classe poderá ter até 100% (cem por cento) do Patrimônio Líquido representado por Direitos Creditóri"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 85,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 5% (cinco por cento); “Índice de Subordinação Sênior”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 13,5% (treze inteiros e cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 15% (quinze por cento); “Índices de Subordinação Ajustados”: significa o Índice de Subordinação Ajustado Sênior e o Índice de Subordinação Ajustado Mezanino, quando mencionados em conjunto; “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto; “Instituições Autorizadas”: Significam as seguintes instituições financeiras: (i) Banco Bradesco S.A., (ii) Banco Santander (Brasil) S.A., (iii) Banco do Brasil S.A., (iv) Caixa Econômica Federal, (v) Banco Itaú Unibanco S.A., e (vi) Banco BTG Pactual S.A., desde que possua classificação de risco de crédito de longo prazo, atribuída pela mesma Agência Classificadora de Risco, no mínimo igual ou superior a “AAA(bra)” ou equivalente;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 85,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "ição Líquida Negativa Derivativo, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 20% (vinte por cento); “Índice de Subordinação Mezanino”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 3,5% (três inteiros e cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 5% (cinco por cento); “Índice de Subordinação Sênior”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 13,5% (treze inteiros e cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 15% (quinze por cento); “Índices de Subordinação Ajustados”: significa o Índice de Subordinação Ajustado Sênior e o Índice de Subordinação Ajustado Mezanino, quando mencionados em conjunto; “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe A: 2ª série sênior e 2ª emissão mezanino",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "13,5% no período de investimento; 15% depois · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 85,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 5% (cinco por cento); “Índice de Subordinação Sênior”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 13,5% (treze inteiros e cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 15% (quinze por cento); “Índices de Subordinação Ajustados”: significa o Índice de Subordinação Ajustado Sênior e o Índice de Subordinação Ajustado Mezanino, quando mencionados em conjunto; “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto; “Instituições Autorizadas”: Significam as seguintes instituições financeiras: (i) Banco Bradesco S.A., (ii) Banco Santander (Brasil) S.A., (iii) Banco do Brasil S.A., (iv) Caixa Econômica Federal, (v) Banco Itaú Unibanco S.A., e (vi) Banco BTG Pactual S.A., desde que possua classificação de risco de crédito de longo prazo, atribuída pela mesma Agência Classificadora de Risco, no mínimo igual ou superior a “AAA(bra)” ou equivalente;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior 3,5% no período de investimento; 5% depois",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 85,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "ição Líquida Negativa Derivativo, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 20% (vinte por cento); “Índice de Subordinação Mezanino”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 3,5% (três inteiros e cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 5% (cinco por cento); “Índice de Subordinação Sênior”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 13,5% (treze inteiros e cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 15% (quinze por cento); “Índices de Subordinação Ajustados”: significa o Índice de Subordinação Ajustado Sênior e o Índice de Subordinação Ajustado Mezanino, quando mencionados em conjunto; “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pelo gestor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 85,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 5% (cinco por cento); “Índice de Subordinação Sênior”: significa a razão mínima admitida entre (a) Patrimônio Líquido das Cotas Subordinadas Mezanino adicionado do Patrimônio Líquido das Cotas Subordinadas Júnior; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo GESTOR em cada Dia Útil, equivalente a 13,5% (treze inteiros e cinco décimos por cento) durante o Período de Investimento e, após este período, equivalente a 15% (quinze por cento); “Índices de Subordinação Ajustados”: significa o Índice de Subordinação Ajustado Sênior e o Índice de Subordinação Ajustado Mezanino, quando mencionados em conjunto; “Índices de Subordinação”: significam o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino, quando mencionados em conjunto; “Instituições Autorizadas”: Significam as seguintes instituições financeiras: (i) Banco Bradesco S.A., (ii) Banco Santander (Brasil) S.A., (iii) Banco do Brasil S.A., (iv) Caixa Econômica Federal, (v) Banco Itaú Unibanco S.A., e (vi) Banco BTG Pactual S.A., desde que possua classificação de risco de crédito de longo prazo, atribuída pela mesma Agência Classificadora de Risco, no mínimo igual ou superior a “AAA(bra)” ou equivalente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "Liquidez: maior entre 2 meses de despesas e 0,66% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 88,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "a será limitada à posição líquida devedora do derivativo vigente no momento da sua constituição ou reestabelecimento. “Reserva de Liquidez”: significa a reserva a ser constituída e reestabelecida mensalmente pelo ADMINISTRADOR, conforme Ordem de Alocação de Recursos prevista no Capítulo 8 do Anexo I para cobertura de custos relacionados à (i) manutenção da Classe, incluindo, mas não se limitando ao pagamento de Despesas e Encargos; e (ii) despesas judiciais, em montante equivalente a 2 (dois) meses de tais despesas ou 0,66% (sessenta e seis centésimos por cento) do Patrimônio Líquido, dos dois o maior. “Resolução CMN nº 5.057”: Resolução CMN nº 5.057, de 1º de março de 2023, conforme alterada ou substituída de tempos em tempos; “Resolução CVM 160”: Resolução CVM nº 160, de 13 de julho de 2022, conforme alterada; “Resolução CVM 175”: Resolução CVM nº 175, de 23 de dezembro de 2022, conforme alterada; “Resolução CVM 30”: Resolução CVM nº 30, de 11 de maio de 2021, conforme alterada; “Saque-aniversário”: é o saque anual permitido aos beneficiários do FGTS, em seu mês de aniversário, nos termos do artigo 20-A, inciso II, da Lei nº 8.036, de acordo com o artigo 20, inciso XX, da Lei nº 8.036; “SELIC”: Sistema Especial de Liquidação e Custódia;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "PDD conforme Instrução CVM 489 e manual do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 36,
+     "clause": "cl. 9.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "de Liquidez será reduzido pelo valor da provisão efetuada ou perda reconhecida. 9.2.1 O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Art. 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do ADMINISTRADOR ou, ainda, no manual do CUSTODIANTE. CAPÍTULO 10 – ASSEMBLEIA ESPECIAL DE COTISTAS 10.1 Sem prejuízo de outros requisitos e informações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas. 10.2 A Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas, sem prejuízo das demais disposições previstas na regulamentação aplicável, incluindo, mas não se limitando a: (i) deliberar sobre as demonstrações contábeis da Classe, observado o disposto no art."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Intervenção, falência ou recuperação do endossante, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 38,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "QUIDAÇÃO E PROCEDIMENTOS DE LIQUIDAÇÃO ANTECIPADA Eventos de Avaliação 11.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) em caso de regime de administração especial temporária – RAET, intervenção ou liquidação extrajudicial do Endossante; (ii) em caso de pedido de autofalência, decretação de falência, pedido de recuperação judicial ou extrajudicial, decretação de evento de intervenção, liquidação, procedimentos preparatórios para pedido de recuperação judicial ou extrajudicial ou outro procedimento de natureza similar ou preparatório, do Agente de Retenção/Cobrança; (iii) não cumprimento, pelo Endossante QI Sociedade de Crédito Direito S.A, de qualquer de suas obrigações estabelecidas no Contrato de Endosso, neste Regulamento ou Anexo, desde que em valor, individual ou agregado, superior a 1,00% (um por cento) do Patrimônio Líquido da Classe, em caso de obrigação pecuniária, e esse não cumprimento não seja devidamente sanado dentro do prazo de cura de 2 (dois) Dias Úteis para obrigações pecuniárias e 10 (dez) Dias Úteis para obrigações não pecuniárias, sem prejuízo de outros prazos de cura específicos previstos no referido contrato;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou saída do administrador, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 43,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "aliação e/ou Eventos de Liquidação. Eventos de Liquidação 11.3 As seguintes hipóteses são consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) nos casos em que houver determinação da CVM, nos termos previstos na Resolução CVM 175; (iii) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada para tal fim; (iv) cessação, falência ou renúncia do ADMINISTRADOR, GESTOR ou CUSTODIANTE sem que a Assembleia de Cotistas eficazmente nomeie instituição habilitada para substituí-lo, nos termos estabelecidos neste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Período de investimento de 6 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 19,
+     "clause": "cl. 4.15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "lasse não poderá investir em Direitos Creditórios Não-Padronizados. Revolvincia e Período de Investimento da Carteira 4.16 A Classe terá um Período de Investimento de 6 (seis) meses contados da Data da 1ª Integralização de Cotas Seniores da 3ª Série (“Período de Investimento”), sendo certo que o período de investimento vigente até 17 de abril de 2025 era referente a 6 (seis) meses contados da Data da 1ª integralização de Cotas Seniores da 2ª série (“Período de Investimento Anterior”). 4.17 Durante o Período de Investimento, a Classe utilizará os recursos provenientes da integralização das Cotas para investir em Direitos Creditórios e Ativos Financeiros de Liquidez, de acordo com a Política de Investimento estabelecida no presente Anexo I."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "Percentual por faixa de PL; mín. R$ 15 mil/mês nos 36 primeiros meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 56,
+     "clause": "cl. 12.23.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "Assembleia de Cotistas. CAPÍTULO 13 – TAXAS DE ADMINISTRAÇÃO, GESTÃO, COBRANÇA E CUSTÓDIA Taxa de Administração 13.1 Pelos serviços de administração, custódia, tesouraria, controladoria e escrituração, a Classe pagará a Taxa de Administração nos valores correspondentes aos percentuais indicados na tabela abaixo e aplicados sobre o Patrimônio Líquido. Ainda, deverá ser observado o valor mínimo mensal a seguir, de acordo com o prazo de funcionamento da Classe: (a) durante os 36 (trinta e seis) primeiros meses de funcionamento da Classe, será devido o montante mínimo de R$ 15.000,00 (quinze mil reais) mensais; (b) de 37 (trinta e sete) a 60 (sessenta) meses de funcionamento da Classe, será devido o montante mínimo de R$ 11.500,00 (onze mil e quinhentos reais) mensais;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. até R$ 200 mi de PL, regressiva até 0,16%; mín. R$ 8 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 57,
+     "clause": "cl. 13.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "13.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos valores correspondentes aos percentuais indicados na tabela abaixo e aplicados sobre o Patrimônio Líquido, observado o valor mínimo de: R$ 8.000,00 (oito mil reais) mensais. Patrimônio Taxa de Gestão Específica (%) Até R$ 200.000.000,00 0,20% a.a. De R$ 200.000.000,01 até R$ 400.000.000,00 0,18% a.a. Acima de R$ 400.000.000,00 0,16% a.a. 13.4.1 O valor mínimo acima estabelecido será atualizado anualmente, no dia 15 (quinze) de janeiro de cada ano, a partir da Data da 1ª Integralização de Cotas da Classe, com base na variação positiva do Índice Nacional de Preços ao Consumidor Amplo, calculado e divulgado pelo Instituto Nacional de Geografia e Estatística (IPCA/IBGE). 13.4.2 A Taxa de Gestão será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) c"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 57,
+     "clause": "cl. 13.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "erviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 13.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos valores correspondentes aos percentuais indicados na tabela abaixo e aplicados sobre o Patrimônio Líquido, observado o valor mínimo de: R$ 8.000,00 (oito mil reais) mensais. Patrimônio Taxa de Gestão Específica (%) Até R$ 200.000.000,00 0,20% a.a. De R$ 200.000.000,01 até R$ 400.000.000,00 0,18% a.a. Acima de R$ 400.000.000,00 0,16% a.a. 13.4.1 O valor mínimo acima estabelecido será atualizado anualmente, no dia 15 (quinze) de janeiro de cada ano, a partir da Data da 1ª Integralização de Cotas da Classe, com base na variação positiva do Índice Nacional de Preços ao Consumidor Amplo, calculado e divulgado pelo Instituto Nacional de Geografia e Estatística (IPCA/IBGE). 13.4.2 A Taxa de Gestão será calculada e provisionada todo Dia Útil"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "stas Prazo de Duração reunidos em assembleia geral de cotistas. Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda., instituição financeira constituída sob a forma de sociedade limitada com sede na cidade de São Paulo, estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto ADMINISTRADOR nº 41, sala 02, Pinheiros, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários pelo Ato Declaratório n.º 14.820, de 08 de janeiro de 2016 (“ADMINISTRADOR”). Solis Investimentos Ltda., sociedade limitada com sede na cidade de São Paulo, estado de São Paulo, na Avenida Pedroso de Morais, n 1.553, 4º andar, Pinheiros, CEP 05419-001, inscrita no CNPJ sob o nº 17.254.708/0001-71, autorizada à prestação dos serviços de administração de carteira de títulos de GESTOR valores mobiliários por meio do Ato Declaratório nº 13.427, de 06 de dezembro de 2013;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Solis Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "aratório n.º 14.820, de 08 de janeiro de 2016 (“ADMINISTRADOR”). Solis Investimentos Ltda., sociedade limitada com sede na cidade de São Paulo, estado de São Paulo, na Avenida Pedroso de Morais, n 1.553, 4º andar, Pinheiros, CEP 05419-001, inscrita no CNPJ sob o nº 17.254.708/0001-71, autorizada à prestação dos serviços de administração de carteira de títulos de GESTOR valores mobiliários por meio do Ato Declaratório nº 13.427, de 06 de dezembro de 2013;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 9,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "nais. VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES Custódia MOBILIÁRIOS LTDA., acima qualificada (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração Subclasses Sênior, Mezanino e Subordinadas Júnior, nos termos do Capítulo 5. O valor de cada emissão de Cotas, volume e valor unitário da Emissão e Regime de Cota, bem como o regime de distribuição seguirão o disposto no Distribuição de Cotas instrumento que aprova a emissão de Cotas, que disporá acerca da eventual existência de direito de preferência dos Cotistas. Capital Autorizado Conforme item 5.7 abaixo e seguintes As Cotas poderão ser admitidas à negociação em bolsa de Negociação valores ou entidade de balcão organizado, conforme item 5.13 abaixo deste Anexo. Cálculo do Valor da Cota Conforme Capítulo 6 deste Anexo. A distribuição de quaisquer ganhos e rendimentos do FUNDO Distribuição de Proventos aos Cotistas será feita exclusivamente mediante a Amortização"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Tudo Serviços (agente de retenção e cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 78,
+     "clause": "cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "evidamente habilitado pela CVM para prestar os serviços de escrituração das Cotas, ou seu sucessor a qualquer título; “Agente de Retenção/Cobrança”: Tudo Serviços S.A., sociedade por ações com sede na cidade Fortaleza, Estado do Ceará, Avenida Senador Virgulo Távora, 303, Lojas 02, 03, 04, 05, 06 e 19, Meireles, CEP 60.170-265, inscrita no CNPJ sob nº 27.852.506/0001-85; “Acordo de Parceria”: significa o acordo de parceria operacional, contrato de correspondente bancário ou acordo ou contrato similar, celebrado entre o Endossante e o Agente de Retenção/Cobrança, por meio do qual o Endossante contrata o Agente de Retenção/Cobrança como correspondente bancário, de acordo com a Resolução CMN nº 3.954, para que o Agente de Retenção/Cobrança auxilie o Endossante na originação e monitoramento das operações de crédito representadas pelas CCBs, inclusive por meio da Plataforma MT; “Alocação Mínima”: significa o percentual mínimo do Patrimônio Líquido a ser mantido em Direitos Creditórios, conforme previsto no item 4.10 do Anexo I; “Amortização”: significa cada uma das amortizações ordinárias de Cotas, realizadas nas Datas de Amortização; “Anexos”: tem o significado atribuído no Art. 3, inciso IV, da Resolução CVM 175, Parte Geral;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 9,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "quanto à segurança, rentabilidade e liquidez dos títulos componentes de sua carteira. Público-Alvo Investidores Profissionais. VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES Custódia MOBILIÁRIOS LTDA., acima qualificada (“CUSTODIANTE”). Tesouraria, Controladoria e ADMINISTRADOR. Escrituração Subclasses Sênior, Mezanino e Subordinadas Júnior, nos termos do Capítulo 5. O valor de cada emissão de Cotas, volume e valor unitário da Emissão e Regime de Cota, bem como o regime de distribuição seguirão o disposto no Distribuição de Cotas instrumento que aprova a emissão de Cotas, que disporá acerca da eventual existência de direito de preferência dos Cotistas. Capital Autorizado Conforme item 5.7 abaixo e seguintes As Cotas poderão ser admitidas à negociação em bolsa de Negociação valores ou entidade de balcão organizado, conforme item 5.13 abaixo deste Anexo. Cálculo do Valor da Cota Conforme Capítulo 6 deste Anexo."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; demais condições dependem de regulamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 65,
+     "clause": "cl. 15.1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "bordinadas Mezanino ao término do seu prazo de duração, conforme estabelecidos nos respectivos Apêndices. Uma vez que o prazo de duração da Classe é indeterminado, o Cotista titular das Cotas Subordinadas Júnior não terá liquidez em seu investimento na Classe, exceto (a) por ocasião das amortizações e dos resgates, nos termos deste Regulamento; (b) por meio da alienação de suas Cotas no mercado secundário, observado, neste caso, que sua alienação apenas é permitida para o Público-Alvo das Cotas Subordinadas Júnior; ou (c) na liquidação antecipada do FUNDO ou da Classe. Além disso, atualmente, o mercado secundário de cotas de fundos de investimento apresenta baixa liquidez, o que pode dificultar a venda das Cotas ou ocasionar a obtenção de um preço de venda que cause perda de patrimônio ao Cotista. Não há qualquer garantia do ADMINISTRADOR, do GESTOR, da consultora ou do CUSTODIANTE em relação à possibilidade de venda das Cotas no mercado secundário ou ao preço obtido por elas, ou mesmo garantia de saída ao Cotista. (iv) Liquidez relativa aos Ativos Financeiros de Liquidez."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; demais condições dependem de regulamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Desconto do saque-aniversário do FGTS como meio de pagamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "884293",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "23/04/2025",
+     "page": 13,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884293",
+     "excerpt": "e apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios deverão ser representados por CCB cujos Devedores sejam exclusivamente pessoas físicas, desde que estejam livres e desembaraçados de quaisquer ônus, exceto pelo ônus decorrente do endosso das CCB; (ii) os Direitos Creditórios serão adquiridos pelo Preço de Compra; (iii) os Direitos Creditórios devem ser decorrentes de cada uma das parcelas vincendas de uma CCB emitida eletronicamente por um Devedor, em favor do Endossante, representando um empréstimo pessoal com garantia de cessão fiduciária dos valores referentes ao Saque-aniversário a que faz jus o Devedor, nos termos da Lei nº 8.036 e da Resolução nº 958 do Conselho Curador do FGTS, de forma que parte do Saque-aniversário do Devedor seja utilizada para liquidar as parcelas devidas da CCB, de acordo com os procedimentos estabelecidos pelo respectivo Convênio FGTS; (iv) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e/ou inadimplidos e não pagos à Classe e/ou recomprados da Classe em razão de fraude;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa idade do devedor",
+   "sources": []
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Regulamento não fixa parcela mínima",
+   "sources": []
+  }
+ },
+ "leitura": "CCBs de saque-aniversário FGTS da Plataforma MT; subordinação de 15% após o período de investimento.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
