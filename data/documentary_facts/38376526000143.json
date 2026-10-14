@@ -1,0 +1,693 @@
+{
+ "schema_version": 1,
+ "cnpj": "38376526000143",
+ "name": "HOTFUND FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDAD",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T08:25:42Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1337960",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960"
+  },
+  "D2": {
+   "document_id": "1337664",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337664"
+  },
+  "D3": {
+   "document_id": "631728",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "01/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=631728"
+  },
+  "D4": {
+   "document_id": "628890",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "27/03/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=628890"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas de cursos da Hotmart: cartões e compras parceladas de usuários",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 18,
+     "clause": "cl. 2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "Creditórios Elegíveis e demais Ativos Financeiros, durante seu prazo de duração, de acordo com a Política de Investimento e conforme previsto na Resolução CVM 175 e no Anexo Normativo II. 2.5. O patrimônio da Classe será representado por 3 (três) Subclasses de Cotas, as Cotas Seniores, as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. As Cotas Seniores e as Cotas Subordinadas Mezanino poderão ser emitidas em múltiplas Séries. As Cotas Subordinadas Júnior serão de Subclasse única. 2.6."
+    }
+   ],
+   "legacy": {
+    "value": "Vendas de cursos/conteúdos Hotmart: cartões contra Hotmart e compras parceladas contra usuários",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Hotmart (Launch Pad Tecnologia)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 68,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "administrado e operacionalizado pela B3. “Hotmart” significa a LAUNCH PAD TECNOLOGIA, SERVIÇOS E PAGAMENTOS LTDA., sociedade limitada, inscrita no CNPJ/MF sob o nº 13.427.325/0001- 05, com sede na Cidade de Belo Horizonte, Estado de Minas Gerais, na Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Avenida Assis Chateaubriand, nº 499, 3º andar, conjunto 3ª, Bairro Floresta, CEP 30.150-101. “Índice de Subordinação Sênior” significa a proporção mínima obrigatória de 21% (vinte e um por cento)"
+    }
+   ],
+   "legacy": {
+    "value": "Produtores da plataforma Hotmart; Hotmart representa cedentes na formalização",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Hotmart, com coobrigação limitada à parcela retida",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 68,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "administrado e operacionalizado pela B3. “Hotmart” significa a LAUNCH PAD TECNOLOGIA, SERVIÇOS E PAGAMENTOS LTDA., sociedade limitada, inscrita no CNPJ/MF sob o nº 13.427.325/0001- 05, com sede na Cidade de Belo Horizonte, Estado de Minas Gerais, na Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Avenida Assis Chateaubriand, nº 499, 3º andar, conjunto 3ª, Bairro Floresta, CEP 30.150-101. “Índice de Subordinação Sênior” significa a proporção mínima obrigatória de 21% (vinte e um por cento)"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 19,
+     "clause": "cl. 3.5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "são dos Direitos Creditórios Recebíveis a Prazo à Classe é feita com coobrigação, de forma que o Cedente é responsável pela solvência dos Direitos Creditórios Recebíveis a Prazo até o limite da Parcela Retida do Preço de Aquisição. Respeitadas as disposições das Condições Gerais de Cessão e em linha com o disposto no item 3.19.2 abaixo, a Classe paga parcela do Preço de Aquisição à vista, devendo realizar o pagamento da Parcela Retida do Preço de Aquisição na medida em que os Direitos Creditórios Recebíveis a Prazo forem liquidados pelos Devedores dos Direitos Creditórios Recebíveis a Prazo. Em caso de inadimplência dos Direitos Creditórios Recebíveis a Prazo, fica a Classe autorizada a realizar a Compensação dos valores devidos pelo Cedente à Classe em razão da coobrigação, contra os montantes devidos pela Classe ao Cedente em razão da Parcela Retida do Preço de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Produtores da plataforma Hotmart; Hotmart representa cedentes na formalização",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos recebíveis de cartão e usuários compradores a prazo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 65,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "Resgate das Cotas Seniores. “Devedores significam os Devedores dos Direitos Creditórios Cartão e os Devedores dos Direitos Creditórios Recebíveis a Prazo, quando referidos em conjunto ou indistintamente. “Devedor dos Direitos Creditórios Cartão” significa a Hotmart, na qualidade de devedora dos Direitos Creditórios Cartões. “Devedor dos Direitos Creditórios significa o Usuário Comprador, e, Recebíveis a Prazo” exclusivamente em relação àqueles cujo pagamento é feito por cartão de crédito, na medida em que as Transações de Pagamento passam a ser processadas, a Hotmart, na qualidade de subadquirente. “Direitos Creditórios”"
+    }
+   ],
+   "legacy": {
+    "value": "Cartões: Hotmart; recebíveis a prazo: usuários compradores",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Cedente responde pela solvência dos recebíveis a prazo até a parcela retida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 19,
+     "clause": "cl. 3.5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "são dos Direitos Creditórios Recebíveis a Prazo à Classe é feita com coobrigação, de forma que o Cedente é responsável pela solvência dos Direitos Creditórios Recebíveis a Prazo até o limite da Parcela Retida do Preço de Aquisição. Respeitadas as disposições das Condições Gerais de Cessão e em linha com o disposto no item 3.19.2 abaixo, a Classe paga parcela do Preço de Aquisição à vista, devendo realizar o pagamento da Parcela Retida do Preço de Aquisição na medida em que os Direitos Creditórios Recebíveis a Prazo forem liquidados pelos Devedores dos Direitos Creditórios Recebíveis a Prazo. Em caso de inadimplência dos Direitos Creditórios Recebíveis a Prazo, fica a Classe autorizada a realizar a Compensação dos valores devidos pelo Cedente à Classe em razão da coobrigação, contra os montantes devidos pela Classe ao Cedente em razão da Parcela Retida do Preço de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis a prazo: coobrigação do cedente até parcela retida; cartões seguem regras próprias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "list",
+   "reason": "Critérios de elegibilidade sem trecho contínuo localizado",
+   "sources": []
+  },
+  "debtor_limit": {
+   "display": "Sem o limite de 20% por devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 20,
+     "clause": "cl. 3.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "tórias aplicáveis. 3.16. Limite de Concentração por Devedor. Exceto se previsto de forma diversa no Apêndice, a Classe poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros dos Devedores, sem a observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido uma vez que a Classe é destinada exclusivamente a Investidores Profissionais, nos termos do §37º, I, do artigo 45 do Anexo Normativo II da Resolução CVM 175. 3.17. A Classe poderá realizar operações nas quais a Administradora, o Gestor, o Custodiante ou seus controladores diretos ou indiretos, sociedades, direta ou indiretamente, controladas, sociedades coligadas ou sociedades sob controle comum, incluindo fundos de zeragem administrados por qualquer um deles, atuem na condição de contraparte, desde que com a finalidade exclusiva de realizar a gestão de caixa e liquidez da Classe. 3.18. Ausência de Garantias. As aplicações da Classe não contam com garantia: (i) da Administradora; (ii) do Gestor; (iii) dos Cedentes; (iv) do Custodiante; (v) do Agente de Liquidação; (vi) de qualquer mecanismo de seguro;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Limite geral 20% por devedor dispensado para classe profissional, salvo apêndice diverso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Hotmart",
+   "sources": [],
+   "legacy": {
+    "value": "Limite geral 20% por devedor dispensado para classe profissional, salvo apêndice diverso",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": []
+  },
+  "allocation": {
+   "display": "Direitos creditórios entre 67% e 100% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 20,
+     "clause": "cl. 3.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "alocado, no mínimo, 67% (sessenta e sete por cento), e, no máximo, 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos da regulamentação aplicável, observadas as demais disposições contidas neste Anexo. 3.9. Revolvência."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Direitos elegíveis 67–100% do PL após 180 dias da emissão",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 3.7"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 68,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "CEP 30.150-101. “Índice de Subordinação Sênior” significa a proporção mínima obrigatória de 21% (vinte e um por cento) de Cotas Subordinadas Júnior da Classe, em relação ao seu Patrimônio Líquido, a ser apurada diariamente pela Administradora, sendo que nos 6 (seis) meses anteriores à Data de Resgate de Cotas Seniores em circulação, o Índice de Subordinação Sênior deverá considerar, em acréscimo a referido percentual, um montante adicional de Cotas Subordinadas Júnior da Classe no valor equivalente ao Valor da Carteira Direitos"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 18,
+     "clause": "cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "vigência do Fundo, nos termos deste Regulamento e do respectivo Apêndice. 2.3. Prazo de Duração. A Classe tem prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e Subclasse ou Série de Cotas Subordinadas Mezanino terá o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 2.3.1. O funcionamento da Classe terá início na 1ª (primeira) data de integralização de Cotas. 2.4. Objeto. A Classe é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios Elegíveis e demais Ativos Financeiros, durante seu prazo de duração, de acordo com a Política de Investimento e conforme previsto na Resolução CVM 175 e no Anexo Normativo II. 2.5. O patrimônio da Classe será representado por 3 (três) Subclasses de Cotas, as Cotas Seniores, as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. As Cotas Seniores e as Cotas Subordinadas Mezanino poderão ser emitidas em múltiplas Séries. As Cotas Subordinadas Júnior serão de Subclasse única. 2.6."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL ≥21%; últimos 6 meses da sênior: acrescer valor da carteira de recebíveis a prazo",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 68"
+   }
+  },
+  "sub_senior": {
+   "display": "21% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 68,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "CEP 30.150-101. “Índice de Subordinação Sênior” significa a proporção mínima obrigatória de 21% (vinte e um por cento) de Cotas Subordinadas Júnior da Classe, em relação ao seu Patrimônio Líquido, a ser apurada diariamente pela Administradora, sendo que nos 6 (seis) meses anteriores à Data de Resgate de Cotas Seniores em circulação, o Índice de Subordinação Sênior deverá considerar, em acréscimo a referido percentual, um montante adicional de Cotas Subordinadas Júnior da Classe no valor equivalente ao Valor da Carteira Direitos"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 21.0,
+   "legacy": {
+    "value": "Júnior / PL ≥21%; últimos 6 meses da sênior: acrescer valor da carteira de recebíveis a prazo",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 68"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção da mezanino definida nos apêndices",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 68,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "CEP 30.150-101. “Índice de Subordinação Sênior” significa a proporção mínima obrigatória de 21% (vinte e um por cento) de Cotas Subordinadas Júnior da Classe, em relação ao seu Patrimônio Líquido, a ser apurada diariamente pela Administradora, sendo que nos 6 (seis) meses anteriores à Data de Resgate de Cotas Seniores em circulação, o Índice de Subordinação Sênior deverá considerar, em acréscimo a referido percentual, um montante adicional de Cotas Subordinadas Júnior da Classe no valor equivalente ao Valor da Carteira Direitos"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL ≥21%; últimos 6 meses da sênior: acrescer valor da carteira de recebíveis a prazo",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, p. 68"
+   }
+  },
+  "reserve": {
+   "display": "Despesas de ao menos 2 meses, além de reservas de amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "montante estimado de despesas ordinárias da Classe para o período de 2 (dois) meses, a ser calculada mensalmente, devendo ser constituída e controlada pela Administradora, para fins de cobertura de encargos e despesas da Classe, observado o disposto neste Anexo. 5.3."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas: mínimo 2 meses estimados; reservas de amortização e aquisição exigem calendário/fluxos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Atraso de amortização ou remuneração da sênior, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 45,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "10. EVENTOS DE AVALIAÇÃO E DE LIQUIDAÇÃO Eventos de Avaliação 10.1. Avaliação: São eventos de avaliação (“Eventos de Avaliação”): (i) caso a Classe deixe de efetuar o pagamento: (a) integral de qualquer das Amortizações Programadas ou pagamento de Remuneração das Cotas Seniores, na respectiva Data de Amortização Programada ou Data de Amortização da Remuneração, e não regularizado no prazo de até 2 (dois) Dias Úteis; (b) integral dos resgates das Cotas Seniores, na respectiva Data de Resgate de Cotas Seniores, (c) integral de qualquer das Amortizações Programadas ou pagamento de Remuneração das Cotas Subordinadas Mezanino, na respectiva Data de Amortização Programada ou Data de Amortização da Remuneração, e não regularizado no prazo de até 2 (dois) Dias Úteis (e) pagamento integral dos Resgates das Cotas Subordinadas Mezanino, na respectiva Data de Resgate de Cotas Subordinadas Mezanino;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: atraso de amortização/remuneração sênior sem cura 2 DU; liquidação: lastro elegível indisponível ou prestador sem substituição",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 10.1"
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou falta de lastro elegível, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 47,
+     "clause": "cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "sgate das Cotas Seniores pelo valor patrimonial de tais Cotas Seniores. Eventos de Liquidação 10.2. Eventos de Liquidação: São eventos que ensejam a liquidação antecipada do Fundo, a ser deliberada em Assembleia Geral (“Eventos de Liquidação”): (i) nos casos em que houver determinação da CVM; (ii) impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. especificados no Anexo; (iii) resilição do Contrato de Agente de Liquidação sem a subsequente substituição por nova instituição prestadora dos serviços de agente de liquidação; (iv) se for deliberado em Assembleia Especial que um Evento de Avaliação constitui Evento de Liquidação;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: atraso de amortização/remuneração sênior sem cura 2 DU; liquidação: lastro elegível indisponível ou prestador sem substituição",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 10.2"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com recursos da carteira",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 20,
+     "clause": "cl. 3.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "nos termos da regulamentação aplicável, observadas as demais disposições contidas neste Anexo. 3.9. Revolvência. Será permitida a aquisição de novos Direitos Creditórios com a utilização de recursos financeiros originados na carteira da Classe, nos termos do artigo 21, inciso VI, do Anexo Normativo II, observada a ordem de alocação de recursos prevista no Capítulo “Da Alocação de Recursos para Pagamento de Despesas do Fundo” deste Anexo. 3.10. É vedada a aquisição de Direitos Creditórios, direta ou indiretamente originados ou cedidos pela Administradora, pelo Gestor ou partes a eles relacionadas. 3.11. É vedado efetuar a cessão de Direitos Creditórios para Cedente ou parte a ele relacionada. 3.12. A Classe não realizará investimentos no exterior. 3.13. Ativos Financeiros. A parcela do Patrimônio Líquido da Classe que não estiver alocada em Direitos Creditórios Elegíveis poderá ser aplicada nos Ativos Financeiros. 3.14. Realização de Operações com Derivativos. A Classe não poderá realizar operações em mercados de derivativos. 3.15. Percentuais de Composição e Diversificação da Carteira ."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência permitida conforme ordem de alocação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "Faixas de PL de 0,16% a 0,07% a.a., com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "Até R$300.000.000,00 0,16% A partir de R$300.000.000,01 0,11% até R$650.000.000,00 A partir de R$650.000.000,01 0,085% até R$1.000.000.000,00 Acima de R$1.000.000.000,00 0,07% Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais PL 0,16/0,11/0,085/0,07% a.a.; mínimoR$ 36 mil/mês, IPCA positivo",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "10% da taxa de administração, até R$ 4 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 36,
+     "clause": "cl. 7.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "o positiva do IPCA. Taxa de Gestão 7.1.2. Pela prestação dos serviços de gestão, será cobrada, como Taxa de Gestão a ser paga ao Gestor, o percentual de 10% (dez por cento) calculados sobre a Taxa de Administração, observado o valor máximo mensal de R$ 4.000,00 (quatro mil reais). Esse valor correspondente à Taxa de Gestão será descontado da Taxa de Administração, acima descrita, a qual está segregada neste documento apenas para fins de cumprimento regulatório. 7.1.3. Pagamento da Taxa de Administração e Gestão. A Taxa de Administração e Gestão será paga pela Classe mensalmente, no 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas, sendo vedada qualquer participação nos resultados auferidos pela Classe, inclusive, sem limitação, cobrança de qualquer taxa de performance. 7.1.4. O valor da Taxa Mínima de Administração e Gestão será atualizado a cada período de 12 (doze) meses, contado da data de início das atividades da Classe ou na menor periodicidade admitida em lei, pelo IPCA ou, na sua falta, por outro índice, a critério do Administrador. 7.1.5. Pagamento de Parcela da Taxa de Administração e Gestão aos Prestadores de Serviço da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "10% da administração, tetoR$ 4 mil/mês; descontada da administração",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "2. PRESTADORES DE SERVIÇOS ESSENCIAIS Administradora 2.1. O Fundo é administrado pelo GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A., sociedade por ações, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Praia de Botafogo, 228, sala 913, CEP 22.250- 040, Botafogo, inscrita no CNPJ sob o nº 27.652.684/0001-62, autorizada a administrar carteira de valores mobiliários, na categoria “administrador fiduciário”, conforme Ato Declaratório Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. CVM nº 6.819, de 17 de maio de 2002 2.1.1. Incluem-se entre as obrigações da Administradora aquelas dispostas nos artigos 82 e 83, conforme aplicáveis, e 104 da Resolução CVM 175 e no artigo 30 do Anexo Normativo II da Resolução CVM 175. Sem prejuízo de outras obrigações legais e regulamentares, a Administradora obriga-se a: (i) prestar os seguintes serviços ao Fundo: (a) tesouraria, controle e processamento de ativos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 3,
+     "clause": "cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "des do terceiro contratado relacionadas ao Fundo e/ou à Classe. Gestor 2.2. A atividade de gestão da carteira de ativos da Classe será realizada pela GENIAL GESTÃO LTDA., Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. instituição devidamente autorizada pela CVM para prestação dos serviços de gestão de carteira de títulos e valores mobiliários por meio do Ato Declaratório nº 14.519, expedido em 05 de setembro de 2015 inscrita no CNPJ sob o nº 22.119.959/0001-83, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.400, conjunto 91 parte, CEP 04538-132. Observadas as limitações legais e as previstas na regulamentação aplicável, o Gestor tem poderes para praticar os atos necessários à gestão da carteira de ativos da Classe, na sua respectiva esfera de atuação. 2.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 18,
+     "clause": "cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "2.7. Público-Alvo. A Classe é destinada a Investidores Profissionais que busquem rentabilidade, no longo Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. prazo, compatível com a Política de Investimento, composição e diversificação da carteira da Classe, e aceitem os riscos associados aos investimentos da Classe. 2.8."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 18,
+     "clause": "cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "vigência do Fundo, nos termos deste Regulamento e do respectivo Apêndice. 2.3. Prazo de Duração. A Classe tem prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e Subclasse ou Série de Cotas Subordinadas Mezanino terá o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 2.3.1. O funcionamento da Classe terá início na 1ª (primeira) data de integralização de Cotas. 2.4. Objeto. A Classe é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios Elegíveis e demais Ativos Financeiros, durante seu prazo de duração, de acordo com a Política de Investimento e conforme previsto na Resolução CVM 175 e no Anexo Normativo II. 2.5. O patrimônio da Classe será representado por 3 (três) Subclasses de Cotas, as Cotas Seniores, as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. As Cotas Seniores e as Cotas Subordinadas Mezanino poderão ser emitidas em múltiplas Séries. As Cotas Subordinadas Júnior serão de Subclasse única. 2.6."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "Recebíveis de cartão das vendas da Hotmart e parcelados a prazo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 19,
+     "clause": "cl. 3.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "Cartão, à vista ou parceladas, operacionalizada pelo Sistema Hotpay no âmbito do respectivo Arranjo de Pagamento, conforme descrição a seguir: (i) os Produtores, de tempos em tempos, realizam a venda de cursos e/ou outros conteúdos a Usuários Compradores, os quais podem utilizar Instrumentos de Pagamento de qualquer Bandeira e Emissor, aceitos pelo Sistema Hotpay, gerando, assim, Transações de Pagamentos, com o processamento das Transações de Pagamento integralmente no momento da compra;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337960",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 65,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+     "excerpt": "Resgate das Cotas Seniores. “Devedores significam os Devedores dos Direitos Creditórios Cartão e os Devedores dos Direitos Creditórios Recebíveis a Prazo, quando referidos em conjunto ou indistintamente. “Devedor dos Direitos Creditórios Cartão” significa a Hotmart, na qualidade de devedora dos Direitos Creditórios Cartões. “Devedor dos Direitos Creditórios significa o Usuário Comprador, e, Recebíveis a Prazo” exclusivamente em relação àqueles cujo pagamento é feito por cartão de crédito, na medida em que as Transações de Pagamento passam a ser processadas, a Hotmart, na qualidade de subadquirente. “Direitos Creditórios”"
+    }
+   ],
+   "legacy": {
+    "value": "Vendas de cursos/conteúdos Hotmart: cartões contra Hotmart e compras parceladas contra usuários",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Mecanismo de trava não descrito em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Recebíveis a prazo: fiança Hotmart se opção de compra não exercida; compensação limitada à parcela retida",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "dilution": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Tratamento de cancelamentos não localizado em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Recebíveis de vendas da Hotmart com júnior ≥ 21% do PL e coobrigação até a parcela retida.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
