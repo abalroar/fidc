@@ -1,0 +1,50 @@
+# portado de 37645459000152 (36643621000130)
+type: Duplicatas/multicedente
+q14: * "no mínimo 4 (quatro) dias e, no máximo, 371 (trezentos e setenta e um) dias"
+q101: * "POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA Características dos Direitos Creditórios"
+q103: * "0,04% (quatro centésimo por cento) ao ano aplicado sobre o Patrimônio"
+q1: * "4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade"
+q2: * "a Classe poderá ter até 20% (vinte por cento) de seu Patrimônio Líquido alocado em Derivativos"
+q3: * "4.10 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios"
+q4: * "a Classe pagará a Taxa de Administração nos seguintes moldes: o valor correspondente a 0,04%"
+q5: * "a Classe pagará a Taxa de Gestão nos seguintes moldes: o valor correspondente a 0,31%"
+q6: * "A Gestora não fará jus a Taxa de Performance"
+q7: * "PHRONESIS INVESTIMENTOS LTDA"
+q8: * "Público-Alvo Investidores Profissionais. BRL Trust Distribuidora de Títulos e Valores Mobiliários S.A."
+q9: * "Tipo de Condomínio Aberto. Prazo de Duração Indeterminado"
+q10: * "Considerando que não há Cedentes ou contrapartes predeterminados para a aquisição dos Direitos Creditórios"
+q12: * "CLASSE DE COTAS Classe única"
+q13: * "O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo"
+receivables: Multicarteira: títulos e direitos de crédito diversos | q101
+originator: Sem cedentes predeterminados | q10
+assignor: Cedentes diversos, sem contraparte predeterminada | q10
+debtor: Devedores dos créditos adquiridos | q2
+recourse: n/d | Coobrigação definida em cada cessão
+eligibility: Em reais; vincendos de 4 a 371 dias; devedor ≤ 20% do PL | q1,q14
+debtor_limit: Devedor/grupo ≤ 20% do PL, com exceções da norma | q2
+assignor_limit: Não previsto | Regulamento não limita concentração por cedente
+term_max: De 4 a 371 dias | q14
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Classe única aberta | q12,q9
+sub_senior: — | Classe única, sem cotas subordinadas
+sub_mezz: — | Classe única, sem cotas subordinadas
+sub_check: — | Classe única, sem índice de subordinação
+reserve: n/d | Reserva de caixa não localizada no texto extraído
+pdd: Provisão por devedor, estendida aos demais créditos do mesmo devedor | q13
+eval_triggers: n/d | Eventos de avaliação não localizados no texto extraído
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído
+revolving: Recebimentos podem comprar novos créditos ou amortizar, a critério da gestora | q3
+amortization: Classe aberta; amortizações pela ordem de alocação, a critério da gestora | q3
+admin_fee: 0,04% a.a. do PL; mín. R$ 15 mil/mês | q4,q103
+mgmt_fee: 0,31% a.a. do PL (extenso diz vinte e seis centésimos) | q5
+perf_fee: Não prevista | Gestora não faz jus a taxa de performance | q6
+target_senior: — | Classe única, sem cota sênior com meta
+target_mezz: — | Sem cota mezanino
+administrator: BRL Trust DTVM | q8
+manager: Phronesis Investimentos | q7
+custodian: n/d | Custodiante não nomeado no trecho lido
+servicer: n/d | Agente de cobrança não nomeado no texto extraído
+investors: Investidores profissionais | q8
+duration: Indeterminado; classe aberta | q9
+sacado_limit: Devedor/grupo ≤ 20% do PL, com exceções da norma | q2
+leitura: Classe única aberta para profissionais, sem subordinação; devedor até 20% do PL e gestão de 0,31% a.a.

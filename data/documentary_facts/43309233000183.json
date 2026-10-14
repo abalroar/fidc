@@ -1,0 +1,727 @@
+{
+ "schema_version": 1,
+ "cnpj": "43309233000183",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS LIVERPOOL RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T01:02:44Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "943032",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "09/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032"
+  },
+  "D2": {
+   "document_id": "211464",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "03/08/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=211464"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Agro: CPR-F, CDCA, créditos Adama e de distribuidores de insumos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 57,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "4. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO, DIVERSIFICAÇÃO DA CARTEIRA, ORIGINAÇÃO, FORMALIZAÇÃO, COBRANÇA E CRITÉRIOS DE ELEGIBILIDADE DOS DIREITOS CREDITÓRIOS DA CLASSE ÚNICA 4.1. O objetivo da Classe Única é proporcionar aos seus Cotistas a valorização de suas Cotas, por meio da aquisição de Direitos Creditórios Elegíveis e de Ativos Financeiros. 4.2."
+    }
+   ],
+   "legacy": {
+    "value": "Agronegócio: CPR-F, CDCA, créditos Adama e de distribuidores de insumos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Adama (insumos agrícolas) e originadores aprovados em assembleia",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 27,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "“Ordem de Alocação de Tem seu significado atribuído no Anexo Descritivo. Recursos” “Originador” Significa a Adama e/ou qualquer outro originador indicado pelo Gestor e aprovado pela Assembleia de Cotistas na forma do presente Regulamento. “Pagadores Especiais” Significam os Devedores, aprovados pelo Gestor, conforme o disposto no Acordo Operacional, que não serão utilizados para fins de apuração do cálculo dos Índices de Pagamentos Incorretos, nos termos deste Regulamento. “Parâmetros Mínimos” Significam as informações mínimas referentes ao cronograma de pagamento de Cotas, a serem incluídas no respectivo Apêndice: (i) Datas de Pagamento, (ii) Índice Referencial; (iii) Fórmula de cálculo do Índice Referencial; (iv) Data de Amortização Total;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Adama (sem coobrigação) e distribuidores indicados (com coobrigação)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 9,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "s previstos na Lei nº 11.076/04, conforme alterada. “Cedentes” Significa (i) a Adama, cujas cessões não contarão com coobrigação; e/ou (ii) quaisquer dos Distribuidores de Produtos, estes últimos quando indicados pelo Originador e aprovados pelo Gestor, cujas cessões sempre contarão com coobrigação. JUR_SP - 52901704v2 - 13189004.529751 - 15 - Docusign Envelope ID: D31A7AD2-EB11-4144-9B75-2EC9648689CD “Chave(s) de Acesso da Significa o conjunto de 44 (quarenta e quatro) dígitos que NFe” identifica univocamente uma Nota Fiscal e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da respectiva circunscrição da Secretaria de Fazenda –"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Produtores rurais (PF/PJ), cooperativas e distribuidores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 17,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "os a serem incorridos com Contratos de Derivativos. “Devedores” Significam (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais e a associação de produtores rurais que tenha por objeto a produção, comercialização e a industrialização dos produtos rurais, indicados pelo Originador ou por um Distribuidor de Produtos, nos termos dos Contratos de Cessão, e que sejam, em ambos os casos, previamente aprovados pelo Gestor;"
+    }
+   ],
+   "legacy": {
+    "value": "Produtores rurais PF/PJ, cooperativas e distribuidores, aprovados pelo gestor",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Adama sem coobrigação; distribuidores sempre com coobrigação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 9,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "s previstos na Lei nº 11.076/04, conforme alterada. “Cedentes” Significa (i) a Adama, cujas cessões não contarão com coobrigação; e/ou (ii) quaisquer dos Distribuidores de Produtos, estes últimos quando indicados pelo Originador e aprovados pelo Gestor, cujas cessões sempre contarão com coobrigação. JUR_SP - 52901704v2 - 13189004.529751 - 15 - Docusign Envelope ID: D31A7AD2-EB11-4144-9B75-2EC9648689CD “Chave(s) de Acesso da Significa o conjunto de 44 (quarenta e quatro) dígitos que NFe” identifica univocamente uma Nota Fiscal e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da respectiva circunscrição da Secretaria de Fazenda –"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; valor determinado; devedor adimplente; devedor ≤ 3% do PL",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "ões até sua efetiva substituição pela nova entidade contratada pelo Fundo para tanto. 4.17. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) não poderão estar vencidos e devem possuir valor fixo e determinado ou determinável; (b) não poderão ser devidos por Devedor (considerado individualmente ou em conjunto com as demais integrantes do seu Grupo Econômico) que esteja inadimplente com o Fundo; JUR_SP - 52901704v2 - 13189004.529751 - 67 - Docusign Envelope ID: D31A7AD2-EB11-4144-9B75-2EC9648689CD (c) deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição pelo Fundo; (d) deverão ter data de vencimento anterior à última Data de Amortização Total Esperada das Cotas Seniores em circulação;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 62,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "cento) do Patrimônio Líquido; (g) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor, considerado individualmente, não poderá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (h) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados junto ao Custodiante, ressalvado o disposto nos itens “i” e “j” abaixo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor ≤ 3% do PL, individual e por grupo econômico",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 62,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "cento) do Patrimônio Líquido; (g) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor, considerado individualmente, não poderá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (h) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados junto ao Custodiante, ressalvado o disposto nos itens “i” e “j” abaixo;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Devedor/coobrigado≤20% do PL; aumento sujeito a condições legais/documentais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2025, Anexo"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor, não por cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor/coobrigado≤20% do PL; aumento sujeito a condições legais/documentais",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo dos créditos não localizado no texto extraído",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 6,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, no mínimo, 50% (cinquenta por Investimento” cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "≥50% do PL em direitos elegíveis; alocação tributária≥67% da carteira",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2025, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "rado em conjunto com o Anexo Descritivo da Classe. “Relação Mínima” Significa a razão entre (i) o Patrimônio Líquido do Fundo; e (ii) o valor total das Cotas Seniores. Até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no mínimo, a 117,64% (cento e dezessete inteiros e sessenta e quatro centésimos por cento). “Remuneração” Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe Única (ou pelo Fundo em benefício da Classe Única) aos Cotistas em tal data, conforme o caso, definida nos termos do Anexo Descritivo, acrescida do eventual Prêmio de Excesso de Spread referente às Cotas Subordinadas Mezanino. “Remuneração do Gestor” Significa a Taxa de Gestão devida ao Gestor pela prestação"
+    }
+   ],
+   "legacy": {
+    "value": "Proteção depende de índice ponderado e relação mínima; percentuais por subclasse não reconciliados nesta leitura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 117,64%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "rado em conjunto com o Anexo Descritivo da Classe. “Relação Mínima” Significa a razão entre (i) o Patrimônio Líquido do Fundo; e (ii) o valor total das Cotas Seniores. Até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no mínimo, a 117,64% (cento e dezessete inteiros e sessenta e quatro centésimos por cento). “Remuneração” Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe Única (ou pelo Fundo em benefício da Classe Única) aos Cotistas em tal data, conforme o caso, definida nos termos do Anexo Descritivo, acrescida do eventual Prêmio de Excesso de Spread referente às Cotas Subordinadas Mezanino. “Remuneração do Gestor” Significa a Taxa de Gestão devida ao Gestor pela prestação"
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 117.64,
+   "legacy": {
+    "value": "Proteção depende de índice ponderado e relação mínima; percentuais por subclasse não reconciliados nesta leitura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentuais por subclasse não localizados no texto extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Relação mínima apurada até o resgate total da sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "rado em conjunto com o Anexo Descritivo da Classe. “Relação Mínima” Significa a razão entre (i) o Patrimônio Líquido do Fundo; e (ii) o valor total das Cotas Seniores. Até que a totalidade das Cotas Seniores sejam resgatadas, a Relação Mínima deverá corresponder, no mínimo, a 117,64% (cento e dezessete inteiros e sessenta e quatro centésimos por cento). “Remuneração” Significa, com relação a determinada data, a remuneração das Cotas efetivamente paga pela Classe Única (ou pelo Fundo em benefício da Classe Única) aos Cotistas em tal data, conforme o caso, definida nos termos do Anexo Descritivo, acrescida do eventual Prêmio de Excesso de Spread referente às Cotas Subordinadas Mezanino. “Remuneração do Gestor” Significa a Taxa de Gestão devida ao Gestor pela prestação"
+    }
+   ],
+   "legacy": {
+    "value": "Proteção depende de índice ponderado e relação mínima; percentuais por subclasse não reconciliados nesta leitura",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "Reserva de liquidez ≥ 1% do PL; reforço antes dos pagamentos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 97,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "mínimo, 1% (um por cento) do Patrimônio Líquido. 9.1.1. Especificamente nos períodos que antecedem qualquer Data de Amortização Total Esperada, com antecedência mínima de 12 (doze) meses mas não superior a 18 (dezoito) meses da respectiva Data de Amortização Total Esperada, o Fundo deverá acrescer ao montante da Reserva de Liquidez descrita no item 9.1 acima, o valor necessário para o pagamento da totalidade da Meta de Amortização de Principal n"
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de liquidez≥1% do PL; reforço para pagamentos desde 12–18 meses antes da data",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2025, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 158,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "e ajustadas mensalmente e abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador disponível em http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489. pdf, observado o disposto acima. Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui um comportamento de atrasos substancialmente diferente ao estimado pela política de provisão, esta poderá ser revista por ambas as partes em conjunto, observado os percentuais mínimos de provisionamento constantes na tabela acima. Fica desde já certo que não haverá reversão de provisão no caso de Direitos Creditórios 164 JUR_SP - 52901704v2 - 13189004.529751 Docusign Envelope ID: D31A7AD2-EB11-4144-9B75-2EC9648689CD Adquiridos renegociados. - 165 - Docusign Envelope ID: D31A7AD2-EB11-4144-9B75-2EC9648689CD ADENDO VI AO ANEXO"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Obrigação do originador sem cura em 5 DU; aquisições irregulares ≥ 2% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 102,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "que não sejam sanadas pelo Originador em até 5 (cinco) Dias Úteis a contar do recebimento, pelo Originador, de notificação enviada pelo Administrador nesse sentido; (b) caso ocorra a aquisição de Direitos Creditórios representando, pelo menos, 2% (dois por cento) do Patrimônio Líquido, em desconformidade com os Critérios de Elegibilidade estabelecidos neste Anexo Descritivo e referido evento não seja sanado em até 10 (dez) Dias Úteis a contar da data em que o índice de 2% (doi"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: obrigação originador sem cura 5 DU e aquisições irregulares≥2% do PL; liquidação: remuneração sênior em atraso>2 DU",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Lista do anexo, inclusive remuneração sênior em atraso",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 105,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "tos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada do Fundo qualquer das seguintes ocorrências: (a) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (b) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Amortização Total, período que não estará sujeito a prazo de cura;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: obrigação originador sem cura 5 DU e aquisições irregulares≥2% do PL; liquidação: remuneração sênior em atraso>2 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2025, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência admitida, pela ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 68,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "lizada pelo Gestor. 4.32. Segmento Econômico dos Direitos Creditórios: Agronegócio. 4.33. Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência dos Direitos Creditórios que compõe a carteira da Classe Única. 4.34. É permitido ao Gestor vender Direitos Creditórios aos Cedentes originadores dos respectivos Direitos Creditórios e/ou à terceiros por preço inferior ao Preço de Aquisição desembolsado pela Classe Única para a aquisição do respectivo Direito Creditório, atualizado pela taxa de desconto praticada pelo Fundo quando do investimento calculado até a data da efetiva venda a determinado Distribuidor de Produtos. 4.35. O Fundo, em benefício da Classe Única, poderá realizar operações com Derivativos exclusivamente com o objetivo de proteção patrimonial. O Gestor deverá observar a Política de Investimento em Derivativos para o investimento em Derivativos, observada a limitação acima. 4.36."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Metas e datas remetidas aos apêndices das séries",
+   "sources": [],
+   "legacy": {
+    "value": "Metas e datas remetidas ao apêndice; cronograma fechado não identificado",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,13% a.a. até R$ 200 mi, regressiva; mín. R$ 18 mil/mês (+ custódia)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 138,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "“Taxa de Administração”). A Taxa de Administração terá a seguinte composição: (i) o Administrador cobrará os valores abaixo descritos pelos serviços de administração do Fundo, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido da Classe Única em cada Dia Útil, observado o mínimo mensal de R$ 18.000,00 (dezoito mil reais): (a) 0,13% (treze centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido até R$ 200.000.000,00 (duzentos milhões de reais), acrescido de; (b) 0,11% (onze centésimos por cento) ao ano, incidente sobre a parcela do Patrimônio Líquido que exceder R$ 200.000.000,00 (duzentos milhões de reais) até o limite de R$ 400.000.000,00 (quatrocentos milhões de reais), acrescido de;"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas PL 0,065% atéR$ 200 mi;0,06% entre 200–400 mi;0,05% acima 400 mi; mínimo específico não reconciliado",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2025, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,8% a.a. do PL; mín. R$ 200 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 140,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "e gestão será devida pelo Fundo e correspondente à prestação dos serviços do Gestor (“Taxa de Gestão”). O Gestor cobrará o valor correspondente a 0,8% (oito décimos por cento) ao ano sobre o valor do Patrimônio Líquido, observado o valor mínimo mensal de R$ 200.000,00 (duzentos mil reais) pelos serviços de gestão profissional da carteira do Fundo, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido do Fundo em cada Dia Útil: 12.3.1. Parcelas da Taxa de Gestão poderão ser pagas diretamente pelo Fundo aos prestadores de serviços contratados pelo Gestor, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão. 12.4. As remunerações descritas na Taxa de Administração e na Taxa de Gestão acima, quando recorrentes, serão mensalmente pagas pelo Fundo no último Dia Útil de cada mês da prestação dos serviços a partir do mês em que ocorrer a primeira integralização de Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "0,8% a.a. sobre PL; mínimoR$ 200 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 140,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "otas, sendo vedada qualquer participação nos resultados auferidos pelo Fundo, inclusive, sem limitação, cobrança de qualquer taxa de performance. Os valores expressos em reais dispostos no item 12.2 acima serão atualizados a cada período de 12 (doze) meses, contado da data de início das atividades do Fundo ou na menor periodicidade admitida em lei, pela variação positiva do Índice Nacional de Preços ao Consumidor Amplo – IPCA divulgado pelo Instituto Brasileiro de Geografia e Estatística – IBGE ou, na sua falta, pelo índice que vier a substituí-lo. 12.2.2. Serão acrescidos mensalmente às remunerações previstas nos itens acima os tributos incidentes (ISS, PIS, COFINS, CSLL e IRRF e outros que porventura venham a incidir) nas alíquotas vigentes nas respectivas datas de pagamento. 12.2.3. Parcelas da Taxa de Administração poderão ser pagas diretamente pelo Fundo aos prestadores de serviços contratados pelo Administrador, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 12.3. Taxa de Gestão."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxas por série em apêndices não preenchidos no acervo",
+   "sources": [],
+   "legacy": {
+    "value": "DI +sobretaxa por classe/série; modelos de apêndice sem spread final preenchido",
+    "decision": "regression",
+    "why": "Resposta anterior também não encontrou o spread final"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxas por série em apêndices não preenchidos no acervo",
+   "sources": [],
+   "legacy": {
+    "value": "DI +sobretaxa por classe/série; modelos de apêndice sem spread final preenchido",
+    "decision": "regression",
+    "why": "Resposta anterior também não encontrou o spread final"
+   }
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 5,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "integrante e inseparável do presente Regulamento. “Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002. “Agente de Controladoria” Significa a OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM para o exercício profissional de administração de fundos de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Farmtech Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 23,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "tras definidas na Política de Crédito e Originação. “Gestor” Significa a FARMTECH GESTÃO DE RECURSOS LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 4.509, conjuntos 91 e 94, CEP 04538-133, Itaim Bibi, inscrita no CNPJ sob o nº 20.043.909/0001-34, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM JUR_SP - 52901704v2 - 13189004.529751 - 29 - Docusign Envelope ID: D31A7AD2-EB11-4144-9B75-2EC9648689CD pelo Ato Declaratório nº 13.185, de 13 de agosto de 2014, na qualidade de gestor da Carteira. “Grupo Econômico” Significa cada conglomerado econômico de pessoas que c"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM (0,065% a.a.; mín. R$ 9 mil/mês)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 15,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "Aquisição, conforme descritos no Anexo Descritivo. “Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios e liquidação financeira dos Direitos Creditórios. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Aniversário” Significa todo dia 10º (décimo) de cada mês, a contar da 1ª Data de Integralização de Cotas referente à 1ª Série de Cotas Seniores, sendo certo que se tal data não for um Dia JUR_SP - 529"
+    },
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 139,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido da Classe Única em cada Dia Útil, observado o mínimo mensal de R$ 9.000,00 (nove mil reais): (a) 0,065% (sessenta e cinco milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido até R$ 200.000.000,00 (duzentos milhões de reais), acrescido de; (b) 0,06% (seis centésimos por cento) ao ano, incidente sobre a parcela do Patrimônio Líquido que exceder R$ 200.000.000,00 (duzentos milhões de reais) até o limite de R$ 400.000.000,00 (quatrocentos milhões de reais), acrescido de; (c) 0,05% (cinco centésimos por cento) ao ano, incidente sobre a parcela do Patrimônio Líquido que exceder R$ 400.000.000,00 (quatrocentos milhões de reais). (iv) será acrescido à remuneração do Custodiante: (a) o valor de R$ 2.000,00 (dois mil reais) mensais, pelos serviços de escrituração de Cotas do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 57,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "EC9648689CD 3. PÚBLICO-ALVO DA CLASSE ÚNICA E INVESTIMENTO MÍNIMO 3.1. O público-alvo da Classe Única é composto exclusivamente por Investidores Profissionais. 3.2. Investimento Mínimo. Não há investimento inicial mínimo na Classe Única. 4. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO, DIVERSIFICAÇÃO DA CARTEIRA, ORIGINAÇÃO, FORMALIZAÇÃO, COBRANÇA E CRITÉRIOS DE ELEGIBILIDADE DOS DIREITOS CREDITÓRIOS DA CLASSE ÚNICA 4.1. O objetivo da Classe Única é proporcionar aos seus Cotistas a valorização de suas Cotas, por meio da aquisição de Direitos Creditórios Elegíveis e de Ativos Financeiros. 4.2. Os Direitos Creditórios que comporão a carteira da Classe Única deverão atender aos respectivos Critérios de Elegibilidade, conforme disciplinados no item 4.17 abaixo. 4.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 56,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "isposições legais e normativas que lhe forem aplicáveis. 2.2. Prazo de Duração. A Classe Única terá prazo de duração indeterminado, sendo que cada série de Cotas, conforme o caso, terá prazo de Amortização Total determinado, conforme descrito nos respectivos Apêndices. Não obstante o disposto acima, a Classe Única será liquidada quando da Amortização Total de todas as suas Cotas. 2.3. Objeto. A Classe Única é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios Elegíveis e demais Ativos Financeiros, durante seu prazo de vigência, de acordo com a Política de Investimento descrita no Capítulo 3 deste Anexo Descritivo. 2.4. Composição do Patrimônio da Classe Única. O patrimônio da Classe Única será formado pela composição do patrimônio das subclasses de Cotas emitidas pela Classe Única, cujas características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração e amortização das Cotas seguem descritos nos Capítulos 6 e 8 deste Anexo Descritivo. 2.5."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "CPR-F, CDCA e vendas de insumos Adama e distribuidores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "943032",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2025",
+     "page": 57,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+     "excerpt": "4. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO, DIVERSIFICAÇÃO DA CARTEIRA, ORIGINAÇÃO, FORMALIZAÇÃO, COBRANÇA E CRITÉRIOS DE ELEGIBILIDADE DOS DIREITOS CREDITÓRIOS DA CLASSE ÚNICA 4.1. O objetivo da Classe Única é proporcionar aos seus Cotistas a valorização de suas Cotas, por meio da aquisição de Direitos Creditórios Elegíveis e de Ativos Financeiros. 4.2."
+    }
+   ],
+   "legacy": {
+    "value": "Agronegócio: CPR-F, CDCA, créditos Adama e de distribuidores de insumos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas no texto extraído",
+   "sources": []
+  }
+ },
+ "leitura": "Crédito agro da Adama e distribuidores com PL/sênior ≥ 117,64% e devedor ≤ 3%; gestão de 0,8% a.a. (mín. R$ 200 mil).",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

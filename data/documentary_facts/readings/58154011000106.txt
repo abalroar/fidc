@@ -1,0 +1,57 @@
+# Farmtech Key Accounts FIDC Agro (Oliveira Trust; Farmtech Gestão)
+type: Agro/FIAGRO
+q21: * "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador"
+q20: * "Inadimplidos devidos e não pagos entre 61 (sessenta e um) e 360 (trezentos e sessenta) dias"
+q19: * "s de operacionalização do Fundo para o período de 9 (nove) meses"
+q18: * "os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias, com exceção de até 20%"
+q1: * "“Devedores” Significam (i) pessoas físicas e/ou pessoas jurídicas, e cooperativas de produtores rurais"
+q2: * "4.13. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios que atendam, cumulativamente"
+q3: * "mesmo Devedor não poderá representar concentração superior a 4% (quatro por cento) do Patrimônio Líquido"
+q4: * "a Relação Mínima, que deverá corresponder, no máximo, a 81% (oitenta e um por cento)"
+q5: * "4.26. Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência"
+q6: * "A Taxa de Administração terá a seguinte composição: (i) o valor correspondente a 0,15%"
+q7: * "observado o valor mínimo mensal de R$ 312.500,00 (trezentos e doze mil e quinhentos reais) pelos serviços de gestão profissional"
+q8: * "Adicionalmente, o Gestor fará jus à Taxa de Performance"
+q9: * "“Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Gestor” Significa a FARMTECH GESTÃO DE RECURSOS LTDA."
+q11: * "“Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada"
+q12: D3 "Sobretaxa Sênior: 2,0% a.a. (dois por cento ao ano)"
+q13: D3 "Sobretaxa Mezanino: 8,0% a.a. (oito por cento ao ano)"
+q14: * "O público-alvo da Classe Única é composto exclusivamente por Investidores Autorizados"
+q15: * "A Classe Única terá prazo de duração indeterminado, sendo que cada série de Cotas"
+q16: * "são considerados Eventos de Liquidação Antecipada do Fund"
+q17: * "da cessão de Direitos Creditórios por Cedentes ao Fundo"
+receivables: Agro: CPR-F, notas comerciais, promissórias e recebíveis de notas fiscais | o1
+originator: Emissão direta por devedores e cessão por cedentes do agro | q17
+assignor: Cedentes do agronegócio, por contratos de cessão ou indicação | q17
+debtor: Produtores rurais (PF/PJ) e cooperativas | q1
+recourse: Resolução e indenização conforme contratos; sem regresso por fato superveniente | o12
+eligibility: Vincendos em reais até 360 dias (20% do PL até 540) | q18,q2
+debtor_limit: Devedor ≤ 4% do PL, com exceções para devedores especiais | q3
+assignor_limit: Não previsto | Regulamento limita por devedor e UF, não por cedente
+term_max: Até 360 dias; até 20% do PL pode vencer em 540 dias | q18
+allocation: ≥ 50% do PL em direitos creditórios | o27 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q4,q13
+sub_senior: Sênior ≤ 81% do PL | q4 | basis=mez+jr/PL | value=19
+sub_mezz: n/d | Índice próprio da mezanino não localizado no texto extraído
+sub_check: Relação mínima apurada até a amortização total da sênior | q4
+reserve: Liquidez de 9 meses de despesas (pro rata) ou menos no sequencial | q19
+pdd: Manual de provisão para perdas da administradora | q21
+eval_triggers: Índices de inadimplência 61–360 e 91–360 dias acima do limite | q20
+liquidation: Lista do item 10.6, além das hipóteses legais | q16
+revolving: Revolvência admitida, pela ordem de alocação | q5
+amortization: n/d | Cronograma definido nos apêndices das séries | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,15% a.a. até R$ 100 mi; 0,10% acima; mín. R$ 27 mil/mês | q6,o63
+mgmt_fee: 1,00% a.a. do PL; mín. R$ 312,5 mil/mês | o66,q7
+perf_fee: Taxa de performance da gestora, paga em julho e novembro | q8
+target_senior: DI + 2,0% a.a. (3ª série sênior) | q12
+target_mezz: DI + 8,0% a.a. (2ª série mezanino) | q13
+administrator: Oliveira Trust DTVM | q9
+manager: Farmtech Gestão de Recursos | q10
+custodian: Oliveira Trust DTVM | q11
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores autorizados | q14
+duration: Indeterminado; prazo próprio por série | q15
+agro_backing: CPR-F, notas comerciais e notas fiscais do agronegócio | o1
+collateral: n/d | Garantias dos títulos não descritas no texto extraído
+leitura: Crédito agro com sênior ≤ 81% do PL e devedor ≤ 4%; sênior DI + 2%, mezanino DI + 8%; gestão de 1% a.a. mais performance.
