@@ -1,0 +1,55 @@
+# Estratégia Educacional FIDC (Genial Investimentos; Genial Gestão; cedente Estratégia Concursos)
+type: Cartão/adquirência
+q1: * "“Cedente” ESTRATÉGIA CONCURSOS S.A."
+q2: * "“Devedoras” Para os fins desta Classe, são: (i) a Stone; (ii) a Getnet; (iii) a Rede; a (iv) Cielo; e (v) a Pagar.Me"
+q3: * "seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelas Devedoras ao Cedente"
+q4: * "Cedente é somente responsável, na respectiva Data de Aquisição, pela existência, certeza, legitimidade e correta formalização"
+q5: * "ativos de um mesmo devedor, ou de coobrigação de uma mesma pessoa ou entidade, desde que limitado a 20% (vinte por cento) do Patrimônio Líquido da Classe"
+q6: * "“Alocação Mínima” O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Cedidos"
+q7: * "É a razão entre (i) a soma do valor total das Cotas Subordinadas Mezanino e Cotas Subordinadas Juniores e (ii) o patrimônio líquido da Classe, equivalente a 30%"
+q8: * "Trata-se da relação mínima entre (i) o patrimônio líquido correspondente às Cotas Subordinadas Juniores; e (ii) o patrimônio líquido da Classe, equivalente a 10%"
+q9: * "São Eventos de Avaliação: (i) caso a Agência Classificadora de Risco não divulgue a atualização trimestral"
+q10: * "São Eventos de Liquidação: (i) caso seja deliberado, em Assembleia Especial"
+q11: * "Taxa de Administração a ser paga à Administradora, o percentual de 0,18% (dezoito centésimos por cento) ao ano"
+q12: * "da Taxa DI, acrescida de Sobretaxa Sênior de 5,00% (cinco inteiros por cento) ao ano"
+q13: * "2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q14: * "2.2. GENIAL GESTÃO LTDA"
+q15: * "Administrador também prestará, direta ou indiretamente, os serviços de: (i) custódia qualificada"
+q16: * "3.1. Indeterminado, sendo que cada Subclasse terá o prazo de duração estipulado no respectivo Apêndice"
+q17: * "Diluições” Qualquer evento relacionado a uma Transação de Pagamento que possa resultar na não realização do pagamento"
+q18: * "da Taxa DI, acrescida de Sobretaxa Sênior de 7,00% (sete inteiros por cento) ao ano (“Sobretaxa Mezanino”)"
+receivables: Recebíveis de cartão das vendas de cursos da Estratégia Concursos | q3,q1
+card_receivables: Valores devidos por Stone, Getnet, Rede, Cielo e Pagar.Me à Estratégia | q2,q3
+originator: Estratégia Concursos | q1
+assignor: Estratégia Concursos | q1
+debtor: Credenciadoras Stone, Getnet, Rede, Cielo e Pagar.Me | q2
+recourse: Cedente responde só por existência, certeza e formalização | q4
+eligibility: Créditos devidos pelas credenciadoras ao cedente por transações de pagamento | q3
+debtor_limit: Por devedor: até 20% do PL nas hipóteses da norma | q5 | value=20
+assignor_limit: — | Cedente única: Estratégia Concursos
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 50% do PL em direitos creditórios cedidos | q6 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q7,q8
+sub_senior: 30% · subord./PL | q7 | basis=mez+jr/PL | value=30
+sub_mezz: 10% · júnior/PL | q8 | basis=jr/PL | value=10
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: n/d | Reserva de caixa sem valor localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: n/d | Critério de provisão não localizado em trecho contínuo
+eval_triggers: Falta de atualização trimestral do rating por 90 dias, entre outros | q9
+liquidation: Deliberação sobre evento de avaliação ou insolvência, entre outros | q10
+revolving: n/d | Revolvência não tratada em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido no apêndice de cada subclasse | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,18% a.a. do PL, com mínimo mensal | q11
+mgmt_fee: n/d | Taxa de gestão não localizada em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: DI + 5,00% a.a. (sênior) | q12
+target_mezz: DI + 7,00% a.a. (mezanino) | q18
+administrator: Genial Investimentos Corretora de Valores | q13
+manager: Genial Gestão | q14
+custodian: Genial Investimentos (o administrador) | q15,q13
+servicer: Genial Investimentos (o administrador presta a cobrança) | q15,q13
+investors: n/d | Público-alvo definido em cada apêndice | why=Resposta anterior sem trecho localizável no regulamento vigente
+duration: Indeterminado (subclasses com prazo próprio) | q16
+card_lock: n/d | Mecanismo de trava não descrito em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+dilution: Diluições definidas no regulamento; sem reserva específica localizada | q17
+leitura: Recebíveis de cartão da Estratégia Concursos contra credenciadoras; subordinação de 30% e sênior DI + 5,00% a.a.

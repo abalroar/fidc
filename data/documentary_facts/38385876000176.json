@@ -1,0 +1,775 @@
+{
+ "schema_version": 1,
+ "cnpj": "38385876000176",
+ "name": "ESTRATÉGIA EDUCACIONAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T08:28:21Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1337409",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409"
+  },
+  "D2": {
+   "document_id": "224338",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "14/10/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=224338"
+  },
+  "D3": {
+   "document_id": "208658",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "27/08/2020",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=208658"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de cartão das vendas de cursos da Estratégia Concursos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 13,
+     "clause": "cl. 3.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "gibilidade 3.11. Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelas Devedoras ao Cedente nos termos dos Termos de Cessão, oriundos das transações de pagamento realizadas pelos Usuários Finais para a aquisição dos serviços do Cedente; (ii) os Direitos Creditórios devem ser cedidos pelo Cedente; (iii) o Cedente não poderá estar inadimplente perante a Classe; (iv) os Direitos Creditórios devem ser expressos em moeda corrente nacional; (v) o prazo entre a Data de Aquisição e a data de vencimento de cada Direito Creditório a ser adquirido deverá ser de, no máximo, 365 (trezentos e sessenta e cinco) dias e não terá prazo de vencimento superior à Data de Resgate das Cotas Sênior e das Cotas Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Subordinadas Mezanino, entre estas, a com prazo mais longo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "odrigo Godoy e Cintia Santana. de compensação). “Cedente” ESTRATÉGIA CONCURSOS S.A., sociedade por ações com sede na cidade de São Paulo, estado do São Paulo, na Rua Conceição de Monte Alegre, nº 198, salas 221 e 231, CEP 04563-060, inscrita no CNPJ sob o n° 13.877.842/0001-78. “Chargeback” A contestação de uma Transação de Pagamento, no todo ou em parte, pelo respectivo Usuário Final, cliente, estabelecimento comercial, Bandeira ou Emissor, que pode resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de transações de pagamento de serviços da Estratégia",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Estratégia Concursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "odrigo Godoy e Cintia Santana. de compensação). “Cedente” ESTRATÉGIA CONCURSOS S.A., sociedade por ações com sede na cidade de São Paulo, estado do São Paulo, na Rua Conceição de Monte Alegre, nº 198, salas 221 e 231, CEP 04563-060, inscrita no CNPJ sob o n° 13.877.842/0001-78. “Chargeback” A contestação de uma Transação de Pagamento, no todo ou em parte, pelo respectivo Usuário Final, cliente, estabelecimento comercial, Bandeira ou Emissor, que pode resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor"
+    }
+   ],
+   "legacy": {
+    "value": "Estratégia Concursos S.A.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Estratégia Concursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "odrigo Godoy e Cintia Santana. de compensação). “Cedente” ESTRATÉGIA CONCURSOS S.A., sociedade por ações com sede na cidade de São Paulo, estado do São Paulo, na Rua Conceição de Monte Alegre, nº 198, salas 221 e 231, CEP 04563-060, inscrita no CNPJ sob o n° 13.877.842/0001-78. “Chargeback” A contestação de uma Transação de Pagamento, no todo ou em parte, pelo respectivo Usuário Final, cliente, estabelecimento comercial, Bandeira ou Emissor, que pode resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor"
+    }
+   ],
+   "legacy": {
+    "value": "Estratégia Concursos S.A.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Credenciadoras Stone, Getnet, Rede, Cielo e Pagar.Me",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 49,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "“Data de Verificação” Significa o Dia Útil posterior à Data de Referência. “Devedoras” Para os fins desta Classe, são: (i) a Stone; (ii) a Getnet; (iii) a Rede; a (iv) Cielo; e (v) a Pagar.Me “Diluições” Qualquer evento relacionado a uma Transação de Pagamento que possa resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. na obrigação de devolução do valor anteriormente pago pela Devedora (inclusive por meio de compensação), incluindo (i) Chargebacks e (ii) Cancelamentos."
+    }
+   ],
+   "legacy": {
+    "value": "Devedoras participantes dos arranjos de pagamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Cedente responde só por existência, certeza e formalização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "cl. 3.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "mum não respondem pelo pagamento dos Direitos Creditórios Cedidos ou pela solvência das Devedoras. 3.14. O Cedente é somente responsável, na respectiva Data de Aquisição, pela existência, certeza, legitimidade e correta formalização dos Direitos Creditórios Cedidos, de acordo com o previsto no presente Anexo, no Contrato de Cessão e na legislação vigente. 3.15. Inexistência de retenção de risco pelos Prestadores de Serviços Essenciais e pelo Custodiante : Os Prestadores de Serviços Essenciais, o Custodiante e seus controladores diretos ou indiretos, sociedades, direta ou indiretamente, controladas, sociedades coligadas ou sociedades sob controle comum não respondem pelo pagamento dos Direitos Creditórios Cedidos, pela solvência das Devedoras ou pela existência, certeza, legitimidade ou correta formalização dos Direitos Creditórios Cedidos, observadas as obrigações e as responsabilidades dos Prestadores de Serviços Essenciais e Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. do Custodiante, nos termos deste Regulamento e dos respectivos contratos. Reservas 3.16."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão definitiva; existência/correta formalização a cargo do cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Créditos devidos pelas credenciadoras ao cedente por transações de pagamento",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 13,
+     "clause": "cl. 3.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "gibilidade 3.11. Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelas Devedoras ao Cedente nos termos dos Termos de Cessão, oriundos das transações de pagamento realizadas pelos Usuários Finais para a aquisição dos serviços do Cedente; (ii) os Direitos Creditórios devem ser cedidos pelo Cedente; (iii) o Cedente não poderá estar inadimplente perante a Classe; (iv) os Direitos Creditórios devem ser expressos em moeda corrente nacional; (v) o prazo entre a Data de Aquisição e a data de vencimento de cada Direito Creditório a ser adquirido deverá ser de, no máximo, 365 (trezentos e sessenta e cinco) dias e não terá prazo de vencimento superior à Data de Resgate das Cotas Sênior e das Cotas Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Subordinadas Mezanino, entre estas, a com prazo mais longo;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos em reais; prazo≤ 365 dias e prazo médio≤ 180 dias; cedente/devedoras adimplentes",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 3.11"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: até 20% do PL nas hipóteses da norma",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 15,
+     "clause": "cl. 3.18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "nte por Rodrigo Godoy e Cintia Santana. (i) A Classe poderá adquirir Direitos Creditórios e outros ativos de um mesmo devedor, ou de coobrigação de uma mesma pessoa ou entidade, desde que limitado a 20% (vinte por cento) do Patrimônio Líquido da Classe, quando o devedor ou coobrigado (i) tenha registro de companhia aberta; (ii) seja instituição financeira ou equiparada, autorizada a funcionar pelo Banco Central do Brasil; ou (iii) seja sociedade empresarial que tenha suas demonstrações financeiras relativas ao exercício social imediatamente anterior à data de constituição da Classe elaboradas em conformidade com a legislação e regulamentação aplicáveis, e auditadas por auditor independente registrado na CVM;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor/coobrigado até 20% PL nas hipóteses; cotas mesma classe até 25% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 3.18"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Estratégia Concursos",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor/coobrigado até 20% PL nas hipóteses; cotas mesma classe até 25% PL",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Vincendos em reais; prazo≤ 365 dias e prazo médio≤ 180 dias; cedente/devedoras adimplentes",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios cedidos",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 45,
+     "clause": "cl. 11.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "tribuído na Resolução BCB n° 264 de Recebíveis” 25/11/2022. “Alocação Mínima” O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Cedidos. “Ambiente de Base informacional implementada pelo Banco Central Interoperabilidade” que possibilita o direcionamento de instruções e mecanismos de troca de informações padronizadas Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. entre as Registradoras de modo a viabilizar a interoperabilidade entre elas. “Anbima” A Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Arranjo de É o conjunto de regras e procedimentos Pagamento”"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Piso 50% PL; após 12 meses alocação< 70% PL é evento de avaliação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 11.13"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 11,
+     "clause": "cl. 2.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "o site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. 2.9. Relação Mínima Mezanino: É a razão entre (i) a soma do valor total das Cotas Subordinadas Mezanino e Cotas Subordinadas Juniores e (ii) o patrimônio líquido da Classe, equivalente a 30% (trinta por cento). 2.10. Relação Mínima Subordinada: Trata-se da relação mínima entre (i) o patrimônio líquido correspondente às Cotas Subordinadas Juniores; e (ii) o patrimônio líquido da Classe, equivalente a 10% (dez por cento). 2.11. Enquanto existirem Cotas Sênior ou Cotas Subordinadas Mezanino em circulação, a Relação Mínima Mezanino e a Relação Mínima Subordinada deverão ser mantidas. Ordem de Alocação de Recursos 2.12. Em cada Data de Cálculo, deverão ser, por meio dos competentes débitos realizados na Conta da Classe, alocados os recursos decorrentes da integralização das Cotas e provenientes da carteira da Classe, na seguinte ordem, conforme aplicável: A) Caso a Amortização Pro Rata esteja em curso: (i) pagamento dos encargos da Classe, devidos nos termos deste Anexo e do Regulamento, bem como da regulamentação aplicável; (ii) constituição ou recomposição da Reserva de Despesas e Encargos;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 11,
+     "clause": "cl. 2.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "i) o patrimônio líquido da Classe, equivalente a 30% (trinta por cento). 2.10. Relação Mínima Subordinada: Trata-se da relação mínima entre (i) o patrimônio líquido correspondente às Cotas Subordinadas Juniores; e (ii) o patrimônio líquido da Classe, equivalente a 10% (dez por cento). 2.11. Enquanto existirem Cotas Sênior ou Cotas Subordinadas Mezanino em circulação, a Relação Mínima Mezanino e a Relação Mínima Subordinada deverão ser mantidas. Ordem de Alocação de Recursos 2.12. Em cada Data de Cálculo, deverão ser, por meio dos competentes débitos realizados na Conta da Classe, alocados os recursos decorrentes da integralização das Cotas e provenientes da carteira da Classe, na seguinte ordem, conforme aplicável: A) Caso a Amortização Pro Rata esteja em curso: (i) pagamento dos encargos da Classe, devidos nos termos deste Anexo e do Regulamento, bem como da regulamentação aplicável; (ii) constituição ou recomposição da Reserva de Despesas e Encargos;"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: 30% PL; proteção júnior: 10% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 2.8"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 11,
+     "clause": "cl. 2.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "o site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. 2.9. Relação Mínima Mezanino: É a razão entre (i) a soma do valor total das Cotas Subordinadas Mezanino e Cotas Subordinadas Juniores e (ii) o patrimônio líquido da Classe, equivalente a 30% (trinta por cento). 2.10. Relação Mínima Subordinada: Trata-se da relação mínima entre (i) o patrimônio líquido correspondente às Cotas Subordinadas Juniores; e (ii) o patrimônio líquido da Classe, equivalente a 10% (dez por cento). 2.11. Enquanto existirem Cotas Sênior ou Cotas Subordinadas Mezanino em circulação, a Relação Mínima Mezanino e a Relação Mínima Subordinada deverão ser mantidas. Ordem de Alocação de Recursos 2.12. Em cada Data de Cálculo, deverão ser, por meio dos competentes débitos realizados na Conta da Classe, alocados os recursos decorrentes da integralização das Cotas e provenientes da carteira da Classe, na seguinte ordem, conforme aplicável: A) Caso a Amortização Pro Rata esteja em curso: (i) pagamento dos encargos da Classe, devidos nos termos deste Anexo e do Regulamento, bem como da regulamentação aplicável; (ii) constituição ou recomposição da Reserva de Despesas e Encargos;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Sênior: 30% PL; proteção júnior: 10% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 2.8"
+   }
+  },
+  "sub_mezz": {
+   "display": "10% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 11,
+     "clause": "cl. 2.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "i) o patrimônio líquido da Classe, equivalente a 30% (trinta por cento). 2.10. Relação Mínima Subordinada: Trata-se da relação mínima entre (i) o patrimônio líquido correspondente às Cotas Subordinadas Juniores; e (ii) o patrimônio líquido da Classe, equivalente a 10% (dez por cento). 2.11. Enquanto existirem Cotas Sênior ou Cotas Subordinadas Mezanino em circulação, a Relação Mínima Mezanino e a Relação Mínima Subordinada deverão ser mantidas. Ordem de Alocação de Recursos 2.12. Em cada Data de Cálculo, deverão ser, por meio dos competentes débitos realizados na Conta da Classe, alocados os recursos decorrentes da integralização das Cotas e provenientes da carteira da Classe, na seguinte ordem, conforme aplicável: A) Caso a Amortização Pro Rata esteja em curso: (i) pagamento dos encargos da Classe, devidos nos termos deste Anexo e do Regulamento, bem como da regulamentação aplicável; (ii) constituição ou recomposição da Reserva de Despesas e Encargos;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior: 30% PL; proteção júnior: 10% PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa sem valor localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "3 meses de despesas/encargos em disponibilidades",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Falta de atualização trimestral do rating por 90 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 33,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "7. EVENTOS DE AVALIAÇÃO E DE LIQUIDAÇÃO Eventos de Avaliação 7.1. Avaliação: São Eventos de Avaliação: (i) caso a Agência Classificadora de Risco não divulgue a atualização trimestral da classificação de risco das Cotas Sênior, por prazo igual ou superior a 90 (noventa) dias; (ii) rebaixamento da classificação de risco das Cotas Sênior em 1 (um) nível abaixo da classificação de risco originalmente atribuída, na escala da Austin Rating Serviços Financeira Ltda., ou equivalente pelas demais agências classificadoras de risco, originalmente atribuída às Cotas Sênior; Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. (iii) o desenquadramento: (i) da Relação Mínima Mezanino e/ou Relação Mínima Subordinada; e (ii) Índice de Diluição; (iv) verificação do desenquadramento da Alocação Mínima no âmbito deste Anexo, por prazo igual ou superior a 90 (noventa) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Antecipação> 5% carteira; alocação< 70% PL após 12 meses; falhas de repasse/arranjos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 7.1"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação sobre evento de avaliação ou insolvência, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 36,
+     "clause": "cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "previstas nos itens “ii” a “iv” acima deverão ser cessadas. Eventos de Liquidação 7.4. Liquidação: São Eventos de Liquidação: (i) caso seja deliberado, em Assembleia Especial, que um Evento de Avaliação configura um Evento de Liquidação; (ii) caso seja declarada a insolvência da Classe, nos termos do Código Civil; (iii) nos casos em que houver determinação da CVM; (iv) cessação definitiva, a qualquer tempo e por qualquer motivo, da prestação dos serviços pelo Administrador, pelo Gestor ou pelo Custodiante, sem que tenha havido sua efetiva Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. substituição por outro prestador de serviços, observado os procedimentos e prazos descritos neste Anexo e/ou no Regulamento; (v) resilição ou rescisão do Contrato de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Antecipação> 5% carteira; alocação< 70% PL após 12 meses; falhas de repasse/arranjos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 7.4"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisições de créditos elegíveis; sujeitas aos eventos e disponibilidade de caixa",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada subclasse",
+   "sources": [],
+   "legacy": {
+    "value": "Pro rata ou sequencial conforme fase/suplemento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,18% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 28,
+     "clause": "cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": ". Pelos serviços de Administração Fiduciária, controladoria, escrituração e gestão, será cobrada do Fundo, como Taxa de Administração a ser paga à Administradora, o percentual de 0,18% (dezoito centésimos por cento) ao ano calculados sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 20.000,00 (vinte mil reais). 5.2.1. A Taxa de Administração e Gestão será apurada diariamente, à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos), com base no valor do Patrimônio Líquido verificado no Dia Útil anterior à realização do referido cálculo, sendo a primeira parcela devida no 5º (quinto) Dia Útil do mês subsequente à Data de Início da Classe e as demais no 5º (quinto) Dia Útil dos meses subsequentes. 5.3. As informações detalhadas sobre a divisão das Taxas de Administração e Gestão poderão ser encontradas no website do Administrador. Taxa Máxima de Administração e de Gestão 5.4. As classes de investimento em que a Classe investe estão sujeitas a taxas de administração e Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. gestão próprias."
+    }
+   ],
+   "legacy": {
+    "value": "0, 18% a.a./PL; mínimoR$ 20 mil/mês; inclui serviços do pacote",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, cl. 5.2"
+   }
+  },
+  "mgmt_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de gestão não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Máxima: 10% da taxa máxima de administração, limiteR$ 4 mil/mês",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + 5,00% a.a. (sênior)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 64,
+     "clause": "Anexo E, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "ação diária, sob a forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de Sobretaxa Sênior de 5,00% (cinco inteiros por cento) ao ano (“Sobretaxa Sênior”). Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Público-Alvo 2.3. Investidores qualificados, que sejam Investidores Autorizados nos termos do Anexo. 3. DAS COTAS DA SUBCLASSE Condições para Aplicação 3.1. Os Cotistas Sênior não terão direito de preferência na subscrição de novas Cotas Sêniores que venham a ser emitidas pela Subclasse. 3.2. Os Prestadores de Serviços Essenciais, em nome da Subclasse, poderá emitir uma ou mais Séries de Cotas Seniores, desde que atendidas as Condições para Novas Emissões de Cotas. Emissão 3.3. Observadas as disposições do respectivo Suplemento da Série, o preço de subscrição das Cotas Sênior poderá contemplar ágio ou deságio, desde que uniformemente aplicado para todos os subscritores da respectiva Série, caso aplicável, e apurado por meio de procedimento de descoberta de preço de acordo com a regulamentação em vigor. 3.3.1."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: DI + 5, 00% a.a.; mezanino: DI + 7, 00% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo E, cl. 2.2"
+   }
+  },
+  "target_mezz": {
+   "display": "DI + 7,00% a.a. (mezanino)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 67,
+     "clause": "Anexo E, cl. 3.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "ação diária, sob a forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de Sobretaxa Sênior de 7,00% (sete inteiros por cento) ao ano (“Sobretaxa Mezanino”). Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Público-Alvo 2.2. Investidores qualificados, que sejam Investidores Autorizados. 3. DAS COTAS DA SUBCLASSE Condições para Aplicação 3.1. Os Cotistas Mezanino não terão direito de preferência na subscrição de novas Cotas Subordinadas Mezanino que venham a ser emitidas pela Subclasse. Emissão 3.2. Os Prestadores de Serviços Essenciais, em nome da Subclasse, poderá emitir uma ou mais Séries de Cotas Subordinadas Mezanino, desde que atendidas as Condições para Novas Emissões de Cotas. 3.14."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: DI + 5, 00% a.a.; mezanino: DI + 7, 00% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo E, cl. 3.13"
+   }
+  },
+  "administrator": {
+   "display": "Genial Investimentos Corretora de Valores",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "quando houver. 2. PRESTADORES DE SERVIÇOS Administrador 2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., CNPJ: 27.652.684/0001-62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. 2.1.1. Além da prestação de serviços de administração fiduciária do Fundo e de suas Classes, o Administrador também prestará, direta ou indiretamente, os serviços de: (i) custódia qualificada dos ativos das carteiras das Classes; (ii) escrituração das Cotas; e (iii) cobrança de direitos creditórios inadimplidos das carteiras das Classes Administradas. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. 2.1.2. As disposições aplicáveis à substituição e à renúncia de Prestadores de Serviços Essenciais se aplicam também à prestação de serviços de Custódia pelo Administrador. Gestor 2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 2,
+     "clause": "cl. 2.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "Serviços Essenciais se aplicam também à prestação de serviços de Custódia pelo Administrador. Gestor 2.2. GENIAL GESTÃO LTDA., nova denominação de BRPP GESTÃO DE PRODUTOS ESTRUTURADOS LTDA., CNPJ: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, de 05 de setembro de 2015. 2.2.1. Caso o Gestor contrate cogestor para a gestão de ativos de uma Classe, as informações do Cogestor estarão descritas diretamente no Anexo da respectiva Classe, assim como o seu mercado específico de atuação. Outros Serviços 2.3. Outros prestadores de serviços que não estejam qualificados neste Regulamento, Anexo e/ou Apêndice, conforme o caso, estarão indicados no website do Administrador, assim como os serviços adicionais que sejam desempenhados pelo Administrador e/ou pela Gestora. Responsabilidade dos Prestadores de Serviços 2.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (o administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 2.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "io de 2002. 2.1.1. Além da prestação de serviços de administração fiduciária do Fundo e de suas Classes, o Administrador também prestará, direta ou indiretamente, os serviços de: (i) custódia qualificada dos ativos das carteiras das Classes; (ii) escrituração das Cotas; e (iii) cobrança de direitos creditórios inadimplidos das carteiras das Classes Administradas. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. 2.1.2. As disposições aplicáveis à substituição e à renúncia de Prestadores de Serviços Essenciais se aplicam também à prestação de serviços de Custódia pelo Administrador. Gestor 2.2. GENIAL GESTÃO LTDA., nova denominação de BRPP GESTÃO DE PRODUTOS ESTRUTURADOS LTDA., CNPJ: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, de 05 de setembro de 2015. 2.2.1. Caso o Gestor contrate cogestor para a gestão de ativos de uma Classe, as informações do Cogestor estarão descritas diretamente no Anexo da respectiva Classe, assim como o seu mercado específico de atuação. Outros Serviços 2.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "quando houver. 2. PRESTADORES DE SERVIÇOS Administrador 2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., CNPJ: 27.652.684/0001-62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. 2.1.1. Além da prestação de serviços de administração fiduciária do Fundo e de suas Classes, o Administrador também prestará, direta ou indiretamente, os serviços de: (i) custódia qualificada dos ativos das carteiras das Classes; (ii) escrituração das Cotas; e (iii) cobrança de direitos creditórios inadimplidos das carteiras das Classes Administradas. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. 2.1.2. As disposições aplicáveis à substituição e à renúncia de Prestadores de Serviços Essenciais se aplicam também à prestação de serviços de Custódia pelo Administrador. Gestor 2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Genial Investimentos (o administrador presta a cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 2.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "io de 2002. 2.1.1. Além da prestação de serviços de administração fiduciária do Fundo e de suas Classes, o Administrador também prestará, direta ou indiretamente, os serviços de: (i) custódia qualificada dos ativos das carteiras das Classes; (ii) escrituração das Cotas; e (iii) cobrança de direitos creditórios inadimplidos das carteiras das Classes Administradas. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. 2.1.2. As disposições aplicáveis à substituição e à renúncia de Prestadores de Serviços Essenciais se aplicam também à prestação de serviços de Custódia pelo Administrador. Gestor 2.2. GENIAL GESTÃO LTDA., nova denominação de BRPP GESTÃO DE PRODUTOS ESTRUTURADOS LTDA., CNPJ: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, de 05 de setembro de 2015. 2.2.1. Caso o Gestor contrate cogestor para a gestão de ativos de uma Classe, as informações do Cogestor estarão descritas diretamente no Anexo da respectiva Classe, assim como o seu mercado específico de atuação. Outros Serviços 2.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 1,
+     "clause": "cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "quando houver. 2. PRESTADORES DE SERVIÇOS Administrador 2.1. GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., CNPJ: 27.652.684/0001-62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. 2.1.1. Além da prestação de serviços de administração fiduciária do Fundo e de suas Classes, o Administrador também prestará, direta ou indiretamente, os serviços de: (i) custódia qualificada dos ativos das carteiras das Classes; (ii) escrituração das Cotas; e (iii) cobrança de direitos creditórios inadimplidos das carteiras das Classes Administradas. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. 2.1.2. As disposições aplicáveis à substituição e à renúncia de Prestadores de Serviços Essenciais se aplicam também à prestação de serviços de Custódia pelo Administrador. Gestor 2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo definido em cada apêndice",
+   "sources": [],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; qualificados/autorizados",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado (subclasses com prazo próprio)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 3,
+     "clause": "cl. 2.7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "3. ESTRUTURA DO FUNDO Prazo de Duração do Fundo 3.1. Indeterminado, sendo que cada Subclasse terá o prazo de duração estipulado no respectivo Apêndice. Estruturação do Fundo 3.2. Múltiplas Classes. Exercício Social do Fundo 3.3. Término no último dia do mês de dezembro de cada ano civil. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. 4. POLÍTICA DE INVESTIMENTOS 4.1. Cada Classe de Cotas conta com um patrimônio próprio segregado e seguirá uma política de investimentos específica. A política de investimentos a ser observada pelo Gestor, com relação a cada Classe, está indicada no respectivo Anexo. Todos os limites de investimento serão indicados e deverão ser interpretados com relação ao patrimônio líquido da Classe correspondente. 5. FATORES DE RISCO COMUNS ÀS CLASSES 5.1."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; qualificados/autorizados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "Valores devidos por Stone, Getnet, Rede, Cielo e Pagar.Me à Estratégia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 49,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "“Data de Verificação” Significa o Dia Útil posterior à Data de Referência. “Devedoras” Para os fins desta Classe, são: (i) a Stone; (ii) a Getnet; (iii) a Rede; a (iv) Cielo; e (v) a Pagar.Me “Diluições” Qualquer evento relacionado a uma Transação de Pagamento que possa resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. na obrigação de devolução do valor anteriormente pago pela Devedora (inclusive por meio de compensação), incluindo (i) Chargebacks e (ii) Cancelamentos."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 13,
+     "clause": "cl. 3.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "gibilidade 3.11. Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelas Devedoras ao Cedente nos termos dos Termos de Cessão, oriundos das transações de pagamento realizadas pelos Usuários Finais para a aquisição dos serviços do Cedente; (ii) os Direitos Creditórios devem ser cedidos pelo Cedente; (iii) o Cedente não poderá estar inadimplente perante a Classe; (iv) os Direitos Creditórios devem ser expressos em moeda corrente nacional; (v) o prazo entre a Data de Aquisição e a data de vencimento de cada Direito Creditório a ser adquirido deverá ser de, no máximo, 365 (trezentos e sessenta e cinco) dias e não terá prazo de vencimento superior à Data de Resgate das Cotas Sênior e das Cotas Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código CD89-A861-7A42-4A86. Subordinadas Mezanino, entre estas, a com prazo mais longo;"
+    }
+   ],
+   "legacy": {
+    "value": "Recebíveis de transações de pagamento de serviços da Estratégia",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Mecanismo de trava não descrito em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Cessão inclui acessórios; prestadores sem responsabilidade pela solvência",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "dilution": {
+   "display": "Diluições definidas no regulamento; sem reserva específica localizada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 49,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337409",
+     "excerpt": "; (iii) a Rede; a (iv) Cielo; e (v) a Pagar.Me “Diluições” Qualquer evento relacionado a uma Transação de Pagamento que possa resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. na obrigação de devolução do valor anteriormente pago pela Devedora (inclusive por meio de compensação), incluindo (i) Chargebacks e (ii) Cancelamentos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de cartão da Estratégia Concursos contra credenciadoras; subordinação de 30% e sênior DI + 5,00% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
