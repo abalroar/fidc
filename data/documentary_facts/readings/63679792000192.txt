@@ -1,0 +1,48 @@
+# Blue Health FIDC Recebíveis Comerciais (Oliveira Trust; Leto Asset; cedentes do grupo Blue Health)
+type: Duplicatas/multicedente
+q1: * "Cedentes” significa a (i) Ultra-Som Equipamentos Médicos Ltda."
+q2: * "por Devedor do mesmo Grupo Econômico, será limitado a 15% (quinze por cento) do patrimônio líquido do Fundo"
+q3: * "São considerados Eventos de Avaliação quaisquer dos seguintes eventos: (i) não envio pela originadora das informações"
+q4: * "são considerados Eventos de Liquidação do Fundo: (i) caso os Cotistas venham a deliberar"
+q5: * "Taxa de Administração, equivalente a 0,064% (sessenta e quatro milésimos por cento) ao ano"
+q6: * "taxa de performance e não serão cobradas taxas de ingresso, de performance e/ou de saída"
+q7: * "“Administradora” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q8: * "“Gestora” significa a LETO ASSET MANAGEMENT LTDA."
+q9: * "“Custodiante” significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Agente de Cobrança” significa a Blue Health"
+q11: * "destinada a Investidores Autorizados que busquem rentabilidade, no longo prazo"
+q12: * "prazo de duração indeterminado, regido pelo presente Regulamento e Complementos"
+q13: * "Subordinação passe a ser de 21% (vinte e um por cento)"
+receivables: Locação de equipamentos médicos com manutenção, inclusive não performados | o1
+originator: Ultra-Som Equipamentos Médicos e demais cedentes do grupo | q1,o4
+assignor: Ultra-Som Equipamentos Médicos e demais cedentes do grupo | q1
+debtor: Hospitais e clínicas locatários, agrupados por grupo econômico | o19
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão
+eligibility: Em reais; prazo médio ≤ 48 meses; cessão integral do contrato | o16
+debtor_limit: Por grupo econômico: até 15% do PL | q2 | value=15
+sacado_limit: Por grupo econômico: até 15% do PL | q2 | value=15
+assignor_limit: — | Cedentes do mesmo grupo Blue Health
+term_max: Prazo médio da carteira ≤ 48 meses | o16
+allocation: n/d | Alocação mínima sem trecho localizável no regulamento vigente | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Mezanino / Subordinada júnior | o29
+sub_senior: 20% · júnior/PL (21% após amortização por excesso) | o29,q13 | basis=jr/PL | value=20
+sub_mezz: n/d | Regra da mezanino remetida ao apêndice
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: 3 meses de despesas, com complementação | o42
+pdd: Provisão escalonada por atraso, de 1% a 100% do saldo do contrato | o45
+eval_triggers: Falta de informações da originadora para o monitoramento, entre outros | q3
+liquidation: Evento de avaliação convertido em liquidação pelos cotistas, entre outros | q4
+revolving: n/d | Revolvência não tratada em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,064% a.a. do PL, com mínimo mensal | q5
+mgmt_fee: 0,65% a.a. até R$ 100 mi de PL; 0,50% acima, com mínimo mensal | o65
+perf_fee: Não prevista | Regulamento veda taxa de performance | q6
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Oliveira Trust DTVM | q7
+manager: Leto Asset Management | q8
+custodian: Oliveira Trust DTVM | q9
+servicer: Blue Health (agente de cobrança) | q10
+investors: Investidores autorizados | q11
+duration: Indeterminado | q12
+leitura: Locação de equipamentos médicos do grupo Blue Health; júnior ≥ 20% do PL e grupo econômico ≤ 15%.
