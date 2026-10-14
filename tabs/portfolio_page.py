@@ -271,6 +271,56 @@ _PORTFOLIO_PAGE_CSS = """
 </style>
 """
 
+# Finish shared by every analysis tab: one title scale, one disclosure marker,
+# a single scroll axis in wide comparisons. Scoped to this page only.
+_PORTFOLIO_ANALYSIS_POLISH_CSS = """
+<style>
+.st-key-portfolio_analysis .meli-chart-title,
+.st-key-portfolio_analysis .fidc-chart-title,
+.st-key-portfolio_analysis h4 {
+    color: #202832; font-size: 1rem; font-weight: 600; line-height: 1.35; letter-spacing: 0;
+}
+.st-key-portfolio_analysis .meli-chart-heading { margin: 1.5rem 0 .35rem; }
+.st-key-portfolio_analysis .fidc-chart-title { margin: 1.5rem 0 .35rem; }
+.st-key-portfolio_analysis .fidc-chart-caption { color: #66717d; font-size: .78rem; margin: 0 0 .2rem; }
+.st-key-portfolio_analysis .portfolio-wide-section > summary,
+.st-key-portfolio_analysis .monitor-wide-section > summary,
+.st-key-portfolio_analysis .wide-section > summary,
+.st-key-portfolio_analysis .financial-fund-identity > summary {
+    list-style: none; display: flex; align-items: center; gap: .6rem;
+}
+.st-key-portfolio_analysis .portfolio-wide-section > summary::-webkit-details-marker,
+.st-key-portfolio_analysis .monitor-wide-section > summary::-webkit-details-marker,
+.st-key-portfolio_analysis .wide-section > summary::-webkit-details-marker,
+.st-key-portfolio_analysis .financial-fund-identity > summary::-webkit-details-marker { display: none; }
+.st-key-portfolio_analysis .portfolio-wide-section > summary::before,
+.st-key-portfolio_analysis .monitor-wide-section > summary::before,
+.st-key-portfolio_analysis .wide-section > summary::before,
+.st-key-portfolio_analysis .financial-fund-identity > summary::before {
+    content: ""; flex: 0 0 auto; width: .4rem; height: .4rem; margin: 0 .1rem 0 .2rem;
+    border-right: 1.5px solid #66717d; border-bottom: 1.5px solid #66717d;
+    transform: rotate(-45deg); transition: transform .15s ease;
+}
+.st-key-portfolio_analysis .portfolio-wide-section[open] > summary::before,
+.st-key-portfolio_analysis .monitor-wide-section[open] > summary::before,
+.st-key-portfolio_analysis .wide-section[open] > summary::before,
+.st-key-portfolio_analysis .financial-fund-identity[open] > summary::before { transform: rotate(45deg); }
+.st-key-portfolio_analysis .monitor-wide-wrapper { max-height: none; }
+.st-key-portfolio_analysis .portfolio-return-gaps { color: #66717d; font-size: .8rem; margin: .1rem 0 .8rem; }
+.st-key-portfolio_analysis .portfolio-return-gaps > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: .55rem; min-height: 32px; }
+.st-key-portfolio_analysis .portfolio-return-gaps > summary::-webkit-details-marker { display: none; }
+.st-key-portfolio_analysis .portfolio-return-gaps > summary::before {
+    content: ""; width: .38rem; height: .38rem; border-right: 1.5px solid #66717d; border-bottom: 1.5px solid #66717d;
+    transform: rotate(-45deg); transition: transform .15s ease; margin-left: .2rem;
+}
+.st-key-portfolio_analysis .portfolio-return-gaps[open] > summary::before { transform: rotate(45deg); }
+.st-key-portfolio_analysis .portfolio-return-gaps p { margin: .35rem 0 0 1.1rem; line-height: 1.45; overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) {
+    .st-key-portfolio_analysis summary::before { transition: none; }
+}
+</style>
+"""
+
 _BLOCKS = (
     PortfolioPageBlock(SECTION_AGING, "Diagnóstico da carteira", "Contexto e risco", 10),
     PortfolioPageBlock(SECTION_RETURNS, "Retorno e crédito", "Contexto e risco", 20),
@@ -425,7 +475,7 @@ def _render_portfolio_analysis_surface(
     selected_sections: tuple[str, ...],
 ) -> bool:
     with st.container(key="portfolio_analysis"):
-        st.html(analytical_components_css("portfolio_analysis"))
+        st.html(analytical_components_css("portfolio_analysis") + _PORTFOLIO_ANALYSIS_POLISH_CSS)
         return _render_portfolio_analysis_content(
             selected_portfolio=selected_portfolio, period=period,
             selected_sections=selected_sections,
@@ -1821,7 +1871,7 @@ def _render_returns_tab(
         st.info("Sem fundos individuais carregados para a rentabilidade por série.")
         return
 
-    labels = {cnpj: short_fund_name(somatorio_tab._fund_name_from_frame(fund_monthly[cnpj], fallback=cnpj)) for cnpj in fund_options}
+    labels = {cnpj: short_fund_name(somatorio_tab._fund_name_from_frame(fund_monthly[cnpj], fallback=cnpj), max_length=48) for cnpj in fund_options}
     counts = Counter(labels.values())
     labels = {cnpj: f"{name} · {cnpj}" if counts[name] > 1 else name for cnpj, name in labels.items()}
     fund_key = f"portfolio_returns_fund::{selected_portfolio.id}"

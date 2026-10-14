@@ -762,7 +762,11 @@ def _render_fund_return_table(
         _chart_title("Rentabilidade por série", chart_notes)
     if portfolio_mode:
         st.caption(_fund_return_period_caption(table_df, summary_df))
-    st.dataframe(table_df, width="stretch", hide_index=True)
+        # The series name stays visible while the monthly columns scroll.
+        st.dataframe(table_df, width="stretch", hide_index=True,
+                     column_config={str(table_df.columns[0]): st.column_config.Column(pinned=True)})
+    else:
+        st.dataframe(table_df, width="stretch", hide_index=True)
     if concise:
         _render_fund_return_benchmark_diagnostics(benchmark_resolution, compact=True)
     else:
@@ -778,18 +782,31 @@ def _render_fund_return_table(
             + ", ".join(missing_cdi)
             + "."
         )
-    _render_return_gap_warning(
-        summary_df,
-        status_column="trailing_12m_status",
-        missing_column="trailing_12m_competencias_ausentes",
-        prefix="Acumulado de 12 meses indisponível",
+    gaps = (
+        ("Acumulado de 12 meses indisponível", "trailing_12m_status", "trailing_12m_competencias_ausentes"),
+        ("YTD indisponível", "ytd_status", "ytd_competencias_ausentes"),
     )
-    _render_return_gap_warning(
-        summary_df,
-        status_column="ytd_status",
-        missing_column="ytd_competencias_ausentes",
-        prefix="YTD indisponível",
-    )
+    if portfolio_mode:
+        # One short line on screen; the missing competences stay one click away.
+        details = [
+            (prefix, _return_gap_details(summary_df, status_column=status, missing_column=missing))
+            for prefix, status, missing in gaps
+        ]
+        details = [(prefix, items) for prefix, items in details if items]
+        if details:
+            summary = " · ".join(f"{prefix} em {len(items)} série(s)" for prefix, items in details)
+            body = "".join(
+                f"<p><b>{escape(prefix)}</b> porque há competência necessária sem retorno reportado. "
+                f"{escape('; '.join(items))}</p>"
+                for prefix, items in details
+            )
+            st.markdown(
+                f"<details class='portfolio-return-gaps'><summary>{escape(summary)}</summary>{body}</details>",
+                unsafe_allow_html=True,
+            )
+        return
+    for prefix, status, missing in gaps:
+        _render_return_gap_warning(summary_df, status_column=status, missing_column=missing, prefix=prefix)
 
 
 def _resolve_fund_return_benchmark(
@@ -910,11 +927,17 @@ def _render_return_gap_warning(
     missing_column: str,
     prefix: str,
 ) -> None:
+    details = _return_gap_details(summary_df, status_column=status_column, missing_column=missing_column)
+    if details:
+        st.caption(f"{prefix} porque há competência necessária sem retorno reportado. " + "; ".join(details))
+
+
+def _return_gap_details(summary_df: pd.DataFrame, *, status_column: str, missing_column: str) -> list[str]:
     if summary_df.empty or status_column not in summary_df.columns:
-        return
+        return []
     incomplete = summary_df[summary_df[status_column].astype(str) == "incompleto"]
     if incomplete.empty:
-        return
+        return []
     label_column = ime_tab._class_display_column(incomplete)
     details: list[str] = []
     for _, row in incomplete.iterrows():
@@ -927,7 +950,7 @@ def _render_return_gap_warning(
             else str(missing_raw)
         )
         details.append(f"{label}: {missing}")
-    st.caption(f"{prefix} porque há competência necessária sem retorno reportado. " + "; ".join(details))
+    return details
 
 
 def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None:  # noqa: ANN001

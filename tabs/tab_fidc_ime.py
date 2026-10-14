@@ -1497,6 +1497,8 @@ def _render_credit_risk_section(
     )
     credit_col, coverage_col = st.columns([0.62, 0.38])
     with credit_col:
+        if portfolio_mode:
+            st.markdown('<div class="fidc-chart-caption">Inadimplência e PDD · % dos DCs</div>', unsafe_allow_html=True)
         if _credit_chart_all_zero:
             if portfolio_mode:
                 st.caption(_portfolio_credit_zero_note(note_history))
@@ -1523,6 +1525,8 @@ def _render_credit_risk_section(
                 width="stretch",
             )
     with coverage_col:
+        if portfolio_mode:
+            st.markdown('<div class="fidc-chart-caption">Cobertura · PDD / vencidos</div>', unsafe_allow_html=True)
         coverage_all_zero = cobertura_df.empty or (
             not portfolio_mode
             and (pd.to_numeric(cobertura_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
@@ -1722,6 +1726,39 @@ def _render_quota_return_section(
 
     selected_set: set[str] | None = None
     return_chart_df = _return_chart_frame(dashboard.return_history_df)
+    if portfolio_mode and not show_table and not return_chart_df.empty:
+        # The class picker only drives this chart, so it lives with it.
+        with st.expander("Histórico acumulado base 100", expanded=False):
+            ordered_labels = _return_ordered_labels(dashboard)
+            default_labels = ordered_labels[:5]
+            selected_labels = st.multiselect(
+                selector_label,
+                options=ordered_labels,
+                default=default_labels,
+                key=f"return_labels_{slot_key}",
+                placeholder="Selecione classes para exibir a rentabilidade...",
+            )
+            base100_chart_df = _return_base100_chart_frame(
+                dashboard.return_history_df,
+                selected_labels=selected_labels or default_labels or None,
+                months=return_months,
+            )
+            if base100_chart_df.empty:
+                st.caption("Histórico base 100 N/D para as classes selecionadas.")
+            else:
+                st.altair_chart(
+                    _line_history_chart(
+                        base100_chart_df,
+                        title=None,
+                        y_title="Índice base 100",
+                        show_point_labels=False,
+                        show_end_labels=True,
+                        point_size=76,
+                        portfolio_mode=portfolio_mode,
+                    ),
+                    width="stretch",
+                )
+        return
     if not return_chart_df.empty:
         ordered_labels = _return_ordered_labels(dashboard)
         default_labels = ordered_labels[:5]
@@ -3899,6 +3936,7 @@ def _quant_scale_with_headroom(
     percent_like: bool = False,
     floor_zero: bool = True,
     max_cap: float | None = None,
+    adaptive_step: bool = False,
 ) -> alt.Scale:
     numeric = pd.to_numeric(values, errors="coerce").dropna()
     if numeric.empty:
@@ -3916,7 +3954,9 @@ def _quant_scale_with_headroom(
             upper = max_value + headroom
         if max_cap is not None:
             upper = min(upper, max_cap)
-        upper = _round_axis_upper(upper, step=10.0)
+        # A fixed 10 pp step turns a 0–3% series into a 0–10% axis.
+        step = (10.0 if upper > 20 else 5.0 if upper > 5 else 1.0 if upper > 1 else 0.5) if adaptive_step else 10.0
+        upper = _round_axis_upper(upper, step=step)
         if max_cap is not None:
             upper = min(upper, max_cap)
         lower = 0.0 if floor_zero else min_value
@@ -5542,7 +5582,10 @@ def _grouped_bar_chart(
         f"{resolved_value_field}:Q",
         title=y_title,
         axis=y_axis,
-        scale=_quant_scale_with_headroom(chart_df[resolved_value_field], percent_like="%" in y_title, max_cap=140.0 if "%" in y_title else None),
+        scale=_quant_scale_with_headroom(
+            chart_df[resolved_value_field], percent_like="%" in y_title,
+            max_cap=140.0 if "%" in y_title else None, adaptive_step=portfolio_mode,
+        ),
     )
     series_order = chart_df["serie"].drop_duplicates().tolist()
     color_encoding = alt.Color(

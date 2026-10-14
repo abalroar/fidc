@@ -92,13 +92,17 @@ def test_portfolio_return_table_keeps_zero_nd_benchmark_and_its_own_12m_window(m
     title = Mock();monkeypatch.setattr(credit, "_chart_title", title)
     captions = Mock();monkeypatch.setattr(credit.st, "caption", captions)
     table = Mock();monkeypatch.setattr(credit.st, "dataframe", table)
+    markdown = Mock();monkeypatch.setattr(credit.st, "markdown", markdown)
     credit._render_fund_return_table(outputs=outputs, cnpj="123", portfolio_mode=True)
     builder.assert_called_once_with(outputs=outputs, cnpj="123", monthly_cdi_rates=rates, benchmark_spreads={})
     pd.testing.assert_frame_equal(table.call_args.args[0], frozen)
     pd.testing.assert_frame_equal(frame, frozen)
     assert title.call_args.args[0] == "Rentabilidade" and title.call_args.kwargs["interactive_help"] is True
     assert any("12 meses · abr/25–mar/26" in call.args[0] for call in captions.call_args_list)
-    assert any("Acumulado de 12 meses indisponível" in call.args[0] and "02/2026" in call.args[0] for call in captions.call_args_list)
+    # The gap stays on screen as one short line with the competences on demand.
+    gap = next(call.args[0] for call in markdown.call_args_list if "portfolio-return-gaps" in call.args[0])
+    assert "Acumulado de 12 meses indisponível em 1 série(s)" in gap and "02/2026" in gap
+    assert table.call_args.kwargs["column_config"]["Série"]["pinned"] is True
 
 
 def test_portfolio_roll_selection_keeps_key_bucket_and_original_input(monkeypatch):
