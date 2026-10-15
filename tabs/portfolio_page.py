@@ -1096,8 +1096,8 @@ def _render_unified_portfolio_download(
     compact: bool = False,
 ) -> None:
     from services.on_demand_download import (
-        current_download_store, download_context_signature, render_on_demand_download,
-        render_native_deferred_download,
+        current_download_store, discard_other_download_stores, download_context_signature,
+        render_on_demand_download, render_native_deferred_download,
     )
 
     if analysis.monitor_outputs is None or analysis.research_outputs is None:
@@ -1122,6 +1122,7 @@ def _render_unified_portfolio_download(
         )
     signature = download_context_signature(signature, include_conclusions, table_placement)
     namespace = f"portfolio::{selected_portfolio.id}"
+    discard_other_download_stores(st.session_state, family="portfolio::", namespace=namespace)
     store = current_download_store(st.session_state, namespace=namespace, signature=signature)
     # Rentabilidade uses this same cached resolver. Its realized CDI rates and
     # documentary benchmark values are part of the PPT context, even when the
