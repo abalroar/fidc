@@ -1168,6 +1168,13 @@ def build_portfolio_deck_spec(
     analytical_data = tuple(analytical_data)
     single_fund = len(funds) <= 1
     scopes = _scope_frames(funds, outputs, monitor_outputs)
+    # Funds without any monthly record (failed load, no informe) leave the
+    # quantitative sections and are named once in the coverage slide.
+    without_data: list[str] = []
+    empty_funds = [index for index, scope in enumerate(scopes) if scope[0] != "consolidado" and scope[2].empty and scope[3].empty]
+    if not single_fund and len(empty_funds) < sum(scope[0] != "consolidado" for scope in scopes):
+        without_data = [f"{scopes[index][1]} · CNPJ {scopes[index][0]}" for index in empty_funds]
+        scopes = [scope for index, scope in enumerate(scopes) if index not in empty_funds]
     # One canonical name per fund. A single-fund deck uses the name chosen
     # for the portfolio; legal CVM names stay in the notes.
     canonical = {_digits(cnpj): name for cnpj, name, *_ in scopes if cnpj != "consolidado"}
@@ -1630,8 +1637,6 @@ def build_portfolio_deck_spec(
     methodology_parts = [row["Conteúdo"] for row in references if row["Referência"] in {"Metodologia IME", "Migração e safras"}]
     if methodology_parts:
         base_rows.append({"Referência": "Metodologia", "Conteúdo": " ".join(methodology_parts)})
-    meli_portfolio = any("MERCADO" in str(name).upper() or "MELI" in str(name).upper()
-                         for name in (portfolio_name, *legal_names.values()))
     # Warnings name funds by legal name or CNPJ; the deck uses one name.
     aliases = sorted(((legal, canonical.get(key, legal)) for key, legal in legal_names.items()), key=lambda item: -len(item[0]))
     aliases += [(key, canonical.get(key, key)) for key in legal_names]
@@ -1662,12 +1667,7 @@ def build_portfolio_deck_spec(
         return "; ".join(parts) + "."
 
     for obj, label in ((monitor_outputs, "Monitoramento"), (research_outputs, "Research")):
-        warnings_list = [str(w) for w in getattr(obj, "warnings", ()) or ()]
-        # The monitor checks the Mercado Livre universe for every basket; that
-        # caveat only applies to baskets with Mercado Livre funds.
-        hidden = [w for w in warnings_list if w.startswith("Universo MELI") and not meli_portfolio]
-        all_document_sources.extend(f"Ressalva fora de escopo ({label}): {w}" for w in hidden)
-        warnings_list = [public_names(w) for w in warnings_list if w not in hidden]
+        warnings_list = [public_names(str(w)) for w in getattr(obj, "warnings", ()) or ()]
         if warnings_list:
             all_document_sources.extend(f"Ressalva ({label}): {w}" for w in warnings_list)
             base_rows.append({"Referência": f"Ressalvas · {label}", "Conteúdo": grouped_by_message(warnings_list)})
@@ -1731,6 +1731,12 @@ def build_portfolio_deck_spec(
     if peers:
         # Peer columns are a reference, not the basket's coverage.
         base_rows.append({"Referência": "Não localizados · pares", "Conteúdo": "; ".join(f"{entity}: {len(items)} critérios" for entity, items in peers.items()) + "; lista nas notas."})
+    if without_data:
+        names = [entry.split(" · CNPJ ")[0] for entry in without_data]
+        all_document_sources.append("Fundos sem informe mensal no período: " + "; ".join(without_data))
+        base_rows.append({"Referência": "Sem informe mensal",
+                          "Conteúdo": (", ".join(names) if len(names) <= 6 else f"{len(names)} fundos; lista nas notas")
+                          + f". Fora do consolidado e das comparações ({len(funds) - len(names)} de {len(funds)} fundos com dados)."})
     if annex_comparison is not None:
         base_rows.append({"Referência": SECTION_FUNDS, "Conteúdo": f"{len(fund_scopes)} fundos: uma linha por fundo (acima de {FUND_ANNEX_MAX_FUNDS} fundos); "
                           "séries mensais de cada fundo na página da carteira."})

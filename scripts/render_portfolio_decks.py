@@ -29,6 +29,7 @@ logging.disable(logging.WARNING)
 warnings.filterwarnings("ignore")
 
 from services.ime_period import build_preset_period, current_default_end_month  # noqa: E402
+from services.meli_credit_monitor import _universe_warnings  # noqa: E402
 from services.meli_credit_research import build_meli_research_outputs  # noqa: E402
 from services.portfolio_presentation_context import build_portfolio_presentation_context  # noqa: E402
 from services.portfolio_store import PortfolioFund, PortfolioRecord  # noqa: E402
@@ -71,6 +72,12 @@ def main(argv):
             cache = cache_dir / f"{token}.analysis.pkl"
             if cache.exists():
                 analysis = pickle.loads(cache.read_bytes())
+                # The universe check follows the current code, not the cache.
+                monitor = analysis.monitor_outputs
+                if monitor is not None:
+                    kept = [w for w in monitor.warnings if not str(w).startswith("Universo MELI")]
+                    analysis = replace(analysis, monitor_outputs=replace(
+                        monitor, warnings=[*kept, *_universe_warnings(monitor.fund_monitor)]))
             else:
                 analysis = _analysis(record, period)
                 cache.write_bytes(pickle.dumps(analysis))

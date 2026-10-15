@@ -1352,20 +1352,37 @@ def _prepare_complete_portfolio_pptx(
     from services.on_demand_download import PreparedDownload
 
     dashboard_cnpjs = {scope.cnpj for scope in analysis.scopes if scope.kind == "fund"}
-    output_cnpjs = set(getattr(analysis.outputs, "fund_monthly", {}) or {})
+    fund_monthly = getattr(analysis.outputs, "fund_monthly", {}) or {}
+    output_cnpjs = set(fund_monthly)
     consistent = dashboard_cnpjs == output_cnpjs and not analysis.load_errors
+    # A large basket almost always has a fund that fails to load. The monthly
+    # base of the funds that did load is still shown, stating that the
+    # consolidated sums only them; the aggregate IME needs every fund.
+    with_data = {cnpj for cnpj, frame in fund_monthly.items() if isinstance(frame, pd.DataFrame) and not frame.empty}
+    quantitative = consistent or bool(with_data)
     warnings: list[str] = []
-    if consistent and return_inputs_error is None and return_inputs is None:
+    if quantitative and return_inputs_error is None and return_inputs is None:
         try:
             return_inputs = credit_tab.resolve_fund_return_export_inputs(
-                outputs=analysis.outputs, cnpjs=sorted(output_cnpjs),
+                outputs=analysis.outputs, cnpjs=sorted(output_cnpjs if consistent else with_data),
             )
         except Exception as exc:  # noqa: BLE001
             return_inputs_error = f"{type(exc).__name__}: {exc}"
     if return_inputs_error:
         warnings.append(f"CDI e remuneração de emissão: {return_inputs_error}")
-    if not consistent:
+    if not quantitative:
         warnings.append("Base mensal: fundos inconsistentes entre as fontes carregadas. Ausências não são zero.")
+    elif not consistent:
+        total = len(selected_portfolio.funds)
+        if len(with_data) < total:
+            warnings.append(
+                f"Base mensal: {len(with_data)} de {total} fundos com informe mensal; "
+                "o consolidado soma só esses. Ausências não são zero."
+            )
+        warnings.append(
+            f"IME agregado não exibido: {total - len(dashboard_cnpjs)} de {total} fundos sem IME carregado."
+            if len(dashboard_cnpjs) < total else "IME agregado não exibido: fontes divergentes entre os fundos carregados."
+        )
     try:
         analytical_data = build_slide_data(selected_portfolio.funds)
     except Exception as exc:  # noqa: BLE001
@@ -1396,9 +1413,9 @@ def _prepare_complete_portfolio_pptx(
     monthly_cdi, spreads = return_inputs or (None, None)
     payload = build_portfolio_pptx_bytes(
         portfolio_name=selected_portfolio.name, funds=selected_portfolio.funds,
-        outputs=analysis.outputs if consistent else None,
-        monitor_outputs=analysis.monitor_outputs if consistent else None,
-        research_outputs=analysis.research_outputs if consistent else None,
+        outputs=analysis.outputs if quantitative else None,
+        monitor_outputs=analysis.monitor_outputs if quantitative else None,
+        research_outputs=analysis.research_outputs if quantitative else None,
         dashboard=dashboard, analytical_data=analytical_data,
         documentary_pages=documentary_pages, documentary_manifest=documentary_manifest,
         requested_period_label=period.label,

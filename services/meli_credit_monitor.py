@@ -853,6 +853,10 @@ def _universe_warnings(fund_monitor: dict[str, pd.DataFrame]) -> list[str]:
             fund_types.add(fund_type)
         if any(token in normalized for token in ("seller", "factoring", "antecip", "vendedor", "fornecedor")):
             unexpected.append(name)
+    if not fund_types:
+        # No Mercado Crédito fund: the basket is not the tracked MELI credit
+        # universe, so its completeness is not checked.
+        return []
     warnings: list[str] = []
     missing = [fund_type for fund_type in EXPECTED_MELI_CREDIT_FUND_TYPES if fund_type not in fund_types]
     if missing:

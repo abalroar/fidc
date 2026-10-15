@@ -224,3 +224,19 @@ def test_small_basket_annex_has_one_flow_per_fund():
     spec = _spec(_inputs(months=13, funds=3))
     annex = [page for page in spec.slides if page.section == "Anexo por fundo"]
     assert len(annex) == 3 and all(page.context.startswith("Anexo por fundo") for page in annex)
+
+
+def test_fund_without_monthly_data_leaves_comparisons_and_is_named_in_coverage():
+    kwargs = _inputs(months=13, funds=3)
+    missing = kwargs["funds"][2].cnpj
+    kwargs["outputs"].fund_monthly[missing] = pd.DataFrame()
+    kwargs["monitor_outputs"].fund_monitor[missing] = pd.DataFrame()
+    spec = _spec(kwargs)
+    comparison = next(block for page in spec.slides for block in page.blocks
+                      if getattr(block, "title", "") == "Comparação entre fundos")
+    assert len(comparison.frame) == 2
+    assert sum(page.section == "Anexo por fundo" for page in spec.slides) == 2
+    coverage = next(block for page in spec.slides for block in page.blocks
+                    if getattr(block, "title", "") == "Fontes, cortes e cobertura").frame
+    row = coverage[coverage["Referência"] == "Sem informe mensal"]
+    assert len(row) == 1 and "2 de 3 fundos" in row["Conteúdo"].iloc[0]

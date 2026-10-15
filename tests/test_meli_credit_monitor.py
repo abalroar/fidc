@@ -33,6 +33,17 @@ from services.mercado_livre_dashboard import build_consolidated_monthly_base
 
 
 class MeliCreditMonitorTest(unittest.TestCase):
+    def test_universe_check_only_for_baskets_with_mercado_credito_funds(self) -> None:
+        from services.meli_credit_monitor import _universe_warnings
+
+        frame = lambda name: pd.DataFrame({"fund_name": [name]})  # noqa: E731
+        other = {"1": frame("FIDC FGTS QUATÁ"), "2": frame("FORNECEDORES MADEIRA MADEIRA FIDC")}
+        self.assertEqual([], _universe_warnings(other))
+        meli = {"1": frame("MERCADO CRÉDITO I BRASIL FIDC"), "2": frame("SELLER II FIDC")}
+        warnings = _universe_warnings(meli)
+        self.assertTrue(any("ausentes" in warning for warning in warnings))
+        self.assertTrue(any("SELLER II FIDC" in warning for warning in warnings))
+
     def test_roll_rates_use_lagged_current_maturity_denominators(self) -> None:
         monthly = _sample_monthly(month_count=7)
         monitor = build_monitor_base(monthly)
