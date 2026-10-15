@@ -37,6 +37,9 @@ def build_portfolio_pptx_bytes(*, style: PortfolioPptStyle = DEFAULT_STYLE,
     in the same theme order (live presentation).
     ``section_dividers``: ``"auto"`` adds dividers only to long decks,
     ``"always"`` or ``"never"`` force the choice.
+    ``fund_annex`` (in ``inputs``): ``"auto"`` keeps the per-fund annex up to
+    ``FUND_ANNEX_MAX_FUNDS`` funds and summarizes it (one row per fund) above;
+    ``"full"`` or ``"summary"`` force the choice.
     """
     from services.portfolio_ppt_content import build_portfolio_deck_spec
 
@@ -83,6 +86,11 @@ def format_cell(value: object, token: str = "text") -> str:
         if number is None:
             return "N/D" if str(value).strip() in {"", "nan", "None"} else str(value)
         decimals = int(places or ("0" if kind == "integer" else "2"))
+        scaled = number / 1_000_000 if kind in {"money", "money_value"} else number
+        if abs(round(scaled, decimals)) >= 1000:
+            # Four or more integer digits: decimals add width, not information,
+            # and push a 13-month table onto two slides.
+            decimals = 0
         if kind == "money":
             return f"R$ {_br(number / 1_000_000, decimals)} mm"
         if kind == "money_value":
@@ -120,9 +128,10 @@ def _text(slide, text: str, x: float, y: float, w: float, h: float, *, size: flo
     return shape
 
 
-def _lines(text: object, width: float, size: float) -> list[str]:
+def _lines(text: object, width: float, size: float, *, bold: bool = False) -> list[str]:
     # Conservative fit, including legal names and long documentary clauses.
-    capacity = max(5, int((width - 12) / (size * 0.49)))
+    # Bold labels (first column, headers) are wider, often in capitals.
+    capacity = max(5, int((width - 12) / (size * (0.56 if bold else 0.49))))
     return [line for paragraph in str(text).split("\n")
             for line in (textwrap.wrap(paragraph, capacity, break_long_words=True,
                                       break_on_hyphens=False) or [""])]
@@ -194,7 +203,8 @@ def _table_widths(block, width: float, style) -> list[float]:
         values = [str(column), *[format_cell(v, block.formats.get(column, "text")) for v in block.frame[column]]]
         length = max((len(value) for value in values), default=10)
         if index == 0:
-            natural = length * size * .50 + 14
+            # Bold label column: same character width as the line estimate.
+            natural = length * size * .56 + 14
             weights.append(min(225, max(110, natural)))
         elif _is_numeric_column(block, column):
             natural = length * size * .56 + 14
@@ -223,12 +233,14 @@ def _table_layout(block, width: float, style, *, compact=False):
     compact = compact or getattr(block, "compact", False)
     size = style.table_min_size if compact or len(block.frame.columns) > 11 else style.table_size
     widths = _table_widths(block, width, style)
-    header_height = max(24, max(len(_lines(col, w, size)) for col, w in zip(block.frame.columns, widths)) * (size + 3) + 8)
+    header_height = max(24, max(len(_lines(col, w, size, bold=True)) for col, w in zip(block.frame.columns, widths)) * size * 1.2 + 8)
     heights = []
     for _, row in block.frame.iterrows():
-        lines = max(len(_lines(format_cell(value, block.formats.get(col, "text")), w, size))
-                    for col, value, w in zip(block.frame.columns, row, widths))
-        height = max(17 if size <= 10 else 21, lines * (size + 3) + 4)
+        lines = max(len(_lines(format_cell(value, block.formats.get(col, "text")), w, size, bold=index == 0))
+                    for index, (col, value, w) in enumerate(zip(block.frame.columns, row, widths)))
+        # Line height ≈ 1.2 × size plus the 2pt cell margins, as rendered; a
+        # lower estimate lets a long table run into the footer.
+        height = max(16.5 if size <= 10 else 21, lines * size * 1.2 + 4.5)
         if getattr(block, "snapshot_history", None):
             height = max(39, height)
         heights.append(height)
@@ -278,7 +290,7 @@ def _table(slide, block, x, y, width, *, style, compact=False):
             cell.fill.solid()
             cell.fill.fore_color.rgb = _rgb(style.orange if row_index == 0 else style.white)
             cell.margin_left = cell.margin_right = Pt(6)
-            cell.margin_top = cell.margin_bottom = Pt(3)
+            cell.margin_top = cell.margin_bottom = Pt(2)
             cell.vertical_anchor = MSO_ANCHOR.MIDDLE
             cell.text_frame.word_wrap = True
             cell.text_frame.auto_size = MSO_AUTO_SIZE.NONE
@@ -390,19 +402,21 @@ def _chart_gaps(chart):
 
 def _axis_cap(values):
     """Cap the axis when one or two spikes flatten the rest of the series
-    (e.g. a coverage ratio over a near-zero denominator). Outliers follow the
-    Tukey far-out fence and must be at least 1.5× the highest regular value."""
+    (e.g. a coverage ratio over a near-zero denominator). Outliers lie beyond
+    the Tukey far-out fence (3×IQR) of the remaining values and are at least
+    1.5× the highest of them. The fence is measured without the candidates,
+    so two spikes in a short series cannot hide each other."""
     finite = sorted(v for v in values if v is not None)
     if len(finite) < 8:
         return None
-    q1, q3 = finite[len(finite) // 4], finite[(3 * len(finite)) // 4]
-    fence = q3 + 3 * (q3 - q1)
-    outliers = [v for v in finite if v > fence]
-    regular = [v for v in finite if v <= fence]
-    if not outliers or len(outliers) > 2 or not regular or regular[-1] <= 0 or outliers[0] < 1.5 * regular[-1]:
-        return None
-    _, upper, _, _ = _axis_bounds([regular[0], regular[-1] * 1.1])
-    return upper
+    for count in (2, 1):
+        regular, outliers = finite[:-count], finite[-count:]
+        q1, q3 = regular[len(regular) // 4], regular[(3 * len(regular)) // 4]
+        fence = q3 + 3 * (q3 - q1)
+        if regular[-1] > 0 and outliers[0] > fence and outliers[0] >= 1.5 * regular[-1]:
+            _, upper, _, _ = _axis_bounds([regular[0], regular[-1] * 1.1])
+            return upper
+    return None
 
 
 def _chart_notes(block):
@@ -509,7 +523,7 @@ def _chart(slide, block, x, y, width, height, style, *, band=None):
     axis.tick_labels.font.name = style.font
     axis.tick_labels.font.size = Pt(style.chart_size)
     axis.tick_labels.font.color.rgb = _rgb(style.muted)
-    number_format = "[$-416]0" + ("." + "0" * tick_decimals if tick_decimals else "")
+    number_format = "[$-416]#,##0" + ("." + "0" * tick_decimals if tick_decimals else "")
     axis.tick_labels.number_format = number_format + ('"%"' if block.unit == "%" else "")
     axis.tick_labels.number_format_is_linked = False
     axis.has_major_gridlines = True
@@ -646,12 +660,25 @@ def _fits_horizontally(block, width, style):
 
 
 def _table_chunks(block, style, width=None, height=None):
+    """Pieces of a table that fit one slide each. A continuation of one or
+    two rows is avoided by trying the compact font first."""
+    chunks = list(_split_table(block, style, width, height))
+    if (len(chunks) >= 2 and len(chunks[-1].frame) <= 2 and not getattr(block, "compact", False)
+            and list(chunks[-1].frame.columns) == list(block.frame.columns)):
+        compact = list(_split_table(replace(block, compact=True), style, width, height))
+        if len(compact) < len(chunks):
+            return compact
+    return chunks
+
+
+def _split_table(block, style, width=None, height=None):
     width = width or style.content_width
     height = height or style.content_bottom - style.content_top
     columns = list(block.frame.columns)
     # Repeat the identity column when a dense matrix needs another page.
-    mostly_numeric = all(column in block.numeric_columns or block.formats.get(column, "text").split(":")[0] in {"number", "money", "money_value", "percent", "integer"}
-                         for column in columns[1:])
+    # One short text column (e.g. a position month) does not make a table textual.
+    textual = [column for column in columns[1:] if not (column in block.numeric_columns or block.formats.get(column, "text").split(":")[0] in {"number", "money", "money_value", "percent", "integer"})]
+    mostly_numeric = not textual or (len(textual) == 1 and block.frame[textual[0]].map(lambda value: len(str(value))).max() <= 16)
     max_columns = style.month_columns + 1 if len(columns) > 10 or mostly_numeric else 7
     while max_columns > 2 and not _fits_horizontally(replace(block, frame=block.frame.loc[:, columns[:max_columns]]), width, style):
         max_columns -= 1
@@ -725,12 +752,22 @@ def _divider(prs, label, size, style):
     slide.notes_slide.notes_text_frame.text = f"Divisória de seção: {label}."
 
 
-def _draw_panels(prs, page, blocks, style):
+def _draw_panels(prs, page, blocks, style, footer=None):
     from services.portfolio_ppt_content import ChartBlock, TableBlock
 
     slide = _header(prs, page, style)
     width = style.content_width if len(blocks) == 1 else (style.content_width - style.gap) / 2
     height = style.content_bottom - style.content_top
+    if footer is not None:
+        # A small table of the same theme sits under the panels instead of
+        # taking a slide of its own; it never repeats a panel's subtitle.
+        if footer.title in {getattr(block, "title", None) for block in blocks}:
+            footer = replace(footer, title=f"{footer.title} (tabela)")
+        footer_height = _table_height(footer, style) + 12
+        height -= footer_height
+        notes = slide.notes_slide.notes_text_frame
+        notes.text = "\n".join(dict.fromkeys([*notes.text.split("\n"), *map(str, footer.notes)]))
+        _table(slide, footer, style.margin, style.content_bottom - footer_height + 12, style.content_width, style=style)
     # Paired plots share the note band, so both start at the same height and
     # have the same plot height.
     band = max([_band_height(_chart_notes(block)[1], width) for block in blocks if isinstance(block, ChartBlock)], default=0)
@@ -744,6 +781,30 @@ def _draw_panels(prs, page, blocks, style):
             _kpi(slide, block, x, style.content_top, width, height, style)
 
 
+#: A lone table up to this share of the content height joins the panels above it.
+FOOTER_TABLE_SHARE = .35
+
+
+def _table_height(block, style):
+    _, header_h, rows, _ = _table_layout(block, style.content_width, style)
+    return header_h + sum(rows) + (22 if block.title else 0)
+
+
+def _footer_table(page, following, style):
+    """The single small table of the next page, when it can close this
+    panels page: same section, one block, one piece, short enough."""
+    from services.portfolio_ppt_content import TableBlock
+
+    if (page.layout != "panels" or len(page.blocks) > 2 or following is None or following.layout != "flow" or following.section != page.section
+            or len(following.blocks) != 1 or not isinstance(following.blocks[0], TableBlock)):
+        return None
+    block = following.blocks[0]
+    if len(list(_table_chunks(block, style))) != 1:
+        return None
+    limit = FOOTER_TABLE_SHARE * (style.content_bottom - style.content_top)
+    return block if _table_height(block, style) <= limit else None
+
+
 def _draw_flow(prs, page, blocks, style):
     """Stack the blocks of one theme in reading order; a new slide only when
     the next piece does not fit, and continuations say "(cont.)"."""
@@ -751,21 +812,60 @@ def _draw_flow(prs, page, blocks, style):
 
     slide = None
     y = style.content_top
+    columns = None  # [left y, right y, current side] while tables share columns
+    placed = None  # (slide, title, column) of the last table drawn
     for block in blocks:
         if isinstance(block, ChartBlock):
             _draw_panels(prs, page, (block,), style)
-            slide = None
+            slide, columns = None, None
             continue
         if isinstance(block, TableBlock):
+            half = (style.content_width - style.gap) / 2
             for segment in _table_chunks(block, style):
-                _, header_h, rows, _ = _table_layout(segment, style.content_width, style)
+                widths, header_h, rows, _ = _table_layout(segment, style.content_width, style)
                 height = header_h + sum(rows) + (22 if segment.title else 0)
+                if sum(widths) <= half:
+                    # Narrow tables fill two columns (left, then right)
+                    # instead of leaving half of each slide empty.
+                    if slide is not None and columns is None:
+                        columns = [y, y, 0]
+                    if slide is not None and columns[columns[2]] + height > style.content_bottom and columns[2] == 0:
+                        columns[2] = 1
+                    if slide is None or columns[columns[2]] + height > style.content_bottom:
+                        slide = _header(prs, page, style)
+                        y = style.content_top
+                        columns = [y, y, 0]
+                    side = columns[2]
+                    base = segment.title.removesuffix(" (cont.)")
+                    if base and placed is not None and placed[:2] == (slide, base):
+                        # Continued on the same slide: one title is enough;
+                        # beside itself, the rows stay aligned with the first piece.
+                        segment = replace(segment, title="")
+                        if placed[2] == side:
+                            height -= 22
+                        else:
+                            columns[side] += 22
+                    placed = (slide, base, side)
+                    _table(slide, segment, style.margin + side * (half + style.gap), columns[side], half, style=style)
+                    columns[side] += height + 8
+                    y = max(columns[0], columns[1])
+                    continue
+                if columns is not None:
+                    y, columns = max(columns[0], columns[1]), None
                 if slide is None or y + height > style.content_bottom:
                     slide = _header(prs, page, style)
                     y = style.content_top
+                base = segment.title.removesuffix(" (cont.)")
+                if base and placed is not None and placed[:2] == (slide, base):
+                    # The same table goes on right below: one title is enough.
+                    segment = replace(segment, title="")
+                    height -= 22
+                placed = (slide, base, 0)
                 _table(slide, segment, style.margin, y, style.content_width, style=style)
                 y += height + 8
             continue
+        if columns is not None:
+            y, columns = max(columns[0], columns[1]), None
         lines = _lines(block.text, style.content_width, style.table_size)
         for start in range(0, len(lines), 22):
             visible = lines[start:start + 22]
@@ -791,10 +891,17 @@ def _render(spec, style, dividers=None):
     prs.core_properties.author = "Toma Conta"
     _cover(prs, spec, style)
     counts = []
+    absorbed = set()
     for index, page in enumerate(spec.slides):
+        if index in absorbed:
+            counts.append(0)
+            continue
         if dividers and index in dividers:
             _divider(prs, *dividers[index], style)
         before = len(prs.slides._sldIdLst)
+        footer = _footer_table(page, spec.slides[index + 1] if index + 1 < len(spec.slides) else None, style)
+        if footer is not None:
+            absorbed.add(index + 1)
         blocks = []
         for block in page.blocks:
             if (blocks and isinstance(block, TextBlock) and isinstance(blocks[-1], TextBlock)
@@ -803,7 +910,7 @@ def _render(spec, style, dividers=None):
             else:
                 blocks.append(block)
         if page.layout == "panels" and len(blocks) <= 2:
-            _draw_panels(prs, page, blocks, style)
+            _draw_panels(prs, page, blocks, style, footer=footer)
         else:
             _draw_flow(prs, page, blocks, style)
         counts.append(len(prs.slides._sldIdLst) - before)

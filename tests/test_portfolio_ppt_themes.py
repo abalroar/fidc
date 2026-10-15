@@ -144,3 +144,83 @@ def test_multi_fund_keeps_fund_detail_in_a_per_fund_annex():
     assert sections.index("Referências e cobertura") > first_annex
     assert all(page.context.startswith("Consolidado") for page in spec.slides
                if page.title in {"Estrutura", "Atraso e provisão"})
+
+
+def test_two_spikes_in_a_short_series_still_cap_the_axis():
+    from services.portfolio_ppt_export import _axis_cap
+
+    # A coverage ratio over a near-zero NPL: two far-out points in eight.
+    values = [804_685.9, 1_146_011.0, 20_905.1, 23_791.8, 3_027.7, 3_165.0, 3_016.4, 1_736.8]
+    cap = _axis_cap(values)
+    assert cap is not None and 23_791.8 < cap < 804_685.9
+
+
+def test_series_with_fewer_than_three_points_become_values_not_lines():
+    from services.portfolio_ppt_content import ChartBlock, ChartSeries, _is_trivial, _trivial_sentence
+
+    chart = ChartBlock("Vencidos · %", ("jan/26", "fev/26", "mar/26"),
+                       (ChartSeries("a", "Vencidos", (0.0, 0.7, None)), ChartSeries("b", "Provisão", (None, 3.4, None))))
+    assert _is_trivial(chart)
+    text = _trivial_sentence(chart).text
+    assert "Vencidos: 0,0% (jan/26) → 0,7% (fev/26)." in text
+    assert "Provisão: 3,4% em fev/26 (1 observação)." in text
+
+
+def test_four_integer_digits_drop_decimals_in_cells():
+    from services.portfolio_ppt_export import format_cell
+
+    assert format_cell(10_971.84, "number:2") == "10.972"
+    assert format_cell(1_146_010.95, "percent:2") == "1.146.011%"
+    assert format_cell(999.5, "number:2") == "999,50"
+    assert format_cell(10_971_840_000.0, "money_value:2") == "10.972"
+
+
+def test_curated_absence_with_a_reason_is_absence():
+    from services.portfolio_ppt_content import _is_missing
+
+    assert _is_missing("N/D — texto extraído sem associação confiável")
+    assert _is_missing("Não localizado nas cláusulas revisadas; requer documento aplicável")
+    assert _is_missing("Não informado nas fontes consultadas")
+    assert not _is_missing("Não previsto")
+
+
+def test_rows_and_columns_without_values_leave_series_tables():
+    from services.portfolio_ppt_content import TableBlock, _prune_empty
+
+    frame = pd.DataFrame({"Indicador": ["A", "B"], "jan/26": [1.0, None], "fev/26": [None, None]})
+    block, said = _prune_empty(TableBlock("T · %", frame, numeric_columns=("jan/26", "fev/26")))
+    assert list(block.frame.columns) == ["Indicador", "jan/26"] and list(block.frame["Indicador"]) == ["A"]
+    assert any("B" in sentence for sentence in said) and any("fev/26" in sentence for sentence in said)
+
+
+def test_base_warnings_are_one_line_per_warning_with_canonical_names():
+    kwargs = _inputs(months=13, funds=2)
+    cnpj = kwargs["funds"][0].cnpj
+    kwargs["outputs"].warnings_df = pd.DataFrame({
+        "scope_name": ["FUNDO 1 LEGAL", "FUNDO 1 LEGAL", "Carteira"], "cnpj": [cnpj, cnpj, "CONSOLIDADO"],
+        "competencia": ["07/2025", "08/2025", "07/2025"],
+        "warning": ["denominador zero/ausente", "denominador zero/ausente", "consolidado parcial na competência"]})
+    cells = [cell.text for table in _tables(_build(kwargs)) for row in table.rows for cell in row.cells]
+    assert "scope_name" not in cells and "warning" not in cells
+    row = cells.index("Aviso da base · denominador zero/ausente")
+    # Canonical fund name (not the legal one), months compressed in one cell.
+    assert cells[row + 1].endswith(": jul/25, ago/25.") and "LEGAL" not in cells[row + 1]
+
+
+def test_large_basket_summarizes_the_annex_in_one_row_per_fund():
+    from services.portfolio_ppt_content import FUND_ANNEX_MAX_FUNDS
+
+    funds = FUND_ANNEX_MAX_FUNDS + 1
+    spec = _spec(_inputs(months=13, funds=funds))
+    annex = [page for page in spec.slides if page.section == "Anexo por fundo"]
+    assert len(annex) == 1 and len(annex[0].blocks[0].frame) == funds
+    snapshot = next(page for page in spec.slides if page.title == "Snapshot")
+    assert all(block.title != "Comparação entre fundos" for block in snapshot.blocks)
+    full = _spec({**_inputs(months=13, funds=funds), "fund_annex": "full"})
+    assert sum(page.section == "Anexo por fundo" for page in full.slides) == funds
+
+
+def test_small_basket_annex_has_one_flow_per_fund():
+    spec = _spec(_inputs(months=13, funds=3))
+    annex = [page for page in spec.slides if page.section == "Anexo por fundo"]
+    assert len(annex) == 3 and all(page.context.startswith("Anexo por fundo") for page in annex)

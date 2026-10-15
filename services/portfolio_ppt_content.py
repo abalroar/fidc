@@ -177,7 +177,13 @@ def _is_missing(value: Any) -> bool:
             return True
     except (TypeError, ValueError):
         pass
-    return isinstance(value, str) and value.strip().casefold() in {"", "-", "—", "n/d", "nan", "none", "não localizado"}
+    if not isinstance(value, str):
+        return False
+    text = value.strip().casefold()
+    # Curated absence often carries its reason ("N/D — texto extraído sem
+    # associação confiável", "Não localizado nas cláusulas revisadas"); it is
+    # still absence, and the reason stays in the notes.
+    return text in {"", "-", "—", "n/d", "nan", "none"} or text.startswith(("não localizado", "não informado", "n/d —", "n/d -"))
 
 
 def _text(value: Any) -> str:
@@ -337,16 +343,23 @@ def _quality_block(frame: pd.DataFrame, origin: str) -> TableBlock | None:
         return None
     time_column = "competencia" if "competencia" in source else "competencia_dt" if "competencia_dt" in source else None
     labels = [_month(value) for value in source[time_column]] if time_column else [str(index + 1) for index in range(len(source))]
-    meanings = {"reported_zero": "Zero informado", "not_reported": "Não reportado", "missing_field": "Campo ausente", "reported": "Informado", "reported_value": "Valor informado", "ok": "Válido", "calculated": "Calculado", "calculado": "Calculado", "missing": "Ausente", "partial": "Cobertura parcial", "incomplete": "Incompleto"}
+    meanings = {"reported_zero": "Zero informado", "not_reported": "Não reportado", "missing_field": "Campo ausente", "reported": "Informado", "reported_value": "Valor informado", "ok": "Válido", "calculated": "Calculado", "calculado": "Calculado", "missing": "Ausente", "partial": "Cobertura parcial", "incomplete": "Incompleto",
+                "sem_dados": "Sem dados", "nao_calculavel_bucket_aberto_dominante": "Não calculável: faixa aberta dominante",
+                "soma_classes_cotas": "Soma das classes de cotas", "PATRLIQ/VL_PATRIM_LIQ": "PL do informe"}
+    state_labels = {"pl_total_usado": "PL total · fonte usada", "pl_total_oficial": "PL total oficial", "duration": "Duration"}
+
+    def readable_state(value: str) -> str:
+        # Unknown codes still read as words, never as snake_case.
+        return meanings.get(value) or (value.replace("_", " ").capitalize() if re.fullmatch(r"[a-z0-9_]+", value) else value)
     rows, notes = [], []
     for column in state_columns:
         label = str(column)
         for suffix in ("_source_status", "_status", "_data_quality", "_quality", "_source", "_fonte"):
             if label.endswith(suffix):
                 label = label[: -len(suffix)]
-        label = _ALIASES.get(label, label.replace("_", " "))
+        label = state_labels.get(label) or _ALIASES.get(label, label.replace("_", " ").capitalize())
         values = source[column].map(_text).tolist()
-        readable = [meanings.get(value, value) for value in values]
+        readable = [readable_state(value) for value in values]
         # Repeating the same status in every month adds no information. Its
         # exact per-month association stays in notes and in the source record.
         if len(set(values)) > 1:
@@ -601,30 +614,40 @@ def _snapshot(scopes: list[tuple[str, str, pd.DataFrame, pd.DataFrame, pd.DataFr
 
 
 def _fund_comparison(scopes: list[tuple[str, str, pd.DataFrame, pd.DataFrame, pd.DataFrame]]) -> TableBlock | None:
+    """One row per fund, so the table grows downwards for any basket size
+    and every fund shows its own position cut."""
     funds = [scope for scope in scopes if scope[0] != "consolidado"]
     if len(funds) < 2:
         return None
-    specs = (("pl_total", "PL total (R$ mm)"), ("carteira_ex360", "Carteira ex-360 (R$ mm)"),
+    specs = (("pl_total", "PL (R$ mm)"), ("carteira_ex360", "Carteira ex-360 (R$ mm)"),
              ("subordinacao_total_ex360_pct", "Subordinação ex-360 (%)"), ("npl_over90_ex360_pct", "NPL > 90d ex-360 (%)"),
-             ("pdd_npl_over90_ex360_pct", "Cobertura PDD / NPL (%)"), ("duration_months", "Duration (meses)"))
+             ("pdd_npl_over90_ex360_pct", "Cobertura PDD / NPL > 90d (%)"), ("duration_months", "Duration (meses)"))
     rows = []
     notes = []
-    for column, label in specs:
-        row = {"Indicador": label}
-        for cnpj, name, monthly, monitor, _ in funds:
+    for cnpj, name, monthly, monitor, _ in funds:
+        row = {"Fundo": name}
+        positions = set()
+        for column, label in specs:
             source = _ordered(monitor if column in monitor else monthly)
             value = _number(source.iloc[-1].get(column)) if not source.empty else None
-            row[name] = _br(value / 1_000_000, 1) if value is not None and _unit(column) == "R$" else _br(value, 1)
+            row[label] = _br(value / 1_000_000, 1) if value is not None and _unit(column) == "R$" else _br(value, 1)
             if column == "pdd_npl_over90_ex360_pct" and value is None:
                 denominator_source = _ordered(monitor if "npl_over90_ex360" in monitor else monthly)
                 denominator = _number(denominator_source.iloc[-1].get("npl_over90_ex360")) if not denominator_source.empty else None
                 if denominator == 0:
-                    row[name] = "N/A · NPL zero"
+                    row[label] = "N/A · NPL zero"
                     notes.append(f"{name} · CNPJ {cnpj}: cobertura PDD / NPL > 90d ex-360 não aplicável; NPL é zero na posição. N/D continua reservado ao dado indisponível.")
             if not source.empty:
-                notes.append(f"{name} · CNPJ {cnpj}: posição {_month(source.iloc[-1].get('competencia', source.iloc[-1].get('competencia_dt')))}.")
+                positions.add(_month(source.iloc[-1].get("competencia", source.iloc[-1].get("competencia_dt"))))
+        row["Posição"] = " / ".join(sorted(positions, key=_month_key)) or "N/D"
+        notes.append(f"{name} · CNPJ {cnpj}: posição {row['Posição']}.")
         rows.append(row)
-    return TableBlock("Comparação entre fundos", pd.DataFrame(rows), numeric_columns=tuple(scope[1] for scope in funds), notes=tuple(dict.fromkeys(notes)))
+    frame = pd.DataFrame(rows)
+    frame = frame[["Fundo", "Posição", *[label for _, label in specs]]]
+    empty = [label for _, label in specs if frame[label].eq("N/D").all()]
+    frame = frame.drop(columns=empty)
+    return TableBlock("Comparação entre fundos", frame, numeric_columns=tuple(label for _, label in specs if label in frame),
+                      notes=tuple(dict.fromkeys(notes)))
 
 
 def _aging_matrix(frame: pd.DataFrame, value_column: str) -> pd.DataFrame:
@@ -759,6 +782,11 @@ def _identity_rows(frame: pd.DataFrame, identity: str, value: str, origin: str, 
         label = _clean_label(key)
         label = (labels or {}).get(str(key).strip().casefold(), label)
         rows.append(_Row(label, dict(zip(segment["competencia"].map(_month), segment[value].tolist(), strict=True)), origin))
+    # "Subordinada 1 · item 1" is a source list position, not a class name;
+    # it goes only when the remaining names stay distinct.
+    stripped = [re.sub(r"\s*·\s*item\s+\d+$", "", row.label) for row in rows]
+    if len(set(stripped)) == len(stripped):
+        rows = [replace(row, label=label) for row, label in zip(rows, stripped)]
     return rows
 
 
@@ -889,15 +917,27 @@ def _chart_from_rows(title: str, rows: Iterable[tuple[str, str, _Row]], unit: st
         if unit == "R$ mm":
             values = tuple(value / 1_000_000 if value is not None else None for value in values)
         series.append(ChartSeries(key, label, values, unit, decimals))
+    drawn = [value for spec in series for value in spec.values if value is not None]
+    if reference is not None and drawn and max(map(abs, drawn)) < .25 * abs(reference[1]):
+        # A reference four times above every value only squeezes the series.
+        notes = (*tuple(notes), f"{reference[0]} fora da escala: máximo do período {_br(max(drawn), decimals)}{'%' if unit == '%' else ''}.")
+        reference = None
     if reference is not None:
         series.append(ChartSeries("reference", reference[0], tuple(reference[1] for _ in months), unit, decimals, reference=True))
     return ChartBlock(title, tuple(months), tuple(series), unit, tuple(notes))
 
 
+#: A line needs at least this many observations; fewer read better as values.
+_MIN_LINE_POINTS = 3
+
+
 def _is_trivial(chart: ChartBlock) -> bool:
-    for spec in chart.series:
-        if spec.reference:
-            continue
+    """Constant, empty, or too short to be a line (every series with fewer
+    than three observations)."""
+    drawn = [spec for spec in chart.series if not spec.reference]
+    if chart.kind == "line" and all(sum(value is not None for value in spec.values) < _MIN_LINE_POINTS for spec in drawn):
+        return True
+    for spec in drawn:
         shown = {_br(value, spec.decimals) for value in spec.values if value is not None}
         if len(shown) > 1:
             return False
@@ -905,20 +945,24 @@ def _is_trivial(chart: ChartBlock) -> bool:
 
 
 def _trivial_sentence(chart: ChartBlock) -> TextBlock:
-    """A constant or empty series becomes a sentence, never a flat line."""
+    """A constant, empty or very short series becomes a sentence, never a
+    flat line or a two-point segment."""
     parts = []
     for spec in chart.series:
         if spec.reference:
             continue
-        valid = [value for value in spec.values if value is not None]
+        valid = [(month, value) for month, value in zip(chart.categories, spec.values) if value is not None]
         suffix = "%" if spec.unit == "%" else f" {spec.unit}"
+        shown = {_br(value, spec.decimals) for _, value in valid}
         if not valid:
             parts.append(f"{spec.label}: sem dados no período.")
         elif len(valid) == 1:
-            parts.append(f"{spec.label}: {_br(valid[0], spec.decimals)}{suffix} (1 observação).")
+            parts.append(f"{spec.label}: {_br(valid[0][1], spec.decimals)}{suffix} em {valid[0][0]} (1 observação).")
+        elif len(shown) > 1:
+            parts.append(f"{spec.label}: " + " → ".join(f"{_br(value, spec.decimals)}{suffix} ({month})" for month, value in valid) + ".")
         else:
             qualifier = "nas competências disponíveis" if len(valid) < len(spec.values) else "em todo o período"
-            parts.append(f"{spec.label}: {_br(valid[0], spec.decimals)}{suffix} {qualifier}.")
+            parts.append(f"{spec.label}: {_br(valid[0][1], spec.decimals)}{suffix} {qualifier}.")
     return TextBlock(chart.title, "\n".join(parts))
 
 
@@ -928,18 +972,23 @@ def _panel_pairs(pairs: Iterable[tuple[Any, Any]]) -> tuple[list[tuple[Any, ...]
     theme text. Half-empty pairs are merged so a slide never holds one lonely plot."""
     complete, singles, leftovers = [], [], []
     for pair in pairs:
-        panels, kpis = [], []
+        panels, kpis, slots = [], [], []
         for block in pair:
             if block is None:
                 continue
             if isinstance(block, ChartBlock) and _is_trivial(block):
                 kpis.append(_trivial_sentence(block))
+                slots.append(kpis[-1])
             else:
                 panels.append(block)
+                slots.append(block)
         if len(panels) == 2:
             complete.append(tuple(panels))
         elif len(panels) == 1 and kpis:
-            complete.append((panels[0], kpis.pop(0)))
+            # The sentence keeps its side: derived left, reported right.
+            first = next(block for block in slots if block is panels[0] or block is kpis[0])
+            complete.append((panels[0], kpis[0]) if first is panels[0] else (kpis[0], panels[0]))
+            kpis.pop(0)
         elif panels:
             singles.append(panels[0])
         leftovers.extend(kpis)
@@ -1006,10 +1055,14 @@ def _return_blocks(outputs: Any, cnpj: str, monthly: pd.DataFrame, monthly_cdi_r
         result["summary_block"] = TableBlock("Retorno acumulado por série · %", matrix[summary_columns].copy(),
             {str(c): formats[str(c)] for c in summary_columns[1:]}, (CVM_RETURN_REINVESTMENT_NOTE, label_note), tuple(map(str, summary_columns[1:])))
     twelve = [_number(value) for value in matrix.get(RETURN_TRAILING_12M_COLUMN, pd.Series(dtype=float))]
-    if 0 < len(twelve) <= 8 and any(value is not None for value in twelve) and isinstance(result["summary_block"], TableBlock):
-        categories = list(matrix[RETURN_SERIES_COLUMN].astype(str))
+    cdi = [_number(value) for value in matrix.get(RETURN_TRAILING_12M_CDI_COLUMN, pd.Series(dtype=float))] or [None] * len(twelve)
+    # A series without a 12-month return is not an empty bar slot.
+    shown = [index for index, value in enumerate(twelve) if value is not None]
+    if 0 < len(shown) <= 8 and isinstance(result["summary_block"], TableBlock):
+        categories = [str(matrix[RETURN_SERIES_COLUMN].iloc[index]) for index in shown]
+        twelve = [twelve[index] for index in shown]
+        cdi = [cdi[index] for index in shown]
         series = [ChartSeries("return_12m", "Retorno 12m", tuple(twelve), "%", 1)]
-        cdi = [_number(value) for value in matrix.get(RETURN_TRAILING_12M_CDI_COLUMN, pd.Series(dtype=float))]
         known_cdi = {round(value, 4) for value in cdi if value is not None}
         if len(known_cdi) == 1:
             # Same window for every series: the CDI is one reference bar.
@@ -1038,8 +1091,9 @@ def _short_citation(value: str) -> str:
     return first + (f" (+{len(parts) - 1} fontes nas notas)" if len(parts) > 1 else "")
 
 
-def _shorten_long_cells(frame: pd.DataFrame, entity: str, clauses: list[dict[str, str]]) -> pd.DataFrame:
-    """Long legal text leaves the cell; the full clause goes to the appendix."""
+def _shorten_long_cells(frame: pd.DataFrame, entity: str, clauses: list[dict[str, str]], *, target: str = "anexo") -> pd.DataFrame:
+    """Long legal text leaves the cell; the full clause goes to the appendix
+    (or to the notes, e.g. ``target="notas da Ficha documental"``, in a summarized large basket)."""
     out = frame.copy()
     for row_index in range(len(out)):
         for column in out.columns[1:]:
@@ -1051,8 +1105,39 @@ def _shorten_long_cells(frame: pd.DataFrame, entity: str, clauses: list[dict[str
                 code = f"C{len(clauses) + 1}"
                 clauses.append({"Ref.": code, "Campo": f"{column} · {out.iat[row_index, 0]}" if entity == "" else f"{entity} · {out.iat[row_index, 0]}",
                                 "Cláusula integral": value})
-                out.iat[row_index, out.columns.get_loc(column)] = f"Cláusula longa · texto integral em {code} (anexo)"
+                out.iat[row_index, out.columns.get_loc(column)] = f"Cláusula longa · texto integral em {code} ({target})"
     return out
+
+
+def _prune_empty(block: Any) -> tuple[Any, list[str]]:
+    """Series tables without any value in a row or column lose that row or
+    column; what was left out is said once in the coverage slide."""
+    if not isinstance(block, TableBlock) or block.snapshot_history or not block.numeric_columns or block.frame.empty:
+        return block, []
+    frame = block.frame
+    numeric = [column for column in frame.columns[1:] if column in block.numeric_columns]
+    missing = frame[numeric].apply(lambda column: column.map(_is_missing)) if numeric else pd.DataFrame()
+    if missing.empty:
+        return block, []
+    empty_columns = [column for column in numeric if missing[column].all()]
+    others = [column for column in frame.columns[1:] if column not in numeric]
+    empty_rows = missing.all(axis=1) & (frame[others].apply(lambda column: column.map(_is_missing)).all(axis=1) if others else True)
+    if not empty_columns and not empty_rows.any():
+        return block, []
+    if empty_rows.all() or len(empty_columns) == len(frame.columns) - 1:
+        return None, [f"{block.title}: sem valores no período."]
+    said = []
+    if empty_rows.any():
+        said.append(f"{block.title}: sem valores no período para " + ", ".join(map(str, frame.loc[empty_rows].iloc[:, 0])) + ".")
+    if empty_columns:
+        said.append(f"{block.title}: colunas sem valores omitidas ({', '.join(map(str, empty_columns))}).")
+    kept = frame.loc[~empty_rows].drop(columns=empty_columns)
+    return replace(block, frame=kept, numeric_columns=tuple(c for c in block.numeric_columns if c in kept)), said
+
+
+#: Above this many funds the per-fund annex becomes one comparison table.
+FUND_ANNEX_MAX_FUNDS = 12
+FUND_ANNEX_MODES = ("auto", "full", "summary")
 
 
 def build_portfolio_deck_spec(
@@ -1065,7 +1150,7 @@ def build_portfolio_deck_spec(
     benchmark_spreads_by_fund: Mapping[str, Mapping[str, float]] | None = None,
     include_conclusions: bool = False, generated_at: datetime | None = None,
     table_placement: str = "inline", reference_lines: Iterable[str] = (),
-    export_warnings: Iterable[str] = (),
+    export_warnings: Iterable[str] = (), fund_annex: str = "auto",
 ) -> DeckSpec:
     """Return one ordered content plan, preserving all selected source values.
 
@@ -1076,6 +1161,8 @@ def build_portfolio_deck_spec(
     """
     if table_placement not in TABLE_PLACEMENTS:
         raise ValueError(f"table_placement deve ser um de {TABLE_PLACEMENTS}.")
+    if fund_annex not in FUND_ANNEX_MODES:
+        raise ValueError(f"fund_annex deve ser um de {FUND_ANNEX_MODES}.")
     funds = tuple(funds)
     documentary_pages = tuple(documentary_pages)
     analytical_data = tuple(analytical_data)
@@ -1112,6 +1199,14 @@ def build_portfolio_deck_spec(
     def slide(title: str, entity: str, blocks: Iterable[Any], *, source: str = _SOURCE, notes: Iterable[str] = (),
               appendix: bool = False, unit: str = "", layout: str = "flow", section: str = "") -> SlideSpec | None:
         blocks = tuple(block for block in blocks if block is not None)
+        if section != SECTION_COVERAGE:
+            pruned = []
+            for block in blocks:
+                block, said = _prune_empty(block)
+                coverage_notes.extend(f"{entity}: {sentence}" for sentence in said)
+                if block is not None:
+                    pruned.append(block)
+            blocks = tuple(pruned)
         if not blocks:
             return None
         context = " · ".join(part for part in (entity, unit, period) if part)
@@ -1120,8 +1215,13 @@ def build_portfolio_deck_spec(
 
     snapshot = _snapshot(scopes, dashboard, dashboard_summary_competencia)
     comparison = _fund_comparison(scopes)
-    if comparison is not None and comparison.frame.iloc[:, 1:].isin(["N/D"]).all(axis=None):
+    if comparison is not None and not comparison.numeric_columns:
         comparison = None  # no fund has any value: the coverage slide says why
+    annex_mode = fund_annex if fund_annex != "auto" else ("full" if len(funds) <= FUND_ANNEX_MAX_FUNDS else "summary")
+    annex_comparison = None
+    if comparison is not None and annex_mode == "summary":
+        # A long fund list is the annex itself, not part of the snapshot.
+        annex_comparison, comparison = comparison, None
     head: list[SlideSpec | None] = [slide("Snapshot", deck_entity, tuple(block for block in (snapshot, comparison)
                                                                     if block is not None and not block.frame.empty))]
 
@@ -1181,6 +1281,10 @@ def build_portfolio_deck_spec(
         view = complete_cohorts if cohorts_in_panel else recent
         cohort_panel = TableBlock("Safras · %" if cohorts_in_panel else "Safras recentes · %", view,
                                   {str(c): "percent:1" for c in view.columns[1:]}, (_raw_note(main_cohorts),), tuple(map(str, view.columns[1:])), compact=True)
+        if len(view) < 2:
+            # One cohort is a sentence, not a matrix.
+            cells = [f"{column} {_br(value, 1)}%" for column, value in zip(view.columns[1:], view.iloc[0, 1:]) if _number(value) is not None]
+            cohort_panel = TextBlock("Safras · %", f"Safra {view.iloc[0, 0]}: " + ("; ".join(cells) or "sem valores") + ".") if len(view) else None
     theme_pairs["migracao"].append((roll_chart, cohort_panel))
     if not complete_cohorts.empty and not cohorts_in_panel:
         theme_tables["migracao"].append(TableBlock("Safras · %", complete_cohorts, {str(c): "percent:1" for c in complete_cohorts.columns[1:]},
@@ -1191,7 +1295,9 @@ def build_portfolio_deck_spec(
         if not roll_source.empty:
             if "scope" in roll_source:
                 main_rows = roll_source["scope"].eq("consolidado") if not single_fund else roll_source["scope"].ne("consolidado")
-                if main_rows.any():
+                if main_rows.any() or not single_fund:
+                    # Several funds without a consolidated series: the
+                    # per-fund seasonality belongs to the per-fund annex.
                     roll_source = roll_source[main_rows].copy()
             roll = _roll_matrix(roll_source)
             if not roll.empty and any(_number(value) is not None for value in roll_source["value_pct"]):
@@ -1224,12 +1330,33 @@ def build_portfolio_deck_spec(
             (return_texts if isinstance(result["summary_block"], TextBlock) else theme_tables["rentabilidade"]).append(result["summary_block"])
         theme_tables["rentabilidade"].extend(result[k] for k in ("monthly_block", "rest_block") if k in result)
     else:
+        # One table across funds (a "Fundo" column) instead of one header
+        # per fund; funds without accumulated returns share one sentence.
+        frames, notes, sentences = [], [], []
         for cnpj, name, *_ in fund_scopes:
             block = returns_by_fund[cnpj].get("summary_block")
             if isinstance(block, TableBlock):
-                theme_tables["rentabilidade"].append(replace(block, title=f"{name} · {block.title}"))
+                frame = block.frame.copy()
+                frame.insert(0, "Fundo", name)
+                frames.append(frame)
+                notes.extend(block.notes)
+                template = block
             elif isinstance(block, TextBlock):
-                return_texts.append(replace(block, title=f"{name} · {block.title}"))
+                sentences.append(f"{name}: {block.text[:1].lower()}{block.text[1:]}")
+        if frames:
+            combined = pd.concat(frames, ignore_index=True, sort=False).astype(object)
+            combined_block = replace(template, frame=combined, notes=tuple(dict.fromkeys(notes)),
+                numeric_columns=tuple(c for c in combined.columns[2:]), formats={str(c): template.formats.get(str(c), "percent:2") for c in combined.columns[2:]})
+            if len(funds) <= FUND_ANNEX_MAX_FUNDS or fund_annex == "full":
+                theme_tables["rentabilidade"].append(combined_block)
+            else:
+                # Hundreds of share classes are not read on slides: the
+                # values stay in the notes and the page keeps the detail.
+                return_texts.append(TextBlock("Retorno acumulado por série",
+                    f"{len(combined)} séries de {len(frames)} fundos; valores completos nas notas deste slide e na página da carteira."))
+                all_document_sources.append("Retorno acumulado por série: " + _raw_note(combined))
+        if sentences:
+            return_texts.append(TextBlock("Sem retorno acumulado", "\n".join(sentences)))
     if main_dashboard is not None and hasattr(main_dashboard, "return_history_df") and hasattr(main_dashboard, "return_summary_df") \
             and not any("summary_block" in result for result in returns_by_fund.values()):
         from services.fundonet_ppt_export import _build_return_inline_table_for_ppt
@@ -1282,7 +1409,7 @@ def build_portfolio_deck_spec(
 
     # ---- Per-fund annex (multi-fund only): same themes, fund by fund.
     fund_annex: list[SlideSpec | None] = []
-    if not single_fund:
+    if not single_fund and annex_mode == "full":
         for cnpj, name, monthly, monitor, cohorts in fund_scopes:
             tables, omitted = _theme_tables(monthly, monitor)
             coverage_notes.extend(f"{name}: {sentence}" for sentence in omitted)
@@ -1300,10 +1427,20 @@ def build_portfolio_deck_spec(
                                                              (_raw_note(own),), tuple(map(str, roll.columns[1:]))))
             result = returns_by_fund.get(cnpj, {})
             tables["rentabilidade"].extend(result[k] for k in ("monthly_block", "rest_block") if k in result)
-            for theme, title in THEMES:
-                fund_annex.append(slide(f"{name} · {title}", name, tables[theme], appendix=True, section=SECTION_FUNDS))
+            # All themes of a fund in one flow: a small theme shares the page
+            # with the next one instead of taking a slide of its own.
+            fund_annex.append(slide(name, SECTION_FUNDS, [table for theme, _ in THEMES for table in tables[theme]],
+                                    appendix=True, section=SECTION_FUNDS))
+    elif annex_comparison is not None:
+        fund_annex.append(slide(SECTION_FUNDS, deck_entity, (annex_comparison,), appendix=True, section=SECTION_FUNDS,
+                                notes=(f"Com mais de {FUND_ANNEX_MAX_FUNDS} fundos o anexo traz uma linha por fundo; "
+                                       "as séries mensais de cada fundo ficam na página da carteira.",)))
 
     # ---- Documents: one sheet, then emissions and the complete matrices.
+    # A summarized large basket keeps fund-level detail (emissions, full
+    # clauses) in the notes: hundreds of rows are not read on slides.
+    summarized = annex_mode == "summary" and not single_fund
+    clause_target = "notas da Ficha documental" if summarized else "anexo"
     documentary_slides: list[SlideSpec | None] = []
     position_rows = []
     issuance_tables = []
@@ -1333,11 +1470,16 @@ def build_portfolio_deck_spec(
         if not single_fund and not frame.empty:
             frame.insert(0, "Fundo", name)
         if not frame.empty:
-            empty_columns = [c for c in frame if frame[c].map(_is_missing).all()]
-            frame = frame.drop(columns=empty_columns)
-            identity = 2 if not single_fund else 1
-            if len(frame.columns) > identity and not frame.iloc[:, identity:].apply(lambda column: column.map(_is_missing)).all(axis=None):
-                frame = _shorten_long_cells(frame.astype(object), name, clauses)
+            frame = frame.astype(object)
+            # A row with no documented content (only its date and citation)
+            # is an absence; the citation stays in the notes.
+            content = [c for c in frame if c not in {"Fundo", "Data", "Fonte"}]
+            documented = ~frame[content].apply(lambda column: column.map(_is_missing)).all(axis=1) if content else pd.Series(False, index=frame.index)
+            frame = frame.loc[documented]
+            frame = frame.drop(columns=[c for c in frame if frame[c].map(_is_missing).all()])
+            if not frame.empty:
+                frame = frame.map(lambda value: None if _is_missing(value) else value)
+                frame = _shorten_long_cells(frame, name, clauses, target=clause_target)
                 issuance_tables.append(TableBlock("Emissões documentadas", frame,
                                                   {"Volume (R$ mm)": "number:1"}, notes=tuple(str(v) for v in pd.DataFrame(issuances).get("Fonte", ())),
                                                   numeric_columns=tuple(c for c in ("Volume (R$ mm)",) if c in frame), compact=True))
@@ -1375,7 +1517,7 @@ def build_portfolio_deck_spec(
                         else:
                             coverage_notes.append(sentence)
                 else:
-                    matrix_blocks.append(replace(block, frame=_shorten_long_cells(block.frame, "", clauses), compact=True))
+                    matrix_blocks.append(replace(block, frame=_shorten_long_cells(block.frame, "", clauses, target=clause_target), compact=True))
             matrix_notes.extend((*page_notes, *page_sources, _raw_note(_frame(getattr(page, "frame", None)))))
             coverage_notes.extend(note for note in page_notes if "cobertura" in note.casefold() or "inválid" in note.casefold())
         for source in page_sources:
@@ -1407,14 +1549,14 @@ def build_portfolio_deck_spec(
                 clauses.append({"Ref.": f"C{len(clauses) + 1}", "Campo": f"{name} · Subordinação mínima", "Cláusula integral": position_rows[0][1]["Subordinação mínima"]})
         rows = [{"Campo": label, "Informação": value} for label, value in found.items() if label != "CNPJ"]
         if rows:
-            frame = _shorten_long_cells(pd.DataFrame(rows), name, clauses)
+            frame = _shorten_long_cells(pd.DataFrame(rows), name, clauses, target=clause_target)
             sheet_blocks.append(TableBlock("Ficha do fundo", frame, notes=validations, compact=True))
     elif position_rows:
         columns = ("Posição documental", "PL documental", "Direitos creditórios / PL", "Cotas sênior / PL", "Cotas subordinadas / PL", "Subordinação mínima")
         frame = pd.DataFrame([{"Fundo": name, **{c: (subordination_summary(name) or found.get(c, "N/D")) if c == "Subordinação mínima" else found.get(c, "N/D") for c in columns}}
                               for name, found, _ in position_rows])
         frame = frame.drop(columns=[c for c in columns if frame[c].eq("N/D").all()])
-        frame = _shorten_long_cells(frame, "", clauses)
+        frame = _shorten_long_cells(frame, "", clauses, target=clause_target)
         sheet_blocks.append(TableBlock("Ficha dos fundos", frame, notes=tuple(v for _, _, vs in position_rows for v in vs)))
     if len(issuance_tables) > 1:
         combined = pd.concat([block.frame for block in issuance_tables], ignore_index=True, sort=False)
@@ -1422,13 +1564,25 @@ def build_portfolio_deck_spec(
         issuance_tables = [replace(issuance_tables[0], frame=combined.astype(object),
                                    notes=tuple(note for block in issuance_tables for note in block.notes),
                                    numeric_columns=tuple(c for c in ("Volume (R$ mm)",) if c in combined))]
+    sheet_notes: list[str] = ["Cada posição documental conserva seu corte próprio."]
+    if summarized and issuance_tables:
+        frame = issuance_tables[0].frame
+        funds_with = frame["Fundo"].nunique() if "Fundo" in frame else 1
+        sheet_notes.append("Emissões documentadas: " + _raw_note(frame))
+        issuance_tables = [TextBlock("Emissões documentadas", f"{len(frame)} emissões de {funds_with} fundos; tabela completa nas notas deste slide.")]
+    if summarized and clauses:
+        sheet_notes.extend(f"{clause['Ref.']} · {clause['Campo']}: {clause['Cláusula integral']}" for clause in clauses)
+        clauses = []
     # Sheet and emissions share a slide when they fit; matrices are packed in
     # reading order instead of one small table per slide.
     documentary_slides.append(slide("Ficha documental", deck_entity, (*sheet_blocks, *issuance_tables),
                                     source="CVM / Fundos.NET · posição documental · Fundos.NET/B3 · emissões",
-                                    section=SECTION_DOCUMENTS, notes=("Cada posição documental conserva seu corte próprio.",)))
+                                    section=SECTION_DOCUMENTS, notes=tuple(sheet_notes)))
     documentary_slides.append(slide("Documentos completos", deck_entity, matrix_blocks, source="Fundos.NET/B3",
                                     section=SECTION_DOCUMENTS, notes=tuple(dict.fromkeys(matrix_notes))))
+    if clauses and single_fund:
+        # One fund: the field name alone; the fund is in the slide context.
+        clauses = [{**clause, "Campo": clause["Campo"].removeprefix(f"{deck_entity} · ")} for clause in clauses]
     if clauses:
         documentary_slides.append(slide("Cláusulas integrais", deck_entity,
             (TableBlock("Texto integral das cláusulas resumidas", pd.DataFrame(clauses), compact=True),),
@@ -1439,14 +1593,17 @@ def build_portfolio_deck_spec(
     context_rows = []
     for line in reference_lines:
         label, _, content = str(line).partition(": ")
-        if single_fund and label == "Carteira":
-            continue  # the "Fundos" row names the fund and its CNPJ
+        if single_fund and label in {"Carteira", "Contexto"}:
+            continue  # the "Fundos" row names the fund; one fund has one cut
+        if not content and single_fund:
+            continue
         context_rows.append({"Referência": label if content else "Contexto", "Conteúdo": content or label})
     by_label = {row["Referência"]: row for row in context_rows}
     if "Posição comum" in by_label and "Última competência observada" in by_label:
         last = by_label["Última competência observada"]
         by_label["Posição comum"]["Referência"] = "Posição comum · última observada"
-        by_label["Posição comum"]["Conteúdo"] += f" · {last['Conteúdo']}"
+        if last["Conteúdo"] != by_label["Posição comum"]["Conteúdo"]:
+            by_label["Posição comum"]["Conteúdo"] += f" · {last['Conteúdo']}"
         context_rows.remove(last)
     known = {row["Referência"] for row in context_rows}
     equivalents = {"Período visual": "Histórico selecionado", "Período solicitado": "Consulta solicitada", "Fonte quantitativa": "Fonte mensal"}
@@ -1475,35 +1632,108 @@ def build_portfolio_deck_spec(
         base_rows.append({"Referência": "Metodologia", "Conteúdo": " ".join(methodology_parts)})
     meli_portfolio = any("MERCADO" in str(name).upper() or "MELI" in str(name).upper()
                          for name in (portfolio_name, *legal_names.values()))
+    # Warnings name funds by legal name or CNPJ; the deck uses one name.
+    aliases = sorted(((legal, canonical.get(key, legal)) for key, legal in legal_names.items()), key=lambda item: -len(item[0]))
+    aliases += [(key, canonical.get(key, key)) for key in legal_names]
+
+    def public_names(text: str) -> str:
+        for alias, name in aliases:
+            if alias:
+                text = re.sub(re.escape(alias), name, text, flags=re.IGNORECASE)
+        return text
+
+    def grouped_by_message(items: Iterable[str]) -> str:
+        """'Fund: message' items become 'message: fund A, fund B'."""
+        groups: dict[str, list[str]] = {}
+        for item in items:
+            entity, sep, message = item.partition(": ")
+            key, who = (message.rstrip(". "), entity) if sep and len(entity) <= 80 else (item.rstrip(". "), "")
+            groups.setdefault(key, [])
+            if who and who not in groups[key]:
+                groups[key].append(who)
+        parts = []
+        for message, who in groups.items():
+            if not who:
+                parts.append(message)
+            elif len(who) <= 4:
+                parts.append(f"{message}: {', '.join(who)}")
+            else:
+                parts.append(f"{message}: {len(who)} fundos (lista nas notas)")
+        return "; ".join(parts) + "."
+
     for obj, label in ((monitor_outputs, "Monitoramento"), (research_outputs, "Research")):
         warnings_list = [str(w) for w in getattr(obj, "warnings", ()) or ()]
         # The monitor checks the Mercado Livre universe for every basket; that
         # caveat only applies to baskets with Mercado Livre funds.
         hidden = [w for w in warnings_list if w.startswith("Universo MELI") and not meli_portfolio]
         all_document_sources.extend(f"Ressalva fora de escopo ({label}): {w}" for w in hidden)
-        warnings_list = [w for w in warnings_list if w not in hidden]
+        warnings_list = [public_names(w) for w in warnings_list if w not in hidden]
         if warnings_list:
-            base_rows.append({"Referência": f"Ressalvas · {label}", "Conteúdo": "; ".join(warnings_list)})
+            all_document_sources.extend(f"Ressalva ({label}): {w}" for w in warnings_list)
+            base_rows.append({"Referência": f"Ressalvas · {label}", "Conteúdo": grouped_by_message(warnings_list)})
+    # Base warnings (one record per fund and month) become one line per
+    # warning, with the months compressed; the records stay in the notes.
+    warnings_frame = _frame(getattr(outputs, "warnings_df", None))
+    if not warnings_frame.empty and "warning" in warnings_frame:
+        all_document_sources.append("Avisos da base: " + _raw_note(warnings_frame))
+        by_warning: dict[str, dict[str, list[str]]] = {}
+        for _, record in warnings_frame.iterrows():
+            cnpj = _digits(record.get("cnpj", ""))
+            if not cnpj or not cnpj.isdigit():
+                if not single_fund and str(record.get("cnpj", "")).strip().casefold() == "consolidado":
+                    who = "Consolidado"
+                else:
+                    continue  # a single fund's consolidated copy repeats the fund
+            else:
+                who = canonical.get(cnpj, public_names(str(record.get("scope_name") or cnpj)))
+            for message in str(record.get("warning", "")).split(";"):
+                message = message.strip().rstrip(".")
+                if message:
+                    by_warning.setdefault(message, {}).setdefault(who, []).append(_month(record.get("competencia")))
+        for message, entities in by_warning.items():
+            def months_text(months: list[str]) -> str:
+                months = sorted(dict.fromkeys(months), key=_month_key)
+                if len(months) <= 3:
+                    return ", ".join(months)
+                return f"{len(months)} competências, {months[0]}–{months[-1]}"
+            if len(entities) <= 4:
+                content = "; ".join(f"{who}: {months_text(months)}" for who, months in entities.items())
+            else:
+                content = f"{len(entities)} fundos; competências nas notas"
+            base_rows.append({"Referência": f"Aviso da base · {message}", "Conteúdo": content + "."})
     repetitions = list(dict.fromkeys(coverage_notes))
     if repetitions:
         all_document_sources.extend(repetitions)
         base_rows.append({"Referência": "Repetições e observações",
                           "Conteúdo": f"{len(repetitions)} observações; séries iguais em fontes diferentes exibidas uma vez. Detalhe nas notas."})
     portfolio_entities = {*canonical.values(), deck_entity}
-    for entity, items in missing_fields.items():
-        items = list(dict.fromkeys(items))
-        if entity in portfolio_entities or len(items) <= 6:
+    own = {entity: list(dict.fromkeys(items)) for entity, items in missing_fields.items() if entity in portfolio_entities}
+    peers = {entity: list(dict.fromkeys(items)) for entity, items in missing_fields.items() if entity not in portfolio_entities}
+    for entity, items in {**own, **peers}.items():
+        all_document_sources.append(f"Não localizados · {entity}: " + "; ".join(items))
+    if len(own) <= 6:
+        for entity, items in own.items():
             # Grouped by theme: "Recebíveis: Tipo de fundo, Recebível; ..."
             grouped: dict[str, list[str]] = {}
             for item in items:
                 theme, _, field = item.partition(": ")
                 grouped.setdefault(theme if field else "", []).append(field or theme)
             content = "; ".join(f"{theme}: {', '.join(fields)}" if theme else ", ".join(fields) for theme, fields in grouped.items())
-        else:
-            # Peers or other references outside the basket: a count, list in notes.
-            content = f"{len(items)} critérios sem informação; lista nas notas."
-            all_document_sources.append(f"Não localizados · {entity}: " + "; ".join(items))
-        base_rows.append({"Referência": f"Não localizados · {entity}", "Conteúdo": content + ("" if content.endswith(".") else ".")})
+            base_rows.append({"Referência": f"Não localizados · {entity}", "Conteúdo": content + ("" if content.endswith(".") else ".")})
+    else:
+        # Many funds: one line by field, with the number of funds.
+        counts: dict[str, int] = {}
+        for items in own.values():
+            for item in items:
+                counts[item] = counts.get(item, 0) + 1
+        content = "; ".join(f"{item} ({count})" for item, count in sorted(counts.items(), key=lambda pair: -pair[1]))
+        base_rows.append({"Referência": f"Não localizados · {len(own)} fundos", "Conteúdo": f"{content}. Número de fundos entre parênteses; lista nas notas."})
+    if peers:
+        # Peer columns are a reference, not the basket's coverage.
+        base_rows.append({"Referência": "Não localizados · pares", "Conteúdo": "; ".join(f"{entity}: {len(items)} critérios" for entity, items in peers.items()) + "; lista nas notas."})
+    if annex_comparison is not None:
+        base_rows.append({"Referência": SECTION_FUNDS, "Conteúdo": f"{len(fund_scopes)} fundos: uma linha por fundo (acima de {FUND_ANNEX_MAX_FUNDS} fundos); "
+                          "séries mensais de cada fundo na página da carteira."})
     for warning in export_warnings:
         base_rows.append({"Referência": "Parte indisponível", "Conteúdo": public_document_text(warning)})
     reference_frame = pd.DataFrame([*context_rows, *base_rows]).drop_duplicates(ignore_index=True)
@@ -1514,9 +1744,6 @@ def build_portfolio_deck_spec(
         quality = _quality_block(frame, origin)
         if quality is not None and not any(isinstance(b, TableBlock) and b.frame.equals(quality.frame) for b in coverage_blocks):
             coverage_blocks.append(replace(quality, compact=True))
-    warnings_frame = _frame(getattr(outputs, "warnings_df", None))
-    if not warnings_frame.empty:
-        coverage_blocks.append(replace(_native_table("Aviso da base", warnings_frame), compact=True))
     coverage = [slide(SECTION_COVERAGE, deck_entity, coverage_blocks, source="CVM / Fundos.NET / B3", appendix=True, section=SECTION_COVERAGE)]
 
     if include_conclusions:
