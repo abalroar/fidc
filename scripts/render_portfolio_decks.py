@@ -7,7 +7,7 @@ Uso (da raiz do repositório):
 Variáveis de ambiente:
     CACHE=<dir>      onde guardar/ler a análise carregada (.analysis.pkl); padrão OUT_DIR
     FETCH_ONLY=1     só carrega e guarda a análise (CVM), sem gerar o PPT
-    PLACEMENT=...    "inline" (padrão) ou "appendix"
+    PLACEMENT=...    "appendix" (padrão) ou "inline"
     MONTHS=13        competências exibidas (janela visual)
 
 Serve para comparar o deck antes/depois de uma mudança: carregue uma vez

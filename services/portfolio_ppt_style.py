@@ -55,16 +55,6 @@ SERIES_COLORS = {
     "carteira_ex360": "EC7000", "subordinacao_total_ex360_pct": "626970",
 }
 
-SNAPSHOT_SERIES_KEYS = {
-    "PL total": "pl_total", "Carteira bruta ex-360": "carteira_ex360",
-    "Subordinação ex-360": "subordinacao_total_ex360_pct",
-    "NPL > 1d ex-360": "npl_over1_ex360_pct",
-    "NPL > 90d ex-360": "npl_over90_ex360_pct",
-    "Cobertura PDD / NPL > 90d": "pdd_npl_over90_ex360_pct",
-    "Duration estimada": "duration_months",
-    "Cobertura provisão / vencidos · IME": "cobertura_pct",
-}
-
 
 def series_color(key: str, style: PortfolioPptStyle = DEFAULT_STYLE) -> str:
     """Stable neutral shades for other series, including different share classes."""

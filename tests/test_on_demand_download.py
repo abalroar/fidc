@@ -365,7 +365,8 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
         monthly.assert_not_called()
         cdi.assert_not_called()
         finalized = Presentation(BytesIO(prepared.data))
-        self.assertGreaterEqual(len(finalized.slides),3)
+        # Cover, then documents and references (one slide when they fit together).
+        self.assertGreaterEqual(len(finalized.slides),2)
         self.assertIn(self.portfolio.name, finalized.slides[0].shapes[0].text)
         full_text='\n'.join([shape.text for slide in finalized.slides for shape in slide.shapes if shape.has_text_frame]
                            +[slide.notes_slide.notes_text_frame.text for slide in finalized.slides]

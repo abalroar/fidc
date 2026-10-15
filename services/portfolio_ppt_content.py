@@ -37,9 +37,10 @@ class TableBlock:
     formats: dict[str, str] = field(default_factory=dict)
     notes: tuple[str, ...] = ()
     numeric_columns: tuple[str, ...] = ()
-    snapshot_history: dict[str, tuple[float | None, ...]] = field(default_factory=dict)
     cell_colors: dict[tuple[int, str], str] = field(default_factory=dict)
     compact: bool = False
+    # The position summary: preformatted values, never pruned or split.
+    snapshot: bool = False
 
 
 @dataclass(frozen=True)
@@ -62,6 +63,8 @@ class ChartBlock:
     unit: str = "%"
     notes: tuple[str, ...] = ()
     kind: str = "line"
+    # Values the axis must also span: small multiples share one scale.
+    axis_range: tuple[float, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -363,11 +366,26 @@ def _quality_block(frame: pd.DataFrame, origin: str) -> TableBlock | None:
         # Repeating the same status in every month adds no information. Its
         # exact per-month association stays in notes and in the source record.
         if len(set(values)) > 1:
-            rows.append({"Indicador": label, **dict(zip(labels, readable, strict=True))})
+            rows.append({"Indicador": label, "Estado por competência": _state_runs(labels, readable)})
         notes.append(f"{origin} · {column}: " + "; ".join(f"{month}={value}" for month, value in zip(labels, values, strict=True)))
     if not rows:
         return None
     return TableBlock(f"Qualidade e cobertura · {origin}", pd.DataFrame(rows), notes=tuple(notes))
+
+
+def _state_runs(labels: list[str], states: list[str]) -> str:
+    """'Válido: nov/25–set/26; Sem dados: set/25–out/25' instead of one
+    text column per month, which a slide can only show in fragments."""
+    runs: list[list[Any]] = []
+    for label, state in zip(labels, states, strict=True):
+        if runs and runs[-1][0] == state:
+            runs[-1][2] = label
+        else:
+            runs.append([state, label, label])
+    by_state: dict[str, list[str]] = {}
+    for state, first, last in runs:
+        by_state.setdefault(state, []).append(first if first == last else f"{first}–{last}")
+    return "; ".join(f"{state}: {', '.join(spans)}" for state, spans in by_state.items())
 
 
 def _roll_matrix(frame: pd.DataFrame) -> pd.DataFrame:
@@ -542,7 +560,7 @@ def _snapshot(scopes: list[tuple[str, str, pd.DataFrame, pd.DataFrame, pd.DataFr
 
     _, name, monthly, monitor, _ = scopes[0]
     base, credit = _ordered(monthly), _ordered(monitor)
-    rows, history, colors, notes = [], {}, {}, []
+    rows, colors, notes = [], {}, []
     specs = (("pl_total", "PL total", "R$", "neutral"), ("carteira_ex360", "Carteira bruta ex-360", "R$", "neutral"),
              ("subordinacao_total_ex360_pct", "Subordinação ex-360", "%", "higher"),
              ("npl_over1_ex360_pct", "NPL > 1d ex-360", "%", "lower"),
@@ -577,8 +595,7 @@ def _snapshot(scopes: list[tuple[str, str, pd.DataFrame, pd.DataFrame, pd.DataFr
             delta = _latest_delta(source, column)
             monthly_display = _br(delta, 1) + " p.p." if delta is not None else "N/D"
         row_index = len(rows)
-        rows.append({"Indicador": label, "Valor": display, "Var. mensal": monthly_display, "Var. anual": annual_display, "Evolução": ""})
-        history[label] = tuple(_number(v) for v in source[column])
+        rows.append({"Indicador": label, "Valor": display, "Var. mensal": monthly_display, "Var. anual": annual_display})
         if delta is not None and round(delta, 1) != 0 and polarity != "neutral":
             favorable = delta > 0 if polarity == "higher" else delta < 0
             colors[(row_index, "Var. mensal")] = "good" if favorable else "bad"
@@ -595,22 +612,20 @@ def _snapshot(scopes: list[tuple[str, str, pd.DataFrame, pd.DataFrame, pd.DataFr
         value = _number(summary["cobertura_pct"])
         delta = _latest_delta(defaults, "cobertura_pct") if value is not None and same_cut else None
         row_index = len(rows)
-        rows.append({"Indicador": label, "Valor": _br(value, 1) + ("%" if value is not None else ""), "Var. mensal": _br(delta, 1) + " p.p." if delta is not None else "N/D", "Var. anual": "N/D", "Evolução": ""})
-        if "cobertura_pct" in defaults and same_cut:
-            history[label] = tuple(_number(v) for v in defaults["cobertura_pct"])
+        rows.append({"Indicador": label, "Valor": _br(value, 1) + ("%" if value is not None else ""), "Var. mensal": _br(delta, 1) + " p.p." if delta is not None else "N/D", "Var. anual": "N/D"})
         if delta is not None and round(delta, 1) != 0:
             colors[(row_index, "Var. mensal")] = "good" if delta > 0 else "bad"
         notes.append(f"Cobertura IME: posição original {summary_cut}; histórico selecionado termina em {history_cut}; provisão / vencidos; denominador diferente do NPL ex-360.")
         if not same_cut:
             notes.append("Posição do resumo e último ponto histórico diferentes: comparação mensal indisponível (N/D), sem combinar cortes. A série histórica selecionada permanece completa no anexo.")
     notes.append("Variações anuais só aparecem quando já fornecidas pela base. N/D significa comparação indisponível. Mudanças de percentuais são p.p.; crescimento de carteira usa a variação já calculada.")
-    frame = pd.DataFrame(rows, columns=["Indicador", "Valor", "Var. mensal", "Var. anual", "Evolução"])
+    frame = pd.DataFrame(rows, columns=["Indicador", "Valor", "Var. mensal", "Var. anual"])
     # A comparison column that is N/D in every row carries no information.
     empty = [column for column in ("Var. mensal", "Var. anual") if not frame.empty and frame[column].eq("N/D").all()]
     if empty:
         notes.append("Colunas sem comparação disponível em nenhuma linha omitidas: " + ", ".join(empty) + ".")
         frame = frame.drop(columns=empty)
-    return TableBlock(name, frame, notes=tuple(notes), numeric_columns=tuple(c for c in ("Valor", "Var. mensal", "Var. anual") if c in frame), snapshot_history=history, cell_colors=colors)
+    return TableBlock(name, frame, notes=tuple(notes), numeric_columns=tuple(c for c in ("Valor", "Var. mensal", "Var. anual") if c in frame), cell_colors=colors, snapshot=True)
 
 
 def _fund_comparison(scopes: list[tuple[str, str, pd.DataFrame, pd.DataFrame, pd.DataFrame]]) -> TableBlock | None:
@@ -704,6 +719,9 @@ SECTION_DOCUMENTS = "Documental"
 SECTION_FUNDS = "Anexo por fundo"
 SECTION_APPENDIX = "Apêndice · tabelas"
 SECTION_COVERAGE = "Referências e cobertura"
+# Reference lines the cover already shows (or, for the source, every footer).
+_ON_COVER = {"Carteira", "Consulta solicitada", "Histórico selecionado", "Posição comum",
+             "Última competência observada", "Fonte mensal", "Consulta"}
 
 # (theme, table title, unit, columns). The monthly base and the monitor feed
 # the same tables; a monitor column is shown only when it adds information.
@@ -1112,7 +1130,7 @@ def _shorten_long_cells(frame: pd.DataFrame, entity: str, clauses: list[dict[str
 def _prune_empty(block: Any) -> tuple[Any, list[str]]:
     """Series tables without any value in a row or column lose that row or
     column; what was left out is said once in the coverage slide."""
-    if not isinstance(block, TableBlock) or block.snapshot_history or not block.numeric_columns or block.frame.empty:
+    if not isinstance(block, TableBlock) or block.snapshot or not block.numeric_columns or block.frame.empty:
         return block, []
     frame = block.frame
     numeric = [column for column in frame.columns[1:] if column in block.numeric_columns]
@@ -1135,9 +1153,54 @@ def _prune_empty(block: Any) -> tuple[Any, list[str]]:
     return replace(block, frame=kept, numeric_columns=tuple(c for c in block.numeric_columns if c in kept)), said
 
 
+#: A theme's reading table in the body: longer tables go to the appendix.
+BODY_TABLE_ROWS = 20
+
 #: Above this many funds the per-fund annex becomes one comparison table.
 FUND_ANNEX_MAX_FUNDS = 12
-FUND_ANNEX_MODES = ("auto", "full", "summary")
+FUND_ANNEX_MODES = ("auto", "metrics", "full", "summary")
+
+# Small multiples of the per-fund annex: (column, title, unit, shared scale).
+# Ratios share one scale so funds compare at a glance; volumes and coverage
+# (which spikes when NPL is near zero) keep each fund's own scale.
+_FUND_METRICS = (
+    ("pl_total", "PL total · R$ milhões", "R$ mm", False),
+    ("subordinacao_total_ex360_pct", "Subordinação ex-360 · %", "%", True),
+    ("npl_over30_ex360_pct", "NPL > 30d ex-360 · %", "%", True),
+    ("npl_over90_ex360_pct", "NPL > 90d ex-360 · %", "%", True),
+    ("pdd_npl_over90_ex360_pct", "Cobertura PDD / NPL > 90d ex-360 · %", "%", False),
+    ("roll_61_90_m3_pct", "Roll 61–90 / a vencer M-3 · %", "%", True),
+)
+
+
+def _fund_metric_charts(fund_scopes: list[tuple[str, str, pd.DataFrame, pd.DataFrame, pd.DataFrame]]) -> tuple[list[tuple[str, tuple[ChartBlock, ...]]], list[str]]:
+    """One page per metric with one small chart per fund, on common months.
+    A metric that is constant in every fund is a sentence, not a page."""
+    pages, constant = [], []
+    for column, title, unit, shared in _FUND_METRICS:
+        rows = {}
+        for cnpj, name, monthly, monitor, _ in fund_scopes:
+            source = _ordered(monitor if column in monitor else monthly)
+            if source.empty or column not in source or "competencia" not in source:
+                continue
+            values = {_month(month): _number(value) for month, value in zip(source["competencia"], source[column])}
+            if unit == "R$ mm":
+                values = {month: value / 1_000_000 if value is not None else None for month, value in values.items()}
+            if any(value is not None for value in values.values()):
+                rows[cnpj] = (name, values)
+        if not rows:
+            continue
+        if all(len({_br(value, 1) for value in values.values() if value is not None}) <= 1 for _, values in rows.values()):
+            constant.append(f"Por fundo · {title}: sem variação em nenhum fundo no período.")
+            continue
+        months = tuple(sorted({month for _, values in rows.values() for month in values}, key=_month_key))
+        pooled = [value for _, values in rows.values() for value in values.values() if value is not None]
+        axis = (min(pooled), max(pooled)) if shared else ()
+        charts = tuple(ChartBlock(name, months, (ChartSeries(f"{cnpj}:{column}", name, tuple(values.get(month) for month in months), unit, 1),),
+                                  unit, (f"{name} · {title}: escala {'comum a todos os fundos' if shared else 'própria do fundo'}.",), axis_range=axis)
+                       for cnpj, (name, values) in rows.items())
+        pages.append((title + (" · escala comum" if shared else " · escala própria"), charts))
+    return pages, constant
 
 
 def build_portfolio_deck_spec(
@@ -1149,15 +1212,15 @@ def build_portfolio_deck_spec(
     monthly_cdi_rates_by_fund: Mapping[str, Iterable[Any]] | None = None,
     benchmark_spreads_by_fund: Mapping[str, Mapping[str, float]] | None = None,
     include_conclusions: bool = False, generated_at: datetime | None = None,
-    table_placement: str = "inline", reference_lines: Iterable[str] = (),
+    table_placement: str = "appendix", reference_lines: Iterable[str] = (),
     export_warnings: Iterable[str] = (), fund_annex: str = "auto",
 ) -> DeckSpec:
     """Return one ordered content plan, preserving all selected source values.
 
-    Order: Snapshot → themes (charts, then the series of the theme) →
-    documents → per-fund annex → references and coverage. With
-    ``table_placement="appendix"`` the series tables leave the themes and form
-    an appendix in the same theme order.
+    Order: Snapshot (beside the fund sheet for one fund) → themes (charts
+    and one reading table) → fund by fund (small multiples per metric) →
+    series appendix → documents → references and coverage. With
+    ``table_placement="inline"`` each theme keeps its series tables instead.
     """
     if table_placement not in TABLE_PLACEMENTS:
         raise ValueError(f"table_placement deve ser um de {TABLE_PLACEMENTS}.")
@@ -1224,7 +1287,7 @@ def build_portfolio_deck_spec(
     comparison = _fund_comparison(scopes)
     if comparison is not None and not comparison.numeric_columns:
         comparison = None  # no fund has any value: the coverage slide says why
-    annex_mode = fund_annex if fund_annex != "auto" else ("full" if len(funds) <= FUND_ANNEX_MAX_FUNDS else "summary")
+    annex_mode = fund_annex if fund_annex != "auto" else ("metrics" if len(funds) <= FUND_ANNEX_MAX_FUNDS else "summary")
     annex_comparison = None
     if comparison is not None and annex_mode == "summary":
         # A long fund list is the annex itself, not part of the snapshot.
@@ -1334,7 +1397,13 @@ def build_portfolio_deck_spec(
         if "chart" in result:
             theme_pairs["rentabilidade"].append((result["chart"], replace(result["summary_block"], compact=True)))
         elif "summary_block" in result:
-            (return_texts if isinstance(result["summary_block"], TextBlock) else theme_tables["rentabilidade"]).append(result["summary_block"])
+            block = result["summary_block"]
+            if isinstance(block, TextBlock) or (table_placement == "appendix" and len(block.frame) <= BODY_TABLE_ROWS):
+                return_texts.append(block)
+            else:
+                theme_tables["rentabilidade"].append(block)
+                if table_placement == "appendix":
+                    return_texts.append(TextBlock(block.title, f"{len(block.frame)} séries; tabela completa no apêndice."))
         theme_tables["rentabilidade"].extend(result[k] for k in ("monthly_block", "rest_block") if k in result)
     else:
         # One table across funds (a "Fundo" column) instead of one header
@@ -1403,16 +1472,25 @@ def build_portfolio_deck_spec(
         texts = [*kpis, *(return_texts if theme == "rentabilidade" else ())]
         tables = theme_tables[theme]
         if theme == "rentabilidade" and not single_fund:
-            # Summaries across funds are the theme's body; monthly detail is per fund.
-            analysis.append(slide(title, deck_entity, (*texts, *tables), section=title, source="CVM / Fundos.NET · rentabilidade por cota",
-                                  notes=(CVM_RETURN_REINVESTMENT_NOTE,)))
+            # Summaries across funds are the theme's body; a table longer than
+            # a reading table goes to the appendix and the body says so.
+            long = [table for table in tables if table_placement == "appendix" and isinstance(table, TableBlock) and len(table.frame) > BODY_TABLE_ROWS]
+            pointers = [TextBlock(table.title, f"{len(table.frame)} séries" + (f" de {table.frame['Fundo'].nunique()} fundos" if "Fundo" in table.frame else "")
+                                  + "; tabela completa no apêndice.") for table in long]
+            analysis.append(slide(title, deck_entity, (*texts, *[t for t in tables if all(t is not other for other in long)], *pointers), section=title,
+                                  source="CVM / Fundos.NET · rentabilidade por cota", notes=(CVM_RETURN_REINVESTMENT_NOTE,)))
+            if long:
+                appendix_tables.append(slide("Apêndice · séries", main_name, [replace(table, title=f"{title} · {table.title}") for table in long],
+                                             appendix=True, section=SECTION_APPENDIX))
             continue
         if texts:
             analysis.append(slide(title, main_name, texts, section=title))
         if table_placement == "inline":
             analysis.append(slide(title, main_name, tables, section=title, notes=("Séries do tema; uma métrica aparece em um só lugar.",)))
         else:
-            appendix_tables.append(slide(f"Apêndice · {title}", main_name, tables, appendix=True, section=SECTION_APPENDIX))
+            # One appendix: themes share slides and each table says its theme.
+            appendix_tables.append(slide("Apêndice · séries", main_name, [replace(table, title=table.title if table.title.startswith(title) else f"{title} · {table.title}") for table in tables],
+                                         appendix=True, section=SECTION_APPENDIX))
 
     # ---- Per-fund annex (multi-fund only): same themes, fund by fund.
     fund_annex: list[SlideSpec | None] = []
@@ -1438,6 +1516,13 @@ def build_portfolio_deck_spec(
             # with the next one instead of taking a slide of its own.
             fund_annex.append(slide(name, SECTION_FUNDS, [table for theme, _ in THEMES for table in tables[theme]],
                                     appendix=True, section=SECTION_FUNDS))
+    elif not single_fund and annex_mode == "metrics":
+        # By metric, not by fund: each page puts every fund side by side.
+        metric_pages, constant = _fund_metric_charts(fund_scopes)
+        coverage_notes.extend(constant)
+        for title, charts in metric_pages:
+            fund_annex.append(slide(f"Por fundo · {title}", deck_entity, charts, appendix=True, layout="grid", section=SECTION_FUNDS,
+                                    notes=("Séries mensais completas de cada fundo na página da carteira e no Excel.",)))
     elif annex_comparison is not None:
         fund_annex.append(slide(SECTION_FUNDS, deck_entity, (annex_comparison,), appendix=True, section=SECTION_FUNDS,
                                 notes=(f"Com mais de {FUND_ANNEX_MAX_FUNDS} fundos o anexo traz uma linha por fundo; "
@@ -1447,7 +1532,8 @@ def build_portfolio_deck_spec(
     # A summarized large basket keeps fund-level detail (emissions, full
     # clauses) in the notes: hundreds of rows are not read on slides.
     summarized = annex_mode == "summary" and not single_fund
-    clause_target = "notas da Ficha documental" if summarized else "anexo"
+    # Full clauses are read on demand, not presented: they go to the notes.
+    clause_target = "notas do slide"
     documentary_slides: list[SlideSpec | None] = []
     position_rows = []
     issuance_tables = []
@@ -1551,7 +1637,7 @@ def build_portfolio_deck_spec(
         name, found, validations = position_rows[0]
         summary_text = subordination_summary(name)
         if summary_text and "Subordinação mínima" in found:
-            found = {**found, "Subordinação mínima": summary_text + (" · cláusula integral no anexo" if len(found["Subordinação mínima"]) > _LONG_CELL else "")}
+            found = {**found, "Subordinação mínima": summary_text + (" · cláusula integral nas notas" if len(found["Subordinação mínima"]) > _LONG_CELL else "")}
             if len(position_rows[0][1]["Subordinação mínima"]) > _LONG_CELL:
                 clauses.append({"Ref.": f"C{len(clauses) + 1}", "Campo": f"{name} · Subordinação mínima", "Cláusula integral": position_rows[0][1]["Subordinação mínima"]})
         rows = [{"Campo": label, "Informação": value} for label, value in found.items() if label != "CNPJ"]
@@ -1577,32 +1663,37 @@ def build_portfolio_deck_spec(
         funds_with = frame["Fundo"].nunique() if "Fundo" in frame else 1
         sheet_notes.append("Emissões documentadas: " + _raw_note(frame))
         issuance_tables = [TextBlock("Emissões documentadas", f"{len(frame)} emissões de {funds_with} fundos; tabela completa nas notas deste slide.")]
-    if summarized and clauses:
-        sheet_notes.extend(f"{clause['Ref.']} · {clause['Campo']}: {clause['Cláusula integral']}" for clause in clauses)
-        clauses = []
-    # Sheet and emissions share a slide when they fit; matrices are packed in
-    # reading order instead of one small table per slide.
-    documentary_slides.append(slide("Ficha documental", deck_entity, (*sheet_blocks, *issuance_tables),
-                                    source="CVM / Fundos.NET · posição documental · Fundos.NET/B3 · emissões",
-                                    section=SECTION_DOCUMENTS, notes=tuple(sheet_notes)))
-    documentary_slides.append(slide("Documentos completos", deck_entity, matrix_blocks, source="Fundos.NET/B3",
-                                    section=SECTION_DOCUMENTS, notes=tuple(dict.fromkeys(matrix_notes))))
-    if clauses and single_fund:
-        # One fund: the field name alone; the fund is in the slide context.
-        clauses = [{**clause, "Campo": clause["Campo"].removeprefix(f"{deck_entity} · ")} for clause in clauses]
     if clauses:
-        documentary_slides.append(slide("Cláusulas integrais", deck_entity,
-            (TableBlock("Texto integral das cláusulas resumidas", pd.DataFrame(clauses), compact=True),),
-            source="Fundos.NET/B3 · curadoria documental", appendix=True, section=SECTION_DOCUMENTS))
+        if single_fund:
+            # One fund: the field name alone; the fund is in the slide context.
+            clauses = [{**clause, "Campo": clause["Campo"].removeprefix(f"{deck_entity} · ")} for clause in clauses]
+        clause_notes = [f"{clause['Ref.']} · {clause['Campo']}: {clause['Cláusula integral']}" for clause in clauses]
+        clauses = []
+    else:
+        clause_notes = []
+    # One fund: the documentary sheet sits beside the snapshot, so the
+    # position and the contractual minimum are read together.
+    sheet_beside_snapshot = single_fund and bool(sheet_blocks) and head[0] is not None
+    if sheet_beside_snapshot:
+        head[0] = replace(head[0], blocks=(*head[0].blocks, *(replace(block, compact=False) for block in sheet_blocks)), layout="panels",
+                          source=f"{head[0].source} · posição documental Fundos.NET/B3",
+                          notes=(*head[0].notes, *sheet_notes, *clause_notes))
+    # Sheet, emissions and matrices form one documentary flow.
+    documentary_slides.append(slide("Ficha documental", deck_entity, (*(() if sheet_beside_snapshot else sheet_blocks), *issuance_tables),
+                                    source="CVM / Fundos.NET · posição documental · Fundos.NET/B3 · emissões",
+                                    section=SECTION_DOCUMENTS, notes=(*sheet_notes, *clause_notes)))
+    documentary_slides.append(slide("Documentos completos", deck_entity, matrix_blocks, source="Fundos.NET/B3",
+                                    section=SECTION_DOCUMENTS, notes=tuple(dict.fromkeys((*matrix_notes, *clause_notes)))))
 
     # ---- References and coverage: one table, compacted by subject. Detail
     # (fund list, citations, methodology, repetitions) stays in the notes.
     context_rows = []
     for line in reference_lines:
         label, _, content = str(line).partition(": ")
-        if single_fund and label in {"Carteira", "Contexto"}:
-            continue  # the "Fundos" row names the fund; one fund has one cut
-        if not content and single_fund:
+        if label in _ON_COVER or not content:
+            # The cover carries periods, position and consultation time; the
+            # footers carry the source. The full lines stay in the notes.
+            all_document_sources.append(str(line))
             continue
         context_rows.append({"Referência": label if content else "Contexto", "Conteúdo": content or label})
     by_label = {row["Referência"]: row for row in context_rows}
@@ -1617,11 +1708,9 @@ def build_portfolio_deck_spec(
     fund_list = [f"{name_for(cnpj, name)} · {name} · CNPJ {cnpj}" for cnpj, name in map(_fund_identity, funds)]
     base_rows = [{"Referência": "Fundos", "Conteúdo": "; ".join(f"{name_for(c, n)} · CNPJ {c}" for c, n in map(_fund_identity, funds))
                   if len(fund_list) <= 4 else f"{len(fund_list)} fundos; nomes legais e CNPJs nas notas."}]
-    for label, content in (("Período visual", period),
-                           ("Período solicitado", requested_period_label or str((getattr(outputs, "metadata", {}) or {}).get("period_label") or "N/D")),
-                           ("Fonte quantitativa", "CVM / Fundos.NET · informes mensais; fórmulas, denominadores e proxies do app."),
-                           ("Rentabilidade", CVM_RETURN_REINVESTMENT_NOTE),
-                           ("Leitura documental", str(getattr(documentary_manifest, "generated_at", None) or "não disponível"))):
+    all_document_sources.extend((f"Período visual: {period}", "Fonte quantitativa: CVM / Fundos.NET · informes mensais; fórmulas, denominadores e proxies do app.",
+                                 f"Rentabilidade: {CVM_RETURN_REINVESTMENT_NOTE}"))
+    for label, content in (("Leitura documental", str(getattr(documentary_manifest, "generated_at", None) or "não disponível")),):
         if label not in known and equivalents.get(label) not in known:
             base_rows.append({"Referência": label, "Conteúdo": content})
     sources_summary = []
@@ -1703,9 +1792,8 @@ def build_portfolio_deck_spec(
             base_rows.append({"Referência": f"Aviso da base · {message}", "Conteúdo": content + "."})
     repetitions = list(dict.fromkeys(coverage_notes))
     if repetitions:
+        all_document_sources.append(f"Repetições e observações ({len(repetitions)}); séries iguais em fontes diferentes exibidas uma vez:")
         all_document_sources.extend(repetitions)
-        base_rows.append({"Referência": "Repetições e observações",
-                          "Conteúdo": f"{len(repetitions)} observações; séries iguais em fontes diferentes exibidas uma vez. Detalhe nas notas."})
     portfolio_entities = {*canonical.values(), deck_entity}
     own = {entity: list(dict.fromkeys(items)) for entity, items in missing_fields.items() if entity in portfolio_entities}
     peers = {entity: list(dict.fromkeys(items)) for entity, items in missing_fields.items() if entity not in portfolio_entities}
@@ -1728,9 +1816,6 @@ def build_portfolio_deck_spec(
                 counts[item] = counts.get(item, 0) + 1
         content = "; ".join(f"{item} ({count})" for item, count in sorted(counts.items(), key=lambda pair: -pair[1]))
         base_rows.append({"Referência": f"Não localizados · {len(own)} fundos", "Conteúdo": f"{content}. Número de fundos entre parênteses; lista nas notas."})
-    if peers:
-        # Peer columns are a reference, not the basket's coverage.
-        base_rows.append({"Referência": "Não localizados · pares", "Conteúdo": "; ".join(f"{entity}: {len(items)} critérios" for entity, items in peers.items()) + "; lista nas notas."})
     if without_data:
         names = [entry.split(" · CNPJ ")[0] for entry in without_data]
         all_document_sources.append("Fundos sem informe mensal no período: " + "; ".join(without_data))
@@ -1742,14 +1827,20 @@ def build_portfolio_deck_spec(
                           "séries mensais de cada fundo na página da carteira."})
     for warning in export_warnings:
         base_rows.append({"Referência": "Parte indisponível", "Conteúdo": public_document_text(warning)})
-    reference_frame = pd.DataFrame([*context_rows, *base_rows]).drop_duplicates(ignore_index=True)
-    coverage_blocks: list[Any] = [TableBlock("Fontes, cortes e cobertura", reference_frame, compact=True,
-                                             notes=(*fund_list, *(f"{r['Referência']}: {r['Conteúdo']}" for r in references),
-                                                    *dict.fromkeys(all_document_sources)))]
+    quality_rows, quality_notes = [], []
     for frame, origin in ((main_monthly, "Base mensal"), (main_monitor, "Monitoramento")):
         quality = _quality_block(frame, origin)
-        if quality is not None and not any(isinstance(b, TableBlock) and b.frame.equals(quality.frame) for b in coverage_blocks):
-            coverage_blocks.append(replace(quality, compact=True))
+        if quality is None:
+            continue
+        quality_notes.extend(quality.notes)
+        for _, row in quality.frame.iterrows():
+            entry = {"Referência": f"Qualidade · {row['Indicador']}", "Conteúdo": f"{row['Estado por competência']} ({origin.lower()})."}
+            if not any(existing["Referência"] == entry["Referência"] for existing in quality_rows):
+                quality_rows.append(entry)
+    reference_frame = pd.DataFrame([*context_rows, *base_rows, *quality_rows]).drop_duplicates(ignore_index=True)
+    coverage_blocks: list[Any] = [TableBlock("Fontes, cortes e cobertura", reference_frame, compact=True,
+                                             notes=(*fund_list, *(f"{r['Referência']}: {r['Conteúdo']}" for r in references),
+                                                    *dict.fromkeys(all_document_sources), *quality_notes))]
     coverage = [slide(SECTION_COVERAGE, deck_entity, coverage_blocks, source="CVM / Fundos.NET / B3", appendix=True, section=SECTION_COVERAGE)]
 
     if include_conclusions:
@@ -1774,7 +1865,9 @@ def build_portfolio_deck_spec(
         if blocks:
             head.append(SlideSpec("Conclusões", f"{deck_entity} · {period}", blocks, _SOURCE, notes=(*source_summary, *identity_notes)))
 
-    ordered = [*head, *analysis, *documentary_slides, *appendix_tables, *fund_annex, *coverage]
+    # Analysis first (themes, then fund by fund); the material read on demand
+    # (series, documents, references) closes the deck, in that order.
+    ordered = [*head, *analysis, *fund_annex, *appendix_tables, *documentary_slides, *coverage]
     metadata = (f"{len(funds)} fundo{'s' if len(funds) != 1 else ''} · {period}",
                 f"Período solicitado: {requested_period_label or period}",
                 "Consulta: " + now.astimezone(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M"))

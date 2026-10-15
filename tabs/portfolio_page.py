@@ -1115,10 +1115,10 @@ def _render_unified_portfolio_download(
         )
         table_placement = st.radio(
             "Tabelas das séries",
-            options=("inline", "appendix"),
+            options=("appendix", "inline"),
             format_func={"inline": "Logo após os gráficos de cada tema", "appendix": "Em apêndice, na ordem dos temas"}.get,
             key=f"portfolio_ppt_table_placement::{selected_portfolio.id}",
-            help="Junto dos gráficos favorece a leitura prévia; em apêndice deixa a apresentação ao vivo mais curta.",
+            help="Em apêndice o corpo fica com gráficos e uma tabela-complemento por tema; junto dos gráficos favorece a leitura prévia.",
         )
     signature = download_context_signature(signature, include_conclusions, table_placement)
     namespace = f"portfolio::{selected_portfolio.id}"
@@ -1344,7 +1344,7 @@ def _prepare_complete_portfolio_pptx(
     *, analysis: PortfolioAnalysisData, selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection, return_inputs: Any = None,
     return_inputs_error: str | None = None, include_conclusions: bool = False,
-    table_placement: str = "inline",
+    table_placement: str = "appendix",
 ):
     """Compose the requested portfolio once, using the existing analytical results."""
     from services.fidc_analytical_slide import build_slide_data

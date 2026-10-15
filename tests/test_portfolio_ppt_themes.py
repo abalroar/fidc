@@ -6,6 +6,9 @@ from types import SimpleNamespace
 
 import pandas as pd
 from pptx import Presentation
+from pptx.util import Pt
+
+from services.portfolio_ppt_style import DEFAULT_STYLE
 
 from tests.test_portfolio_ppt_export import _build, _inputs, _spec, _tables, _visible_text
 
@@ -27,44 +30,57 @@ def _dashboard(months=13, *, subordination=None, coverage=None):
     )
 
 
-def test_themes_follow_snapshot_then_documents_then_one_coverage_slide():
+def _first(titles, name):
+    return next(index for index, title in enumerate(titles) if name in title.split(" · ") or title.startswith(name))
+
+
+def test_deck_reads_snapshot_themes_appendix_documents_then_coverage():
     kwargs = _inputs(months=13)
     kwargs["dashboard"] = _dashboard()
     titles = [title for title in _titles(_build(kwargs)) if title]
     order = ["Snapshot", "Estrutura", "Atraso e provisão", "Migração e safras", "Rentabilidade",
-             "Documentos completos", "Referências e cobertura"]
-    positions = [titles.index(title) for title in order]
+             "Apêndice", "Documental", "Referências e cobertura"]
+    positions = [_first(titles, name) for name in order]
     assert positions == sorted(positions)
-    # Each theme is contiguous: charts and their series never split apart.
+    # A theme is contiguous: its charts and reading table never split apart.
     for theme in order[1:5]:
-        indexes = [index for index, title in enumerate(titles) if title == theme]
+        indexes = [index for index, title in enumerate(titles) if theme in title.split(" · ")]
         assert indexes == list(range(indexes[0], indexes[-1] + 1))
-    assert titles.count("Referências e cobertura") == 1
     assert "Séries mensais" not in titles and "Séries IME" not in titles
 
 
-def test_appendix_placement_moves_series_tables_after_documents_in_theme_order():
-    kwargs = _inputs(months=13)
-    spec = _spec({**kwargs, "table_placement": "appendix"})
+def test_series_tables_form_one_appendix_in_theme_order():
+    spec = _spec(_inputs(months=13))
     titles = [page.title for page in spec.slides]
-    appendix = [title for title in titles if title.startswith("Apêndice · ")]
-    assert appendix and titles.index(appendix[0]) > titles.index("Documentos completos")
-    assert appendix == sorted(appendix, key=["Apêndice · Estrutura", "Apêndice · Atraso e provisão",
-                                             "Apêndice · Migração e safras", "Apêndice · Rentabilidade"].index)
+    appendix = [page for page in spec.slides if page.section == "Apêndice · tabelas"]
+    assert appendix and {page.title for page in appendix} == {"Apêndice · séries"}
+    # After the analysis, before the documents; each table says its theme.
+    assert titles.index("Apêndice · séries") > titles.index("Rentabilidade")
+    assert titles.index("Apêndice · séries") < titles.index("Documentos completos")
+    themes = [block.title.split(" · ")[0] for page in appendix for block in page.blocks]
+    order = ["Estrutura", "Atraso e provisão", "Migração e safras", "Rentabilidade"]
+    assert themes == sorted(themes, key=order.index)
     body = [page for page in spec.slides if page.title in {"Estrutura", "Atraso e provisão"}]
     assert body and all(page.layout == "panels" for page in body)
+
+
+def test_inline_placement_keeps_series_after_each_theme():
+    spec = _spec({**_inputs(months=13), "table_placement": "inline"})
+    assert all(page.section != "Apêndice · tabelas" for page in spec.slides)
+    assert any(page.title == "Estrutura" and page.layout == "flow" for page in spec.slides)
 
 
 def test_reported_series_equal_to_derived_is_shown_once():
     kwargs = _inputs(months=13)
     kwargs["dashboard"] = _dashboard(subordination=[30.0] * 13)
+    kwargs["table_placement"] = "inline"
     spec = _spec(kwargs)
     labels = [str(row.iloc[0]) for page in spec.slides for block in page.blocks
               if hasattr(block, "frame") and page.title == "Estrutura" for _, row in block.frame.iterrows()]
     assert "Subordinação ex-360" in labels and "Subordinação reportada" not in labels
     charts = [block for page in spec.slides for block in page.blocks if getattr(block, "title", "") == "Subordinação · %"]
     assert all(len(chart.series) == 1 for chart in charts if hasattr(chart, "series"))
-    assert "coincide" in _visible_text(_build(kwargs))
+    assert "coincide" in _notes_text(_build(kwargs))
 
 
 def test_different_reported_series_shares_the_derived_chart():
@@ -95,12 +111,17 @@ def test_snapshot_drops_comparison_columns_without_data_and_negative_zero():
     assert not any("-0,0" in str(value) for value in snapshot.frame.to_numpy().ravel())
 
 
-def test_long_documentary_text_leaves_the_cell_and_keeps_full_clause_in_appendix():
+def _notes_text(payload):
+    presentation = Presentation(BytesIO(payload))
+    return "\n".join(slide.notes_slide.notes_text_frame.text for slide in presentation.slides)
+
+
+def test_long_documentary_text_leaves_the_cell_and_keeps_full_clause_in_the_notes():
     payload = _build(_inputs(long_document=True))
     cells = [cell.text for table in _tables(payload) for row in table.rows for cell in row.cells]
-    assert any("texto integral em C1" in cell for cell in cells)
-    assert "Cláusulas integrais" in _titles(payload)
-    assert "cláusula219" in _visible_text(payload)
+    assert any("texto integral em C1 (notas do slide)" in cell for cell in cells)
+    assert not any("Cláusulas integrais" in title for title in _titles(payload))
+    assert not any("cláusula219" in cell for cell in cells) and "cláusula219" in _notes_text(payload)
 
 
 def test_continued_table_says_cont_and_never_repeats_a_subtitle_on_a_slide():
@@ -125,15 +146,13 @@ def test_spike_caps_the_axis_and_is_reported():
 def test_dividers_only_in_long_decks_and_before_sections_with_three_slides():
     from services.portfolio_ppt_export import DIVIDER_MIN_SLIDES, _section_dividers
 
-    pages = [SimpleNamespace(section=label) for label in ("", "Estrutura", "Atraso e provisão", "Rentabilidade")]
-    spec = SimpleNamespace(slides=pages)
-    long_counts = [1, 10, 12, 2]
-    assert _section_dividers(spec, long_counts, "auto") == {1: ("Estrutura", 10), 2: ("Atraso e provisão", 12)}
-    short_counts = [1, 5, 5, 2]
-    assert 1 + sum(short_counts) <= DIVIDER_MIN_SLIDES
-    assert _section_dividers(spec, short_counts, "auto") == {}
-    assert _section_dividers(spec, short_counts, "always") == {1: ("Estrutura", 5), 2: ("Atraso e provisão", 5)}
-    assert _section_dividers(spec, long_counts, "never") == {}
+    long_counts = [("", 1), ("Estrutura", 18), ("Atraso e provisão", 20), ("Rentabilidade", 2)]
+    assert _section_dividers(long_counts, "auto") == {1: ("Estrutura", 18), 2: ("Atraso e provisão", 20)}
+    short_counts = [("", 1), ("Estrutura", 5), ("Atraso e provisão", 5), ("Rentabilidade", 2)]
+    assert 1 + sum(count for _, count in short_counts) <= DIVIDER_MIN_SLIDES
+    assert _section_dividers(short_counts, "auto") == {}
+    assert _section_dividers(short_counts, "always") == {1: ("Estrutura", 5), 2: ("Atraso e provisão", 5)}
+    assert _section_dividers(long_counts, "never") == {}
 
 
 def test_multi_fund_keeps_fund_detail_in_a_per_fund_annex():
@@ -220,10 +239,21 @@ def test_large_basket_summarizes_the_annex_in_one_row_per_fund():
     assert sum(page.section == "Anexo por fundo" for page in full.slides) == funds
 
 
-def test_small_basket_annex_has_one_flow_per_fund():
+def test_small_basket_annex_compares_funds_metric_by_metric():
     spec = _spec(_inputs(months=13, funds=3))
     annex = [page for page in spec.slides if page.section == "Anexo por fundo"]
-    assert len(annex) == 3 and all(page.context.startswith("Anexo por fundo") for page in annex)
+    assert annex and all(page.layout == "grid" and page.title.startswith("Por fundo · ") for page in annex)
+    names = [block.title for block in annex[0].blocks]
+    assert len(names) == len(set(names)) == 3 and all([block.title for block in page.blocks] == names for page in annex)
+    # Ratios share one scale; volumes keep each fund's own.
+    ratio = next(page for page in annex if "NPL > 90d" in page.title)
+    assert ratio.title.endswith("escala comum") and len({block.axis_range for block in ratio.blocks}) == 1
+    volume = next(page for page in annex if page.title.startswith("Por fundo · PL total"))
+    assert volume.title.endswith("escala própria") and all(block.axis_range == () for block in volume.blocks)
+    # A metric constant in every fund is a sentence, not a page.
+    assert not any("Subordinação ex-360" in page.title for page in annex)
+    full = _spec({**_inputs(months=13, funds=3), "fund_annex": "full"})
+    assert [page.title for page in full.slides if page.section == "Anexo por fundo"] == names
 
 
 def test_fund_without_monthly_data_leaves_comparisons_and_is_named_in_coverage():
@@ -235,8 +265,87 @@ def test_fund_without_monthly_data_leaves_comparisons_and_is_named_in_coverage()
     comparison = next(block for page in spec.slides for block in page.blocks
                       if getattr(block, "title", "") == "Comparação entre fundos")
     assert len(comparison.frame) == 2
-    assert sum(page.section == "Anexo por fundo" for page in spec.slides) == 2
+    annex = [page for page in spec.slides if page.section == "Anexo por fundo"]
+    assert annex and all(len(page.blocks) == 2 for page in annex)
     coverage = next(block for page in spec.slides for block in page.blocks
                     if getattr(block, "title", "") == "Fontes, cortes e cobertura").frame
     row = coverage[coverage["Referência"] == "Sem informe mensal"]
     assert len(row) == 1 and "2 de 3 fundos" in row["Conteúdo"].iloc[0]
+
+
+def _sheet_item(cnpj):
+    return SimpleNamespace(cnpj=cnpj, name="Fundo 1", competence="2026-08-01", classification="Multicedente",
+                           pl_mm=512.0, receivables_pct_pl=0.96, senior_pct_pl=0.64, subordinated_pct_pl=0.36,
+                           identified_issuance_volume_mm=None, first_issuance=None, last_issuance=None,
+                           minimum_subordination="Sênior: 30% (mez.+jr.)/PL", rdb_status=None, rdb_finding=None,
+                           rdb_source=None, validations=(), issuances=())
+
+
+def test_snapshot_has_no_sparklines_and_sits_beside_the_fund_sheet():
+    kwargs = _inputs(months=13)
+    kwargs["analytical_data"] = (_sheet_item(kwargs["funds"][0].cnpj),)
+    snapshot = next(page for page in _spec(kwargs).slides if page.title == "Snapshot")
+    assert snapshot.layout == "panels" and [block.title for block in snapshot.blocks][1] == "Ficha do fundo"
+    assert "Evolução" not in snapshot.blocks[0].frame.columns
+    presentation = Presentation(BytesIO(_build(kwargs)))
+    second = presentation.slides[1]
+    assert not any(shape.has_chart for shape in second.shapes)
+    tables = [shape for shape in second.shapes if shape.has_table]
+    # Side by side: same top, the sheet to the right of the snapshot.
+    assert len(tables) == 2 and tables[0].top == tables[1].top and tables[1].left > tables[0].left
+
+
+def test_a_theme_charts_and_its_reading_table_share_a_slide_and_charts_take_the_free_height():
+    from services.portfolio_ppt_content import ChartBlock, ChartSeries, SlideSpec
+    from services.portfolio_ppt_export import _items, _pack, _place
+
+    presentation = Presentation(BytesIO(_build(_inputs(months=13))))
+    titles = _titles(_build(_inputs(months=13)))
+    migration = presentation.slides[next(index for index, title in enumerate(titles) if "Migração e safras" in title)]
+    assert any(shape.has_chart for shape in migration.shapes) and any(shape.has_table for shape in migration.shapes)
+    months = tuple(f"{month:02d}/25" for month in range(1, 13))
+    line = lambda title, step: ChartBlock(title, months, (ChartSeries(title, title, tuple(1.0 + step * i for i in range(12))),))
+    page = SlideSpec("Estrutura", "c", (line("PL", .1), line("Subordinação", .2)), layout="panels", section="Estrutura")
+    slides = _pack(list(_items(page, DEFAULT_STYLE)), DEFAULT_STYLE)
+    placed = _place(slides[0], DEFAULT_STYLE)
+    # Two charts alone on the slide grow to the bottom of the content area, side by side.
+    assert len(slides) == 1 and len(placed) == 2 and placed[0].height == placed[1].height and placed[0].y == placed[1].y
+    assert placed[0].y + placed[0].height >= DEFAULT_STYLE.content_bottom - 1
+
+
+def test_small_themes_share_one_slide_named_after_both():
+    from services.portfolio_ppt_content import ChartBlock, ChartSeries, SlideSpec, TextBlock
+    from services.portfolio_ppt_export import _merge_small_themes, _groups
+
+    sentence = lambda title: TextBlock(title, "Constante em 0,0% no período.")
+    pages = (SlideSpec("Atraso e provisão", "c", (sentence("NPL"),), layout="panels", section="Atraso e provisão"),
+             SlideSpec("Migração e safras", "c", (sentence("Roll"),), layout="panels", section="Migração e safras"))
+    groups = _merge_small_themes(_groups(SimpleNamespace(slides=pages)), DEFAULT_STYLE)
+    assert len(groups) == 1 and {item.group for item in groups[0]["items"] if item.block is not None} == {"Atraso e provisão", "Migração e safras"}
+
+
+def test_quality_states_read_as_month_ranges_in_the_reference_table():
+    from services.portfolio_ppt_content import _state_runs
+
+    labels = ["set/25", "out/25", "nov/25", "dez/25", "jan/26"]
+    states = ["Sem dados", "Sem dados", "Válido", "Não calculável", "Válido"]
+    assert _state_runs(labels, states) == "Sem dados: set/25–out/25; Válido: nov/25, jan/26; Não calculável: dez/25"
+
+
+def test_single_fund_references_have_no_peer_row_and_no_cover_repeats():
+    spec = _spec(_inputs(months=13))
+    frame = next(block for page in spec.slides for block in page.blocks
+                 if getattr(block, "title", "") == "Fontes, cortes e cobertura").frame
+    labels = set(frame["Referência"])
+    assert not any("pares" in label.casefold() for label in labels)
+    assert not labels & {"Consulta solicitada", "Período solicitado", "Histórico selecionado", "Consulta", "Fonte mensal"}
+
+
+def test_axis_cap_note_keeps_the_decimals_a_small_cap_needs():
+    from services.portfolio_ppt_content import ChartBlock, ChartSeries
+    from services.portfolio_ppt_export import _chart_notes
+
+    values = (0.1, 0.12, 0.11, 0.13, 0.1, 0.12, 0.11, 0.1, 2.4, 2.5)
+    chart = ChartBlock("NPL · %", tuple(f"m{i}" for i in range(len(values))), (ChartSeries("npl", "NPL", values),))
+    note = next(line for line in _chart_notes(chart)[1] if line.startswith("Eixo limitado"))
+    assert "a 0,15%" in note

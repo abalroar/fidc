@@ -6,7 +6,7 @@ concatenate the old presentations. Tables, lines and sparklines remain editable.
 
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from io import BytesIO
 import math
 import re
@@ -23,12 +23,12 @@ from pptx.enum.text import MSO_AUTO_SIZE, MSO_ANCHOR, PP_ALIGN
 from pptx.oxml.xmlchemy import OxmlElement
 from pptx.util import Pt
 
-from services.portfolio_ppt_style import DEFAULT_STYLE, SNAPSHOT_SERIES_KEYS, PortfolioPptStyle, series_color
+from services.portfolio_ppt_style import DEFAULT_STYLE, PortfolioPptStyle, series_color
 
 
 def build_portfolio_pptx_bytes(*, style: PortfolioPptStyle = DEFAULT_STYLE,
                                presentation_context=None, export_warnings=(),
-                               table_placement: str = "inline", section_dividers: str = "auto",
+                               table_placement: str = "appendix", section_dividers: str = "auto",
                                **inputs: Any) -> bytes:
     """Compose the portfolio deck.
 
@@ -37,9 +37,9 @@ def build_portfolio_pptx_bytes(*, style: PortfolioPptStyle = DEFAULT_STYLE,
     in the same theme order (live presentation).
     ``section_dividers``: ``"auto"`` adds dividers only to long decks,
     ``"always"`` or ``"never"`` force the choice.
-    ``fund_annex`` (in ``inputs``): ``"auto"`` keeps the per-fund annex up to
-    ``FUND_ANNEX_MAX_FUNDS`` funds and summarizes it (one row per fund) above;
-    ``"full"`` or ``"summary"`` force the choice.
+    ``fund_annex`` (in ``inputs``): ``"auto"`` shows each key metric fund by
+    fund (small multiples) up to ``FUND_ANNEX_MAX_FUNDS`` funds and one row
+    per fund above; ``"metrics"``, ``"full"`` or ``"summary"`` force the choice.
     """
     from services.portfolio_ppt_content import build_portfolio_deck_spec
 
@@ -193,10 +193,6 @@ def _table_widths(block, width: float, style) -> list[float]:
     columns = list(block.frame.columns)
     if len(columns) == 1:
         return [width]
-    if getattr(block, "snapshot_history", None):
-        fractions = {5: (.31, .18, .16, .16, .19), 4: (.36, .20, .20, .24), 3: (.44, .26, .30)}.get(len(columns))
-        if fractions:
-            return [width * fraction for fraction in fractions]
     size = style.table_min_size if getattr(block, "compact", False) else style.table_size
     weights, wants = [], []
     for index, column in enumerate(columns):
@@ -241,8 +237,6 @@ def _table_layout(block, width: float, style, *, compact=False):
         # Line height ≈ 1.2 × size plus the 2pt cell margins, as rendered; a
         # lower estimate lets a long table run into the footer.
         height = max(16.5 if size <= 10 else 21, lines * size * 1.2 + 4.5)
-        if getattr(block, "snapshot_history", None):
-            height = max(39, height)
         heights.append(height)
     return widths, header_height, heights, size
 
@@ -279,7 +273,6 @@ def _table(slide, block, x, y, width, *, style, compact=False):
     for row, height in zip(table.rows, [header_h, *heights]):
         row.height = Pt(height)
     numeric = set(getattr(block, "numeric_columns", ()))
-    history = getattr(block, "snapshot_history", {}) or {}
     colors = getattr(block, "cell_colors", {}) or {}
     values = [list(block.frame.columns), *block.frame.values.tolist()]
     for row_index, row_values in enumerate(values):
@@ -303,58 +296,13 @@ def _table(slide, block, x, y, width, *, style, compact=False):
                 paragraph.line_spacing = 1.02
                 for run in paragraph.runs:
                     run.font.name = style.font
-                    run.font.size = Pt(size if not history or row_index == 0 else 13 if column_index == 1 else 11)
-                    run.font.bold = row_index == 0 or column_index == 0 or bool(history and column_index == 1)
+                    run.font.size = Pt(size)
+                    run.font.bold = row_index == 0 or column_index == 0 or bool(getattr(block, "snapshot", False) and column_index == 1)
                     color = colors.get((row_index - 1, column), style.text)
                     color = {"good": style.good, "bad": style.bad, "neutral": style.muted}.get(color, color)
                     run.font.color.rgb = _rgb(style.white if row_index == 0 else color)
             _borders(cell, style, header=row_index == 0)
-    if history:
-        offset_y = y + header_h
-        for row_index, height in enumerate(heights):
-            label = str(block.frame.iloc[row_index, 0])
-            series = history.get(label)
-            if series:
-                table.cell(row_index + 1, len(widths) - 1).text = ""
-                data = [_number(value) for value in series]
-                finite = [value for value in data if value is not None]
-                hx, hw = x + sum(widths[:-1]) + 7, widths[-1] - 14
-                if finite and len(finite) == len(data) and len({_br(v, 1) for v in finite}) == 1:
-                    caption = "1 observação" if len(data) == 1 else "Constante no período"
-                    _text(slide, caption, hx, offset_y + (height - 15) / 2,
-                          hw, 17, size=9.5, color=style.muted, style=style)
-                elif finite:
-                    table.cell(row_index + 1, len(widths) - 1).text = ""
-                    _sparkline(slide, data, hx, offset_y + 6, hw, height - 12, style,
-                               key=SNAPSHOT_SERIES_KEYS.get(label, label))
-            offset_y += height
     return header_h + sum(heights) + (22 if block.title else 0)
-
-
-def _sparkline(slide, values, x, y, w, h, style, *, key=""):
-    data = CategoryChartData()
-    data.categories = [str(i) for i in range(len(values))]
-    data.add_series("Evolução", values)
-    chart = slide.shapes.add_chart(XL_CHART_TYPE.LINE, Pt(x), Pt(y), Pt(w), Pt(h), data).chart
-    chart.has_legend = chart.has_title = False
-    chart.category_axis.visible = chart.value_axis.visible = False
-    chart.category_axis.major_tick_mark = chart.value_axis.major_tick_mark = XL_TICK_MARK.NONE
-    chart.value_axis.has_major_gridlines = False
-    finite = [v for v in values if v is not None]
-    lo, hi = _bounds(finite)
-    chart.value_axis.minimum_scale, chart.value_axis.maximum_scale = lo, hi
-    chart.series[0].format.line.color.rgb = _rgb(series_color(key, style) if key else style.muted)
-    chart.series[0].format.line.width = Pt(1.4)
-    chart.series[0].marker.style = XL_MARKER_STYLE.NONE
-    _chart_layout(chart, .02, .02, .95, .94)
-    _chart_gaps(chart)
-
-
-def _bounds(values):
-    lo, hi = min(values), max(values)
-    span = hi - lo
-    padding = span * .14 if span else max(abs(hi) * .06, .1)
-    return max(0, lo - padding) if lo >= 0 else lo - padding, hi + padding
 
 
 def _axis_bounds(values):
@@ -447,7 +395,8 @@ def _chart_notes(block):
             peaks = [(v, block.categories[i], s) for s, vals in variable if not s.reference
                      for i, v in enumerate(vals) if v is not None and v > cap]
             text = "; ".join(f"{_br(v, s.decimals)}{'%' if s.unit == '%' else ''} em {month}" for v, month, s in peaks)
-            lines.append(f"Eixo limitado a {_br(cap, 0)}{'%' if block.unit == '%' else ''} para legibilidade; pico de {text}.")
+            places = 0 if cap >= 10 else 1 if cap >= 1 else 2
+            lines.append(f"Eixo limitado a {_br(cap, places)}{'%' if block.unit == '%' else ''} para legibilidade; pico de {text}.")
     return variable, lines, cap
 
 
@@ -462,8 +411,9 @@ def _kpi(slide, block, x, y, width, height, style):
           size=13, color=style.muted, style=style)
 
 
-def _chart(slide, block, x, y, width, height, style, *, band=None):
-    _text(slide, block.title, x, y, width, 22, size=style.section_size, bold=True, style=style)
+def _chart(slide, block, x, y, width, height, style, *, band=None, compact=False):
+    """``compact``: a small multiple, with smaller type and narrower lanes."""
+    _text(slide, block.title, x, y, width, 22, size=11 if compact else style.section_size, bold=True, style=style)
     variable, lines, cap = _chart_notes(block)
     own_band = _band_height(lines, width)
     if lines:
@@ -507,13 +457,16 @@ def _chart(slide, block, x, y, width, height, style, *, band=None):
         chart.legend.font.size = Pt(10)
         chart.legend.font.name = style.font
         chart.legend.font.color.rgb = _rgb(style.muted)
-    chart.font.name, chart.font.size = style.font, Pt(style.chart_size)
+    type_size = 9 if compact else style.chart_size
+    chart.font.name, chart.font.size = style.font, Pt(type_size)
     values = [v for s, vals in variable if not s.reference for v in vals if v is not None]
     references = [v for s, vals in variable if s.reference for v in vals if v is not None]
     if cap is not None:
         values = [v for v in values if v <= cap]
     if references and cap is None:
         values = [*values, *references]
+    if cap is None and getattr(block, "axis_range", ()):
+        values = [*values, *block.axis_range]
     lo, hi, major_unit, tick_decimals = _axis_bounds(values)
     if cap is not None:
         hi = max(hi, cap)
@@ -521,7 +474,7 @@ def _chart(slide, block, x, y, width, height, style, *, band=None):
     axis.minimum_scale, axis.maximum_scale = lo, hi
     axis.major_unit = major_unit
     axis.tick_labels.font.name = style.font
-    axis.tick_labels.font.size = Pt(style.chart_size)
+    axis.tick_labels.font.size = Pt(type_size)
     axis.tick_labels.font.color.rgb = _rgb(style.muted)
     number_format = "[$-416]#,##0" + ("." + "0" * tick_decimals if tick_decimals else "")
     axis.tick_labels.number_format = number_format + ('"%"' if block.unit == "%" else "")
@@ -533,15 +486,15 @@ def _chart(slide, block, x, y, width, height, style, *, band=None):
     axis.major_tick_mark = axis.minor_tick_mark = XL_TICK_MARK.NONE
     chart.category_axis.tick_label_position = XL_TICK_LABEL_POSITION.LOW
     chart.category_axis.tick_labels.font.name = style.font
-    chart.category_axis.tick_labels.font.size = Pt(10)
+    chart.category_axis.tick_labels.font.size = Pt(8 if compact else 10)
     chart.category_axis.tick_labels.font.color.rgb = _rgb(style.muted)
-    chart.category_axis.tick_label_spacing = max(1, math.ceil(len(block.categories) / (18 if width > 600 else 13)))
+    chart.category_axis.tick_label_spacing = max(1, math.ceil(len(block.categories) / (18 if width > 600 else 13 if width > 320 else 5)))
     chart.category_axis.format.line.fill.background()
     chart.category_axis.major_tick_mark = chart.category_axis.minor_tick_mark = XL_TICK_MARK.NONE
     _chart_gaps(chart)
-    label_lane = 52.0
+    label_lane, left = (40.0, 34.0) if compact else (52.0, 42.0)
     top = 30.0 if chart.has_legend else 6.0
-    _chart_layout(chart, 42 / width, top / chart_h, max(.3, 1 - (42 + label_lane) / width), max(.3, 1 - (top + 34) / chart_h))
+    _chart_layout(chart, left / width, top / chart_h, max(.3, 1 - (left + label_lane) / width), max(.3, 1 - (top + 34) / chart_h))
     for native, (spec, _) in zip(chart.series, variable):
         native.format.line.color.rgb = _rgb(style.muted if spec.reference else series_color(spec.key, style))
         native.format.line.width = Pt(1.0 if spec.reference else style.line_width)
@@ -578,7 +531,7 @@ def _chart(slide, block, x, y, width, height, style, *, band=None):
         paragraph = frame.paragraphs[0]
         run = paragraph.add_run()
         run.text = label
-        run.font.name, run.font.size, run.font.bold = style.font, Pt(style.chart_size), True
+        run.font.name, run.font.size, run.font.bold = style.font, Pt(type_size), True
         run.font.color.rgb = _rgb(series_color(spec.key, style))
     # Native hierarchical labels remain horizontal, including narrow plots.
     for body in chart._chartSpace.xpath(".//c:catAx/c:txPr/a:bodyPr"):
@@ -651,7 +604,7 @@ def _fits_horizontally(block, width, style):
         numeric = column in block.numeric_columns or token in {"number", "money", "money_value", "percent", "integer"}
         month = bool(re.fullmatch(r"[a-z]{3}/\d{2}", str(column)))
         if numeric or month:
-            font_size = 13 if block.snapshot_history and index == 1 else size
+            font_size = size
             length = max((len(format_cell(value, block.formats.get(column, "text"))) for value in block.frame[column]), default=0)
             required = max(48 if month else 0, length * font_size * .56 + 12)
             if allotted + .01 < required:
@@ -737,7 +690,7 @@ def _split_table(block, style, width=None, height=None):
 
 
 #: Decks longer than this get section dividers in ``section_dividers="auto"``.
-DIVIDER_MIN_SLIDES = 24
+DIVIDER_MIN_SLIDES = 40
 #: ...and only before sections with at least this many slides.
 DIVIDER_MIN_SECTION = 3
 SECTION_DIVIDER_MODES = ("auto", "always", "never")
@@ -752,190 +705,393 @@ def _divider(prs, label, size, style):
     slide.notes_slide.notes_text_frame.text = f"Divisória de seção: {label}."
 
 
-def _draw_panels(prs, page, blocks, style, footer=None):
+#: Smallest plot a chart keeps (plus its 22pt title and note band); free
+#: space on a slide is then given back to the charts.
+CHART_PLOT_MIN = 130.0
+#: A chart with more series than this takes the full width.
+HALF_WIDTH_SERIES = 3
+#: Vertical gap between stacked blocks.
+BLOCK_GAP = 12.0
+
+
+@dataclass
+class _Item:
+    """One placeable piece: a chart, a table chunk or a text."""
+    block: Any
+    page: Any
+    full: bool
+    height: float
+    chart: bool = False
+    band: float = 0.0
+    compact: bool = False
+    group: str = ""
+    x: float = 0.0
+    y: float = 0.0
+    width: float = 0.0
+
+
+def _half(style):
+    return (style.content_width - style.gap) / 2
+
+
+def _merged_texts(blocks):
+    from services.portfolio_ppt_content import TextBlock
+
+    merged = []
+    for block in blocks:
+        if merged and isinstance(block, TextBlock) and isinstance(merged[-1], TextBlock) and block.title == merged[-1].title:
+            merged[-1] = replace(merged[-1], text=f"{merged[-1].text}\n{block.text}")
+        else:
+            merged.append(block)
+    return merged
+
+
+def _text_height(block, width, *, full):
+    """As drawn: ``_kpi`` beside other blocks (30pt title band, 13pt type on
+    18pt lines); the 14pt-line flow text across the slide."""
+    if full:
+        return (22 if block.title else 0) + len(_lines(block.text, width, DEFAULT_STYLE.table_size)) * 14
+    return 30 + len(_lines(block.text, width, 13)) * 18
+
+
+def _items(page, style):
+    """Size every block of a page. In ``panels`` pages every block takes half
+    the width (side by side); elsewhere a table takes half the width when its
+    natural width fits there."""
     from services.portfolio_ppt_content import ChartBlock, TableBlock
 
-    slide = _header(prs, page, style)
-    width = style.content_width if len(blocks) == 1 else (style.content_width - style.gap) / 2
+    half, full_width = _half(style), style.content_width
     height = style.content_bottom - style.content_top
-    if footer is not None:
-        # A small table of the same theme sits under the panels instead of
-        # taking a slide of its own; it never repeats a panel's subtitle.
-        if footer.title in {getattr(block, "title", None) for block in blocks}:
-            footer = replace(footer, title=f"{footer.title} (tabela)")
-        footer_height = _table_height(footer, style) + 12
-        height -= footer_height
-        notes = slide.notes_slide.notes_text_frame
-        notes.text = "\n".join(dict.fromkeys([*notes.text.split("\n"), *map(str, footer.notes)]))
-        _table(slide, footer, style.margin, style.content_bottom - footer_height + 12, style.content_width, style=style)
-    # Paired plots share the note band, so both start at the same height and
-    # have the same plot height.
-    band = max([_band_height(_chart_notes(block)[1], width) for block in blocks if isinstance(block, ChartBlock)], default=0)
-    for index, block in enumerate(blocks):
-        x = style.margin + index * (width + style.gap)
+    panels = page.layout == "panels"
+    # Tables beside charts use the small type; tables paired with tables keep theirs.
+    beside_charts = panels and any(isinstance(block, ChartBlock) for block in page.blocks)
+    for block in _merged_texts(page.blocks):
         if isinstance(block, ChartBlock):
-            _chart(slide, block, x, style.content_top, width, height, style, band=band)
+            drawn = [s for s in block.series if not s.reference]
+            wide = len(drawn) > HALF_WIDTH_SERIES and not panels
+            width = full_width if wide else half
+            band = _band_height(_chart_notes(block)[1], width)
+            yield _Item(block, page, wide, 22 + band + CHART_PLOT_MIN, chart=True, band=band)
         elif isinstance(block, TableBlock):
-            _table(slide, block, x, style.content_top, width, style=style, compact=True)
+            compact = beside_charts or block.compact
+            if not panels and _narrow_text_table(block, style):
+                # Wrapped at half the width, beside the next one.
+                for chunk in _table_chunks(replace(block, compact=True), style, half, height):
+                    yield _Item(chunk, page, False, _measure(chunk, half, style, True), compact=True)
+                continue
+            for chunk in _table_chunks(replace(block, compact=compact), style, half if panels else full_width, height):
+                widths, _, _, _ = _table_layout(chunk, full_width, style)
+                if panels or sum(widths) <= half:
+                    yield _Item(chunk, page, False, _measure(chunk, half, style, compact), compact=compact)
+                else:
+                    yield _Item(chunk, page, True, _measure(chunk, full_width, style, False))
+        elif _text_height(block, half, full=False) <= height / 2:
+            yield _Item(block, page, False, _text_height(block, half, full=False))
         else:
-            _kpi(slide, block, x, style.content_top, width, height, style)
+            # Long text runs across the slide and continues on the next one.
+            lines = _lines(block.text, full_width, style.table_size)
+            per_slide = max(1, int((height - 22) // 14))
+            for start in range(0, len(lines), per_slide):
+                title = block.title if start == 0 or not block.title else f"{block.title} (cont.)"
+                piece = replace(block, title=title, text="\n".join(lines[start:start + per_slide]))
+                yield _Item(piece, page, True, _text_height(piece, full_width, full=True))
 
 
-#: A lone table up to this share of the content height joins the panels above it.
-FOOTER_TABLE_SHARE = .35
-
-
-def _table_height(block, style):
-    _, header_h, rows, _ = _table_layout(block, style.content_width, style)
+def _measure(block, width, style, compact=False):
+    _, header_h, rows, _ = _table_layout(block, width, style, compact=compact)
     return header_h + sum(rows) + (22 if block.title else 0)
 
 
-def _footer_table(page, following, style):
-    """The single small table of the next page, when it can close this
-    panels page: same section, one block, one piece, short enough."""
+def _narrow_text_table(block, style):
+    """A two- or three-column text table (documentary fields) reads as well
+    wrapped in half the width, and then pairs with the next one."""
+    if block.snapshot or len(block.frame.columns) > 3 or len(block.frame) == 0:
+        return False
+    if any(_is_numeric_column(block, column) for column in block.frame.columns[1:]):
+        return False
+    widths, _, _, _ = _table_layout(block, style.content_width, style)
+    half = _half(style)
+    if sum(widths) > .72 * style.content_width:
+        return False
+    return _measure(block, half, style, True) <= 1.8 * _measure(block, style.content_width, style, block.compact)
+
+
+def _split_to_fit(item, available, style):
+    """Rows of a full-width table that fill the rest of a slide; the remaining
+    rows continue on the next one. None when the piece would be too small."""
     from services.portfolio_ppt_content import TableBlock
 
-    if (page.layout != "panels" or len(page.blocks) > 2 or following is None or following.layout != "flow" or following.section != page.section
-            or len(following.blocks) != 1 or not isinstance(following.blocks[0], TableBlock)):
+    from services.portfolio_ppt_content import SECTION_APPENDIX, SECTION_COVERAGE, SECTION_DOCUMENTS
+
+    block = item.block
+    # Only reference material is split; a table read in the body stays whole.
+    if (item.page.section not in {SECTION_APPENDIX, SECTION_COVERAGE, SECTION_DOCUMENTS} or not isinstance(block, TableBlock)
+            or block.snapshot or len(block.frame) < 6 or available < 110):
         return None
-    block = following.blocks[0]
-    if len(list(_table_chunks(block, style))) != 1:
+    width = style.content_width if item.full else _half(style)
+    head = next(iter(_split_table(replace(block, compact=item.compact), style, width, available)), None)
+    if head is None or list(head.frame.columns) != list(block.frame.columns):
         return None
-    limit = FOOTER_TABLE_SHARE * (style.content_bottom - style.content_top)
-    return block if _table_height(block, style) <= limit else None
+    rows = len(head.frame)
+    if rows < 3 or len(block.frame) - rows < 3 or _measure(head, width, style, item.compact) > available:
+        return None
+    title = block.title if not block.title or block.title.endswith("(cont.)") else f"{block.title} (cont.)"
+    rest = _table_chunks(replace(block, frame=block.frame.iloc[rows:], title=title, compact=item.compact), style, width,
+                         style.content_bottom - style.content_top)
+    return [replace(item, block=piece, height=_measure(piece, width, style, item.compact)) for piece in (head, *rest)]
 
 
-def _draw_flow(prs, page, blocks, style):
-    """Stack the blocks of one theme in reading order; a new slide only when
-    the next piece does not fit, and continuations say "(cont.)"."""
+def _pack(items, style):
+    """Two-column shelves, filled in reading order. A half item goes to the
+    shorter column of the open shelf; a full item closes it. A slide ends only
+    when the next piece does not fit. Returns slides as lists of shelves."""
+    limit = style.content_bottom - style.content_top + .5
+    slides, shelves, top, cols = [], [], 0.0, None
+
+    def close():
+        nonlocal top, cols
+        if cols is not None:
+            top = max(sum(i.height for i in col) + BLOCK_GAP * len(col) for col in cols) + shelves[-1]["top"]
+            cols = None
+
+    def new_slide():
+        nonlocal shelves, top, cols
+        if shelves:
+            slides.append(shelves)
+        shelves, top, cols = [], 0.0, None
+
+    queue = list(items)
+    while queue:
+        item = queue.pop(0)
+        if item.block is None:  # a theme boundary inside a shared slide
+            close()
+            continue
+        if item.full:
+            close()
+            if shelves and top + item.height > limit:
+                pieces = _split_to_fit(item, limit - top - .5, style)
+                if pieces:
+                    item, queue = pieces[0], [*pieces[1:], *queue]
+                else:
+                    new_slide()
+            shelves.append({"top": top, "full": item, "cols": None})
+            top += item.height + BLOCK_GAP
+            continue
+        if cols is None:
+            if shelves and top + item.height > limit:
+                new_slide()
+            cols = [[], []]
+            shelves.append({"top": top, "full": None, "cols": cols})
+        bottoms = [shelves[-1]["top"] + sum(i.height + BLOCK_GAP for i in col) for col in cols]
+        side = 0 if bottoms[0] <= bottoms[1] else 1
+        if bottoms[side] + item.height > limit:
+            pieces = _split_to_fit(item, limit - bottoms[side] - .5, style)
+            if pieces:
+                cols[side].append(pieces[0])
+                queue = [*pieces[1:], *queue]
+                continue
+            close()
+            new_slide()
+            cols = [[], []]
+            shelves.append({"top": 0.0, "full": None, "cols": cols})
+            side = 0
+        cols[side].append(item)
+    if shelves:
+        slides.append(shelves)
+    return slides
+
+
+def _place(shelves, style):
+    """Positions for one slide. Free height goes to shelves whose columns hold
+    one block each with a chart among them, so charts grow instead of leaving
+    a band of white below them; paired charts keep one plot height."""
+    half = _half(style)
+    limit = style.content_bottom - style.content_top
+
+    def height_of(shelf):
+        if shelf["full"] is not None:
+            return shelf["full"].height
+        return max((sum(i.height for i in col) + BLOCK_GAP * (len(col) - 1) for col in shelf["cols"] if col), default=0)
+
+    used = sum(height_of(shelf) for shelf in shelves) + BLOCK_GAP * (len(shelves) - 1)
+    growable = [shelf for shelf in shelves
+                if (shelf["full"] is not None and shelf["full"].chart)
+                or (shelf["cols"] is not None and all(len(col) <= 1 for col in shelf["cols"])
+                    and any(col and col[0].chart for col in shelf["cols"]))]
+    extra = max(0.0, limit - used) / len(growable) if growable else 0.0
+    placed, y = [], style.content_top
+    for shelf in shelves:
+        grow = extra if any(shelf is g for g in growable) else 0.0
+        if shelf["full"] is not None:
+            item = shelf["full"]
+            item.x, item.y, item.width = style.margin, y, style.content_width
+            if item.chart:
+                item.height += grow
+            placed.append(item)
+            y += item.height + BLOCK_GAP
+            continue
+        charts = [col[0] for col in shelf["cols"] if col and col[0].chart and len(col) == 1]
+        if grow or len(charts) == 2:
+            # Side-by-side charts share one height and one note band.
+            target = max(height_of(shelf) + grow, *(c.height for c in charts)) if charts else 0
+            band = max((c.band for c in charts), default=0)
+            for chart in charts:
+                chart.height, chart.band = target, band
+        for side, col in enumerate(shelf["cols"]):
+            cy = y
+            for item in col:
+                item.x, item.y, item.width = style.margin + side * (half + style.gap), cy, half
+                placed.append(item)
+                cy += item.height + BLOCK_GAP
+        y += height_of(shelf) + BLOCK_GAP
+    return placed
+
+
+def _slide_spec(title, items, fallback):
+    """Header of one slide: its own pages' context, source and notes only, so a
+    long section no longer repeats every note on every slide."""
+    pages = list(dict.fromkeys(id(item.page) for item in items))
+    by_id = {id(item.page): item.page for item in items}
+    first = by_id[pages[0]] if pages else fallback
+    notes = [note for page_id in pages for note in by_id[page_id].notes]
+    return replace(first, title=title, notes=tuple(dict.fromkeys(notes)), blocks=tuple(item.block for item in items))
+
+
+def _draw_items(prs, title, items, style, fallback):
     from services.portfolio_ppt_content import ChartBlock, TableBlock
 
-    slide = None
-    y = style.content_top
-    columns = None  # [left y, right y, current side] while tables share columns
-    placed = None  # (slide, title, column) of the last table drawn
-    for block in blocks:
-        if isinstance(block, ChartBlock):
-            _draw_panels(prs, page, (block,), style)
-            slide, columns = None, None
-            continue
-        if isinstance(block, TableBlock):
-            half = (style.content_width - style.gap) / 2
-            for segment in _table_chunks(block, style):
-                widths, header_h, rows, _ = _table_layout(segment, style.content_width, style)
-                height = header_h + sum(rows) + (22 if segment.title else 0)
-                if sum(widths) <= half:
-                    # Narrow tables fill two columns (left, then right)
-                    # instead of leaving half of each slide empty.
-                    if slide is not None and columns is None:
-                        columns = [y, y, 0]
-                    if slide is not None and columns[columns[2]] + height > style.content_bottom and columns[2] == 0:
-                        columns[2] = 1
-                    if slide is None or columns[columns[2]] + height > style.content_bottom:
-                        slide = _header(prs, page, style)
-                        y = style.content_top
-                        columns = [y, y, 0]
-                    side = columns[2]
-                    base = segment.title.removesuffix(" (cont.)")
-                    if base and placed is not None and placed[:2] == (slide, base):
-                        # Continued on the same slide: one title is enough;
-                        # beside itself, the rows stay aligned with the first piece.
-                        segment = replace(segment, title="")
-                        if placed[2] == side:
-                            height -= 22
-                        else:
-                            columns[side] += 22
-                    placed = (slide, base, side)
-                    _table(slide, segment, style.margin + side * (half + style.gap), columns[side], half, style=style)
-                    columns[side] += height + 8
-                    y = max(columns[0], columns[1])
-                    continue
-                if columns is not None:
-                    y, columns = max(columns[0], columns[1]), None
-                if slide is None or y + height > style.content_bottom:
-                    slide = _header(prs, page, style)
-                    y = style.content_top
-                base = segment.title.removesuffix(" (cont.)")
-                if base and placed is not None and placed[:2] == (slide, base):
-                    # The same table goes on right below: one title is enough.
-                    segment = replace(segment, title="")
-                    height -= 22
-                placed = (slide, base, 0)
-                _table(slide, segment, style.margin, y, style.content_width, style=style)
-                y += height + 8
-            continue
-        if columns is not None:
-            y, columns = max(columns[0], columns[1]), None
-        lines = _lines(block.text, style.content_width, style.table_size)
-        for start in range(0, len(lines), 22):
-            visible = lines[start:start + 22]
-            height = len(visible) * 14 + (22 if block.title else 0)
-            if slide is None or y + height > style.content_bottom:
-                slide = _header(prs, page, style)
-                y = style.content_top
-            if block.title:
-                title = block.title if start == 0 else f"{block.title} (cont.)"
-                _text(slide, title, style.margin, y, style.content_width, 22, size=style.section_size, bold=True, style=style)
+    slide = _header(prs, _slide_spec(title, items, fallback), style)
+    for item in items:
+        if isinstance(item.block, ChartBlock):
+            _chart(slide, item.block, item.x, item.y, item.width, item.height, style, band=item.band)
+        elif isinstance(item.block, TableBlock):
+            _table(slide, item.block, item.x, item.y, item.width, style=style, compact=item.compact)
+        elif item.full:
+            lines = _lines(item.block.text, item.width, style.table_size)
+            y = item.y
+            if item.block.title:
+                _text(slide, item.block.title, item.x, y, item.width, 22, size=style.section_size, bold=True, style=style)
                 y += 22
-            _text(slide, "\n".join(visible), style.margin, y, style.content_width, len(visible) * 14,
-                  size=style.table_size, color=style.muted if page.kind == "appendix" else style.text, style=style)
-            y += len(visible) * 14 + 12
+            _text(slide, "\n".join(lines), item.x, y, item.width, item.height - (y - item.y), size=style.table_size,
+                  color=style.muted if item.page.kind == "appendix" else style.text, style=style)
+        else:
+            _kpi(slide, item.block, item.x, item.y, item.width, item.height, style)
+
+
+#: Small multiples per slide: (columns, rows) by number of charts.
+def _grid_shape(count):
+    return (2, 1) if count <= 2 else (2, 2) if count <= 4 else (3, 2) if count <= 6 else (3, 3) if count <= 9 else (4, 3)
+
+
+def _draw_grid(prs, page, style):
+    """One small chart per fund, same size and, for ratios, the same scale."""
+    charts = list(page.blocks)
+    count = 0
+    for start in range(0, len(charts), 12):
+        group = charts[start:start + 12]
+        columns, rows = _grid_shape(len(group))
+        gap = 16.0
+        width = (style.content_width - gap * (columns - 1)) / columns
+        height = (style.content_bottom - style.content_top - BLOCK_GAP * (rows - 1)) / rows
+        title = page.title if start == 0 else f"{page.title} (cont.)"
+        slide = _header(prs, replace(page, title=title, blocks=tuple(group)), style)
+        for index, block in enumerate(group):
+            x = style.margin + (index % columns) * (width + gap)
+            y = style.content_top + (index // columns) * (height + BLOCK_GAP)
+            _chart(slide, block, x, y, width, height, style, compact=True)
+        count += 1
+    return count
+
+
+def _groups(spec):
+    """Pages that read as one section are packed together: a theme's charts,
+    its tables and its texts; the whole appendix; the whole documentation.
+    Small-multiple pages and per-fund flows keep their own slides."""
+    from services.portfolio_ppt_content import SECTION_APPENDIX, SECTION_DOCUMENTS, SECTION_FUNDS
+
+    titles = {SECTION_APPENDIX: "Apêndice · séries", SECTION_DOCUMENTS: "Documental"}
+    groups = []
+    for page in spec.slides:
+        own = page.layout == "grid" or page.section == SECTION_FUNDS
+        key = (page.section or page.title, page.title if own else "")
+        if own or not groups or groups[-1]["key"] != key:
+            groups.append({"key": key, "label": page.section or page.title,
+                           "title": titles.get(page.section, page.title), "pages": []})
+        groups[-1]["pages"].append(page)
+    return groups
 
 
 def _render(spec, style, dividers=None):
-    from services.portfolio_ppt_content import TextBlock
-
     prs = Presentation()
     prs.slide_width, prs.slide_height = Pt(style.width), Pt(style.height)
     prs.core_properties.title = spec.title
     prs.core_properties.author = "Toma Conta"
     _cover(prs, spec, style)
     counts = []
-    absorbed = set()
-    for index, page in enumerate(spec.slides):
-        if index in absorbed:
-            counts.append(0)
-            continue
+    for index, group in enumerate(_merge_small_themes(_groups(spec), style)):
         if dividers and index in dividers:
             _divider(prs, *dividers[index], style)
         before = len(prs.slides._sldIdLst)
-        footer = _footer_table(page, spec.slides[index + 1] if index + 1 < len(spec.slides) else None, style)
-        if footer is not None:
-            absorbed.add(index + 1)
-        blocks = []
-        for block in page.blocks:
-            if (blocks and isinstance(block, TextBlock) and isinstance(blocks[-1], TextBlock)
-                    and block.title == blocks[-1].title):
-                blocks[-1] = replace(blocks[-1], text=f"{blocks[-1].text}\n{block.text}")
-            else:
-                blocks.append(block)
-        if page.layout == "panels" and len(blocks) <= 2:
-            _draw_panels(prs, page, blocks, style, footer=footer)
+        pages = group["pages"]
+        if len(pages) == 1 and pages[0].layout == "grid":
+            _draw_grid(prs, pages[0], style)
         else:
-            _draw_flow(prs, page, blocks, style)
-        counts.append(len(prs.slides._sldIdLst) - before)
+            for shelves in _pack(group["items"], style):
+                placed = _place(shelves, style)
+                # A slide shared by two sections names both.
+                title = " · ".join(dict.fromkeys(item.group for item in placed if item.group)) or group["title"]
+                _draw_items(prs, title, placed, style, pages[0])
+        counts.append((group["label"], len(prs.slides._sldIdLst) - before))
     return prs, counts
 
 
-def _section_dividers(spec, counts, mode):
-    if mode == "never" or (mode == "auto" and 1 + sum(counts) <= DIVIDER_MIN_SLIDES):
+def _merge_small_themes(groups, style):
+    """Analysis themes keep a slide each, except when consecutive themes fit on
+    one slide together (e.g. constant series that became sentences)."""
+    from services.portfolio_ppt_content import SECTION_APPENDIX, SECTION_COVERAGE, SECTION_DOCUMENTS, THEME_TITLES
+
+    themes = set(THEME_TITLES.values())
+    closing = {SECTION_APPENDIX, SECTION_DOCUMENTS, SECTION_COVERAGE}
+    merged = []
+    for group in groups:
+        group = {**group, "items": [] if group["pages"][0].layout == "grid" else
+                 [replace(item, group=group["title"]) for page in group["pages"] for item in _items(page, style)]}
+        previous = merged[-1] if merged else None
+        if (previous is not None and group["label"] in themes and previous["themes"]
+                and len(_pack(previous["items"], style)) == 1 and len(_pack(group["items"], style)) == 1):
+            candidate = [*previous["items"], _Item(None, None, False, 0.0), *group["items"]]
+            if len(_pack(candidate, style)) == 1:
+                previous.update(items=candidate, pages=[*previous["pages"], *group["pages"]])
+                continue
+        if (previous is not None and previous["label"] in closing and group["label"] in closing and group["items"]):
+            # Series appendix, documentation and references close the deck;
+            # neighbours share a slide when that saves one.
+            candidate = [*previous["items"], _Item(None, None, False, 0.0), *group["items"]]
+            if len(_pack(candidate, style)) < len(_pack(previous["items"], style)) + len(_pack(group["items"], style)):
+                previous.update(items=candidate, pages=[*previous["pages"], *group["pages"]])
+                continue
+        merged.append({**group, "themes": group["label"] in themes})
+    return merged
+
+
+def _section_dividers(counts, mode):
+    if mode == "never" or (mode == "auto" and 1 + sum(count for _, count in counts) <= DIVIDER_MIN_SLIDES):
         return {}
-    groups = []
-    for index, (page, count) in enumerate(zip(spec.slides, counts)):
-        label = getattr(page, "section", "")
-        if groups and groups[-1][0] == label:
-            groups[-1][2] += count
+    sections = []
+    for index, (label, count) in enumerate(counts):
+        if sections and sections[-1][0] == label:
+            sections[-1][2] += count
         else:
-            groups.append([label, index, count])
+            sections.append([label, index, count])
     # Short sections do not need a divider.
-    return {index: (label, size) for label, index, size in groups if label and size >= DIVIDER_MIN_SECTION}
+    return {index: (label, size) for label, index, size in sections if label and size >= DIVIDER_MIN_SECTION}
 
 
 def render_portfolio_deck(spec, *, style=DEFAULT_STYLE, section_dividers="auto") -> bytes:
     if section_dividers not in SECTION_DIVIDER_MODES:
         raise ValueError(f"section_dividers deve ser um de {SECTION_DIVIDER_MODES}.")
     prs, counts = _render(spec, style)
-    dividers = _section_dividers(spec, counts, section_dividers)
+    dividers = _section_dividers(counts, section_dividers)
     if dividers:
         prs, _ = _render(spec, style, dividers)
     stream = BytesIO()

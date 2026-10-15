@@ -223,17 +223,20 @@ def test_twenty_three_return_series_and_all_months_remain_native_and_editable():
             assert any(isinstance(cell.value,(int,float)) for sheet in workbook for row in sheet for cell in row)
 
 
-def test_all_five_funds_duration_survives_shared_plot_or_appendix():
+def test_every_fund_keeps_its_position_and_the_annex_points_to_the_full_series():
     kwargs = _inputs(funds=5)
     payload = _build(kwargs)
     text = _visible_text(payload)
     for index in range(1,6):
         assert f'Fundo {index}' in text
         assert f'{index:014d}' in text
-    frames = list(_walk_frames(_spec(kwargs)))
-    numbers = {float(value) for frame in frames for value in frame.to_numpy().ravel()
-               if isinstance(value,(int,float)) and pd.notna(value)}
-    assert {6.0,7.0,8.0,9.0,10.0,10.9,11.2}.issubset(numbers)
+    spec = _spec(kwargs)
+    comparison = next(block for page in spec.slides for block in page.blocks
+                      if getattr(block, 'title', '') == 'Comparação entre fundos')
+    # Latest duration of each fund (6 + index + 12/10), one row per fund.
+    assert list(comparison.frame['Duration (meses)']) == ['7,2', '8,2', '9,2', '10,2', '11,2']
+    annex = [page for page in spec.slides if page.section == 'Anexo por fundo']
+    assert annex and all('Séries mensais completas de cada fundo na página da carteira e no Excel.' in page.notes for page in annex)
 
 
 @pytest.mark.parametrize('months',[1,2])
