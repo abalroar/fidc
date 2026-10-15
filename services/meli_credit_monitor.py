@@ -304,12 +304,6 @@ MATURITY_CURRENT_COLUMNS: tuple[str, ...] = (
     "prazo_venc_1080",
 )
 
-EXPECTED_MELI_CREDIT_FUND_TYPES: tuple[str, ...] = (
-    "Mercado Crédito",
-    "Mercado Crédito I",
-    "Mercado Crédito II",
-)
-
 COHORT_STEPS: tuple[tuple[str, str, int], ...] = (
     ("M1", "atraso_ate30", 1),
     ("M2", "atraso_31_60", 2),
@@ -375,7 +369,6 @@ def build_meli_monitor_outputs(outputs) -> MeliMonitorOutputs:  # noqa: ANN001
     consolidated_monitor = build_monitor_base(getattr(outputs, "consolidated_monthly", pd.DataFrame()))
     consolidated_cohorts = build_cohort_matrix(consolidated_monitor)
     warnings.extend(_monitor_warnings(consolidated_monitor, scope="CONSOLIDADO"))
-    warnings.extend(_universe_warnings(fund_monitor))
     audit_table = build_monitor_audit_table(consolidated_monitor=consolidated_monitor, fund_monitor=fund_monitor)
     pdf_reconciliation = build_pdf_reconciliation_table(consolidated_monitor)
     return MeliMonitorOutputs(
@@ -840,38 +833,6 @@ def _monitor_warnings(df: pd.DataFrame, *, scope: str) -> list[str]:
     return warnings
 
 
-def _universe_warnings(fund_monitor: dict[str, pd.DataFrame]) -> list[str]:
-    if not fund_monitor:
-        return []
-    fund_types: set[str] = set()
-    unexpected: list[str] = []
-    for cnpj, frame in fund_monitor.items():
-        name = str(frame["fund_name"].dropna().iloc[0]) if frame is not None and not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any() else cnpj
-        normalized = _normalize_text(name)
-        fund_type = _classify_meli_credit_fund(normalized)
-        if fund_type:
-            fund_types.add(fund_type)
-        if any(token in normalized for token in ("seller", "factoring", "antecip", "vendedor", "fornecedor")):
-            unexpected.append(name)
-    warnings: list[str] = []
-    missing = [fund_type for fund_type in EXPECTED_MELI_CREDIT_FUND_TYPES if fund_type not in fund_types]
-    if missing:
-        warnings.append("Universo MELI: fundos de crédito esperados ausentes ou sem nome reconhecido: " + ", ".join(missing) + ".")
-    if unexpected:
-        warnings.append("Universo MELI: a carteira contém fundos com perfil possivelmente fora do universo de crédito acompanhado: " + ", ".join(unexpected) + ".")
-    return warnings
-
-
-def _classify_meli_credit_fund(normalized_name: str) -> str | None:
-    if "mercado credito ii" in normalized_name or "mercado credito 2" in normalized_name:
-        return "Mercado Crédito II"
-    if "mercado credito i" in normalized_name or "mercado credito 1" in normalized_name:
-        return "Mercado Crédito I"
-    if "mercado credito" in normalized_name:
-        return "Mercado Crédito"
-    return None
-
-
 def _ensure_numeric_columns(df: pd.DataFrame, columns: list[str]) -> None:
     for column in columns:
         if column not in df.columns:
@@ -947,14 +908,6 @@ def _format_cohort_label(competencia_dt: object, fallback: object) -> str:
         return str(fallback or "N/D")
     month = PT_MONTH_ABBR_TITLE.get(int(ts.month), f"{int(ts.month):02d}")
     return f"{month}-{str(int(ts.year))[-2:]}"
-
-
-def _normalize_text(value: object) -> str:
-    import unicodedata
-
-    text = unicodedata.normalize("NFKD", str(value or ""))
-    text = "".join(char for char in text if not unicodedata.combining(char))
-    return " ".join(text.lower().replace("-", " ").replace("_", " ").split())
 
 
 def _empty_monitor_base() -> pd.DataFrame:

@@ -199,6 +199,8 @@ def observe(row_id: str, fact: Mapping, values: Mapping, fund_type: str) -> Obse
 def _pct(value: float | None, *, signed: bool = False) -> str:
     if value is None:
         return ""
+    if round(value, 1) == 0:
+        value = 0.0  # never "-0,0"
     text = f"{value:+.1f}" if signed else f"{value:.1f}"
     return text.replace(".", ",") + (" p.p." if signed else "%")
 

@@ -134,9 +134,11 @@ def test_fund_comparison_distinguishes_zero_denominator_from_missing_coverage():
             mapping[fund.cnpj]['npl_over90_ex360'] = npl * 1_000_000
             mapping[fund.cnpj]['pdd_npl_over90_ex360_pct'] = float('nan')
     tables = _tables(_build(kwargs))
-    coverage = next(row for table in tables for row in table.rows
-                    if row.cells[0].text == 'Cobertura PDD / NPL (%)')
-    assert [cell.text for cell in list(coverage.cells)[1:]] == ['N/A · NPL zero', 'N/D', 'N/D']
+    # One row per fund; the coverage column keeps N/A distinct from N/D.
+    table = next(table for table in tables if table.cell(0, 0).text == 'Fundo')
+    header = [cell.text for cell in table.rows[0].cells]
+    column = header.index('Cobertura PDD / NPL > 90d (%)')
+    assert [row.cells[column].text for row in list(table.rows)[1:]] == ['N/A · NPL zero', 'N/D', 'N/D']
 
 
 def test_complete_monthly_values_are_preserved_beyond_old_twelve_month_cut_and_inputs_are_unchanged():
@@ -154,8 +156,10 @@ def test_complete_monthly_values_are_preserved_beyond_old_twelve_month_cut_and_i
     # The first and last observations must be present in native table cells.
     cells = {cell.text for table in _tables(payload) for row in table.rows for cell in row.cells}
     money_cells={value.removeprefix('R$ ').removesuffix(' mm') for value in cells}
-    assert '1.003,46' in money_cells
-    assert '1.123,46' in money_cells
+    # Four integer digits drop the decimals on screen; the exact values are
+    # in the plan (checked above) and in the notes.
+    assert '1.003' in money_cells
+    assert '1.123' in money_cells
     assert 'R$ milhões' in text or 'R$ mm' in text
     pd.testing.assert_frame_equal(source,kwargs['outputs'].fund_monthly['00000000000001'])
 

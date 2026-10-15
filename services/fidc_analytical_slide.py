@@ -82,7 +82,8 @@ def _money_mm(value: object) -> float | None:
     text = str(value or "").strip()
     if not text:
         return None
-    match = re.search(r"(?:R\$\s*)?([\d\.]+(?:,\d+)?)", text)
+    # A number starts with a digit; a lone "." (e.g. "...") is not a volume.
+    match = re.search(r"(?:R\$\s*)?(\d[\d\.]*(?:,\d+)?)", text)
     if not match:
         return None
     number = float(match.group(1).replace(".", "").replace(",", "."))
