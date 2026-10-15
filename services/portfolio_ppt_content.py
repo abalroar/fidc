@@ -41,6 +41,8 @@ class TableBlock:
     compact: bool = False
     # The position summary: preformatted values, never pruned or split.
     snapshot: bool = False
+    # Index labels of rows that name a group (theme) of the rows below them.
+    section_rows: tuple[Any, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -62,6 +64,9 @@ class ChartBlock:
     series: tuple[ChartSeries, ...]
     unit: str = "%"
     notes: tuple[str, ...] = ()
+    # "line"; "column" (one series: history in grey, latest in orange;
+    # several: side by side); "stacked" (parts of a whole, with the total);
+    # "bar" (horizontal, one category per series).
     kind: str = "line"
     # Values the axis must also span: small multiples share one scale.
     axis_range: tuple[float, ...] = ()
@@ -517,6 +522,27 @@ def _document_blocks(title: str, frame: pd.DataFrame, *, notes: Iterable[str] = 
     return tuple(blocks)
 
 
+def _with_sections(blocks: list[Any]) -> list[Any]:
+    """Documentary matrices with the same columns become one table: each
+    theme is a sub-header row instead of a title, a header and a gap."""
+    out: list[Any] = []
+    for block in blocks:
+        previous = out[-1] if out else None
+        if not isinstance(block, TableBlock):
+            out.append(block)
+            continue
+        heading = pd.DataFrame([{column: (block.title if index == 0 else "") for index, column in enumerate(block.frame.columns)}])
+        if isinstance(previous, TableBlock) and previous.section_rows and list(previous.frame.columns) == list(block.frame.columns):
+            frame = pd.concat([previous.frame, heading, block.frame], ignore_index=True)
+            sections = (*previous.section_rows, len(previous.frame))
+            out[-1] = replace(previous, frame=frame.astype(object), section_rows=sections,
+                              notes=tuple(dict.fromkeys((*previous.notes, *block.notes))))
+        else:
+            frame = pd.concat([heading, block.frame], ignore_index=True)
+            out.append(replace(block, title="Documentos", frame=frame.astype(object), section_rows=(0,)))
+    return out
+
+
 def _lookup(mapping: Any, cnpj: str) -> Any:
     if not isinstance(mapping, Mapping):
         return None
@@ -924,8 +950,11 @@ def _theme_tables(monthly: pd.DataFrame, monitor: pd.DataFrame, dashboard: Any =
 
 
 def _chart_from_rows(title: str, rows: Iterable[tuple[str, str, _Row]], unit: str, *, decimals: int = 1,
-                     reference: tuple[str, float] | None = None, notes: Iterable[str] = ()) -> ChartBlock | None:
+                     reference: tuple[str, float] | None = None, notes: Iterable[str] = (), kind: str = "line") -> ChartBlock | None:
     rows = [(key, label, row) for key, label, row in rows if row is not None]
+    if kind in {"stacked", "column"}:
+        # A part that is zero in every month adds nothing to columns.
+        rows = [(key, label, row) for key, label, row in rows if any(_number(value) for value in row.values.values())]
     if not rows:
         return None
     months = sorted({month for _, _, row in rows for month in row.values}, key=_month_key)
@@ -942,7 +971,48 @@ def _chart_from_rows(title: str, rows: Iterable[tuple[str, str, _Row]], unit: st
         reference = None
     if reference is not None:
         series.append(ChartSeries("reference", reference[0], tuple(reference[1] for _ in months), unit, decimals, reference=True))
-    return ChartBlock(title, tuple(months), tuple(series), unit, tuple(notes))
+    return ChartBlock(title, tuple(months), tuple(series), unit, tuple(notes), kind=kind)
+
+
+def _share_chart(title: str, chart: ChartBlock | None, notes: Iterable[str] = ()) -> ChartBlock | None:
+    """The same parts as a percentage of their monthly total."""
+    if chart is None:
+        return None
+    totals = [sum(value for spec in chart.series if (value := spec.values[index]) is not None) for index in range(len(chart.categories))]
+    series = tuple(replace(spec, unit="%", decimals=0, values=tuple(
+        value / total * 100 if value is not None and total > 0 else None for value, total in zip(spec.values, totals)))
+        for spec in chart.series)
+    return ChartBlock(title, chart.categories, series, "%", tuple(notes), kind="stacked")
+
+
+#: Aging buckets of the overdue composition, grouped so a stacked column
+#: reads at slide size: (label, first day, last day).
+_AGING_GROUPS = (("Até 30d", 0, 30), ("31–90d", 31, 90), ("91–180d", 91, 180), ("181–360d", 181, 360), ("> 360d", 361, 10**6))
+
+
+def _aging_chart(dashboard: Any) -> ChartBlock | None:
+    rows = _identity_rows(_frame(getattr(dashboard, "default_aging_history_df", None)), "faixa", "percentual_inadimplencia", "IME")
+    if not rows:
+        return None
+    grouped: dict[str, dict[str, float]] = {}
+    for row in rows:
+        days = [int(number) for number in re.findall(r"\d+", row.label)]
+        if not days:
+            return None
+        first = days[0] if not row.label.lower().startswith("até") else 0
+        label = next(name for name, low, high in _AGING_GROUPS if low <= first <= high)
+        for month, value in row.values.items():
+            number = _number(value)
+            if number is not None:
+                grouped.setdefault(label, {}).setdefault(month, 0.0)
+                grouped[label][month] += number
+    if not grouped:
+        return None
+    months = sorted({month for values in grouped.values() for month in values}, key=_month_key)
+    series = tuple(ChartSeries(f"aging:{name}", name, tuple(grouped[name].get(month) for month in months), "%", 0)
+                   for name, _, _ in _AGING_GROUPS if name in grouped and any(grouped[name].values()))
+    return ChartBlock("Aging dos vencidos (IME) · % dos vencidos", tuple(months), series, "%",
+                      ("Composição dos créditos vencidos por faixa de atraso; informe mensal (IME).",), kind="stacked")
 
 
 #: A line needs at least this many observations; fewer read better as values.
@@ -1292,6 +1362,10 @@ def build_portfolio_deck_spec(
     if comparison is not None and annex_mode == "summary":
         # A long fund list is the annex itself, not part of the snapshot.
         annex_comparison, comparison = comparison, None
+    if comparison is not None:
+        # Consolidated position and one row per fund read together: the small
+        # type lets both share the first slide.
+        snapshot, comparison = replace(snapshot, compact=True), replace(comparison, compact=True)
     head: list[SlideSpec | None] = [slide("Snapshot", deck_entity, tuple(block for block in (snapshot, comparison)
                                                                     if block is not None and not block.frame.empty))]
 
@@ -1322,23 +1396,34 @@ def build_portfolio_deck_spec(
     elif reported is not None:
         coverage_notes.append("Subordinação reportada (IME) coincide com a subordinação ex-360 em todas as competências; exibida uma vez.")
     theme_pairs: dict[str, list[tuple[Any, Any]]] = {theme: [] for theme, _ in THEMES}
+    # Parts of the PL by class: the junior classes collapse into one when the
+    # base does not tell mezzanine from subordinated.
+    classes = [s for s in (series("pl_senior", "Sênior"), series("pl_mezzanino", "Mezanino"), series("pl_subordinada_strict", "Subordinada")) if s]
+    if len(classes) < 2:
+        classes = [s for s in (series("pl_senior", "Sênior"), series("pl_subordinada_mezz_ex360", "Subordinada + mezanino")) if s]
+    pl_by_class = _chart_from_rows("PL por classe · R$ milhões", classes, "R$ mm", kind="stacked",
+                                   notes=("Classes de cota da base mensal; total no topo da coluna.",)) if len(classes) >= 2 else None
+    theme_pairs["estrutura"].append((pl_by_class, _share_chart("PL por classe · % do PL", pl_by_class)))
     theme_pairs["estrutura"].append((
-        _chart_from_rows("PL e carteira · R$ milhões", [s for s in (series("pl_total"), series("carteira_ex360")) if s], "R$ mm",
-                         notes=("PL total e carteira são estoques distintos.",)),
         _chart_from_rows("Subordinação · %", [s for s in subordination_series if s], "%",
                          notes=("Ex-360: derivada da base mensal. Reportada: informe mensal (IME).",)),
+        _chart_from_rows("Carteira bruta ex-360 · R$ milhões", [s for s in (series("carteira_ex360", "Carteira ex-360"),) if s], "R$ mm", kind="column",
+                         notes=("Último mês em laranja.",)),
     ))
+    severity = [s for s in (series("npl_1_90_pct", "1–90 dias"), series("npl_91_360_pct", "91–360 dias")) if s]
     theme_pairs["atraso"].append((
+        _chart_from_rows("NPL ex-360 por faixa · % da carteira", severity, "%", kind="stacked",
+                         notes=("Denominador: carteira bruta ex-360; vencidos acima de 360 dias excluídos.",)) if severity else
         _chart_from_rows("NPL / carteira ex-360 · %", [s for s in (series("npl_over30_ex360_pct", "NPL > 30d"), series("npl_over90_ex360_pct", "NPL > 90d")) if s], "%",
                          notes=("Denominador: carteira bruta ex-360; vencidos acima de 360 dias excluídos.",)),
-        _chart_from_rows("Vencidos e provisão / direitos creditórios · %",
-                         [s for s in (series("inadimplencia_pct", "Vencidos (IME)", ime_rows), series("provisao_pct_direitos", "Provisão (IME)", ime_rows)) if s], "%",
+        _chart_from_rows("Vencidos e provisão / direitos creditórios (IME) · %",
+                         [s for s in (series("inadimplencia_pct", "Vencidos", ime_rows), series("provisao_pct_direitos", "Provisão", ime_rows)) if s], "%",
                          notes=("Informe mensal (IME); denominador próprio, não substituído pelo NPL ex-360.",)),
     ))
     theme_pairs["atraso"].append((
-        _chart_from_rows("Cobertura PDD / NPL > 90d ex-360 · %", [s for s in (series("pdd_npl_over90_ex360_pct", "PDD / NPL > 90d"),) if s], "%"),
-        _chart_from_rows("Cobertura provisão / vencidos (IME) · %", [s for s in (series("cobertura_pct", "Provisão / vencidos", ime_rows),) if s], "%",
-                         reference=("Paridade 100%", 100.0), notes=("Referência de paridade: 100%.",)),
+        _chart_from_rows("Cobertura PDD / NPL > 90d ex-360 · %", [s for s in (series("pdd_npl_over90_ex360_pct", "PDD / NPL > 90d"),) if s], "%", kind="column",
+                         notes=("Último mês em laranja.",)),
+        _aging_chart(main_dashboard) if main_dashboard is not None else None,
     ))
     roll_chart = _chart_from_rows("Roll rates · %", [series(c, _ALIASES[c].replace(" / a vencer", "")) for c in _ROLL_COLUMNS if series(c)], "%", decimals=2,
                                   notes=("Proxies: faixa de atraso atual / carteira a vencer M-3, M-4, M-5 ou M-6.",))
@@ -1347,7 +1432,9 @@ def build_portfolio_deck_spec(
     cohorts_in_panel = False
     if not complete_cohorts.empty and "Safra" in complete_cohorts:
         recent = _cohort_matrix(main_cohorts, recent=True)
-        cohorts_in_panel = len(complete_cohorts) <= 13 and len(complete_cohorts.columns) <= 8
+        # The body shows the recent cohorts beside the roll rates; the full
+        # matrix goes with the theme's series.
+        cohorts_in_panel = len(complete_cohorts) <= 6 and len(complete_cohorts.columns) <= 8
         view = complete_cohorts if cohorts_in_panel else recent
         cohort_panel = TableBlock("Safras · %" if cohorts_in_panel else "Safras recentes · %", view,
                                   {str(c): "percent:1" for c in view.columns[1:]}, (_raw_note(main_cohorts),), tuple(map(str, view.columns[1:])), compact=True)
@@ -1401,6 +1488,16 @@ def build_portfolio_deck_spec(
             if isinstance(block, TextBlock) or (table_placement == "appendix" and len(block.frame) <= BODY_TABLE_ROWS):
                 return_texts.append(block)
             else:
+                rest = result.get("rest_block")
+                if rest is not None and list(rest.frame.index) == list(block.frame.index):
+                    # One row per series: the 12-month and the YTD, CDI and
+                    # issuance accumulations side by side, not two tables
+                    # repeating every series name.
+                    frame = pd.concat([block.frame, rest.frame.drop(columns=[RETURN_SERIES_COLUMN])], axis=1)
+                    block = TableBlock("Acumulados por série · %", frame, {**block.formats, **rest.formats},
+                                       tuple(dict.fromkeys((*block.notes, *rest.notes))),
+                                       tuple(dict.fromkeys((*block.numeric_columns, *rest.numeric_columns))))
+                    result = {key: value for key, value in result.items() if key != "rest_block"}
                 theme_tables["rentabilidade"].append(block)
                 if table_placement == "appendix":
                     return_texts.append(TextBlock(block.title, f"{len(block.frame)} séries; tabela completa no apêndice."))
@@ -1610,7 +1707,15 @@ def build_portfolio_deck_spec(
                         else:
                             coverage_notes.append(sentence)
                 else:
-                    matrix_blocks.append(replace(block, frame=_shorten_long_cells(block.frame, "", clauses, target=clause_target), compact=True))
+                    frame = _shorten_long_cells(block.frame, "", clauses, target=clause_target)
+                    if single_fund:
+                        # Peer columns are a reference: where a peer has
+                        # nothing, the cell stays quiet instead of repeating
+                        # "Não localizado".
+                        for column in frame.columns[1:]:
+                            if column != deck_entity:
+                                frame[column] = frame[column].map(lambda value: "—" if value == "Não localizado" else value)
+                    matrix_blocks.append(replace(block, frame=frame, compact=True))
             matrix_notes.extend((*page_notes, *page_sources, _raw_note(_frame(getattr(page, "frame", None)))))
             coverage_notes.extend(note for note in page_notes if "cobertura" in note.casefold() or "inválid" in note.casefold())
         for source in page_sources:
@@ -1682,7 +1787,7 @@ def build_portfolio_deck_spec(
     documentary_slides.append(slide("Ficha documental", deck_entity, (*(() if sheet_beside_snapshot else sheet_blocks), *issuance_tables),
                                     source="CVM / Fundos.NET · posição documental · Fundos.NET/B3 · emissões",
                                     section=SECTION_DOCUMENTS, notes=(*sheet_notes, *clause_notes)))
-    documentary_slides.append(slide("Documentos completos", deck_entity, matrix_blocks, source="Fundos.NET/B3",
+    documentary_slides.append(slide("Documentos completos", deck_entity, _with_sections(matrix_blocks), source="Fundos.NET/B3",
                                     section=SECTION_DOCUMENTS, notes=tuple(dict.fromkeys((*matrix_notes, *clause_notes)))))
 
     # ---- References and coverage: one table, compacted by subject. Detail

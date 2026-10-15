@@ -43,16 +43,21 @@ DEFAULT_STYLE = PortfolioPptStyle()
 # These keys identify series, rather than their position in a particular chart.
 # Green and red belong to documented financial comparisons, never to series.
 SERIES_COLORS = {
-    "inadimplencia_pct": "EC7000", "over_1_pct": "EC7000",
-    "over_30_pct": "24282E", "over_60_pct": "626970",
-    "over_90_pct": "8B9199", "over_180_pct": "ACB1B7",
-    "over_360_pct": "C4C8CD", "provisao_pct_direitos": "8B9199",
-    "pdd_pct": "8B9199", "cobertura_pct": "626970",
-    "cobertura_pdd_over90_pct": "626970", "pl": "24282E",
-    "carteira_bruta_ex360": "EC7000", "duration_months": "626970",
-    "npl_over30_ex360_pct": "EC7000", "npl_over90_ex360_pct": "24282E",
-    "pdd_npl_over90_ex360_pct": "626970", "pl_total": "24282E",
-    "carteira_ex360": "EC7000", "subordinacao_total_ex360_pct": "626970",
+    # Itaú BBA palette: vivid orange, black and greys.
+    "pl_senior": "1F1F1F", "pl_mezzanino": "8B9199", "pl_subordinada_strict": "EC7000",
+    "pl_subordinada_mezz_ex360": "EC7000",
+    "subordinacao_total_ex360_pct": "EC7000", "subordinacao_pct": "1F1F1F",
+    "npl_1_90_pct": "1F1F1F", "npl_91_360_pct": "EC7000",
+    "npl_over30_ex360_pct": "EC7000", "npl_over90_ex360_pct": "1F1F1F",
+    "inadimplencia_pct": "1F1F1F", "provisao_pct_direitos": "EC7000",
+    "cobertura_pct": "626970", "pdd_npl_over90_ex360_pct": "8B9199",
+    "carteira_ex360": "8B9199", "pl_total": "1F1F1F", "duration_months": "626970",
+    "roll_61_90_m3_pct": "1F1F1F", "roll_91_120_m4_pct": "626970",
+    "roll_121_150_m5_pct": "8B9199", "roll_151_180_m6_pct": "EC7000",
+    "Até 30d": "C4C8CD", "31–90d": "8B9199", "91–180d": "626970", "181–360d": "1F1F1F", "> 360d": "EC7000",
+    "inadimplencia_pct_legacy": "EC7000", "over_1_pct": "EC7000", "over_30_pct": "1F1F1F",
+    "over_60_pct": "626970", "over_90_pct": "8B9199", "over_180_pct": "ACB1B7", "over_360_pct": "C4C8CD",
+    "pdd_pct": "8B9199", "cobertura_pdd_over90_pct": "626970",
 }
 
 

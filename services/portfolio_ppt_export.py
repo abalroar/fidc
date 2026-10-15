@@ -1,7 +1,9 @@
 """Native portfolio deck compositor. Inputs and financial rules belong to producers.
 
 The renderer builds one presentation from a content plan. It does not restyle or
-concatenate the old presentations. Tables, lines and sparklines remain editable.
+concatenate the old presentations. Tables and charts are native Office objects
+(charts in ``portfolio_ppt_charts``): half the slide width each, four to a
+slide, data labels on every point.
 """
 
 from __future__ import annotations
@@ -273,13 +275,15 @@ def _table(slide, block, x, y, width, *, style, compact=False):
     for row, height in zip(table.rows, [header_h, *heights]):
         row.height = Pt(height)
     numeric = set(getattr(block, "numeric_columns", ()))
+    sections = set(getattr(block, "section_rows", ()) or ())
     colors = getattr(block, "cell_colors", {}) or {}
     values = [list(block.frame.columns), *block.frame.values.tolist()]
     for row_index, row_values in enumerate(values):
         for column_index, (column, value) in enumerate(zip(block.frame.columns, row_values)):
             cell = table.cell(row_index, column_index)
             token = block.formats.get(column, "text")
-            cell.text = str(value) if row_index == 0 else format_cell(value, token)
+            heading = row_index > 0 and block.frame.index[row_index - 1] in sections
+            cell.text = str(value) if row_index == 0 or heading else format_cell(value, token)
             cell.fill.solid()
             cell.fill.fore_color.rgb = _rgb(style.orange if row_index == 0 else style.white)
             cell.margin_left = cell.margin_right = Pt(6)
@@ -302,6 +306,18 @@ def _table(slide, block, x, y, width, *, style, compact=False):
                     color = {"good": style.good, "bad": style.bad, "neutral": style.muted}.get(color, color)
                     run.font.color.rgb = _rgb(style.white if row_index == 0 else color)
             _borders(cell, style, header=row_index == 0)
+    for row_index, label in enumerate(block.frame.index, start=1):
+        if label in sections:
+            # A theme heading inside the table: one bold cell across the row.
+            for column_index in range(len(widths)):
+                cell = table.cell(row_index, column_index)
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = _rgb("F2F2F2")
+                for paragraph in cell.text_frame.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.bold = True
+            if len(widths) > 1:
+                table.cell(row_index, 0).merge(table.cell(row_index, len(widths) - 1))
     return header_h + sum(heights) + (22 if block.title else 0)
 
 
@@ -348,14 +364,14 @@ def _chart_gaps(chart):
         main.append(gaps)
 
 
-def _axis_cap(values):
+def _axis_cap(values, minimum=8):
     """Cap the axis when one or two spikes flatten the rest of the series
     (e.g. a coverage ratio over a near-zero denominator). Outliers lie beyond
     the Tukey far-out fence (3×IQR) of the remaining values and are at least
     1.5× the highest of them. The fence is measured without the candidates,
     so two spikes in a short series cannot hide each other."""
     finite = sorted(v for v in values if v is not None)
-    if len(finite) < 8:
+    if len(finite) < minimum:
         return None
     for count in (2, 1):
         regular, outliers = finite[:-count], finite[-count:]
@@ -388,9 +404,13 @@ def _chart_notes(block):
                          "constante nas observações disponíveis" if any(v is None for v in vals) else "constante no período")
             lines.append(f"{spec.label}: {_br(valid[0], spec.decimals)}{suffix}, {qualifier}.")
     cap = None
-    if block.kind == "line":
+    # Only a single series of columns is capped: the cut column stays inside
+    # the plot. A capped line would leave the plot area.
+    if block.kind == "column" and len(variable) == 1:
         drawn = [v for s, vals in variable if not s.reference for v in vals if v is not None]
-        cap = _axis_cap(drawn)
+        # A single column series caps from six months: a spike there
+        # flattens every other bar.
+        cap = _axis_cap(drawn, 6)
         if cap is not None:
             peaks = [(v, block.categories[i], s) for s, vals in variable if not s.reference
                      for i, v in enumerate(vals) if v is not None and v > cap]
@@ -412,177 +432,86 @@ def _kpi(slide, block, x, y, width, height, style):
 
 
 def _chart(slide, block, x, y, width, height, style, *, band=None, compact=False):
-    """``compact``: a small multiple, with smaller type and narrower lanes."""
-    _text(slide, block.title, x, y, width, 22, size=11 if compact else style.section_size, bold=True, style=style)
+    """One native chart: title and legend inside the chart, data labels on
+    every point. ``compact``: a small multiple, latest value only."""
+    from services import portfolio_ppt_charts as charts
+
     variable, lines, cap = _chart_notes(block)
     own_band = _band_height(lines, width)
-    if lines:
-        _text(slide, "\n".join(_lines("\n".join(lines), width, 10)), x, y + 24, width, own_band,
-              size=10, color=style.muted, style=style)
     band = own_band if band is None else max(band, own_band)
     if not [s for s, _ in variable if not s.reference]:
+        # Nothing to draw: the title and the sentences say why.
+        _text(slide, block.title, x, y, width, 22, size=style.section_size, bold=True, style=style)
+        if lines:
+            _text(slide, "\n".join(_lines("\n".join(lines), width, 10)), x, y + 24, width, own_band,
+                  size=10, color=style.muted, style=style)
         return
-    chart_y = y + 26 + band
-    chart_h = height - 26 - band
+    if lines:
+        # A note under the title (constant series, capped axis): the only
+        # text box a chart may need.
+        _text(slide, "\n".join(_lines("\n".join(lines), width, 10)), x + 4, y + charts.TITLE_ROW, width - 8, own_band,
+              size=9, color=style.muted, style=style)
+    top = charts.TITLE_ROW + band + 6
+    colors = lambda spec: series_color(spec.key, style)  # noqa: E731
     if block.kind == "bar":
-        _bar_chart(slide, block, variable, x, chart_y, width, chart_h, style)
-        return
-    data = CategoryChartData()
-    # Hierarchical native categories keep month positions tied to the data and
-    # show each year once on the second axis row.
-    parsed_categories = [str(label).split("/") for label in block.categories]
-    hierarchical = bool(parsed_categories) and all(len(parts) == 2 for parts in parsed_categories)
-    if hierarchical:
-        previous_year = None
-        year_category = None
-        for month, year in parsed_categories:
-            year = "20" + year if len(year) == 2 else year
-            if year != previous_year:
-                year_category = data.categories.add_category(year)
-                previous_year = year
-            year_category.add_sub_category(month)
+        _bar_chart(slide, block, variable, x, y, width, height, style, top=top)
+    elif block.kind in {"column", "stacked"}:
+        charts.column_chart(slide, block, variable, x, y, width, height, colors=colors, font=style.font, top=top, cap=cap)
     else:
-        data.categories = list(block.categories)
-    for spec, vals in variable:
-        data.add_series(spec.label, vals)
-    # The plot fills the column; only a narrow lane on the right is kept for
-    # the end values.
-    chart = slide.shapes.add_chart(XL_CHART_TYPE.LINE, Pt(x), Pt(chart_y), Pt(width), Pt(chart_h), data).chart
-    chart.has_title = False
-    drawn = [s for s, _ in variable]
-    chart.has_legend = len(drawn) > 1
-    if chart.has_legend:
-        chart.legend.position = XL_LEGEND_POSITION.TOP
-        chart.legend.include_in_layout = False
-        chart.legend.font.size = Pt(10)
-        chart.legend.font.name = style.font
-        chart.legend.font.color.rgb = _rgb(style.muted)
-    type_size = 9 if compact else style.chart_size
-    chart.font.name, chart.font.size = style.font, Pt(type_size)
-    values = [v for s, vals in variable if not s.reference for v in vals if v is not None]
-    references = [v for s, vals in variable if s.reference for v in vals if v is not None]
-    if cap is not None:
-        values = [v for v in values if v <= cap]
-    if references and cap is None:
-        values = [*values, *references]
-    if cap is None and getattr(block, "axis_range", ()):
-        values = [*values, *block.axis_range]
-    lo, hi, major_unit, tick_decimals = _axis_bounds(values)
-    if cap is not None:
-        hi = max(hi, cap)
-    axis = chart.value_axis
-    axis.minimum_scale, axis.maximum_scale = lo, hi
-    axis.major_unit = major_unit
-    axis.tick_labels.font.name = style.font
-    axis.tick_labels.font.size = Pt(type_size)
-    axis.tick_labels.font.color.rgb = _rgb(style.muted)
-    number_format = "[$-416]#,##0" + ("." + "0" * tick_decimals if tick_decimals else "")
-    axis.tick_labels.number_format = number_format + ('"%"' if block.unit == "%" else "")
-    axis.tick_labels.number_format_is_linked = False
-    axis.has_major_gridlines = True
-    axis.major_gridlines.format.line.color.rgb = _rgb(style.grid)
-    axis.major_gridlines.format.line.width = Pt(.5)
-    axis.format.line.fill.background()
-    axis.major_tick_mark = axis.minor_tick_mark = XL_TICK_MARK.NONE
-    chart.category_axis.tick_label_position = XL_TICK_LABEL_POSITION.LOW
-    chart.category_axis.tick_labels.font.name = style.font
-    chart.category_axis.tick_labels.font.size = Pt(8 if compact else 10)
-    chart.category_axis.tick_labels.font.color.rgb = _rgb(style.muted)
-    chart.category_axis.tick_label_spacing = max(1, math.ceil(len(block.categories) / (18 if width > 600 else 13 if width > 320 else 5)))
-    chart.category_axis.format.line.fill.background()
-    chart.category_axis.major_tick_mark = chart.category_axis.minor_tick_mark = XL_TICK_MARK.NONE
-    _chart_gaps(chart)
-    label_lane, left = (40.0, 34.0) if compact else (52.0, 42.0)
-    top = 30.0 if chart.has_legend else 6.0
-    _chart_layout(chart, left / width, top / chart_h, max(.3, 1 - (left + label_lane) / width), max(.3, 1 - (top + 34) / chart_h))
-    for native, (spec, _) in zip(chart.series, variable):
-        native.format.line.color.rgb = _rgb(style.muted if spec.reference else series_color(spec.key, style))
-        native.format.line.width = Pt(1.0 if spec.reference else style.line_width)
-        if spec.reference:
-            native.format.line.dash_style = MSO_LINE_DASH_STYLE.DASH
-        native.marker.style = XL_MARKER_STYLE.NONE
-        native.smooth = False
-    endpoints = [(index, next(v for v in reversed(vals) if v is not None))
-                 for index, (spec, vals) in enumerate(variable)
-                 if not spec.reference and any(v is not None for v in vals)]
-    span = (hi - lo) or 1
-    for index, endpoint in endpoints:
-        spec, vals = variable[index]
-        if cap is not None and endpoint > cap:
-            continue
-        # Value and short unit only; the legend names the series.
-        label = _br(endpoint, spec.decimals) + ("%" if spec.unit == "%" else "")
-        last_index = max(i for i, v in enumerate(vals) if v is not None)
-        if last_index < len(vals) - 1:
-            label += f" ({block.categories[last_index]})"
-        native_label = chart.series[index].points[last_index].data_label
-        native_label.position = XL_DATA_LABEL_POSITION.RIGHT
-        close = [other_index for other_index, other in endpoints
-                 if other_index != index and abs(other - endpoint) / span < .08]
-        if close:
-            # Close final values: the higher one above, the lower one below.
-            others = [dict(endpoints)[other] for other in close]
-            higher = endpoint > max(others) or (endpoint == max(others) and index < min(close))
-            native_label.position = XL_DATA_LABEL_POSITION.ABOVE if higher else XL_DATA_LABEL_POSITION.BELOW
-        native_label.has_text_frame = True
-        frame = native_label.text_frame
-        frame.clear()
-        frame.word_wrap = False
-        paragraph = frame.paragraphs[0]
-        run = paragraph.add_run()
-        run.text = label
-        run.font.name, run.font.size, run.font.bold = style.font, Pt(type_size), True
-        run.font.color.rgb = _rgb(series_color(spec.key, style))
-    # Native hierarchical labels remain horizontal, including narrow plots.
-    for body in chart._chartSpace.xpath(".//c:catAx/c:txPr/a:bodyPr"):
-        body.set("rot", "0")
+        values = [v for s, vals in variable if not s.reference for v in vals if v is not None]
+        references = [v for s, vals in variable if s.reference for v in vals if v is not None]
+        if cap is not None:
+            values = [v for v in values if v <= cap]
+        if references and cap is None:
+            values = [*values, *references]
+        if cap is None and getattr(block, "axis_range", ()):
+            values = [*values, *block.axis_range]
+        lo, hi, step, decimals = _axis_bounds(values)
+        if cap is not None:
+            hi = max(hi, cap)
+        charts.line_chart(slide, block, variable, x, y, width, height, colors=colors, font=style.font, top=top,
+                          bounds=(lo, hi, step, decimals), cap=cap, compact=compact)
 
 
-def _bar_chart(slide, block, variable, x, y, width, height, style):
+def _bar_chart(slide, block, variable, x, y, width, height, style, *, top):
+    """Horizontal bars (one category per share series), CDI in grey."""
+    from services import portfolio_ppt_charts as charts
+
     data = CategoryChartData()
     data.categories = list(block.categories)
     for spec, vals in variable:
         data.add_series(spec.label, vals)
     chart = slide.shapes.add_chart(XL_CHART_TYPE.BAR_CLUSTERED, Pt(x), Pt(y), Pt(width), Pt(height), data).chart
-    chart.has_title = False
-    chart.has_legend = len(variable) > 1
-    if chart.has_legend:
-        chart.legend.position = XL_LEGEND_POSITION.TOP
-        chart.legend.include_in_layout = False
-        chart.legend.font.size = Pt(10)
-        chart.legend.font.name = style.font
-    chart.font.name, chart.font.size = style.font, Pt(style.chart_size)
+    charts.title_and_legend(chart, block.title, width=width, height=height, legend=len(variable) > 1, font=style.font)
+    chart.font.name, chart.font.size = style.font, Pt(9)
     plot = chart.plots[0]
-    plot.gap_width = 60
+    plot.gap_width = 50
     plot.overlap = -10
-    plot.has_data_labels = True
-    labels = plot.data_labels
-    labels.number_format = '[$-416]0.0"%"'
-    labels.number_format_is_linked = False
-    labels.position = XL_DATA_LABEL_POSITION.OUTSIDE_END
-    labels.font.size = Pt(10)
-    labels.font.name = style.font
     values = [v for _, vals in variable for v in vals if v is not None]
-    lo, hi, major_unit, _ = _axis_bounds([min(0, *values), max(0, *values) * 1.18 or 1])
-    axis = chart.value_axis
-    axis.minimum_scale, axis.maximum_scale, axis.major_unit = lo, hi, major_unit
-    axis.visible = False
-    axis.has_major_gridlines = False
+    lo, hi, _, _ = _axis_bounds([min(0, *values), max(0, *values) * 1.18 or 1])
+    charts.hide_value_axis(chart, lo, hi)
     category = chart.category_axis
     category.reverse_order = True  # first series on top, as in the table
-    category.tick_labels.font.size = Pt(10)
+    category.tick_labels.font.size = Pt(9)
     category.tick_labels.font.name = style.font
-    category.format.line.color.rgb = _rgb(style.grid)
+    category.format.line.color.rgb = _rgb(charts.GREY_LIGHT)
     category.major_tick_mark = XL_TICK_MARK.NONE
-    colors = {"return_12m": style.orange, "cdi_12m": "8B9199"}
-    for native, (spec, _) in zip(chart.series, variable):
+    charts.plot_layout(chart, width=width, height=height, top=top, left=90.0, right=40.0, bottom=8.0)
+    palette = {"return_12m": charts.ORANGE, "cdi_12m": charts.GREY}
+    for native, (spec, vals) in zip(chart.series, variable):
+        color = palette.get(spec.key, charts.GREY_DARK)
         native.format.fill.solid()
-        native.format.fill.fore_color.rgb = _rgb(colors.get(spec.key, style.muted))
-        for index, category in enumerate(block.categories):
-            if str(category).startswith("CDI"):
+        native.format.fill.fore_color.rgb = _rgb(color)
+        for index, category_label in enumerate(block.categories):
+            if str(category_label).startswith("CDI"):
                 point = native.points[index]
                 point.format.fill.solid()
-                point.format.fill.fore_color.rgb = _rgb("8B9199")
+                point.format.fill.fore_color.rgb = _rgb(charts.GREY)
+        last = max((i for i, v in enumerate(vals) if v is not None), default=None)
+        if last is not None:
+            # Every bar labelled; no "latest" among series of one date.
+            charts.label_series(native._element, len(vals), fmt=charts.number_format("%", 1), position="outEnd",
+                                color=charts.label_color(color), font=style.font, highlight=None, last=-1)
 
 
 def _short_series_label(label):
@@ -705,13 +634,15 @@ def _divider(prs, label, size, style):
     slide.notes_slide.notes_text_frame.text = f"Divisória de seção: {label}."
 
 
-#: Smallest plot a chart keeps (plus its 22pt title and note band); free
-#: space on a slide is then given back to the charts.
-CHART_PLOT_MIN = 130.0
-#: A chart with more series than this takes the full width.
-HALF_WIDTH_SERIES = 3
 #: Vertical gap between stacked blocks.
 BLOCK_GAP = 12.0
+
+
+def _chart_height(style):
+    """Charts take half the width and half the content height: four fill a
+    slide. A chart never grows into free space; beside a taller table it
+    takes the table's height so both end on one line."""
+    return (style.content_bottom - style.content_top - BLOCK_GAP) / 2
 
 
 @dataclass
@@ -767,11 +698,8 @@ def _items(page, style):
     beside_charts = panels and any(isinstance(block, ChartBlock) for block in page.blocks)
     for block in _merged_texts(page.blocks):
         if isinstance(block, ChartBlock):
-            drawn = [s for s in block.series if not s.reference]
-            wide = len(drawn) > HALF_WIDTH_SERIES and not panels
-            width = full_width if wide else half
-            band = _band_height(_chart_notes(block)[1], width)
-            yield _Item(block, page, wide, 22 + band + CHART_PLOT_MIN, chart=True, band=band)
+            band = _band_height(_chart_notes(block)[1], half)
+            yield _Item(block, page, False, _chart_height(style), chart=True, band=band)
         elif isinstance(block, TableBlock):
             compact = beside_charts or block.compact
             if not panels and _narrow_text_table(block, style):
@@ -811,9 +739,9 @@ def _narrow_text_table(block, style):
         return False
     widths, _, _, _ = _table_layout(block, style.content_width, style)
     half = _half(style)
-    if sum(widths) > .72 * style.content_width:
+    if sum(widths) > .85 * style.content_width:
         return False
-    return _measure(block, half, style, True) <= 1.8 * _measure(block, style.content_width, style, block.compact)
+    return _measure(block, half, style, True) <= 2.0 * _measure(block, style.content_width, style, block.compact)
 
 
 def _split_to_fit(item, available, style):
@@ -902,41 +830,28 @@ def _pack(items, style):
 
 
 def _place(shelves, style):
-    """Positions for one slide. Free height goes to shelves whose columns hold
-    one block each with a chart among them, so charts grow instead of leaving
-    a band of white below them; paired charts keep one plot height."""
+    """Positions for one slide, top to bottom. Side-by-side blocks start on
+    one line; a chart beside a single taller table takes its height."""
     half = _half(style)
-    limit = style.content_bottom - style.content_top
 
     def height_of(shelf):
         if shelf["full"] is not None:
             return shelf["full"].height
         return max((sum(i.height for i in col) + BLOCK_GAP * (len(col) - 1) for col in shelf["cols"] if col), default=0)
 
-    used = sum(height_of(shelf) for shelf in shelves) + BLOCK_GAP * (len(shelves) - 1)
-    growable = [shelf for shelf in shelves
-                if (shelf["full"] is not None and shelf["full"].chart)
-                or (shelf["cols"] is not None and all(len(col) <= 1 for col in shelf["cols"])
-                    and any(col and col[0].chart for col in shelf["cols"]))]
-    extra = max(0.0, limit - used) / len(growable) if growable else 0.0
     placed, y = [], style.content_top
     for shelf in shelves:
-        grow = extra if any(shelf is g for g in growable) else 0.0
         if shelf["full"] is not None:
             item = shelf["full"]
             item.x, item.y, item.width = style.margin, y, style.content_width
-            if item.chart:
-                item.height += grow
             placed.append(item)
             y += item.height + BLOCK_GAP
             continue
-        charts = [col[0] for col in shelf["cols"] if col and col[0].chart and len(col) == 1]
-        if grow or len(charts) == 2:
-            # Side-by-side charts share one height and one note band.
-            target = max(height_of(shelf) + grow, *(c.height for c in charts)) if charts else 0
+        if all(len(col) <= 1 for col in shelf["cols"]):
+            charts = [col[0] for col in shelf["cols"] if col and col[0].chart]
             band = max((c.band for c in charts), default=0)
             for chart in charts:
-                chart.height, chart.band = target, band
+                chart.height, chart.band = height_of(shelf), band
         for side, col in enumerate(shelf["cols"]):
             cy = y
             for item in col:
@@ -990,7 +905,7 @@ def _draw_grid(prs, page, style):
     for start in range(0, len(charts), 12):
         group = charts[start:start + 12]
         columns, rows = _grid_shape(len(group))
-        gap = 16.0
+        gap = style.gap
         width = (style.content_width - gap * (columns - 1)) / columns
         height = (style.content_bottom - style.content_top - BLOCK_GAP * (rows - 1)) / rows
         title = page.title if start == 0 else f"{page.title} (cont.)"

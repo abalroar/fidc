@@ -60,8 +60,9 @@ def test_series_tables_form_one_appendix_in_theme_order():
     themes = [block.title.split(" · ")[0] for page in appendix for block in page.blocks]
     order = ["Estrutura", "Atraso e provisão", "Migração e safras", "Rentabilidade"]
     assert themes == sorted(themes, key=order.index)
-    body = [page for page in spec.slides if page.title in {"Estrutura", "Atraso e provisão"}]
-    assert body and all(page.layout == "panels" for page in body)
+    charts = [page for page in spec.slides if page.title in {"Estrutura", "Atraso e provisão"}
+              and any(hasattr(block, "series") for block in page.blocks)]
+    assert charts and all(page.layout == "panels" for page in charts)
 
 
 def test_inline_placement_keeps_series_after_each_theme():
@@ -91,13 +92,26 @@ def test_different_reported_series_shares_the_derived_chart():
     assert [series.label for series in chart.series] == ["Subordinação ex-360", "Subordinação reportada (IME)"]
 
 
-def test_constant_coverage_becomes_a_sentence_not_a_chart():
+def test_constant_series_become_a_sentence_not_a_chart():
     kwargs = _inputs(months=13)
-    kwargs["dashboard"] = _dashboard(coverage=[100.0] * 13)
+    dashboard = _dashboard()
+    dashboard.default_history_df["inadimplencia_pct"] = 1.0
+    dashboard.default_history_df["provisao_pct_direitos"] = 0.5
+    kwargs["dashboard"] = dashboard
     spec = _spec(kwargs)
     charts = [block.title for page in spec.slides for block in page.blocks if hasattr(block, "series")]
-    assert "Cobertura provisão / vencidos (IME) · %" not in charts
-    assert "Provisão / vencidos: 100,0% em todo o período." in _visible_text(_build(kwargs))
+    assert "Vencidos e provisão / direitos creditórios (IME) · %" not in charts
+    assert "Vencidos: 1,0% em todo o período." in _visible_text(_build(kwargs))
+
+
+def test_ime_coverage_is_in_the_snapshot_not_a_chart():
+    kwargs = _inputs(months=13)
+    kwargs["dashboard"] = _dashboard()
+    kwargs["dashboard"].summary["cobertura_pct"] = 100.0
+    spec = _spec(kwargs)
+    snapshot = next(page for page in spec.slides if page.title == "Snapshot").blocks[0]
+    assert any("Cobertura provisão / vencidos · IME" in label for label in snapshot.frame["Indicador"])
+    assert not any("Cobertura provisão / vencidos (IME)" in block.title for page in spec.slides for block in page.blocks if hasattr(block, "series"))
 
 
 def test_snapshot_drops_comparison_columns_without_data_and_negative_zero():
@@ -295,22 +309,25 @@ def test_snapshot_has_no_sparklines_and_sits_beside_the_fund_sheet():
     assert len(tables) == 2 and tables[0].top == tables[1].top and tables[1].left > tables[0].left
 
 
-def test_a_theme_charts_and_its_reading_table_share_a_slide_and_charts_take_the_free_height():
-    from services.portfolio_ppt_content import ChartBlock, ChartSeries, SlideSpec
-    from services.portfolio_ppt_export import _items, _pack, _place
+def test_charts_take_half_the_slide_and_never_stretch_beyond_their_neighbour():
+    from services.portfolio_ppt_content import ChartBlock, ChartSeries, SlideSpec, TableBlock
+    from services.portfolio_ppt_export import _chart_height, _items, _pack, _place
 
-    presentation = Presentation(BytesIO(_build(_inputs(months=13))))
-    titles = _titles(_build(_inputs(months=13)))
-    migration = presentation.slides[next(index for index, title in enumerate(titles) if "Migração e safras" in title)]
-    assert any(shape.has_chart for shape in migration.shapes) and any(shape.has_table for shape in migration.shapes)
     months = tuple(f"{month:02d}/25" for month in range(1, 13))
     line = lambda title, step: ChartBlock(title, months, (ChartSeries(title, title, tuple(1.0 + step * i for i in range(12))),))
-    page = SlideSpec("Estrutura", "c", (line("PL", .1), line("Subordinação", .2)), layout="panels", section="Estrutura")
-    slides = _pack(list(_items(page, DEFAULT_STYLE)), DEFAULT_STYLE)
-    placed = _place(slides[0], DEFAULT_STYLE)
-    # Two charts alone on the slide grow to the bottom of the content area, side by side.
-    assert len(slides) == 1 and len(placed) == 2 and placed[0].height == placed[1].height and placed[0].y == placed[1].y
-    assert placed[0].y + placed[0].height >= DEFAULT_STYLE.content_bottom - 1
+    two = SlideSpec("Estrutura", "c", (line("PL", .1), line("Subordinação", .2)), layout="panels", section="Estrutura")
+    placed = _place(_pack(list(_items(two, DEFAULT_STYLE)), DEFAULT_STYLE)[0], DEFAULT_STYLE)
+    # Side by side, half the content height: they do not grow into free space.
+    assert len(placed) == 2 and placed[0].y == placed[1].y and placed[0].width == placed[1].width
+    assert placed[0].height == placed[1].height == _chart_height(DEFAULT_STYLE)
+    short = TableBlock("Safras · %", pd.DataFrame({"Safra": ["jan/26", "fev/26"], "M1": [1.0, 2.0]}),
+                       {"M1": "percent:1"}, numeric_columns=("M1",), compact=True)
+    beside = SlideSpec("Migração", "c", (line("Roll", .1), short), layout="panels", section="Migração")
+    chart, table = _place(_pack(list(_items(beside, DEFAULT_STYLE)), DEFAULT_STYLE)[0], DEFAULT_STYLE)
+    # Beside a short table the chart keeps its own height, never more.
+    assert chart.height == _chart_height(DEFAULT_STYLE) and table.height < chart.height and chart.y == table.y
+    # Never a chart across the whole width.
+    assert all(item.width == (DEFAULT_STYLE.content_width - DEFAULT_STYLE.gap) / 2 for item in (chart, *placed))
 
 
 def test_small_themes_share_one_slide_named_after_both():
@@ -346,6 +363,62 @@ def test_axis_cap_note_keeps_the_decimals_a_small_cap_needs():
     from services.portfolio_ppt_export import _chart_notes
 
     values = (0.1, 0.12, 0.11, 0.13, 0.1, 0.12, 0.11, 0.1, 2.4, 2.5)
-    chart = ChartBlock("NPL · %", tuple(f"m{i}" for i in range(len(values))), (ChartSeries("npl", "NPL", values),))
+    chart = ChartBlock("Cobertura · %", tuple(f"m{i}" for i in range(len(values))), (ChartSeries("cov", "Cobertura", values),), kind="column")
     note = next(line for line in _chart_notes(chart)[1] if line.startswith("Eixo limitado"))
     assert "a 0,15%" in note
+
+
+def _varying_inputs(**kwargs):
+    inputs = _inputs(months=13, **kwargs)
+    for mapping in (inputs["outputs"].fund_monthly, inputs["monitor_outputs"].fund_monitor):
+        for frame in mapping.values():
+            frame["subordinacao_total_ex360_pct"] = [28.0 + month / 4 for month in range(13)]
+    return inputs
+
+
+def _charts_by_title(payload):
+    presentation = Presentation(BytesIO(payload))
+    return {shape.chart.chart_title.text_frame.text: shape for slide in presentation.slides
+            for shape in slide.shapes if shape.has_chart and shape.chart.has_title}
+
+
+def test_theme_charts_use_columns_and_lines_with_labels_on_every_point():
+    from pptx.oxml.ns import qn
+
+    charts = _charts_by_title(_build(_varying_inputs()))
+    pl = charts["PL por classe · R$ milhões"].chart
+    plot_tags = [element.tag for element in pl._chartSpace.xpath(".//c:plotArea/*")]
+    # Stacked parts, plus an invisible line whose labels are the totals.
+    assert qn("c:barChart") in plot_tags and qn("c:lineChart") in plot_tags
+    assert pl._chartSpace.xpath(".//c:barChart/c:grouping/@val") == ["stacked"]
+    assert charts["Subordinação · %"].chart._chartSpace.xpath(".//c:plotArea/c:lineChart")
+    carteira = charts["Carteira bruta ex-360 · R$ milhões"].chart
+    assert carteira._chartSpace.xpath(".//c:barChart/c:grouping/@val") == ["clustered"]
+    # History in grey, latest month in orange.
+    assert carteira._chartSpace.xpath(".//c:ser/c:spPr/a:solidFill/a:srgbClr/@val") == ["8B9199"]
+    assert carteira._chartSpace.xpath(".//c:ser/c:dPt/c:spPr/a:solidFill/a:srgbClr/@val") == ["EC7000"]
+    for title, shape in charts.items():
+        space = shape.chart._chartSpace
+        if len(shape.chart.plots[0].series) > 2 and space.xpath(".//c:plotArea/c:lineChart") and not space.xpath(".//c:barChart"):
+            # More than two lines: each legend entry carries the latest value.
+            assert all(": " in series.name for series in shape.chart.plots[0].series), title
+            continue
+        assert space.xpath(".//c:dLbls/c:showVal/@val"), title
+        assert set(space.xpath(".//a:latin/@typeface")) == {"Calibri"}, title
+
+
+def test_latest_period_label_is_bold_larger_and_filled_with_the_series_colour():
+    charts = _charts_by_title(_build(_varying_inputs()))
+    space = charts["Subordinação · %"].chart._chartSpace
+    last = space.xpath(".//c:ser/c:dLbls/c:dLbl")[-1]
+    assert last.xpath("./c:idx/@val") == ["12"]
+    assert last.xpath("./c:spPr/a:solidFill/a:srgbClr/@val") == ["EC7000"]
+    assert last.xpath("./c:txPr//a:defRPr/@b") == ["1"]
+    others = space.xpath(".//c:ser/c:dLbls/c:txPr//a:defRPr/@sz")
+    assert int(last.xpath("./c:txPr//a:defRPr/@sz")[0]) > int(others[0])
+
+
+def test_no_chart_spans_the_whole_slide_width():
+    presentation = Presentation(BytesIO(_build(_inputs(months=13, funds=3))))
+    widths = [shape.width for slide in presentation.slides for shape in slide.shapes if shape.has_chart]
+    assert widths and max(widths) <= Pt((DEFAULT_STYLE.content_width - DEFAULT_STYLE.gap) / 2) + 1
