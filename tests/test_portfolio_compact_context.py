@@ -37,6 +37,7 @@ def test_compact_data_exports_render_native_callables_without_generating_any_fil
         )
     ppt.assert_not_called()
     excel.assert_not_called()
-    assert prepare.call_args.kwargs["type"] == "secondary"
+    # In the Exportar popover the presentation is the primary action.
+    assert prepare.call_args.kwargs["type"] == "primary"
     assert len(download.call_args_list) == 4
     assert all(callable(call.kwargs["data"]) for call in download.call_args_list)
