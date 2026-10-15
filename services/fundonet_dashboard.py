@@ -94,6 +94,12 @@ _AGGREGATE_OVERDUE_TOTAL_PATHS = [
 _MEZZANINE_TOKEN_RE = re.compile(r"(mezz|mezan|mezanino|mezzanine)", re.IGNORECASE)
 OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 PL_RECONCILIATION_WARNING_PCT = 0.5
+# Σ(QT_COTAS × VL_COTAS) above this multiple of the official PL is not a
+# reconciliation gap but a report filed in another scale (e.g. decimals
+# omitted: "6042799998625.00000000" for 60427.99998625). The scale is not
+# guessed; that month's class breakdown becomes unavailable.
+CLASS_SCALE_BREAK_FACTOR = 1000.0
+CLASS_SCALE_BREAK_STATUS = "escala_inconsistente_com_pl_oficial"
 
 
 @dataclass(frozen=True)
@@ -2664,6 +2670,20 @@ def _build_quota_pl_history(
     base_df = base_df.rename(columns={"QT_COTAS": "qt_cotas", "VL_COTAS": "vl_cota"})
     base_df["pl"] = base_df["qt_cotas"].fillna(0.0) * base_df["vl_cota"].fillna(0.0)
     base_df["pl_reconciliacao_role"] = "classe_reportada"
+    official_pl = _official_pl_series(wide_lookup=wide_lookup, competencias=competencias)
+    class_totals = base_df.groupby("competencia", dropna=False)["pl"].sum()
+    broken = {
+        competencia
+        for competencia, total in class_totals.items()
+        if (official := _float_or_none(official_pl.get(competencia))) is not None
+        and official > 0
+        and total > official * CLASS_SCALE_BREAK_FACTOR
+    }
+    base_df["class_scale_status"] = base_df["competencia"].map(
+        lambda competencia: CLASS_SCALE_BREAK_STATUS if competencia in broken else "ok"
+    )
+    if broken:
+        base_df.loc[base_df["competencia"].isin(broken), ["qt_cotas", "vl_cota", "pl"]] = float("nan")
     base_df = _append_unreconciled_pl_rows(
         quota_pl_history_df=base_df,
         wide_lookup=wide_lookup,
@@ -2707,7 +2727,7 @@ def _build_subordination_history(
     ].copy()
     grouped = (
         reported_df.groupby(["competencia", "competencia_dt", "class_macro"], dropna=False)["pl"]
-        .sum()
+        .sum(min_count=1)
         .unstack(fill_value=0.0)
         .reset_index()
     )
@@ -2739,6 +2759,10 @@ def _build_subordination_history(
     grouped["subordinacao_pct"] = (
         grouped["pl_subordinada"] / grouped["pl_total"]
     ).where(grouped["pl_total"] > 0).mul(100.0)
+    status = reported_df.get("class_scale_status", pd.Series("ok", index=reported_df.index))
+    broken = set(reported_df.loc[status.eq(CLASS_SCALE_BREAK_STATUS), "competencia"])
+    broken_rows = grouped["competencia"].isin(broken)
+    grouped.loc[broken_rows, "pl_reconciliacao_warning"] = True
     grouped.loc[grouped["pl_reconciliacao_warning"], "subordinacao_pct"] = pd.NA
     grouped["subordinacao_status"] = grouped["pl_reconciliacao_warning"].map(
         lambda warning: (
@@ -2747,6 +2771,7 @@ def _build_subordination_history(
             else "calculado_com_classes_reportadas"
         )
     )
+    grouped.loc[broken_rows, "subordinacao_status"] = "nao_calculavel_" + CLASS_SCALE_BREAK_STATUS
     return grouped[
         [
             "competencia",

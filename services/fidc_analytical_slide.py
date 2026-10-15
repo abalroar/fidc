@@ -106,6 +106,22 @@ def _clean_remuneration(value: object) -> str:
     return text if supported and len(text) <= 180 else "N/D — texto extraído sem associação confiável"
 
 
+def _minimum_subordination_criterion(criteria: pd.DataFrame) -> pd.Series | None:
+    """The curated row named for minimum subordination. Matching any cell
+    picked the first criterion whose rule merely mentions subordinated quotas
+    (eligibility, receivable terms, document checks)."""
+    names = pd.Series("", index=criteria.index)
+    for column in ("Critério", "Chave"):
+        if column in criteria:
+            names = names + " " + criteria[column].astype(str)
+    names = names.str.lower()
+    for pattern in (r"subordina\w*\s+m[ií]nim", r"subordina"):
+        mask = names.str.contains(pattern, regex=True)
+        if mask.any():
+            return criteria.loc[mask].iloc[0]
+    return None
+
+
 def build_slide_data(funds: Iterable[object]) -> list[FidcSlideData]:
     monthly = pd.read_csv(VEHICLE_MONTHLY, low_memory=False) if VEHICLE_MONTHLY.exists() else pd.DataFrame()
     if not monthly.empty:
@@ -161,10 +177,9 @@ def build_slide_data(funds: Iterable[object]) -> list[FidcSlideData]:
             if valid_dates:
                 data.first_issuance, data.last_issuance = valid_dates[0].strftime("%m/%Y"), valid_dates[-1].strftime("%m/%Y")
         if profile is not None and profile.profile_type in {"curado", "curado parcial"} and not profile.criteria_df.empty:
-            criteria = profile.criteria_df
-            mask = criteria.apply(lambda row: "subord" in " ".join(map(str, row.values)).lower(), axis=1)
-            if mask.any():
-                data.minimum_subordination = _display(criteria.loc[mask].iloc[0].get("Limite/regra"))
+            row = _minimum_subordination_criterion(profile.criteria_df)
+            if row is not None:
+                data.minimum_subordination = _display(row.get("Limite/regra"))
         ev = evidence[evidence["_cnpj"].eq(cnpj)] if not evidence.empty else pd.DataFrame()
         if not ev.empty:
             row = ev.iloc[0]

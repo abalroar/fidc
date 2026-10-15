@@ -5,6 +5,7 @@ from pptx import Presentation
 
 from scripts.build_deep_dive_package import get_portfolio_by_id
 from services.fidc_analytical_slide import (
+    _minimum_subordination_criterion,
     build_fidc_analytical_pptx_bytes,
     build_fidc_analytical_xlsx_bytes,
     build_slide_data,
@@ -50,3 +51,16 @@ def test_outputs_are_native_and_auditable():
     assert wb.sheetnames == ["Snapshot", "Emissões", "RDB", "Validações", "Metodologia"]
     assert len(wb["Snapshot"].tables) == 1
     assert len(wb["RDB"].tables) == 1
+
+
+def test_minimum_subordination_comes_from_the_criterion_named_for_it():
+    # IOX Real: "Prazo dos créditos e carência" mentions subordinated quotas
+    # in its rule and comes first; it is not the minimum subordination.
+    import pandas as pd
+
+    criteria = pd.DataFrame([
+        {"Critério": "Prazo dos créditos e carência", "Chave": "prazo", "Limite/regra": "Verificação por amostragem; cotas subordinadas absorvem perdas."},
+        {"Critério": "Subordinação mínima", "Chave": "subordinacao_minima", "Limite/regra": "Sênior: 30% (mez.+jr.)/PL"},
+    ])
+    assert _minimum_subordination_criterion(criteria)["Limite/regra"] == "Sênior: 30% (mez.+jr.)/PL"
+    assert _minimum_subordination_criterion(criteria.iloc[:1]) is None

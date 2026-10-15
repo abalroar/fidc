@@ -1147,7 +1147,7 @@ def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.Da
         df["funds_expected_count"] = expected_funds
     if "funds_present_count" not in df.columns:
         df["funds_present_count"] = 1
-    df["pl_subordinada_mezz"] = _coalesce_numeric(df["pl_subordinada_mezz"] if "pl_subordinada_mezz" in df.columns else pd.Series(pd.NA, index=df.index), df["pl_subordinada_strict"].fillna(0.0) + df["pl_mezzanino"].fillna(0.0))
+    df["pl_subordinada_mezz"] = _coalesce_numeric(df["pl_subordinada_mezz"] if "pl_subordinada_mezz" in df.columns else pd.Series(pd.NA, index=df.index), df[["pl_subordinada_strict", "pl_mezzanino"]].sum(axis=1, min_count=1))
     df["subordinacao_total_pct"] = _safe_div_pct(df["pl_subordinada_mezz"], df["pl_total"])
     df["pdd_carteira_bruta_pct"] = _safe_div_pct(df["pdd_total"], df["carteira_bruta"])
     df["carteira_liquida"] = df["carteira_bruta"] - df["pdd_total"]

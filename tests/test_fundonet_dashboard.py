@@ -542,6 +542,37 @@ class FundonetDashboardTests(unittest.TestCase):
             unreconciled_row["pl_reconciliacao_fonte"],
         )
 
+    def test_class_quotas_filed_without_decimals_leave_the_breakdown_unavailable(self) -> None:
+        # SuperSim, IME 05/2026 (documento 1222049): quantities and quota values
+        # filed with the eight decimals omitted, official PL correct.
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_unreconciled_pl_fixture_csvs(
+                workspace,
+                official_pl="128113082.50",
+                senior=("6042799998625.00000000", "106171209348.00000000"),
+                subordinate=("579353666853.00000000", "459344701045.00000000"),
+            )
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        row = dashboard.subordination_history_df.iloc[0]
+        self.assertAlmostEqual(128_113_082.50, row["pl_total"], places=2)
+        for column in ("pl_senior", "pl_subordinada_strict", "pl_subordinada", "pl_total_classes", "subordinacao_pct"):
+            self.assertTrue(pd.isna(row[column]), column)
+        self.assertTrue(row["pl_reconciliacao_warning"])
+        self.assertEqual("nao_calculavel_escala_inconsistente_com_pl_oficial", row["subordinacao_status"])
+        classes = dashboard.quota_pl_history_df
+        reported = classes[classes["pl_reconciliacao_role"] == "classe_reportada"]
+        self.assertTrue(reported["pl"].isna().all())
+        self.assertTrue(reported["class_scale_status"].eq("escala_inconsistente_com_pl_oficial").all())
+        unreconciled = classes[classes["class_label"] == "PL não reconciliado"]
+        self.assertAlmostEqual(128_113_082.50, unreconciled["pl"].iloc[0], places=2)
+
     def test_duration_is_not_calculated_when_open_maturity_bucket_dominates(self) -> None:
         maturity_history_df = pd.DataFrame(
             [
@@ -1429,7 +1460,13 @@ class FundonetDashboardTests(unittest.TestCase):
         pd.DataFrame(docs_rows).to_csv(workspace / "documentos_filtrados.csv", index=False)
 
     @staticmethod
-    def _write_unreconciled_pl_fixture_csvs(workspace: Path) -> None:
+    def _write_unreconciled_pl_fixture_csvs(
+        workspace: Path,
+        *,
+        official_pl: str = "1515309636.05",
+        senior: tuple[str, str] = ("102500.00000000", "1013.21336504"),
+        subordinate: tuple[str, str] = ("0.00000000", "91.91852877"),
+    ) -> None:
         competencia = "05/2025"
 
         def row(bloco: str, sub_bloco: str, tag: str, tag_path: str, value: object) -> dict[str, object]:
@@ -1446,7 +1483,7 @@ class FundonetDashboardTests(unittest.TestCase):
             row("CAB_INFORM", "", "NR_CNPJ_FUNDO", "DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO", "33254370000104"),
             row("CAB_INFORM", "", "NM_CLASSE", "DOC_ARQ/CAB_INFORM/NM_CLASSE", "Subordinada"),
             row("CAB_INFORM", "", "CLASS_UNICA", "DOC_ARQ/CAB_INFORM/CLASS_UNICA", "NAO"),
-            row("PATRLIQ", "", "VL_PATRIM_LIQ", "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ", "1515309636.05"),
+            row("PATRLIQ", "", "VL_PATRIM_LIQ", "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ", official_pl),
             row(
                 "OUTRAS_INFORM",
                 "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
@@ -1459,14 +1496,14 @@ class FundonetDashboardTests(unittest.TestCase):
                 "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
                 "QT_COTAS",
                 "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/QT_COTAS",
-                "102500.00000000",
+                senior[0],
             ),
             row(
                 "OUTRAS_INFORM",
                 "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
                 "VL_COTAS",
                 "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/VL_COTAS",
-                "1013.21336504",
+                senior[1],
             ),
             row(
                 "OUTRAS_INFORM",
@@ -1480,14 +1517,14 @@ class FundonetDashboardTests(unittest.TestCase):
                 "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
                 "QT_COTAS",
                 "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/QT_COTAS",
-                "0.00000000",
+                subordinate[0],
             ),
             row(
                 "OUTRAS_INFORM",
                 "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
                 "VL_COTAS",
                 "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/VL_COTAS",
-                "91.91852877",
+                subordinate[1],
             ),
         ]
         pd.DataFrame(wide_rows).to_csv(workspace / "informes_wide.csv", index=False)
