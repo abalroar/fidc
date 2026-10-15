@@ -16,8 +16,8 @@ from openpyxl import load_workbook
 import pandas as pd
 
 from services.on_demand_download import (
-    PreparedDownload, current_download_store, download_context_signature,
-    prepare_download, render_on_demand_download,
+    PreparedDownload, current_download_store, discard_other_download_stores,
+    download_context_signature, prepare_download, render_on_demand_download,
 )
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.fidc_model.b3_cdi import B3CdiMonthlyRate
@@ -46,6 +46,21 @@ def _portfolio_download_test_app(portfolio, analysis) -> None:
     ):
         portfolio_page._render_unified_portfolio_download(
             analysis=analysis, selected_portfolio=portfolio, period=period,
+        )
+
+
+def _portfolio_export_popover_test_app(portfolio, analysis) -> None:
+    import streamlit as st
+    from types import SimpleNamespace
+    from tabs import portfolio_page
+
+    st.session_state["page_runs"] = st.session_state.get("page_runs", 0) + 1
+    _, toolbar_actions = st.columns(2)
+    st.write("Abas da carteira")
+    with toolbar_actions, st.popover("Exportar", key="exportar"):
+        portfolio_page._render_portfolio_exports(
+            analysis=analysis, selected_portfolio=portfolio,
+            period=SimpleNamespace(cache_key="p", label="p"),
         )
 
 
@@ -87,6 +102,67 @@ class OnDemandDownloadTests(unittest.TestCase):
             prepare_download(store, artifact="xlsx", producer=producer)
         self.assertNotIn("xlsx", store)
         self.assertEqual(b"recovered", prepare_download(store, artifact="xlsx", producer=producer).data)
+
+    def test_preparations_run_one_at_a_time_per_process(self) -> None:
+        from threading import Event, Thread
+
+        started, release = Event(), Event()
+        active, peak = [0], [0]
+
+        def producer() -> bytes:
+            active[0] += 1
+            peak[0] = max(peak[0], active[0])
+            started.set()
+            release.wait(timeout=0.2)
+            active[0] -= 1
+            return b"deck"
+
+        threads = [Thread(target=prepare_download, args=({},), kwargs={"artifact": "pptx", "producer": producer}) for _ in range(3)]
+        for thread in threads:
+            thread.start()
+        started.wait(timeout=1)
+        release.set()
+        for thread in threads:
+            thread.join(timeout=2)
+        self.assertEqual(1, peak[0])
+
+    def test_switching_context_discards_other_portfolio_files_only(self) -> None:
+        state = {
+            "prepared_downloads::portfolio::a": {"signature": "s", "files": {"x": PreparedDownload(b"a")}},
+            "prepared_downloads::portfolio::a::pptx": {"signature": "s", "files": {"p": PreparedDownload(b"a")}},
+            "prepared_downloads::portfolio::ab": {"signature": "s", "files": {}},
+            "prepared_downloads::fund::a": {"signature": "s", "files": {}},
+            "other": 1,
+        }
+        discard_other_download_stores(state, family="portfolio::", namespace="portfolio::b")
+        self.assertEqual({"prepared_downloads::fund::a", "other"}, set(state))
+        state["prepared_downloads::portfolio::b::pptx"] = {}
+        state["prepared_downloads::portfolio::b"] = {}
+        discard_other_download_stores(state, family="portfolio::", namespace="portfolio::b")
+        self.assertIn("prepared_downloads::portfolio::b::pptx", state)
+        self.assertIn("prepared_downloads::portfolio::b", state)
+
+    def test_failure_shows_exception_only_in_diagnostic_mode(self) -> None:
+        kwargs = dict(
+            namespace="test", artifact="pptx", label="Apresentação (PPTX)",
+            file_name="deck.pptx", mime="application/pptx",
+            producer=Mock(side_effect=MemoryError("sem memória")),
+        )
+        for diagnostic in (False, True):
+            with (
+                patch("services.on_demand_download.st.button", return_value=True),
+                patch("services.on_demand_download.st.spinner", return_value=nullcontext()),
+                patch("services.on_demand_download.st.error") as error,
+                patch("services.on_demand_download.st.caption") as caption,
+                patch("services.dashboard_ui.diagnostics_enabled", return_value=diagnostic),
+                self.assertLogs("services.on_demand_download", level="ERROR"),
+            ):
+                render_on_demand_download(store={}, **kwargs)
+            error.assert_called_once()
+            if diagnostic:
+                caption.assert_called_once_with("Diagnóstico: MemoryError: sem memória")
+            else:
+                caption.assert_not_called()
 
     def test_signature_includes_all_rows_zero_missing_and_updated_source(self) -> None:
         frame = pd.DataFrame({"value": [0.0, float("nan"), 3.0]})
@@ -203,11 +279,11 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
                     analysis=self.analysis, selected_portfolio=portfolio, period=self.period,
                 )
         legacy.assert_not_called()
-        first = state[f"prepared_downloads::portfolio::{self.portfolio.id}"]["files"]
+        # Only the current portfolio's files stay in the session.
+        self.assertNotIn(f"prepared_downloads::portfolio::{self.portfolio.id}", state)
+        self.assertNotIn(f"prepared_downloads::portfolio::{self.portfolio.id}::pptx", state)
         other = state["prepared_downloads::portfolio::other"]["files"]
-        self.assertEqual(b"first", first["snapshot_excel"].data)
         self.assertEqual(b"other", other["snapshot_excel"].data)
-        self.assertIsNot(first, other)
 
     def test_streamlit_request_rerun_help_and_period_invalidation(self) -> None:
         from streamlit.testing.v1 import AppTest
@@ -235,6 +311,35 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
         self.assertEqual({}, app.session_state[store_key]["files"])
         self.assertEqual(1, app.session_state["snapshot_calls"])
         self.assertEqual(0, len(app.get("download_button")))
+
+    def test_export_popover_prepares_ppt_first_and_shows_its_caveats(self) -> None:
+        from streamlit.testing.v1 import AppTest
+
+        prepared = PreparedDownload(b"deck", ("Curadoria documental: pacote não localizado.",))
+        with (
+            patch("tabs.portfolio_page._portfolio_download_context_signature", return_value="sig"),
+            patch("tabs.portfolio_page._portfolio_ppt_return_inputs", return_value=({}, None)),
+            patch("tabs.portfolio_page._prepare_complete_portfolio_pptx", return_value=prepared) as prepare,
+        ):
+            app = AppTest.from_function(
+                _portfolio_export_popover_test_app, args=(self.portfolio, self.analysis),
+            ).run()
+            self.assertEqual([], list(app.exception))
+            first = app.button[0]
+            self.assertEqual("Preparar: Apresentação (PPTX)", first.label)
+            self.assertEqual("primary", first.proto.type)
+            prepare.assert_not_called()
+            first.click().run()
+            self.assertEqual([], list(app.exception))
+        prepare.assert_called_once()
+        download = next(element for element in app.get("download_button") if element.proto.label == "Baixar: Apresentação (PPTX)")
+        self.assertEqual("primary", download.proto.type)
+        self.assertIn(
+            "Parte não incluída na apresentação: Curadoria documental: pacote não localizado.",
+            [caption.value for caption in app.caption],
+        )
+        key = f"prepared_downloads::portfolio::{self.portfolio.id}::pptx"
+        self.assertEqual(b"deck", app.session_state[key]["files"]["complete_pptx"].data)
 
     def test_cdi_or_benchmark_correction_invalidates_only_ppt_without_regenerating(self) -> None:
         state = {}

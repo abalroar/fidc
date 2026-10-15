@@ -289,6 +289,10 @@ _PORTFOLIO_PAGE_CSS = """
     flex: 1 1 0 !important;
     white-space: nowrap !important;
 }
+/* The Exportar popover sits in the narrow last column of the period toolbar. */
+.st-key-fidc_page_carteira [class*="st-key-portfolio_exports-"] button p {
+    white-space: nowrap;
+}
 @keyframes portfolio-loading-spin {
     to { transform: rotate(360deg); }
 }
@@ -443,6 +447,7 @@ def render_portfolio_center_page(period: ImePeriodSelection | None = None, *, pe
                     period=period,
                     selected_sections=selected_sections,
                     adjust_popover=adjust_popover,
+                    export_slot=toolbar_actions,
                 )
             finally:
                 loading_surface.empty()
@@ -524,12 +529,14 @@ def _render_portfolio_analysis_surface(
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
     adjust_popover: Any = None,
+    export_slot: Any = None,
 ) -> bool:
     with st.container(key="portfolio_analysis"):
         st.html(analytical_components_css("portfolio_analysis") + _PORTFOLIO_ANALYSIS_POLISH_CSS)
         return _render_portfolio_analysis_content(
             selected_portfolio=selected_portfolio, period=period,
             selected_sections=selected_sections, adjust_popover=adjust_popover,
+            export_slot=export_slot,
         )
 
 
@@ -539,7 +546,9 @@ def _render_portfolio_analysis_content(
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
     adjust_popover: Any = None,
+    export_slot: Any = None,
 ) -> bool:
+    """``export_slot`` is the toolbar column that receives the Exportar popover."""
     # Documents can be opened before any multi-year financial preload. This
     # keeps documentary diligence usable for baskets without an IME cache and
     # avoids fetching 24 months merely to read a regulation.
@@ -722,11 +731,17 @@ def _render_portfolio_analysis_content(
                 selected_scopes=visible_scopes,
                 selected_portfolio=selected_portfolio,
             )
-    with st.expander("Downloads", expanded=False, key=f"portfolio_exports::{selected_portfolio.id}"):
-        _render_unified_portfolio_download(
-            analysis=analysis, selected_portfolio=selected_portfolio,
-            period=period, compact=True,
-        )
+    # Exports sit with the period toolbar, beside the entity actions. The
+    # popover is drawn into that earlier column now that the analysis exists.
+    with (export_slot if export_slot is not None else st.container()):
+        with st.popover(
+            "Exportar", icon=":material/download:", width="stretch",
+            help="Apresentação da carteira (PPTX) e bases editáveis (Excel/CSV).",
+            key=f"portfolio_exports::{selected_portfolio.id}",
+        ):
+            _render_portfolio_exports(
+                analysis=analysis, selected_portfolio=selected_portfolio, period=period,
+            )
     _render_portfolio_audit(analysis=analysis, scope=active_scope, portfolio_id=selected_portfolio.id)
     return True
 
@@ -1088,6 +1103,18 @@ def _render_analysis_coverage_alert(
                     st.caption(f"{fund.display_name} · {fund.cnpj} — {message}")
 
 
+@st.fragment
+def _render_portfolio_exports(
+    *, analysis: PortfolioAnalysisData, selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+) -> None:
+    """Preparing a file reruns only this block, not the whole page."""
+    _render_unified_portfolio_download(
+        analysis=analysis, selected_portfolio=selected_portfolio,
+        period=period, compact=True,
+    )
+
+
 def _render_unified_portfolio_download(
     *,
     analysis: PortfolioAnalysisData,
@@ -1096,8 +1123,8 @@ def _render_unified_portfolio_download(
     compact: bool = False,
 ) -> None:
     from services.on_demand_download import (
-        current_download_store, download_context_signature, render_on_demand_download,
-        render_native_deferred_download,
+        current_download_store, discard_other_download_stores, download_context_signature,
+        render_on_demand_download, render_native_deferred_download,
     )
 
     if analysis.monitor_outputs is None or analysis.research_outputs is None:
@@ -1107,7 +1134,16 @@ def _render_unified_portfolio_download(
     signature = _portfolio_download_context_signature(
         analysis=analysis, selected_portfolio=selected_portfolio, period=period,
     )
-    with st.popover("Opções do PowerPoint", type="tertiary"):
+    if compact:
+        # Inside the Exportar popover: the presentation leads, its options sit
+        # below it (popovers cannot nest) and fill in before the button below.
+        st.markdown("**Apresentação da carteira**")
+        ppt_slot = st.container()
+        options_host = st.expander("Opções da apresentação", expanded=False)
+    else:
+        ppt_slot = st.container()
+        options_host = st.popover("Opções do PowerPoint", type="tertiary")
+    with options_host:
         include_conclusions = st.checkbox(
             "Adicionar síntese",
             value=False, key=f"portfolio_ppt_conclusions::{selected_portfolio.id}",
@@ -1122,6 +1158,7 @@ def _render_unified_portfolio_download(
         )
     signature = download_context_signature(signature, include_conclusions, table_placement)
     namespace = f"portfolio::{selected_portfolio.id}"
+    discard_other_download_stores(st.session_state, family="portfolio::", namespace=namespace)
     store = current_download_store(st.session_state, namespace=namespace, signature=signature)
     # Rentabilidade uses this same cached resolver. Its realized CDI rates and
     # documentary benchmark values are part of the PPT context, even when the
@@ -1140,8 +1177,9 @@ def _render_unified_portfolio_download(
     store.pop("complete_pptx", None)  # Migrate files prepared before separate PPT contexts.
     file_token = _safe_file_token(selected_portfolio.name)
 
-    st.caption(
-        "Carteira completa · dados mensais no histórico exibido. Estrutura, emissões e documentos mantêm seus cortes."
+    ppt_slot.caption(
+        f"Carteira completa · {len(selected_portfolio.funds)} fundos · dados mensais no histórico exibido. "
+        "Estrutura, emissões e documentos mantêm seus cortes."
         if compact else
         f"Downloads da carteira completa · {len(selected_portfolio.funds)} fundos. "
         "A janela visual da análise é aplicada aos dados mensais. A escolha de escopos "
@@ -1159,15 +1197,16 @@ def _render_unified_portfolio_download(
             include_conclusions=include_conclusions, table_placement=table_placement,
         )
 
-    render_on_demand_download(
-        store=ppt_store, namespace=namespace, artifact="complete_pptx",
-        label="Apresentação (PPTX)" if compact else "Apresentação da carteira (PPTX)",
-        file_name=f"carteira_completa_{file_token}.pptx",
-        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        producer=prepare_current_pptx,
-        primary=not compact,
-        help_text="Tabelas editáveis e fontes nas notas. Partes indisponíveis são informadas após a preparação.",
-    )
+    with ppt_slot:
+        render_on_demand_download(
+            store=ppt_store, namespace=namespace, artifact="complete_pptx",
+            label="Apresentação (PPTX)" if compact else "Apresentação da carteira (PPTX)",
+            file_name=f"carteira_completa_{file_token}.pptx",
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            producer=prepare_current_pptx,
+            primary=True,
+            help_text="Tabelas editáveis e fontes nas notas. Partes indisponíveis são informadas após a preparação.",
+        )
     if ppt_store.get("complete_pptx") is not None:
         # The first request resolves the cached inputs inside its producer.
         # Store that resulting context so that later reruns can validate the
@@ -1176,7 +1215,7 @@ def _render_unified_portfolio_download(
             signature, return_inputs, return_inputs_error,
         )
     if return_inputs_error is not None:
-        st.caption(
+        ppt_slot.caption(
             "Os insumos de rentabilidade não puderam ser conferidos nesta execução. "
             "A apresentação informa a parte indisponível; os downloads de dados permanecem disponíveis."
         )
@@ -1195,12 +1234,18 @@ def _render_unified_portfolio_download(
             })
         return with_csv_export_context(payload, context) if csv_zip else with_xlsx_export_context(payload, context)
 
-    with st.expander(
-        "Downloads de dados editáveis", expanded=False,
-        key=f"portfolio_download_data::{selected_portfolio.id}",
-    ):
+    if compact:
+        st.divider()
+        st.markdown("**Dados editáveis**")
+        data_host = st.container()
+    else:
+        data_host = st.expander(
+            "Downloads de dados editáveis", expanded=False,
+            key=f"portfolio_download_data::{selected_portfolio.id}",
+        )
+    with data_host:
         if compact:
-            st.caption("RDB limitado aos CNPJs da cesta. Ausências documentais aparecem como Não localizado/N/D.")
+            st.caption("Um clique baixa o arquivo. RDB limitado aos CNPJs da cesta; ausências documentais aparecem como Não localizado/N/D.")
         for artifact, label, name, mime, producer in (
             (
                 "snapshot_excel", "Resumo histórico da carteira (Excel)",
