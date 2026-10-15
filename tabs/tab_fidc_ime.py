@@ -896,7 +896,8 @@ def render_period_toolbar(*, state_prefix: str):
             # Clicking the active preset again keeps it selected.
             st.session_state[preset_key] = st.session_state.get(last_key, default_label)
 
-    preset_col, adjust_col, action_col = st.columns([5, 1.6, 1.2], vertical_alignment="center")
+    # The action column fits "Exportar" with its icon at ~800px.
+    preset_col, adjust_col, action_col = st.columns([4.6, 1.6, 1.4], vertical_alignment="center")
     with preset_col:
         st.segmented_control(
             "Janela móvel", options=preset_labels, key=preset_key, label_visibility="collapsed",

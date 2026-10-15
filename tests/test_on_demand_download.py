@@ -49,6 +49,21 @@ def _portfolio_download_test_app(portfolio, analysis) -> None:
         )
 
 
+def _portfolio_export_popover_test_app(portfolio, analysis) -> None:
+    import streamlit as st
+    from types import SimpleNamespace
+    from tabs import portfolio_page
+
+    st.session_state["page_runs"] = st.session_state.get("page_runs", 0) + 1
+    _, toolbar_actions = st.columns(2)
+    st.write("Abas da carteira")
+    with toolbar_actions, st.popover("Exportar", key="exportar"):
+        portfolio_page._render_portfolio_exports(
+            analysis=analysis, selected_portfolio=portfolio,
+            period=SimpleNamespace(cache_key="p", label="p"),
+        )
+
+
 class OnDemandDownloadTests(unittest.TestCase):
     def test_render_and_download_reruns_do_not_generate_until_requested(self) -> None:
         state = {}
@@ -296,6 +311,35 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
         self.assertEqual({}, app.session_state[store_key]["files"])
         self.assertEqual(1, app.session_state["snapshot_calls"])
         self.assertEqual(0, len(app.get("download_button")))
+
+    def test_export_popover_prepares_ppt_first_and_shows_its_caveats(self) -> None:
+        from streamlit.testing.v1 import AppTest
+
+        prepared = PreparedDownload(b"deck", ("Curadoria documental: pacote não localizado.",))
+        with (
+            patch("tabs.portfolio_page._portfolio_download_context_signature", return_value="sig"),
+            patch("tabs.portfolio_page._portfolio_ppt_return_inputs", return_value=({}, None)),
+            patch("tabs.portfolio_page._prepare_complete_portfolio_pptx", return_value=prepared) as prepare,
+        ):
+            app = AppTest.from_function(
+                _portfolio_export_popover_test_app, args=(self.portfolio, self.analysis),
+            ).run()
+            self.assertEqual([], list(app.exception))
+            first = app.button[0]
+            self.assertEqual("Preparar: Apresentação (PPTX)", first.label)
+            self.assertEqual("primary", first.proto.type)
+            prepare.assert_not_called()
+            first.click().run()
+            self.assertEqual([], list(app.exception))
+        prepare.assert_called_once()
+        download = next(element for element in app.get("download_button") if element.proto.label == "Baixar: Apresentação (PPTX)")
+        self.assertEqual("primary", download.proto.type)
+        self.assertIn(
+            "Parte não incluída na apresentação: Curadoria documental: pacote não localizado.",
+            [caption.value for caption in app.caption],
+        )
+        key = f"prepared_downloads::portfolio::{self.portfolio.id}::pptx"
+        self.assertEqual(b"deck", app.session_state[key]["files"]["complete_pptx"].data)
 
     def test_cdi_or_benchmark_correction_invalidates_only_ppt_without_regenerating(self) -> None:
         state = {}
