@@ -10,7 +10,7 @@ import pandas as pd
 import streamlit as st
 
 from services.cvm_cadastro import fetch_fidc_reporting_statuses
-from services.dashboard_ui import analytical_components_css, analysis_context_html, diagnostics_enabled
+from services.dashboard_ui import analytical_components_css, diagnostics_enabled
 from services.fund_name_display import short_fund_name
 from services.fundonet_dashboard import filter_dashboard_to_competencias
 from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
@@ -130,6 +130,48 @@ _PORTFOLIO_PAGE_CSS = """
     border-radius: 999px;
     padding: 0.18rem 0.55rem;
 }
+.portfolio-entity {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 .4rem;
+    min-width: 0;
+}
+.portfolio-entity-title {
+    color: #202832;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+.portfolio-entity .portfolio-scope-identity {
+    font-size: .8rem;
+    margin-left: 0;
+}
+.portfolio-entity .portfolio-scope-identity summary {
+    align-items: center;
+    color: #66717d;
+    display: inline-flex;
+    justify-content: center;
+    list-style: none;
+    min-height: 44px;
+    padding: 0;
+    width: 32px;
+}
+.portfolio-entity .portfolio-scope-identity summary::-webkit-details-marker { display: none; }
+.portfolio-entity .portfolio-scope-identity summary span {
+    align-items: center;
+    border: 1px solid #cfd4da;
+    border-radius: 50%;
+    display: inline-flex;
+    font-size: 12px;
+    height: 19px;
+    justify-content: center;
+    width: 19px;
+}
+.portfolio-entity .portfolio-scope-identity[open] { flex-basis: 100%; }
+.portfolio-entity .portfolio-scope-identity[open] summary { color: #ff5a00; }
 .portfolio-scope-current {
     background: #ffffff;
     border: 1px solid #e5e7eb;
@@ -332,7 +374,11 @@ _SECTION_DEPENDENCIES: dict[str, tuple[str, ...]] = {}
 _GROUP_ORDER = ("Contexto e risco", "Monitoramento e governança")
 
 
-def render_portfolio_center_page(period: ImePeriodSelection) -> None:
+def render_portfolio_center_page(period: ImePeriodSelection | None = None, *, period_renderer=None) -> None:
+    """``period_renderer`` draws the period toolbar after the entity title.
+
+    It returns (period, "Ajustar período" popover, trailing toolbar column).
+    """
     st.html(
         "\n".join(
             (
@@ -351,6 +397,9 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
     )
     if selected_portfolio is None:
         return
+    adjust_popover = toolbar_actions = None
+    if period_renderer is not None:
+        period, adjust_popover, toolbar_actions = period_renderer()
     _restore_portfolio_widget_choices(selected_portfolio.id)
 
     selected_sections = _render_workflow_selector()
@@ -393,6 +442,7 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
                     selected_portfolio=selected_portfolio,
                     period=period,
                     selected_sections=selected_sections,
+                    adjust_popover=adjust_popover,
                 )
             finally:
                 loading_surface.empty()
@@ -473,12 +523,13 @@ def _render_portfolio_analysis_surface(
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
+    adjust_popover: Any = None,
 ) -> bool:
     with st.container(key="portfolio_analysis"):
         st.html(analytical_components_css("portfolio_analysis") + _PORTFOLIO_ANALYSIS_POLISH_CSS)
         return _render_portfolio_analysis_content(
             selected_portfolio=selected_portfolio, period=period,
-            selected_sections=selected_sections,
+            selected_sections=selected_sections, adjust_popover=adjust_popover,
         )
 
 
@@ -487,6 +538,7 @@ def _render_portfolio_analysis_content(
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
+    adjust_popover: Any = None,
 ) -> bool:
     # Documents can be opened before any multi-year financial preload. This
     # keeps documentary diligence usable for baskets without an IME cache and
@@ -542,18 +594,28 @@ def _render_portfolio_analysis_content(
     # panel empty even though the portfolio values themselves are available.
     calculation_outputs = analysis.outputs
     with header_slot:
-        # Scope picker, display window and settings share one control row.
+        # Period line first; a basket adds its scope and fund choices below it.
+        period_line_slot = st.empty()
         multi_scope = len(analysis.scopes) > 1
-        header_columns = st.columns([2, 3, 1] if multi_scope else [5, 1], vertical_alignment="bottom")
-        scope_column = header_columns[0] if multi_scope else header_slot
-        context_column, history_column = header_columns[-2:]
-    with history_column:
-        display_settings = st.popover("Exibição", help="Meses e fundos exibidos; o período solicitado permanece selecionado.")
-        with display_settings:
-            display_outputs = somatorio_tab._render_loaded_period_window(
-                calculation_outputs, show_caption=False,
-                control_label="Histórico exibido", state_namespace=selected_portfolio.id,
-            )
+        if multi_scope:
+            scope_column, funds_column, _ = st.columns([2, 1.3, 3], vertical_alignment="bottom")
+        else:
+            scope_column = funds_column = header_slot
+    # The displayed window is a period setting: it joins the loaded interval in
+    # the toolbar's "Ajustar período" popover when the page provides one.
+    if adjust_popover is not None:
+        window_host = adjust_popover
+    else:
+        with header_slot:
+            window_host = st.popover("Exibição", help="Meses exibidos; o período solicitado permanece selecionado.")
+    with window_host:
+        if adjust_popover is not None:
+            st.divider()
+            st.markdown("**Recorte exibido**")
+        display_outputs = somatorio_tab._render_loaded_period_window(
+            calculation_outputs, show_caption=False,
+            control_label="Histórico exibido", state_namespace=selected_portfolio.id,
+        )
     # Preserve the producer's snapshot reference separately from the selected
     # historical window. The financial filtering rules remain unchanged.
     context = build_portfolio_presentation_context(
@@ -583,18 +645,16 @@ def _render_portfolio_analysis_content(
         load_errors=analysis.load_errors,
         reference_context=context,
     )
-    with context_column:
-        with st.container(key="portfolio_structure_context"):
-            st.html(analysis_context_html((
-                ("Exibido", re.sub(r"\b(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)-(\d{2})\b", r"\1/\2", context.historical_window, flags=re.IGNORECASE)),
-                ("Posição comum da cesta", context.common_position),
-            )))
+    text, help_text = _period_line(
+        context=context, display_outputs=display_outputs, fund_count=len(selected_portfolio.funds),
+    )
+    period_line_slot.caption(text, help=help_text)
     with header_slot:
         _render_analysis_coverage_alert(analysis=coverage_analysis, selected_portfolio=selected_portfolio)
 
     if len(analysis.scopes) > 1:
-        with display_settings:
-            st.caption("Fundos da comparação")
+        # Which funds enter the comparison is a choice about the entity.
+        with funds_column, st.popover("Fundos exibidos", icon=":material/filter_list:", width="stretch"):
             selected_scopes = _render_scope_selector(scopes=analysis.scopes, portfolio_id=selected_portfolio.id)
     else:
         selected_scopes = analysis.scopes
@@ -611,9 +671,10 @@ def _render_portfolio_analysis_content(
 
     with scope_column:
         active_scope = _render_active_portfolio_scope(selected_scopes, selected_portfolio.id)
-    if st.session_state.get(f"portfolio_analysis_view::{selected_portfolio.id}") not in {"Documentos", SECTION_DEEP_DIVE}:
+    # A single fund is already named, with its identity, in the entity title.
+    if len(analysis.scopes) > 1 and st.session_state.get(f"portfolio_analysis_view::{selected_portfolio.id}") not in {"Documentos", SECTION_DEEP_DIVE}:
         with header_slot:
-            _render_scope_header(active_scope, common_position=context.common_position, show_label=len(analysis.scopes) == 1)
+            _render_scope_header(active_scope, common_position=context.common_position, show_label=False)
     visible_scopes = (active_scope,)
     structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = early_tabs or _render_portfolio_view_tabs(selected_portfolio)
     if curation_tab.open:
@@ -668,6 +729,42 @@ def _render_portfolio_analysis_content(
         )
     _render_portfolio_audit(analysis=analysis, scope=active_scope, portfolio_id=selected_portfolio.id)
     return True
+
+
+_PT_MONTHS = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
+
+
+def _month_label(value: object) -> str:
+    """mmm/aa from ISO dates, MM/AAAA or mmm-aa; anything else is kept."""
+    text = str(value or "").strip()
+    match = re.fullmatch(r"(\d{4})-(\d{2})(?:-\d{2})?", text) or re.fullmatch(r"(\d{2})/(\d{4})", text)
+    if match:
+        year, month = (match.group(1), match.group(2)) if "-" in text else (match.group(2), match.group(1))
+        if 1 <= int(month) <= 12:
+            return f"{_PT_MONTHS[int(month) - 1]}/{year[-2:]}"
+    return re.sub(r"\b(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)-(\d{2})\b", r"\1/\2", text, flags=re.IGNORECASE)
+
+
+def _period_line(*, context: Any, display_outputs: Any, fund_count: int) -> tuple[str, str]:
+    """One line for the displayed window and position, in mmm/aa."""
+    metadata = getattr(display_outputs, "metadata", {}) or {}
+    months = list(metadata.get("display_period_months") or [])
+    contiguous = metadata.get("display_period_mode") not in {"Dezembros + Ano Atual"}
+    if months and contiguous:
+        window = f"{_month_label(months[0])} – {_month_label(months[-1])}"
+    else:
+        window = _month_label(context.historical_window)
+    parts = [window]
+    if months:
+        parts.append(f"{len(months)} competência{'s' if len(months) != 1 else ''}")
+    position = _month_label(context.common_position)
+    parts.append(f"posição comum da cesta {position}" if fund_count > 1 else f"posição {position}")
+    help_text = (
+        "Janelas anuais mostram também o mesmo mês do ano anterior, base das variações em 12 meses. "
+        + ("A posição comum é a competência mais recente informada por todos os fundos da cesta."
+           if fund_count > 1 else "A posição é a competência mais recente informada pelo fundo.")
+    )
+    return " · ".join(parts), help_text
 
 
 def _render_portfolio_audit(*, analysis: PortfolioAnalysisData, scope: PortfolioAnalysisScope, portfolio_id: str) -> None:
@@ -960,7 +1057,7 @@ def _render_analysis_coverage_alert(
         if latest_incomplete or analysis.aggregate_bundle.fund_scope_df["elegivel_competencia"].eq("Não").any():
             latest = competence_coverage.iloc[-1] if not competence_coverage.empty else {}
             notes.append(
-                f"Última observada: {latest.get('competencia', 'N/D')} · "
+                f"Última observada: {_month_label(latest.get('competencia', 'N/D'))} · "
                 f"{latest.get('fundos_reportantes', 'N/D')}/{latest.get('fundos_elegiveis', 'N/D')} elegíveis. "
                 "O comparativo conserva a posição comum."
             )

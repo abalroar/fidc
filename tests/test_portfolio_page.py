@@ -517,5 +517,15 @@ class PortfolioPageTests(unittest.TestCase):
         )
 
 
+    def test_period_line_states_window_count_and_position_once(self) -> None:
+        context = SimpleNamespace(historical_window="set-25 → set-26", common_position="09/2026")
+        months = ["2025-09-01", *[f"2026-{month:02d}-01" for month in range(1, 10)]]
+        outputs = SimpleNamespace(metadata={"display_period_months": months, "display_period_mode": "12M"})
+        single, help_text = portfolio_page._period_line(context=context, display_outputs=outputs, fund_count=1)
+        basket, _ = portfolio_page._period_line(context=context, display_outputs=outputs, fund_count=5)
+        self.assertEqual("set/25 – set/26 · 10 competências · posição set/26", single)
+        self.assertEqual("set/25 – set/26 · 10 competências · posição comum da cesta set/26", basket)
+        self.assertIn("mesmo mês do ano anterior", help_text)
+
 if __name__ == "__main__":
     unittest.main()

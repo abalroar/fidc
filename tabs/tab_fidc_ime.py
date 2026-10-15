@@ -761,12 +761,16 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
             progress_bar.progress(int(round(normalized * 100)))
 
 
-def render_period_selector(*, state_prefix: str, title: str = "Período da análise", context_label: str | None = None) -> ImePeriodSelection:
+def render_period_selector(
+    *, state_prefix: str, title: str = "Período da análise", context_label: str | None = None, show_caption: bool = True,
+) -> ImePeriodSelection:
     """Public period selector — reused by app.py as a global control shared across tabs."""
-    return _render_period_selector(state_prefix=state_prefix, title=title, context_label=context_label)
+    return _render_period_selector(state_prefix=state_prefix, title=title, context_label=context_label, show_caption=show_caption)
 
 
-def _render_period_selector(*, state_prefix: str, title: str = "Período da análise", context_label: str | None = None) -> ImePeriodSelection:
+def _render_period_selector(
+    *, state_prefix: str, title: str = "Período da análise", context_label: str | None = None, show_caption: bool = True,
+) -> ImePeriodSelection:
     caption_prefix = f"{context_label}: " if context_label else ""
     end_month = current_default_end_month()
     max_options = _period_month_options(end_month, months_back=59)
@@ -814,7 +818,8 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
             f"{_format_month_option_label(period.start_month)} "
             f"→ {_format_month_option_label(period.end_month)}"
         )
-        st.caption(caption_prefix + period_str)
+        if show_caption:
+            st.caption(caption_prefix + period_str)
     else:
         start_default = default_period.start_month
         start_index = max_options.index(start_default) if start_default in max_options else 0
@@ -847,12 +852,89 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 st.session_state[custom_key] = False
                 st.rerun()
         period = build_custom_period(start_month=start_month, end_month=end_month_selected)
-        st.caption(
-            caption_prefix + f"{_format_month_option_label(period.start_month)} "
-            f"→ {_format_month_option_label(period.end_month)}"
-        )
+        if show_caption:
+            st.caption(
+                caption_prefix + f"{_format_month_option_label(period.start_month)} "
+                f"→ {_format_month_option_label(period.end_month)}"
+            )
 
     return period
+
+
+def render_period_toolbar(*, state_prefix: str):
+    """Period controls for the portfolio toolbar.
+
+    Presets stay one click away; a custom loaded interval lives in the
+    "Ajustar período" popover, which the page also uses for the displayed
+    window. Returns (period, popover, trailing column for page actions).
+    """
+    end_month = current_default_end_month()
+    max_options = _period_month_options(end_month, months_back=59)
+    preset_labels = tuple(f"{value}M" for value in PERIOD_PRESET_OPTIONS)
+    default_label = f"{DEFAULT_PRESET_MONTHS}M"
+    custom_key = f"{state_prefix}_show_custom"
+    preset_key = f"{state_prefix}_period_preset"
+    last_key = f"{state_prefix}_last_preset"
+    applied_key = f"{state_prefix}_custom_applied"
+    st.session_state.setdefault(custom_key, False)
+    custom = bool(st.session_state[custom_key]) and applied_key in st.session_state
+    if custom:
+        # A custom interval is active: no preset is highlighted.
+        st.session_state[preset_key] = None
+    else:
+        st.session_state[custom_key] = False
+        st.session_state[preset_key] = normalize_single_selection(
+            st.session_state.get(preset_key) or st.session_state.get(last_key), preset_labels, default=default_label,
+        )
+
+    def _on_preset_change() -> None:
+        value = st.session_state.get(preset_key)
+        if value:
+            st.session_state[custom_key] = False
+            st.session_state[last_key] = value
+        elif not st.session_state.get(custom_key):
+            # Clicking the active preset again keeps it selected.
+            st.session_state[preset_key] = st.session_state.get(last_key, default_label)
+
+    preset_col, adjust_col, action_col = st.columns([5, 1.6, 1.2], vertical_alignment="center")
+    with preset_col:
+        st.segmented_control(
+            "Janela móvel", options=preset_labels, key=preset_key, label_visibility="collapsed",
+            selection_mode="single", width="stretch", on_change=_on_preset_change,
+        )
+    if custom:
+        start_applied, end_applied = st.session_state[applied_key]
+        period = build_custom_period(start_month=start_applied, end_month=end_applied)
+    else:
+        selected = st.session_state.get(preset_key) or default_label
+        period = build_preset_period(end_month=end_month, months=int(str(selected).removesuffix("M")))
+    with adjust_col:
+        adjust = st.popover("Ajustar período", icon=":material/tune:", width="stretch")
+    with adjust:
+        st.markdown("**Período carregado**")
+        st.caption("Intervalo consultado nos informes. Os presets ao lado continuam disponíveis.")
+        start_index = max_options.index(period.start_month) if period.start_month in max_options else 0
+        start_month = st.selectbox(
+            "Competência inicial", options=max_options, index=start_index,
+            key=f"{state_prefix}_period_start_month", format_func=_format_month_option_label,
+        )
+        end_candidates = [value for value in max_options if value >= start_month]
+        end_index = end_candidates.index(period.end_month) if period.end_month in end_candidates else len(end_candidates) - 1
+        end_month_selected = st.selectbox(
+            "Competência final", options=end_candidates, index=end_index,
+            key=f"{state_prefix}_period_end_month", format_func=_format_month_option_label,
+        )
+        if st.button("Aplicar intervalo", key=f"{state_prefix}_btn_apply_custom", type="primary", width="stretch"):
+            st.session_state[applied_key] = (start_month, end_month_selected)
+            st.session_state[custom_key] = True
+            st.rerun()
+        if custom and st.button(
+            "Voltar à janela móvel", key=f"{state_prefix}_btn_preset", icon=":material/arrow_back:", width="stretch",
+        ):
+            # The next run restores the last preset before the control is drawn.
+            st.session_state[custom_key] = False
+            st.rerun()
+    return period, adjust, action_col
 
 
 def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
@@ -1665,6 +1747,15 @@ def _render_structural_risk_section(
             _portfolio_pl_percentage_unavailable_note(dashboard.quota_pl_history_df)
             if pl_view == "% do total por competência" else "PL por cota N/D — sem dados no período."
         )
+    elif portfolio_mode:
+        st.altair_chart(
+            _portfolio_quota_stack_chart(
+                plot_frame, percent=pl_view == "% do total por competência",
+                series_order=portfolio_chart_options["legend_series_order"],
+                colors=portfolio_chart_options["color_range"],
+            ),
+            width="stretch",
+        )
     elif pl_view == "% do total por competência":
         st.altair_chart(
             _stacked_history_bar_chart(
@@ -2043,10 +2134,25 @@ def _portfolio_snapshot_support_values(summary: dict[str, Any]) -> tuple[tuple[s
         elif float(overdue_number) < 0:
             coverage_label = "não calculável (vencidos não positivos)"
     return (
-        ("Ativo", _format_brl_compact(summary.get("ativos_totais"))),
-        ("Vencidos", _format_brl_compact(overdue)),
+        ("Ativo", _portfolio_money_label(summary.get("ativos_totais"))),
+        ("Vencidos", _portfolio_money_label(overdue)),
         ("Cobertura", coverage_label),
     )
+
+
+def _portfolio_money_label(value: object) -> str:
+    """One money scale on the portfolio page: bi above R$ 1 bi, otherwise R$ mm."""
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return "N/D"
+    if _is_missing_value(numeric):
+        return "N/D"
+    if abs(numeric) >= 1_000_000:
+        return _format_brl_compact(numeric)
+    if numeric != 0 and abs(numeric) < 5_000:
+        return "R$ <0,01 mm" if numeric > 0 else "R$ −<0,01 mm"
+    return f"R$ {_format_decimal(numeric / 1_000_000, decimals=2)} mm"
 
 
 def _portfolio_credit_zero_note(history: pd.DataFrame) -> str:
@@ -2108,6 +2214,100 @@ def _portfolio_order_quota_frame(frame: pd.DataFrame) -> pd.DataFrame:
     return result
 
 
+# A segment narrower than this share of its bar keeps its value in the tooltip;
+# only the latest bar labels it outside, where 13 bars cannot collide.
+_PORTFOLIO_QUOTA_INNER_LABEL_SHARE = 0.08
+
+
+def _portfolio_mm_label(value: float) -> str:
+    decimals = 2 if 0 < abs(value) < 1 else 1
+    return _format_decimal(value, decimals=decimals)
+
+
+def _portfolio_quota_stack_chart(
+    plot_frame: pd.DataFrame, *, percent: bool, series_order: list[str], colors: list[str],
+) -> alt.Chart:
+    """Stacked PL by quota class: % mode on a 0–100 axis, R$ mode in R$ mm."""
+    from services.chart_number_format import pt_br_number_expr, span_decimals
+
+    frame = _altair_compatible_df(plot_frame.copy())
+    frame = _sort_competencia_display_frame(frame, extra_columns=["ordem", "serie"])
+    frame["competencia"] = frame["competencia"].map(_format_competencia_display).str.replace("-", "/", regex=False)
+    value_column = "percentual" if percent else "valor"
+    frame["y_value"] = pd.to_numeric(frame[value_column], errors="coerce") / (1.0 if percent else 1_000_000.0)
+    frame = frame.dropna(subset=["y_value"]).sort_values(["competencia_dt", "ordem"], kind="stable")
+    frame["valor_fmt"] = (
+        frame["y_value"].map(lambda value: f"{_format_decimal(value, decimals=1)}%")
+        if percent else frame[value_column].map(_format_brl_compact)
+    )
+
+    # Same stacking as Vega's zero offset: positives upwards, negatives downwards.
+    positive = frame["y_value"].clip(lower=0)
+    negative = frame["y_value"].clip(upper=0)
+    frame["y_top"] = positive.groupby(frame["competencia"]).cumsum() + negative.groupby(frame["competencia"]).cumsum()
+    frame["y_mid"] = frame["y_top"] - frame["y_value"] / 2
+    bar_size = frame["y_value"].abs().groupby(frame["competencia"]).transform("sum")
+    frame["share"] = (frame["y_value"].abs() / bar_size).where(bar_size > 0, 0.0)
+    frame["label_text"] = frame["y_value"].map(
+        (lambda value: f"{_format_decimal(value, decimals=0 if abs(value) >= 10 else 1)}%") if percent
+        else _portfolio_mm_label
+    )
+    color_map = dict(zip(series_order, colors))
+    frame["label_color"] = frame["serie"].map(lambda serie: _contrast_text_color(color_map.get(str(serie), "#b8b8b8")))
+    x_sort = _competencia_axis_sort(frame)
+
+    totals = frame.groupby("competencia", sort=False)["y_value"].sum()
+    if percent:
+        y_scale = alt.Scale(domain=[min(0.0, float(frame["y_top"].min())), max(100.0, float(totals.max()))], nice=False)
+        y_axis = alt.Axis(labelExpr=pt_br_number_expr(0, "%"), values=[0, 20, 40, 60, 80, 100], title=None)
+    else:
+        y_scale = alt.Scale(zero=True, nice=True)
+        y_axis = alt.Axis(labelExpr=pt_br_number_expr(span_decimals(totals, maximum=1)), title="R$ mm")
+    x = alt.X(
+        "competencia:N", title=None, sort=x_sort,
+        scale=alt.Scale(paddingInner=0.25, paddingOuter=0.12), axis=alt.Axis(labelAngle=0),
+    )
+    bars = alt.Chart(frame).mark_bar().encode(
+        x=x,
+        y=alt.Y("y_value:Q", stack="zero", scale=y_scale, axis=y_axis),
+        color=alt.Color(
+            "serie:N", sort=series_order, scale=alt.Scale(domain=series_order, range=colors),
+            legend=None if len(series_order) <= 1 else alt.Legend(title=None, orient="bottom", direction="horizontal"),
+        ),
+        order=alt.Order("ordem:Q", sort="ascending"),
+        tooltip=[
+            alt.Tooltip("competencia:N", title="Competência"), alt.Tooltip("serie:N", title="Classe"),
+            alt.Tooltip("valor_fmt:N", title="Participação" if percent else "PL"),
+        ],
+    )
+    layers: list[alt.Chart] = [bars]
+    inner = frame[frame["share"] >= _PORTFOLIO_QUOTA_INNER_LABEL_SHARE]
+    if not inner.empty:
+        layers.append(
+            alt.Chart(inner).mark_text(fontSize=10, fontWeight=600, opacity=alt.ExprRef(expr="width >= 520 ? 1 : 0")).encode(
+                x=x, y=alt.Y("y_mid:Q"), text="label_text:N", color=alt.Color("label_color:N", scale=None, legend=None),
+            )
+        )
+    latest = x_sort[-1] if x_sort else None
+    narrow = frame[(frame["competencia"] == latest) & (frame["share"] < _PORTFOLIO_QUOTA_INNER_LABEL_SHARE) & frame["y_value"].ne(0)]
+    for rank, (_, row) in enumerate(narrow.sort_values("y_mid", ascending=False).iterrows()):
+        layers.append(
+            alt.Chart(pd.DataFrame([row])).mark_text(
+                align="left", fontSize=10, fontWeight=600, color="#111111", dy=rank * 12,
+                dx=alt.ExprRef(expr="bandwidth('x') / 2 + 6"),
+            ).encode(x=x, y=alt.Y("y_mid:Q"), text="label_text:N")
+        )
+    if not percent:
+        total_frame = totals.rename("total").reset_index()
+        total_frame["total_text"] = total_frame["total"].map(_portfolio_mm_label)
+        layers.append(
+            alt.Chart(total_frame).mark_text(dy=-7, fontSize=10, color="#66717d").encode(
+                x=x, y=alt.Y("total:Q"), text="total_text:N",
+            )
+        )
+    return _style_altair_chart(alt.layer(*layers).properties(height=320, padding={"left": 4, "right": 52, "top": 10, "bottom": 4}))
+
+
 def _portfolio_quota_series_style(history: pd.DataFrame) -> tuple[list[str], list[str]]:
     if history.empty:
         return [], []
@@ -2148,16 +2348,33 @@ def _render_financial_snapshot_cards(
 ) -> None:
     summary = dashboard.summary
 
+    support = dict(_portfolio_snapshot_support_values(summary)) if portfolio_mode else {}
+    # The former line under the cards: each value now lives with its card.
+    card_extras = {
+        "PL total": (("Ativo total", support.get("Ativo")),),
+        "DCs totais": (("Vencidos", support.get("Vencidos")), ("Cobertura de provisão", support.get("Cobertura"))),
+    } if portfolio_mode else {}
+
     def _card(label: str, value: object) -> str:
         help_html = ""
         if interactive_help:
             from services.portfolio_structure_ui import structural_snapshot_help_html
 
             help_html = structural_snapshot_help_html(label, dashboard)
+            extras = card_extras.get(label, ())
+            if extras:
+                sections = [
+                    f"<section><strong>{escape(extra)} · {escape(str(extra_value))}</strong>"
+                    + re.sub(r"^<details[^>]*>.*?</summary>|</details>$", "",
+                             structural_snapshot_help_html(extra, dashboard), flags=re.S)
+                    + "</section>"
+                    for extra, extra_value in extras
+                ]
+                help_html = re.sub(r"</div></details>$", "".join(sections) + "</div></details>", help_html, flags=re.S)
         if label in {"Subordinação reportada", "Cobertura de provisão"}:
             val_str = _format_percent(value)
         else:
-            val_str = _format_brl_compact(value)
+            val_str = _portfolio_money_label(value) if portfolio_mode else _format_brl_compact(value)
         display_label = (
             {"PL total": "PL", "DCs totais": "DCs", "Subordinação reportada": "Subordinação"}.get(label, label)
             if portfolio_mode else label
@@ -2198,27 +2415,12 @@ def _render_financial_snapshot_cards(
             '.fidc-snapshot-row--portfolio>.fidc-snapshot-card:last-child{grid-column:1/-1;}'
             '}</style>'
         )
-        support_values = " · ".join(
-            f"{label} {value}" for label, value in _portfolio_snapshot_support_values(summary)
-        )
-        help_html = ""
-        if interactive_help:
-            from services.portfolio_structure_ui import structural_snapshot_help_html
-
-            help_blocks = []
-            for label in ("Ativo total", "Vencidos", "Cobertura de provisão"):
-                block = structural_snapshot_help_html(label, dashboard)
-                body = re.sub(r"^<details[^>]*>.*?</summary>|</details>$", "", block, flags=re.S)
-                help_blocks.append(f"<section><strong>{escape(label)}</strong>{body}</section>")
-            help_html = (
-                '<details class="dashboard-indicator-help">'
-                '<summary aria-label="Sobre ativo, vencidos e cobertura"><span aria-hidden="true">i</span></summary>'
-                '<div class="dashboard-indicator-help-body">' + "".join(help_blocks) + '</div></details>'
-            )
+    if portfolio_mode and not interactive_help:
+        # Without help disclosures the values stay visible as a support line.
+        support_values = " · ".join(f"{label} {value}" for label, value in support.items())
         support_html = (
             '<div class="portfolio-snapshot-support">'
-            f'<span class="portfolio-snapshot-support-values">{escape(support_values)}</span>'
-            f'{help_html}</div>'
+            f'<span class="portfolio-snapshot-support-values">{escape(support_values)}</span></div>'
         )
     st.markdown(
         f'<div class="{row_class}">{cards_html}</div>{support_html}',

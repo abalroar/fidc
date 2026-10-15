@@ -107,15 +107,16 @@ def test_support_help_is_inline_disclosure_and_reuses_canonical_help(ui, monkeyp
         dashboard, portfolio_mode=True, interactive_help=True, slot_key="fundo123",
     )
     ui["popover"].assert_not_called()
+    # The former support line moved into the help of the card it qualifies.
     assert [call.args[0] for call in helper.call_args_list] == [
-        "PL total", "DCs totais", "Subordinação reportada",
-        "Ativo total", "Vencidos", "Cobertura de provisão",
+        "PL total", "Ativo total", "DCs totais", "Vencidos", "Cobertura de provisão", "Subordinação reportada",
     ]
     html = ui["markdown"].call_args.args[0]
     assert html.count("Fonte canônica") == 6
-    assert 'class="portfolio-snapshot-support"' in html
-    assert 'aria-label="Sobre ativo, vencidos e cobertura"' in html
-    assert html.count('<span aria-hidden="true">i</span>') == 4
+    assert 'class="portfolio-snapshot-support"' not in html
+    assert html.count('<span aria-hidden="true">i</span>') == 3
+    assert "Ativo total · R$ 100,1 mm" in html and "Vencidos · R$ 0,00 mm" in html
+    assert "Cobertura de provisão · não calculável (vencidos zero)" in html
     assert "<script" not in html
 
 

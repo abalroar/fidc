@@ -478,9 +478,8 @@ with dashboard_page(selected_section):
         render_tab_industry_study()
     elif selected_section == "carteira":
         render_page_header("Dados de Carteira")
-        _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
-        period = _render_period_selector(state_prefix="ime_global", context_label="Selecionado")
-        render_portfolio_center_page(period=period)
+        # Entity first, then the period toolbar; the page draws both.
+        render_portfolio_center_page(period_renderer=lambda: ime_tab.render_period_toolbar(state_prefix="ime_global"))
     elif selected_section == "estimativas":
         render_tab_estimativas_modelagem()
     elif selected_section == "glossario":

@@ -147,18 +147,32 @@ def render_portfolio_control_panel(
                 st.session_state[editor_open_key] = True
                 st.rerun()
 
+    def _render_create_action() -> None:
+        if st.button("Criar nova carteira", key="ime_portfolio_new_button", icon=":material/add:", width="stretch"):
+            _reset_new_portfolio_form_state()
+            st.session_state["ime_portfolio_editor_mode"] = "create"
+            st.session_state[editor_open_key] = True
+            st.rerun()
+
     def manage_portfolios() -> None:
         render_saved_portfolio_delete_manager(
             portfolios=portfolios, key_prefix="ime_portfolio",
             selected_portfolio_id=selected_saved_portfolio.id if selected_saved_portfolio is not None else None,
             on_delete=_handle_deleted_portfolio,
-            render_actions=_render_portfolio_management_actions,
+            # On the compact page "Editar carteira" sits next to the title.
+            render_actions=_render_create_action if compact else _render_portfolio_management_actions,
             embedded=compact,
         )
+
+    def edit_current_portfolio() -> None:
+        st.session_state["ime_portfolio_editor_mode"] = "edit"
+        st.session_state[editor_open_key] = True
+        st.rerun()
 
     _render_active_analysis_bar(
         selected_portfolio, compact=compact,
         management_renderer=manage_portfolios if compact and portfolios else None,
+        edit_handler=edit_current_portfolio if compact and selected_saved_portfolio is not None else None,
     )
     if st.session_state.get(editor_open_key, False):
         st.markdown('<div style="height:0.35rem"></div>', unsafe_allow_html=True)
@@ -319,15 +333,52 @@ def _render_direct_cnpj_entry(catalog_df: pd.DataFrame) -> None:
     st.rerun()
 
 
-def _render_active_analysis_bar(selected_portfolio: PortfolioRecord, *, compact: bool = False, management_renderer=None) -> None:
+def _render_entity_header(selected_portfolio: PortfolioRecord, *, management_renderer=None, edit_handler=None) -> None:
+    """Entity title with the actions on the entity itself: switch, edit, more."""
+    fund_count = len(selected_portfolio.funds)
+    with st.container(key="portfolio_active_analysis"):
+        title_col, actions_col = st.columns([3, 2], vertical_alignment="center")
+        with title_col:
+            st.markdown(_entity_title_html(selected_portfolio), unsafe_allow_html=True)
+            if fund_count > 1:
+                st.caption(f"{fund_count} fundos")
+        with actions_col, st.container(horizontal=True, horizontal_alignment="right", gap="small"):
+            if st.button(
+                "Trocar fundo" if _is_temporary_portfolio(selected_portfolio) else "Trocar carteira",
+                key="ime_portfolio_change_analysis", icon=":material/swap_horiz:", type="tertiary",
+                help="Volta à escolha entre carteira salva, CNPJ específico e nova carteira.",
+            ):
+                _clear_active_analysis_context()
+                st.rerun()
+            if edit_handler is not None and st.button(
+                "Editar carteira", key="ime_portfolio_edit_inline", icon=":material/edit:", type="tertiary",
+                help="Altera nome e fundos da carteira salva.",
+            ):
+                edit_handler()
+            if management_renderer is not None:
+                with st.popover("", icon=":material/more_horiz:", type="tertiary", help="Criar ou apagar carteiras salvas"):
+                    management_renderer()
+
+
+def _render_active_analysis_bar(
+    selected_portfolio: PortfolioRecord, *, compact: bool = False, management_renderer=None, edit_handler=None,
+) -> None:
+    if compact:
+        _render_entity_header(selected_portfolio, management_renderer=management_renderer, edit_handler=edit_handler)
+        return
     kind_label = "CNPJ específico" if _is_temporary_portfolio(selected_portfolio) else "Carteira salva"
     fund_count = len(selected_portfolio.funds)
     with st.container(border=not compact, key="portfolio_active_analysis"):
         columns = st.columns([5.0, 1.2, 1.2] if management_renderer else [5.0, 1.2], vertical_alignment="center")
         detail_col, action_col = columns[:2]
         with detail_col:
-            st.markdown(f"**{selected_portfolio.name}**")
-            st.caption(f"{fund_count} fundo{'s' if fund_count != 1 else ''}" if compact else f"{kind_label} | {fund_count} fundo{'s' if fund_count != 1 else ''}")
+            if compact:
+                st.markdown(_entity_title_html(selected_portfolio), unsafe_allow_html=True)
+                if fund_count > 1:
+                    st.caption(f"{fund_count} fundos")
+            else:
+                st.markdown(f"**{selected_portfolio.name}**")
+                st.caption(f"{kind_label} | {fund_count} fundo{'s' if fund_count != 1 else ''}")
         with action_col:
             if st.button(
                 "Trocar" if compact else "Trocar análise",
@@ -340,6 +391,24 @@ def _render_active_analysis_bar(selected_portfolio: PortfolioRecord, *, compact:
         if management_renderer:
             with columns[2], st.popover("Gerenciar", type="tertiary"):
                 management_renderer()
+
+
+def _entity_title_html(portfolio: PortfolioRecord) -> str:
+    """The analysed entity, named once; a single fund carries its legal identity."""
+    from services.identifier_utils import format_cnpj
+
+    identity = ""
+    if len(portfolio.funds) == 1:
+        fund = portfolio.funds[0]
+        identity = (
+            "<details class='portfolio-scope-identity'><summary aria-label='Identificação do fundo'>"
+            "<span aria-hidden='true'>i</span></summary>"
+            f"<div>{escape(str(fund.display_name or portfolio.name))}<br>CNPJ {escape(format_cnpj(fund.cnpj))}</div></details>"
+        )
+    return (
+        f"<div class='portfolio-entity'><div class='portfolio-entity-title' role='heading' aria-level='2'>"
+        f"{escape(portfolio.name)}</div>{identity}</div>"
+    )
 
 
 def build_temporary_portfolio_from_cnpj(
