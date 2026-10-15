@@ -8,13 +8,18 @@ from io import BytesIO
 import logging
 import pickle
 from pathlib import Path
-from threading import Lock
+from threading import Lock, RLock
 from typing import Any, Callable, MutableMapping
 
 import streamlit as st
 
 
 logger = logging.getLogger(__name__)
+
+# One preparation at a time per process. Streamlit Cloud gives all sessions one
+# shared memory limit, so two clicks (or two sessions) building a deck at once
+# add their peaks and can kill the app. Reentrant in case a producer nests.
+_PREPARATION_LOCK = RLock()
 
 
 @dataclass(frozen=True)
@@ -79,6 +84,26 @@ def current_download_store(
     return record["files"]
 
 
+def discard_other_download_stores(
+    state: MutableMapping[str, Any], *, family: str, namespace: str,
+) -> None:
+    """Drop files prepared for other contexts of the same family.
+
+    Prepared decks are megabytes each; switching portfolios would otherwise
+    keep every portfolio's files in the session until it ends. ``namespace``
+    and its sub-namespaces (``namespace::…``) are kept.
+    """
+    family_prefix = f"prepared_downloads::{family}"
+    current = f"prepared_downloads::{namespace}"
+    stale = [
+        key for key in list(state.keys())
+        if isinstance(key, str) and key.startswith(family_prefix)
+        and key != current and not key.startswith(f"{current}::")
+    ]
+    for key in stale:
+        del state[key]
+
+
 def prepare_download(
     store: dict[str, PreparedDownload], *, artifact: str,
     producer: Callable[[], bytes | PreparedDownload],
@@ -89,7 +114,8 @@ def prepare_download(
     free to retry. It never presents a previous file as the successful refresh.
     """
     store.pop(artifact, None)
-    result = producer()
+    with _PREPARATION_LOCK:
+        result = producer()
     prepared = result if isinstance(result, PreparedDownload) else PreparedDownload(result)
     if not prepared.data:
         raise ValueError("O produtor retornou um arquivo vazio.")
@@ -115,10 +141,14 @@ def render_on_demand_download(
         try:
             with st.spinner(f"Preparando {label}…"):
                 prepared = prepare_download(store, artifact=artifact, producer=producer)
-        except Exception:  # noqa: BLE001 — recover without losing the analysis.
+        except Exception as exc:  # noqa: BLE001 — recover without losing the analysis.
             logger.exception("Failed to prepare download %s/%s", namespace, artifact)
             prepared = None
             st.error("Não foi possível preparar este arquivo. Tente novamente.")
+            from services.dashboard_ui import diagnostics_enabled
+
+            if diagnostics_enabled():
+                st.caption(f"Diagnóstico: {type(exc).__name__}: {exc}")
     if prepared is None:
         return
     st.download_button(
@@ -149,7 +179,8 @@ def render_native_deferred_download(
         with lock:
             prepared = store.get(artifact)
             if prepared is None:
-                payload = producer()
+                with _PREPARATION_LOCK:
+                    payload = producer()
                 if not isinstance(payload, bytes) or not payload:
                     raise ValueError("O produtor deve retornar um arquivo válido em bytes.")
                 prepared = PreparedDownload(payload)

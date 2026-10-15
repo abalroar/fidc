@@ -64,3 +64,32 @@ def test_minimum_subordination_comes_from_the_criterion_named_for_it():
     ])
     assert _minimum_subordination_criterion(criteria)["Limite/regra"] == "Sênior: 30% (mez.+jr.)/PL"
     assert _minimum_subordination_criterion(criteria.iloc[:1]) is None
+
+
+def test_vehicle_rows_reads_only_requested_cnpjs_and_keeps_latest(tmp_path, monkeypatch):
+    import pandas as pd
+    from types import SimpleNamespace
+    from services import fidc_analytical_slide as analytical
+
+    path = tmp_path / "vehicle_monthly.csv.gz"
+    pd.DataFrame({
+        "competencia": ["2026-05", "2026-06", "2026-06", "2026-04"],
+        "cnpj": [1234567000189, 1234567000189, 99999999000199, 1234567000189],
+        "denominacao": ["FIDC A", "FIDC A", "FIDC B", "FIDC A"],
+        "pl": [100.0, 200.0, 300.0, 50.0],
+        "carteira_dc": [80.0, 150.0, 1.0, 40.0],
+        "vl_cotas_subordinadas": [20.0, 50.0, 1.0, 10.0],
+        "coluna_nao_usada": ["x", "y", "z", "w"],
+    }).to_csv(path, index=False, compression="gzip")
+    monkeypatch.setattr(analytical, "VEHICLE_MONTHLY", path)
+    monkeypatch.setattr(analytical, "_VEHICLE_CHUNK_ROWS", 2)
+
+    rows = analytical._vehicle_monthly_rows({"01234567000189"})
+    assert set(rows["_cnpj"]) == {"01234567000189"}
+    assert "coluna_nao_usada" not in rows.columns
+    assert rows["pl"].tolist() == [100.0, 200.0, 50.0]
+
+    [data] = analytical.build_slide_data([SimpleNamespace(cnpj="01.234.567/0001-89", display_name="")])
+    assert data.competence == "06/2026"
+    assert data.pl_mm == 200.0 / 1_000_000
+    assert data.subordinated_pct_pl == 0.25

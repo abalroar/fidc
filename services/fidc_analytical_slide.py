@@ -122,11 +122,44 @@ def _minimum_subordination_criterion(criteria: pd.DataFrame) -> pd.Series | None
     return None
 
 
+# Columns of vehicle_monthly.csv.gz read by build_slide_data.
+_VEHICLE_COLUMNS = ("cnpj", "competencia", "denominacao", "classificacao_anbima", "pl", "carteira_dc", "vl_cotas_subordinadas")
+_VEHICLE_TEXT_COLUMNS = ("cnpj", "competencia", "denominacao", "classificacao_anbima")
+_VEHICLE_CHUNK_ROWS = 50_000
+
+
+def _vehicle_monthly_rows(cnpjs: set[str]) -> pd.DataFrame:
+    """Rows of the requested CNPJs only, with the columns the slide uses.
+
+    The file holds every FIDC since 2013 (~240k rows × ~95 columns). Reading it
+    whole costs ~1.5 GB of transient memory per request, enough to kill the
+    Streamlit Cloud process. Reading in chunks keeps the peak to one chunk of
+    seven columns; rows keep the file order, so the latest-row choice below is
+    unchanged.
+    """
+    path = VEHICLE_MONTHLY
+    if not cnpjs or not path.exists():
+        return pd.DataFrame()
+    header = pd.read_csv(path, nrows=0).columns
+    usecols = [column for column in _VEHICLE_COLUMNS if column in header]
+    dtype = {column: str for column in _VEHICLE_TEXT_COLUMNS if column in usecols}
+    parts = []
+    with pd.read_csv(path, usecols=usecols, dtype=dtype, chunksize=_VEHICLE_CHUNK_ROWS) as reader:
+        for chunk in reader:
+            normalized = chunk["cnpj"].map(normalize_cnpj)
+            selected = chunk[normalized.isin(cnpjs)]
+            if not selected.empty:
+                parts.append(selected.assign(_cnpj=normalized[selected.index]))
+    if not parts:
+        return pd.DataFrame()
+    monthly = pd.concat(parts, ignore_index=True)
+    monthly["_date"] = pd.to_datetime(monthly["competencia"], errors="coerce")
+    return monthly
+
+
 def build_slide_data(funds: Iterable[object]) -> list[FidcSlideData]:
-    monthly = pd.read_csv(VEHICLE_MONTHLY, low_memory=False) if VEHICLE_MONTHLY.exists() else pd.DataFrame()
-    if not monthly.empty:
-        monthly["_cnpj"] = monthly["cnpj"].map(normalize_cnpj)
-        monthly["_date"] = pd.to_datetime(monthly["competencia"], errors="coerce")
+    funds = tuple(funds)
+    monthly = _vehicle_monthly_rows({normalize_cnpj(getattr(fund, "cnpj", "")) for fund in funds})
     evidence = pd.read_csv(RDB_EVIDENCE, dtype=str, keep_default_na=False) if RDB_EVIDENCE.exists() else pd.DataFrame()
     if not evidence.empty:
         evidence["_cnpj"] = evidence["CNPJ"].map(normalize_cnpj)
