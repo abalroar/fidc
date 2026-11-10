@@ -181,6 +181,7 @@ def test_revoked_decisions_preserve_old_evidence_and_current_source_observations
     )
     revoked_ids = {
         "54519672000137", "43140980000130", "64780387000129", "62339639000153",
+        "49983891000132", "54235306000156",
     }
     assert set(history["cnpj_fundo"]) == revoked_ids
     assert set(load_fic_perimeter_overrides(DATA_DIR)["cnpj_fundo"]).isdisjoint(revoked_ids)
@@ -218,3 +219,69 @@ def test_revoked_decisions_preserve_old_evidence_and_current_source_observations
         "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202609.zip",
         "sha256": "cf1f5030dd1a0575d4bcfc3aea35587881c6e738abccf5c18df87316d8de2e82",
     }
+
+
+def test_october_20_revocations_preserve_cvm_and_registration_evidence() -> None:
+    history = pd.read_csv(
+        DATA_DIR / "fic_perimeter_overrides_history.csv",
+        dtype=str,
+        keep_default_na=False,
+    ).set_index("cnpj_fundo")
+    review = pd.read_csv(
+        DATA_DIR / "industry_fic_perimeter_review.csv",
+        dtype=str,
+        keep_default_na=False,
+    ).set_index("cnpj_fundo")
+    expected = {
+        "49983891000132": ("1250385", "46420336.61", "415859508.83", "12927", "31137"),
+        "54235306000156": ("1237953", "893722.78", "54590524.00", "13723", "31712"),
+    }
+    for cnpj, (document_id, receivables, pl, fund_id, class_id) in expected.items():
+        row = history.loc[cnpj]
+        assert row["revisao_data"] == "2026-10-20"
+        original = json.loads(row["registro_revisao_original"])[0]
+        assert original["informe_documento_id"] == document_id
+        assert original["informe_competencia"] == "2026-06"
+        assert original["vl_direitos_creditorios"] == "0.0"
+        assert original["evidencia"] == row["evidencia"]
+        assert json.loads(row["observacoes_dc_positiva"]) == [{
+            "competencia": "2026-09",
+            "carteira_dc": receivables,
+            "pl": pl,
+            "carteira_dc_tabela_ii": receivables,
+            "id_registro_fundo": fund_id,
+            "id_registro_classe": class_id,
+        }]
+        assert json.loads(row["fontes_brutas"])["2026-09"] == {
+            "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202609.zip",
+            "sha256": "5e7141546124116b5291663784ecbeb949f6371c4cf735bce4c53e755e1e53f3",
+            "cadastro_url": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip",
+            "cadastro_sha256": "af006ff29a7306be9191eb4ea8ea2e1f734c75a8e17b0de8dd4dc855a2ec1887",
+        }
+        assert review.loc[cnpj, "revisao_extra_em"] == "2026-10-20"
+        assert review.loc[cnpj, "veredito_anterior"] == "fic_confirmado"
+
+
+@pytest.mark.parametrize("legacy_nominal", [False, True])
+def test_contea_revocation_keeps_the_independent_nominal_signal(legacy_nominal: bool) -> None:
+    from services.fic_detection import annotate_fic_detection, name_says_fic
+
+    review = pd.read_csv(
+        DATA_DIR / "industry_fic_perimeter_review.csv",
+        dtype=str,
+        keep_default_na=False,
+    ).set_index("cnpj_fundo").loc["54235306000156"]
+    assert review["forma_de_fic_no_nome"] == "True"
+    assert "FI EM COTAS" in name_says_fic(review["denominacao"])
+    result = annotate_fic_detection(
+        pd.DataFrame([{
+            "cnpj_fundo": "54235306000156",
+            "denominacao": review["denominacao"],
+            "is_fic_fidc": legacy_nominal,
+        }]),
+        curated_cnpjs=load_fic_perimeter_overrides(DATA_DIR)["cnpj_fundo"],
+    ).iloc[0]
+    assert bool(result["is_fic"]) is legacy_nominal
+    assert bool(result["revisao_manual_sugerida"]) is not legacy_nominal
+    if not legacy_nominal:
+        assert "FI EM COTAS" in result["fic_detection_evidence"]

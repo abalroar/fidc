@@ -1,0 +1,62 @@
+{
+  "competence": "202609",
+  "cutoff_rank": 500,
+  "generated_at": "2026-10-21T02:09:02.776541+00:00",
+  "metrics": {
+    "fundos_com_cedente_real": 186,
+    "fundos_industria": 4430,
+    "fundos_sem_cedente_real": 314,
+    "pl_industria_reais": 989319002353.28,
+    "pl_sem_cedente_real_reais": 419935085276.49005,
+    "pl_top500_reais": 710504099550.66,
+    "pl_top500_sobre_industria_pct": 0.718174924226254,
+    "pl_ultimo_fundo_top_reais": 383164782.41
+  },
+  "outputs": {
+    "fidc_cedentes_cobertura_202609.csv.gz": {
+      "bytes": 304,
+      "name": "fidc_cedentes_cobertura_202609.csv.gz",
+      "sha256": "78a387375271947325b3fc2e0b0458c97f54cb1c92cf4f3ebbf980baffdfed18"
+    },
+    "fidc_cedentes_exclusoes_202609.csv.gz": {
+      "bytes": 369,
+      "name": "fidc_cedentes_exclusoes_202609.csv.gz",
+      "sha256": "20f24b3e5a4c9622577504c811ce8bdf779a4724d2bf052549e21d88dbc3acd5"
+    },
+    "fidc_cedentes_fundos_sem_cedente_202609.csv.gz": {
+      "bytes": 21578,
+      "name": "fidc_cedentes_fundos_sem_cedente_202609.csv.gz",
+      "sha256": "4d3d0d3aea46e3b3df5b519c9b2cf634886cef9230d498061009d386c7c33a86"
+    },
+    "fidc_cedentes_pl_por_segmento_202609.csv.gz": {
+      "bytes": 487,
+      "name": "fidc_cedentes_pl_por_segmento_202609.csv.gz",
+      "sha256": "b6440bbd037d50ea4e2ace443aba4f15d85aba7cbfe5787bcb13f6b60cd8f007"
+    },
+    "fidc_cedentes_reparos_fonte_202609.csv.gz": {
+      "bytes": 100,
+      "name": "fidc_cedentes_reparos_fonte_202609.csv.gz",
+      "sha256": "3e550c885a0acbf4bf2ce641343c48f1fc2fbe3b721b2cc5e4fedb93368a3b25"
+    },
+    "fidc_cedentes_top500_202609.csv.gz": {
+      "bytes": 40349,
+      "name": "fidc_cedentes_top500_202609.csv.gz",
+      "sha256": "4318697ec0794dcb614ba01c50e3ddd4a67831cc5e965fa76030c456004cd468"
+    },
+    "fidc_cedentes_vinculos_202609.csv.gz": {
+      "bytes": 26457,
+      "name": "fidc_cedentes_vinculos_202609.csv.gz",
+      "sha256": "94e783c68db5448692ef4da50ccefbec253de91a6a321988fac700eb76a4a352"
+    }
+  },
+  "parent_manifest": "../fidc_cedentes_triagem_index.json",
+  "schema_version": "fidc-cedente-top500/v2",
+  "source": {
+    "bytes": 3626343,
+    "name": "inf_mensal_fidc_202609.zip",
+    "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202609.zip",
+    "role": "Informe Mensal FIDC da CVM",
+    "sha256": "5e7141546124116b5291663784ecbeb949f6371c4cf735bce4c53e755e1e53f3"
+  },
+  "source_repairs": []
+}

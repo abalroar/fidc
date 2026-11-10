@@ -1591,9 +1591,53 @@ def test_top20_type_workbook_keeps_rank_share_date_and_coverage_typed() -> None:
     assert sheet["G4"].value == "Competência"
     assert sheet["G5"].value == json.loads(PAYLOAD.read_text(encoding="utf-8"))["latest_complete"]
     assert "R$" not in sheet["G5"].number_format
-    assert sheet["H4"].value == "Competência anterior disponível"
+    assert sheet["H4"].value == "PL anterior positivo"
     assert isinstance(sheet["H5"].value, bool)
     assert "R$" not in sheet["H5"].number_format
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    columns = {cell.value: index for index, cell in enumerate(sheet[4])}
+    audit_columns = {
+        "PL anterior reportado": "pl_anterior_brl",
+        "Status PL anterior": "pl_anterior_status",
+        "Início de funcionamento normal": "data_inicio_funcionamento_normal_cadastral",
+        "Início do exercício social": "data_inicio_exercicio_social_cadastral",
+        "Constituição cadastral": "data_constituicao_cadastral",
+        "Fonte cadastral": "cadastro_registro_fonte",
+        "SHA-256 cadastral": "cadastro_registro_sha256",
+        "Origem PL anterior": "pl_anterior_origem",
+    }
+    assert set(audit_columns).issubset(columns)
+    expected_rows = payload["top20_by_anbima_type"]
+    rows = [row for row in sheet.iter_rows(min_row=5, values_only=True) if row[0]]
+    assert len(rows) == len(expected_rows) == 80
+    for row, expected in zip(rows, expected_rows, strict=True):
+        assert row[columns["CNPJ"]] == expected["cnpj_fundo_formatado"]
+        for header, key in audit_columns.items():
+            actual = row[columns[header]]
+            value = expected.get(key)
+            if isinstance(value, (float, int)):
+                assert actual == pytest.approx(value)
+            else:
+                assert actual == (value or None)
+        if expected["pl_anterior_status"] == "primeira_observacao_inicio_cadastral_no_mes":
+            assert row[columns["PL anterior reportado"]] is None
+            assert row[columns["PL anterior positivo"]] is False
+            assert row[columns["Início de funcionamento normal"]] == row[columns["Início do exercício social"]]
+
+    coverage_sheet = workbook["Auditoria Top 20 Tipo"]
+    coverage_columns = {cell.value: index for index, cell in enumerate(coverage_sheet[4])}
+    coverage_rows = [row for row in coverage_sheet.iter_rows(min_row=5, values_only=True) if row[0]]
+    for row, expected in zip(coverage_rows, payload["top20_by_anbima_type_coverage"], strict=True):
+        assert row[coverage_columns["Primeira observação com início cadastral no mês"]] == expected["fundos_primeira_observacao_inicio_cadastral_no_mes"]
+        assert sum(
+            row[coverage_columns[header]]
+            for header in (
+                "Fundos com PL anterior positivo",
+                "Fundos com retomada de PL positivo",
+                "Fundos constituídos no mês",
+                "Primeira observação com início cadastral no mês",
+            )
+        ) == expected["fundos"]
 
 
 def test_offer_workbook_uses_counts_billions_and_millions_consistently() -> None:

@@ -8099,7 +8099,7 @@ async function addTop20ByTypeSheets(workbook, payload) {
     ["PL", "pl"],
     ["% do bucket", "share_tipo"],
     ["Competência", "competencia_pl"],
-    ["Competência anterior disponível", "pl_anterior_positivo"],
+    ["PL anterior positivo", "pl_anterior_positivo"],
     ["Fonte PL", "pl_source"],
     ["Tipo ANBIMA original", "anbima_tipo"],
     ["Foco ANBIMA", "anbima_foco"],
@@ -8124,6 +8124,14 @@ async function addTop20ByTypeSheets(workbook, payload) {
     ["Evidência", "evidencia_cedente"],
     ["Confiança", "confianca_cedente"],
     ["Limitação cedente", "limitacao_cedente"],
+    ["PL anterior reportado", "pl_anterior_brl"],
+    ["Status PL anterior", "pl_anterior_status"],
+    ["Início de funcionamento normal", "data_inicio_funcionamento_normal_cadastral"],
+    ["Constituição cadastral", "data_constituicao_cadastral"],
+    ["Fonte cadastral", "cadastro_registro_fonte"],
+    ["SHA-256 cadastral", "cadastro_registro_sha256"],
+    ["Origem PL anterior", "pl_anterior_origem"],
+    ["Início do exercício social", "data_inicio_exercicio_social_cadastral"],
   ];
   const headers = columns.map(([header]) => header);
   const rows = worksheetRowsFromPayload(payload.top20_by_anbima_type || [], columns);
@@ -8131,17 +8139,20 @@ async function addTop20ByTypeSheets(workbook, payload) {
   setHeaderBand(
     sheet,
     "Top 20 FIDCs por Tipo ANBIMA",
-    `Rankings em ${competenceShortPt(payload.latest_complete).toLowerCase()} e nas datas de comparação indicadas por linha. Novas entradas e a cobertura anterior seguem explícitas. O bucket Outros inclui N/D. Campos sem leitura documental permanecem N/D.`,
+    `Rankings em ${competenceShortPt(payload.latest_complete).toLowerCase()} e nas datas de comparação indicadas por linha. Novas entradas e a cobertura anterior seguem explícitas; PL anterior ausente permanece N/D, com célula numérica vazia e status próprio. O bucket Outros inclui N/D. Campos sem leitura documental permanecem N/D.`,
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
   );
   await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [180, 65, 360, 120, 125, 95, 95, 110, 420, 170, 180, 150, 210, 300, 105, 360, 90, 260, 260, 260, 260, 260, 260, 430, 220, 95, 105, 350, 190, 480, 130, 440], rows.length);
+  applyColumnWidths(sheet, [180, 65, 360, 120, 125, 95, 95, 110, 420, 170, 180, 150, 210, 300, 105, 360, 90, 260, 260, 260, 260, 260, 260, 430, 220, 95, 105, 350, 190, 480, 130, 440, 150, 290, 150, 150, 420, 460, 620, 150], rows.length);
   applyFormatsByHeader(sheet, headers, rows.length);
   sheet.getRange(`E5:E${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
   sheet.getRange(`F5:F${rows.length + 4}`).format.numberFormat = "0.0%";
-  sheet.getRange(`A5:AF${rows.length + 4}`).format.rowHeightPx = 72;
+  sheet.getRange(`H5:H${rows.length + 4}`).format.numberFormat = "General";
+  sheet.getRange(`AG5:AG${rows.length + 4}`).format.numberFormat = 'R$ #,##0.00';
+  sheet.getRange(`AM5:AM${rows.length + 4}`).format.numberFormat = "General";
+  sheet.getRange(`A5:AN${rows.length + 4}`).format.rowHeightPx = 72;
 
   const coverageColumns = [
     ["Tipo exibido", "tipo_exibicao"],
@@ -8157,6 +8168,9 @@ async function addTop20ByTypeSheets(workbook, payload) {
     ["Competência anterior verificada", "competencia_anterior_verificada"],
     ["Fundos com PL anterior positivo", "fundos_pl_anterior_positivo"],
     ["Critério", "criterio_competencia"],
+    ["Fundos com retomada de PL positivo", "fundos_retomada_pl_positivo"],
+    ["Fundos constituídos no mês", "fundos_entrantes_cadastrais"],
+    ["Primeira observação com início cadastral no mês", "fundos_primeira_observacao_inicio_cadastral_no_mes"],
   ];
   const coverageHeaders = coverageColumns.map(([header]) => header);
   const coverageRows = worksheetRowsFromPayload(payload.top20_by_anbima_type_coverage || [], coverageColumns);
@@ -8170,10 +8184,12 @@ async function addTop20ByTypeSheets(workbook, payload) {
     { freezeColumns: 1, wrapText: true, bodyFontSize: 9 },
   );
   await writeRowsInChunks(coverageSheet, 4, coverageHeaders, coverageRows);
-  applyColumnWidths(coverageSheet, [210, 75, 130, 145, 130, 145, 150, 175, 150, 100, 135, 160, 620], coverageRows.length);
+  applyColumnWidths(coverageSheet, [210, 75, 130, 145, 130, 145, 150, 175, 150, 100, 135, 160, 620, 180, 180, 200], coverageRows.length);
   applyFormatsByHeader(coverageSheet, coverageHeaders, coverageRows.length);
   coverageSheet.getRange(`C5:C${coverageRows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  coverageSheet.getRange(`A5:M${coverageRows.length + 4}`).format.rowHeightPx = 54;
+  coverageSheet.getRange(`L5:L${coverageRows.length + 4}`).format.numberFormat = '#,##0';
+  coverageSheet.getRange(`N5:P${coverageRows.length + 4}`).format.numberFormat = '#,##0';
+  coverageSheet.getRange(`A5:P${coverageRows.length + 4}`).format.rowHeightPx = 54;
 }
 
 async function addTaxonomyLevelSheet(workbook, payload) {

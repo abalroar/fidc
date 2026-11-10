@@ -1779,12 +1779,26 @@ def test_payload_accepts_the_three_verified_outros_originator_cohorts(
     validate_artifact_payload(payload, "2026-05")
 
 
-@pytest.mark.parametrize("unverified_period", ["2026-05", "2026-07", "2026-09", "2027-01"])
+@pytest.mark.parametrize("unverified_period", ["2026-05", "2026-07", "2026-10", "2027-01"])
 def test_payload_rejects_outros_originator_exception_for_unverified_cohort(
     unverified_period: str,
 ) -> None:
     payload = _payload_with_approved_outros_originator_exceptions(unverified_period)
 
+    with pytest.raises(RevisionBundlePublishError, match="piso inválido"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_accepts_only_the_specific_september_originator_review() -> None:
+    from services.emission_field_enrichment import COHORT_COVERAGE_WAIVERS
+
+    payload = _payload_with_approved_outros_originator_exceptions("2026-09")
+    row = next(item for item in payload["emission_field_coverage"]
+               if item["tabela"] == "Outros · 2026-09" and item["campo"] == "originador")
+    row["excecao_publicacao"] = COHORT_COVERAGE_WAIVERS[("Outros", "originador", "2026-09")]
+    validate_artifact_payload(payload, "2026-05")
+
+    row["excecao_publicacao"] = "waiver arbitrário inserido no payload"
     with pytest.raises(RevisionBundlePublishError, match="piso inválido"):
         validate_artifact_payload(payload, "2026-05")
 
@@ -2450,6 +2464,26 @@ def test_input_hashes_include_top20_curation(
     captured, _ = _minimal_live_input_snapshot(tmp_path, monkeypatch)
 
     assert "curation/top20.csv" in captured
+
+
+def test_optional_originator_cohort_review_is_hashed_when_present(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    name = "industry_top15_originator_cohort_review_202609.json"
+    assert name in revision_publisher.OPTIONAL_DATA_INPUTS
+    _, paths = _minimal_live_input_snapshot(tmp_path, monkeypatch)
+    monkeypatch.setattr(revision_publisher, "OPTIONAL_DATA_INPUTS", (name,))
+    args = dict(data_dir=paths["data_dir"], curation_path=paths["curation"],
+                input_workbook=paths["workbook"], artifact_script=paths["builder"])
+    absent = revision_publisher.collect_input_hashes(**args)
+    assert f"data/{name}" not in absent
+    proof = paths["data_dir"] / name
+    proof.write_text('{"competencia": "2026-09", "originadores": 0}\n')
+    captured = revision_publisher.collect_input_hashes(**args)
+    assert captured[f"data/{name}"] == revision_publisher._sha256_file(proof)
+    proof.write_text('{"competencia": "2026-09", "originadores": 1}\n')
+    changed = revision_publisher.collect_input_hashes(**args)
+    assert changed[f"data/{name}"] != captured[f"data/{name}"]
 
 
 def test_source_zip_changes_block_publication_commit_marker(

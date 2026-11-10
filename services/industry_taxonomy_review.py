@@ -1092,13 +1092,26 @@ def load_cvm_fund_registration_evidence(archive_path: Path) -> pd.DataFrame:
             encoding="latin1",
             dtype=str,
             keep_default_na=False,
-            usecols=["CNPJ_Fundo", "Data_Constituicao", "Data_Registro"],
+            usecols=lambda column: column in {
+                "CNPJ_Fundo", "Data_Constituicao", "Data_Registro",
+                "Situacao", "Data_Inicio_Situacao",
+                "Data_Inicio_Exercicio_Social",
+            },
         )
+    required_columns = {"CNPJ_Fundo", "Data_Constituicao", "Data_Registro"}
+    if missing := sorted(required_columns.difference(registered.columns)):
+        raise ValueError("registro_fundo.csv sem campos obrigatórios: " + ", ".join(missing))
+    for optional in ("Situacao", "Data_Inicio_Situacao", "Data_Inicio_Exercicio_Social"):
+        if optional not in registered:
+            registered[optional] = ""
     registered = registered.rename(
         columns={
             "CNPJ_Fundo": "cnpj_fundo",
             "Data_Constituicao": "data_constituicao",
             "Data_Registro": "data_registro",
+            "Situacao": "situacao_cadastral",
+            "Data_Inicio_Situacao": "data_inicio_situacao",
+            "Data_Inicio_Exercicio_Social": "data_inicio_exercicio_social",
         }
     )
     registered["cnpj_fundo"] = registered["cnpj_fundo"].map(normalize_cnpj)
@@ -1164,6 +1177,8 @@ def build_top20_by_anbima_type(
         f"CVM, Informe Mensal FIDC, Tabela IV, {previous_competence}; classes agregadas ao CNPJ legal"
     )
     top["data_constituicao_cadastral"] = ""
+    top["data_inicio_funcionamento_normal_cadastral"] = ""
+    top["data_inicio_exercicio_social_cadastral"] = ""
     top["cadastro_registro_fonte"] = ""
     top["cadastro_registro_sha256"] = ""
     reported_zero = top["pl_anterior_brl"].eq(0)
@@ -1171,6 +1186,7 @@ def build_top20_by_anbima_type(
     top.loc[reported_zero, "pl_anterior_status"] = "retomada_pl_positivo_apos_zero_reportado"
     top.loc[reported_negative, "pl_anterior_status"] = "retomada_pl_positivo_apos_pl_negativo_reportado"
     verified_entry = pd.Series(False, index=top.index)
+    verified_operational_entry = pd.Series(False, index=top.index)
     if registration_evidence is not None and not registration_evidence.empty:
         required_evidence = {"cnpj_fundo", "data_constituicao", "fonte_registro", "registro_sha256"}
         if missing := sorted(required_evidence.difference(registration_evidence.columns)):
@@ -1211,7 +1227,62 @@ def build_top20_by_anbima_type(
             + top.loc[verified_entry, "data_constituicao_cadastral"]
             + "; ausência no painel anterior; fonte e SHA-256 nos campos cadastrais"
         )
-    accepted_previous = top["pl_anterior_positivo"] | reported_zero | reported_negative | verified_entry
+        situation = top["cnpj_fundo"].map(
+            evidence.get("situacao_cadastral", pd.Series("", index=evidence.index))
+        ).fillna("").str.strip().str.upper()
+        operational_start = pd.to_datetime(
+            top["cnpj_fundo"].map(
+                evidence.get("data_inicio_situacao", pd.Series("", index=evidence.index))
+            ),
+            format="%Y-%m-%d",
+            errors="coerce",
+        )
+        exercise_start = pd.to_datetime(
+            top["cnpj_fundo"].map(
+                evidence.get("data_inicio_exercicio_social", pd.Series("", index=evidence.index))
+            ),
+            format="%Y-%m-%d",
+            errors="coerce",
+        )
+        # A constituição pode preceder a primeira operação. A data de início
+        # da situação só sustenta esta primeira observação quando a situação
+        # é normal e o exercício social começa na mesma data, sem reporte
+        # anterior. Não estima a atividade econômica nem o PL do mês ausente.
+        verified_operational_entry = (
+            ~verified_entry
+            & ~top["cnpj_fundo"].isin(set(previous["cnpj_fundo"]))
+            & ~top["cnpj_fundo"].isin(observed_before)
+            & situation.eq("EM FUNCIONAMENTO NORMAL")
+            & operational_start.between(latest_period.start_time, latest_period.end_time)
+            & exercise_start.eq(operational_start)
+            & constitution.notna()
+            & constitution.le(operational_start)
+            & source.ne("")
+            & digest.str.fullmatch(r"[0-9a-f]{64}", na=False)
+        )
+        top.loc[verified_operational_entry, "pl_anterior_status"] = "primeira_observacao_inicio_cadastral_no_mes"
+        top.loc[verified_operational_entry, "data_constituicao_cadastral"] = constitution.loc[
+            verified_operational_entry
+        ].dt.strftime("%Y-%m-%d")
+        top.loc[verified_operational_entry, "data_inicio_exercicio_social_cadastral"] = exercise_start.loc[
+            verified_operational_entry
+        ].dt.strftime("%Y-%m-%d")
+        top.loc[verified_operational_entry, "data_inicio_funcionamento_normal_cadastral"] = operational_start.loc[
+            verified_operational_entry
+        ].dt.strftime("%Y-%m-%d")
+        top.loc[verified_operational_entry, "cadastro_registro_fonte"] = source.loc[verified_operational_entry]
+        top.loc[verified_operational_entry, "cadastro_registro_sha256"] = digest.loc[verified_operational_entry]
+        top.loc[verified_operational_entry, "pl_anterior_origem"] = (
+            "CVM, registro_fundo.csv; primeira observação no painel com início cadastral de funcionamento no mês; "
+            "situação Em Funcionamento Normal desde "
+            + top.loc[verified_operational_entry, "data_inicio_funcionamento_normal_cadastral"]
+            + "; início do exercício social na mesma data"
+            + "; sem observação anterior no painel; PL anterior N/D; fonte e SHA-256 nos campos cadastrais"
+        )
+    accepted_previous = (
+        top["pl_anterior_positivo"] | reported_zero | reported_negative
+        | verified_entry | verified_operational_entry
+    )
     if not accepted_previous.all():
         unresolved = ", ".join(top.loc[~accepted_previous, "cnpj_fundo"])
         raise ValueError(
@@ -1302,6 +1373,8 @@ def build_top20_by_anbima_type(
         "pl_anterior_status",
         "pl_anterior_origem",
         "data_constituicao_cadastral",
+        "data_inicio_funcionamento_normal_cadastral",
+        "data_inicio_exercicio_social_cadastral",
         "cadastro_registro_fonte",
         "cadastro_registro_sha256",
         "pl_source",
@@ -1370,10 +1443,13 @@ def build_top20_by_anbima_type(
                 "fundos_pl_anterior_positivo": int(scoped["pl_anterior_positivo"].sum()),
                 "fundos_retomada_pl_positivo": int(scoped["pl_anterior_status"].str.startswith("retomada_pl_positivo").sum()),
                 "fundos_entrantes_cadastrais": int(scoped["pl_anterior_status"].eq("entrada_cadastral_no_mes").sum()),
+                "fundos_primeira_observacao_inicio_cadastral_no_mes": int(scoped["pl_anterior_status"].eq("primeira_observacao_inicio_cadastral_no_mes").sum()),
                 "criterio_competencia": (
                     f"{latest}: {len(scoped)} fundos com PL positivo; "
                     f"{int(scoped['pl_anterior_positivo'].sum())} com PL positivo em {previous_competence}; "
-                    "demais casos exigem PL anterior não positivo reportado ou constituição cadastral no mês atual"
+                    "demais casos exigem PL anterior não positivo reportado, constituição cadastral no mês atual "
+                    "ou primeira observação no painel com início cadastral de funcionamento no mês, "
+                    "início do exercício social na mesma data e proveniência cadastral"
                 ),
             }
         )
