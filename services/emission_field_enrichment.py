@@ -43,7 +43,7 @@ DEFAULT_COVERAGE_FLOORS: Mapping[str, float] = {
     "sacado": 0.01,
 }
 
-# These three documented ``Outros`` cohorts have no named economic originator.
+# The documented ``Outros`` cohorts have no named economic originator.
 # The ledger preserves cedents separately.  An exception requires the exact
 # audited competence; it cannot carry forward to a new ranking automatically.
 _OUTROS_ORIGINATOR_GAP_REASON = (
@@ -54,6 +54,15 @@ COHORT_COVERAGE_WAIVERS: Mapping[tuple[str, str, str], str] = {
     ("Outros", "originador", "2025-12"): _OUTROS_ORIGINATOR_GAP_REASON,
     ("Outros", "originador", "2026-06"): _OUTROS_ORIGINATOR_GAP_REASON,
     ("Outros", "originador", "2026-08"): _OUTROS_ORIGINATOR_GAP_REASON,
+    ("Outros", "originador", "2026-09"): (
+        "0/15 originadores nomeados nas fontes consultadas da coorte set/26; "
+        "13 CNPJs retidos de ago/26 conferidos por chave exata. Entrantes TM, "
+        "49306883000151, regulamento 771170, pp. 9 e 11, e JIVE BOSSANOVA90, "
+        "58893662000118, regulamento 1333136 de 29/09/2026, pp. 2 e 42, "
+        "revisados sem originador econômico nominal. Auditoria específica em "
+        "industry_top15_originator_cohort_review_202609.json; N/D preservado "
+        "e cedentes legais separados"
+    ),
     ("Fomento Mercantil", "originador", "2026-08"): (
         "0/15 originadores nomeados nos documentos identificados da coorte ago/26; "
         "Clientes BRF II, CNPJ 52720932000102, saiu do Top 15 atual. A observação "

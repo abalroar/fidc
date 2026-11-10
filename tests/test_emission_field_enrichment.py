@@ -538,6 +538,35 @@ def test_party_without_identified_source_is_not_counted_as_audited() -> None:
     assert "origem" not in result["fonte_originador"].lower()
 
 
+def test_opi_gooroo_originator_review_preserves_distinct_legal_roles() -> None:
+    review = pd.read_csv(
+        Path("data/industry_study/industry_taxonomy_document_review.csv"),
+        dtype=str,
+        keep_default_na=False,
+    )
+    review = review[review["cnpj_fundo"].eq("51295720000162")]
+    assert len(review) == 1
+    assert review.iloc[0]["document_id"] == "1067414"
+    assert review.iloc[0]["document_reference_date"] == "2025-12-11"
+
+    evidence = build_taxonomy_party_evidence(review)
+    assert evidence["field"].tolist() == ["originador"]
+    audit = pd.DataFrame(
+        [_audit_row("51295720000162", table="Fomento Mercantil · 2026-09")]
+    )
+    result = _enrich(audit, evidence=evidence).iloc[0]
+
+    assert result["originador"] == (
+        "GOOROO CRÉDITO E COBRANÇA LTDA. — CNPJ 43.732.242/0001-82"
+    )
+    assert "1067414" in result["fonte_originador"]
+    assert "2025-12-11" in result["fonte_originador"]
+    assert result["cedente"] == "N/D"
+    assert result["subordinacao_minima"] == "N/D"
+    assert result["preco_por_tipo_cota"] == "N/D"
+    assert result["remuneracao_por_tipo_cota"] == "N/D"
+
+
 def test_minimum_junior_and_structural_are_labeled_separately() -> None:
     junior_cnpj = "22222222000192"
     structural_cnpj = "33333333000193"
@@ -744,7 +773,7 @@ def test_originator_waiver_is_limited_to_verified_outros_cohorts_and_keeps_a_rea
     assert any(failed_table in item and "originador: 0/15" in item for item in violations)
 
 
-@pytest.mark.parametrize("unverified_period", ["2026-05", "2026-07", "2026-09", "2027-01"])
+@pytest.mark.parametrize("unverified_period", ["2026-05", "2026-07", "2026-10", "2027-01"])
 def test_outros_originator_waiver_cannot_be_carried_to_an_unverified_cohort(
     unverified_period: str,
 ) -> None:
@@ -760,6 +789,65 @@ def test_outros_originator_waiver_cannot_be_carried_to_an_unverified_cohort(
     assert violations == [
         f"Outros · {unverified_period} · originador: 0/15 (0.0%) abaixo do piso 1.0%"
     ]
+
+
+def test_september_outros_review_is_specific_and_does_not_waive_fomento() -> None:
+    before, after, ranking = _eight_page_frames()
+    for frame in (before, after):
+        frame["tabela"] = frame["tabela"].str.replace("2026-06", "2026-09", regex=False)
+    ranking["competencia"] = ranking["competencia"].replace("2026-06", "2026-09")
+    after.loc[after["tabela"].eq("Outros · 2026-09"), "originador"] = "N/D"
+    coverage = build_emission_field_coverage(before, after, ranking)
+    mask = coverage["tabela"].eq("Outros · 2026-09") & coverage["campo"].eq("originador")
+    row = coverage[mask].iloc[0]
+    assert row["depois_com_dado"] == 0
+    assert row["nd_depois"] == 15
+    assert row["piso_publicacao_pct"] == 0.0
+    assert all(value in row["excecao_publicacao"] for value in (
+        "13 CNPJs", "49306883000151", "771170", "58893662000118", "1333136"
+    ))
+    assert validate_emission_field_coverage(coverage.to_dict(orient="records")) == []
+
+    forged = coverage.copy()
+    forged.loc[mask, "excecao_publicacao"] = "waiver arbitrário inserido no payload"
+    assert any("Outros · 2026-09 · originador: 0/15" in item for item in
+               validate_emission_field_coverage(forged.to_dict(orient="records")))
+    after.loc[after["tabela"].eq("Fomento Mercantil · 2026-09"), "originador"] = "N/D"
+    failed = build_emission_field_coverage(before, after, ranking)
+    assert any("Fomento Mercantil · 2026-09 · originador: 0/15" in item for item in
+               validate_emission_field_coverage(failed.to_dict(orient="records")))
+
+
+def test_september_originator_review_freezes_the_exact_changed_cohorts() -> None:
+    import json
+    from services.emission_field_enrichment import COHORT_COVERAGE_WAIVERS
+
+    receipt = json.loads(Path(
+        "data/industry_study/industry_top15_originator_cohort_review_202609.json"
+    ).read_text())
+    cohorts = {row["tipo"]: row for row in receipt["cohorts"]}
+    retained = 0
+    for row in cohorts.values():
+        aug = {item["cnpj"] for item in row["cohorts"]["2026-08"]}
+        sep = {item["cnpj"] for item in row["cohorts"]["2026-09"]}
+        assert len(aug) == len(sep) == 15
+        assert set(row["retained_from_august_cnpjs"]) == aug & sep
+        assert set(row["entrants_from_august_cnpjs"]) == sep - aug
+        assert set(row["exits_from_august_cnpjs"]) == aug - sep
+        retained += len(aug & sep)
+    assert retained == 27
+    assert cohorts["Fomento Mercantil"]["entrants_from_august_cnpjs"] == ["51295720000162"]
+    assert set(cohorts["Outros"]["entrants_from_august_cnpjs"]) == {
+        "49306883000151", "58893662000118"
+    }
+    assert receipt["specific_waiver"]["reason"] == COHORT_COVERAGE_WAIVERS[
+        ("Outros", "originador", "2026-09")
+    ]
+    documents = {row["cnpj"]: row for row in receipt["primary_document_reviews"]}
+    assert documents["51295720000162"]["originator_cnpj"] == "43732242000182"
+    assert documents["49306883000151"]["document_id"] == "771170"
+    assert documents["58893662000118"]["document_id"] == "1333136"
+    assert documents["58893662000118"]["historical_document_id"] == "1044435"
 
 
 def test_originator_gap_after_brf_leaves_fomento_ranking_is_explicit_and_month_limited() -> None:

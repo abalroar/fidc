@@ -1,7 +1,7 @@
 {
   "competence": "202512",
   "cutoff_rank": 500,
-  "generated_at": "2026-10-11T00:05:28.905153+00:00",
+  "generated_at": "2026-10-21T02:09:02.776541+00:00",
   "metrics": {
     "fundos_com_cedente_real": 205,
     "fundos_industria": 4018,
@@ -39,24 +39,24 @@
       "sha256": "3e550c885a0acbf4bf2ce641343c48f1fc2fbe3b721b2cc5e4fedb93368a3b25"
     },
     "fidc_cedentes_top500_202512.csv.gz": {
-      "bytes": 41136,
+      "bytes": 41138,
       "name": "fidc_cedentes_top500_202512.csv.gz",
-      "sha256": "411426a7c8e5c33e7f36bb5396645514053d45849598d9b3e3cf53785b40c96d"
+      "sha256": "6f286dc55323894b2f0dd68ff6b1abf8fa4f14422f1c229957989d40d3e5a55d"
     },
     "fidc_cedentes_vinculos_202512.csv.gz": {
-      "bytes": 29612,
+      "bytes": 29614,
       "name": "fidc_cedentes_vinculos_202512.csv.gz",
-      "sha256": "74f94f42c14a0849fd6dac66b744842db7cb699c2cf751770a9aac493faf4ec2"
+      "sha256": "2d7af909a636fd6cfc0855241eb474a797591e66eccaa7e91b2fd0a42bc7c514"
     }
   },
   "parent_manifest": "../fidc_cedentes_triagem_index.json",
   "schema_version": "fidc-cedente-top500/v2",
   "source": {
-    "bytes": 3271216,
+    "bytes": 3271316,
     "name": "inf_mensal_fidc_202512.zip",
     "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202512.zip",
     "role": "Informe Mensal FIDC da CVM",
-    "sha256": "05f6a54c9d5c6e57abb5ef5864ed5346b3cfa9bdd8aefb68895aa70b78cd8bf9"
+    "sha256": "42e03898ee4e6257583ea9785278c96b06b0a4098cefac5f0c7adca71ecd5379"
   },
   "source_repairs": []
 }

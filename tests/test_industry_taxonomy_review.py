@@ -160,6 +160,127 @@ def test_top20_accepts_a_current_month_cadastral_entry_with_provenance(tmp_path:
     total = coverage[coverage["tipo_exibicao"].eq("Total")].iloc[0]
     assert total["fundos_pl_anterior_positivo"] == 79
     assert total["fundos_entrantes_cadastrais"] == 1
+    assert total["fundos_primeira_observacao_inicio_cadastral_no_mes"] == 0
+
+
+@pytest.fixture
+def operational_entry_evidence(tmp_path: Path) -> pd.DataFrame:
+    archive_path = tmp_path / "registro_fundo_classe.zip"
+    with ZipFile(archive_path, "w") as archive:
+        archive.writestr(
+            "registro_fundo.csv",
+            "CNPJ_Fundo;Data_Constituicao;Data_Registro;Situacao;Data_Inicio_Situacao;Data_Inicio_Exercicio_Social\n"
+            "1;2026-03-03;2026-03-03;Em Funcionamento Normal;2026-06-04;2026-06-04\n",
+        )
+    evidence = load_cvm_fund_registration_evidence(archive_path)
+    assert evidence.iloc[0]["situacao_cadastral"] == "Em Funcionamento Normal"
+    assert evidence.iloc[0]["data_inicio_situacao"] == "2026-06-04"
+    assert evidence.iloc[0]["data_inicio_exercicio_social"] == "2026-06-04"
+    assert evidence.iloc[0]["registro_sha256"] == hashlib.sha256(archive_path.read_bytes()).hexdigest()
+    return evidence
+
+
+def test_top20_accepts_documented_operational_start_and_keeps_previous_pl_missing(
+    operational_entry_evidence: pd.DataFrame,
+) -> None:
+    funds = _funds()
+    baseline, _ = build_top20_by_anbima_type(funds, latest="2026-06")
+    funds = funds[~(funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1"))]
+
+    top20, coverage = build_top20_by_anbima_type(
+        funds, latest="2026-06", registration_evidence=operational_entry_evidence,
+    )
+
+    entrant = top20[top20["cnpj_fundo"].eq("00000000000001")].iloc[0]
+    assert not entrant["pl_anterior_positivo"]
+    assert pd.isna(entrant["pl_anterior_brl"])
+    assert entrant["pl_anterior_status"] == "primeira_observacao_inicio_cadastral_no_mes"
+    assert entrant["data_constituicao_cadastral"] == "2026-03-03"
+    assert entrant["data_inicio_funcionamento_normal_cadastral"] == "2026-06-04"
+    assert entrant["data_inicio_exercicio_social_cadastral"] == "2026-06-04"
+    assert entrant["cadastro_registro_sha256"] == operational_entry_evidence.iloc[0]["registro_sha256"]
+    assert entrant["cadastro_registro_fonte"].endswith("registro_fundo_classe.zip")
+    assert "PL anterior N/D" in entrant["pl_anterior_origem"]
+    pd.testing.assert_frame_equal(
+        top20[["cnpj_fundo", "rank_tipo", "pl_tipo_brl", "share_tipo"]],
+        baseline[["cnpj_fundo", "rank_tipo", "pl_tipo_brl", "share_tipo"]],
+    )
+    total = coverage[coverage["tipo_exibicao"].eq("Total")].iloc[0]
+    assert total["fundos_pl_anterior_positivo"] == 79
+    assert total["fundos_entrantes_cadastrais"] == 0
+    assert total["fundos_primeira_observacao_inicio_cadastral_no_mes"] == 1
+    assert "primeira observação no painel com início cadastral de funcionamento no mês" in total["criterio_competencia"]
+
+
+@pytest.mark.parametrize(
+    "updates",
+    [
+        {"data_inicio_situacao": "2026-05-31"},
+        {"data_inicio_situacao": "2026-07-01"},
+        {"data_inicio_situacao": ""},
+        {"data_inicio_situacao": "invalid"},
+        {"data_inicio_exercicio_social": ""},
+        {"data_inicio_exercicio_social": "2026-06-03"},
+        {"situacao_cadastral": "Cancelado"},
+        {"situacao_cadastral": ""},
+        {"data_constituicao": ""},
+        {"data_constituicao": "2026-07-01"},
+        {"fonte_registro": ""},
+        {"registro_sha256": "invalid"},
+        {"data_registro": "2026-06-01", "data_inicio_situacao": ""},
+    ],
+)
+def test_top20_rejects_operational_entry_without_complete_current_month_evidence(
+    operational_entry_evidence: pd.DataFrame,
+    updates: dict[str, str],
+) -> None:
+    funds = _funds()
+    funds = funds[~(funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1"))]
+    evidence = operational_entry_evidence.copy()
+    for column, value in updates.items():
+        evidence[column] = value
+
+    with pytest.raises(ValueError, match="sem entrada cadastral comprovada"):
+        build_top20_by_anbima_type(funds, latest="2026-06", registration_evidence=evidence)
+
+
+@pytest.mark.parametrize("prior_observation", ["blank_previous", "earlier_report"])
+def test_top20_rejects_operational_entry_when_fund_was_already_observed(
+    operational_entry_evidence: pd.DataFrame,
+    prior_observation: str,
+) -> None:
+    funds = _funds()
+    previous_row = funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1")
+    if prior_observation == "blank_previous":
+        funds.loc[previous_row, "pl"] = float("nan")
+    else:
+        earlier = funds.loc[previous_row].assign(competencia="2026-04")
+        funds = pd.concat([funds.loc[~previous_row], earlier], ignore_index=True)
+
+    with pytest.raises(ValueError, match="sem entrada cadastral comprovada"):
+        build_top20_by_anbima_type(
+            funds, latest="2026-06", registration_evidence=operational_entry_evidence,
+        )
+
+
+@pytest.mark.parametrize("previous_pl", [0.0, -10.0])
+def test_top20_operational_evidence_preserves_a_reported_nonpositive_previous_pl(
+    operational_entry_evidence: pd.DataFrame,
+    previous_pl: float,
+) -> None:
+    funds = _funds()
+    funds.loc[funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1"), "pl"] = previous_pl
+
+    top20, coverage = build_top20_by_anbima_type(
+        funds, latest="2026-06", registration_evidence=operational_entry_evidence,
+    )
+
+    resumed = top20[top20["cnpj_fundo"].eq("00000000000001")].iloc[0]
+    assert resumed["pl_anterior_brl"] == previous_pl
+    assert resumed["pl_anterior_status"].startswith("retomada_pl_positivo")
+    total = coverage[coverage["tipo_exibicao"].eq("Total")].iloc[0]
+    assert total["fundos_retomada_pl_positivo"] == 1
+    assert total["fundos_primeira_observacao_inicio_cadastral_no_mes"] == 0
 
 
 @pytest.mark.parametrize("previous_pl", [0.0, -10.0])

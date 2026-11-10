@@ -1,6 +1,6 @@
 {
   "schema_version": "anbima-rf-ranking-manifest/v1",
-  "generated_at_utc": "2026-10-11T00:03:08.478640+00:00",
+  "generated_at_utc": "2026-10-21T02:07:08.378679+00:00",
   "period": {
     "start": "2026-01-01",
     "end": "2026-08-31"
@@ -21,46 +21,46 @@
   "cvm_latest_complete_meta": {
     "current_year": 2026,
     "current_period_start": "2026-01-01",
-    "current_period_end": "2026-08-31",
-    "previous_period_end": "2025-08-31",
-    "period_label": "jan–ago/26",
-    "previous_period_label": "jan–ago/25",
-    "current_period_id": "2026 jan-ago",
-    "previous_period_id": "2025 jan-ago",
-    "current_period_key": "ago26",
-    "previous_period_key": "ago25",
-    "month_count": 8
+    "current_period_end": "2026-09-30",
+    "previous_period_end": "2025-09-30",
+    "period_label": "jan–set/26",
+    "previous_period_label": "jan–set/25",
+    "current_period_id": "2026 jan-set",
+    "previous_period_id": "2025 jan-set",
+    "current_period_key": "set26",
+    "previous_period_key": "set25",
+    "month_count": 9
   },
-  "source_lag_months": 0,
+  "source_lag_months": 1,
   "source_reference_competence": "2026-08",
-  "source_as_of_date": "2026-10-10",
+  "source_as_of_date": "2026-10-21",
   "sources": {
     "publication_page": "https://data.anbima.com.br/publicacoes/ranking-de-renda-fixa-e-hibridos",
     "publication_api": "https://data-strapi.prd.anbima.com.br/api/publicacao-ranking-de-renda-fixa-e-hibridos",
     "methodology_url": "https://data-strapi.prd.anbima.com.br/uploads/Metodologia_RF_Hib_2026_2_b892ba3858.pdf",
     "ranking_workbook": {
       "url": "https://data-strapi.prd.anbima.com.br/uploads/Ranking_de_Renda_Fixa_e_Hibridos_Agosto_2026_c841679c83.xlsx",
-      "path": "/Users/matheusjprates/fidc/.cache/industry-refresh/source-snapshot-b001681eb6db87fcb350/Ranking_de_Renda_Fixa_e_Hibridos_Agosto_2026_c841679c83.xlsx",
+      "path": "/Users/matheusjprates/fidc/.cache/industry-refresh/source-snapshot-3527e20b4a05880b20d9/Ranking_de_Renda_Fixa_e_Hibridos_Agosto_2026_c841679c83.xlsx",
       "sha256": "fa5aa6fdab9eb0721ae3e232d3354d210ef5b78452b3a9553935d59b4a449ad5"
     },
     "annex_workbook": {
       "url": "https://data-strapi.prd.anbima.com.br/uploads/Anexo_ao_Ranking_Encerramento_de_Renda_Fixa_e_Hibridos_Agosto_2026_2bdf97d4bf.xlsx",
-      "path": "/Users/matheusjprates/fidc/.cache/industry-refresh/source-snapshot-b001681eb6db87fcb350/Anexo_ao_Ranking_Encerramento_de_Renda_Fixa_e_Hibridos_Agosto_2026_2bdf97d4bf.xlsx",
+      "path": "/Users/matheusjprates/fidc/.cache/industry-refresh/source-snapshot-3527e20b4a05880b20d9/Anexo_ao_Ranking_Encerramento_de_Renda_Fixa_e_Hibridos_Agosto_2026_2bdf97d4bf.xlsx",
       "sha256": "5459bbdab5b03ef3a66264f754ba523dea742d621d7c553ee38a255f21ce2cde"
     },
     "cvm_archive": {
       "url": "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip",
-      "path": "/Users/matheusjprates/fidc/.cache/industry-refresh/source-snapshot-b001681eb6db87fcb350/oferta_distribuicao.zip",
-      "sha256": "0355b8355f69d5f9ef3e9928ce7414952a4df9e3fae4cd256adba234ecd157e8"
+      "path": "/Users/matheusjprates/fidc/.cache/industry-refresh/source-snapshot-3527e20b4a05880b20d9/oferta_distribuicao.zip",
+      "sha256": "a106772611d55d898eb2906cee551cfeeb72b2082446e3f9f95d7342ae334864"
     }
   },
   "documents": [],
   "outputs": {
-    "official": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-ao75y1px/industry_study/anbima_rf_ranking_official.csv",
-    "annex": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-ao75y1px/industry_study/anbima_rf_ranking_annex.csv.gz",
-    "share": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-ao75y1px/industry_study/anbima_rf_ranking_participant_share.csv",
-    "reconciliation": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-ao75y1px/industry_study/anbima_rf_ranking_reconciliation.csv",
-    "syndication": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-ao75y1px/industry_study/anbima_rf_ranking_syndication.csv"
+    "official": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-lorp0g7d/industry_study/anbima_rf_ranking_official.csv",
+    "annex": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-lorp0g7d/industry_study/anbima_rf_ranking_annex.csv.gz",
+    "share": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-lorp0g7d/industry_study/anbima_rf_ranking_participant_share.csv",
+    "reconciliation": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-lorp0g7d/industry_study/anbima_rf_ranking_reconciliation.csv",
+    "syndication": "/Users/matheusjprates/fidc/.cache/industry-refresh/industry-update-lorp0g7d/industry_study/anbima_rf_ranking_syndication.csv"
   },
   "row_counts": {
     "official": 2304,
@@ -70,7 +70,7 @@
   },
   "notes": [
     "Valores das planilhas ANBIMA vêm em R$ mil e são convertidos para BRL.",
-    "Ranking e comparação CVM usam a janela própria jan–ago/26; última competência consolidada do estudo CVM: 2026-08.",
+    "Ranking e comparação CVM usam a janela própria jan–ago/26; última competência consolidada do estudo CVM: 2026-09.",
     "A soma do anexo reproduz o ranking publicado ao centavo por participante.",
     "A contagem de operações do bloco consolidado tem resíduo de até 3 operações por participante: o anexo não expõe o identificador interno de operação da ANBIMA e o agrupamento usa emissor + data de encerramento. No recorte FIDC a contagem bate exatamente."
   ]

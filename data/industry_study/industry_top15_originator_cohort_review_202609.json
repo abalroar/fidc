@@ -1,0 +1,730 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-24T01:51:19.580937+00:00",
+  "scope": "Top 15 Fomento Mercantil e Outros de 2026-09; originador econômico documental.",
+  "analysis_generated_at_utc": "2026-10-21T02:06:47+00:00",
+  "base_fundo_sha256": "f1d09e30262c630f9be67e23fd1e61c263b7db0e57259b6dcd7b376de05df6d8",
+  "private_cohort_csv_sha256": "463ed0ea95b506066823d350284df9d5b55bd1266d991195736557df79c3f83a",
+  "private_selected_ledger_sha256": "c38c7e9c10e95e4db9f4347d0b102741d6d205a35e55375cc22ecab31a852995",
+  "cohorts": [
+    {
+      "tipo": "Fomento Mercantil",
+      "cohorts": {
+        "2025-12": [
+          {
+            "rank": 1,
+            "cnpj": "34197588000137",
+            "fundo": "DAY MAXX 2 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 4028933138.3
+          },
+          {
+            "rank": 2,
+            "cnpj": "11468186000124",
+            "fundo": "ATLANTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 2922149867.57
+          },
+          {
+            "rank": 3,
+            "cnpj": "32321307000180",
+            "fundo": "CITY - 02 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS RESPONSABILIDADE ILIMITADA",
+            "pl_brl": 2581505115.2
+          },
+          {
+            "rank": 4,
+            "cnpj": "44229197000100",
+            "fundo": "EUV SP1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",
+            "pl_brl": 2063221804.56
+          },
+          {
+            "rank": 5,
+            "cnpj": "41776416000183",
+            "fundo": "RHODONITE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS",
+            "pl_brl": 1879171100.87
+          },
+          {
+            "rank": 6,
+            "cnpj": "23216398000101",
+            "fundo": "MULTIPLICA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+            "pl_brl": 1672820155.02
+          },
+          {
+            "rank": 7,
+            "cnpj": "23200289000198",
+            "fundo": "CF FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1658145946.79
+          },
+          {
+            "rank": 8,
+            "cnpj": "57833038000162",
+            "fundo": "ALDEBARAN II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1461401727.6
+          },
+          {
+            "rank": 9,
+            "cnpj": "12428086000137",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS MULTISSETORIAL BS NP",
+            "pl_brl": 1427735621.72
+          },
+          {
+            "rank": 10,
+            "cnpj": "29469420000101",
+            "fundo": "MULTIPLIKE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1297722293.85
+          },
+          {
+            "rank": 11,
+            "cnpj": "14166140000149",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SIFRA STAR",
+            "pl_brl": 1270485177.93
+          },
+          {
+            "rank": 12,
+            "cnpj": "24504464000101",
+            "fundo": "IOX II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1266892268.63
+          },
+          {
+            "rank": 13,
+            "cnpj": "63465818000108",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NAGOYA - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1138111858.29
+          },
+          {
+            "rank": 14,
+            "cnpj": "08678936000188",
+            "fundo": "SIFRA PLUS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSEGMENTOS",
+            "pl_brl": 1073919537.15
+          },
+          {
+            "rank": 15,
+            "cnpj": "52720932000102",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLIENTES BRF II",
+            "pl_brl": 971294601.31
+          }
+        ],
+        "2026-08": [
+          {
+            "rank": 1,
+            "cnpj": "34197588000137",
+            "fundo": "DAY MAXX 2 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 3772944315.34
+          },
+          {
+            "rank": 2,
+            "cnpj": "32321307000180",
+            "fundo": "CITY - 02 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS RESPONSABILIDADE ILIMITADA",
+            "pl_brl": 2758097886.13
+          },
+          {
+            "rank": 3,
+            "cnpj": "44229197000100",
+            "fundo": "EUV SP1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",
+            "pl_brl": 2220692700.39
+          },
+          {
+            "rank": 4,
+            "cnpj": "23216398000101",
+            "fundo": "MULTIPLICA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+            "pl_brl": 2090403784.62
+          },
+          {
+            "rank": 5,
+            "cnpj": "24504464000101",
+            "fundo": "IOX II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1924331624.55
+          },
+          {
+            "rank": 6,
+            "cnpj": "11468186000124",
+            "fundo": "ATLANTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1897667543.94
+          },
+          {
+            "rank": 7,
+            "cnpj": "12428086000137",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS MULTISSETORIAL BS NP",
+            "pl_brl": 1565448244.56
+          },
+          {
+            "rank": 8,
+            "cnpj": "57833038000162",
+            "fundo": "ALDEBARAN II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1457599019.29
+          },
+          {
+            "rank": 9,
+            "cnpj": "23200289000198",
+            "fundo": "CF FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1349425480.22
+          },
+          {
+            "rank": 10,
+            "cnpj": "14166140000149",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SIFRA STAR",
+            "pl_brl": 1311198323.58
+          },
+          {
+            "rank": 11,
+            "cnpj": "08678936000188",
+            "fundo": "SIFRA PLUS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSEGMENTOS",
+            "pl_brl": 1272709158.56
+          },
+          {
+            "rank": 12,
+            "cnpj": "29469420000101",
+            "fundo": "MULTIPLIKE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1228643609.56
+          },
+          {
+            "rank": 13,
+            "cnpj": "19388423000159",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS IOX I",
+            "pl_brl": 1151651361.42
+          },
+          {
+            "rank": 14,
+            "cnpj": "28651441000172",
+            "fundo": "VERMILLION I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS",
+            "pl_brl": 975348731.91
+          },
+          {
+            "rank": 15,
+            "cnpj": "23956882000169",
+            "fundo": "SB CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSETORIAL DE CLASSE UNICA FECHADA",
+            "pl_brl": 900983202.8
+          }
+        ],
+        "2026-09": [
+          {
+            "rank": 1,
+            "cnpj": "34197588000137",
+            "fundo": "DAY MAXX 2 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 3742887906.94
+          },
+          {
+            "rank": 2,
+            "cnpj": "32321307000180",
+            "fundo": "CITY - 02 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS RESPONSABILIDADE ILIMITADA",
+            "pl_brl": 2774626965.32
+          },
+          {
+            "rank": 3,
+            "cnpj": "44229197000100",
+            "fundo": "EUV SP1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",
+            "pl_brl": 2240786394.65
+          },
+          {
+            "rank": 4,
+            "cnpj": "23216398000101",
+            "fundo": "MULTIPLICA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+            "pl_brl": 2123626196.25
+          },
+          {
+            "rank": 5,
+            "cnpj": "24504464000101",
+            "fundo": "IOX II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1906048188.36
+          },
+          {
+            "rank": 6,
+            "cnpj": "12428086000137",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS MULTISSETORIAL BS NP",
+            "pl_brl": 1615927037.67
+          },
+          {
+            "rank": 7,
+            "cnpj": "11468186000124",
+            "fundo": "ATLANTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1565277422.82
+          },
+          {
+            "rank": 8,
+            "cnpj": "57833038000162",
+            "fundo": "ALDEBARAN II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1440783215.54
+          },
+          {
+            "rank": 9,
+            "cnpj": "23200289000198",
+            "fundo": "CF FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1347978923.19
+          },
+          {
+            "rank": 10,
+            "cnpj": "08678936000188",
+            "fundo": "SIFRA PLUS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSEGMENTOS",
+            "pl_brl": 1289313784.63
+          },
+          {
+            "rank": 11,
+            "cnpj": "14166140000149",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SIFRA STAR",
+            "pl_brl": 1286206374.54
+          },
+          {
+            "rank": 12,
+            "cnpj": "19388423000159",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS IOX I",
+            "pl_brl": 1154523066.99
+          },
+          {
+            "rank": 13,
+            "cnpj": "29469420000101",
+            "fundo": "MULTIPLIKE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1127577210.35
+          },
+          {
+            "rank": 14,
+            "cnpj": "28651441000172",
+            "fundo": "VERMILLION I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS",
+            "pl_brl": 984383850.34
+          },
+          {
+            "rank": 15,
+            "cnpj": "51295720000162",
+            "fundo": "OPI GOOROO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSETORIAL - RESP LIMITADA",
+            "pl_brl": 962118808.39
+          }
+        ]
+      },
+      "retained_from_august_cnpjs": [
+        "08678936000188",
+        "11468186000124",
+        "12428086000137",
+        "14166140000149",
+        "19388423000159",
+        "23200289000198",
+        "23216398000101",
+        "24504464000101",
+        "28651441000172",
+        "29469420000101",
+        "32321307000180",
+        "34197588000137",
+        "44229197000100",
+        "57833038000162"
+      ],
+      "entrants_from_august_cnpjs": [
+        "51295720000162"
+      ],
+      "exits_from_august_cnpjs": [
+        "23956882000169"
+      ],
+      "existing_selected_originators_before_this_review": 0,
+      "existing_selected_originators_denominator": 15,
+      "review_method": "Conferência das 15 chaves e dos campos de evidência do catálogo selecionado, comparação exata com agosto e leitura primária dos novos membros. As leituras históricas dos membros retidos não foram substituídas por inferência."
+    },
+    {
+      "tipo": "Outros",
+      "cohorts": {
+        "2025-12": [
+          {
+            "rank": 1,
+            "cnpj": "53273475000118",
+            "fundo": "ANNA FUNDO DE INVESTIMENTO EM PARTICIPAÇÕES MULTIESTRATÉGIA",
+            "pl_brl": 15688258736.37
+          },
+          {
+            "rank": 2,
+            "cnpj": "53286499000101",
+            "fundo": "ITAÚ CRÉDITO PRIVADO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 8137216121.04
+          },
+          {
+            "rank": 3,
+            "cnpj": "53263761000100",
+            "fundo": "ESPERANZA FUNDO DE INVESTIMENTO EM PARTICIPAÇÕES MULTIESTRATÉGIA",
+            "pl_brl": 6476031949.31
+          },
+          {
+            "rank": 4,
+            "cnpj": "53216449000158",
+            "fundo": "RIO VERMELHO FUNDO DE INVESTIMENTO EM PARTICIPAÇÕES MULTIESTRATÉGIA",
+            "pl_brl": 6381406448.05
+          },
+          {
+            "rank": 5,
+            "cnpj": "63700113000110",
+            "fundo": "NC 2025 I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+            "pl_brl": 5343503672.98
+          },
+          {
+            "rank": 6,
+            "cnpj": "51152102000163",
+            "fundo": "HIGH TOWER FUNDO DE INVESTIMENTO EM PARTICIPAÇÕES MULTIESTRATÉGIA",
+            "pl_brl": 3970773082.73
+          },
+          {
+            "rank": 7,
+            "cnpj": "29301202000155",
+            "fundo": "RSCRED MULTIESTRÉGIA - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS",
+            "pl_brl": 3600782621.47
+          },
+          {
+            "rank": 8,
+            "cnpj": "42358004000196",
+            "fundo": "ACONCÁGUA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS RESPONSABILIDADE LIMITADA",
+            "pl_brl": 3508070519.9
+          },
+          {
+            "rank": 9,
+            "cnpj": "17250006000110",
+            "fundo": "RED FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS REAL LP DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 3485223742.94
+          },
+          {
+            "rank": 10,
+            "cnpj": "53029409000105",
+            "fundo": "GSR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS",
+            "pl_brl": 3204530726.36
+          },
+          {
+            "rank": 11,
+            "cnpj": "51079269000146",
+            "fundo": "CARNIVAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+            "pl_brl": 3058048868.64
+          },
+          {
+            "rank": 12,
+            "cnpj": "29225241000110",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALTERNATIVE ASSETS III RESPONSABILIDADE LIMITADA",
+            "pl_brl": 2986601196.21
+          },
+          {
+            "rank": 13,
+            "cnpj": "07727002000126",
+            "fundo": "FIDC PCG - BRASIL MULTICARTEIRA",
+            "pl_brl": 2849953862.1
+          },
+          {
+            "rank": 14,
+            "cnpj": "29109350000172",
+            "fundo": "JC DIVERSIFICADO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS NAO-PADRONIZADOS",
+            "pl_brl": 2820828969.74
+          },
+          {
+            "rank": 15,
+            "cnpj": "24194675000187",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALTERNATIVE ASSETS I RESPONSABILIDADE LIMITADA",
+            "pl_brl": 2772094881.07
+          }
+        ],
+        "2026-08": [
+          {
+            "rank": 1,
+            "cnpj": "65473848000183",
+            "fundo": "PAN AUTO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+            "pl_brl": 20198291907.77
+          },
+          {
+            "rank": 2,
+            "cnpj": "53286499000101",
+            "fundo": "ITAÚ CRÉDITO PRIVADO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 8932735715.03
+          },
+          {
+            "rank": 3,
+            "cnpj": "55720253000121",
+            "fundo": "ITAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS RESPONSABILIDADE ILIMITADA",
+            "pl_brl": 6460522602.03
+          },
+          {
+            "rank": 4,
+            "cnpj": "53216449000158",
+            "fundo": "RIO VERMELHO FUNDO DE INVESTIMENTO EM PARTICIPAÇÕES MULTIESTRATÉGIA",
+            "pl_brl": 6390290390.09
+          },
+          {
+            "rank": 5,
+            "cnpj": "29225241000110",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALTERNATIVE ASSETS III RESPONSABILIDADE LIMITADA",
+            "pl_brl": 5933688515.09
+          },
+          {
+            "rank": 6,
+            "cnpj": "49826785000145",
+            "fundo": "ASA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+            "pl_brl": 4231296076.69
+          },
+          {
+            "rank": 7,
+            "cnpj": "29301202000155",
+            "fundo": "RSCRED MULTIESTRÉGIA - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS",
+            "pl_brl": 3599560973.43
+          },
+          {
+            "rank": 8,
+            "cnpj": "17250006000110",
+            "fundo": "RED FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS REAL LP DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 3334605706.65
+          },
+          {
+            "rank": 9,
+            "cnpj": "07727002000126",
+            "fundo": "FIDC PCG - BRASIL MULTICARTEIRA",
+            "pl_brl": 3196029095.69
+          },
+          {
+            "rank": 10,
+            "cnpj": "24194675000187",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALTERNATIVE ASSETS I RESPONSABILIDADE LIMITADA",
+            "pl_brl": 3091810070.76
+          },
+          {
+            "rank": 11,
+            "cnpj": "51079269000146",
+            "fundo": "CARNIVAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+            "pl_brl": 3058103926.17
+          },
+          {
+            "rank": 12,
+            "cnpj": "53029409000105",
+            "fundo": "GSR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS",
+            "pl_brl": 2940889060.03
+          },
+          {
+            "rank": 13,
+            "cnpj": "42358004000196",
+            "fundo": "ACONCÁGUA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS RESPONSABILIDADE LIMITADA",
+            "pl_brl": 2373588339.88
+          },
+          {
+            "rank": 14,
+            "cnpj": "26405883000103",
+            "fundo": "FIDC MULTISEGMENTOS NPL IPANEMA VI RESPONSABILIDADE LIMITADA",
+            "pl_brl": 2207595143.13
+          },
+          {
+            "rank": 15,
+            "cnpj": "13321819000100",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS VALE",
+            "pl_brl": 2045856427.66
+          }
+        ],
+        "2026-09": [
+          {
+            "rank": 1,
+            "cnpj": "65473848000183",
+            "fundo": "PAN AUTO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+            "pl_brl": 21147871702.15
+          },
+          {
+            "rank": 2,
+            "cnpj": "53286499000101",
+            "fundo": "ITAÚ CRÉDITO PRIVADO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+            "pl_brl": 9034559463.24
+          },
+          {
+            "rank": 3,
+            "cnpj": "55720253000121",
+            "fundo": "ITAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS RESPONSABILIDADE ILIMITADA",
+            "pl_brl": 6462522635.36
+          },
+          {
+            "rank": 4,
+            "cnpj": "29225241000110",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALTERNATIVE ASSETS III RESPONSABILIDADE LIMITADA",
+            "pl_brl": 5383465620.75
+          },
+          {
+            "rank": 5,
+            "cnpj": "49826785000145",
+            "fundo": "ASA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+            "pl_brl": 4571853813.54
+          },
+          {
+            "rank": 6,
+            "cnpj": "29301202000155",
+            "fundo": "RSCRED MULTIESTRÉGIA - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS",
+            "pl_brl": 3599415973.43
+          },
+          {
+            "rank": 7,
+            "cnpj": "17250006000110",
+            "fundo": "RED FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS REAL LP DE RESPONSABILIDADE LIMITADA",
+            "pl_brl": 3302465560.44
+          },
+          {
+            "rank": 8,
+            "cnpj": "07727002000126",
+            "fundo": "FIDC PCG - BRASIL MULTICARTEIRA",
+            "pl_brl": 3209659635.57
+          },
+          {
+            "rank": 9,
+            "cnpj": "53029409000105",
+            "fundo": "GSR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS",
+            "pl_brl": 2938712828.8
+          },
+          {
+            "rank": 10,
+            "cnpj": "24194675000187",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALTERNATIVE ASSETS I RESPONSABILIDADE LIMITADA",
+            "pl_brl": 2529456754.83
+          },
+          {
+            "rank": 11,
+            "cnpj": "42358004000196",
+            "fundo": "ACONCÁGUA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS RESPONSABILIDADE LIMITADA",
+            "pl_brl": 2373395059.58
+          },
+          {
+            "rank": 12,
+            "cnpj": "58893662000118",
+            "fundo": "JIVE BOSSANOVA90 - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+            "pl_brl": 2088818770.18
+          },
+          {
+            "rank": 13,
+            "cnpj": "49306883000151",
+            "fundo": "TM FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+            "pl_brl": 2056879657.06
+          },
+          {
+            "rank": 14,
+            "cnpj": "13321819000100",
+            "fundo": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS VALE",
+            "pl_brl": 2001087734.31
+          },
+          {
+            "rank": 15,
+            "cnpj": "26405883000103",
+            "fundo": "FIDC MULTISEGMENTOS NPL IPANEMA VI RESPONSABILIDADE LIMITADA",
+            "pl_brl": 1963732562.69
+          }
+        ]
+      },
+      "retained_from_august_cnpjs": [
+        "07727002000126",
+        "13321819000100",
+        "17250006000110",
+        "24194675000187",
+        "26405883000103",
+        "29225241000110",
+        "29301202000155",
+        "42358004000196",
+        "49826785000145",
+        "53029409000105",
+        "53286499000101",
+        "55720253000121",
+        "65473848000183"
+      ],
+      "entrants_from_august_cnpjs": [
+        "49306883000151",
+        "58893662000118"
+      ],
+      "exits_from_august_cnpjs": [
+        "51079269000146",
+        "53216449000158"
+      ],
+      "existing_selected_originators_before_this_review": 0,
+      "existing_selected_originators_denominator": 15,
+      "review_method": "Conferência das 15 chaves e dos campos de evidência do catálogo selecionado, comparação exata com agosto e leitura primária dos novos membros. As leituras históricas dos membros retidos não foram substituídas por inferência."
+    }
+  ],
+  "primary_document_reviews": [
+    {
+      "cnpj": "51295720000162",
+      "fundo": "OPI GOOROO",
+      "document_id": "1067414",
+      "reference_date": "2025-12-11",
+      "delivered_at": "2025-12-22 10:32",
+      "pages": 113,
+      "sha256": "7bbfe2550aba7567449f2bf04c3fb7e260de280400d78ca4074617695f25f456",
+      "decision": "originador_nominal_explicito",
+      "originator": "GOOROO CRÉDITO E COBRANÇA LTDA.",
+      "originator_cnpj": "43732242000182",
+      "pdf_pages_reviewed_for_roles": [
+        35,
+        47,
+        57,
+        60,
+        113
+      ],
+      "evidence": "A definição de Originadora na página PDF 47 (página impressa 45) identifica a GOOROO. O item 5.14.2 atribui análise de crédito à Originadora, o item 5.37(ii) exige originação exclusiva por ela e o Anexo V distingue sua atuação de correspondente bancária da formalização pela instituição financeira.",
+      "cedent_separate": "Banco Ribeirão Preto S.A. e/ou outro endossante instituição financeira autorizada pelo BACEN, indicada e aprovada nos termos da definição da página PDF 35.",
+      "result_scope": "Adicionar apenas papel de originador. Sem termos, preço ou reclassificação.",
+      "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1067414&cvm=true",
+      "local_proof_filename": "1067414_opi_gooroo_regulamento.pdf"
+    },
+    {
+      "cnpj": "49306883000151",
+      "fundo": "TM",
+      "document_id": "771170",
+      "reference_date": "2024-11-01",
+      "delivered_at": "2024-11-04 18:39",
+      "pages": 44,
+      "sha256": "27189da6eb1274fe2488287e22a8b7f72e4f001ff20ea25590fc96944a95865b",
+      "decision": "nd_originador_preservado",
+      "pdf_pages_reviewed_for_roles": [
+        9,
+        11,
+        41
+      ],
+      "evidence": "Item 4.2 descreve origem variada e políticas de concessão não precisáveis; item 4.16 declara ausência de cedentes ou contrapartes predeterminados. A definição de Cedente abrange pessoas físicas, jurídicas ou fundos que alienem direitos. Nenhuma entidade foi encontrada explicitamente no papel de originador econômico.",
+      "prior_review_paths": [
+        "industry_top20_taxonomy_document_conclusions.csv",
+        "taxonomy_review_actions.csv"
+      ],
+      "latest_listed_regulation_confirmed": true,
+      "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=771170&cvm=true",
+      "local_proof_filename": "771170_regulamento.pdf"
+    },
+    {
+      "cnpj": "58893662000118",
+      "fundo": "JIVE BOSSANOVA90",
+      "document_id": "1333136",
+      "reference_date": "2026-09-29",
+      "delivered_at": "2026-09-29 16:48",
+      "pages": 71,
+      "sha256": "a270b0271f6bea9f58273dc043be1bcdb376a71237e1b884c30e7db32c4f46b7",
+      "decision": "nd_originador_preservado",
+      "pdf_pages_reviewed_for_roles": [
+        2,
+        31,
+        37,
+        41,
+        42,
+        44
+      ],
+      "evidence": "Definição genérica de Cedente na página 2. Itens 7.6.1 e 7.6.2 tratam de coobrigação e existência dos créditos, sem individualizar entidade. Item 7.7, página 42, declara processos de originação não previsíveis diante da natureza variada dos direitos. Não se identifica entidade nominal como originador econômico.",
+      "latest_listed_regulation_confirmed": true,
+      "historical_document_id": "1044435",
+      "historical_reference_date": "2025-11-14",
+      "historical_pages": 68,
+      "historical_sha256": "49b1df0490fccb58817f85549ee3e1fb80ea84f77ff45ebcd5b33696b7d250cd",
+      "prior_review_paths": [
+        "industry_outros_reclassification_conclusions.csv",
+        "taxonomy_review_actions.csv"
+      ],
+      "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1333136&cvm=true",
+      "local_proof_filename": "1333136_jive_bossanova90_regulamento.pdf"
+    }
+  ],
+  "coverage_after_approved_review": {
+    "Fomento Mercantil · 2026-09": {
+      "originadores_nomeados": 1,
+      "total": 15,
+      "waiver": false
+    },
+    "Outros · 2026-09": {
+      "originadores_nomeados": 0,
+      "total": 15,
+      "waiver": true
+    }
+  },
+  "specific_waiver": {
+    "tipo": "Outros",
+    "campo": "originador",
+    "competencia": "2026-09",
+    "reason": "0/15 originadores nomeados nas fontes consultadas da coorte set/26; 13 CNPJs retidos de ago/26 conferidos por chave exata. Entrantes TM, 49306883000151, regulamento 771170, pp. 9 e 11, e JIVE BOSSANOVA90, 58893662000118, regulamento 1333136 de 29/09/2026, pp. 2 e 42, revisados sem originador econômico nominal. Auditoria específica em industry_top15_originator_cohort_review_202609.json; N/D preservado e cedentes legais separados",
+    "prospective": false,
+    "future_cohorts_remain_blocked_without_review": true
+  },
+  "limits": [
+    "Zero no inventário mantido não prova ausência de documento oficial; TM e JIVE tinham leituras em outras camadas.",
+    "As 27 observações retidas por CNPJ foram confrontadas com a seleção documental existente; não se afirma releitura integral atual de todos os documentos históricos.",
+    "Os documentos descrevem papéis e mandato, sem estabelecer a composição efetiva da carteira de setembro.",
+    "Fontes documentais conservam suas datas, distintas da competência CVM e da data de consulta.",
+    "Nenhuma identificação de originador foi inferida pelo nome do fundo ou pelo cedente da Tabela I."
+  ]
+}

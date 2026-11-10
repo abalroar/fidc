@@ -198,6 +198,7 @@ OPTIONAL_DATA_INPUTS = (
     "fic_perimeter_overrides.csv",
     "fic_perimeter_overrides_history.csv",
     "industry_fic_perimeter_review.csv",
+    "industry_top15_originator_cohort_review_202609.json",
     # Auditoria da exclusão de FICs e cross-check da taxonomia: viajam com o
     # bundle para que o Excel exportado reproduza o que os gráficos mostram e
     # diga por que cada fundo saiu do universo.
@@ -1698,6 +1699,77 @@ def _validate_portfolio_export_payload(payload: Mapping[str, object]) -> None:
     if attempted != 101:
         raise RevisionBundlePublishError(
             f"varredura online tentou {attempted}/101 CNPJs"
+        )
+
+
+def validate_originator_cohort_membership(
+    payload: Mapping[str, object], *, data_dir: Path,
+) -> None:
+    """Bind the September originator exception to its exact reviewed funds."""
+
+    key = ("Outros", "originador", "2026-09")
+    table = "Outros · 2026-09"
+    approved_reason = COHORT_COVERAGE_WAIVERS[key]
+    waived = [
+        row for row in payload.get("emission_field_coverage", [])
+        if isinstance(row, Mapping) and row.get("tabela") == table
+        and row.get("campo") == key[1]
+        and row.get("excecao_publicacao") == approved_reason
+    ]
+    if not waived:
+        return
+    review_path = Path(data_dir) / "industry_top15_originator_cohort_review_202609.json"
+    try:
+        review = json.loads(review_path.read_text(encoding="utf-8"))
+        if not isinstance(review, Mapping) or review.get("schema_version") != 1:
+            raise ValueError("schema da revisão incompatível")
+        waiver = review.get("specific_waiver")
+        expected = dict(zip(("tipo", "campo", "competencia"), key))
+        if not isinstance(waiver, Mapping) or any(waiver.get(k) != v for k, v in expected.items()):
+            raise ValueError("revisão não identifica a exceção aplicada")
+        if waiver.get("reason") != approved_reason or waiver.get("prospective") is not False:
+            raise ValueError("revisão diverge da exceção documental aprovada")
+        cohorts = [row for row in review["cohorts"] if row["tipo"] == key[0]]
+        if len(cohorts) != 1:
+            raise ValueError("revisão deve identificar uma coorte Outros")
+        audited_rows = cohorts[0]["cohorts"][key[2]]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise RevisionBundlePublishError(
+            f"revisão da coorte documental {table} ausente ou inválida: {review_path}"
+        ) from exc
+
+    def identities(rows: object, column: str, context: str) -> set[str]:
+        if not isinstance(rows, list) or len(rows) != 15:
+            raise RevisionBundlePublishError(f"{context} deve conter 15 fundos")
+        values = [str(row.get(column) or "") for row in rows if isinstance(row, Mapping)]
+        if len(values) != 15 or len(set(values)) != 15 or any(
+            not re.fullmatch(r"[0-9]{14}", value) for value in values
+        ):
+            raise RevisionBundlePublishError(f"{context} contém CNPJs inválidos ou repetidos")
+        return set(values)
+
+    audited = identities(audited_rows, "cnpj", f"revisão de {table}")
+    try:
+        ranked_rows = [
+            row for row in payload.get("top20_taxonomy_review", [])
+            if row.get("competencia") == key[2] and row.get("tipo_exibicao") == key[0]
+            and 1 <= int(row.get("rank_tipo")) <= 15
+        ]
+    except (AttributeError, TypeError, ValueError) as exc:
+        raise RevisionBundlePublishError(f"ranking de {table} inválido") from exc
+    exported_rows = [
+        row for row in payload.get("emission_field_audit", [])
+        if isinstance(row, Mapping) and row.get("bloco") == "slides 10–17"
+        and row.get("tabela") == table
+    ]
+    ranked = identities(ranked_rows, "cnpj_fundo", f"ranking de {table}")
+    exported = identities(exported_rows, "cnpj", f"export de {table}")
+    if ranked != audited or exported != audited:
+        raise RevisionBundlePublishError(
+            f"coorte {table} mudou; exige nova revisão documental; "
+            f"ranking fora da revisão={sorted(ranked - audited)}; "
+            f"export fora da revisão={sorted(exported - audited)}; "
+            f"revisados ausentes={sorted(audited - (ranked & exported))}"
         )
 
 
@@ -3792,6 +3864,19 @@ def publish_staged_bundle(
     return target_pptx, target_xlsx, target_manifest
 
 
+def _renderer_log_excerpt(path: Path, *, limit: int = 1600) -> str:
+    """Keep the diagnostic header and final error without loading a large log."""
+
+    with path.open("rb") as stream:
+        size = path.stat().st_size
+        if size <= limit:
+            return stream.read().decode("utf-8", errors="replace").strip()
+        head = stream.read(limit // 2).decode("utf-8", errors="replace").strip()
+        stream.seek(-(limit // 2), os.SEEK_END)
+        tail = stream.read().decode("utf-8", errors="replace").strip()
+    return head + "\n[trecho intermediário preservado no log]\n" + tail
+
+
 def _run_artifact_builder(
     *,
     node: Path,
@@ -3812,6 +3897,17 @@ def _run_artifact_builder(
     timeout_seconds: int,
 ) -> None:
     env = os.environ.copy()
+    raw_xlsx_heap = env.get("FIDC_XLSX_HEAP_MB", "12288")
+    try:
+        if not re.fullmatch(r"[0-9]+", raw_xlsx_heap):
+            raise ValueError("heap não inteiro")
+        xlsx_heap_mb = int(raw_xlsx_heap)
+        if not 2048 <= xlsx_heap_mb <= 24576:
+            raise ValueError("heap fora da faixa")
+    except ValueError as exc:
+        raise RevisionBundlePublishError(
+            "FIDC_XLSX_HEAP_MB deve ser inteiro entre 2048 e 24576 MB"
+        ) from exc
     env.update(
         {
             "CODEX_NODE_MODULES": str(node_modules),
@@ -3836,30 +3932,45 @@ def _run_artifact_builder(
         ("PPTX", "4096", {"FIDC_SKIP_WORKBOOK": "1"}),
         (
             "XLSX",
-            "8192",
+            str(xlsx_heap_mb),
             {"FIDC_SKIP_PRESENTATION": "1", "FIDC_WRITE_MANIFEST": "1"},
         ),
     )
+    output_dir.mkdir(parents=True, exist_ok=True)
     for phase, heap_mb, overrides in phases:
         phase_env = env | overrides
+        stdout_log = output_dir / f"renderer_{phase.lower()}.stdout.log"
+        stderr_log = output_dir / f"renderer_{phase.lower()}.stderr.log"
+        log_paths = f"logs: {stdout_log}; {stderr_log}"
         try:
-            completed = subprocess.run(
-                [str(node), f"--max-old-space-size={heap_mb}", str(artifact_script)],
-                cwd=ROOT,
-                env=phase_env,
-                check=False,
-                capture_output=True,
-                text=True,
-                timeout=timeout_seconds,
-            )
+            # Direct file descriptors preserve all output, including partial
+            # diagnostics when the renderer times out or is killed for memory.
+            with stdout_log.open("wb") as stdout, stderr_log.open("wb") as stderr:
+                completed = subprocess.run(
+                    [str(node), f"--max-old-space-size={heap_mb}", str(artifact_script)],
+                    cwd=ROOT,
+                    env=phase_env,
+                    check=False,
+                    stdout=stdout,
+                    stderr=stderr,
+                    text=True,
+                    timeout=timeout_seconds,
+                )
         except subprocess.TimeoutExpired as exc:
+            detail = _renderer_log_excerpt(stderr_log) or _renderer_log_excerpt(stdout_log)
             raise RevisionBundlePublishError(
-                f"renderer {phase} excedeu {timeout_seconds}s"
+                f"renderer {phase} excedeu {timeout_seconds}s; {log_paths}"
+                + (f"\n{detail}" if detail else "")
             ) from exc
         if completed.returncode:
-            detail = (completed.stderr or completed.stdout or "falha sem log").strip()
+            detail = (
+                _renderer_log_excerpt(stderr_log)
+                or _renderer_log_excerpt(stdout_log)
+                or "falha sem log"
+            )
             raise RevisionBundlePublishError(
-                f"renderer {phase} do bundle falhou: " + detail[-4000:]
+                f"renderer {phase} do bundle falhou (código {completed.returncode}); "
+                f"{log_paths}\n{detail}"
             )
     if (
         not pptx_path.exists()
@@ -4294,6 +4405,7 @@ def publish_revision_bundle(
         if payload.get("offers_comparison_meta") is None:
             raise RevisionBundlePublishError("nova publicação exige corte comparativo dinâmico")
         validate_artifact_payload(payload, latest_complete)
+        validate_originator_cohort_membership(payload, data_dir=data_dir)
         payload_bytes = json.dumps(
             payload,
             ensure_ascii=False,
