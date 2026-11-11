@@ -31,20 +31,20 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
             0.7545072776960997,
         ),
         "2025 FY": (
-            1_476,
-            116_941_319_054.77,
-            79_228_535.94496612,
+            1_478,
+            117_126_319_054.77,
+            79_246_494.62433693,
             25_000_000.0,
-            81_769_067_300.87,
-            0.6992316142985618,
+            81_919_067_300.87,
+            0.6994078526668583,
         ),
-        "2026 jan-ago": (
-            1034,
-            91_917_778_632.26,
-            88_895_337.16852999,
-            23_499_903.715,
-            67_974_174_330.36,
-            0.7395106294105259,
+        "2026 jan-set": (
+            1157,
+            109_209_379_930.30,
+            94_390_129.58539324,
+            25_000_000.0,
+            82_584_984_330.36,
+            0.7562077944501441,
         ),
     }
     for label, (
@@ -78,10 +78,10 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
             abs_tol=1e-12,
         )
 
-    # CVM archive consulted on 08/10/26 includes five late historical records:
-    # 18460/18461/18462 (2025, R$20m) and 23074/25577 (1S26, R$208m).
-    assert len(outputs.cohort) == 3_876
-    assert outputs.cohort["numero_requerimento"].nunique() == 3_876
+    # Frozen CVM archive checked on 11/11/26 includes late filings and the
+    # complete January–September window; historical requirements stay present.
+    assert len(outputs.cohort) == 4_001
+    assert outputs.cohort["numero_requerimento"].nunique() == 4_001
     assert set(outputs.cohort["numero_requerimento"].astype(str)).issuperset(
         {"18460", "18461", "18462", "23074", "25577"}
     )
@@ -93,8 +93,8 @@ def test_published_bucket_counts_are_stable() -> None:
         index="bucket_order", columns="period_label", values="closed_offers"
     ).sort_index()
     assert pivot["2024 FY"].tolist() == [231, 237, 175, 158, 94, 83, 31]
-    assert pivot["2025 FY"].tolist() == [352, 376, 240, 232, 140, 100, 36]
-    assert pivot["2026 jan-ago"].tolist() == [236, 284, 159, 162, 97, 61, 35]
+    assert pivot["2025 FY"].tolist() == [352, 376, 241, 232, 141, 100, 36]
+    assert pivot["2026 jan-set"].tolist() == [266, 311, 183, 176, 107, 71, 43]
 
 
 def _write_source_zip(path: Path, rows: list[dict[str, str]]) -> None:

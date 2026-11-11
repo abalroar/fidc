@@ -34,7 +34,7 @@ DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
 ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
 ANBIMA_SOURCE_WORKBOOK_SHA256 = (
-    "1236172468f5aa3ddde24382bfa9c5f6372f9b35cd03993ef2482d358845b524"
+    "a1376ea01a9d4cdcf1072dd3aed226827d8122e09d95363ab89f0458980cab11"
 )
 
 # Optional compatibility read in the presentation renderer.  The current
@@ -442,8 +442,8 @@ def test_published_bundle_has_converged_issuance_baseline(
     expected_levels = {
         "2023 FY": ANBIMA_2023_FIDC_VOLUME_BRL,
         "2024 FY": 95_416_726_133.75,
-        "2025 FY": 116_921_319_054.77,
-        "2026 jan-jun": 65_488_118_983.56,
+        "2025 FY": 117_126_319_054.77,
+        "2026 jan-set": 109_209_379_930.30,
     }
     for period, expected in expected_levels.items():
         assert rendered_fidc.at[period, "registered_volume_brl"] == pytest.approx(
@@ -509,17 +509,19 @@ def test_pl_history_closes_to_cent_for_every_published_competence() -> None:
 
 
 def test_published_ex_fic_products_exclude_all_current_fics() -> None:
+    _, payload = _published_payload()
+    current_competence = payload["latest_complete"]
     audit = pd.read_csv(
         DATA_DIR / "industry_fic_detection_audit.csv",
         dtype=str,
         low_memory=False,
     )
-    audit = audit[audit["competencia"].eq("2026-06")]
+    audit = audit[audit["competencia"].eq(current_competence)]
     current_fics = {
         _cnpj_digits(value)
         for value in audit.loc[_truthy(audit["is_fic"]), "cnpj_fundo"]
     }
-    assert len(current_fics) == 773
+    assert len(current_fics) == 769
 
     fund_base = pd.read_csv(
         REVISION_DIR / "base_fundo_cnpj.csv.gz",
@@ -527,7 +529,7 @@ def test_published_ex_fic_products_exclude_all_current_fics() -> None:
         dtype={"competencia": str, "cnpj_fundo": str},
         low_memory=False,
     )
-    current_base = fund_base[fund_base["competencia"].eq("2026-06")].copy()
+    current_base = fund_base[fund_base["competencia"].eq(current_competence)].copy()
     base_fics = {
         _cnpj_digits(value)
         for value in current_base.loc[_truthy(current_base["is_fic"]), "cnpj_fundo"]
@@ -557,7 +559,7 @@ def test_published_ex_fic_products_exclude_all_current_fics() -> None:
         REVISION_DIR / "adquirencia_mix_reclassificado.csv",
         low_memory=False,
     )
-    acquiring = acquiring[acquiring["competencia"].eq("2026-06")]
+    acquiring = acquiring[acquiring["competencia"].eq(current_competence)]
     assert acquiring["denominador_pl_brl"].tolist() == pytest.approx(
         [expected_ex_fic_pl] * len(acquiring),
         abs=0.01,

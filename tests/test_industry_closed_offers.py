@@ -26,8 +26,8 @@ def test_loads_and_reconciles_materialized_closed_offer_tables() -> None:
     tables = load_closed_offers_tables()
 
     assert tables.annual["year"].tolist() == [2022, 2023, 2024, 2025, 2026]
-    assert len(tables.monthly) == 46
-    assert tables.monthly.iloc[-1]["competence"] == "2026-08"
+    assert len(tables.monthly) == 47
+    assert tables.monthly.iloc[-1]["competence"] == "2026-09"
     assert bool(tables.monthly.iloc[-1]["is_complete_month"])
     assert len(tables.originators) == 19
     assert tables.originators.iloc[0]["originator_group"] == "CloudWalk"
@@ -40,24 +40,24 @@ def test_full_payload_is_json_serializable_and_has_stable_blocks() -> None:
     assert encoded
     assert payload["schema"] == "industry_closed_offers.v1"
     assert payload["annual"]["row_count"] == 5
-    assert payload["monthly"]["row_count"] == 46
+    assert payload["monthly"]["row_count"] == 47
     assert payload["jan_june_2024_2026"]["row_count"] == 3
     assert payload["jan_may_2024_2026"]["row_count"] == 3
     assert payload["originators_2026_ytd"]["row_count"] == 19
     assert payload["annual"]["source"]["archive_sha256"] == (
-        "4b0ab625aa94267968e841c8c1fc2acbcc40b3fe111213b3f9852a832095212f"
+        "98b47c9ed0f8c53484e501a0ec2a8943300cdc0b42ef31300fd077dcf07d32f6"
     )
 
 
-def test_jan_june_view_recalculates_comparable_ticket_and_volume() -> None:
+def test_legacy_alias_recalculates_the_current_comparable_ticket_and_volume() -> None:
     tables = load_closed_offers_tables()
     rows = build_jan_june_closed_offers_payload(tables.monthly)["rows"]
     by_year = {row["year"]: row for row in rows}
 
     expected = {
-        2024: (623, 54_505_176_840.65, 87_488_245.3300963),
-        2025: (926, 70_546_652_757.16, 76_184_290.23451404),
-        2026: (1034, 91_917_778_632.26, 88_895_337.16852999),
+        2024: (707, 59_275_357_674.75, 83_840_675.6361386),
+        2025: (1037, 78_736_878_426.65, 75_927_558.75279653),
+        2026: (1157, 109_209_379_930.30, 94_390_129.58539325),
     }
     assert set(by_year) == set(expected)
     for year, (offers, volume, ticket) in expected.items():
@@ -65,7 +65,7 @@ def test_jan_june_view_recalculates_comparable_ticket_and_volume() -> None:
         assert math.isclose(by_year[year]["registered_volume_brl"], volume, abs_tol=0.01)
         assert math.isclose(by_year[year]["mean_registered_ticket_brl"], ticket, abs_tol=0.01)
         assert by_year[year]["period_start"] == f"{year}-01-01"
-        assert by_year[year]["period_end"] == f"{year}-08-31"
+        assert by_year[year]["period_end"] == f"{year}-09-30"
 
 
 def test_nominable_originator_list_is_complete_sorted_and_reconciled() -> None:
@@ -81,8 +81,8 @@ def test_nominable_originator_list_is_complete_sorted_and_reconciled() -> None:
         for left, right in zip(rows, rows[1:])
     )
     identified = sum(row["registered_volume_brl"] for row in rows)
-    assert math.isclose(identified, 22_979_538_000.0, abs_tol=0.01)
-    assert math.isclose(rows[0]["identified_registered_volume_coverage"], 0.2500010154938075)
+    assert math.isclose(identified, 24_424_538_000.0, abs_tol=0.01)
+    assert math.isclose(rows[0]["identified_registered_volume_coverage"], 0.2236487196941171)
 
 
 def test_schema_validation_rejects_missing_required_column() -> None:

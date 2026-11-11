@@ -17108,6 +17108,20 @@ def _render_revision_data_exports(
         str(dict(payload.get("conclusion_metrics") or {}).get("service_model_definition") or "Monoestrutura usa conglomerado econômico normalizado.") + " O recorte não permite inferir preço ou contrato.",
         "Tabela I identifica cedente, sem campo de sacado. Porte da Receita e capital social não comprovam faturamento entre R$ 30 mi e R$ 500 mi.",
     ]
+    ranking_manifest = dict(payload.get("anbima_rf_ranking_manifest") or {})
+    ranking_quality = dict(ranking_manifest.get("reconciliation_quality") or {})
+    ranking_gaps = list(ranking_quality.get("divergent_scopes") or [])
+    source_table.loc[len(source_table)] = [
+        "Coordenadores ANBIMA", "Ranking publicado e anexo de encerramento",
+        ranking_manifest.get("source_reference_competence", "N/D"),
+        f"{len(ranking_gaps)} recortes com divergência; participações reconstruídas pelo anexo"
+        if ranking_gaps else "Ranking e reconstrução pelo anexo identificados em arquivos separados",
+    ]
+    if ranking_gaps:
+        limitations.append(
+            "O ranking ANBIMA e seu anexo apresentam diferenças de valores ou participações. "
+            "As duas publicações são preservadas; a reconciliação por recorte está disponível para download."
+        )
     if str(qa.get("aging_publication_status") or "").startswith("bloqueado"):
         st.warning(
             "Inadimplência ex-360 dias permanece bloqueada porque os buckets não reconciliam a Tabela I.",
@@ -17187,6 +17201,9 @@ def _render_revision_data_exports(
             "Cedentes · reparos estruturais da fonte": "../cedente_triage/fidc_cedentes_reparos_fonte_2023_2026.csv",
             "Cedentes · manifesto multi-competência": "../cedente_triage/fidc_cedentes_triagem_index.json",
             "Market share por subtipo": "market_share_por_subtipo.csv",
+            "Coordenadores ANBIMA · ranking publicado": "../anbima_rf_ranking_official.csv",
+            "Coordenadores ANBIMA · reconstrução pelo anexo": "../anbima_rf_ranking_participant_share.csv",
+            "Coordenadores ANBIMA · reconciliação das fontes": "../anbima_rf_ranking_reconciliation.csv",
             "Concentração de monoestruturas": "monoestrutura_concentracao.csv",
             "Detalhe da coorte bancária": "bancos_fidcs_detalhe.csv",
             "BTG ex-coorte bancária": "btg_prestadores_ex_controlados.csv",

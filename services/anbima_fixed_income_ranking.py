@@ -12,7 +12,8 @@ Fixa e Híbridos*:
 The annex is what makes the ranking auditable: the CVM open-data archive only
 publishes ``Nome_Lider``/``CNPJ_Lider`` (the lead coordinator), so the full
 syndicate — and the split among its members — is not derivable from CVM alone.
-Summing the annex reproduces the published ranking exactly.
+Reconciliation measures differences between the two publications; both source
+values must remain available when they disagree.
 
 Both workbooks state monetary values in **R$ thousands**; this module converts
 them to BRL so downstream code never has to remember the unit.

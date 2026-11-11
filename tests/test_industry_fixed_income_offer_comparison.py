@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data" / "industry_study"
 
 #: Valor Encerrado ANBIMA de FIDCs em 2023 FY — Boletim de Mercado de Capitais,
-#: snapshot mai/26, aba 02-02-Vlr.  Substitui o volume registrado CVM de
+#: snapshot set/26, aba 02-02-Vlr.  Substitui o volume registrado CVM de
 #: R$ 26,5 bi, que subestima 2023 (primeiro ano da Resolução CVM 160).
 ANBIMA_FIDC_2023 = 43_746_140_196.22
 
@@ -33,9 +33,9 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     view_a = frame[frame["view"].eq("FIDCs vs demais elegíveis")]
     expected = {
         "2023 FY": (ANBIMA_FIDC_2023, 353_447_879_570.30),
-        "2024 FY": (95_416_726_133.75, 628_733_342_247.23),
-        "2025 FY": (116_941_319_054.77, 656_336_670_634.27),
-        "2026 jan-ago": (91_917_778_632.26, 315_702_778_457.94),
+        "2024 FY": (95_416_726_133.75, 629_477_685_910.23),
+        "2025 FY": (117_126_319_054.77, 656_336_670_634.27),
+        "2026 jan-set": (109_209_379_930.30, 353_414_118_585.42),
     }
     for period, (fidc_volume, rest_volume) in expected.items():
         scoped = view_a[view_a["period_label"].eq(period)].set_index(
@@ -52,13 +52,13 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     assert yoy.loc[("2024 FY", "FIDCs")] == pytest.approx(
         95_416_726_133.75 / ANBIMA_FIDC_2023 - 1
     )
-    assert yoy.loc[("2025 FY", "FIDCs")] == pytest.approx(0.2255851127280135)
+    assert yoy.loc[("2025 FY", "FIDCs")] == pytest.approx(0.2275239761)
     assert yoy.loc[("2025 FY", "Demais elegíveis")] == pytest.approx(
-        0.043903077079354
+        0.0426686844
     )
-    assert yoy.loc[("2026 jan-ago", "FIDCs")] == pytest.approx(0.3029360719446889)
-    assert yoy.loc[("2026 jan-ago", "Demais elegíveis")] == pytest.approx(
-        -0.1445473534593437
+    assert yoy.loc[("2026 jan-set", "FIDCs")] == pytest.approx(0.387016886)
+    assert yoy.loc[("2026 jan-set", "Demais elegíveis")] == pytest.approx(
+        -0.1808852894
     )
 
 

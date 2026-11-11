@@ -537,6 +537,24 @@ def single_month_spikes(
     return spikes
 
 
+def _stock_rows_in_pl_universe(
+    frame: pd.DataFrame,
+    pl_cnpjs: pd.Index,
+    audit: dict,
+    table: str,
+) -> pd.DataFrame:
+    """Keep stock numerators and their PL denominator in the same universe.
+
+    The source archives remain intact. Record reports excluded because Tab IV
+    is absent or its PL was rejected by the single-month spike filter.
+    """
+    included = frame["cnpj"].isin(pl_cnpjs)
+    audit[f"{table}_veiculos_fora_universo_pl"] = int(
+        frame.loc[~included, "cnpj"].nunique()
+    )
+    return frame.loc[included].copy()
+
+
 def aggregate_month(
     store: RawStore,
     yyyymm: str,
@@ -593,6 +611,7 @@ def aggregate_month(
     admin_rows: list[dict] = []
     if tab1 is not None and not tab1.empty:
         tab1 = _stable_one_row_per_cnpj(tab1)
+        tab1 = _stock_rows_in_pl_universe(tab1, pl_by_cnpj.index, audit, "tab1")
         audit["tab1_veiculos"] = int(tab1["cnpj"].nunique())
         tab1["reports_carteira_dc"] = field_reported(
             tab1,
@@ -754,6 +773,7 @@ def aggregate_month(
         if aging is None or aging.empty:
             continue
         aging = _stable_one_row_per_cnpj(aging)
+        aging = _stock_rows_in_pl_universe(aging, pl_by_cnpj.index, audit, table_name)
         part = pd.DataFrame({"cnpj": aging["cnpj"]})
         reported_columns: list[str] = []
         for suffix, output_column in aging_columns.items():
@@ -797,6 +817,7 @@ def aggregate_month(
     tab2 = store.read_table(yyyymm, "tab_II")
     if tab2 is not None and not tab2.empty:
         tab2 = _stable_one_row_per_cnpj(tab2)
+        tab2 = _stock_rows_in_pl_universe(tab2, pl_by_cnpj.index, audit, "tab2")
         audit["tab2_veiculos"] = int(tab2["cnpj"].nunique())
         for col, label in {**SEGMENT_LABELS, **SEGMENT_FIN_SUB_LABELS}.items():
             if col in tab2.columns:
@@ -859,7 +880,9 @@ def aggregate_month(
     x4 = store.read_table(yyyymm, "tab_X_4")
     if x4 is not None and not x4.empty:
         x4 = prefer_class_rows(x4)
-        audit["x4_veiculos"] = int(x4["cnpj"].nunique())
+        in_pl = x4["cnpj"].isin(pl_by_cnpj.index)
+        audit["x4_veiculos"] = int(x4.loc[in_pl, "cnpj"].nunique())
+        audit["x4_veiculos_fora_universo_pl"] = int(x4.loc[~in_pl, "cnpj"].nunique())
         x4["valor"] = to_num(x4["TAB_X_VL_TOTAL"])
         x4["pl_veiculo"] = x4["cnpj"].map(pl_by_cnpj).fillna(0.0)
         cap = (3.0 * x4["pl_veiculo"]).clip(lower=2e9)
@@ -922,6 +945,7 @@ def aggregate_month(
     x1 = store.read_table(yyyymm, "tab_X_1")
     if x1 is not None and not x1.empty:
         x1 = prefer_class_rows(x1)
+        x1 = _stock_rows_in_pl_universe(x1, pl_by_cnpj.index, audit, "x1")
         audit["x1_veiculos"] = int(x1["cnpj"].nunique())
         if cotistas_excluir:
             x1 = x1[~x1["cnpj"].isin(cotistas_excluir)]
@@ -934,6 +958,7 @@ def aggregate_month(
     x11 = store.read_table(yyyymm, "tab_X_1_1")
     if x11 is not None and not x11.empty:
         x11 = prefer_class_rows(x11)
+        x11 = _stock_rows_in_pl_universe(x11, pl_by_cnpj.index, audit, "x11")
         for key, label in COTISTA_TIPO_LABELS.items():
             total = 0.0
             for prefix in ("SENIOR", "SUBORD"):
@@ -950,6 +975,7 @@ def aggregate_month(
     x2 = store.read_table(yyyymm, "tab_X_2")
     if x2 is not None and not x2.empty:
         x2 = prefer_class_rows(x2)
+        x2 = _stock_rows_in_pl_universe(x2, pl_by_cnpj.index, audit, "x2")
         audit["x2_veiculos"] = int(x2["cnpj"].nunique())
         x2["valor"] = to_num(x2["TAB_X_QT_COTA"]) * to_num(x2["TAB_X_VL_COTA"])
         x2["pl_veiculo"] = x2["cnpj"].map(pl_by_cnpj).fillna(0.0)
@@ -990,6 +1016,7 @@ def aggregate_month(
     tab7 = store.read_table(yyyymm, "tab_VII")
     if tab7 is not None and not tab7.empty:
         tab7 = _stable_one_row_per_cnpj(tab7)
+        tab7 = _stock_rows_in_pl_universe(tab7, pl_by_cnpj.index, audit, "tab7")
         audit["tab7_veiculos"] = int(tab7["cnpj"].nunique())
         tab7_vehicle = pd.DataFrame({"cnpj": tab7["cnpj"]})
         if "TAB_VII_D_2_VL_RECOMPRA" in tab7.columns:
@@ -1347,6 +1374,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
         "observacoes": [
             "Unidade de observacao: veiculo reportante (fundo ate a adaptacao a RCVM 175, classe depois).",
             "Na Tab IV, registros repetidos do mesmo CNPJ nao sao somados: Classe tem precedencia sobre Fundo no periodo pos-RCVM 175; conflitos de tipo e PL ficam sinalizados nos artefatos granular e de auditoria.",
+            "Agregados de estoque e contas usam os CNPJs da Tabela IV após os filtros de PL; relatórios fora desse universo são contados separadamente na auditoria. Fluxos X.4 sem Tabela IV são preservados e identificados como Sem Tab IV no painel granular.",
             "FIC-FIDC identificados por razao social; PL destacado em pl_fic_fidc (dupla contagem economica potencial).",
             "Cotistas = contas por classe/serie (Tab X.1), nao CPFs/CNPJs unicos.",
             "Captacao/resgate/amortizacao: Tab X.4 (valores de movimentacao de cotas no mes).",

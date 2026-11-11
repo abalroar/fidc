@@ -21,6 +21,19 @@ cadastrais ANBIMA e decisões históricas de classificação são preservadas. S
 ANBIMA publicar depois da CVM, o estudo CVM avança e a comparação ANBIMA mantém
 a janela da sua própria fonte, identificada no manifest e na apresentação.
 
+O status `completa` identifica a competência consolidada do estudo, sujeita a
+entregas tardias e retificações. Na última competência disponível, uma quantidade
+de veículos ou um PL inferior a 85% do mês anterior mantém o mês preliminar.
+A cobertura de cada tabela usa como denominador os veículos da Tabela IV após
+os filtros de PL. Cobertura de 100% entre reportantes exige distinguir fundos
+que ainda não apresentaram o informe.
+
+Os agregados de estoque, contas e segmentos usam esse mesmo universo de PL.
+Registros de outras tabelas sem PL aceito ficam identificados nos campos
+`*_veiculos_fora_universo_pl` de `update_audit_monthly.csv`. Os movimentos da
+Tabela X.4 sem Tabela IV continuam preservados em linhas `Sem Tab IV` no painel
+granular, para reconciliar os fluxos sem atribuir estoque a esses registros.
+
 O processo mantém um lock local, o estado em `.cache/industry-refresh/state.json`
 e backups das versões substituídas de fontes. A automação reutiliza esse estado
 e os caches do checkout principal em cada worktree, evitando reiniciar a

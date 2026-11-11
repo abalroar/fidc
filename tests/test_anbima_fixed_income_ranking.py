@@ -3,7 +3,10 @@ from __future__ import annotations
 from pathlib import Path
 
 import openpyxl
+import pandas as pd
 import pytest
+
+from scripts.build_anbima_fixed_income_ranking import ranking_reconciliation_quality
 
 from services.anbima_fixed_income_ranking import (
     AnbimaRankingError,
@@ -12,6 +15,30 @@ from services.anbima_fixed_income_ranking import (
     summarize_participants,
     syndication_profile,
 )
+
+
+def test_ranking_quality_exposes_source_disagreement_and_preserves_values():
+    checks = pd.DataFrame([
+        {"check": "anexo_vs_ranking_publicado", "scope": "fidc", "measure": "distribuicao_valor",
+         "annex_volume_brl": 9_000_000, "published_volume_brl": 10_000_000,
+         "max_abs_volume_gap_brl": 1_000_000, "max_abs_share_gap": .01},
+        {"check": "anexo_vs_ranking_publicado", "scope": "cri", "measure": "originacao_valor",
+         "annex_volume_brl": 10_000_000, "published_volume_brl": 10_000_000,
+         "max_abs_volume_gap_brl": .000001, "max_abs_share_gap": 1e-12},
+        {"check": "ranking_anbima_vs_cvm_coordenador_lider", "scope": "fidc"},
+    ])
+    original = checks.copy(deep=True)
+    quality = ranking_reconciliation_quality(checks)
+    assert quality["status"] == "differences_between_published_sources"
+    assert quality["checks"] == 2
+    assert quality["participant_share_source"] == "reconstructed_from_annex"
+    assert [r["scope"] for r in quality["divergent_scopes"]] == ["fidc"]
+    assert quality["divergent_scopes"][0]["annex_volume_brl"] == 9_000_000
+    assert quality["divergent_scopes"][0]["published_volume_brl"] == 10_000_000
+    pd.testing.assert_frame_equal(checks, original)
+    assert ranking_reconciliation_quality(checks.iloc[[1]])["status"] == "reconciled"
+    with pytest.raises(ValueError, match="ausente"):
+        ranking_reconciliation_quality(checks.iloc[[2]])
 
 
 ANNEX_HEADER = [

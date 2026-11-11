@@ -1,0 +1,431 @@
+{
+  "status": "passed",
+  "latest_complete": "2026-09",
+  "latest_available": "2026-10",
+  "source_extraction": "2026-11-11T16:47:04.979466+00:00",
+  "archives_verified": 40,
+  "competences": 166,
+  "panel_rows": 244200,
+  "duplicate_keys": 0,
+  "reconciliation": [
+    {
+      "metric": "pl_total",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 0.0001220703125
+    },
+    {
+      "metric": "ativo_total",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 0.000244140625
+    },
+    {
+      "metric": "carteira_dc",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 0.0001220703125
+    },
+    {
+      "metric": "dc_inadimplentes",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 1.52587890625e-05
+    },
+    {
+      "metric": "dc_inadimplentes_ajustado",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 1.1444091796875e-05
+    },
+    {
+      "metric": "dc_a_vencer_com_parcela_inad",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 3.814697265625e-06
+    },
+    {
+      "metric": "dc_parcelas_inadimplentes",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 1.9073486328125e-06
+    },
+    {
+      "metric": "captacoes",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 7.62939453125e-06
+    },
+    {
+      "metric": "resgates",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 7.62939453125e-06
+    },
+    {
+      "metric": "amortizacoes",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 9.5367431640625e-07
+    },
+    {
+      "metric": "cotistas_total",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "metric": "vl_cotas_total",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 0.0001220703125
+    },
+    {
+      "metric": "vl_cotas_subordinadas",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 6.103515625e-05
+    },
+    {
+      "metric": "vl_recompras",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 0.0625
+    },
+    {
+      "metric": "vl_substituicoes",
+      "competences": 166,
+      "differences": 0,
+      "max_abs_difference": 4.76837158203125e-07
+    }
+  ],
+  "n_reconciles_excluding_identified_flow_only_rows": true,
+  "segment_reconciliation": "11 Table II top-level categories reconcile for all source periods",
+  "tail": [
+    {
+      "competencia": "2026-09",
+      "publication_status": "completa",
+      "status_reason": "competência histórica consolidada",
+      "n_veiculos": 4447,
+      "pl_total": 990748763340.96,
+      "previous_vehicles": 4404.0,
+      "previous_pl_brl": 989861912887.57,
+      "vehicle_ratio_vs_previous": 1.009763851044505,
+      "pl_ratio_vs_previous": 1.0008959335053138,
+      "tab1_coverage": 1.0,
+      "tab2_coverage": 1.0,
+      "x1_coverage": 1.0,
+      "x2_coverage": 1.0,
+      "x4_coverage": 1.0,
+      "tab7_coverage": 1.0,
+      "generated_at_utc": "2026-11-11T16:50:58+00:00"
+    },
+    {
+      "competencia": "2026-10",
+      "publication_status": "preliminar",
+      "status_reason": "carga parcial da CVM; não usar como fotografia consolidada",
+      "n_veiculos": 1148,
+      "pl_total": 158480056609.97,
+      "previous_vehicles": 4447.0,
+      "previous_pl_brl": 990748763340.96,
+      "vehicle_ratio_vs_previous": 0.2581515628513605,
+      "pl_ratio_vs_previous": 0.1599598833467633,
+      "tab1_coverage": 1.0,
+      "tab2_coverage": 1.0,
+      "x1_coverage": 1.0,
+      "x2_coverage": 1.0,
+      "x4_coverage": 1.0,
+      "tab7_coverage": 1.0,
+      "generated_at_utc": "2026-11-11T16:50:58+00:00"
+    }
+  ],
+  "source_reporting_gaps": {
+    "prior_month_cnpjs_absent": 61,
+    "prior_month_pl_brl": 13693363022.279997,
+    "current_pl": null,
+    "interpretation": "Prior reporters absent at fixed CNPJ; no imputation or liquidation inference"
+  },
+  "official_anbima_classification_snapshot": "2025-12-29",
+  "baseline_monthly_sha256": "699bccf4611b2745e49e883a409fd57df130b65264d7a1be85879906be7e2eec",
+  "revised_monthly_sha256": "8fde773b60bd4994dc2e2f1ee6909b222dd852dd7b4262fe73cf4fc42fc851da",
+  "latest_changes": {
+    "n_veiculos": 17.0,
+    "n_registros_classe": 17.0,
+    "n_registros_fundo": 0.0,
+    "pl_total": 1429760987.6799316,
+    "tab4_duplicate_cnpjs": 0.0,
+    "tab4_duplicate_rows_dropped": 0.0,
+    "tab4_type_conflict_cnpjs": 0.0,
+    "tab4_pl_conflict_cnpjs": 0.0,
+    "tab4_class_preferred_cnpjs": 0.0,
+    "pl_fic_fidc": 16053782.479995728,
+    "ativo_total": 1400751855.8099365,
+    "carteira_dc": 1139261352.999878,
+    "dc_inadimplentes": 94968137.10001373,
+    "dc_a_vencer_com_parcela_inad": 107557291.25,
+    "dc_parcelas_inadimplentes": 4644548.510000229,
+    "inad_pct": -2.4713341737064853e-06,
+    "dc_inadimplentes_ajustado": -59405628.87000275,
+    "inad_pct_ajustada": -0.0001812767718656974,
+    "carteira_dc_np": -729964843.9599991,
+    "inad_pct_ajustada_ex_np": -0.00025533629322729845,
+    "pl_condominio_aberto": 33626011.20996094,
+    "pl_condominio_fechado": 1396134976.4700928,
+    "pl_exclusivo": 288224259.20999146,
+    "x4_linhas_descartadas": 0.0,
+    "x4_valor_descartado": 0.0,
+    "captacoes": -21410389.00999832,
+    "resgates": 5366804.090000153,
+    "amortizacoes": 9984091.920000076,
+    "captacao_liquida": -36761285.01999855,
+    "cotistas_total": 65.0,
+    "vl_cotas_total": 1545549591.7374268,
+    "vl_cotas_subordinadas": 666791355.093811,
+    "subordinacao_pct": 0.00014175030306551317,
+    "x2_pl_coberto": 1421649925.2200928,
+    "vl_recompras": 556883.5899999142,
+    "vl_substituicoes": 0.0
+  },
+  "source_files": [
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202501.zip",
+      "sha256": "97157708ccf20cc5c61a2f70d9e4d9919771c5179199e1a58cc91864a255abfe",
+      "bytes": 2628729,
+      "last_modified": "Sun, 06 Sep 2026 00:31:36 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202502.zip",
+      "sha256": "a8aec7f93baf80a6b86cdaf9c8cf1eeea23d3315de274695f1f57e54e560e5e7",
+      "bytes": 2677862,
+      "last_modified": "Sun, 06 Sep 2026 00:18:51 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202503.zip",
+      "sha256": "cdd70b60067c234a4aae6b4c2aa5a126138832709bbfb1d13149a0f7393b0a20",
+      "bytes": 2734608,
+      "last_modified": "Sun, 06 Sep 2026 00:01:13 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202504.zip",
+      "sha256": "81f2233f2bb021d3a8e56ef703b7b15f16460b2578d2996dbd136898c9d14340",
+      "bytes": 2792528,
+      "last_modified": "Sat, 05 Sep 2026 23:45:11 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202505.zip",
+      "sha256": "3c7170020aa5c3eaabf94bda5dbc6094eeb4174f1755b12f8bfa912b6b986c0f",
+      "bytes": 2858133,
+      "last_modified": "Sat, 05 Sep 2026 23:27:53 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202506.zip",
+      "sha256": "d4758fbcfbf14c74edd6958e559bf66ac75930079add54bfc5c0a892f8b95616",
+      "bytes": 2942825,
+      "last_modified": "Sat, 05 Sep 2026 23:08:42 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202507.zip",
+      "sha256": "82cdbb91ab2821f2f21f1c688a1e70b2184e7dcb1cd5340d6cfdb2b54d8bf1fb",
+      "bytes": 2991448,
+      "last_modified": "Sat, 05 Sep 2026 22:49:40 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202508.zip",
+      "sha256": "960b752acade2bdabeb56269d91f1714a0a20fa2aa4f06592f838e9d211c440a",
+      "bytes": 3065747,
+      "last_modified": "Sat, 05 Sep 2026 22:37:07 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202509.zip",
+      "sha256": "df2060c2c4fd20ee33919b4134f9ccb5ad564a0406c6a130b213bf7512462e05",
+      "bytes": 3086823,
+      "last_modified": "Sat, 26 Sep 2026 14:17:35 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202510.zip",
+      "sha256": "5d38099ad4808bd569f7dbf677c366a37c9fd6248f3c80805562c4c08285caaf",
+      "bytes": 3136348,
+      "last_modified": "Sat, 31 Oct 2026 14:22:39 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202511.zip",
+      "sha256": "26d5ab9b04d49888239a76e75d561ec4aa9082807bf700817237c6feb5690384",
+      "bytes": 3168953,
+      "last_modified": "Sat, 07 Nov 2026 14:33:03 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202512.zip",
+      "sha256": "522bdff94655f73bba53f288af2d33d366d1cc26e14b0855b64ed35b23e15d43",
+      "bytes": 3273213,
+      "last_modified": "Sat, 07 Nov 2026 14:18:04 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202601.zip",
+      "sha256": "5e4e4967c365f07ff6bac189b5811c4ca1c9408718450bf728933ae530b310a5",
+      "bytes": 3255905,
+      "last_modified": "Sat, 07 Nov 2026 14:03:03 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202602.zip",
+      "sha256": "d3fae40acd19ba7447e791d9c519bae7035116ba543fd61d949fee8c45dd0f14",
+      "bytes": 3284486,
+      "last_modified": "Sat, 07 Nov 2026 13:48:06 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202603.zip",
+      "sha256": "f140eeda31f98f70c89c51918b7a972ff5abeb13664f559233041278ffd3a498",
+      "bytes": 3341110,
+      "last_modified": "Sat, 07 Nov 2026 13:33:43 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202604.zip",
+      "sha256": "37f20cf7bc2c55b1f03c9334732045dba9885436726a18418032fceca8bfddfb",
+      "bytes": 3397052,
+      "last_modified": "Sat, 07 Nov 2026 13:18:25 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202605.zip",
+      "sha256": "fe53f0c8a37c5fc883de63a8950f1f547b24706ed0e3dd95b3a8fa8734f2c3fa",
+      "bytes": 3434182,
+      "last_modified": "Sat, 07 Nov 2026 13:03:22 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202606.zip",
+      "sha256": "d2c0a440a02772bea6668b620e067de2e5697d180e9c7481b778f4def3533981",
+      "bytes": 3506590,
+      "last_modified": "Sat, 07 Nov 2026 12:48:16 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202607.zip",
+      "sha256": "6991c8165fdecf144317120758379f8800e8d00c42c358dd8c4bf29bf95478a0",
+      "bytes": 3544965,
+      "last_modified": "Sat, 07 Nov 2026 12:33:23 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202608.zip",
+      "sha256": "72335df9101f7e73684262e2daab8a7c50ccc3b98399881297fc7a130d55837c",
+      "bytes": 3584435,
+      "last_modified": "Sat, 07 Nov 2026 12:18:40 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202609.zip",
+      "sha256": "104695d4535ccf6542e302f56f6a4ff7c6cfb49de7f65812f3328265388e1a3e",
+      "bytes": 3641953,
+      "last_modified": "Sat, 07 Nov 2026 12:03:08 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202610.zip",
+      "sha256": "e6f553c5548b7691761443bf9b10eed66e9ef659a33d0c81be024e62b989c52d",
+      "bytes": 836365,
+      "last_modified": "Sat, 07 Nov 2026 11:47:39 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2013.zip",
+      "sha256": "52222d4dee11e5b94c43e07a449e24dcddd3dc2f2fcb1459ddc4411c2c7963be",
+      "bytes": 3628708,
+      "last_modified": "Sun, 06 Sep 2026 23:05:25 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2014.zip",
+      "sha256": "a608a09c23808774e3297bcb3e7acf9b6f682e5bf152cd317ba5e109dcf2f6fb",
+      "bytes": 3897076,
+      "last_modified": "Sun, 06 Sep 2026 23:08:15 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2015.zip",
+      "sha256": "606b3c63bef5dadc7644189ad29d771735c47321a9e817e4a92a84b96f74a456",
+      "bytes": 4290002,
+      "last_modified": "Sun, 06 Sep 2026 23:11:09 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2016.zip",
+      "sha256": "99b5c665bf0c37d72eb680816b89582a7d514ef892e0b77a477db1bfd64a7b0e",
+      "bytes": 4668806,
+      "last_modified": "Sun, 06 Sep 2026 23:14:06 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2017.zip",
+      "sha256": "e6b194549511bc61853f9d16d4b3e558c2598431e1ff0641c5e6f5391c3c8b72",
+      "bytes": 5230846,
+      "last_modified": "Sun, 06 Sep 2026 23:17:26 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2018.zip",
+      "sha256": "5f65f28dca3854d4b3d7ee93c60c395577fe97f3cbc1e0baf7b7a5266b886d45",
+      "bytes": 6385784,
+      "last_modified": "Sun, 06 Sep 2026 23:20:46 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2019.zip",
+      "sha256": "7eae4b9f622c60e7796634eabea33e8780e8897fc987692b32fa974f5483ea75",
+      "bytes": 7565470,
+      "last_modified": "Sun, 06 Sep 2026 22:47:18 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2020.zip",
+      "sha256": "8a0dbf5efd836f667fb8e8bf89f84f74a8da75ad6584c5f19c07f29c17d5dde6",
+      "bytes": 9850029,
+      "last_modified": "Sun, 06 Sep 2026 01:12:03 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2021.zip",
+      "sha256": "dfa9f102135631267406e5c8869c5df423910312d86750f1e7dbc643497b35ed",
+      "bytes": 12432917,
+      "last_modified": "Sun, 06 Sep 2026 02:29:19 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2022.zip",
+      "sha256": "29e4e6da90a1f1c5a29364da1bef69d05f968c6e747376d4b6a3a7b62d7e1415",
+      "bytes": 15592311,
+      "last_modified": "Sun, 06 Sep 2026 04:14:06 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2023.zip",
+      "sha256": "739f40105b3341ff978c156a2ad9022ae826db73d596e3432d962729441090d6",
+      "bytes": 19776286,
+      "last_modified": "Mon, 07 Sep 2026 01:54:53 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2024.zip",
+      "sha256": "d524616aa78532eddc0a8ac9072b0d15ca7f7fa377f2082b644dc3f0ea239862",
+      "bytes": 27064191,
+      "last_modified": "Sun, 06 Sep 2026 08:26:06 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip",
+      "sha256": "4b86baf8f44df0e6a6b1c1039290fe837f3e0ff6dde569759d15e8af79d55817",
+      "bytes": 6891574,
+      "last_modified": "Wed, 11 Nov 2026 04:18:10 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/cad_fi_hist.zip",
+      "sha256": "aa89dd05b32530f0022b8253540d121be736dc9331fee4f1981dfe1342fd618d",
+      "bytes": 18731722,
+      "last_modified": "Wed, 11 Nov 2026 04:15:53 GMT"
+    },
+    {
+      "url": "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip",
+      "sha256": "98b47c9ed0f8c53484e501a0ec2a8943300cdc0b42ef31300fd077dcf07d32f6",
+      "bytes": 5749569,
+      "last_modified": "Wed, 11 Nov 2026 04:39:37 GMT"
+    },
+    {
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Anexo_ao_Ranking_Encerramento_de_Renda_Fixa_e_Hibridos_Setembro_2026_8_e035007fec.xlsx",
+      "sha256": "5020d91f382ce956fbf6c7c3dd421cc62b7774baea794947d41542aaaacabe97",
+      "bytes": 294042,
+      "last_modified": "Fri, 06 Nov 2026 23:21:30 GMT"
+    },
+    {
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Boletim_MK_Anexo_103802416a.xlsx",
+      "sha256": "a1376ea01a9d4cdcf1072dd3aed226827d8122e09d95363ab89f0458980cab11",
+      "bytes": 3859533,
+      "last_modified": "Tue, 20 Oct 2026 17:54:37 GMT"
+    },
+    {
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Ranking_de_Renda_Fixa_e_Hibridos_Setembro_2026_8_34fb719a7f.xlsx",
+      "sha256": "f13ae46ff29a45d376c1b0f2882e1f264109bb9594edf2be6821dbdc1d811141",
+      "bytes": 98034,
+      "last_modified": "Fri, 06 Nov 2026 23:21:18 GMT"
+    }
+  ]
+}

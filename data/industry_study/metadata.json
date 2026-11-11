@@ -1,14 +1,15 @@
 {
-  "gerado_em_utc": "2026-10-21T01:58:53+00:00",
+  "gerado_em_utc": "2026-11-11T16:50:57+00:00",
   "fonte_informe_mensal": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS (+ HIST/)",
   "fonte_cadastro": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip",
   "competencia_inicial": "201301",
-  "competencia_final": "202609",
+  "competencia_final": "202610",
   "competencia_snapshot": "202609",
-  "n_competencias": 165,
+  "n_competencias": 166,
   "observacoes": [
     "Unidade de observacao: veiculo reportante (fundo ate a adaptacao a RCVM 175, classe depois).",
     "Na Tab IV, registros repetidos do mesmo CNPJ nao sao somados: Classe tem precedencia sobre Fundo no periodo pos-RCVM 175; conflitos de tipo e PL ficam sinalizados nos artefatos granular e de auditoria.",
+    "Agregados de estoque e contas usam os CNPJs da Tabela IV após os filtros de PL; relatórios fora desse universo são contados separadamente na auditoria. Fluxos X.4 sem Tabela IV são preservados e identificados como Sem Tab IV no painel granular.",
     "FIC-FIDC identificados por razao social; PL destacado em pl_fic_fidc (dupla contagem economica potencial).",
     "Cotistas = contas por classe/serie (Tab X.1), nao CPFs/CNPJs unicos.",
     "Captacao/resgate/amortizacao: Tab X.4 (valores de movimentacao de cotas no mes).",
