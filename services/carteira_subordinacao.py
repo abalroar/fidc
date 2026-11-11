@@ -345,6 +345,7 @@ _MONTHLY_REQUIRED: tuple[str, ...] = (
 #: com a competência escolhida — é contra elas que a PDD é lida.  São opcionais
 #: porque uma base mínima continua servindo para o gráfico de subordinação.
 _MONTHLY_OPTIONAL: tuple[str, ...] = ("carteira_dc", "dc_inadimplentes")
+_MONTHLY_REPORT_FLAGS: tuple[str, ...] = ("reports_carteira_dc", "reports_dc_inadimplentes")
 
 
 def _latest_monthly(data_dir: Path) -> pd.DataFrame:
@@ -352,7 +353,7 @@ def _latest_monthly(data_dir: Path) -> pd.DataFrame:
     disponiveis = set(
         pd.read_csv(caminho, nrows=0, low_memory=False).columns
     )
-    opcionais = [c for c in _MONTHLY_OPTIONAL if c in disponiveis]
+    opcionais = [c for c in (*_MONTHLY_OPTIONAL, *_MONTHLY_REPORT_FLAGS) if c in disponiveis]
     monthly = pd.read_csv(
         caminho,
         dtype={"cnpj": str},

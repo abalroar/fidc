@@ -37,6 +37,7 @@ PROVISAO_NAME = "carteira_provisao_monthly.csv.gz"
 COM_COBERTURA = "com cobertura"
 SEM_INADIMPLENCIA = "sem inadimplência"
 SEM_CARTEIRA = "sem carteira"
+SEM_DADOS = "dados indisponíveis"
 
 #: O limiar que a barra tem de deixar óbvio: abaixo de 100% o fundo provisionou
 #: menos do que já venceu.
@@ -83,6 +84,10 @@ def attach_provisao(
     saida = frame.copy()
     for coluna in ("carteira_dc", "dc_inadimplentes"):
         saida[coluna] = pd.to_numeric(saida.get(coluna), errors="coerce")
+        flag = "reports_" + coluna
+        if flag in saida:
+            reported = saida[flag].astype(str).str.lower().isin(["true", "1", "1.0"])
+            saida.loc[~reported, coluna] = np.nan
 
     if len(provisao):
         chave = provisao.set_index(["cnpj", "competencia"])["pdd_brl"]
@@ -96,17 +101,18 @@ def attach_provisao(
     saida["pdd_mm"] = saida["pdd_brl"] / 1e6
     saida["inad_mm"] = saida["dc_inadimplentes"] / 1e6
 
-    tem_carteira = saida["carteira_dc"].fillna(0).gt(0)
-    tem_inad = saida["dc_inadimplentes"].fillna(0).gt(0)
+    tem_carteira = saida["carteira_dc"].gt(0)
+    tem_inad = saida["dc_inadimplentes"].gt(0)
+    sem_dados = saida[["carteira_dc", "dc_inadimplentes", "pdd_brl"]].isna().any(axis=1)
     saida["cobertura_pct"] = (
-        saida["pdd_brl"].fillna(0.0)
+        saida["pdd_brl"]
         / saida["dc_inadimplentes"].where(tem_inad)
         * 100.0
-    )
-    saida["cobertura_estado"] = np.where(
-        ~tem_carteira,
-        SEM_CARTEIRA,
-        np.where(tem_inad, COM_COBERTURA, SEM_INADIMPLENCIA),
+    ).where(~sem_dados & tem_carteira)
+    saida["cobertura_estado"] = np.select(
+        [sem_dados, ~tem_carteira, tem_inad],
+        [SEM_DADOS, SEM_CARTEIRA, COM_COBERTURA],
+        default=SEM_INADIMPLENCIA,
     )
     return saida
 
@@ -155,7 +161,7 @@ def altair_cobertura(
     data = chart_frame(frame, rotulo=rotulo)
     if data.empty:
         return alt.Chart(pd.DataFrame({"x": [0], "y": [0]})).mark_text(
-            text="Nenhum fundo desta seleção tem inadimplência para cobrir.",
+            text="Nenhum fundo desta seleção tem dados declarados para calcular a cobertura.",
             color=COLOR_MUTED,
             size=13,
         ).encode().properties(height=height)

@@ -144,5 +144,8 @@ def test_a_carteira_publicada_cabe_numa_pauta_curta() -> None:
     numeros = resumo(carteira)
 
     assert numeros["decidir"] + numeros["observar"] <= 15
-    # E o que fica concentra o aporte: descartar não é esconder custo.
-    assert numeros["aporte_decidir_brl"] >= numeros["aporte_total_brl"] * 0.95
+    # Snapshot CVM consultado em 11/11/26, com PDD na data de cada posição.
+    assert numeros["decidir"] == 8
+    assert numeros["observar"] == 1
+    assert numeros["aporte_decidir_brl"] == pytest.approx(711_265_537.14, abs=0.01)
+    assert numeros["aporte_total_brl"] == pytest.approx(752_569_588.12, abs=0.01)

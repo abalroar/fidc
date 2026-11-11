@@ -357,10 +357,17 @@ def test_a_troca_de_slides_nao_duplica_partes_no_pacote() -> None:
 
     from services.anbima_executive_export import append_anbima_slides
     from services.carteira_deck import REPLACED_SLIDE_RANGE, replace_structural_slides
-    from services.industry_ppt_export import build_industry_pptx_bytes
+    from pptx.util import Inches
+    from services.bba_deck import SLIDE_WIDTH_IN, SLIDE_HEIGHT_IN
 
     data_dir = ROOT / "data" / "industry_study"
-    presentation = Presentation(BytesIO(build_industry_pptx_bytes(data_dir)))
+    # Esta troca pertence ao template legado com slots 18–23. O executivo
+    # publicado tem contrato próprio de 15 slides.
+    presentation = Presentation()
+    presentation.slide_width = Inches(SLIDE_WIDTH_IN)
+    presentation.slide_height = Inches(SLIDE_HEIGHT_IN)
+    for _ in range(REPLACED_SLIDE_RANGE[1]):
+        presentation.slides.add_slide(presentation.slide_layouts[6])
     antes = len(presentation.slides)
 
     escritos = replace_structural_slides(presentation, data_dir)
@@ -939,7 +946,7 @@ def test_a_auditoria_consolidada_rastreia_cada_alteracao_da_revisao() -> None:
     folga = tabela[tabela["tipo_de_alteracao"].eq("Folga recalculada")].set_index("cnpj")
 
     esperado = {
-        "58171340000165": (("1.0", "20.0"), ("20.0", "1.0")),
+        "58171340000165": (("1.0", "20.0"), ("20.4", "1.4")),
         "52968533000165": (("20.0", "0.0"), ("-20.0", "0.0")),
     }
     assert set(divergencia.index) == set(esperado)

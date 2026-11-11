@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "source_as_of": "2026-11-11",
+  "active_positions": 79,
+  "pdd_matched": 79,
+  "periods": {
+    "2026-09": 70,
+    "2026-10": 9
+  },
+  "coverage_defined": 55,
+  "max_pdd_gap_brl": 0,
+  "sources": [
+    {
+      "competencia": "2026-09",
+      "archive": "inf_mensal_fidc_202609.zip",
+      "sha256": "104695d4535ccf6542e302f56f6a4ff7c6cfb49de7f65812f3328265388e1a3e"
+    },
+    {
+      "competencia": "2026-10",
+      "archive": "inf_mensal_fidc_202610.zip",
+      "sha256": "e6f553c5548b7691761443bf9b10eed66e9ef659a33d0c81be024e62b989c52d"
+    }
+  ],
+  "pdd_materialized_sha256": "259a233cb300d6bec9e31a3ad56e847e81234a8ed87d90ef02dafa61f947bc13",
+  "documentary_new_gaps": [
+    "50988212000105",
+    "37035970000132",
+    "53662209000187"
+  ]
+}

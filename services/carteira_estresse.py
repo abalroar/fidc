@@ -131,22 +131,24 @@ def nao_reportantes(frame: pd.DataFrame) -> pd.DataFrame:
     """
 
     dados = frame.copy()
-    inad = pd.to_numeric(dados.get("dc_inadimplentes"), errors="coerce").fillna(0.0)
-    pdd = pd.to_numeric(dados.get("pdd_brl"), errors="coerce").fillna(0.0)
-    carteira = pd.to_numeric(dados.get("carteira_dc"), errors="coerce").fillna(0.0)
+    inad = pd.to_numeric(dados.get("dc_inadimplentes"), errors="coerce")
+    pdd = pd.to_numeric(dados.get("pdd_brl"), errors="coerce")
+    carteira = pd.to_numeric(dados.get("carteira_dc"), errors="coerce")
 
-    faltantes = dados[inad.le(0) | pdd.le(0)].copy()
+    faltantes = dados[inad.le(0) | pdd.le(0) | inad.isna() | pdd.isna() | carteira.isna()].copy()
     f_inad = inad[faltantes.index]
     f_pdd = pdd[faltantes.index]
     f_cart = carteira[faltantes.index]
 
     faltantes["caso"] = np.select(
         [
+            f_inad.isna() | f_pdd.isna() | f_cart.isna(),
             f_cart.le(0),
             f_inad.le(0) & f_pdd.gt(0),
             f_inad.le(0) & f_pdd.le(0),
         ],
         [
+            "campos indisponíveis na competência — apurar",
             "sem carteira de direitos creditórios",
             "provisiona mas não declara inadimplência — apurar",
             "nem PDD nem inadimplência declaradas — apurar",

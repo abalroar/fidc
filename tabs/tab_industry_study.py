@@ -16272,6 +16272,7 @@ def _render_carteira_provisao(frame) -> None:
 
     from services.carteira_provisao import (
         COM_COBERTURA,
+        SEM_DADOS,
         attach_provisao,
         altair_cobertura,
     )
@@ -16290,13 +16291,16 @@ def _render_carteira_provisao(frame) -> None:
     recorte = dados[dados["categoria_estrutural"].isin(escolhidas or secoes)]
     recorte = recorte.assign(rotulo=recorte["fundo"].map(short_fund_name))
 
-    sem_denominador = int(recorte["cobertura_estado"].ne(COM_COBERTURA).sum())
+    sem_dados = int(recorte["cobertura_estado"].eq(SEM_DADOS).sum())
+    sem_denominador = int((~recorte["cobertura_estado"].isin([COM_COBERTURA, SEM_DADOS])).sum())
     st.altair_chart(altair_cobertura(recorte), width="content")
     st.caption(
         f"Barra cortada em 200%; o rótulo traz o valor real. {sem_denominador} "
-        "fundos sem inadimplência a cobrir ficam de fora. "
+        "fundos sem carteira ou inadimplência a cobrir ficam de fora. "
         "Fonte: CVM, Informe Mensal FIDC."
     )
+    if sem_dados:
+        st.warning(f"{sem_dados} fundos com dados indisponíveis na competência ficam fora do cálculo de cobertura e do estresse.")
 
     _render_carteira_estresse(recorte)
 

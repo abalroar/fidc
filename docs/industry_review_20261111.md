@@ -67,7 +67,24 @@ suas próprias datas e evidências. O download atual dessa base passou por um
 formulário cadastral; uma fotografia oficial mais recente não foi incorporada.
 Ratings e evidências documentais mantêm suas datas de revisão e lacunas N/D.
 
-A validação final passou em 920 testes, com um teste opcional ignorado. As oito
+A subaba Carteira usa o Informe mais recente de cada posição, identificado por
+competência. Suas 79 posições ativas usam setembro em 70 casos e outubro em
+nove; esse recorte individual permanece separado do consolidado de setembro.
+A base de PDD estava limitada a março–junho e foi reconstruída para as 13
+competências usadas pelas posições ativas e inativas. PDD e inadimplência
+reconciliam com os campos da Tabela I nas 79 posições ativas, ao centavo.
+Há 55 quocientes de cobertura definidos, 22 posições sem inadimplência e duas
+sem carteira. Campos ausentes permanecem N/D, fora do gráfico e do estresse;
+zeros declarados permanecem zero. A atualização mensal agora inclui essa base.
+
+Três novos casos de apuração documental ficaram registrados como lacuna, sem
+inferência contratual: Cartão de Compra Supplier II, CD Cash e Pneucash. As
+datas dos valores e da revisão dos dados ficam separadas das evidências
+documentais anteriores. A [reconciliação da PDD](../reports/industry_review_20261111/carteira_provisao_audit.json)
+e os [valores por CNPJ e competência](../reports/industry_review_20261111/pdd_por_cnpj_competencia.csv)
+permitem conferir a atualização.
+
+A validação final passou em 1.040 testes, com um teste ignorado. As oito
 subabas abriram no teste completo da aplicação e os cinco downloads principais
 reproduziram os bytes do manifesto. O PPTX foi aberto no PowerPoint e seus 15
 slides foram renderizados e revisados, com 33 gráficos nativos e duas tabelas

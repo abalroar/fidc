@@ -19,6 +19,7 @@ from services.carteira_provisao import (  # noqa: E402
     LIMIAR_PCT,
     PROVISAO_NAME,
     SEM_CARTEIRA,
+    SEM_DADOS,
     SEM_INADIMPLENCIA,
     TETO_PCT,
     altair_cobertura,
@@ -184,16 +185,46 @@ def test_todo_fundo_do_grafico_tem_nome_e_rotulo(
     assert eixo["labelLimit"] >= 200
 
 
-def test_sem_base_de_pdd_a_cobertura_fica_em_zero(
+def test_sem_base_de_pdd_a_cobertura_fica_indisponivel(
     carteira: pd.DataFrame, tmp_path: Path
 ) -> None:
-    """A base é opcional: sem ela o gráfico sobe, com cobertura zerada."""
+    """Uma fonte ausente não comprova cobertura zero nem folga de capital."""
 
     frame = attach_provisao(carteira, tmp_path)
 
     assert frame["pdd_brl"].isna().all()
-    assert frame.set_index("cnpj").at[COBERTO, "cobertura_pct"] == pytest.approx(0.0)
-    assert frame.set_index("cnpj").at[SEM_ATRASO, "cobertura_estado"] == SEM_INADIMPLENCIA
+    assert frame["cobertura_pct"].isna().all()
+    assert frame["cobertura_estado"].eq(SEM_DADOS).all()
+    assert chart_frame(frame.assign(rotulo=frame["fundo"])).empty
+
+
+def test_zero_declarado_tem_cobertura_zero_e_campo_nao_reportado_fica_nd(data_dir: Path) -> None:
+    frame = pd.DataFrame([
+        {"cnpj": SEM_ATRASO, "competencia": "2026-06", "carteira_dc": 100, "dc_inadimplentes": 5,
+         "reports_carteira_dc": True, "reports_dc_inadimplentes": True},
+        {"cnpj": COBERTO, "competencia": "2026-06", "carteira_dc": 100, "dc_inadimplentes": 0,
+         "reports_carteira_dc": True, "reports_dc_inadimplentes": "False"},
+    ])
+    result = attach_provisao(frame, data_dir).set_index("cnpj")
+    assert result.at[SEM_ATRASO, "cobertura_pct"] == 0
+    assert result.at[SEM_ATRASO, "cobertura_estado"] == COM_COBERTURA
+    assert pd.isna(result.at[COBERTO, "dc_inadimplentes"])
+    assert result.at[COBERTO, "cobertura_estado"] == SEM_DADOS
+
+
+def test_extracao_da_pdd_respeita_classe_e_preserva_campos_vazios() -> None:
+    from scripts.build_carteira_provisao import extrair_tabela, PDD_COLUMNS
+    source = pd.DataFrame([
+        {"CNPJ_FUNDO_CLASSE": COBERTO, "TP_FUNDO_CLASSE": "Fundo", PDD_COLUMNS[0]: "900", PDD_COLUMNS[1]: "100"},
+        {"CNPJ_FUNDO_CLASSE": COBERTO, "TP_FUNDO_CLASSE": "Classe", PDD_COLUMNS[0]: "12,50", PDD_COLUMNS[1]: "0"},
+        {"CNPJ_FUNDO_CLASSE": SEM_ATRASO, "TP_FUNDO_CLASSE": "Classe", PDD_COLUMNS[0]: "0", PDD_COLUMNS[1]: "0"},
+        {"CNPJ_FUNDO_CLASSE": DESCOBERTO, "TP_FUNDO_CLASSE": "Classe", PDD_COLUMNS[0]: "", PDD_COLUMNS[1]: "5"},
+    ])
+    result = extrair_tabela(source, "2026-09").set_index("cnpj")
+    assert len(result) == 3
+    assert result.at[COBERTO, "pdd_brl"] == 12.5
+    assert result.at[SEM_ATRASO, "pdd_brl"] == 0
+    assert pd.isna(result.at[DESCOBERTO, "pdd_brl"])
 
 
 def test_a_base_publicada_cobre_a_carteira_ativa() -> None:
@@ -205,5 +236,6 @@ def test_a_base_publicada_cobre_a_carteira_ativa() -> None:
     frame = attach_provisao(resolve_portfolio(dados).frame, dados)
     com_carteira = frame[frame["carteira_dc"].fillna(0).gt(0)]
 
-    assert len(com_carteira) >= 80
+    assert len(frame) == 79
+    assert len(com_carteira) == 77
     assert com_carteira["pdd_brl"].notna().all()

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "industry_study"
 
 
-def test_a_base_preserva_os_101_cnpjs_e_isola_os_nove_casos() -> None:
+def test_a_base_preserva_os_101_cnpjs_e_isola_os_dez_casos() -> None:
     from services.carteira_validacao_analistas import (
         build_validation_frame,
         target_validation_frame,
@@ -22,8 +22,8 @@ def test_a_base_preserva_os_101_cnpjs_e_isola_os_nove_casos() -> None:
 
     assert len(carteira) == 101
     assert carteira["cnpj"].nunique() == 101
-    assert len(alvos) == 9
-    assert alvos["cnpj"].nunique() == 9
+    assert len(alvos) == 10
+    assert alvos["cnpj"].nunique() == 10
     assert alvos["folga_pos_pp"].lt(0).all()
     assert alvos["aporte_brl"].gt(0).all()
 
@@ -47,7 +47,7 @@ def test_o_excel_traz_formulas_validacoes_e_contraprova_documental() -> None:
     assert workbook.sheetnames == ["Validação Analistas", "Carteira 101"]
     alvo = workbook["Validação Analistas"]
     carteira = workbook["Carteira 101"]
-    assert alvo.max_row == 10
+    assert alvo.max_row == 11
     assert carteira.max_row == 102
 
     headers = {cell.value: cell.column for cell in alvo[1]}
