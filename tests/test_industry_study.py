@@ -246,6 +246,64 @@ class _StaticIndustryStore:
         return None if frame is None else frame.copy()
 
 
+def test_stock_totals_exclude_reports_without_accepted_pl_and_keep_separate_flows():
+    accepted, outside = "12345678000190", "22222222000122"
+
+    def source(columns, values):
+        return pd.DataFrame(
+            [[accepted, "Classe", *values], [outside, "Classe", *values]],
+            columns=["cnpj", "tp_registro", *columns],
+        )
+
+    tab4 = _tab4_class_fund_pair(class_pl=1_000.0, fund_pl=9_000.0)
+    store = _StaticIndustryStore({
+        "tab_IV": tab4,
+        "tab_I": source([
+            "DENOM_SOCIAL", "TAB_I_VL_ATIVO", "TAB_I2A_VL_DIRCRED_RISCO",
+            "TAB_I2B_VL_DIRCRED_SEM_RISCO", "TAB_I2A3_VL_CRED_INAD",
+            "TAB_I2B3_VL_CRED_INAD", "ADMIN", "CNPJ_ADMIN", "CONDOM",
+            "FUNDO_EXCLUSIVO",
+        ], ["FIDC", 100, 50, 0, 5, 0, "ADMIN", "1", "FECHADO", "NAO"]),
+        "tab_II": source(["TAB_II_A_VL_INDUST"], [50]),
+        "tab_X_1": source(["TAB_X_NR_COTST"], [3]),
+        "tab_X_1_1": source(["TAB_X_NR_COTST_SENIOR_PF"], [2]),
+        "tab_X_2": source(
+            ["TAB_X_QT_COTA", "TAB_X_VL_COTA", "TAB_X_CLASSE_SERIE"],
+            [1, 20, "Subordinada"],
+        ),
+        "tab_VII": source(
+            ["TAB_VII_D_2_VL_RECOMPRA", "TAB_VII_C_2_VL_SUBST"], [4, 5],
+        ),
+        "tab_X_4": source(["TAB_X_TP_OPER", "TAB_X_VL_TOTAL"], ["Captações no Mês", 10]),
+    })
+    aggregate = aggregate_month(store, "202512", load_tab4(store, "202512"))
+    assert aggregate is not None
+    totals = aggregate.industry
+    assert totals["n_veiculos"] == 1
+    assert totals["ativo_total"] == 100
+    assert totals["carteira_dc"] == 50
+    assert totals["dc_inadimplentes"] == totals["dc_inadimplentes_ajustado"] == 5
+    assert totals["inad_pct"] == 0.1
+    assert totals["cotistas_total"] == 3
+    assert totals["vl_cotas_subordinadas"] == 20
+    assert totals["vl_recompras"] == 4
+    assert totals["vl_substituicoes"] == 5
+    assert aggregate.segments[0]["valor"] == 50
+    assert next(r for r in aggregate.cotistas_tipo if r["tipo_cotista"] == "Pessoa fisica")["n_cotistas"] == 2
+    assert aggregate.admin[0]["n_veiculos"] == 1
+    assert totals["captacoes"] == 20
+    flow_only = next(r for r in aggregate.vehicle if r["cnpj"] == outside)
+    assert flow_only["tp_registro"] == "Sem Tab IV"
+    assert flow_only["captacoes"] == 10
+    assert flow_only["carteira_dc"] == 0
+    for table in ("tab1", "tab2", "x1", "x2", "tab7", "x4"):
+        assert aggregate.audit[f"{table}_veiculos"] == 1
+        assert aggregate.audit[f"{table}_veiculos_fora_universo_pl"] == 1
+    panel = pd.DataFrame(aggregate.vehicle)
+    for total, column in (("ativo_total", "ativo"), ("carteira_dc", "carteira_dc"), ("captacoes", "captacoes")):
+        assert totals[total] == panel[column].sum()
+
+
 def test_load_tab4_and_month_aggregate_publish_duplicate_audit() -> None:
     raw = _tab4_class_fund_pair(class_pl=0.0, fund_pl=250.0, reverse=True)
     store = _StaticIndustryStore({"tab_IV": raw})

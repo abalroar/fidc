@@ -67,6 +67,28 @@ def _cells(raw: bytes) -> dict[str, bytes]:
     return {cell.attrib["r"]: ET.tostring(cell) for cell in root.iter(f"{{{SHEET_NS}}}c")}
 
 
+def test_historical_pl_width_fix_preserves_cells_and_other_zip_parts():
+    original, _ = _fixture()
+    book = load_workbook(BytesIO(original))
+    history = book.create_sheet("PL histórico")
+    history["D1"] = "pl_total"
+    history["D2"] = 990_748_763_340.96
+    history["D2"].number_format = "R$ #,##0.00"
+    history.column_dimensions["D"].width = 20
+    stream = BytesIO()
+    book.save(stream)
+    original = stream.getvalue()
+    patched = patch_workbook_bytes(original)
+    validate_workbook_caches(patched)
+    before, after = _parts(original), _parts(patched)
+    assert _cells(before["xl/worksheets/sheet3.xml"]) == _cells(after["xl/worksheets/sheet3.xml"])
+    assert before["xl/worksheets/sheet2.xml"] == after["xl/worksheets/sheet2.xml"]
+    result = load_workbook(BytesIO(patched))
+    assert result["PL histórico"].column_dimensions["D"].width >= 40
+    assert result["PL histórico"]["D2"].value == 990_748_763_340.96
+    assert patch_workbook_bytes(patched) == patched
+
+
 @pytest.mark.parametrize("grouped_columns", [False, True])
 def test_repairs_every_semantic_result_preserving_reported_zero_missing_and_negative(grouped_columns) -> None:
     original, records = _fixture(grouped_columns=grouped_columns)

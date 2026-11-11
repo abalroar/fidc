@@ -289,7 +289,7 @@ def build_share_table(annex: pd.DataFrame) -> pd.DataFrame:
 def build_annex_vs_official(
     annex: pd.DataFrame, official: pd.DataFrame
 ) -> pd.DataFrame:
-    """Prove that summing the annex rebuilds the published ranking."""
+    """Measure differences between the annex and the published ranking."""
 
     published = official[official["window"].eq("acumulado_ano")]
     measures = (
@@ -353,6 +353,30 @@ def build_annex_vs_official(
                 }
             )
     return pd.DataFrame(rows)
+
+
+def ranking_reconciliation_quality(reconciliation: pd.DataFrame) -> dict[str, object]:
+    """Expose discrepancies without replacing either publication's values."""
+    checks = reconciliation[
+        reconciliation["check"].eq("anexo_vs_ranking_publicado")
+    ].copy()
+    volume_gap = pd.to_numeric(checks["max_abs_volume_gap_brl"], errors="coerce")
+    share_gap = pd.to_numeric(checks["max_abs_share_gap"], errors="coerce")
+    if checks.empty or volume_gap.isna().any() or share_gap.isna().any():
+        raise ValueError("Reconciliação ANBIMA ausente ou com diferenças não calculadas")
+    divergent = checks[volume_gap.gt(0.02) | share_gap.gt(1e-9)]
+    columns = ["scope", "measure", "annex_volume_brl", "published_volume_brl",
+               "max_abs_volume_gap_brl", "max_abs_share_gap"]
+    return {
+        "status": "differences_between_published_sources" if len(divergent) else "reconciled",
+        "checks": len(checks),
+        "volume_tolerance_brl": 0.02,
+        "share_tolerance": 1e-9,
+        "max_abs_volume_gap_brl": float(volume_gap.max()),
+        "max_abs_share_gap": float(share_gap.max()),
+        "divergent_scopes": divergent[columns].to_dict(orient="records"),
+        "participant_share_source": "reconstructed_from_annex",
+    }
 
 
 def build_cvm_comparison(
@@ -500,6 +524,7 @@ def main() -> None:
         checks.append(comparison)
 
     reconciliation = pd.concat(checks, ignore_index=True)
+    reconciliation_quality = ranking_reconciliation_quality(reconciliation)
     syndication = pd.concat(
         [
             syndication_profile(
@@ -565,15 +590,21 @@ def main() -> None:
             "share": int(len(shares)),
             "reconciliation": int(len(reconciliation)),
         },
+        "reconciliation_quality": reconciliation_quality,
         "notes": [
             "Valores das planilhas ANBIMA vêm em R$ mil e são convertidos para BRL.",
             f"Ranking e comparação CVM usam a janela própria {ranking_cut.period_label()}; "
             f"última competência consolidada do estudo CVM: {cut.competence}.",
-            "A soma do anexo reproduz o ranking publicado ao centavo por participante.",
-            "A contagem de operações do bloco consolidado tem resíduo de até 3 "
-            "operações por participante: o anexo não expõe o identificador "
-            "interno de operação da ANBIMA e o agrupamento usa emissor + data "
-            "de encerramento. No recorte FIDC a contagem bate exatamente.",
+            (
+                "O anexo e o ranking publicado apresentam divergências nos recortes "
+                "listados em reconciliation_quality; os valores das duas fontes são "
+                "preservados. As participações reconstruídas usam o anexo."
+                if reconciliation_quality["divergent_scopes"] else
+                "A soma do anexo reconcilia o ranking publicado nas tolerâncias "
+                "registradas em reconciliation_quality."
+            ),
+            "A contagem reconstruída de operações usa emissor + data de encerramento; "
+            "o anexo não expõe o identificador interno de operação da ANBIMA.",
         ],
     }
     paths["manifest"].write_text(

@@ -27,9 +27,9 @@ DATA_DIR = ROOT / "data" / "industry_study"
 EMITTED_BY_PERIOD = {
     "2023": 43_746_140_196.22,
     "2024": 95_416_726_133.75,
-    "2025": 116_941_319_054.77,
-    "ago25": 70_546_652_757.16,
-    "ago26": 91_917_778_632.26,
+    "2025": 117_126_319_054.77,
+    "set25": 78_736_878_426.65,
+    "set26": 109_209_379_930.30,
 }
 
 
@@ -62,7 +62,7 @@ def test_2023_is_scaled_to_the_anbima_level_and_others_are_not() -> None:
     audit = coverage.frame().set_index("period_key")
     assert audit.at["2023", "scale_factor"] > 1.5
     assert audit.at["2023", "observed_brl"] == pytest.approx(26_476_286_193.56)
-    for key in ("2024", "2025", "ago25", "ago26"):
+    for key in ("2024", "2025", "set25", "set26"):
         assert audit.at[key, "scale_factor"] == pytest.approx(1.0)
 
 

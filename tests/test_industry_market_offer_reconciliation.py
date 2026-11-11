@@ -34,15 +34,15 @@ def test_materialized_reconciliation_matches_official_snapshot() -> None:
         492_629_211_209.05
     )
     assert debentures_2025["anbima_closed_volume_brl"] == pytest.approx(
-        493_275_073_108.0017
+        493_485_073_108.0017
     )
-    debentures_2026 = indexed.loc[("2026 jan-ago", "Debêntures")]
+    debentures_2026 = indexed.loc[("2026 jan-set", "Debêntures")]
     assert debentures_2026["anbima_closed_volume_brl"] == pytest.approx(
-        229_742_461_953.6112
+        261_209_653_244.0912
     )
-    assert debentures_2026["raw_gap_pct"] == pytest.approx(-0.1827619656312785)
+    assert debentures_2026["raw_gap_pct"] == pytest.approx(-0.1898436925)
     assert debentures_2026["harmonized_gap_pct"] == pytest.approx(
-        0.0140311706446311
+        -0.0076441718
     )
 
 

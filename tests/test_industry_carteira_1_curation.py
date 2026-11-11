@@ -75,9 +75,9 @@ def test_carteira_1_current_metrics_preserve_absence() -> None:
     assert result.summary["cnpjs"] == 101
     assert result.summary["cnpjs_localizados_base_fidc"] == 78
     assert result.summary["cnpjs_fora_base_fidc"] == 1
-    assert result.summary["cnpjs_com_subordinacao_atual"] == 68
+    assert result.summary["cnpjs_com_subordinacao_atual"] == 69
     assert detail["pl_atual_brl"].notna().sum() == 78
-    assert detail["subordinacao_atual_pct"].notna().sum() == 68
+    assert detail["subordinacao_atual_pct"].notna().sum() == 69
     assert detail["pl_atual_brl"].dropna().gt(0).all()
     assert detail["subordinacao_atual_pct"].dropna().between(0, 1.01).all()
     absent = detail["subordinacao_atual_status"].str.contains("ausente|N/D")
@@ -85,7 +85,7 @@ def test_carteira_1_current_metrics_preserve_absence() -> None:
     assert result.ranges["fundos"].sum() == 101
     assert result.ranges.loc[
         result.ranges["faixa_subordinacao_atual"].eq("N/D"), "fundos"
-    ].item() == 33
+    ].item() == 32
 
 
 def test_carteira_1_documentary_contract_is_complete_and_traceable() -> None:

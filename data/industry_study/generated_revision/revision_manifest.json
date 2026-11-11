@@ -6,18 +6,18 @@
     "blocked_market_share_combinations": 3,
     "btg_controlled_fidcs_reconciled": 6,
     "btg_provider_ex_controlled_roles": 3,
-    "frozen_single_receivable_funds": 2024,
+    "frozen_single_receivable_funds": 2036,
     "independent_provider_rows": 56,
     "latest_aging_publication_status": "publicável",
-    "latest_funds": 4423,
+    "latest_funds": 4439,
     "latest_presence_exact": true,
-    "latest_vehicles": 4430,
+    "latest_vehicles": 4447,
     "market_share_foci": 18,
     "market_share_roles": 3,
-    "provider_transition_changed_funds": 415,
-    "provider_transition_continuing_funds": 2096,
-    "reag_cohort_exited_funds": 82,
-    "single_receivable_funds": 2024,
+    "provider_transition_changed_funds": 419,
+    "provider_transition_continuing_funds": 2103,
+    "reag_cohort_exited_funds": 77,
+    "single_receivable_funds": 2036,
     "single_receivable_rows": 10,
     "top20_fidcs_rows": 20,
     "top20_outros_rows": 20
@@ -56,11 +56,11 @@
     },
     "base_competencia_cnpj.csv.gz": {
       "columns": 120,
-      "rows": 243033
+      "rows": 244200
     },
     "base_fundo_cnpj.csv.gz": {
       "columns": 70,
-      "rows": 242977
+      "rows": 244143
     },
     "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
       "columns": 26,
@@ -84,7 +84,7 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 14432
+      "rows": 14474
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 24,
@@ -92,7 +92,7 @@
     },
     "inadimplencia_coorte_atual_membros.csv.gz": {
       "columns": 8,
-      "rows": 2024
+      "rows": 2036
     },
     "inadimplencia_coorte_atual_resumo.csv": {
       "columns": 25,
@@ -144,7 +144,7 @@
     },
     "monoestrutura_por_fundo.csv": {
       "columns": 83,
-      "rows": 3655
+      "rows": 3670
     },
     "prestadores_independentes_ranking.csv": {
       "columns": 19,
@@ -156,11 +156,11 @@
     },
     "prestadores_ranking_historico.csv": {
       "columns": 10,
-      "rows": 1530
+      "rows": 1536
     },
     "prestadores_transicoes_detalhe.csv": {
       "columns": 22,
-      "rows": 2096
+      "rows": 2103
     },
     "prestadores_transicoes_disponibilidade.csv": {
       "columns": 5,
@@ -176,11 +176,11 @@
     },
     "qa_inadimplencia_casos_latest.csv": {
       "columns": 16,
-      "rows": 211
+      "rows": 212
     },
     "qa_inadimplencia_competencia.csv": {
       "columns": 56,
-      "rows": 165
+      "rows": 166
     },
     "qi_atribuicao_cnpjs_legados.csv": {
       "columns": 12,
@@ -192,7 +192,7 @@
     },
     "reag_cbsf_coorte_links.csv": {
       "columns": 8,
-      "rows": 4
+      "rows": 5
     },
     "reag_cbsf_coorte_resumo.csv": {
       "columns": 28,
@@ -200,7 +200,7 @@
     },
     "reconciliacao_tabelas_i_ii_detalhe.csv": {
       "columns": 14,
-      "rows": 6827
+      "rows": 6843
     },
     "reconciliacao_tabelas_i_ii_resumo.csv": {
       "columns": 19,
@@ -208,11 +208,11 @@
     },
     "reconciliacao_veiculo_fundo_latest.csv": {
       "columns": 8,
-      "rows": 4423
+      "rows": 4439
     },
     "source_presence_overlay.csv.gz": {
       "columns": 49,
-      "rows": 243033
+      "rows": 244200
     },
     "top20_fidcs.csv": {
       "columns": 85,
@@ -223,7 +223,7 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-10-24T01:53:23+00:00",
+  "generated_at_utc": "2026-11-11T17:01:53+00:00",
   "latest_complete": "2026-09",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",

@@ -1,7 +1,7 @@
 {
   "schema_version": "industry-intelligence/v1",
-  "generated_at_utc": "2026-10-21T01:59:01+00:00",
-  "as_of_date": "2026-10-21",
+  "generated_at_utc": "2026-11-11T16:51:05+00:00",
+  "as_of_date": "2026-11-11",
   "sources": {
     "offers": "CVM Ofertas Públicas de Distribuição - atualização diária",
     "offers_url": "https://dados.cvm.gov.br/dataset/oferta-distrib",
@@ -9,26 +9,26 @@
     "stock": "CVM FIDC - Informe Mensal"
   },
   "quality": {
-    "offer_rows": 4465,
-    "valid_offer_rows": 4256,
-    "closed_offer_rows": 3456,
-    "valid_registered_volume_brl": 373933347532.61,
-    "closed_investor_data_coverage": 0.9386574074074074,
+    "offer_rows": 4551,
+    "valid_offer_rows": 4340,
+    "closed_offer_rows": 3562,
+    "valid_registered_volume_brl": 383732590933.88,
+    "closed_investor_data_coverage": 0.9379562043795621,
     "originator_identified_volume_coverage": {
       "2024": 0.22638926999740758,
       "2025": 0.23695296504566074,
-      "2026": 0.31935110006401607
+      "2026": 0.325691487262337
     },
     "stock_manager_custodian_nature": "reconstrução com cadastro vigente; não prova troca histórica de mandato"
   },
   "outputs": {
     "annual_rows": 3,
-    "offer_ranking_rows": 5344,
-    "originator_rows": 62,
+    "offer_ranking_rows": 5388,
+    "originator_rows": 63,
     "investor_distribution_rows": 15,
     "investor_type_rows": 24,
-    "stock_ranking_rows": 12138
+    "stock_ranking_rows": 12184
   },
   "latest_complete_competence": "2026-09",
-  "latest_available_competence": "2026-09"
+  "latest_available_competence": "2026-10"
 }

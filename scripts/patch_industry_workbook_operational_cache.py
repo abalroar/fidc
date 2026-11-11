@@ -24,6 +24,7 @@ REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 SHEET_NAME = "Base competência-CNPJ"
 MIN_MONETARY_WIDTH = Decimal(26)
 MIN_PORTFOLIO_WIDTH = Decimal(32)
+MIN_HISTORY_PL_WIDTH = Decimal(40)
 HEADERS = {
     "G4": "Carteira DC",
     "H4": "Inadimplência reportada",
@@ -272,6 +273,23 @@ def _patch_calc(raw: bytes) -> bytes:
     return raw[:position] + _serialized_empty(prefix + b"calcPr", settings) + raw[position:]
 
 
+def _history_sheet(archive: ZipFile) -> tuple[str, bytes, ET.Element] | None:
+    workbook = ET.fromstring(archive.read("xl/workbook.xml"))
+    sheet = next((s for s in workbook.findall(f"{_tag('sheets')}/{_tag('sheet')}")
+                  if s.attrib.get("name") == "PL histórico"), None)
+    if sheet is None:
+        return None
+    relationship_id = sheet.attrib[f"{{{REL_NS}}}id"]
+    links = ET.fromstring(archive.read("xl/_rels/workbook.xml.rels"))
+    link = next(r for r in links if r.attrib.get("Id") == relationship_id)
+    if link.attrib.get("TargetMode") == "External":
+        raise ValueError("Invalid historical PL worksheet relationship")
+    target = link.attrib["Target"]
+    part = target.lstrip("/") if target.startswith("/") else posixpath.normpath(posixpath.join("xl", target))
+    raw = archive.read(part)
+    return part, raw, ET.fromstring(raw)
+
+
 def validate_workbook_caches(payload: bytes) -> None:
     """Fail closed on a stale cache, altered formula or unusable monetary width."""
     with ZipFile(BytesIO(payload)) as archive:
@@ -285,6 +303,9 @@ def validate_workbook_caches(payload: bytes) -> None:
         calc = ET.fromstring(archive.read("xl/workbook.xml")).find(_tag("calcPr"))
         if calc is None or any(calc.attrib.get(key) != value for key, value in {"calcMode": "auto", "fullCalcOnLoad": "1", "forceFullCalc": "1"}.items()):
             raise ValueError("Operational workbook must recalculate automatically")
+        history = _history_sheet(archive)
+        if history is not None and _column_width(history[2], 4) < MIN_HISTORY_PL_WIDTH:
+            raise ValueError("Historical PL monetary column is too narrow")
 
 
 def patch_workbook_bytes(payload: bytes) -> bytes:
@@ -292,6 +313,10 @@ def patch_workbook_bytes(payload: bytes) -> bytes:
     with ZipFile(BytesIO(payload)) as source:
         part, raw, worksheet, expected = _model(source)
         changed = {part: _patch_sheet(raw, worksheet, expected), "xl/workbook.xml": _patch_calc(source.read("xl/workbook.xml"))}
+        history = _history_sheet(source)
+        if history is not None:
+            history_part, history_raw, history_xml = history
+            changed[history_part] = _patch_widths(history_raw, history_xml, {4: MIN_HISTORY_PL_WIDTH})
         if all(source.read(name) == value for name, value in changed.items()):
             validate_workbook_caches(payload)
             return payload
