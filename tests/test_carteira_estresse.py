@@ -172,6 +172,16 @@ def test_a_apuracao_separa_o_zero_legitimo_do_silencio() -> None:
     assert apuracao.at["44444444000134", "caso"].startswith("sem carteira")
 
 
+def test_pdd_indisponivel_nao_comprova_folga_nem_provisao_zero() -> None:
+    from services.carteira_provisao import SEM_DADOS
+    from services.carteira_triagem import triar
+    frame = pd.DataFrame([fundo(pdd_brl=None, cobertura_pct=None, cobertura_estado=SEM_DADOS)])
+    stressed = estressar(frame)
+    assert pd.isna(stressed.iloc[0]["deficit_brl"])
+    assert triar(stressed).iloc[0]["triagem_motivo"] == SEM_DADOS
+    assert nao_reportantes(frame).iloc[0]["caso"].startswith("campos indisponíveis")
+
+
 def test_a_lamina_de_estresse_entra_no_deck() -> None:
     """Duas lâminas: método, resultado e apuração fora da área projetada."""
 
@@ -203,8 +213,8 @@ def test_a_lamina_de_estresse_entra_no_deck() -> None:
     dentro = [t for t in tabelas if t.left < Inches(SLIDE_WIDTH_IN)]
     fora = [t for t in tabelas if t.left >= Inches(SLIDE_WIDTH_IN)]
     assert len(dentro) == 1 and len(fora) == 1
-    # Cabeçalho e os nove desenquadramentos da triagem.
-    assert len(dentro[0].table.rows) == 10
+    # Cabeçalho e os dez casos da base revisada de novembro.
+    assert len(dentro[0].table.rows) == 11
     assert [cell.text for cell in dentro[0].table.rows[0].cells] == [
         "FIDC",
         "Cob.",

@@ -113,6 +113,8 @@ def rebuild(args: argparse.Namespace, source_records: dict) -> dict:
         shutil.copytree(data_dir, staged)
         run("build_fidc_industry_study.py", "--raw-dir", raw_dir,
             "--output-dir", staged, "--start", "2013-01", "--end", latest_source, "--skip-download")
+        run("build_carteira_provisao.py", "--data-dir", staged,
+            "--cache", raw_dir, "--skip-download")
         run("build_fidc_industry_intelligence.py", "--industry-dir", staged,
             "--offers-zip", offer_archive, "--as-of", as_of, "--skip-download")
         cut = ComparisonCut.from_data_dir(staged)

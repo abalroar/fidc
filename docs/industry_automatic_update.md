@@ -34,6 +34,11 @@ Registros de outras tabelas sem PL aceito ficam identificados nos campos
 Tabela X.4 sem Tabela IV continuam preservados em linhas `Sem Tab IV` no painel
 granular, para reconciliar os fluxos sem atribuir estoque a esses registros.
 
+A PDD da subaba Carteira é reconstruída pelos mesmos arquivos congelados, para
+as competências efetivamente usadas pelas posições ativas e inativas. O join
+usa CNPJ e competência, preserva zeros declarados e campos indisponíveis. A
+precedência Classe/Fundo acompanha a base mensal.
+
 O processo mantém um lock local, o estado em `.cache/industry-refresh/state.json`
 e backups das versões substituídas de fontes. A automação reutiliza esse estado
 e os caches do checkout principal em cada worktree, evitando reiniciar a

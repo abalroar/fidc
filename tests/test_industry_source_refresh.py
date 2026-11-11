@@ -227,7 +227,9 @@ def test_source_drift_after_freeze_cannot_change_bytes_consumed_by_producers(mon
     def run(script, *arguments):
         if script == "build_fidc_industry_study.py":
             zipped(source, "external rectification during rebuild")
-        for option in ("--raw-dir", "--cvm-dir"):
+        if script == "build_carteira_provisao.py":
+            assert "--skip-download" in arguments
+        for option in ("--raw-dir", "--cvm-dir", "--cache"):
             if option in arguments:
                 frozen = Path(arguments[arguments.index(option) + 1]) / source.name
                 consumed.append(frozen)
@@ -235,7 +237,7 @@ def test_source_drift_after_freeze_cannot_change_bytes_consumed_by_producers(mon
         publish_stub(script, *arguments)
     monkeypatch.setattr(update, "run", run)
     result = update.rebuild(args, records)
-    assert result["bundle_id"] == "new" and len(consumed) >= 3
+    assert result["bundle_id"] == "new" and len(consumed) >= 4
     assert file_sha256(source) != expected_sha
     assert (args.data_dir / "new.txt").is_file()
     assert (Path(result["dataset_backup"]) / "old.txt").is_file()

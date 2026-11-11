@@ -37,7 +37,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from services.carteira_provisao import COM_COBERTURA
+from services.carteira_provisao import COM_COBERTURA, SEM_DADOS
 
 
 #: Abaixo disto o quociente é ruído aritmético, não informação.
@@ -86,13 +86,14 @@ def triar(frame: pd.DataFrame) -> pd.DataFrame:
     saida["deficit_sobre_pl_pct"] = deficit_pct
 
     sem_denominador = saida["cobertura_estado"].ne(COM_COBERTURA)
+    sem_dados = saida["cobertura_estado"].eq(SEM_DADOS)
     imaterial = inad_mm.lt(INAD_MINIMA_MM) | inad_pct.lt(INAD_MINIMA_PCT)
     pequeno = carteira_mm.lt(CARTEIRA_MINIMA_MM)
     irrelevante = deficit_pct.lt(DEFICIT_MINIMO_PCT)
 
     saida["triagem_motivo"] = np.select(
-        [sem_denominador, pequeno, imaterial, irrelevante, folga.lt(0), folga.lt(FOLGA_OBSERVACAO_PP)],
-        [SEM_INADIMPLENCIA, VEICULO_PEQUENO, INAD_IMATERIAL, IMPACTO_IRRELEVANTE, DESENQUADRA, FOLGA_FINA],
+        [sem_dados, sem_denominador, pequeno, imaterial, irrelevante, folga.lt(0), folga.lt(FOLGA_OBSERVACAO_PP)],
+        [SEM_DADOS, SEM_INADIMPLENCIA, VEICULO_PEQUENO, INAD_IMATERIAL, IMPACTO_IRRELEVANTE, DESENQUADRA, FOLGA_FINA],
         default=FOLGA_CONFORTAVEL,
     )
     saida["triagem_status"] = np.select(

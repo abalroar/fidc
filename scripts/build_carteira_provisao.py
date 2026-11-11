@@ -6,11 +6,9 @@ mas não a provisão.  No Informe Mensal da CVM ela mora na Tabela I, no campo
 os direitos creditórios **com** e **sem** coobrigação do cedente.  A PDD do
 fundo é a soma dos dois.
 
-Um detalhe do arquivo importa para a leitura: a CVM **nunca deixa o campo em
-branco** na Tabela I.  Um fundo que não provisiona reporta ``0``, e isso é uma
-declaração, não uma ausência.  Quem some da base é o fundo que não entregou o
-informe daquela competência — e é só esse que a aplicação mostra como
-``sem informe``.
+Zeros declarados são preservados. Campos vazios ou não numéricos permanecem
+indisponíveis. A precedência Classe/Fundo segue o mesmo critério da base de
+carteira; registros repetidos do mesmo CNPJ não são somados.
 
 As competências baixadas são as que a carteira resolvida de fato usa: cada
 fundo entra com o seu mês mais recente, então a carteira mistura meses e a base
@@ -26,11 +24,9 @@ import argparse
 import io
 from pathlib import Path
 import sys
-import time
 import zipfile
 
 import pandas as pd
-import requests
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,9 +35,7 @@ if str(ROOT) not in sys.path:
 
 from services.carteira_provisao import PROVISAO_NAME  # noqa: E402
 from services.carteira_subordinacao import DEFAULT_DATA_DIR, resolve_portfolio  # noqa: E402
-
-BASE_URL = "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/"
-USER_AGENT = "fidc-dashboard/1.0 (dados.cvm.gov.br open data)"
+from scripts.build_fidc_industry_study import RawStore, _stable_one_row_per_cnpj  # noqa: E402
 
 #: A PDD do Informe: redução ao valor recuperável, com e sem coobrigação.
 PDD_COLUMNS = ("TAB_I2A11_VL_REDUCAO_RECUP", "TAB_I2B11_VL_REDUCAO_RECUP")
@@ -62,31 +56,6 @@ def _numeric(series: pd.Series) -> pd.Series:
     return pd.to_numeric(texto.where(~tem_virgula, brasileiro), errors="coerce")
 
 
-def baixar(competencia: str, cache: Path) -> bytes:
-    """O zip da competência, do cache local ou da CVM."""
-
-    snapshot = competencia.replace("-", "")
-    destino = cache / f"inf_mensal_fidc_{snapshot}.zip"
-    if destino.is_file():
-        return destino.read_bytes()
-    cache.mkdir(parents=True, exist_ok=True)
-    ultimo: Exception | None = None
-    for tentativa in range(4):
-        try:
-            resposta = requests.get(
-                f"{BASE_URL}inf_mensal_fidc_{snapshot}.zip",
-                headers={"User-Agent": USER_AGENT},
-                timeout=300,
-            )
-            resposta.raise_for_status()
-            destino.write_bytes(resposta.content)
-            return resposta.content
-        except Exception as exc:  # noqa: BLE001
-            ultimo = exc
-            time.sleep(2**tentativa)
-    raise RuntimeError(f"Não foi possível baixar {competencia}: {ultimo}")
-
-
 def extrair(payload: bytes, competencia: str) -> pd.DataFrame:
     snapshot = competencia.replace("-", "")
     membro = f"inf_mensal_fidc_tab_I_{snapshot}.csv"
@@ -102,18 +71,16 @@ def extrair(payload: bytes, competencia: str) -> pd.DataFrame:
         keep_default_na=False,
         low_memory=False,
     )
-    coluna_cnpj = (
-        "CNPJ_FUNDO_CLASSE" if "CNPJ_FUNDO_CLASSE" in tabela else "CNPJ_FUNDO"
-    )
-    tabela["cnpj"] = (
-        tabela[coluna_cnpj].str.replace(r"\D", "", regex=True).str.zfill(14)
-    )
-    pdd = sum(_numeric(tabela[coluna]).fillna(0.0) for coluna in PDD_COLUMNS)
-    saida = pd.DataFrame(
+    return extrair_tabela(tabela, competencia)
+
+
+def extrair_tabela(tabela: pd.DataFrame, competencia: str) -> pd.DataFrame:
+    tabela = _stable_one_row_per_cnpj(RawStore._normalize_keys(tabela.copy()))
+    components = pd.concat([_numeric(tabela[coluna]) for coluna in PDD_COLUMNS], axis=1)
+    pdd = components.sum(axis=1, min_count=len(PDD_COLUMNS))
+    return pd.DataFrame(
         {"competencia": competencia, "cnpj": tabela["cnpj"], "pdd_brl": pdd}
-    )
-    # Uma classe por linha; o fundo é a soma das suas classes.
-    return saida.groupby(["competencia", "cnpj"], as_index=False)["pdd_brl"].sum()
+    ).sort_values("cnpj").reset_index(drop=True)
 
 
 def main() -> None:
@@ -130,26 +97,30 @@ def main() -> None:
         default=ROOT / ".cache" / "cvm-industry-study",
         help="Onde os zips da CVM ficam, para não rebaixar a cada execução.",
     )
+    parser.add_argument("--skip-download", action="store_true", help="Usar somente os arquivos locais, inclusive snapshots congelados.")
     args = parser.parse_args()
 
     competencias = args.competencias
     if not competencias:
-        # Só a carteira ativa: um fundo que parou de reportar em 2024 puxaria
-        # zips de competências que a aplicação nunca mostra.
-        frame = resolve_portfolio(args.data_dir).frame
+        # A opção de exibir inativos também precisa de PDD na mesma data.
+        frame = resolve_portfolio(args.data_dir, somente_ativos=False).frame
         competencias = sorted(frame["competencia"].dropna().astype(str).unique())
     competencias = [c for c in competencias if len(c) == 7]
 
     partes = []
+    store = RawStore(args.cache, allow_download=not args.skip_download)
     for competencia in competencias:
-        partes.append(extrair(baixar(competencia, args.cache), competencia))
+        source = store.read_table(competencia.replace("-", ""), "tab_I")
+        if source is None:
+            raise FileNotFoundError(f"Tabela I ausente para PDD em {competencia}")
+        partes.append(extrair_tabela(source, competencia))
         print(f"{competencia}: {len(partes[-1])} fundos", flush=True)
 
     tabela = pd.concat(partes, ignore_index=True).sort_values(
         ["competencia", "cnpj"]
     )
     destino = args.data_dir / PROVISAO_NAME
-    tabela.to_csv(destino, index=False, compression="gzip")
+    tabela.to_csv(destino, index=False, compression={"method": "gzip", "mtime": 0})
     print(f"{len(tabela)} linhas em {destino}")
 
 
