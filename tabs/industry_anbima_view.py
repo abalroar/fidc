@@ -41,6 +41,7 @@ def render_anbima_analysis(payload: dict) -> None:
     period = meta["period_label"]
     st.markdown("## ANBIMA / IBBA · emissões e coordenação")
     st.caption(f"Ranking de Renda Fixa e Híbridos · {period} · fontes consultadas em {data['source_as_of_date']}. Valores creditados por participante conforme o papel.")
+    st.caption(data["hybrids_definition"])
     positions = pd.DataFrame(data["ibba_positions"])
     fidc = positions[positions.scope.eq("FIDC")].set_index("role")
     summary = data["fidc_summary"]
@@ -51,6 +52,22 @@ def render_anbima_analysis(payload: dict) -> None:
     cols[3].metric("IBBA · distribuição FIDC", number(fidc.loc["Distribuição", "share"]*100)+"%")
     market_tab, ranking_tab, sector_tab, top_market_tab = st.tabs(["Mercado e produtos ANBIMA", "IBBA e rankings ANBIMA", "Setores e Top 15 FIDC", "Top 15 ANBIMA · mercado"])
     with market_tab:
+        st.markdown(f"### Síntese por produto e competidor · {period}")
+        st.caption(f"Originação. Posições e participações do IBBA no acumulado do ano e em {data['windows']['ultimos_12_meses']['label']}.")
+        synthesis = pd.DataFrame(data["synthesis_products"])
+        for field in ["ibba_rank_ytd", "ibba_rank_ltm"]:
+            synthesis[field] = synthesis[field].map(lambda value: f"{int(value)}º" if pd.notna(value) else "N/D")
+        for field in ["ibba_share_ytd", "ibba_share_ltm"]:
+            synthesis[field] = synthesis[field].map(lambda value: number(value*100)+"%" if pd.notna(value) else "N/D")
+        synthesis["Mercado · R$ bi"] = synthesis.market_volume_brl_ytd.map(lambda value: number(value/1e9))
+        st.dataframe(synthesis[["product","operations_ytd","Mercado · R$ bi","ibba_rank_ytd","ibba_share_ytd","ibba_rank_ltm","ibba_share_ltm"]].rename(columns={"product":"Segmento","operations_ytd":"Operações · ano","ibba_rank_ytd":"IBBA posição · ano","ibba_share_ytd":"IBBA % · ano","ibba_rank_ltm":"IBBA posição · 12m","ibba_share_ltm":"IBBA % · 12m"}), hide_index=True, width="stretch")
+        competitors = pd.DataFrame(data["synthesis_competitors"]).head(9).copy()
+        competitors["Volume · R$ mi"] = competitors.volume_brl.map(lambda value: number(value/1e6,0))
+        competitors["Participação"] = competitors.share.map(lambda value: number(value*100)+"%")
+        st.markdown("#### Competidores em FIDC · originação")
+        st.dataframe(competitors[["rank","participant","Volume · R$ mi","Participação","operations"]].rename(columns={"rank":"Posição oficial","participant":"Coordenador","operations":"Operações da casa"}), hide_index=True, width="stretch")
+        ibba = next(row for row in data["synthesis_competitors"] if row["participant"] == "ITAU BBA")
+        st.caption(f"IBBA: {number(ibba['share']*100)}% do volume de FIDC e {int(ibba['operations'])} das {int(ibba['market_operations'])} operações oficiais. Operações e mercado: linha Total do ranking. Contagens por casa não são aditivas; posições preservadas como publicadas. Os registros CVM e a contagem por emissor/data no anexo são unidades distintas. Renda fixa inclui FIDC, CRI, CRA e CR: as linhas se sobrepõem.")
         products = pd.DataFrame(data["products"])
         products["R$ bi"] = products.volume_brl / 1e9
         st.markdown("### Produtos no anexo de originação")
@@ -128,5 +145,5 @@ def render_anbima_analysis(payload: dict) -> None:
         for kind, title in [("ranking_workbook", "Ranking oficial"), ("annex_workbook", "Anexo de encerramento")]:
             url = sources.get(kind,{}).get("url")
             if url: st.markdown(f"[{title}]({url})")
-        for key, label in [("ranking_all","Ranking ANBIMA · CSV"),("fidc_deals","Emissões FIDC ANBIMA · CSV"),("fidc_sectors","Setores ANBIMA · CSV"),("market_operations","Operações de renda fixa e híbridos · CSV")]:
+        for key, label in [("synthesis_products","Síntese por produto · CSV"),("synthesis_competitors","Competidores em FIDC · CSV"),("ranking_all","Ranking ANBIMA · CSV"),("fidc_deals","Emissões FIDC ANBIMA · CSV"),("fidc_sectors","Setores ANBIMA · CSV"),("market_operations","Operações de renda fixa e híbridos · CSV")]:
             st.download_button(label,pd.DataFrame(data[key]).to_csv(index=False,sep=";",decimal=",").encode("utf-8-sig"),file_name=f"ANBIMA_{key}_{data['source_reference_competence'].replace('-','')}.csv",mime="text/csv",key=f"industry-anbima-download-{key}")

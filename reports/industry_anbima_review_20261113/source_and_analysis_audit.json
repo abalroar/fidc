@@ -924,5 +924,22 @@
       "universe_volume_brl": null,
       "status": "sem ranking publicado"
     }
-  ]
+  ],
+  "synthesis_restoration": {
+    "baseline_commit": "9252bf77d93fe8af717f5f4332cab61728ce355b",
+    "slide": 13,
+    "products": 8,
+    "competitors": 17,
+    "official_fidc_operations": 93,
+    "ibba_fidc_operations": 36,
+    "bradesco_fidc_operations": 18,
+    "source": "Published Total and participant rows, origination number of operations",
+    "totals_csv_sha256": "527d6390826f47673c65d647bac8d9fbccee37496993d27105dd6bd0e7f671c3",
+    "totals_rows": 132,
+    "hybrids_definition": "Híbridos (Tipo 2, ANBIMA): títulos conversíveis ou permutáveis em ações, FII, CEPAC, FIP-IE e FIAGRO. FIDC, CRI, CRA e CR integram renda fixa (Tipo 1), dentro de securitização.",
+    "methodology_url": "https://data-strapi.prd.anbima.com.br/uploads/Metodologia_RF_Hib_2026_2_b892ba3858.pdf",
+    "preserved_native_charts": 45,
+    "preserved_native_tables": 11,
+    "added_native_tables": 2
+  }
 }

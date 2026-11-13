@@ -192,7 +192,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     assert len(presentation.slides) == EXPECTED_SLIDES == len(
         EXPECTED_SLIDE_SEQUENCE
     )
-    assert EXPECTED_SLIDES == 27
+    assert EXPECTED_SLIDES == 28
     assert not TYPE_RANKING_SLIDE_SEQUENCE
     assert not STRUCTURAL_MVP_SLIDE_SEQUENCE
     assert not CURRENT_TOP15_SLIDE_SEQUENCE

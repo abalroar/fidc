@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from services.industry_anbima_analysis import build_anbima_analysis
+from services.industry_anbima_analysis import build_anbima_analysis, _build_synthesis
 from services.industry_intelligence import canonical_provider
 from services.industry_revision_additions import build_independent_provider_historical_ranking
 
@@ -102,3 +102,38 @@ def test_itau_and_kanastra_are_separate_in_normalization_and_independents():
     assert result.participante.tolist() == ["Kanastra"]
     assert result.iloc[0].pl_brl == 121
     assert result.iloc[0].denominador_pl_brl == 171
+
+
+def test_synthesis_counts_use_published_totals_and_keep_syndication_non_additive(analysis):
+    products = pd.DataFrame(analysis["synthesis_products"]).set_index("ranking_code")
+    totals = pd.read_csv(DATA / "anbima_rf_ranking_totals.csv", dtype={"ranking_code": str})
+    truth = totals[totals.measure.eq("originacao_numero_operacoes") & totals.window.eq("acumulado_ano")].set_index("ranking_code")["total"]
+    for code, row in products.iterrows():
+        assert row.operations_ytd == truth[code]
+    assert products.loc["1.3.1", "operations_ytd"] == 93
+    competitors = pd.DataFrame(analysis["synthesis_competitors"]).set_index("participant")
+    assert competitors.loc["ITAU BBA", "operations"] == 36
+    assert competitors.loc["BRADESCO BBI", "operations"] == 18
+    assert competitors.operations.sum() > 93
+    assert analysis["fidc_summary"]["registrations"] == 155
+    assert products.loc["1.3.1", "market_volume_brl_ytd"] == pytest.approx(analysis["fidc_summary"]["volume_brl"], abs=0.01)
+    assert products.loc["1.3.1", "family"] == "Renda fixa"
+    assert set(products[products.family.eq("Híbridos")].index) == {"2.2", "2.4", "2.5"}
+
+
+def test_synthesis_keeps_published_rank_and_full_precision(analysis):
+    source = pd.read_csv(DATA / "anbima_rf_ranking_official.csv", dtype={"ranking_code": str})
+    source["participant"] = source.participant.str.replace(r"\*+$", "", regex=True).str.strip()
+    for row in analysis["synthesis_competitors"]:
+        truth = source[source.measure.eq("originacao_valor") & source.window.eq("acumulado_ano") & source.ranking_code.eq("1.3.1") & source.participant.eq(row["participant"])].iloc[0]
+        assert row["rank"] == truth["rank"]
+        assert row["volume_brl"] == pytest.approx(truth.value_brl_or_count, abs=0.001)
+        assert row["share"] == pytest.approx(truth["share"])
+
+
+def test_missing_published_operation_total_fails_instead_of_using_annex_proxy():
+    official = pd.read_csv(DATA / "anbima_rf_ranking_official.csv", dtype={"ranking_code": str})
+    totals = pd.read_csv(DATA / "anbima_rf_ranking_totals.csv", dtype={"ranking_code": str})
+    missing = totals.measure.eq("originacao_numero_operacoes") & totals.window.eq("acumulado_ano") & totals.ranking_code.eq("1.3.1")
+    with pytest.raises(ValueError, match="Total publicado ANBIMA ausente"):
+        _build_synthesis(official, totals[~missing])

@@ -5186,6 +5186,7 @@
         "volume_brl": 645000000.0
       }
     ],
+    "hybrids_definition": "Híbridos (Tipo 2, ANBIMA): títulos conversíveis ou permutáveis em ações, FII, CEPAC, FIP-IE e FIAGRO. FIDC, CRI, CRA e CR integram renda fixa (Tipo 1), dentro de securitização.",
     "ibba_positions": [
       {
         "rank": 2,
@@ -15441,6 +15442,9 @@
       }
     ],
     "notes": [
+      "Híbridos (Tipo 2, ANBIMA): títulos conversíveis ou permutáveis em ações, FII, CEPAC, FIP-IE e FIAGRO. FIDC, CRI, CRA e CR integram renda fixa (Tipo 1), dentro de securitização.",
+      "Síntese de originação: operações e mercado vêm da linha Total do ranking publicado. Contagens por coordenador não são aditivas; cada casa recebe uma unidade por operação em que tenha crédito. O anexo possui registros CVM e contagem reconstruída por emissor/data, unidades distintas do total oficial de operações.",
+      "As posições dos competidores são preservadas como publicadas pela ANBIMA, inclusive quando os volumes retificados de duas casas vizinhas aparecem fora da ordem numérica.",
       "Ranking oficial: crédito por participante e papel; valores em R$ convertidos de R$ mil.",
       "Originação e distribuição têm perímetros distintos. Tipos 1 e 2 excluem empresas ligadas; Tipo 3 é apresentado separadamente.",
       "Top 15 ANBIMA: registros CVM distintos no anexo de originação de FIDC, Tipo 1; soma dos créditos por participante em cada registro. Não é o universo de ofertas CVM/SRE.",
@@ -32918,6 +32922,300 @@
         "url": "https://data-strapi.prd.anbima.com.br/uploads/Ranking_de_Renda_Fixa_e_Hibridos_Setembro_2026_13_19f8b319dc.xlsx"
       }
     },
+    "synthesis_competitors": [
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 36.0,
+        "participant": "ITAU BBA",
+        "participant_source": "ITAU BBA",
+        "rank": 1.0,
+        "share": 0.433260961772791,
+        "volume_brl": 17716471207.230003
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 18.0,
+        "participant": "BRADESCO BBI",
+        "participant_source": "BRADESCO BBI",
+        "rank": 2.0,
+        "share": 0.187805664136512,
+        "volume_brl": 7679560206.889999
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 8.0,
+        "participant": "UBS BB",
+        "participant_source": "UBS BB",
+        "rank": 3.0,
+        "share": 0.091428108719903,
+        "volume_brl": 3738586206.89
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 6.0,
+        "participant": "XP INVESTIMENTOS",
+        "participant_source": "XP INVESTIMENTOS",
+        "rank": 4.0,
+        "share": 0.060085740687038,
+        "volume_brl": 2456965636.81
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 3.0,
+        "participant": "SANTANDER",
+        "participant_source": "SANTANDER",
+        "rank": 5.0,
+        "share": 0.051190979152823,
+        "volume_brl": 2093250000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 2.0,
+        "participant": "CEF",
+        "participant_source": "CEF",
+        "rank": 6.0,
+        "share": 0.029346315530102,
+        "volume_brl": 1200000000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 5.0,
+        "participant": "ABC BRASIL",
+        "participant_source": "ABC BRASIL",
+        "rank": 7.0,
+        "share": 0.030324990697768,
+        "volume_brl": 1240019000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 1.0,
+        "participant": "BTG PACTUAL",
+        "participant_source": "BTG PACTUAL",
+        "rank": 8.0,
+        "share": 0.024944368200587,
+        "volume_brl": 1020000000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 1.0,
+        "participant": "SAFRA",
+        "participant_source": "SAFRA",
+        "rank": 8.0,
+        "share": 0.024944368200587,
+        "volume_brl": 1020000000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 9.0,
+        "participant": "BR PARTNERS",
+        "participant_source": "BR PARTNERS",
+        "rank": 10.0,
+        "share": 0.024365778087522,
+        "volume_brl": 996340875.4
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 7.0,
+        "participant": "VOTORANTIM",
+        "participant_source": "VOTORANTIM",
+        "rank": 11.0,
+        "share": 0.023602288350906,
+        "volume_brl": 965121021.48
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 1.0,
+        "participant": "BB-BI",
+        "participant_source": "BB-BI",
+        "rank": 12.0,
+        "share": 0.006969749938399,
+        "volume_brl": 285000000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 3.0,
+        "participant": "DAYCOVAL",
+        "participant_source": "DAYCOVAL",
+        "rank": 13.0,
+        "share": 0.003304468494478,
+        "volume_brl": 135123000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 4.0,
+        "participant": "BAMBOO SEC",
+        "participant_source": "BAMBOO SEC",
+        "rank": 14.0,
+        "share": 0.002805738314224,
+        "volume_brl": 114729427.4
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 1.0,
+        "participant": "JGP FINANCIAL ADVISORY",
+        "participant_source": "JGP FINANCIAL ADVISORY",
+        "rank": 15.0,
+        "share": 0.002445526294175,
+        "volume_brl": 100000000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 1.0,
+        "participant": "M7 IB",
+        "participant_source": "M7 IB",
+        "rank": 15.0,
+        "share": 0.002445526294175,
+        "volume_brl": 100000000.0
+      },
+      {
+        "market_operations": 93.0,
+        "market_volume_brl": 40890993582.10999,
+        "operations": 1.0,
+        "participant": "ARCHX CAPITAL",
+        "participant_source": "ARCHX CAPITAL",
+        "rank": 17.0,
+        "share": 0.000729427128008,
+        "volume_brl": 29827000.01
+      }
+    ],
+    "synthesis_products": [
+      {
+        "family": "Renda fixa",
+        "ibba_rank_ltm": 1.0,
+        "ibba_rank_ytd": 2.0,
+        "ibba_share_ltm": 0.245502219168174,
+        "ibba_share_ytd": 0.236630216499851,
+        "ibba_volume_brl_ltm": 123643774629.57,
+        "ibba_volume_brl_ytd": 73595338780.34,
+        "market_volume_brl_ltm": 503636077297.00995,
+        "market_volume_brl_ytd": 311014120972.94995,
+        "operations_ltm": 1130.0,
+        "operations_ytd": 715.0,
+        "product": "Renda fixa consolidada",
+        "ranking_code": "1"
+      },
+      {
+        "family": "Renda fixa",
+        "ibba_rank_ltm": 1.0,
+        "ibba_rank_ytd": 1.0,
+        "ibba_share_ltm": 0.415414345493323,
+        "ibba_share_ytd": 0.433260961772791,
+        "ibba_volume_brl_ltm": 20325053374.23,
+        "ibba_volume_brl_ytd": 17716471207.230003,
+        "market_volume_brl_ltm": 48927182209.11,
+        "market_volume_brl_ytd": 40890993582.10999,
+        "operations_ltm": 135.0,
+        "operations_ytd": 93.0,
+        "product": "FIDC",
+        "ranking_code": "1.3.1"
+      },
+      {
+        "family": "Renda fixa",
+        "ibba_rank_ltm": 2.0,
+        "ibba_rank_ytd": 2.0,
+        "ibba_share_ltm": 0.19603602084,
+        "ibba_share_ytd": 0.17932888187,
+        "ibba_volume_brl_ltm": 4051652499.99,
+        "ibba_volume_brl_ytd": 2173515000.0,
+        "market_volume_brl_ltm": 20667898086.730003,
+        "market_volume_brl_ytd": 12120272972.020002,
+        "operations_ltm": 147.0,
+        "operations_ytd": 91.0,
+        "product": "CRI",
+        "ranking_code": "1.3.2"
+      },
+      {
+        "family": "Renda fixa",
+        "ibba_rank_ltm": 2.0,
+        "ibba_rank_ytd": 5.0,
+        "ibba_share_ltm": 0.15037040509,
+        "ibba_share_ytd": 0.08671127621,
+        "ibba_volume_brl_ltm": 3590465136.97,
+        "ibba_volume_brl_ytd": 674686999.94,
+        "market_volume_brl_ltm": 23877471999.110004,
+        "market_volume_brl_ytd": 7780844999.69,
+        "operations_ltm": 62.0,
+        "operations_ytd": 29.0,
+        "product": "CRA",
+        "ranking_code": "1.3.3"
+      },
+      {
+        "family": "Renda fixa",
+        "ibba_rank_ltm": 1.0,
+        "ibba_rank_ytd": 1.0,
+        "ibba_share_ltm": 0.7224220935,
+        "ibba_share_ytd": 0.60328655731,
+        "ibba_volume_brl_ltm": 1714676333.3300002,
+        "ibba_volume_brl_ytd": 780676333.33,
+        "market_volume_brl_ltm": 2373510373.99,
+        "market_volume_brl_ytd": 1294038999.99,
+        "operations_ltm": 13.0,
+        "operations_ytd": 6.0,
+        "product": "CR",
+        "ranking_code": "1.3.4"
+      },
+      {
+        "family": "Híbridos",
+        "ibba_rank_ltm": 2.0,
+        "ibba_rank_ytd": 4.0,
+        "ibba_share_ltm": 0.21220938118,
+        "ibba_share_ytd": 0.09689779223,
+        "ibba_volume_brl_ltm": 4524366974.210001,
+        "ibba_volume_brl_ytd": 1214135174.36,
+        "market_volume_brl_ltm": 21320296723.1,
+        "market_volume_brl_ytd": 12530060246.45,
+        "operations_ltm": 53.0,
+        "operations_ytd": 38.0,
+        "product": "FII",
+        "ranking_code": "2.2"
+      },
+      {
+        "family": "Híbridos",
+        "ibba_rank_ltm": 1.0,
+        "ibba_rank_ytd": 1.0,
+        "ibba_share_ltm": 0.539965598,
+        "ibba_share_ytd": 0.53538764866,
+        "ibba_volume_brl_ltm": 1278000000.0,
+        "ibba_volume_brl_ytd": 1080000000.0,
+        "market_volume_brl_ltm": 2366817450.48,
+        "market_volume_brl_ytd": 2017229950.48,
+        "operations_ltm": 8.0,
+        "operations_ytd": 6.0,
+        "product": "FIP-IE",
+        "ranking_code": "2.4"
+      },
+      {
+        "family": "Híbridos",
+        "ibba_rank_ltm": 1.0,
+        "ibba_rank_ytd": 2.0,
+        "ibba_share_ltm": 0.630654633876553,
+        "ibba_share_ytd": 0.43346365581741,
+        "ibba_volume_brl_ltm": 2696985000.0,
+        "ibba_volume_brl_ytd": 979612000.0,
+        "market_volume_brl_ltm": 4276484870.05,
+        "market_volume_brl_ytd": 2259963406.0499997,
+        "operations_ltm": 22.0,
+        "operations_ytd": 14.0,
+        "product": "FIAGRO",
+        "ranking_code": "2.5"
+      }
+    ],
     "windows": {
       "acumulado_ano": {
         "end": "2026-09-30",
@@ -42170,7 +42468,7 @@
       "previous_period_label": "jan–set/25"
     },
     "documents": [],
-    "generated_at_utc": "2026-11-13T20:21:27.805907+00:00",
+    "generated_at_utc": "2026-11-13T23:20:28.056824+00:00",
     "notes": [
       "Valores das planilhas ANBIMA vêm em R$ mil e são convertidos para BRL.",
       "Ranking e comparação CVM usam a janela própria jan–set/26; última competência consolidada do estudo CVM: 2026-09.",
@@ -42182,7 +42480,8 @@
       "official": "data/industry_study/anbima_rf_ranking_official.csv",
       "reconciliation": "data/industry_study/anbima_rf_ranking_reconciliation.csv",
       "share": "data/industry_study/anbima_rf_ranking_participant_share.csv",
-      "syndication": "data/industry_study/anbima_rf_ranking_syndication.csv"
+      "syndication": "data/industry_study/anbima_rf_ranking_syndication.csv",
+      "totals": "data/industry_study/anbima_rf_ranking_totals.csv"
     },
     "period": {
       "end": "2026-09-30",
@@ -42202,7 +42501,8 @@
       "annex": 3209,
       "official": 2343,
       "reconciliation": 13,
-      "share": 298
+      "share": 298,
+      "totals": 132
     },
     "schema_version": "anbima-rf-ranking-manifest/v1",
     "source_as_of_date": "2026-11-13",
@@ -403582,7 +403882,7 @@
       "page": "",
       "source_id": "1225635 | 66929956000180 | 1212165 | 1227463",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "1ª Série Sênior: DI + 0,80% a.a."
@@ -403598,7 +403898,7 @@
       "page": "",
       "source_id": "1225635 | 66929956000180 | 1212165 | 1227463",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "1ª Série Mezanino A: DI + 2,00% a.a."
@@ -403614,7 +403914,7 @@
       "page": "",
       "source_id": "1225635 | 66929956000180 | 1212165 | 1227463",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "1ª Série Mezanino B: DI + 4,00% a.a."
@@ -403630,7 +403930,7 @@
       "page": "",
       "source_id": "1225635 | 66929956000180 | 1212165 | 1227463",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "1ª Emissão Júnior: DI + 6,00% a.a.; benchmark condicionado à equalização e ao resultado residual; pode ficar abaixo/negativo"
@@ -403646,7 +403946,7 @@
       "page": "",
       "source_id": "966587 | 57532556000146 | 774872 | 796053 | 801080 | 1069230 | 786914",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Sênior - 1ª série: DI + 1,00% a.a."
@@ -403662,7 +403962,7 @@
       "page": "",
       "source_id": "966587 | 57532556000146 | 774872 | 796053 | 801080 | 1069230",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Mezanino A - 1ª série: DI + 2,00% a.a."
@@ -403678,7 +403978,7 @@
       "page": "",
       "source_id": "966587 | 57532556000146 | 774872 | 796053 | 801080 | 1069230",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Mezanino B - 1ª série: DI + 4,00% a.a."
@@ -403694,7 +403994,7 @@
       "page": "",
       "source_id": "928236 | 60598366000136 | 928235 | 923892 | 1069231",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Classe A - Sênior 1ª Série: DI + 1,00% a.a."
@@ -403710,7 +404010,7 @@
       "page": "",
       "source_id": "928236 | 60598366000136 | 928235 | 923892 | 1069231",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Classe A - Mezanino A 1ª Série: DI + 2,00% a.a."
@@ -403726,7 +404026,7 @@
       "page": "",
       "source_id": "928236 | 60598366000136 | 928235 | 923892 | 1069231",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_fidc_auto_bv_4529e4d6/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Classe A - Mezanino B 1ª Série: DI + 4,00% a.a."
@@ -403742,7 +404042,7 @@
       "page": "",
       "source_id": "749010",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "2ª série sênior: CDI + 3,50% a.a."
@@ -403758,7 +404058,7 @@
       "page": "",
       "source_id": "914383",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "3ª série sênior: DI + 3,00% a.a."
@@ -403774,7 +404074,7 @@
       "page": "",
       "source_id": "1128337",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "4ª série sênior: DI + 2,50% a.a."
@@ -403790,7 +404090,7 @@
       "page": "",
       "source_id": "939685",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Cota sênior única consolidada: DI + 2,50% a.a."
@@ -403806,7 +404106,7 @@
       "page": "",
       "source_id": "939685",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "1ª emissão mezanino: DI + 5,25% a.a."
@@ -403822,7 +404122,7 @@
       "page": "",
       "source_id": "1077334",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "2ª emissão sênior: DI + 2,35% a.a."
@@ -403838,7 +404138,7 @@
       "page": "",
       "source_id": "1077334",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "1ª emissão mezanino: DI + 5,25% a.a."
@@ -403854,7 +404154,7 @@
       "page": "",
       "source_id": "1077334",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/carteira_soma_2637f567/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "1ª emissão sênior: DI + 1,90% a.a."
@@ -403870,7 +404170,7 @@
       "page": "",
       "source_id": "1089840 | 1089845 | 1101975 | 1104314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Sênior 1ª série: DI + 0,65% a.a."
@@ -403886,7 +404186,7 @@
       "page": "",
       "source_id": "468755 | 471622 | 467929",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Sênior 1ª série: DI + 1,60% a.a."
@@ -403902,7 +404202,7 @@
       "page": "",
       "source_id": "468755 | 471622 | 467929",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Sênior 2ª série: DI + 1,80% a.a."
@@ -403918,7 +404218,7 @@
       "page": "",
       "source_id": "909546 | 912093 | 912172 | 932137",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Sênior 5ª série: DI + 0,85% a.a."
@@ -403934,7 +404234,7 @@
       "page": "",
       "source_id": "705139 | 705145 | 706203 | 714216",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/deep_dives/sellers_vs_mercado_credito/tables/emissions.csv",
       "source_url": "",
       "status": "encontrado_explicito",
       "value": "Sênior 1ª série: DI + 0,85% a.a."
@@ -403959,7 +404259,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1009261",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1009261",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,00% a.a."
@@ -403982,7 +404282,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1118498",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1118498",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 3,60% a.a."
@@ -404005,7 +404305,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1262454",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1262454",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 2,50% a.a."
@@ -404028,7 +404328,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1272420",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1272420",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 3,60% a.a."
@@ -404051,7 +404351,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 3ª Série: 100% do CDI"
@@ -404074,7 +404374,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 5ª Série: 100% do CDI"
@@ -404097,7 +404397,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 6ª Série: 100% do CDI"
@@ -404120,7 +404420,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 7ª Série: 101% do CDI"
@@ -404143,7 +404443,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 8ª Série: 100% do CDI"
@@ -404166,7 +404466,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 10ª Série: 103% do CDI"
@@ -404189,7 +404489,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 11ª Série: 103% do CDI"
@@ -404212,7 +404512,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 3ª Série: 100% do CDI"
@@ -404235,7 +404535,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 5ª Série: 100% do CDI"
@@ -404258,7 +404558,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 6ª Série: 100% do CDI"
@@ -404281,7 +404581,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 7ª Série: 101% do CDI"
@@ -404304,7 +404604,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 8ª Série: 100% do CDI"
@@ -404327,7 +404627,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 10ª Série: 103% do CDI"
@@ -404350,7 +404650,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1016861",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1016861",
       "status": "encontrado_explicito",
       "value": "Sênior · 11ª Série: 103% do CDI"
@@ -404373,7 +404673,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1009261",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1009261",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,00% a.a."
@@ -404396,7 +404696,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "998356",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=998356",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 3,90% a.a."
@@ -404419,7 +404719,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1009261",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1009261",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,00% a.a."
@@ -404442,7 +404742,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "998356",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=998356",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 3,90% a.a."
@@ -404465,7 +404765,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1170228",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1170228",
       "status": "encontrado_explicito",
       "value": "Sênior · 7ª emissão: CDI + 2,50% a.a."
@@ -404488,7 +404788,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1170228",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1170228",
       "status": "encontrado_explicito",
       "value": "Sênior · 6ª emissão: CDI + 2,65% a.a."
@@ -404511,7 +404811,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1170228",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1170228",
       "status": "encontrado_explicito",
       "value": "Sênior · 5ª emissão: CDI + 2,75% a.a."
@@ -404534,7 +404834,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1170228",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1170228",
       "status": "encontrado_explicito",
       "value": "Sênior · 3ª emissão: CDI + 2,75% a.a."
@@ -404557,7 +404857,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 8ª Série: CDI + 4,5% a.a."
@@ -404580,7 +404880,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 9ª Série: CDI + 5,0% a.a."
@@ -404603,7 +404903,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 10ª Série: CDI + 5,0% a.a."
@@ -404626,7 +404926,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 11ª Série: CDI + 5,0% a.a."
@@ -404649,7 +404949,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 12ª Série: CDI + 4,5% a.a."
@@ -404672,7 +404972,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 13ª Série: CDI + 5,0% a.a."
@@ -404695,7 +404995,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 14ª Série: CDI + 4,0% a.a."
@@ -404718,7 +405018,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 15ª Série: CDI + 5,0% a.a."
@@ -404741,7 +405041,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 16ª Série: CDI + 4,0% a.a."
@@ -404764,7 +405064,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 17ª Série: CDI + 5,0% a.a."
@@ -404787,7 +405087,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 19ª Série: CDI + 4,0% a.a."
@@ -404810,7 +405110,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 20ª Série: CDI + 5,0% a.a."
@@ -404833,7 +405133,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 21ª Série: CDI + 5,25% a.a."
@@ -404856,7 +405156,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Sênior · 22ª Série: CDI + 5,0% a.a."
@@ -404879,7 +405179,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Mezanino I: CDI + 6,0% a.a."
@@ -404902,7 +405202,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Mezanino J: CDI + 7,0% a.a."
@@ -404925,7 +405225,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Mezanino K: CDI + 5,0% a.a."
@@ -404948,7 +405248,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Mezanino L: CDI + 5,0% a.a."
@@ -404971,7 +405271,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1211314",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211314",
       "status": "encontrado_explicito",
       "value": "Mezanino N: CDI + 6,5% a.a."
@@ -404994,7 +405294,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1088162",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1088162",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,10% a.a."
@@ -405017,7 +405317,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1088162",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1088162",
       "status": "encontrado_explicito",
       "value": "Mezanino A: CDI + 4,10% a.a."
@@ -405040,7 +405340,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1088162",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1088162",
       "status": "encontrado_explicito",
       "value": "Mezanino C: CDI + 4,10% a.a."
@@ -405063,7 +405363,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1088162",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1088162",
       "status": "encontrado_explicito",
       "value": "Mezanino D: CDI + 4,10% a.a."
@@ -405086,7 +405386,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1088162",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1088162",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,10% a.a."
@@ -405109,7 +405409,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1088162",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1088162",
       "status": "encontrado_explicito",
       "value": "Mezanino A: CDI + 4,10% a.a."
@@ -405132,7 +405432,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1088162",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1088162",
       "status": "encontrado_explicito",
       "value": "Mezanino C: CDI + 4,10% a.a."
@@ -405155,7 +405455,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1088162",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1088162",
       "status": "encontrado_explicito",
       "value": "Mezanino D: CDI + 4,10% a.a."
@@ -405178,7 +405478,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1211296",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211296",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 4,50% a.a."
@@ -405201,7 +405501,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1211296",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1211296",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 6,75% a.a."
@@ -405224,7 +405524,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1140778",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1140778",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 4,50% a.a."
@@ -405247,7 +405547,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1140778",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1140778",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 6,75% a.a."
@@ -405270,7 +405570,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "950120",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=950120",
       "status": "encontrado_explicito",
       "value": "Mezanino B · 1ª Série: CDI + 2,10% a.a."
@@ -405293,7 +405593,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "950120",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=950120",
       "status": "encontrado_explicito",
       "value": "Mezanino B · 1ª Série: CDI + 2,10% a.a."
@@ -405316,7 +405616,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "365167",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=365167",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 1,85% a.a."
@@ -405339,7 +405639,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "365167",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=365167",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 1,85% a.a."
@@ -405362,7 +405662,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1038240",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1038240",
       "status": "encontrado_explicito",
       "value": "Sênior: 85% do CDI"
@@ -405385,7 +405685,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1191541",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1191541",
       "status": "encontrado_explicito",
       "value": "Sênior: 85% do CDI"
@@ -405408,7 +405708,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "731806",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=731806",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,00% a.a."
@@ -405431,7 +405731,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "731806",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=731806",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 4,50% a.a."
@@ -405454,7 +405754,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "731806",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=731806",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,00% a.a."
@@ -405477,7 +405777,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "731806",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=731806",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 4,50% a.a."
@@ -405500,7 +405800,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série A: CDI + 1,00% a.a."
@@ -405523,7 +405823,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série B: CDI + 1,15% a.a."
@@ -405546,7 +405846,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série C: CDI + 1,00% a.a."
@@ -405569,7 +405869,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série D: 95% do CDI"
@@ -405592,7 +405892,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série E: 95% do CDI"
@@ -405615,7 +405915,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 1,50% a.a."
@@ -405638,7 +405938,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série A: CDI + 1,00% a.a."
@@ -405661,7 +405961,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série B: CDI + 1,15% a.a."
@@ -405684,7 +405984,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série C: CDI + 1,00% a.a."
@@ -405707,7 +406007,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série D: 95% do CDI"
@@ -405730,7 +406030,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Sênior · Série E: 95% do CDI"
@@ -405753,7 +406053,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "974471",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=974471",
       "status": "encontrado_explicito",
       "value": "Mezanino: CDI + 1,50% a.a."
@@ -405776,7 +406076,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1038251",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1038251",
       "status": "encontrado_explicito",
       "value": "Sênior: 40% do CDI"
@@ -405799,7 +406099,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1192922",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1192922",
       "status": "encontrado_explicito",
       "value": "Sênior: 40% do CDI"
@@ -405822,7 +406122,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "561369",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=561369",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 1: CDI + 1,30% a.a."
@@ -405845,7 +406145,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "561369",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=561369",
       "status": "encontrado_explicito",
       "value": "Mezanino 1 · Série 1: CDI + 3,00% a.a."
@@ -405868,7 +406168,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "561369",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=561369",
       "status": "encontrado_explicito",
       "value": "Mezanino 2 · Série 2: CDI + 6,00% a.a."
@@ -405891,7 +406191,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "561369",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=561369",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 1: CDI + 1,30% a.a."
@@ -405914,7 +406214,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "561369",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=561369",
       "status": "encontrado_explicito",
       "value": "Mezanino 1 · Série 1: CDI + 3,00% a.a."
@@ -405937,7 +406237,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "561369",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=561369",
       "status": "encontrado_explicito",
       "value": "Mezanino 2 · Série 2: CDI + 6,00% a.a."
@@ -405960,7 +406260,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1012738",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1012738",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,00% a.a."
@@ -405983,7 +406283,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1012738",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1012738",
       "status": "encontrado_explicito",
       "value": "Sênior: CDI + 3,00% a.a."
@@ -406006,7 +406306,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "993693",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=993693",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 1: CDI + 0,85% a.a."
@@ -406029,7 +406329,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "993693",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=993693",
       "status": "encontrado_explicito",
       "value": "Mezanino 1 · Série 1: CDI + 3,85% a.a."
@@ -406052,7 +406352,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "993693",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=993693",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 1: CDI + 0,85% a.a."
@@ -406075,7 +406375,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "993693",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=993693",
       "status": "encontrado_explicito",
       "value": "Mezanino 1 · Série 1: CDI + 3,85% a.a."
@@ -406098,7 +406398,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1039194",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1039194",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 1: CDI + 0,95% a.a."
@@ -406121,7 +406421,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1039194",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1039194",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 2: CDI + 0,95% a.a."
@@ -406144,7 +406444,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1039194",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1039194",
       "status": "encontrado_explicito",
       "value": "Mezanino 1 · Série 1: CDI + 1,70% a.a."
@@ -406167,7 +406467,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "1039194",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1039194",
       "status": "encontrado_explicito",
       "value": "Mezanino 2 · Série 1: CDI + 4,99% a.a."
@@ -406190,7 +406490,7 @@
       "selection_cutoff": "2025-12-31",
       "source_id": "988402",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=988402",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 1: DI + 0,75% a.a."
@@ -406213,7 +406513,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1204286",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1204286",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 1: CDI + 0,95% a.a."
@@ -406236,7 +406536,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1204286",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1204286",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 2: CDI + 0,95% a.a."
@@ -406259,7 +406559,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1204286",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1204286",
       "status": "encontrado_explicito",
       "value": "Mezanino 1 · Série 1: CDI + 1,70% a.a."
@@ -406282,7 +406582,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1204286",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1204286",
       "status": "encontrado_explicito",
       "value": "Mezanino 2 · Série 1: CDI + 4,99% a.a."
@@ -406305,7 +406605,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1147951",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1147951",
       "status": "encontrado_explicito",
       "value": "Sênior · Série 1: CDI + 0,75% a.a."
@@ -406328,7 +406628,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1147951",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1147951",
       "status": "encontrado_explicito",
       "value": "Mezanino 1 · Série 1: CDI + 1,35% a.a."
@@ -406351,7 +406651,7 @@
       "selection_cutoff": "2026-06-30",
       "source_id": "1147951",
       "source_kind": "curadoria_humana_documental",
-      "source_path": "/Users/matheusjprates/.codex/worktrees/industry-anbima-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
+      "source_path": "/Users/matheusjprates/.codex/worktrees/anbima-synthesis-20261113/fidc/data/industry_study/emission_target_remuneration_accepted.csv",
       "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1147951",
       "status": "encontrado_explicito",
       "value": "Mezanino 2 · Série 1: CDI + 4,20% a.a."
@@ -415912,7 +416212,7 @@
       "subordinacao_minima_junior_display": "10,0% base; aumentos condicionais / 10,0%"
     }
   ],
-  "generated_at": "2026-11-13T20:58:55+00:00",
+  "generated_at": "2026-11-13T23:23:56+00:00",
   "holder_distribution": [
     {
       "bucket": "0",

@@ -10,8 +10,33 @@ Emissões por Setor em R$ bi e percentual do total e as 15 maiores emissões de
 FIDC no anexo. O acumulado do ano e os últimos 12 meses aparecem separadamente,
 com visão por produto e as 15 maiores operações de renda fixa e híbridos.
 O deck também apresenta as 15 maiores ofertas da base CVM/SRE. Os três rankings
-têm universos e unidades próprios. O PPTX tem 27 slides; oito abas ANBIMA no
+têm universos e unidades próprios. O PPTX tem 28 slides; dez abas ANBIMA no
 XLSX mantêm os dados detalhados e a linhagem.
+
+A síntese por produto e competidor foi recuperada na página 13, abrindo o
+bloco ANBIMA depois do Top 15 CVM. Ela reúne o total de operações e de mercado
+por produto, posição e participação do IBBA no ano e nos últimos 12 meses e
+nove coordenadores de FIDC, com as duas casas empatadas em oitavo. A versão
+anterior havia distribuído essas leituras nas páginas de produtos e rankings,
+sem restaurar a composição das duas tabelas nem as contagens oficiais.
+
+O ranking oficial registra 93 operações de FIDC em janeiro–setembro: IBBA
+participa de 36 e Bradesco de 18. Esses números vêm da linha Total e do ranking
+de número de operações, respectivamente. Não representam os 155 registros
+CVM nem as 99 operações reconstruídas por emissor/data do anexo. Contagens por
+coordenador não são aditivas, pois uma operação pode dar crédito a várias
+casas. A nova materialização `anbima_rf_ranking_totals.csv` preserva todos os
+totais publicados por medida, recorte e janela. Os volumes e posições são
+mantidos conforme publicados, inclusive CEF em sexto e ABC em sétimo, embora
+a retificação de valores deixe ABC com volume superior. O título antigo
+“produto que mais cresce” exige comparação anual equivalente e não foi
+repetido nessa síntese.
+
+“Híbridos” é o Tipo 2 da metodologia ANBIMA de fevereiro de 2026: títulos
+conversíveis/permutáveis, FII, CEPAC, FIP-IE e FIAGRO. FIDC, CRI, CRA e CR
+integram o Tipo 1 (renda fixa), dentro de securitização. A definição aparece
+no site, na página de produtos do deck e nas notas da síntese. A referência
+metodológica permanece na linhagem da publicação.
 
 | FIDC · janeiro a setembro de 2026 | Valor |
 |---|---:|
@@ -99,13 +124,25 @@ com os [15 registros ANBIMA](../reports/industry_anbima_review_20261113/top15_an
 [posições do IBBA](../reports/industry_anbima_review_20261113/ibba_posicoes.csv).
 Também estão disponíveis o [Top 15 de renda fixa e híbridos](../reports/industry_anbima_review_20261113/top15_anbima_mercado.csv)
 e as [posições nas duas janelas](../reports/industry_anbima_review_20261113/ibba_posicoes_todas_janelas.csv).
+As tabelas recuperadas estão na [síntese de oito produtos](../reports/industry_anbima_review_20261113/sintese_produtos.csv)
+e na [base completa dos 17 competidores em FIDC](../reports/industry_anbima_review_20261113/concorrentes_fidc.csv).
 
-O bundle local validado é `202609_375c648107f0457b`: 27 slides, 45 gráficos
+A publicação anterior, `202609_375c648107f0457b`, tinha 27 slides, 45 gráficos
 nativos, 11 tabelas nativas e 89 abas no workbook principal. O PPTX e o XLSX
 abriram nos aplicativos Microsoft sem reparação. Os 27 slides foram renderizados
 no PowerPoint e revisados; os valores e a fórmula do denominador foram
 conferidos no Excel. O publicador validou os cinco arquivos antes da substituição
 atômica e os hashes constam no manifesto versionado do pacote.
+
+A restauração da síntese gera o bundle `202609_36085e205017776b`, com 28
+slides, os mesmos 45 gráficos e 13 tabelas nativas, além de 91 abas no Excel.
+Uma comparação do OOXML confirmou os 45 gráficos e as 11 tabelas anteriores
+idênticos; a explicação de híbridos foi acrescentada na página de produtos.
+A nova página 13 foi conferida no PowerPoint, e o Excel abriu as 91 abas sem
+reparo. As duas visões novas foram renderizadas e os números foram confrontados
+com o ranking oficial. A suíte da indústria, ANBIMA, publicação e carteiras
+passou com 1.059 testes e um ignorado; o fluxo normal do site validou os cinco
+downloads canônicos e o novo pacote sem erros.
 
 Fontes primárias: [ranking ANBIMA de setembro retificado em 13/11](https://data-strapi.prd.anbima.com.br/uploads/Ranking_de_Renda_Fixa_e_Hibridos_Setembro_2026_13_19f8b319dc.xlsx),
 [anexo de encerramento](https://data-strapi.prd.anbima.com.br/uploads/Anexo_ao_Ranking_Encerramento_de_Renda_Fixa_e_Hibridos_Setembro_2026_11_cd13d4656f.xlsx)

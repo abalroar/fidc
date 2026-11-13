@@ -48,6 +48,7 @@ from services.anbima_fixed_income_ranking import (  # noqa: E402
     PUBLICATION_API,
     PUBLICATION_PAGE,
     parse_annex_workbook,
+    parse_ranking_totals,
     parse_ranking_workbook,
     summarize_participants,
     syndication_profile,
@@ -506,6 +507,7 @@ def main() -> None:
     ranking_url = args.ranking_source_url or (publication["ranking"]["url"] if publication else "")
     annex_url = args.annex_source_url or (publication["annex"]["url"] if publication else "")
     official = parse_ranking_workbook(ranking_path)
+    totals = parse_ranking_totals(ranking_path)
     annex = parse_annex_workbook(annex_path)
 
     shares = build_share_table(annex)
@@ -542,6 +544,7 @@ def main() -> None:
 
     paths = {
         "official": output_dir / "anbima_rf_ranking_official.csv",
+        "totals": output_dir / "anbima_rf_ranking_totals.csv",
         "annex": output_dir / "anbima_rf_ranking_annex.csv.gz",
         "share": output_dir / "anbima_rf_ranking_participant_share.csv",
         "reconciliation": output_dir / "anbima_rf_ranking_reconciliation.csv",
@@ -549,6 +552,7 @@ def main() -> None:
         "manifest": output_dir / "anbima_rf_ranking_manifest.json",
     }
     official.to_csv(paths["official"], index=False)
+    totals.to_csv(paths["totals"], index=False)
     annex.to_csv(paths["annex"], index=False, compression="gzip")
     shares.to_csv(paths["share"], index=False)
     reconciliation.to_csv(paths["reconciliation"], index=False)
@@ -589,6 +593,7 @@ def main() -> None:
         },
         "row_counts": {
             "official": int(len(official)),
+            "totals": int(len(totals)),
             "annex": int(len(annex)),
             "share": int(len(shares)),
             "reconciliation": int(len(reconciliation)),

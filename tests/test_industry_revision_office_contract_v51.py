@@ -713,7 +713,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
 def test_export_and_renderer_declare_dynamic_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(encoding="utf-8")
     renderer_source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(encoding="utf-8")
-    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_SEQUENCE) == len(EXPECTED_SLIDE_IDS) == 27
+    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_SEQUENCE) == len(EXPECTED_SLIDE_IDS) == 28
     assert not TYPE_RANKING_SLIDE_SEQUENCE
     assert not STRUCTURAL_MVP_SLIDE_SEQUENCE
     assert not CURRENT_TOP15_SLIDE_SEQUENCE

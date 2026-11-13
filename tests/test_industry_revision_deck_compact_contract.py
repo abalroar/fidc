@@ -326,12 +326,12 @@ def test_compact_deck_keeps_editable_evidence_and_omits_sector_detail_table() ->
     assert ISSUANCE_TAXONOMY_TABLE_DIMENSIONS == ()
 
 
-def test_renderer_contract_matches_27_topics_and_uses_payload_periods() -> None:
+def test_renderer_contract_matches_28_topics_and_uses_payload_periods() -> None:
     import re
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(encoding="utf-8")
     declaration = source.split("const SLIDE_CONTRACT_V1 = Object.freeze([", 1)[1].split("]);", 1)[0]
     assert tuple(re.findall(r'"([^"\n]+)"', declaration)) == EXPECTED_SLIDE_IDS
-    assert len(EXPECTED_SLIDE_IDS) == 27
+    assert len(EXPECTED_SLIDE_IDS) == 28
     assert "fallbackExecutiveConclusions" not in source
     assert 'rows.length !== 5' in source
 
@@ -677,7 +677,7 @@ def test_compact_validator_rejects_missing_slide() -> None:
         ids.remove(list(ids)[-1])
         return ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
-    with pytest.raises(RevisionExportUnavailable, match="órfão|sequência|27 slides"):
+    with pytest.raises(RevisionExportUnavailable, match="órfão|sequência|28 slides"):
         validate_revision_pptx(_rewrite_pptx_part("ppt/presentation.xml", remove_last_slide))
 
 
