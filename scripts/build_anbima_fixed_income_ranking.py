@@ -291,7 +291,10 @@ def build_annex_vs_official(
 ) -> pd.DataFrame:
     """Measure differences between the annex and the published ranking."""
 
-    published = official[official["window"].eq("acumulado_ano")]
+    published = official[official["window"].eq("acumulado_ano")].copy()
+    # Asterisks mark publication footnotes, not different institutions. Keep
+    # the original labels in the official CSV and normalize only this join.
+    published["participant"] = published["participant"].str.replace(r"\*+$", "", regex=True).str.strip()
     measures = (
         ("originacao", "originacao_valor"),
         ("distribuicao", "distribuicao_valor"),

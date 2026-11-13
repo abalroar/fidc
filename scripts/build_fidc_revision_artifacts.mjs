@@ -141,7 +141,10 @@ const STRUCTURAL_ROWS_PER_SLIDE = Object.freeze({
 const SLIDE_CONTRACT_V1 = Object.freeze([
   "cover", "industry_scale", "annual_issuance", "issuance_taxonomy_summary",
   "analytical_taxonomy", "acquiring", "receivables", "offers_volume_ticket",
-  "offers_ticket_distribution", "offers_placement_regime", "conclusions",
+  "offers_ticket_distribution", "offers_placement_regime",
+  "top15_cvm_1", "top15_cvm_2", "anbima_market", "anbima_products", "anbima_ranking",
+  "anbima_fidc_ranking", "anbima_ibba", "anbima_sectors", "top15_anbima_1", "top15_anbima_2",
+  "top15_anbima_market_1", "top15_anbima_market_2", "conclusions",
   "provider_history", "provider_ranking", "investor_base", "holder_distribution",
 ]);
 const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;
@@ -310,6 +313,7 @@ const PROVIDER_COLORS = {
   "oliveira trust": "#7A1F3D",
   "banco do brasil": "#D6A800",
   itau: "#FF5500",
+  kanastra: "#7030A0",
   cbfs: "#73C6A1",
   cbsf: "#73C6A1",
   reag: "#73C6A1",
@@ -1858,10 +1862,10 @@ function providerHistoricalRows(payload, role, limit = 6) {
   const latestAll = all
     .filter((row) => row.competencia === payload.latest_complete && row.participante !== "Não informado")
     .sort((a, b) => num(a.rank_periodo) - num(b.rank_periodo));
-  const selected = latestAll.slice(0, limit);
-  const itau = latestAll.find((row) => normalizeProviderName(row.participante) === "itau");
-  if (itau && !selected.some((row) => row.participante === itau.participante)) {
-    selected.splice(Math.max(0, limit - 1), 1, itau);
+  const selected = latestAll.slice(0, Math.min(limit, 5));
+  for (const name of ["itau", "kanastra"]) {
+    const comparator = latestAll.find((row) => normalizeProviderName(row.participante) === name);
+    if (comparator && !selected.some((row) => row.participante === comparator.participante)) selected.push(comparator);
   }
   const latest = selected.sort((a, b) => num(a.rank_periodo) - num(b.rank_periodo));
   const lookup = new Map(
@@ -2145,7 +2149,7 @@ function addIndependentProviderRankingSlide(presentation, payload, page) {
     slide,
     "PRESTADORES INDEPENDENTES · EVOLUÇÃO",
     `QI lidera administração e custódia entre independentes, com ${bn(currentAdmin?.current?.pl_brl, 1)} e ${bn(currentCustody?.current?.pl_brl, 1)}`,
-    "Fonte: CVM, PL ex-FIC. Sistema Petrobras e TAPSO excluídos. Posição = ranking entre independentes / ranking geral; Singulare consolidada em QI Tech; Kanastra alocada ao Itaú pela regra de afiliação explicitada no workbook.",
+    "Fonte: CVM, PL ex-FIC. Sistema Petrobras e TAPSO excluídos. Posição = ranking entre independentes / ranking geral; Singulare consolidada em QI Tech; Kanastra/Limine e Itaú apresentados separadamente, com linhagem no workbook.",
     page,
   );
   const bands = [
@@ -2241,6 +2245,7 @@ function addCombinedProviderRankingSlide(presentation, payload, page) {
       { label: "BTG Pactual", color: providerColor("BTG Pactual") },
       { label: "Oliveira Trust", color: providerColor("Oliveira Trust") },
       { label: "Itaú", color: providerColor("Itaú") },
+      { label: "Kanastra", color: providerColor("Kanastra") },
       { label: "Genial", color: providerColor("Genial") },
       { label: "CBSF / REAG", color: providerColor("CBSF") },
       { label: "Demais", color: C.mid },
@@ -6260,7 +6265,7 @@ function buildPresentation(payload, payloadRaw) {
     );
     addText(
       slide,
-      "Conglomerado econômico normalizado: Kanastra permanece separada do Itaú e CBSF da REAG. A afiliação Kanastra→Itaú é exclusiva do ranking de independentes.",
+      "Conglomerado econômico normalizado: Kanastra permanece separada do Itaú e CBSF da REAG. A participação minoritária do Itaú na Kanastra permanece documentada, com prestadores separados.",
       { left: 60, top: 622, width: 1160, height: 25 },
       { fontSize: 9.1, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
@@ -6811,7 +6816,10 @@ function buildPresentation(payload, payloadRaw) {
     ]);
   }
 
-  // Ofertas nominadas e rankings históricos permanecem no XLSX.
+  addCurrentOfferPages(presentation, payload);
+  addAnbimaAnalysisSlides(presentation, payload);
+
+  // Rankings históricos detalhados permanecem no XLSX.
   if (SLIDE_CONTRACT_V1.includes("offer_rankings")) {
     addCurrentTop15Slide(presentation, payload, cut.current_period_id, 0);
     addCurrentTop15Slide(presentation, payload, `${cut.current_year - 1} FY`, 0);
@@ -6849,6 +6857,175 @@ function buildPresentation(payload, payloadRaw) {
     slide.speakerNotes.text = `${slide.speakerNotes.text || ""}\n[Industry contract] ${JSON.stringify(contract)}`;
   });
   return presentation;
+}
+
+function addCurrentOfferPages(presentation, payload) {
+  const cut = comparativePeriod(payload);
+  const rows = (payload.closed_offer_top15 || []).filter((row) => row.period_label === cut.current_period_id).sort((a, b) => num(a.rank) - num(b.rank));
+  if (rows.length !== 15) throw new Error("Top 15 CVM corrente incompleto");
+  const summary = (payload.closed_offer_top15_summary || []).find((row) => row.period_label === cut.current_period_id) || {};
+  for (let page = 1; page <= 2; page++) {
+    const slide = presentation.slides.add();
+    addHeader(slide, "TOP 15 FIDC · CVM", `Top 15 ofertas de FIDC · ${cut.period_label} · ${page}/2`,
+      `Fonte: CVM/SRE, volume registrado de ofertas públicas primárias encerradas; fotografia ${dateShortPt(payload.offers_source_as_of)}.`, 0);
+    const chunk = rows.slice((page - 1) * 8, page * 8);
+    addNativeEditorialTable(slide, {
+      left: 60, top: 148, width: 1160, height: 430,
+      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA", "Agência / Rating"],
+      rows: chunk.map((row) => [integer(row.rank), fundEditorialName(row.fund_name_short, 48), row.originator_group || "N/D",
+        (num(row.registered_volume_brl)/1e9).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}),
+        row.leader_name || "N/D", row.ibba_participant === true ? "Sim" : "Não",
+        `${row.rating_agency || "N/D"}\n${row.rating_assigned || "N/D"}`]),
+      columnWidths: [32, 290, 185, 90, 180, 65, 318],
+      aligns: ["right", "left", "left", "right", "left", "center", "left"],
+      fontSize: 12, headerFontSize: 11, headerHeight: 34,
+      rowHighlights: new Set(chunk.map((row, index) => row.ibba_participant === true ? index : -1).filter((index) => index >= 0)),
+    });
+    addText(slide, `Subtotal das 15: ${bn(summary.top15_registered_volume_brl, 2)} · ${pct(summary.top15_share_of_period_volume, 1)} do volume CVM no período. IBBA participou de ${integer(summary.ibba_participation_offers_top15)} e liderou ${integer(summary.ibba_lead_offers_top15)}.`,
+      {left:60,top:600,width:1160,height:40},{fontSize:12,color:C.note});
+    addSourceNotes(slide, ["CVM/SRE: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "Rating e originador seguem a evidência documental datada da base; ausência de vínculo verificável permanece N/D. Campos, CNPJ e documentos completos no XLSX.",
+      "O universo CVM/SRE difere do anexo do ranking ANBIMA. Os rankings são apresentados separadamente."]);
+  }
+}
+
+function addAnbimaAnalysisSlides(presentation, payload) {
+  const data = payload.anbima_analysis;
+  if (!data || data.fidc_top15?.length !== 15) throw new Error("Análise ANBIMA corrente ausente ou incompleta");
+  const period = data.comparison_meta.period_label;
+  const source = `Fonte: ANBIMA, Ranking de Renda Fixa e Híbridos e anexo de encerramento, ${period}; consulta ${dateShortPt(data.source_as_of_date)}.`;
+  const notes = [data.sources?.ranking_workbook?.url, data.sources?.annex_workbook?.url, ...data.notes].filter(Boolean);
+  const colors = { "Financeiro": C.black, "Agro, Indústria e Comércio": C.orange, "Fomento Mercantil": "#8D9399", "Outros": "#BEC2C5", "FIC-FIDC": "#73787D", "N/D": "#D7DADD" };
+  const shareText = (value) => value === null || value === undefined ? "N/D" : pct(value, 1);
+  const volumeText = (value) => value === null || value === undefined ? "N/D" : bn(value, 2).replace("R$ ", "");
+  const header = (kicker, title) => {
+    const slide = presentation.slides.add(); addHeader(slide, kicker, title, source, 0); addSourceNotes(slide, notes); return slide;
+  };
+  const bars = (slide, rows, {left,top,width,height,title,label,value,format="0.0",percent=false,categoryColors=false,fontSize=11}) => {
+    addSectionLabel(slide,title,{left,top:top-30,width,height:24});
+    const reversed = [...rows].reverse();
+    slide.charts.add("bar", {
+      ...chartBase({left,top,width,height}), categories: reversed.map((row) => String(row[label])),
+      series:[{name:title,values:reversed.map((row)=>Number(row[value])),valuesFormatCode:format,fill:C.charcoal,
+        points:reversed.map((row,idx)=>({idx,fill:categoryColors ? (colors[row[label]] || C.mid) : row[label]==="ITAU BBA" ? C.orange : C.mid}))}],
+      barOptions:{direction:"bar",grouping:"clustered",gapWidth:38},hasLegend:false,
+      xAxis:{visible:true,textStyle:{fill:C.mid,fontSize},line:{style:"solid",fill:C.line,width:1},majorGridlines:null},
+      yAxis:{...chartAxis(fontSize,percent?"0%":"0.0"),min:0,...(percent?{max:1}:{})},
+      dataLabels:{showValue:true,position:"outEnd",textStyle:{fill:C.black,fontSize:10}},
+    });
+  };
+  {
+    const slide=header("ANBIMA · PRODUTOS",`Produtos no anexo de originação · ${period}`);
+    const productLabel = (row) => ({"1.3.1":"FIDC", "2.2":"FII"}[row.classe] || row.classe_label.replace("simples — longo prazo", "— LP").replace("simples — curto prazo", "— CP").replace("longo prazo", "LP").replace("curto prazo", "CP"));
+    const products=data.products.map((row)=>({...row,chart_label:productLabel(row),bi:row.volume_brl/1e9}));
+    bars(slide,products,{left:60,top:175,width:555,height:405,title:"Originação · R$ bi",label:"chart_label",value:"bi"});
+    bars(slide,products,{left:665,top:175,width:555,height:405,title:"Participação no total · %",label:"chart_label",value:"share",format:"0.0%",percent:true});
+    addText(slide, "Tipos 1 e 2 do anexo; empresas ligadas ficam em recorte próprio. O valor creditado na originação segue as regras do ranking e o universo de operações reportadas à ANBIMA.",
+      {left:60,top:608,width:1160,height:48},{fontSize:12,color:C.note});
+  }
+  const productNames = {"1.1":"Renda fixa · curto prazo", "1.2":"Renda fixa · longo prazo", "1.3.2":"CRI", "1.3.3":"CRA", "1.3.4":"CR", "2.1":"Títulos conversíveis/permutáveis", "2.2":"FII", "2.3":"CEPAC", "2.4":"FIP-IE", "2.5":"FIAGRO"};
+  {
+    const slide=header("ANBIMA · IBBA POR PRODUTO",`Mercado e posição do IBBA por produto · ${period}`);
+    const cell = (row) => row.rank ? `#${row.rank} · ${volumeText(row.volume_brl)} · ${shareText(row.share)}` : "N/D";
+    const lookup = (code,role) => data.ibba_positions_all.find((row)=>row.window==="acumulado_ano" && row.ranking_code===code && row.role===role)||{};
+    addNativeEditorialTable(slide,{left:60,top:148,width:1160,height:430,
+      headers:["Produto / recorte","Mercado orig. · R$ bi","IBBA orig. · # / R$ bi / %","Mercado distr. · R$ bi","IBBA distr. · # / R$ bi / %"],
+      rows:Object.entries(productNames).map(([code,label])=>{const o=lookup(code,"Originação"),d=lookup(code,"Distribuição");return [label,volumeText(o.universe_volume_brl),cell(o),volumeText(d.universe_volume_brl),cell(d)];}),
+      columnWidths:[270,160,285,160,285],aligns:["left","right","right","right","right"],fontSize:12,headerFontSize:10.5,headerHeight:40,
+    });
+    addText(slide,"Recortes sobrepostos e totais próprios por papel; não somar as linhas. N/D identifica ranking não publicado ou IBBA ausente. A situação exata e a janela de 12 meses constam no XLSX.",
+      {left:60,top:602,width:1160,height:48},{fontSize:12,color:C.note});
+  }
+  const rankingPage = (scope, title) => {
+    const slide=header(`ANBIMA · ${scope.toUpperCase()}`,title);
+    for(const [windowIndex,window] of ["acumulado_ano","ultimos_12_meses"].entries()) {
+      for (const [index,role] of ["Originação","Distribuição"].entries()) {
+        const all=data.ranking_all.filter((row)=>row.window===window && row.scope===scope && row.role===role).sort((a,b)=>num(a.rank)-num(b.rank));
+        const rows=all.slice(0,6); const ibba=all.find((row)=>row.participant==="ITAU BBA");
+        if(ibba && !rows.includes(ibba)) rows.push(ibba);
+        const top=windowIndex?430:180;
+        bars(slide,rows.map((row)=>({...row,bi:row.volume_brl/1e9})),{left:index?665:60,top,width:555,height:180,title:`${role} · ${data.windows[window].label} · R$ bi`,label:"participant",value:"bi",fontSize:9.5});
+        addText(slide,ibba?`IBBA: #${integer(ibba.rank)} · ${bn(ibba.volume_brl,2)} · ${pct(ibba.share,1)} do recorte.`:"IBBA não listado neste recorte.",
+          {left:index?665:60,top:top+188,width:555,height:26},{fontSize:11,bold:true,color:C.black});
+      }
+    }
+  };
+  rankingPage("Renda fixa",`Renda fixa na ANBIMA · acumulado e últimos 12 meses`);
+  rankingPage("FIDC",`FIDC na ANBIMA · acumulado e últimos 12 meses`);
+  {
+    const slide=header("ANBIMA · IBBA",`Posição do IBBA · acumulado e últimos 12 meses`);
+    const scopes=["Renda fixa","Securitização","FIDC","Híbridos","Empresas ligadas"];
+    for(const [index,window] of ["acumulado_ano","ultimos_12_meses"].entries()) {
+    const lookup=(scope,role)=>data.ibba_positions_all.find((row)=>row.window===window && row.scope===scope && row.role===role)||{};
+    addSectionLabel(slide,data.windows[window].label,{left:60,top:index?385:140,width:1160,height:24});
+    addNativeEditorialTable(slide,{left:60,top:index?418:173,width:1160,height:195,
+      headers:["Recorte","Orig. R$ bi","Posição","Orig. %","Distr. R$ bi","Posição","Distr. %"],
+      rows:scopes.map((scope)=>{const o=lookup(scope,"Originação"),d=lookup(scope,"Distribuição");return [scope,volumeText(o.volume_brl),o.rank?`#${o.rank}`:"N/D",shareText(o.share),volumeText(d.volume_brl),d.rank?`#${d.rank}`:"N/D",shareText(d.share)];}),
+      columnWidths:[240,180,100,140,180,100,220],aligns:["left","right","right","right","right","right","right"],fontSize:12,headerFontSize:10.5,headerHeight:28,
+      rowHighlights:new Set([2]),});
+    }
+    addText(slide,"Os recortes se sobrepõem: FIDC integra securitização e renda fixa. Distribuição de empresas ligadas não é publicada neste ranking e permanece N/D.",
+      {left:60,top:628,width:1160,height:32},{fontSize:11,color:C.note});
+  }
+  {
+    const slide=header("ANBIMA · EMISSÕES POR SETOR",`Emissões por Setor · originação de FIDC · ${period}`);
+    const sectors=data.fidc_sectors.map((row)=>({...row,bi:row.volume_brl/1e9}));
+    bars(slide,sectors,{left:60,top:180,width:555,height:340,title:"Emissões por Setor · R$ bi",label:"category",value:"bi",format:"0.00",categoryColors:true});
+    bars(slide,sectors,{left:665,top:180,width:555,height:340,title:"Emissões por Setor · % do Total",label:"category",value:"share",format:"0.0%",percent:true,categoryColors:true});
+    addText(slide,`Denominador: ${bn(data.fidc_summary.volume_brl,2)} do anexo de originação FIDC, Tipo 1. Associação por CNPJ à taxonomia oficial/analítica do estudo; cobertura classificada ${pct(data.fidc_summary.classification_volume_coverage,2)}. N/D permanece no total.`,
+      {left:60,top:560,width:1160,height:80},{fontSize:13,color:C.note});
+  }
+  for(let page=1;page<=2;page++) {
+    const slide=header("TOP 15 FIDC · ANBIMA",`Top 15 emissões de FIDC no anexo ANBIMA · ${period} · ${page}/2`);
+    const chunk=data.fidc_top15.slice((page-1)*8,page*8);
+    addNativeEditorialTable(slide,{left:60,top:148,width:1160,height:430,
+      headers:["#","Emissor","Registro CVM","R$ bi","IBBA orig.","Crédito IBBA · R$ bi"],
+      rows:chunk.map((row)=>[integer(row.rank),fundEditorialName(row.emissor,65),row.registro_cvm||"N/D",volumeText(row.volume_brl),row.ibba_participant?"Sim":"Não",volumeText(row.ibba_volume_brl)]),
+      columnWidths:[32,420,300,95,105,208],aligns:["right","left","left","right","center","right"],fontSize:12,headerFontSize:11,headerHeight:34,
+      rowHighlights:new Set(chunk.map((row,index)=>row.ibba_participant?index:-1).filter((index)=>index>=0)),});
+    addText(slide,`Subtotal das 15: ${bn(data.fidc_summary.top15_volume_brl,2)} · ${pct(data.fidc_summary.top15_share,1)} do anexo FIDC. IBBA participa da originação de ${integer(data.fidc_summary.top15_ibba_registrations)} registros. Crédito IBBA é sua parcela atribuída pela ANBIMA.`,
+      {left:60,top:600,width:1160,height:48},{fontSize:12,color:C.note});
+  }
+  for(let page=1;page<=2;page++) {
+    const slide=header("TOP 15 · ANBIMA MERCADO",`Top 15 emissões de renda fixa e híbridos · ${period} · ${page}/2`);
+    const chunk=data.market_top15.slice((page-1)*8,page*8);
+    const shortProduct = (value) => value.replace("Debêntures simples — longo prazo","Debêntures · LP").replace("Debêntures simples — curto prazo","Debêntures · CP").replace("Notas comerciais — longo prazo","Notas comerciais · LP").replace("Fundo de Investimento Imobiliário","FII");
+    addNativeEditorialTable(slide,{left:60,top:148,width:1160,height:430,
+      headers:["#","Emissor","Produto","Data","R$ bi","IBBA orig.","Crédito IBBA · R$ bi"],
+      rows:chunk.map((row)=>[integer(row.rank),row.emissor,shortProduct(row.products),dateShortPt(row.data_encerramento),volumeText(row.volume_brl),row.ibba_participant?"Sim":"Não",volumeText(row.ibba_volume_brl)]),
+      columnWidths:[32,355,240,120,100,105,208],aligns:["right","left","left","center","right","center","right"],fontSize:12,headerFontSize:10.5,headerHeight:34,
+      rowHighlights:new Set(chunk.map((row,index)=>row.ibba_participant?index:-1).filter((index)=>index>=0)),});
+    addText(slide,`Subtotal das 15: ${bn(data.market_summary.top15_volume_brl,2)} · ${pct(data.market_summary.top15_share,1)} de ${bn(data.market_summary.volume_brl,2)}. IBBA participa de ${integer(data.market_summary.top15_ibba_operations)} operações. Emissor + encerramento; Tipos 1 e 2, sem empresas ligadas. Registros CVM completos no XLSX.`,
+      {left:60,top:600,width:1160,height:48},{fontSize:12,color:C.note});
+  }
+}
+
+async function addAnbimaAnalysisSheets(workbook,payload) {
+  const data=payload.anbima_analysis;
+  if(!data) throw new Error("Workbook sem análise ANBIMA");
+  const spec=(header,key,width=160,format)=>({header,key,width,...(format?{format}:{})});
+  const money=(header,key)=>spec(header,key,175,"#,##0.00");
+  const percent=(header,key)=>spec(header,key,140,"0.00%");
+  const subtitle=`ANBIMA · ${data.comparison_meta.period_label} · fontes de ${data.source_as_of_date}. Originação e distribuição têm universos próprios.`;
+  const jobs=[
+    ["ANBIMA Ranking","Ranking oficial de renda fixa e híbridos · acumulado e 12 meses",data.ranking_all,[spec("Recorte","scope",340),spec("Papel","role"),spec("Participante","participant",260),spec("Nome na fonte","participant_source",280),spec("Posição","rank",90,"0"),money("Volume creditado · R$","volume_brl"),percent("Participação","share"),spec("Janela","window_label",190),spec("Código do recorte","ranking_code")]],
+    ["ANBIMA IBBA","Posição do Itaú BBA por recorte · acumulado e 12 meses",data.ibba_positions_all,[spec("Recorte","scope",340),spec("Papel","role"),spec("Posição","rank",90,"0"),money("Volume IBBA · R$","volume_brl"),percent("Participação IBBA","share"),money("Total do recorte · R$","universe_volume_brl"),spec("Situação","status",220),spec("Janela","window_label",190),spec("Código do recorte","ranking_code")]],
+    ["ANBIMA Produtos","Produtos no anexo de originação",data.products,[spec("Bloco","block_name"),spec("Classe","classe"),spec("Produto","classe_label",340),money("Volume · R$","volume_brl"),percent("Participação","share"),spec("Registros","registrations",110,"0")]],
+    ["ANBIMA Setores","Emissões por setor · volume e percentual do total",data.fidc_sectors,[spec("Setor","category",300),money("Volume · R$","volume_brl"),percent("Participação no total","share"),spec("Registros","registrations",110,"0")]],
+    ["ANBIMA Emissões FIDC","Emissões de FIDC no anexo de originação",data.fidc_deals,[spec("Registro CVM","registro_cvm",300),spec("CNPJ emissor","cnpj_emissor",160,"@"),spec("Emissor","emissor",420),spec("Último encerramento","data_encerramento",160),spec("Encerramentos na fonte","closing_dates",250),money("Volume · R$","volume_brl"),spec("Participantes","participants",370),money("Crédito IBBA · R$","ibba_volume_brl"),spec("Categoria","category",250),spec("Vínculo da classificação","match",180)]],
+    ["ANBIMA Top15 FIDC","Top 15 emissões de FIDC · registros do anexo",data.fidc_top15,[spec("Posição","rank",90,"0"),spec("Registro CVM","registro_cvm",300),spec("CNPJ emissor","cnpj_emissor",160,"@"),spec("Emissor","emissor",420),money("Volume · R$","volume_brl"),money("Crédito IBBA · R$","ibba_volume_brl"),spec("Categoria","category",260)]],
+    ["ANBIMA Operações","Operações de renda fixa e híbridos · anexo de originação",data.market_operations,[spec("Operação","operation_id",250),spec("CNPJ emissor","cnpj_emissor",160,"@"),spec("Emissor","emissor",420),spec("Encerramento","data_encerramento",150),spec("Produtos","products",340),money("Volume · R$","volume_brl"),money("Crédito IBBA · R$","ibba_volume_brl"),spec("Participantes","participants",370),spec("Registros CVM","registros_cvm",480)]],
+    ["ANBIMA Top15 Mercado","Top 15 emissões de renda fixa e híbridos · operações",data.market_top15,[spec("Posição","rank",90,"0"),spec("CNPJ emissor","cnpj_emissor",160,"@"),spec("Emissor","emissor",420),spec("Encerramento","data_encerramento",150),spec("Produtos","products",340),money("Volume · R$","volume_brl"),money("Crédito IBBA · R$","ibba_volume_brl"),spec("Registros CVM","registros_cvm",480)]],
+  ];
+  for(const [name,title,rows,columns] of jobs) {
+    const sourceUrl = name === "ANBIMA Ranking" || name === "ANBIMA IBBA" ? data.sources.ranking_workbook.url : data.sources.annex_workbook.url;
+    const sheet = await addAuditablePayloadSheet(workbook,{name,title,subtitle:`${subtitle} ${sourceUrl}`,rows,columns,rowHeight:44});
+    for(let index=0;index<rows.length;index++) {
+      const row=index+5;
+      if(name === "ANBIMA Setores") sheet.getRange(`C${row}`).formulas=[[`=B${row}/SUM($B$5:$B$${rows.length+4})`]];
+      if(name === "ANBIMA Produtos") sheet.getRange(`E${row}`).formulas=[[`=D${row}/SUM($D$5:$D$${rows.length+4})`]];
+    }
+  }
 }
 
 function columnLetter(index) {
@@ -7921,7 +8098,7 @@ async function addIndependentProviderSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Ranking de prestadores independentes",
-    "PL ex-FIC; Sistema Petrobras e TAPSO excluídos. Singulare consolidada em QI Tech. Kanastra alocada ao Itaú pela regra de afiliação solicitada; posições geral e entre independentes permanecem separadas.",
+    "PL ex-FIC; Sistema Petrobras e TAPSO excluídos. Singulare consolidada em QI Tech. Kanastra/Limine e Itaú apresentados separadamente; posições geral e entre independentes permanecem identificadas.",
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
@@ -11776,6 +11953,7 @@ async function buildWorkbook(payload) {
   await addOfferTicketDistributionSheet(workbook, payload);
   await addOriginators2026Sheet(workbook, payload);
   await addClosedOfferTop15Sheet(workbook, payload);
+  await addAnbimaAnalysisSheets(workbook, payload);
   await addEmissionFieldAuditSheet(workbook, payload);
   await addEmissionRemunerationEvidenceSheet(workbook, payload);
   await addEmissionFieldCoverageSheets(workbook, payload);

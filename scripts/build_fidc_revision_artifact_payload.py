@@ -25,6 +25,7 @@ if __package__ in {None, ""}:
 
 from services.fund_name_display import short_fund_name
 from services.industry_intelligence import canonical_provider
+from services.industry_anbima_analysis import build_anbima_analysis
 from services.industry_closed_offers import build_closed_offers_payload
 from services.industry_comparative_period import ComparisonCut
 from services.industry_offer_periods import offer_periods
@@ -4944,6 +4945,7 @@ def build_payload(
         "anbima_rf_ranking_manifest": _read_required_json(
             data_dir / "anbima_rf_ranking_manifest.json"
         ),
+        "anbima_analysis": build_anbima_analysis(data_dir),
         "market_offer_reconciliation": _records(
             market_offer_reconciliation
         ),

@@ -6,7 +6,7 @@ import openpyxl
 import pandas as pd
 import pytest
 
-from scripts.build_anbima_fixed_income_ranking import ranking_reconciliation_quality
+from scripts.build_anbima_fixed_income_ranking import build_annex_vs_official, ranking_reconciliation_quality
 
 from services.anbima_fixed_income_ranking import (
     AnbimaRankingError,
@@ -142,6 +142,33 @@ def test_annex_values_convert_from_thousands_to_brl(tmp_path: Path) -> None:
     originacao = annex[annex["role"].eq("originacao")]
     assert len(originacao) == len(ANNEX_ROWS)
     assert originacao["valor_brl"].sum() == pytest.approx(140_000_000.0)
+
+
+def test_annex_numeric_cnpj_keeps_fourteen_digits_and_missing_stays_missing(tmp_path: Path) -> None:
+    path = tmp_path / "anexo.xlsx"
+    _write_annex(path)
+    workbook = openpyxl.load_workbook(path)
+    for sheet in workbook:
+        sheet["M10"] = 30948205000164.0
+        sheet["M11"] = None
+    workbook.save(path)
+    rows = parse_annex_workbook(path)
+    assert set(rows.iloc[[0, len(ANNEX_ROWS)]]["cnpj_emissor"]) == {"30948205000164"}
+    assert set(rows.loc[rows.registro_cvm.eq("FDC/2026/010"), "cnpj_emissor"]) == {""}
+
+
+def test_official_footnotes_do_not_create_different_participants(tmp_path: Path) -> None:
+    annex_path, ranking_path = tmp_path / "anexo.xlsx", tmp_path / "ranking.xlsx"
+    _write_annex(annex_path)
+    _write_ranking(ranking_path)
+    official = parse_ranking_workbook(ranking_path)
+    official["participant"] = official["participant"].replace({"ITAU BBA": "ITAU BBA**", "BRADESCO BBI": "BRADESCO BBI***"})
+    before = official.copy(deep=True)
+    checks = build_annex_vs_official(parse_annex_workbook(annex_path), official)
+    origin = checks[checks["measure"].eq("originacao_valor")]
+    assert origin["max_abs_volume_gap_brl"].max() < 0.01
+    assert origin["max_abs_share_gap"].max() < 1e-10
+    pd.testing.assert_frame_equal(official, before)
 
 
 def test_annex_drops_the_asset_class_legend(tmp_path: Path) -> None:

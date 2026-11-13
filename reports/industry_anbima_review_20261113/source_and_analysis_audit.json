@@ -1,0 +1,928 @@
+{
+  "baseline_commit": "04c98c4df2543fe3cc8dec1cdeb358dcd0e38100",
+  "scope": "ANBIMA Ranking e anexo; prestadores separados",
+  "anbima_reference": "2026-09",
+  "source_as_of": "2026-11-13",
+  "sources": {
+    "ranking_workbook": {
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Ranking_de_Renda_Fixa_e_Hibridos_Setembro_2026_13_19f8b319dc.xlsx",
+      "sha256": "8d7ca244a954cad4e56e919577c38be646a40b38922bc356bef517b26b40bd84"
+    },
+    "annex_workbook": {
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Anexo_ao_Ranking_Encerramento_de_Renda_Fixa_e_Hibridos_Setembro_2026_11_cd13d4656f.xlsx",
+      "sha256": "bd45c4e0f296b407009f305f8f376e86567d6164f3857f6ab3e3e34f37182c54"
+    },
+    "cvm_archive": {
+      "url": "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip",
+      "sha256": "98b47c9ed0f8c53484e501a0ec2a8943300cdc0b42ef31300fd077dcf07d32f6"
+    }
+  },
+  "reconciliation_quality": {
+    "status": "reconciled",
+    "checks": 11,
+    "volume_tolerance_brl": 0.02,
+    "share_tolerance": 1e-09,
+    "max_abs_volume_gap_brl": 1.52587890625e-05,
+    "max_abs_share_gap": 4.872160834501482e-12,
+    "divergent_scopes": [],
+    "participant_share_source": "reconstructed_from_annex"
+  },
+  "fidc_summary": {
+    "volume_brl": 40890993582.11,
+    "registrations": 155,
+    "top15_volume_brl": 23942283658.92,
+    "top15_share": 0.5855148423049045,
+    "top15_ibba_registrations": 8,
+    "matched_registrations": 155,
+    "matched_volume_brl": 40890993582.11,
+    "cnpj_volume_coverage": 1.0,
+    "classification_volume_coverage": 0.9986549605382037
+  },
+  "ibba_positions": [
+    {
+      "scope": "Renda fixa",
+      "ranking_code": "1",
+      "role": "Originação",
+      "rank": 2,
+      "volume_brl": 73595338780.34,
+      "share": 0.236630216499851,
+      "universe_volume_brl": 311014120972.95,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda fixa",
+      "ranking_code": "1",
+      "role": "Distribuição",
+      "rank": 1,
+      "volume_brl": 39419830281.73999,
+      "share": 0.2697740343225886,
+      "universe_volume_brl": 146121662081.84,
+      "status": "publicado"
+    },
+    {
+      "scope": "Securitização",
+      "ranking_code": "1.3",
+      "role": "Originação",
+      "rank": 1,
+      "volume_brl": 21345349540.5,
+      "share": 0.3438021096508473,
+      "universe_volume_brl": 62086150553.810005,
+      "status": "publicado"
+    },
+    {
+      "scope": "Securitização",
+      "ranking_code": "1.3",
+      "role": "Distribuição",
+      "rank": 1,
+      "volume_brl": 12236979194.37,
+      "share": 0.2343030490873202,
+      "universe_volume_brl": 52227144469.68,
+      "status": "publicado"
+    },
+    {
+      "scope": "FIDC",
+      "ranking_code": "1.3.1",
+      "role": "Originação",
+      "rank": 1,
+      "volume_brl": 17716471207.230003,
+      "share": 0.433260961772791,
+      "universe_volume_brl": 40890993582.11001,
+      "status": "publicado"
+    },
+    {
+      "scope": "FIDC",
+      "ranking_code": "1.3.1",
+      "role": "Distribuição",
+      "rank": 1,
+      "volume_brl": 10728154197.26,
+      "share": 0.2898227088523939,
+      "universe_volume_brl": 37016265011.600006,
+      "status": "publicado"
+    },
+    {
+      "scope": "Híbridos",
+      "ranking_code": "2",
+      "role": "Originação",
+      "rank": 3,
+      "volume_brl": 3273747174.36,
+      "share": 0.1947818038385254,
+      "universe_volume_brl": 16807253602.98,
+      "status": "publicado"
+    },
+    {
+      "scope": "Híbridos",
+      "ranking_code": "2",
+      "role": "Distribuição",
+      "rank": 1,
+      "volume_brl": 15118945758.42,
+      "share": 0.37996954569,
+      "universe_volume_brl": 39789888242.24,
+      "status": "publicado"
+    },
+    {
+      "scope": "Empresas ligadas",
+      "ranking_code": "3",
+      "role": "Originação",
+      "rank": 1,
+      "volume_brl": 24626297836.58,
+      "share": 0.3936747608837937,
+      "universe_volume_brl": 62554931846.01,
+      "status": "publicado"
+    },
+    {
+      "scope": "Empresas ligadas",
+      "ranking_code": "3",
+      "role": "Distribuição",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": null,
+      "status": "sem ranking publicado"
+    }
+  ],
+  "sector_coverage": [
+    {
+      "category": "Financeiro",
+      "volume_brl": 32001342306.22,
+      "registrations": 119,
+      "share": 0.782601240587628
+    },
+    {
+      "category": "Agro, Indústria e Comércio",
+      "volume_brl": 8734651275.89,
+      "registrations": 34,
+      "share": 0.213608193656401
+    },
+    {
+      "category": "Fomento Mercantil",
+      "volume_brl": 100000000.0,
+      "registrations": 1,
+      "share": 0.002445526294175
+    },
+    {
+      "category": "N/D",
+      "volume_brl": 55000000.0,
+      "registrations": 1,
+      "share": 0.001345039461796
+    }
+  ],
+  "conclusion_metric_changes": {
+    "monoestrutura_fundos": {
+      "before": 344,
+      "after": 368
+    },
+    "monoestrutura_pl_brl": {
+      "before": 333946754873.17,
+      "after": 336742290357.09
+    },
+    "monoestrutura_share_pl": {
+      "before": 0.3956474732875766,
+      "after": 0.3989595179011522
+    }
+  },
+  "executive_conclusions_equal": true,
+  "cvm_base_uncompressed_bytes_equal": true,
+  "source_presence_months": 166,
+  "source_presence_rows": 244200,
+  "market_summary": {
+    "volume_brl": 327821374575.93,
+    "operations": 767,
+    "top15_volume_brl": 56417916961.21,
+    "top15_share": 0.17209956804736196,
+    "top15_ibba_operations": 10
+  },
+  "windows": {
+    "acumulado_ano": {
+      "label": "jan–set/26",
+      "start": "2026-01-01",
+      "end": "2026-09-30"
+    },
+    "ultimos_12_meses": {
+      "label": "out/25–set/26",
+      "start": "2025-10-01",
+      "end": "2026-09-30"
+    }
+  },
+  "ibba_positions_all": [
+    {
+      "scope": "Renda fixa",
+      "ranking_code": "1",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 2,
+      "volume_brl": 73595338780.34,
+      "share": 0.236630216499851,
+      "universe_volume_brl": 311014120972.95,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda fixa",
+      "ranking_code": "1",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 39419830281.73999,
+      "share": 0.2697740343225886,
+      "universe_volume_brl": 146121662081.84,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda Fixa - Curto Prazo",
+      "ranking_code": "1.1",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 2,
+      "volume_brl": 2536583311.6,
+      "share": 0.15467736715,
+      "universe_volume_brl": 16399188571.6,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda Fixa - Curto Prazo",
+      "ranking_code": "1.1",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 2,
+      "volume_brl": 708073511.6,
+      "share": 0.2018410926,
+      "universe_volume_brl": 3508074111.6,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda Fixa - Longo Prazo",
+      "ranking_code": "1.2",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 2,
+      "volume_brl": 49713405928.24,
+      "share": 0.2137946345103855,
+      "universe_volume_brl": 232528781847.54004,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda Fixa - Longo Prazo",
+      "ranking_code": "1.2",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 26474777575.770008,
+      "share": 0.29290650844,
+      "universe_volume_brl": 90386443500.56003,
+      "status": "publicado"
+    },
+    {
+      "scope": "Securitização",
+      "ranking_code": "1.3",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 21345349540.5,
+      "share": 0.3438021096508473,
+      "universe_volume_brl": 62086150553.810005,
+      "status": "publicado"
+    },
+    {
+      "scope": "Securitização",
+      "ranking_code": "1.3",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 12236979194.37,
+      "share": 0.2343030490873202,
+      "universe_volume_brl": 52227144469.68,
+      "status": "publicado"
+    },
+    {
+      "scope": "FIDC",
+      "ranking_code": "1.3.1",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 17716471207.230003,
+      "share": 0.433260961772791,
+      "universe_volume_brl": 40890993582.11001,
+      "status": "publicado"
+    },
+    {
+      "scope": "FIDC",
+      "ranking_code": "1.3.1",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 10728154197.26,
+      "share": 0.2898227088523939,
+      "universe_volume_brl": 37016265011.600006,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis Imobiliários",
+      "ranking_code": "1.3.2",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 2,
+      "volume_brl": 2173515000.0,
+      "share": 0.17932888187,
+      "universe_volume_brl": 12120272972.02,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis Imobiliários",
+      "ranking_code": "1.3.2",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 2,
+      "volume_brl": 1130516439.03,
+      "share": 0.11413571106,
+      "universe_volume_brl": 9905019458.71,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis do Agronegócio",
+      "ranking_code": "1.3.3",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 5,
+      "volume_brl": 674686999.94,
+      "share": 0.08671127621,
+      "universe_volume_brl": 7780844999.69,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis do Agronegócio",
+      "ranking_code": "1.3.3",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 7,
+      "volume_brl": 189975224.75,
+      "share": 0.03944782962,
+      "universe_volume_brl": 4815859999.38,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis",
+      "ranking_code": "1.3.4",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 780676333.33,
+      "share": 0.60328655731,
+      "universe_volume_brl": 1294038999.99,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis",
+      "ranking_code": "1.3.4",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 188333333.33,
+      "share": 0.3843537415,
+      "universe_volume_brl": 489999999.99,
+      "status": "publicado"
+    },
+    {
+      "scope": "Híbridos",
+      "ranking_code": "2",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 3,
+      "volume_brl": 3273747174.36,
+      "share": 0.1947818038385254,
+      "universe_volume_brl": 16807253602.98,
+      "status": "publicado"
+    },
+    {
+      "scope": "Híbridos",
+      "ranking_code": "2",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 15118945758.42,
+      "share": 0.37996954569,
+      "universe_volume_brl": 39789888242.24,
+      "status": "publicado"
+    },
+    {
+      "scope": "Títulos Conversíveis Permutáveis",
+      "ranking_code": "2.1",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": null,
+      "status": "sem ranking publicado"
+    },
+    {
+      "scope": "Títulos Conversíveis Permutáveis",
+      "ranking_code": "2.1",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": null,
+      "status": "sem ranking publicado"
+    },
+    {
+      "scope": "Fundo de Investimento Imobiliário",
+      "ranking_code": "2.2",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 4,
+      "volume_brl": 1214135174.36,
+      "share": 0.09689779223,
+      "universe_volume_brl": 12530060246.449999,
+      "status": "publicado"
+    },
+    {
+      "scope": "Fundo de Investimento Imobiliário",
+      "ranking_code": "2.2",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 2,
+      "volume_brl": 5628312758.42,
+      "share": 0.21030954654,
+      "universe_volume_brl": 26762041243.15,
+      "status": "publicado"
+    },
+    {
+      "scope": "Certificado de Potencial Adicional de Construção",
+      "ranking_code": "2.3",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": null,
+      "status": "sem ranking publicado"
+    },
+    {
+      "scope": "Certificado de Potencial Adicional de Construção",
+      "ranking_code": "2.3",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": null,
+      "status": "sem ranking publicado"
+    },
+    {
+      "scope": "Fundo de Investimento em Participações de Infraestrutura",
+      "ranking_code": "2.4",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 1080000000.0,
+      "share": 0.53538764866,
+      "universe_volume_brl": 2017229950.48,
+      "status": "publicado"
+    },
+    {
+      "scope": "Fundo de Investimento em Participações de Infraestrutura",
+      "ranking_code": "2.4",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 9022833000.0,
+      "share": 0.82864520279,
+      "universe_volume_brl": 10888656531.96,
+      "status": "publicado"
+    },
+    {
+      "scope": "Fundo de Investimento nas Cadeias Produtivas Agroindustriais",
+      "ranking_code": "2.5",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 2,
+      "volume_brl": 979612000.0,
+      "share": 0.4334636558174105,
+      "universe_volume_brl": 2259963406.0499997,
+      "status": "publicado"
+    },
+    {
+      "scope": "Fundo de Investimento nas Cadeias Produtivas Agroindustriais",
+      "ranking_code": "2.5",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 3,
+      "volume_brl": 467800000.0,
+      "share": 0.21868085483,
+      "universe_volume_brl": 2139190467.13,
+      "status": "publicado"
+    },
+    {
+      "scope": "Empresas ligadas",
+      "ranking_code": "3",
+      "role": "Originação",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": 1,
+      "volume_brl": 24626297836.58,
+      "share": 0.3936747608837937,
+      "universe_volume_brl": 62554931846.01,
+      "status": "publicado"
+    },
+    {
+      "scope": "Empresas ligadas",
+      "ranking_code": "3",
+      "role": "Distribuição",
+      "window": "acumulado_ano",
+      "window_label": "Acumulado no ano",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": null,
+      "status": "sem ranking publicado"
+    },
+    {
+      "scope": "Renda fixa",
+      "ranking_code": "1",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 123643774629.57,
+      "share": 0.2455022191681741,
+      "universe_volume_brl": 503636077297.01,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda fixa",
+      "ranking_code": "1",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 61588641352.830025,
+      "share": 0.2683465089014424,
+      "universe_volume_brl": 229511617665.39,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda Fixa - Curto Prazo",
+      "ranking_code": "1.1",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 2,
+      "volume_brl": 7167983311.6,
+      "share": 0.28279249208,
+      "universe_volume_brl": 25347148571.6,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda Fixa - Curto Prazo",
+      "ranking_code": "1.1",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 2,
+      "volume_brl": 2144073511.6,
+      "share": 0.24692562611,
+      "universe_volume_brl": 8683074111.6,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda Fixa - Longo Prazo",
+      "ranking_code": "1.2",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 86793943973.45001,
+      "share": 0.2269461707271965,
+      "universe_volume_brl": 382442866056.47,
+      "status": "publicado"
+    },
+    {
+      "scope": "Renda Fixa - Longo Prazo",
+      "ranking_code": "1.2",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 43160462635.960014,
+      "share": 0.29626970868,
+      "universe_volume_brl": 145679633697.76004,
+      "status": "publicado"
+    },
+    {
+      "scope": "Securitização",
+      "ranking_code": "1.3",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 29681847344.52,
+      "share": 0.3102813884395342,
+      "universe_volume_brl": 95661062668.94,
+      "status": "publicado"
+    },
+    {
+      "scope": "Securitização",
+      "ranking_code": "1.3",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 16284105205.27,
+      "share": 0.216691170057783,
+      "universe_volume_brl": 75148909856.03,
+      "status": "publicado"
+    },
+    {
+      "scope": "FIDC",
+      "ranking_code": "1.3.1",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 20325053374.23,
+      "share": 0.4154143454933233,
+      "universe_volume_brl": 48927182209.10999,
+      "status": "publicado"
+    },
+    {
+      "scope": "FIDC",
+      "ranking_code": "1.3.1",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 12604849364.259998,
+      "share": 0.2783692033903328,
+      "universe_volume_brl": 45281048372.96,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis Imobiliários",
+      "ranking_code": "1.3.2",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 2,
+      "volume_brl": 4051652499.99,
+      "share": 0.19603602084,
+      "universe_volume_brl": 20667898086.73,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis Imobiliários",
+      "ranking_code": "1.3.2",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 3,
+      "volume_brl": 2246597348.61,
+      "share": 0.12784679163,
+      "universe_volume_brl": 17572575110.8,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis do Agronegócio",
+      "ranking_code": "1.3.3",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 2,
+      "volume_brl": 3590465136.97,
+      "share": 0.15037040509,
+      "universe_volume_brl": 23877471999.11,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis do Agronegócio",
+      "ranking_code": "1.3.3",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 5,
+      "volume_brl": 1104325159.0700002,
+      "share": 0.09513217103,
+      "universe_volume_brl": 11608324998.279997,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis",
+      "ranking_code": "1.3.4",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 1714676333.3300002,
+      "share": 0.7224220935,
+      "universe_volume_brl": 2373510373.9900002,
+      "status": "publicado"
+    },
+    {
+      "scope": "Emissão de Certificados de Recebíveis",
+      "ranking_code": "1.3.4",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 328333333.3300001,
+      "share": 0.47795021054,
+      "universe_volume_brl": 686961373.9900001,
+      "status": "publicado"
+    },
+    {
+      "scope": "Híbridos",
+      "ranking_code": "2",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 2,
+      "volume_brl": 8499351974.21,
+      "share": 0.2810036876382609,
+      "universe_volume_brl": 30246407246.98,
+      "status": "publicado"
+    },
+    {
+      "scope": "Híbridos",
+      "ranking_code": "2",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 2,
+      "volume_brl": 17513502230.14,
+      "share": 0.31887481413,
+      "universe_volume_brl": 54922814390.009995,
+      "status": "publicado"
+    },
+    {
+      "scope": "Títulos Conversíveis Permutáveis",
+      "ranking_code": "2.1",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": 2040411164.04,
+      "status": "IBBA não listado"
+    },
+    {
+      "scope": "Títulos Conversíveis Permutáveis",
+      "ranking_code": "2.1",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": 935956228.9599998,
+      "status": "IBBA não listado"
+    },
+    {
+      "scope": "Fundo de Investimento Imobiliário",
+      "ranking_code": "2.2",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 2,
+      "volume_brl": 4524366974.210001,
+      "share": 0.21220938118,
+      "universe_volume_brl": 21320296723.100002,
+      "status": "publicado"
+    },
+    {
+      "scope": "Fundo de Investimento Imobiliário",
+      "ranking_code": "2.2",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 2,
+      "volume_brl": 7824869230.139999,
+      "share": 0.19706654173,
+      "universe_volume_brl": 39706736422.65,
+      "status": "publicado"
+    },
+    {
+      "scope": "Certificado de Potencial Adicional de Construção",
+      "ranking_code": "2.3",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": 242397039.31,
+      "status": "IBBA não listado"
+    },
+    {
+      "scope": "Certificado de Potencial Adicional de Construção",
+      "ranking_code": "2.3",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": 242397039.31,
+      "status": "IBBA não listado"
+    },
+    {
+      "scope": "Fundo de Investimento em Participações de Infraestrutura",
+      "ranking_code": "2.4",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 1278000000.0,
+      "share": 0.539965598,
+      "universe_volume_brl": 2366817450.48,
+      "status": "publicado"
+    },
+    {
+      "scope": "Fundo de Investimento em Participações de Infraestrutura",
+      "ranking_code": "2.4",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 9220833000.0,
+      "share": 0.81560698056,
+      "universe_volume_brl": 11305485631.96,
+      "status": "publicado"
+    },
+    {
+      "scope": "Fundo de Investimento nas Cadeias Produtivas Agroindustriais",
+      "ranking_code": "2.5",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 2696985000.0,
+      "share": 0.6306546338765527,
+      "universe_volume_brl": 4276484870.0499997,
+      "status": "publicado"
+    },
+    {
+      "scope": "Fundo de Investimento nas Cadeias Produtivas Agroindustriais",
+      "ranking_code": "2.5",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 3,
+      "volume_brl": 467800000.0,
+      "share": 0.17121488585,
+      "universe_volume_brl": 2732239067.13,
+      "status": "publicado"
+    },
+    {
+      "scope": "Empresas ligadas",
+      "ranking_code": "3",
+      "role": "Originação",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": 1,
+      "volume_brl": 31540320762.26,
+      "share": 0.3182863709753429,
+      "universe_volume_brl": 99094160600.12,
+      "status": "publicado"
+    },
+    {
+      "scope": "Empresas ligadas",
+      "ranking_code": "3",
+      "role": "Distribuição",
+      "window": "ultimos_12_meses",
+      "window_label": "Últimos 12 meses",
+      "rank": null,
+      "volume_brl": null,
+      "share": null,
+      "universe_volume_brl": null,
+      "status": "sem ranking publicado"
+    }
+  ]
+}

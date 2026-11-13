@@ -334,6 +334,7 @@ _PROVIDER_COLORS = {
     "banco do brasil": "#D6A800",
     "itaú": "#FF5500",
     "itau": "#FF5500",
+    "kanastra": "#7030A0",
     "cbsf": "#73C6A1",
     "reag": "#73C6A1",
 }
@@ -14045,16 +14046,8 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     current_all = scoped[
                         scoped["competencia"].eq(latest_period)
                     ].sort_values("rank_periodo")
-                    current = current_all.head(7).copy()
-                    if not current["participante"].astype(str).str.contains(
-                        "itaú|itau", case=False, regex=True
-                    ).any():
-                        itau = current_all[
-                            current_all["participante"].astype(str).str.contains(
-                                "itaú|itau", case=False, regex=True
-                            )
-                        ].head(1)
-                        current = pd.concat([current_all.head(6), itau], ignore_index=True)
+                    comparators = current_all[current_all["participante"].astype(str).str.contains("itaú|itau|kanastra", case=False, regex=True)]
+                    current = pd.concat([current_all.head(5), comparators], ignore_index=True)
                     current = current.drop_duplicates("participante").sort_values(
                         "pl_brl", ascending=False
                     )
@@ -14334,7 +14327,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             st.caption(
                 "Fonte: CVM, PL ex-FIC; Sistema Petrobras e TAPSO excluídos. "
                 "Posição = ranking entre independentes / ranking geral. Singulare é consolidada em QI Tech; "
-                "Kanastra é alocada ao Itaú pela regra de afiliação solicitada e fica fora deste recorte."
+                "Kanastra/Limine e Itaú são apresentados separadamente; a participação minoritária do Itaú permanece identificada na curadoria."
             )
     with flows_tab:
         bank_history = _revision_frame(payload, "bank_fidc_evolution")
@@ -15867,6 +15860,7 @@ def _render_revision_issuance_taxonomy(payload: dict[str, object]) -> None:
         DISPLAY_CATEGORIES,
         build_wide_table,
         load_issuance_taxonomy,
+        periods_from_issuance_frame,
     )
 
     meta = _revision_offer_comparison_meta(payload)
@@ -15910,6 +15904,22 @@ def _render_revision_issuance_taxonomy(payload: dict[str, object]) -> None:
             )
     display = pd.concat([display, pd.DataFrame([total_row])], ignore_index=True)
     st.dataframe(display, hide_index=True, width="stretch")
+
+    plot = long_frame.copy()
+    plot["R$ bi"] = plot["volume_brl"] / 1e9
+    period_order = [period["label"] for period in periods_from_issuance_frame(plot)]
+    colors = {"Financeiro": "#12151A", "Agro, Indústria e Comércio": _ORANGE,
+              "Fomento Mercantil": "#8D9399", "Outros": "#BEC2C5"}
+    for column, metric, title in zip(st.columns(2), ["R$ bi", "share"],
+                                      ["Emissões por Setor · R$ bi", "Emissões por Setor · % do Total"]):
+        with column:
+            st.altair_chart(alt.Chart(plot).mark_bar().encode(
+                x=alt.X("period_label:N", sort=period_order, title=None, axis=alt.Axis(labelAngle=0)),
+                y=alt.Y(f"{metric}:Q", stack="zero", title="R$ bi" if metric=="R$ bi" else "% do Total",
+                        axis=alt.Axis(format=",.1f" if metric=="R$ bi" else ".0%")),
+                color=alt.Color("categoria:N", title="Categoria ANBIMA", scale=alt.Scale(domain=list(colors),range=list(colors.values()))),
+                tooltip=[alt.Tooltip("period_label:N",title="Período"),"categoria:N",alt.Tooltip("R$ bi:Q",format=",.2f"),alt.Tooltip("share:Q",format=".2%")],
+            ).properties(height=290,title=title), width="stretch", key=f"industry-issuance-sector-{metric}")
 
     latest = long_frame[long_frame["period_key"].eq(meta.get("current_period_key"))].set_index("categoria")
     previous = long_frame[long_frame["period_key"].eq(meta.get("previous_period_key"))].set_index("categoria")
@@ -16589,6 +16599,11 @@ def _render_carteira(payload: dict[str, object]) -> None:
     )
 
 def _render_revision_offers(payload: dict[str, object]) -> None:
+    from tabs.industry_anbima_view import render_anbima_analysis
+
+    render_anbima_analysis(payload)
+    st.divider()
+    st.markdown("## Ofertas CVM / SRE")
     annual = _revision_frame(payload, "closed_offers_annual")
     monthly = _revision_frame(payload, "closed_offers_monthly")
     current = _revision_offer_current_row(payload, annual)

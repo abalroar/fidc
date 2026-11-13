@@ -42,7 +42,7 @@ PROVIDER_RULES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("Banco ABC", (r"\bABC\s+BRASIL\b",)),
     ("BNY Mellon", (r"\bBNY\s+MELLON\b",)),
     ("Finaxis", (r"\bFINAXIS\b",)),
-    ("Limine Trust", (r"\bLIMINE\s+TRUST\b",)),
+    ("Kanastra", (r"\bKANASTRA\b", r"\bLIMINE\s+TRUST\b")),
     ("Vert", (r"\bVERT\b",)),
     ("Hemera", (r"\bHEMERA\b",)),
     ("Banco Master", (r"\bMASTER\b",)),
