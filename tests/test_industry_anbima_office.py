@@ -137,3 +137,40 @@ def test_anbima_workbook_reconciles_and_keeps_share_formulas_and_missing_data():
     assert {row[7] for row in ranking} == {"Acumulado no ano", "Últimos 12 meses"}
     book.close()
     formulas.close()
+
+
+def test_native_synthesis_restores_both_tables_with_official_counts_and_windows():
+    payload = json.loads(PAYLOAD.read_text())["anbima_analysis"]
+    with ZipFile(PPTX) as archive:
+        rows = table_rows(archive, "anbima_synthesis")
+    assert len(rows) == 19  # two headers, eight products and nine competitors
+    for actual, expected in zip(rows[1:9], payload["synthesis_products"], strict=True):
+        assert actual[0] == expected["product"]
+        assert int(actual[1]) == expected["operations_ytd"]
+        assert br_number(actual[2]) == pytest.approx(expected["market_volume_brl_ytd"]/1e9, abs=0.051)
+        assert br_number(actual[4])/100 == pytest.approx(expected["ibba_share_ytd"], abs=0.00051)
+        assert br_number(actual[6])/100 == pytest.approx(expected["ibba_share_ltm"], abs=0.00051)
+    for actual, expected in zip(rows[10:], payload["synthesis_competitors"][:9], strict=True):
+        assert actual[1] == expected["participant"]
+        assert br_number(actual[2]) == pytest.approx(expected["volume_brl"]/1e6, abs=0.501)
+        assert int(actual[4]) == expected["operations"]
+
+
+def test_synthesis_workbook_keeps_reported_counts_and_full_competitor_table():
+    payload = json.loads(PAYLOAD.read_text())["anbima_analysis"]
+    book = openpyxl.load_workbook(XLSX, read_only=True, data_only=True)
+    products = list(book["ANBIMA Síntese Produtos"].iter_rows(min_row=5, values_only=True))
+    competitors = list(book["ANBIMA FIDC Competidores"].iter_rows(min_row=5, values_only=True))
+    assert len(products) == 8
+    for actual, expected in zip(products, payload["synthesis_products"], strict=True):
+        assert actual[0] == expected["product"]
+        assert actual[1] == expected["operations_ytd"]
+        assert actual[2] == pytest.approx(expected["market_volume_brl_ytd"], abs=0.001)
+        assert actual[4] == pytest.approx(expected["ibba_share_ytd"])
+        assert actual[6] == pytest.approx(expected["ibba_share_ltm"])
+    assert len(competitors) == len(payload["synthesis_competitors"])
+    assert competitors[0][1] == "ITAU BBA"
+    assert competitors[0][4] == 36
+    assert competitors[0][5] == 93
+    assert sum(row[2] for row in competitors) == pytest.approx(payload["fidc_summary"]["volume_brl"], abs=0.01)
+    book.close()

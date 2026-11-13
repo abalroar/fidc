@@ -13,6 +13,56 @@ SCOPES = {
 }
 MEASURES = {"originacao_valor": "Originação", "distribuicao_valor": "Distribuição"}
 WINDOWS = {"acumulado_ano": "Acumulado no ano", "ultimos_12_meses": "Últimos 12 meses"}
+HYBRIDS_DEFINITION = (
+    "Híbridos (Tipo 2, ANBIMA): títulos conversíveis ou permutáveis em ações, "
+    "FII, CEPAC, FIP-IE e FIAGRO. FIDC, CRI, CRA e CR integram renda fixa "
+    "(Tipo 1), dentro de securitização."
+)
+SYNTHESIS_PRODUCTS = (
+    ("1", "Renda fixa consolidada"), ("1.3.1", "FIDC"),
+    ("1.3.2", "CRI"), ("1.3.3", "CRA"), ("1.3.4", "CR"),
+    ("2.2", "FII"), ("2.4", "FIP-IE"), ("2.5", "FIAGRO"),
+)
+
+
+def _build_synthesis(official: pd.DataFrame, totals: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Published origination counts and volumes, with no annex-grain proxy."""
+    keys = ["measure", "window", "ranking_code"]
+    if totals.duplicated(keys).any():
+        raise ValueError("Totais ANBIMA duplicados no mesmo recorte")
+    totals_by_key = totals.set_index(keys)["total"]
+    names = official.participant.str.replace(r"\*+$", "", regex=True).str.strip()
+    rows = []
+    for code, label in SYNTHESIS_PRODUCTS:
+        row = {"ranking_code": code, "product": label,
+               "family": "Renda fixa" if code.startswith("1") else "Híbridos"}
+        for window, suffix in [("acumulado_ano", "ytd"), ("ultimos_12_meses", "ltm")]:
+            for measure, field in [("originacao_numero_operacoes", "operations"), ("originacao_valor", "market_volume_brl")]:
+                key = (measure, window, code)
+                if key not in totals_by_key or pd.isna(totals_by_key[key]):
+                    raise ValueError(f"Total publicado ANBIMA ausente: {key}")
+                row[f"{field}_{suffix}"] = float(totals_by_key[key])
+            ibba = official[official.measure.eq("originacao_valor") & official.window.eq(window)
+                            & official.ranking_code.eq(code) & names.eq("ITAU BBA") & official["rank"].notna()]
+            for source, field in [("rank", "rank"), ("share", "share"), ("value_brl_or_count", "volume_brl")]:
+                row[f"ibba_{field}_{suffix}"] = None if ibba.empty else float(ibba.iloc[0][source])
+        rows.append(row)
+    counts = official[official.measure.eq("originacao_numero_operacoes")
+                      & official.window.eq("acumulado_ano") & official.ranking_code.eq("1.3.1")].copy()
+    values = official[official.measure.eq("originacao_valor") & official.window.eq("acumulado_ano")
+                      & official.ranking_code.eq("1.3.1") & official["rank"].notna()].copy()
+    for frame in [counts, values]:
+        frame["participant_source"] = frame.participant
+        frame["participant"] = frame.participant.str.replace(r"\*+$", "", regex=True).str.strip()
+    competitors = values[["rank", "participant", "participant_source", "value_brl_or_count", "share"]].rename(columns={"value_brl_or_count": "volume_brl"}).merge(
+        counts[["participant", "value_brl_or_count"]].rename(columns={"value_brl_or_count": "operations"}),
+        on="participant", how="left", validate="one_to_one")
+    # Preserve ANBIMA's published rank even when a rectification leaves a
+    # neighboring volume out of order; do not invent a replacement ranking.
+    competitors = competitors.sort_values(["rank", "participant"], kind="stable")
+    competitors["market_operations"] = float(totals_by_key[("originacao_numero_operacoes", "acumulado_ano", "1.3.1")])
+    competitors["market_volume_brl"] = float(totals_by_key[("originacao_valor", "acumulado_ano", "1.3.1")])
+    return pd.DataFrame(rows), competitors
 
 
 def build_anbima_analysis(data_dir: Path) -> dict[str, object]:
@@ -21,6 +71,8 @@ def build_anbima_analysis(data_dir: Path) -> dict[str, object]:
     data_dir = Path(data_dir)
     manifest = json.loads((data_dir / "anbima_rf_ranking_manifest.json").read_text())
     official = pd.read_csv(data_dir / "anbima_rf_ranking_official.csv", dtype={"ranking_code": str})
+    totals = pd.read_csv(data_dir / "anbima_rf_ranking_totals.csv", dtype={"ranking_code": str})
+    synthesis_products, synthesis_competitors = _build_synthesis(official, totals)
     all_ranking = official[
         official["window"].isin(WINDOWS) & official["measure"].isin(MEASURES)
         & official["rank"].notna()
@@ -122,6 +174,9 @@ def build_anbima_analysis(data_dir: Path) -> dict[str, object]:
     def short_date(value):
         return f"{month_labels[int(value[5:7])-1]}/{value[2:4]}"
     notes = [
+        HYBRIDS_DEFINITION,
+        "Síntese de originação: operações e mercado vêm da linha Total do ranking publicado. Contagens por coordenador não são aditivas; cada casa recebe uma unidade por operação em que tenha crédito. O anexo possui registros CVM e contagem reconstruída por emissor/data, unidades distintas do total oficial de operações.",
+        "As posições dos competidores são preservadas como publicadas pela ANBIMA, inclusive quando os volumes retificados de duas casas vizinhas aparecem fora da ordem numérica.",
         "Ranking oficial: crédito por participante e papel; valores em R$ convertidos de R$ mil.",
         "Originação e distribuição têm perímetros distintos. Tipos 1 e 2 excluem empresas ligadas; Tipo 3 é apresentado separadamente.",
         "Top 15 ANBIMA: registros CVM distintos no anexo de originação de FIDC, Tipo 1; soma dos créditos por participante em cada registro. Não é o universo de ofertas CVM/SRE.",
@@ -144,6 +199,9 @@ def build_anbima_analysis(data_dir: Path) -> dict[str, object]:
         "ranking": records(ranking), "ranking_all": records(all_ranking),
         "ibba_positions": [row for row in positions if row["window"] == "acumulado_ano" and row["ranking_code"] in SCOPES],
         "ibba_positions_all": positions,
+        "hybrids_definition": HYBRIDS_DEFINITION,
+        "synthesis_products": records(synthesis_products),
+        "synthesis_competitors": records(synthesis_competitors),
         "market_operations": records(operations), "market_top15": records(market_top15),
         "market_summary": {"volume_brl": float(operations.volume_brl.sum()), "operations": len(operations),
             "top15_volume_brl": float(market_top15.volume_brl.sum()),

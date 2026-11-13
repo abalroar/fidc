@@ -96,6 +96,7 @@ CEDENTE_TOP500_COMBINED_OUTPUTS = frozenset(
 REQUIRED_DATA_INPUTS = (
     "anbima_rf_ranking_manifest.json",
     "anbima_rf_ranking_official.csv",
+    "anbima_rf_ranking_totals.csv",
     "anbima_rf_ranking_annex.csv.gz",
     "anbima_rf_ranking_participant_share.csv",
     "anbima_rf_ranking_reconciliation.csv",

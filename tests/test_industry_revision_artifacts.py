@@ -415,7 +415,7 @@ def test_updated_conclusions_are_materialized_without_legacy_numeric_copy() -> N
 def test_structural_detail_is_preserved_in_workbook_and_payload() -> None:
     _require(XLSX)
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
-    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_IDS) == 27
+    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_IDS) == 28
     assert STRUCTURAL_MVP_SLIDE_SEQUENCE == ()
     assert STRUCTURAL_MVP_SLIDES == ()
     assert payload["carteira_1_structural_taxonomy"]
@@ -882,7 +882,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v50";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v51";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

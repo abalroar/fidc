@@ -60,7 +60,7 @@ EXPECTED_SLIDE_IDS: tuple[str, ...] = (
     "cover", "industry_scale", "annual_issuance", "issuance_taxonomy_summary",
     "analytical_taxonomy", "acquiring", "receivables", "offers_volume_ticket",
     "offers_ticket_distribution", "offers_placement_regime",
-    "top15_cvm_1", "top15_cvm_2", "anbima_market", "anbima_products", "anbima_ranking",
+    "top15_cvm_1", "top15_cvm_2", "anbima_synthesis", "anbima_market", "anbima_products", "anbima_ranking",
     "anbima_fidc_ranking", "anbima_ibba", "anbima_sectors", "top15_anbima_1", "top15_anbima_2",
     "top15_anbima_market_1", "top15_anbima_market_2", "conclusions",
     "provider_history", "provider_ranking", "investor_base", "holder_distribution",
@@ -78,6 +78,7 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("garantia firme", "melhores esforcos"),
     ("top 15", "cvm",),
     ("top 15", "cvm",),
+    ("anbima", "sintese", "competidores"),
     ("anbima", "produtos",),
     ("anbima", "ibba por produto",),
     ("anbima", "renda fixa",),
@@ -111,6 +112,7 @@ BLOCKED_PUBLISHED_TEXT_MARKERS: tuple[str, ...] = (
     "\ufffd",
 )
 REQUIRED_WORKBOOK_SHEETS = {
+    "ANBIMA Síntese Produtos", "ANBIMA FIDC Competidores",
     "ANBIMA Ranking", "ANBIMA IBBA", "ANBIMA Produtos", "ANBIMA Setores",
     "ANBIMA Emissões FIDC", "ANBIMA Top15 FIDC",
     "ANBIMA Operações", "ANBIMA Top15 Mercado",
@@ -869,7 +871,7 @@ def validate_revision_pptx(
             count = len(root.findall(".//{http://schemas.openxmlformats.org/drawingml/2006/chart}chart"))
             if count < minimum:
                 raise RevisionExportUnavailable(f"slide {number} sem os gráficos nativos esperados")
-        for key, dimensions in {"top15_cvm_1":((9,7),),"top15_cvm_2":((8,7),),"anbima_products":((11,5),),"anbima_ibba":((6,7),(6,7)),"top15_anbima_1":((9,6),),"top15_anbima_2":((8,6),),"top15_anbima_market_1":((9,7),),"top15_anbima_market_2":((8,7),)}.items():
+        for key, dimensions in {"top15_cvm_1":((9,7),),"top15_cvm_2":((8,7),),"anbima_synthesis":((9,7),(10,5)),"anbima_products":((11,5),),"anbima_ibba":((6,7),(6,7)),"top15_anbima_1":((9,6),),"top15_anbima_2":((8,6),),"top15_anbima_market_1":((9,7),),"top15_anbima_market_2":((8,7),)}.items():
             _validate_native_table_slide(archive, ordinal[key], expected_dimensions=dimensions, canvas=canvas)
         for number in (ordinal[key] for key in ("cover", "issuance_taxonomy_summary", "analytical_taxonomy", "acquiring", "receivables", "offers_ticket_distribution", "offers_placement_regime", "conclusions", "provider_history", "provider_ranking", "investor_base", "holder_distribution")):
             if b"<a:tbl>" in archive.read(ordered_slides[number - 1]):
