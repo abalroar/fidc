@@ -713,7 +713,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
 def test_export_and_renderer_declare_dynamic_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(encoding="utf-8")
     renderer_source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(encoding="utf-8")
-    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_SEQUENCE) == len(EXPECTED_SLIDE_IDS) == 15
+    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_SEQUENCE) == len(EXPECTED_SLIDE_IDS) == 27
     assert not TYPE_RANKING_SLIDE_SEQUENCE
     assert not STRUCTURAL_MVP_SLIDE_SEQUENCE
     assert not CURRENT_TOP15_SLIDE_SEQUENCE
@@ -1515,7 +1515,8 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
     assert all(row[17] is None or row[17] > 0 for row in rows)
     assert any(row[13] is None and row[14] == "N/D" for row in rows)
     assert any(row[17] is None and row[18] == "N/D" for row in rows)
-    assert sum(str(row[34]).startswith("revisto") for row in rows) == 24
+    assert sum(str(row[34]).startswith("revisto") for row in rows) == payload["flagship_curation_summary"]["cnpjs_com_regulamento_lido"]
+    assert all(row[34] == canonical_flagships[row[4]]["status_curadoria_documental"] for row in rows)
     assert sum(row[14] != "N/D" for row in rows) == 12
 
     carteira_1 = workbook["Carteira 1 curadoria"]

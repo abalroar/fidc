@@ -7,7 +7,7 @@
     "btg_controlled_fidcs_reconciled": 6,
     "btg_provider_ex_controlled_roles": 3,
     "frozen_single_receivable_funds": 2036,
-    "independent_provider_rows": 56,
+    "independent_provider_rows": 59,
     "latest_aging_publication_status": "publicável",
     "latest_funds": 4439,
     "latest_presence_exact": true,
@@ -28,7 +28,7 @@
     "delinquency_adjustment": "min(max(inadimplência reportada, 0), max(carteira de direitos creditórios, 0)) por veículo",
     "frozen_single_receivable_history": "coorte e subtipo Tabela II congelados na competência mais recente; histórico mantém o mesmo CNPJ e exclui por competência FIC, PL não positivo, campos ausentes e inadimplência acima da carteira",
     "fund": "CNPJ do fundo no cadastro; classes são agregadas por competência",
-    "independent_provider": "grupo com independência revisada na curadoria societária; aliases consolidados antes do ranking; Singulare integra QI Tech e Kanastra é alocada ao Itaú pela regra de afiliação solicitada",
+    "independent_provider": "grupo com independência revisada na curadoria societária; aliases consolidados antes do ranking; Singulare integra QI Tech; Kanastra/Limine e Itaú permanecem separados",
     "market_share_excluded_funds": {
       "09195235000150": "FIDC Sistema Petrobras",
       "26287464000114": "FIDC TAPSO"
@@ -84,7 +84,7 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 14474
+      "rows": 14478
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 24,
@@ -140,7 +140,7 @@
     },
     "monoestrutura_concentracao.csv": {
       "columns": 14,
-      "rows": 17
+      "rows": 18
     },
     "monoestrutura_por_fundo.csv": {
       "columns": 83,
@@ -148,7 +148,7 @@
     },
     "prestadores_independentes_ranking.csv": {
       "columns": 19,
-      "rows": 56
+      "rows": 59
     },
     "prestadores_lideranca_atribuicao.csv": {
       "columns": 18,
@@ -223,7 +223,7 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-11-11T17:01:53+00:00",
+  "generated_at_utc": "2026-11-13T20:58:55+00:00",
   "latest_complete": "2026-09",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",

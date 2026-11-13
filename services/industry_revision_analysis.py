@@ -3932,8 +3932,8 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
             ),
             "independent_provider": (
                 "grupo com independência revisada na curadoria societária; aliases "
-                "consolidados antes do ranking; Singulare integra QI Tech e Kanastra "
-                "é alocada ao Itaú pela regra de afiliação solicitada"
+                "consolidados antes do ranking; Singulare integra QI Tech; "
+                "Kanastra/Limine e Itaú permanecem separados"
             ),
             "bank_fidc_fixed_cohort": (
                 "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; "

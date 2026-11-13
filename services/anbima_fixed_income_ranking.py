@@ -333,9 +333,18 @@ def parse_annex_workbook(path: str | Path) -> pd.DataFrame:
     for column in ("registro_cvm", "classe", "regime_colocacao", "emissor",
                    "participante", "risco_securitizacao"):
         annex[column] = annex[column].map(_text)
-    annex["cnpj_emissor"] = (
-        annex["cnpj_emissor"].map(lambda v: re.sub(r"\D", "", _text(v)).zfill(14))
-    )
+    def cnpj(value: object) -> str:
+        text = _text(value)
+        if re.fullmatch(r"\d+\.0+", text):
+            text = text.split(".", 1)[0]
+        digits = re.sub(r"\D", "", text)
+        if not digits:
+            return ""
+        if len(digits) > 14:
+            raise AnbimaRankingError(f"CNPJ de emissor inválido no anexo: {value}")
+        return digits.zfill(14)
+
+    annex["cnpj_emissor"] = annex["cnpj_emissor"].map(cnpj)
     for column in ("data_encerramento", "data_registro_cvm"):
         annex[column] = pd.to_datetime(
             annex[column], errors="coerce", dayfirst=True, format="mixed"

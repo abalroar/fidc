@@ -59,7 +59,10 @@ HISTORICAL_TOP15_SLIDE_NUMBERS: tuple[int, ...] = ()
 EXPECTED_SLIDE_IDS: tuple[str, ...] = (
     "cover", "industry_scale", "annual_issuance", "issuance_taxonomy_summary",
     "analytical_taxonomy", "acquiring", "receivables", "offers_volume_ticket",
-    "offers_ticket_distribution", "offers_placement_regime", "conclusions",
+    "offers_ticket_distribution", "offers_placement_regime",
+    "top15_cvm_1", "top15_cvm_2", "anbima_market", "anbima_products", "anbima_ranking",
+    "anbima_fidc_ranking", "anbima_ibba", "anbima_sectors", "top15_anbima_1", "top15_anbima_2",
+    "top15_anbima_market_1", "top15_anbima_market_2", "conclusions",
     "provider_history", "provider_ranking", "investor_base", "holder_distribution",
 )
 EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
@@ -73,6 +76,18 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("volume e ticket das ofertas",),
     ("concentracao das ofertas por ticket",),
     ("garantia firme", "melhores esforcos"),
+    ("top 15", "cvm",),
+    ("top 15", "cvm",),
+    ("anbima", "produtos",),
+    ("anbima", "ibba por produto",),
+    ("anbima", "renda fixa",),
+    ("anbima", "fidc",),
+    ("anbima", "ibba",),
+    ("anbima", "emissoes por setor",),
+    ("top 15", "anbima",),
+    ("top 15", "anbima",),
+    ("top 15", "anbima mercado",),
+    ("top 15", "anbima mercado",),
     ("principais conclusoes",),
     ("ranking de prestadores", "ranking geral"),
     ("prestadores", "ranking e concentracao"),
@@ -96,6 +111,9 @@ BLOCKED_PUBLISHED_TEXT_MARKERS: tuple[str, ...] = (
     "\ufffd",
 )
 REQUIRED_WORKBOOK_SHEETS = {
+    "ANBIMA Ranking", "ANBIMA IBBA", "ANBIMA Produtos", "ANBIMA Setores",
+    "ANBIMA Emissões FIDC", "ANBIMA Top15 FIDC",
+    "ANBIMA Operações", "ANBIMA Top15 Mercado",
     "QA Inadimplência",
     "Base por fundo-CNPJ",
     "Base competência-CNPJ",
@@ -828,12 +846,13 @@ def validate_revision_pptx(
                 or offer_cut.competence != competence
             ):
                 raise RevisionExportUnavailable("corte comparativo não acompanha a competência consolidada")
-        for number in (1, 3, 4, 8, 9, 10, 11, 14):
+        ordinal = {key: index for index, key in enumerate(EXPECTED_SLIDE_IDS, start=1)}
+        for number in (ordinal[key] for key in ("cover", "annual_issuance", "issuance_taxonomy_summary", "offers_volume_ticket", "offers_ticket_distribution", "offers_placement_regime", "conclusions", "investor_base", "top15_cvm_1", "top15_cvm_2")):
             if offer_cut.period_label() not in _normalized_slide_text(archive.read(ordered_slides[number - 1])):
                 raise RevisionExportUnavailable(f"slide {number} sem corte atual de ofertas")
         months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
         stock_label = f"{months[int(competence[-2:]) - 1]}/{competence[2:4]}"
-        for number in (1, 2, 5, 6, 7, 12, 13, 14, 15):
+        for number in (ordinal[key] for key in ("cover", "industry_scale", "analytical_taxonomy", "acquiring", "receivables", "provider_history", "provider_ranking", "investor_base", "holder_distribution")):
             if stock_label not in _normalized_slide_text(archive.read(ordered_slides[number - 1])):
                 raise RevisionExportUnavailable(f"slide {number} sem competência atual do estoque")
         presentation = ElementTree.fromstring(archive.read("ppt/presentation.xml"))
@@ -843,13 +862,16 @@ def validate_revision_pptx(
         canvas = (int(size.attrib["cx"]), int(size.attrib["cy"]))
         _validate_native_table_slide(archive, 3, expected_dimensions=((7, 3),), canvas=canvas)
         # Preserve editable native charts on every retained evidence slide.
-        chart_minimums = {2: 2, 3: 2, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2, 9: 3, 10: 1, 12: 6, 13: 2, 14: 2, 15: 4}
-        for number, minimum in chart_minimums.items():
+        chart_minimums = {"industry_scale":2,"annual_issuance":2,"issuance_taxonomy_summary":2,"analytical_taxonomy":2,"acquiring":2,"receivables":2,"offers_volume_ticket":2,"offers_ticket_distribution":3,"offers_placement_regime":1,"provider_history":6,"provider_ranking":2,"investor_base":2,"holder_distribution":4,"anbima_market":2,"anbima_ranking":4,"anbima_fidc_ranking":4,"anbima_sectors":2}
+        for key, minimum in chart_minimums.items():
+            number = ordinal[key]
             root = ElementTree.fromstring(archive.read(ordered_slides[number - 1]))
             count = len(root.findall(".//{http://schemas.openxmlformats.org/drawingml/2006/chart}chart"))
             if count < minimum:
                 raise RevisionExportUnavailable(f"slide {number} sem os gráficos nativos esperados")
-        for number in (1, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15):
+        for key, dimensions in {"top15_cvm_1":((9,7),),"top15_cvm_2":((8,7),),"anbima_products":((11,5),),"anbima_ibba":((6,7),(6,7)),"top15_anbima_1":((9,6),),"top15_anbima_2":((8,6),),"top15_anbima_market_1":((9,7),),"top15_anbima_market_2":((8,7),)}.items():
+            _validate_native_table_slide(archive, ordinal[key], expected_dimensions=dimensions, canvas=canvas)
+        for number in (ordinal[key] for key in ("cover", "issuance_taxonomy_summary", "analytical_taxonomy", "acquiring", "receivables", "offers_ticket_distribution", "offers_placement_regime", "conclusions", "provider_history", "provider_ranking", "investor_base", "holder_distribution")):
             if b"<a:tbl>" in archive.read(ordered_slides[number - 1]):
                 raise RevisionExportUnavailable(f"slide {number} contém tabela fora do contrato compacto")
         scale_text = _normalized_slide_text(archive.read(ordered_slides[1]))

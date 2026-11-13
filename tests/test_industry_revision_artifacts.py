@@ -415,7 +415,7 @@ def test_updated_conclusions_are_materialized_without_legacy_numeric_copy() -> N
 def test_structural_detail_is_preserved_in_workbook_and_payload() -> None:
     _require(XLSX)
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
-    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_IDS) == 15
+    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_IDS) == 27
     assert STRUCTURAL_MVP_SLIDE_SEQUENCE == ()
     assert STRUCTURAL_MVP_SLIDES == ()
     assert payload["carteira_1_structural_taxonomy"]

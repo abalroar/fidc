@@ -75,8 +75,8 @@ def _contract_slide_number(*needles: str) -> int:
 
 
 SLIDE_INSTRUMENTS = _contract_slide_number("emissoes de fidcs")
-SLIDE_STOCK_AND_TYPES = _contract_slide_number("emissoes por setor")
-SLIDE_ISSUANCE_TAXONOMY = _contract_slide_number("emissoes por setor")
+SLIDE_STOCK_AND_TYPES = EXPECTED_SLIDE_IDS.index("issuance_taxonomy_summary") + 1
+SLIDE_ISSUANCE_TAXONOMY = SLIDE_STOCK_AND_TYPES
 SLIDE_ANALYTICAL_TAXONOMY = _contract_slide_number("composicao da industria")
 SLIDE_OFFER_REGIME = _contract_slide_number("garantia firme", "melhores esforcos")
 SLIDES_TOP_TYPE = tuple(
@@ -326,12 +326,12 @@ def test_compact_deck_keeps_editable_evidence_and_omits_sector_detail_table() ->
     assert ISSUANCE_TAXONOMY_TABLE_DIMENSIONS == ()
 
 
-def test_renderer_contract_matches_15_topics_and_uses_payload_periods() -> None:
+def test_renderer_contract_matches_27_topics_and_uses_payload_periods() -> None:
     import re
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(encoding="utf-8")
     declaration = source.split("const SLIDE_CONTRACT_V1 = Object.freeze([", 1)[1].split("]);", 1)[0]
     assert tuple(re.findall(r'"([^"\n]+)"', declaration)) == EXPECTED_SLIDE_IDS
-    assert len(EXPECTED_SLIDE_IDS) == 15
+    assert len(EXPECTED_SLIDE_IDS) == 27
     assert "fallbackExecutiveConclusions" not in source
     assert 'rows.length !== 5' in source
 
@@ -445,13 +445,14 @@ def test_offer_regime_uses_full_width_volume_shares_that_close_to_one() -> None:
     )
 
 
-def test_taxonomy_rankings_are_outside_the_15_slide_executive_contract() -> None:
+def test_fund_taxonomy_rankings_remain_outside_the_executive_contract() -> None:
     assert TYPE_RANKING_SLIDE_SEQUENCE == ()
     with ZipFile(PPTX) as archive:
         text = " ".join(_slide_text(archive, number) for number in range(1, EXPECTED_SLIDES + 1))
     assert "RANKING · TOP FUNDOS E ORIGINADORES" not in text
     assert "RISCO ESTRUTURAL · CARTEIRA I" not in text
-    assert "TOP 15 · OFERTAS ENCERRADAS" not in text
+    assert "TOP 15 FIDC · CVM" in text
+    assert "TOP 15 FIDC · ANBIMA" in text
 
 
 def test_ytd_offer_curve_has_twelve_month_positions_and_no_future_zeroes() -> None:
@@ -508,7 +509,7 @@ def test_native_horizontal_charts_keep_categories_visible() -> None:
                     continue
                 axes = chart.findall(f".//{{{CHART}}}catAx")
                 assert axes
-                if slide_number == 13:
+                if EXPECTED_SLIDE_IDS[slide_number - 1] == "provider_ranking":
                     assert chart.find(f".//{{{CHART}}}valAx/{{{CHART}}}scaling/{{{CHART}}}min").attrib["val"] == "0"
                     assert chart.find(f".//{{{CHART}}}valAx/{{{CHART}}}scaling/{{{CHART}}}max").attrib["val"] == "1"
                 if all(axis.find(f"{{{CHART}}}delete").attrib.get("val") == "0" for axis in axes):
@@ -590,9 +591,9 @@ def test_compact_footers_and_investor_copy_preserve_separate_dates() -> None:
                 text = "".join(node.text or "" for node in shape.iter(f"{{{DML}}}t"))
                 if len(text) > 3:
                     assert len(text) <= 112, (slide_number, text)
-        providers = _slide_text(archive, 12)
+        providers = _slide_text(archive, EXPECTED_SLIDE_IDS.index("provider_history") + 1)
         assert "PL ex-FIC (R$ bi)" in providers
-        investor = _slide_text(archive, 14)
+        investor = _slide_text(archive, EXPECTED_SLIDE_IDS.index("investor_base") + 1)
         assert f"Ofertas até {_cut().period_key()[:-2]}/{str(_cut().year)[-2:]}; contas em" in investor
         assert "demanda institucional" not in investor
         assert "Público-alvo mede elegibilidade; contas podem repetir investidores." in investor
@@ -676,7 +677,7 @@ def test_compact_validator_rejects_missing_slide() -> None:
         ids.remove(list(ids)[-1])
         return ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
-    with pytest.raises(RevisionExportUnavailable, match="órfão|sequência|15 slides"):
+    with pytest.raises(RevisionExportUnavailable, match="órfão|sequência|27 slides"):
         validate_revision_pptx(_rewrite_pptx_part("ppt/presentation.xml", remove_last_slide))
 
 

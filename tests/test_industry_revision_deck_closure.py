@@ -86,7 +86,7 @@ def test_removed_market_share_sections_remain_available_in_the_payload() -> None
     provider_concentration = _find_slide_index(slides, "PRESTADORES · RANKING E CONCENTRAÇÃO")
     investor_base = _find_slide_index(slides, "Público-alvo e base investidora")
     assert provider_ranking < provider_concentration < investor_base
-    assert len(slides) == 15
+    assert len(slides) == 27
     visible = "\n".join(slides)
     for removed in (
         "MARKET SHARE · ADMINISTRAÇÃO",

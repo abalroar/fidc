@@ -1,0 +1,48 @@
+{
+  "result": "PASS",
+  "method": "Soma independente do PL por palavras inteiras nos nomes brutos normalizados em ASCII; is_fic, sem CNPJs 09195235000150 e 26287464000114. Itauna permanece distinta de Itau.",
+  "rows": [
+    {
+      "provider": "Itaú",
+      "role": "administrador",
+      "sum_raw_names_brl": 29083094726.6,
+      "ranking_brl": 29083094726.6,
+      "gap_brl": 0.0
+    },
+    {
+      "provider": "Kanastra",
+      "role": "administrador",
+      "sum_raw_names_brl": 13504420519.95,
+      "ranking_brl": 13504420519.95,
+      "gap_brl": 0.0
+    },
+    {
+      "provider": "Itaú",
+      "role": "gestor",
+      "sum_raw_names_brl": 20173507348.2,
+      "ranking_brl": 20173507348.2,
+      "gap_brl": 0.0
+    },
+    {
+      "provider": "Kanastra",
+      "role": "gestor",
+      "sum_raw_names_brl": 9989566768.039999,
+      "ranking_brl": 9989566768.04,
+      "gap_brl": -1.9073486328125e-06
+    },
+    {
+      "provider": "Itaú",
+      "role": "custodiante",
+      "sum_raw_names_brl": 22247957380.03,
+      "ranking_brl": 22247957380.03,
+      "gap_brl": 0.0
+    },
+    {
+      "provider": "Kanastra",
+      "role": "custodiante",
+      "sum_raw_names_brl": 20455800676.700005,
+      "ranking_brl": 20455800676.700005,
+      "gap_brl": 0.0
+    }
+  ]
+}
