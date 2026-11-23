@@ -933,6 +933,7 @@ def build_dashboard_pptx_bytes(
         top: float,
         width: float,
         height: float,
+        label_series: frozenset[str] | None = None,
     ) -> None:
         axis_max = _dashboard_percent_axis_upper(_series_values(series_map), max_cap=120.0)
         ordered_names = [series_name for series_name, _ in series_map]
@@ -986,7 +987,10 @@ def build_dashboard_pptx_bytes(
             font_size=10,
             position="above",
             alternate_positions=not portfolio_mode,
-            series_filter=(lambda name: name not in zero_final_series) if portfolio_mode else None,
+            series_filter=(
+                lambda name: (label_series is None or name in label_series)
+                and not (portfolio_mode and name in zero_final_series)
+            ),
         )
         if portfolio_mode and zero_final_series:
             add_portfolio_notes(
@@ -1626,6 +1630,49 @@ def build_dashboard_pptx_bytes(
             )
             add_footer(slide, timestamp_text, current_page)
 
+    over_pl_history = _build_over_pl_history_for_ppt(dashboard, max_periods=CREDIT_RISK_VISUAL_MONTHS)
+    over_pl_series_map = [
+        (column, over_pl_history[column].tolist()) for column in over_pl_history.columns if column != "competencia"
+    ]
+    if over_pl_series_map and _series_map_has_nonzero_values(over_pl_series_map):
+        slide = prs.slides.add_slide(blank)
+        current_page = next_page()
+        add_slide_header(slide, "Vencidos / PL")
+        table_width = 3.55
+        split_gap = 0.26
+        chart_width = full_width - table_width - split_gap
+        add_over_focus_chart(
+            slide,
+            title="Inadimplência Over · % do PL",
+            categories=_competencia_labels(over_pl_history["competencia"].tolist()),
+            series_map=over_pl_series_map,
+            left=MARGIN_LEFT_IN,
+            top=top_row_top,
+            width=chart_width,
+            height=5.30,
+            # The side table carries every series' latest value; label only the headline curves.
+            label_series=frozenset({"Over 30", "Over 90"}),
+        )
+        latest_table = _over_pl_latest_table_for_ppt(dashboard)
+        if not latest_table.empty:
+            add_table(
+                slide,
+                latest_table,
+                title=f"Último mês · {_format_competencia(dashboard.latest_competencia)}",
+                left=MARGIN_LEFT_IN + chart_width + split_gap,
+                top=top_row_top + 0.30,
+                width=table_width,
+                height=0.30 * (len(latest_table) + 1),
+                col_widths=[1.05, 0.90, 0.80, 0.80],
+                max_rows=len(latest_table),
+                row_height_floor=0.24,
+            )
+        if portfolio_mode:
+            add_portfolio_notes(slide, OVER_PL_PPT_NOTE + " Carteira: Σ vencidos / Σ PL dos fundos do perímetro.")
+        else:
+            add_textbox(slide, MARGIN_LEFT_IN, 6.65, full_width, 0.31, f"* {OVER_PL_PPT_NOTE}", size=7, color=MID_GRAY)
+        add_footer(slide, timestamp_text, current_page)
+
     total_pages = page_number
     for slide in prs.slides:
         for shape in slide.shapes:
@@ -2033,6 +2080,55 @@ def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.Da
     pivot = pivot[ordered_columns].copy()
     pivot = pivot.fillna(0.0)
     return _reorder_competencia_pivot(pivot, ordered_competencias)
+
+
+OVER_PL_PPT_NOTE = (
+    "Critério usual de regulamento: vencidos / PL do fundo. Mesmos numeradores da curva Over sobre DCs; "
+    "o denominador é o PL oficial do Informe Mensal. Competência sem PL válido fica sem ponto (não zerada)."
+)
+
+
+def _build_over_pl_history_for_ppt(dashboard: FundonetDashboardData, *, max_periods: int) -> pd.DataFrame:
+    """Over series as % of PL, one column per series; missing stays None (gap), never 0."""
+    over_history_df = dashboard.default_over_history_df
+    if over_history_df.empty or "percentual_pl" not in over_history_df.columns:
+        return pd.DataFrame(columns=["competencia"])
+    frame = over_history_df[["competencia", "competencia_dt", "serie", "percentual_pl"]].copy()
+    frame["percentual_pl"] = pd.to_numeric(frame["percentual_pl"], errors="coerce")
+    if frame["percentual_pl"].notna().sum() == 0:
+        return pd.DataFrame(columns=["competencia"])
+    frame = _latest_competencia_frame(_sort_competencia_frame(frame, ascending=True), max_periods=max_periods)
+    ordered_competencias = _ordered_competencias(frame, ascending=True)
+    pivot = frame.pivot_table(index="competencia", columns="serie", values="percentual_pl", aggfunc="first", dropna=False)
+    pivot = pivot.reindex(ordered_competencias)
+    series_order = [serie for serie in ("Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360") if serie in pivot.columns]
+    output = pd.DataFrame({"competencia": ordered_competencias})
+    for serie in series_order:
+        # object dtype keeps None (chart gap, no "nan%" end label); float would revert to NaN.
+        output[serie] = pd.Series([_sanitize_chart_value(value) for value in pivot[serie].tolist()], dtype=object)
+    return output
+
+
+def _over_pl_latest_table_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
+    """Latest month: R$ vencido, % dos DCs and % do PL, same rows as the dashboard table."""
+    columns = ["Série", "Vencido", "% DCs", "% PL"]
+    over_history_df = dashboard.default_over_history_df
+    if over_history_df.empty or "percentual_pl" not in over_history_df.columns:
+        return pd.DataFrame(columns=columns)
+    latest = over_history_df[over_history_df["competencia"].astype(str) == str(dashboard.latest_competencia)]
+    rows = []
+    for _, row in latest.sort_values("ordem").iterrows():
+        numerator_ok = str(row.get("calculo_status_pl") or "") != "bucket_incompleto"
+        serie = str(row.get("serie") or "")
+        rows.append(
+            {
+                "Série": "Over 1 (total)" if serie == "Over 1" else serie,
+                "Vencido": _format_brl_compact(_sanitize_chart_value(row.get("valor"))) if numerator_ok else "N/D",
+                "% DCs": _format_return_percent(_sanitize_chart_value(row.get("percentual"))),
+                "% PL": _format_return_percent(_sanitize_chart_value(row.get("percentual_pl"))),
+            }
+        )
+    return pd.DataFrame(rows, columns=columns)
 
 
 def _build_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:

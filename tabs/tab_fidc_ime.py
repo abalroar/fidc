@@ -53,7 +53,7 @@ from services.ime_period import (
 # Feature flag: set to True when global PDF dashboard export is stable and ready.
 # While False, the dashboard-level PDF button is hidden to prevent broken UX.
 ENABLE_GLOBAL_PDF_EXPORT: bool = False
-DASHBOARD_SCHEMA_VERSION: int = 8
+DASHBOARD_SCHEMA_VERSION: int = 9
 
 FIDC_CHART_COLORS = [
     "#ff5a00",
@@ -1546,6 +1546,88 @@ def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFram
         )
 
 
+OVER_PL_CAPTION = (
+    "Critério usual de regulamento: vencidos sobre o PL do fundo. Mesmos numeradores da curva Over sobre DCs; "
+    "muda só o denominador (PL oficial do Informe Mensal)."
+)
+
+
+def _over_pl_chart_frame(over_history_df: pd.DataFrame) -> pd.DataFrame:
+    """Over series on the PL basis; competências without a valid PL stay out (no zero fill)."""
+    columns = ["competencia", "competencia_dt", "ordem", "serie", "valor"]
+    if over_history_df.empty or "percentual_pl" not in over_history_df.columns:
+        return pd.DataFrame(columns=columns)
+    frame = over_history_df[["competencia", "competencia_dt", "ordem", "serie", "percentual_pl"]].rename(
+        columns={"percentual_pl": "valor"}
+    )
+    frame["valor"] = pd.to_numeric(frame["valor"], errors="coerce")
+    return frame.dropna(subset=["valor"]).sort_values(["ordem", "competencia_dt"]).reset_index(drop=True)
+
+
+def _format_over_pl_latest_table(over_history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
+    """Latest month side by side: R$ vencido, % dos DCs (carteira) and % do PL (regulamento)."""
+    columns = ["Série", "Vencido", "% dos DCs", "% do PL"]
+    if over_history_df.empty or "percentual_pl" not in over_history_df.columns:
+        return pd.DataFrame(columns=columns)
+    latest = over_history_df[over_history_df["competencia"].astype(str) == str(latest_competencia)]
+    if latest.empty:
+        return pd.DataFrame(columns=columns)
+    rows = []
+    for _, row in latest.sort_values("ordem").iterrows():
+        numerator_ok = str(row.get("calculo_status_pl") or "") != "bucket_incompleto"
+        serie = str(row.get("serie") or "")
+        rows.append(
+            {
+                "Série": "Over 1 (total)" if serie == "Over 1" else serie,
+                "Vencido": _format_brl_compact(row.get("valor")) if numerator_ok else "N/D",
+                "% dos DCs": _format_percent(row.get("percentual")),
+                "% do PL": _format_percent(row.get("percentual_pl")),
+            }
+        )
+    return pd.DataFrame(rows, columns=columns)
+
+
+def _render_over_pl_section(dashboard: FundonetDashboardData, *, portfolio_mode: bool = False) -> None:
+    over_history_df = dashboard.default_over_history_df
+    _render_chart_heading(st, "Vencidos / PL")
+    if portfolio_mode:
+        with st.popover("Como ler", type="tertiary"):
+            st.caption(OVER_PL_CAPTION + " Carteira: Σ vencidos / Σ PL dos fundos do perímetro.")
+    else:
+        st.caption(OVER_PL_CAPTION)
+    chart_df = _latest_competencia_window(
+        _over_pl_chart_frame(over_history_df), max_periods=CREDIT_RISK_VISUAL_MONTHS,
+    )
+    if chart_df.empty:
+        st.caption("Vencidos / PL N/D — PL ou buckets de atraso não disponíveis no período.")
+        return
+    chart_col, table_col = st.columns([0.62, 0.38])
+    with chart_col:
+        st.altair_chart(
+            _over_focus_line_chart(chart_df, title=None, y_title="% do PL", height=360),
+            width="stretch",
+        )
+    with table_col:
+        st.markdown(
+            f'<div class="fidc-chart-caption">Último mês · {escape(_format_competencia_display(dashboard.latest_competencia))}</div>',
+            unsafe_allow_html=True,
+        )
+        st.dataframe(
+            _format_over_pl_latest_table(over_history_df, dashboard.latest_competencia),
+            width="stretch",
+            hide_index=True,
+        )
+    sem_pl = (
+        over_history_df.loc[over_history_df.get("calculo_status_pl", pd.Series(dtype=object)) == "sem_pl", "competencia"]
+        .drop_duplicates()
+        .tolist()
+        if "calculo_status_pl" in over_history_df.columns
+        else []
+    )
+    if sem_pl:
+        st.caption(f"PL não disponível em {len(sem_pl)} competência(s) — percentual sobre PL não calculado.")
+
+
 def _render_credit_risk_section(
     dashboard: FundonetDashboardData, *, portfolio_mode: bool = False,
 ) -> None:
@@ -1636,6 +1718,7 @@ def _render_credit_risk_section(
                 ),
                 width="stretch",
             )
+    _render_over_pl_section(dashboard, portfolio_mode=portfolio_mode)
     with st.expander("Detalhe técnico do aging", expanded=False):
         aging_history_df = dashboard.default_aging_history_df.copy()
         _render_chart_heading(st, "Aging")
@@ -4539,6 +4622,7 @@ def _over_focus_line_chart(
     title: str | None,
     y_title: str,
     headline_series: tuple[str, ...] = ("Over 30", "Over 90"),
+    height: int = 640,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
     chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["serie"])
@@ -4551,7 +4635,7 @@ def _over_focus_line_chart(
             .mark_line()
             .encode(x="competencia:N", y=alt.Y("valor:Q", title=y_title))
         )
-        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=640, title=title))
+        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
 
     x_sort = _competencia_axis_sort(chart_df)
     observed_series = chart_df["serie"].dropna().astype(str).drop_duplicates().tolist()
@@ -4610,7 +4694,7 @@ def _over_focus_line_chart(
         size=alt.Size("point_size:Q", legend=None),
         opacity=alt.Opacity("series_opacity:Q", legend=None),
     )
-    layered: alt.Chart = _chart_with_optional_title(lines + points, height=640, title=title)
+    layered: alt.Chart = _chart_with_optional_title(lines + points, height=height, title=title)
     end_labels = _line_series_end_label_layer(
         end_labels_df,
         x_sort=x_sort,
