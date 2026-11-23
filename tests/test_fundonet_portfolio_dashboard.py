@@ -180,6 +180,15 @@ class FundonetPortfolioDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(1_300.0 / 26_000.0 * 100.0, over_lookup.loc["Over 1", "percentual"], places=6)
         self.assertAlmostEqual(900.0 / 26_000.0 * 100.0, over_lookup.loc["Over 60", "percentual"], places=6)
         self.assertAlmostEqual(500.0 / 26_000.0 * 100.0, over_lookup.loc["Over 360", "percentual"], places=6)
+        # Regulation view: Σ vencidos / Σ PL of the perimeter, same numerators.
+        self.assertAlmostEqual(1_300.0 / 25_500.0 * 100.0, over_lookup.loc["Over 1", "percentual_pl"], places=6)
+        self.assertAlmostEqual(500.0 / 25_500.0 * 100.0, over_lookup.loc["Over 360", "percentual_pl"], places=6)
+        latest_default = bundle.dashboard.default_history_df.iloc[-1]
+        self.assertAlmostEqual(
+            latest_default["inadimplencia_total"] / 25_500.0 * 100.0,
+            latest_default["inadimplencia_pct_pl"],
+            places=6,
+        )
 
         quota_latest = bundle.dashboard.quota_pl_history_df[
             bundle.dashboard.quota_pl_history_df["competencia"] == "01/2026"

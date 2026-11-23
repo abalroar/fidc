@@ -335,6 +335,11 @@ def build_dashboard_data(
         default_buckets_history_df=default_buckets_history_df,
         dc_canonical_history_df=dc_canonical_history_df,
     )
+    default_history_df, default_over_history_df = attach_pl_denominator(
+        default_history_df=default_history_df,
+        default_over_history_df=default_over_history_df,
+        subordination_history_df=subordination_history_df,
+    )
     holder_latest_df = _build_holder_latest_df(
         wide_lookup=wide_lookup,
         listas_df=listas_df,
@@ -405,6 +410,7 @@ def build_dashboard_data(
         "Subordinação reportada (IME) usa a mesma regra das memórias de cálculo: (PL mezzanino + PL subordinada residual) / PL total.",
         "Aging da inadimplência mostra a distribuição do estoque vencido por faixa (% da inadimplência); Inadimplência Over mostra cortes cumulativos sobre os direitos creditórios totais.",
         "Cobertura de provisão usa apenas vencidos canônicos como denominador e fica segregada no eixo direito.",
+        "Vencidos / PL (critério usual de regulamento) usa os mesmos numeradores da curva Over sobre DCs; o denominador é o PL total (oficial do Informe Mensal).",
         "Resgate solicitado usa os campos RESG_SOLIC do Informe Mensal e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
         "Indicadores como cobertura, relação mínima, reservas, rating, coobrigação e eventos contratuais exigem documentação complementar.",
     ]
@@ -1094,6 +1100,61 @@ def _build_default_over_history_df(
                 }
             )
     return pd.DataFrame(rows).sort_values(["competencia_dt", "ordem"]).reset_index(drop=True)
+
+
+# Over statuses whose `valor` is a confirmed overdue sum. "sem_denominador"
+# refers to the DC denominator only: the numerator stays valid for the PL view.
+_OVER_NUMERATOR_VALID_STATUSES = frozenset({"calculado", "calculado_parcial", "sem_denominador"})
+
+
+def attach_pl_denominator(
+    *,
+    default_history_df: pd.DataFrame,
+    default_over_history_df: pd.DataFrame,
+    subordination_history_df: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Add the regulation view (overdue / PL) next to the portfolio view (overdue / DCs).
+
+    Most FIDC regulations set default triggers as overdue receivables over the
+    fund's net assets (PL), not over the receivables portfolio. The numerators
+    are the same ones used by the DC view; only the denominator changes to the
+    `pl_total` already used by subordination (official VL_PATRIM_LIQ, falling
+    back to Σ QT_COTAS × VL_COTA). A missing or non-positive PL yields NA, never 0.
+    """
+    pl_lookup: dict[str, float] = {}
+    if not subordination_history_df.empty and {"competencia", "pl_total"} <= set(subordination_history_df.columns):
+        pl_series = pd.to_numeric(subordination_history_df["pl_total"], errors="coerce")
+        pl_lookup = dict(zip(subordination_history_df["competencia"].astype(str), pl_series, strict=False))
+
+    def _pl_for(frame: pd.DataFrame) -> pd.Series:
+        if frame.empty or "competencia" not in frame.columns:
+            return pd.Series(dtype="float64", index=frame.index)
+        mapped = frame["competencia"].astype(str).map(pl_lookup)
+        pl = pd.to_numeric(mapped, errors="coerce")
+        return pl.where(pl > 0)
+
+    history = default_history_df.copy()
+    history["pl_total"] = _pl_for(history)
+    if "inadimplencia_total" in history.columns:
+        vencidos = pd.to_numeric(history["inadimplencia_total"], errors="coerce")
+        history["inadimplencia_pct_pl"] = (vencidos / history["pl_total"]).mul(100.0)
+    else:
+        history["inadimplencia_pct_pl"] = pd.NA
+
+    over = default_over_history_df.copy()
+    over["pl_total"] = _pl_for(over)
+    if over.empty:
+        over["percentual_pl"] = pd.Series(dtype="float64")
+        over["calculo_status_pl"] = pd.Series(dtype="object")
+        return history, over
+    valor = pd.to_numeric(over["valor"], errors="coerce")
+    numerator_ok = over["calculo_status"].isin(_OVER_NUMERATOR_VALID_STATUSES) & valor.notna()
+    over["percentual_pl"] = (valor / over["pl_total"]).mul(100.0).where(numerator_ok)
+    over["calculo_status_pl"] = "calculado"
+    over.loc[over["calculo_status"].eq("calculado_parcial"), "calculo_status_pl"] = "calculado_parcial"
+    over.loc[over["pl_total"].isna(), "calculo_status_pl"] = "sem_pl"
+    over.loc[~numerator_ok, "calculo_status_pl"] = "bucket_incompleto"
+    return history, over
 
 
 def _build_summary(
@@ -2404,6 +2465,18 @@ def _build_executive_memory_df(
             "fonte_efetiva": f"buckets=COMPMT_DICRED_* | denominador={dc_total_source}",
             "formula": "Over X = Σ(buckets vencidos acima de X) / dc_total_canonico * 100",
             "observacao": "Inclui Over 1 como soma de todos os atrasos a partir de 1 dia; os demais cortes permanecem cumulativos.",
+        },
+        {
+            "tipo_variavel": "Bucket / distribuição",
+            "bloco_executivo": "Crédito",
+            "componente": "Vencidos / PL (critério de regulamento)",
+            "variavel_final": "default_over_history_df.percentual_pl; default_history_df.inadimplencia_pct_pl",
+            "numerador": "Mesmos numeradores da curva Over (buckets cumulativos) e dos vencidos totais",
+            "denominador": "pl_total",
+            "fonte_cvm": "Buckets VL_INAD_VENC_30 até VL_INAD_VENC_1080; PATRLIQ/VL_PATRIM_LIQ",
+            "fonte_efetiva": "buckets=COMPMT_DICRED_* | denominador=PL oficial, ou Σ QT_COTAS × VL_COTA sem PL oficial",
+            "formula": "Over X / PL = Σ(buckets vencidos acima de X) / pl_total * 100",
+            "observacao": "Visão usual dos gatilhos de regulamento. PL ausente ou não positivo fica N/D, nunca zero.",
         },
         {
             "tipo_variavel": "Percentual",

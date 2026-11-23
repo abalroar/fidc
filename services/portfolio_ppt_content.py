@@ -133,6 +133,10 @@ _ALIASES = {
     "percentual_inadimplencia": "Composição dos vencidos", "provisao_total": "Provisão total",
     "pl": "PL por cota", "pl_share_pct": "Participação da cota no PL",
     "npl_over90_ex360": "NPL > 90d ex-360 (saldo)", "npl_over90": "NPL > 90d (saldo)",
+    "npl_over1_pl_pct": "NPL > 1d / PL", "npl_over30_pl_pct": "NPL > 30d / PL",
+    "npl_over60_pl_pct": "NPL > 60d / PL", "npl_over90_pl_pct": "NPL > 90d / PL",
+    "npl_over180_pl_pct": "NPL > 180d / PL", "npl_over360_pl_pct": "NPL > 360d / PL",
+    "npl_over30_pct": "NPL > 30d / carteira bruta", "npl_over90_pct": "NPL > 90d / carteira bruta",
 }
 _MONTHLY_COLUMNS = (
     "pl_total", "pl_senior", "pl_subordinada_strict", "pl_mezzanino", "pl_subordinada_mezz_ex360",
@@ -146,6 +150,8 @@ _MONTHLY_COLUMNS = (
     "atraso_ate30", "atraso_31_60", "atraso_61_90", "atraso_91_120", "atraso_121_150",
     "atraso_151_180", "atraso_181_360", "atraso_361_720", "atraso_721_1080", "atraso_1080",
 )
+_OVER_PL_COLUMNS = ("npl_over1_pl_pct", "npl_over30_pl_pct", "npl_over60_pl_pct", "npl_over90_pl_pct",
+                    "npl_over180_pl_pct", "npl_over360_pl_pct")
 _ROLL_COLUMNS = ("roll_61_90_m3_pct", "roll_91_120_m4_pct", "roll_121_150_m5_pct", "roll_151_180_m6_pct")
 _DASHBOARD_ANNEXES = (
     ("Estrutura de cotas", "quota_pl_history_df"),
@@ -762,6 +768,8 @@ _THEME_TABLES = (
     ("atraso", "Atraso e provisão", "%", ("npl_over1_ex360_pct", "npl_over30_ex360_pct", "npl_over60_ex360_pct",
                                           "npl_over90_ex360_pct", "npl_1_90_pct", "npl_91_360_pct", "npl_1_360_pct",
                                           "pdd_npl_over90_ex360_pct", "pdd_npl90_ex360_pct")),
+    # Regulation view: overdue / PL (most FIDC regulations set default triggers on PL).
+    ("atraso", "Atraso acumulado / PL", "%", _OVER_PL_COLUMNS),
     ("atraso", "Aging · saldos por faixa", "R$", ("atraso_ate30", "atraso_31_60", "atraso_61_90", "atraso_91_120",
                                                   "atraso_121_150", "atraso_151_180", "atraso_181_360", "atraso_361_720",
                                                   "atraso_721_1080", "atraso_1080")),
@@ -1424,6 +1432,15 @@ def build_portfolio_deck_spec(
         _chart_from_rows("Cobertura PDD / NPL > 90d ex-360 · %", [s for s in (series("pdd_npl_over90_ex360_pct", "PDD / NPL > 90d"),) if s], "%", kind="column",
                          notes=("Último mês em laranja.",)),
         _aging_chart(main_dashboard) if main_dashboard is not None else None,
+    ))
+    # Same numerators, two denominators: PL (regulation trigger) beside the gross portfolio.
+    gross_over_rows = _frame_rows(main_monthly, ("npl_over30_pct", "npl_over90_pct"), "Base mensal")
+    theme_pairs["atraso"].append((
+        _chart_from_rows("Atraso acumulado / PL · %", [s for s in (series("npl_over30_pl_pct", "NPL > 30d"), series("npl_over90_pl_pct", "NPL > 90d")) if s], "%",
+                         notes=("Critério usual de regulamento: vencidos / PL FIDC total (PL oficial do informe mensal).",)),
+        _chart_from_rows("Atraso acumulado / carteira bruta · %",
+                         [s for s in (series("npl_over30_pct", "NPL > 30d", gross_over_rows), series("npl_over90_pct", "NPL > 90d", gross_over_rows)) if s], "%",
+                         notes=("Mesmos numeradores; denominador: carteira bruta (direitos creditórios).",)),
     ))
     roll_chart = _chart_from_rows("Roll rates · %", [series(c, _ALIASES[c].replace(" / a vencer", "")) for c in _ROLL_COLUMNS if series(c)], "%", decimals=2,
                                   notes=("Proxies: faixa de atraso atual / carteira a vencer M-3, M-4, M-5 ou M-6.",))
