@@ -169,6 +169,12 @@ def build_portfolio_dashboard_bundle(
         default_buckets_history_df=default_buckets_history_df,
         dc_canonical_history_df=dc_canonical_history_df,
     )
+    # Σ vencidos / Σ PL: same numerators, PL of the whole perimeter as denominator.
+    default_history_df, default_over_history_df = single.attach_pl_denominator(
+        default_history_df=default_history_df,
+        default_over_history_df=default_over_history_df,
+        subordination_history_df=subordination_history_df,
+    )
     event_block_supported = all(
         dashboard.latest_competencia == latest_competencia
         for _, dashboard in dashboards_by_cnpj.values()

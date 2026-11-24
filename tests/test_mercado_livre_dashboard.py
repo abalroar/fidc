@@ -98,6 +98,9 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(50.0, row["npl_over90_ex360"])
         self.assertAlmostEqual(990.0, row["carteira_ex360"])
         self.assertAlmostEqual(50.0 / 990.0 * 100.0, row["npl_over90_ex360_pct"], places=6)
+        # Regulation view: same numerator over PL FIDC total, next to the gross portfolio view.
+        self.assertAlmostEqual(60.0 / 100.0 * 100.0, row["npl_over90_pl_pct"], places=6)
+        self.assertAlmostEqual(60.0 / 1_000.0 * 100.0, row["npl_over90_pct"], places=6)
         self.assertTrue(bool(row["pdd_ex360_calculavel"]))
         self.assertAlmostEqual(10.0, row["baixa_over360_carteira"])
         self.assertAlmostEqual(10.0, row["baixa_over360_pdd"])
@@ -245,6 +248,8 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(65.0 / 300.0 * 100.0, row["subordinacao_total_pct"], places=6)
         self.assertAlmostEqual(160.0, row["npl_over90"])
         self.assertAlmostEqual(300.0 / 160.0 * 100.0, row["pdd_npl_over90_pct"], places=6)
+        # Σ NPL / Σ PL, never an average of fund ratios.
+        self.assertAlmostEqual(160.0 / 300.0 * 100.0, row["npl_over90_pl_pct"], places=6)
 
     def test_roll_rate_uses_current_bucket_over_previous_month_base(self) -> None:
         competencias = ["01/2026", "02/2026"]
@@ -327,6 +332,10 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("jan/26", wide.columns)
         self.assertIn("7. Visão Ex-Vencidos > 360d", set(wide["Bloco"]))
         self.assertIn("NPL Over 90d", set(wide["Métrica"]))
+        metrics = wide["Métrica"].tolist()
+        # PL row sits right below the portfolio row so both bases read together.
+        self.assertEqual(metrics.index("NPL Over 90d / Carteira") + 1, metrics.index("NPL Over 90d / PL"))
+        self.assertEqual("60,00%", wide.loc[wide["Métrica"] == "NPL Over 90d / PL"].iloc[0]["jan/26"])
 
         excel_bytes = build_excel_export_bytes(outputs)
         workbook = load_workbook(BytesIO(excel_bytes), data_only=True)

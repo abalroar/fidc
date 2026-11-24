@@ -135,7 +135,7 @@ PRIMITIVE_SUM_COLUMNS = [
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
-CALCULATION_SCHEMA_VERSION = 10
+CALCULATION_SCHEMA_VERSION = 11
 OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 
 
@@ -1236,7 +1236,17 @@ def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.Da
     df["periodo_inicial"] = _format_competencia_short(df["competencia"].iloc[0]) if not df.empty else ""
     df["periodo_final"] = _format_competencia_short(df["competencia"].iloc[-1]) if not df.empty else ""
     df["competencias_disponiveis"] = len(df)
-    return df
+    # Regulation view: most FIDC regulations set default triggers as overdue / PL.
+    # Same numerators as the portfolio view; denominator is the PL FIDC total above.
+    # Joined in one concat: six more inserts would fragment this already wide frame.
+    over_pl = pd.DataFrame(
+        {
+            f"npl_over{over}_pl_pct": _safe_div_pct(df[f"npl_over{over}"], df["pl_total"])
+            for over in (1, 30, 60, 90, 180, 360)
+        },
+        index=df.index,
+    )
+    return pd.concat([df, over_pl], axis=1)
 
 
 def _wide_metric_specs() -> list[dict[str, str]]:
@@ -1273,16 +1283,22 @@ def _wide_metric_specs() -> list[dict[str, str]]:
         {"block": "4. Aging / faixas de atraso", "metric": "Vencidos acima de 360 dias", "column": "vencidos_360", "unit": "money", "formula": "Soma dos buckets 361-720, 721-1080 e acima de 1080 dias."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 1d", "column": "npl_over1", "unit": "money", "formula": "Soma dos buckets de atraso >= 1 dia."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 1d / Carteira", "column": "npl_over1_pct", "unit": "percent", "formula": "NPL Over 1d / Carteira Bruta."},
+        {"block": "5. NPL Over acumulado", "metric": "NPL Over 1d / PL", "column": "npl_over1_pl_pct", "unit": "percent", "formula": "NPL Over 1d / PL FIDC total (critério usual de regulamento)."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 30d", "column": "npl_over30", "unit": "money", "formula": "Soma dos buckets >= 31 dias."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 30d / Carteira", "column": "npl_over30_pct", "unit": "percent", "formula": "NPL Over 30d / Carteira Bruta."},
+        {"block": "5. NPL Over acumulado", "metric": "NPL Over 30d / PL", "column": "npl_over30_pl_pct", "unit": "percent", "formula": "NPL Over 30d / PL FIDC total (critério usual de regulamento)."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 60d", "column": "npl_over60", "unit": "money", "formula": "Soma dos buckets >= 61 dias."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 60d / Carteira", "column": "npl_over60_pct", "unit": "percent", "formula": "NPL Over 60d / Carteira Bruta."},
+        {"block": "5. NPL Over acumulado", "metric": "NPL Over 60d / PL", "column": "npl_over60_pl_pct", "unit": "percent", "formula": "NPL Over 60d / PL FIDC total (critério usual de regulamento)."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 90d", "column": "npl_over90", "unit": "money", "formula": "Soma dos buckets >= 91 dias."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 90d / Carteira", "column": "npl_over90_pct", "unit": "percent", "formula": "NPL Over 90d / Carteira Bruta."},
+        {"block": "5. NPL Over acumulado", "metric": "NPL Over 90d / PL", "column": "npl_over90_pl_pct", "unit": "percent", "formula": "NPL Over 90d / PL FIDC total (critério usual de regulamento)."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 180d", "column": "npl_over180", "unit": "money", "formula": "Soma dos buckets >= 181 dias."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 180d / Carteira", "column": "npl_over180_pct", "unit": "percent", "formula": "NPL Over 180d / Carteira Bruta."},
+        {"block": "5. NPL Over acumulado", "metric": "NPL Over 180d / PL", "column": "npl_over180_pl_pct", "unit": "percent", "formula": "NPL Over 180d / PL FIDC total (critério usual de regulamento)."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 360d", "column": "npl_over360", "unit": "money", "formula": "Vencidos acima de 360 dias."},
         {"block": "5. NPL Over acumulado", "metric": "NPL Over 360d / Carteira", "column": "npl_over360_pct", "unit": "percent", "formula": "NPL Over 360d / Carteira Bruta."},
+        {"block": "5. NPL Over acumulado", "metric": "NPL Over 360d / PL", "column": "npl_over360_pl_pct", "unit": "percent", "formula": "NPL Over 360d / PL FIDC total (critério usual de regulamento)."},
         {"block": "6. Cobertura", "metric": "PDD / NPL Over 1d", "column": "pdd_npl_over1_pct", "unit": "percent", "formula": "PDD total / NPL Over 1d."},
         {"block": "6. Cobertura", "metric": "PDD / NPL Over 30d", "column": "pdd_npl_over30_pct", "unit": "percent", "formula": "PDD total / NPL Over 30d."},
         {"block": "6. Cobertura", "metric": "PDD / NPL Over 60d", "column": "pdd_npl_over60_pct", "unit": "percent", "formula": "PDD total / NPL Over 60d."},
