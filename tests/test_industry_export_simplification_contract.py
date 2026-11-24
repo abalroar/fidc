@@ -32,11 +32,6 @@ BUNDLE_MANIFEST_PATH = REVISION_DIR / "industry_export_bundle.json"
 RENDERER_PATH = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
-ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
-ANBIMA_SOURCE_WORKBOOK_SHA256 = (
-    "a1376ea01a9d4cdcf1072dd3aed226827d8122e09d95363ab89f0458980cab11"
-)
-
 # Optional compatibility read in the presentation renderer.  The current
 # payload uses ``reag_admin_summary`` and intentionally has no legacy block.
 OPTIONAL_ABSENT_PPTX_KEYS = frozenset({"reag_admin_migration"})
@@ -409,10 +404,29 @@ def test_published_bundle_has_converged_issuance_baseline(
         & disk_comparison["series_label"].eq("FIDCs")
     ]
 
+    # Monthly source revisions may change the official volume and workbook
+    # hash. Check the published series against its signed source materialization.
+    anbima_path = DATA_DIR / "industry_anbima_market_offers.csv"
+    anbima_manifest = json.loads(
+        (DATA_DIR / "industry_anbima_market_offers_manifest.json").read_text()
+    )
+    assert hashlib.sha256(anbima_path.read_bytes()).hexdigest() == (
+        anbima_manifest["output_sha256"]
+    )
+    official = pd.read_csv(anbima_path)
+    official_2023 = official[
+        official["period_label"].eq("2023 FY")
+        & official["instrument_label"].eq("FIDCs")
+    ]
+    assert len(official_2023) == 1
+    corrected_2023 = float(official_2023.iloc[0]["closed_volume_brl"])
+    source_workbook_sha256 = anbima_manifest["source_workbook_sha256"]
+    assert corrected_2023 > 0
+    assert official_2023["source_workbook_sha256"].eq(source_workbook_sha256).all()
     assert len(disk_fidc_2023) == 2
     assert disk_fidc_2023["registered_volume_brl"].tolist() == pytest.approx(
-        [ANBIMA_2023_FIDC_VOLUME_BRL] * 2,
-        abs=0.01,
+        [corrected_2023] * 2,
+        abs=0.01, rel=0,
     )
     assert disk_fidc_2023["methodology"].astype(str).str.contains(
         "Correção 2023",
@@ -439,19 +453,25 @@ def test_published_bundle_has_converged_issuance_baseline(
         comparison["view"].eq("FIDCs vs demais elegíveis")
         & comparison["series_label"].eq("FIDCs")
     ].set_index("period_label")
-    expected_levels = {
-        "2023 FY": ANBIMA_2023_FIDC_VOLUME_BRL,
-        "2024 FY": 95_416_726_133.75,
-        "2025 FY": 117_126_319_054.77,
-        "2026 jan-set": 109_209_379_930.30,
-    }
-    for period, expected in expected_levels.items():
-        assert rendered_fidc.at[period, "registered_volume_brl"] == pytest.approx(
-            expected,
-            abs=0.01,
+    reconciliation = pd.read_csv(DATA_DIR / "industry_market_offer_reconciliation.csv")
+    source_fidc = reconciliation[
+        reconciliation["instrument_label"].eq("FIDCs")
+    ].set_index("period_label")
+    assert source_fidc.index.is_unique
+    assert set(rendered_fidc.index) == set(source_fidc.index)
+    for period, source in source_fidc.iterrows():
+        expected = (
+            corrected_2023 if period == "2023 FY"
+            else float(source["cvm_registered_volume_brl"])
         )
+        assert rendered_fidc.at[period, "registered_volume_brl"] == pytest.approx(
+            expected, abs=0.01, rel=0,
+        )
+        assert rendered_fidc.at[period, "period_start"] == source["period_start"]
+        assert rendered_fidc.at[period, "period_end"] == source["period_end"]
     assert rendered_fidc.at["2024 FY", "yoy_growth"] == pytest.approx(
-        95_416_726_133.75 / ANBIMA_2023_FIDC_VOLUME_BRL - 1
+        float(source_fidc.at["2024 FY", "cvm_registered_volume_brl"])
+        / corrected_2023 - 1
     )
 
     rendered_fidc_2023 = comparison[
@@ -459,7 +479,7 @@ def test_published_bundle_has_converged_issuance_baseline(
         & comparison["series_label"].eq("FIDCs")
     ]
     assert rendered_fidc_2023["source_archive_sha256"].eq(
-        ANBIMA_SOURCE_WORKBOOK_SHA256
+        source_workbook_sha256
     ).all()
     assert rendered_fidc_2023["source_dataset"].str.contains(
         "ANBIMA",
@@ -481,7 +501,7 @@ def test_published_bundle_has_converged_issuance_baseline(
     assert rendered_2023["universe_registered_volume_brl"].tolist() == (
         pytest.approx(
             [expected_2023_universe] * len(rendered_2023),
-            abs=0.01,
+            abs=0.01, rel=0,
         )
     )
     assert tab_industry_study._issuance_correction_applied(comparison)
@@ -521,7 +541,7 @@ def test_published_ex_fic_products_exclude_all_current_fics() -> None:
         _cnpj_digits(value)
         for value in audit.loc[_truthy(audit["is_fic"]), "cnpj_fundo"]
     }
-    assert len(current_fics) == 769
+    assert current_fics, "the exclusion checks require a nonempty current FIC perimeter"
 
     fund_base = pd.read_csv(
         REVISION_DIR / "base_fundo_cnpj.csv.gz",
@@ -562,7 +582,7 @@ def test_published_ex_fic_products_exclude_all_current_fics() -> None:
     acquiring = acquiring[acquiring["competencia"].eq(current_competence)]
     assert acquiring["denominador_pl_brl"].tolist() == pytest.approx(
         [expected_ex_fic_pl] * len(acquiring),
-        abs=0.01,
+        abs=0.01, rel=0,
     )
     moved_cnpjs: set[str] = set()
     for column in (

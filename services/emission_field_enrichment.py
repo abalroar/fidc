@@ -493,7 +493,9 @@ def build_profile_curation_evidence(
     return pd.DataFrame(evidence_rows), pd.DataFrame(audit_rows)
 
 
-def _select_document_fields(evidence: pd.DataFrame) -> dict[tuple[str, str], SelectedValue]:
+def _select_document_fields(
+    evidence: pd.DataFrame, *, cutoff: pd.Timestamp = DOCUMENT_CUTOFF,
+) -> dict[tuple[str, str], SelectedValue]:
     if evidence.empty:
         return {}
     frame = evidence.copy()
@@ -503,7 +505,7 @@ def _select_document_fields(evidence: pd.DataFrame) -> dict[tuple[str, str], Sel
         _series(frame, "status").astype(str).isin(_APPROVED_EVIDENCE)
         & ~_series(frame, "value").map(is_missing)
         & ~_series(frame, "source_kind").astype(str).eq("candidate_extraction")
-        & (frame["_date"].isna() | frame["_date"].le(DOCUMENT_CUTOFF))
+        & (frame["_date"].isna() | frame["_date"].le(cutoff))
         & frame["cnpj"].str.fullmatch(r"\d{14}")
     ].copy()
     party_mask = frame["field"].astype(str).isin(("originador", "cedente"))
@@ -1180,9 +1182,17 @@ def enrich_emission_field_audit(
         if evidence_frames
         else pd.DataFrame()
     )
-    selected = _select_document_fields(all_evidence)
+    document_fields_by_cutoff: dict[pd.Timestamp, dict[tuple[str, str], SelectedValue]] = {}
     remuneration_by_cutoff: dict[pd.Timestamp, dict[str, SelectedValue]] = {}
     legal_cedents, triage_scope = _legal_cedents(cedent_triage)
+    legal_cedent_period = "jun/26"
+    if "competencia_cedente" in cedent_triage:
+        periods = set(cedent_triage["competencia_cedente"].dropna().astype(str))
+        if len(periods) != 1 or any(
+            not re.fullmatch(r"20[0-9]{2}-(0[1-9]|1[0-2])", period) for period in periods
+        ):
+            raise ValueError("triagem de cedentes deve identificar uma competência válida")
+        legal_cedent_period = next(iter(periods))
     scan_status: dict[str, str] = {}
     if scan_checkpoint is not None and not scan_checkpoint.empty:
         scan = scan_checkpoint.copy()
@@ -1198,6 +1208,14 @@ def enrich_emission_field_audit(
     top_mask = output["bloco"].eq(TOP15_BLOCK)
     for index, row in output[top_mask].iterrows():
         cnpj = row["cnpj"]
+        # Preserve the approved legacy documentary window while allowing each
+        # current table to consume sources published within its own month.
+        document_cutoff = max(DOCUMENT_CUTOFF, _table_cutoff(row.get("tabela")))
+        if document_cutoff not in document_fields_by_cutoff:
+            document_fields_by_cutoff[document_cutoff] = _select_document_fields(
+                all_evidence, cutoff=document_cutoff,
+            )
+        selected = document_fields_by_cutoff[document_cutoff]
         originator_source = ""
         cedent_source = ""
         existing_party_source = str(row.get("fonte_originador_cedente") or "")
@@ -1231,7 +1249,7 @@ def enrich_emission_field_audit(
         if legal_cedent:
             output.at[index, "cedente"] = legal_cedent
             cedent_source = (
-                "CVM · Informe Mensal FIDC · Tabela I · jun/26 · "
+                f"CVM · Informe Mensal FIDC · Tabela I · {legal_cedent_period} · "
                 "cedente legal declarado"
             )
         elif is_missing(cedent_current) and documented_cedent:

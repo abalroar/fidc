@@ -1980,6 +1980,7 @@ def _load_cedente_top500_emission_adapter(data_dir: Path) -> pd.DataFrame:
         }
     )
     output = pd.concat([adapter, gap_rows], ignore_index=True)
+    output["competencia_cedente"] = f"{competence[:4]}-{competence[4:]}"
     if output["cnpj_fundo"].eq("").any():
         raise ValueError("adaptador Top 500 contém CNPJ de fundo vazio")
     if output["cnpj_fundo"].nunique() != 500:

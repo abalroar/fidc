@@ -6859,6 +6859,19 @@ function buildPresentation(payload, payloadRaw) {
   return presentation;
 }
 
+function offerOriginatorDisplay(row) {
+  const text = (value) => value === null || value === undefined || Number.isNaN(value)
+    ? "" : String(value).replace(/\s+/g, " ").trim();
+  const label = text(row.originator_group) || "N/D";
+  const foldedLabel = label.toLocaleLowerCase("pt-BR");
+  if (["n/d", "nd"].includes(foldedLabel) || /^(não identificado|nao identificado)/.test(foldedLabel)) return label;
+  const source = text(row.originator_source).toLocaleLowerCase("pt-BR");
+  const evidence = [row.originator_evidence, row.originator_evidence_document].map(text).join(" ").toLocaleLowerCase("pt-BR");
+  const nominal = source.startsWith("campo_") || ["regex", "nome", "nominal"].some((marker) => source.includes(marker))
+    || ["nominal", "regex", "\\b"].some((marker) => evidence.includes(marker));
+  return nominal ? `${label} (inferido)` : label;
+}
+
 function addCurrentOfferPages(presentation, payload) {
   const cut = comparativePeriod(payload);
   const rows = (payload.closed_offer_top15 || []).filter((row) => row.period_label === cut.current_period_id).sort((a, b) => num(a.rank) - num(b.rank));
@@ -6871,8 +6884,8 @@ function addCurrentOfferPages(presentation, payload) {
     const chunk = rows.slice((page - 1) * 8, page * 8);
     addNativeEditorialTable(slide, {
       left: 60, top: 148, width: 1160, height: 430,
-      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA", "Agência / Rating"],
-      rows: chunk.map((row) => [integer(row.rank), fundEditorialName(row.fund_name_short, 48), row.originator_group || "N/D",
+      headers: ["#", "FIDC", "Originador / grupo", "R$ bi", "Coord. líder", "IBBA", "Agência / Rating"],
+      rows: chunk.map((row) => [integer(row.rank), fundEditorialName(row.fund_name_short, 48), offerOriginatorDisplay(row),
         (num(row.registered_volume_brl)/1e9).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}),
         row.leader_name || "N/D", row.ibba_participant === true ? "Sim" : "Não",
         `${row.rating_agency || "N/D"}\n${row.rating_assigned || "N/D"}`]),
@@ -6884,7 +6897,7 @@ function addCurrentOfferPages(presentation, payload) {
     addText(slide, `Subtotal das 15: ${bn(summary.top15_registered_volume_brl, 2)} · ${pct(summary.top15_share_of_period_volume, 1)} do volume CVM no período. IBBA participou de ${integer(summary.ibba_participation_offers_top15)} e liderou ${integer(summary.ibba_lead_offers_top15)}.`,
       {left:60,top:600,width:1160,height:40},{fontSize:12,color:C.note});
     addSourceNotes(slide, ["CVM/SRE: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "Rating e originador seguem a evidência documental datada da base; ausência de vínculo verificável permanece N/D. Campos, CNPJ e documentos completos no XLSX.",
+      "Grupos por nome são inferidos; vínculos documentais e datas constam no XLSX. N/D sem identificação de originador ou rating.",
       "O universo CVM/SRE difere do anexo do ranking ANBIMA. Os rankings são apresentados separadamente."]);
   }
 }

@@ -1,56 +1,56 @@
 {
   "checks": {
-    "cohort_funds": 3505,
-    "cohort_pl_may26_brl": 756372763925.7399,
+    "cohort_funds": 3541,
+    "cohort_pl_may26_brl": 772716491283.9,
     "excluded_fund_cnpjs": [
       "09195235000150",
       "26287464000114"
     ],
     "from_date": "2024-12-31",
     "interval_definition": "data_inicio <= referência < data_fim; data_fim vazia permanece ativa",
-    "latest_competence": "2026-09",
+    "latest_competence": "2026-10",
     "multiple_active_definition": "mais de um prestador legal ativo na mesma data; excluído do fluxo comparável",
     "provider_group_definition": "curadoria societária revisada quando disponível; canonical_provider nos demais",
     "source_scope_note": "Recurso histórico do cadastro CVM identificado no portal como ICVM 555; a cobertura observada na coorte de FIDCs é reportada e não extrapolada.",
-    "to_date": "2026-09-30",
+    "to_date": "2026-10-31",
     "weight_definition": "PL de mai/26 por CNPJ legal de fundo"
   },
-  "generated_at_utc": "2026-11-13T23:23:56+00:00",
+  "generated_at_utc": "2026-11-24T13:23:40+00:00",
   "outputs": {
     "coverage": {
-      "bytes": 4321,
+      "bytes": 4259,
       "path": "prestadores_historico_cvm_cobertura.csv",
       "rows": 9,
-      "sha256": "8e9dbdd9084a63bcca88c9b0f0d777f9612e6bdde76b2161c9022897baf33e2d"
+      "sha256": "6036d214c72a52a157eb21332a4186b48d530e725df8d477de03d35c04eb132f"
     },
     "detail": {
-      "bytes": 401926,
+      "bytes": 406036,
       "path": "prestadores_historico_cvm_transicoes_detalhe.csv.gz",
-      "rows": 10515,
-      "sha256": "2acd6f40a0bd4197fe9c9e565180d7f8b9189ad5b4da97b7158fa9d20eb9b7e2"
+      "rows": 10623,
+      "sha256": "8df2d94af547f90a591d6b866e1bcb807cf038b7183a5b6a61a352e06bea1919"
     },
     "links": {
-      "bytes": 30242,
+      "bytes": 30280,
       "path": "prestadores_historico_cvm_transicoes_links.csv",
       "rows": 94,
-      "sha256": "255ed231921bc5fb569627d6e9e30daad2040e6730f281c32637fd0bde5eb627"
+      "sha256": "0c290540bfa82d4e6868c280a4d9f31f8590db0ffc24a7db9d5b1f0992b30ea7"
     },
     "snapshot": {
-      "bytes": 813543,
+      "bytes": 822475,
       "path": "prestadores_historico_cvm_snapshot.csv.gz",
-      "rows": 21030,
-      "sha256": "3279e075dc2113f70a13d281ad526b1d978cab3b1f08dc98cf48f32b1c0058e6"
+      "rows": 21246,
+      "sha256": "cdd925c5f7e18512a51f3f03e794b584ac9dd4b77e3a5f20a8d12e298f01e57b"
     }
   },
   "schema_version": "provider_history_cvm_v1",
   "source": {
-    "archive_bytes": 18731722,
+    "archive_bytes": 18744184,
     "archive_files": {
       "administrador": "cad_fi_hist_admin.csv",
       "custodiante": "cad_fi_hist_custodiante.csv",
       "gestor": "cad_fi_hist_gestor.csv"
     },
-    "archive_sha256": "aa89dd05b32530f0022b8253540d121be736dc9331fee4f1981dfe1342fd618d",
+    "archive_sha256": "246480537f3880bcce2777d85fcd188b67c3c07a508ddf737496e7201d6c61f4",
     "dataset_url": "https://dados.cvm.gov.br/dataset/fi-cad",
     "scope_note": "Recurso histórico do cadastro CVM identificado no portal como ICVM 555; a cobertura observada na coorte de FIDCs é reportada e não extrapolada.",
     "url": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/cad_fi_hist.zip"

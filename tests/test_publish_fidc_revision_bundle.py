@@ -2466,10 +2466,11 @@ def test_input_hashes_include_top20_curation(
     assert "curation/top20.csv" in captured
 
 
+@pytest.mark.parametrize("competence", ["2026-09", "2026-10"])
 def test_optional_originator_cohort_review_is_hashed_when_present(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, competence: str,
 ) -> None:
-    name = "industry_top15_originator_cohort_review_202609.json"
+    name = f"industry_top15_originator_cohort_review_{competence.replace('-', '')}.json"
     assert name in revision_publisher.OPTIONAL_DATA_INPUTS
     _, paths = _minimal_live_input_snapshot(tmp_path, monkeypatch)
     monkeypatch.setattr(revision_publisher, "OPTIONAL_DATA_INPUTS", (name,))

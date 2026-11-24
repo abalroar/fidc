@@ -6,18 +6,18 @@
     "blocked_market_share_combinations": 3,
     "btg_controlled_fidcs_reconciled": 6,
     "btg_provider_ex_controlled_roles": 3,
-    "frozen_single_receivable_funds": 2036,
+    "frozen_single_receivable_funds": 2055,
     "independent_provider_rows": 59,
     "latest_aging_publication_status": "publicável",
-    "latest_funds": 4439,
+    "latest_funds": 4484,
     "latest_presence_exact": true,
-    "latest_vehicles": 4447,
+    "latest_vehicles": 4490,
     "market_share_foci": 18,
     "market_share_roles": 3,
-    "provider_transition_changed_funds": 419,
-    "provider_transition_continuing_funds": 2103,
-    "reag_cohort_exited_funds": 77,
-    "single_receivable_funds": 2036,
+    "provider_transition_changed_funds": 425,
+    "provider_transition_continuing_funds": 2073,
+    "reag_cohort_exited_funds": 71,
+    "single_receivable_funds": 2055,
     "single_receivable_rows": 10,
     "top20_fidcs_rows": 20,
     "top20_outros_rows": 20
@@ -37,7 +37,7 @@
     "monostructure": "mesmo conglomerado econômico normalizado para administração, gestão e custódia",
     "provider_transition_flow": "CNPJs ex-FIC com PL positivo em dez/24 e dez/25; PL comparável = min(PL_dez24, PL_dez25) por CNPJ",
     "provider_transition_roles": "somente administrador é observado por competência; gestor e custodiante históricos são indisponíveis por overlay cadastral vigente",
-    "reag_cbsf_cohort": "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL positivo; destino ativo exige PL positivo em 2026-09",
+    "reag_cbsf_cohort": "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL positivo; destino ativo exige PL positivo em 2026-10",
     "single_receivable_delinquency": "ex-FIC com PL positivo e exatamente um dos 11 campos superiores da Tabela II não zero; casos com inadimplência acima da carteira são excluídos; numerador = inadimplência reportada e denominador = PL",
     "vehicle": "CNPJ reportante do Informe Mensal (fundo ou classe, conforme regime)"
   },
@@ -56,11 +56,11 @@
     },
     "base_competencia_cnpj.csv.gz": {
       "columns": 120,
-      "rows": 244200
+      "rows": 247547
     },
     "base_fundo_cnpj.csv.gz": {
       "columns": 70,
-      "rows": 244143
+      "rows": 247484
     },
     "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
       "columns": 26,
@@ -84,19 +84,19 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 14478
+      "rows": 14540
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 24,
-      "rows": 1535
+      "rows": 1545
     },
     "inadimplencia_coorte_atual_membros.csv.gz": {
       "columns": 8,
-      "rows": 2036
+      "rows": 2055
     },
     "inadimplencia_coorte_atual_resumo.csv": {
       "columns": 25,
-      "rows": 165
+      "rows": 166
     },
     "inadimplencia_coorte_revisao_resumo.csv": {
       "columns": 15,
@@ -104,11 +104,11 @@
     },
     "inadimplencia_coorte_revisao_sensibilidade.csv": {
       "columns": 13,
-      "rows": 1535
+      "rows": 1545
     },
     "inadimplencia_coorte_revisao_transicoes.csv": {
       "columns": 8,
-      "rows": 16
+      "rows": 17
     },
     "inadimplencia_dispersao_resumo.csv": {
       "columns": 13,
@@ -144,7 +144,7 @@
     },
     "monoestrutura_por_fundo.csv": {
       "columns": 83,
-      "rows": 3670
+      "rows": 3712
     },
     "prestadores_independentes_ranking.csv": {
       "columns": 19,
@@ -156,11 +156,11 @@
     },
     "prestadores_ranking_historico.csv": {
       "columns": 10,
-      "rows": 1536
+      "rows": 1546
     },
     "prestadores_transicoes_detalhe.csv": {
       "columns": 22,
-      "rows": 2103
+      "rows": 2073
     },
     "prestadores_transicoes_disponibilidade.csv": {
       "columns": 5,
@@ -168,7 +168,7 @@
     },
     "prestadores_transicoes_links.csv": {
       "columns": 10,
-      "rows": 158
+      "rows": 159
     },
     "prestadores_transicoes_resumo.csv": {
       "columns": 16,
@@ -176,7 +176,7 @@
     },
     "qa_inadimplencia_casos_latest.csv": {
       "columns": 16,
-      "rows": 212
+      "rows": 218
     },
     "qa_inadimplencia_competencia.csv": {
       "columns": 56,
@@ -192,7 +192,7 @@
     },
     "reag_cbsf_coorte_links.csv": {
       "columns": 8,
-      "rows": 5
+      "rows": 4
     },
     "reag_cbsf_coorte_resumo.csv": {
       "columns": 28,
@@ -200,7 +200,7 @@
     },
     "reconciliacao_tabelas_i_ii_detalhe.csv": {
       "columns": 14,
-      "rows": 6843
+      "rows": 6888
     },
     "reconciliacao_tabelas_i_ii_resumo.csv": {
       "columns": 19,
@@ -208,11 +208,11 @@
     },
     "reconciliacao_veiculo_fundo_latest.csv": {
       "columns": 8,
-      "rows": 4439
+      "rows": 4484
     },
     "source_presence_overlay.csv.gz": {
       "columns": 49,
-      "rows": 244200
+      "rows": 247547
     },
     "top20_fidcs.csv": {
       "columns": 85,
@@ -223,8 +223,8 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-11-13T23:23:56+00:00",
-  "latest_complete": "2026-09",
+  "generated_at_utc": "2026-11-24T13:23:40+00:00",
+  "latest_complete": "2026-10",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",
     "Buckets de aging e a sensibilidade ex-360 usam os campos brutos das Tabelas V/VI e a soma dos créditos inadimplentes com as parcelas inadimplentes dos créditos a vencer na Tabela I.",

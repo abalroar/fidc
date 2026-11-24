@@ -3,33 +3,33 @@
     "202312": {
       "bytes": 2442,
       "name": "fidc_cedentes_manifest_202312.json",
-      "sha256": "87b77d9434c9688e5d356676c097a3796b406d088aab0bfb8e48ecca0be76bdd"
+      "sha256": "f0b87c5b80fd00668988681d2dc95b84ee07dfb1f87945d631b37951a61f8f58"
     },
     "202412": {
       "bytes": 2445,
       "name": "fidc_cedentes_manifest_202412.json",
-      "sha256": "47162ec8761610f0523d5b077b038e7131f5be56a51303bb0251cb4d5983db39"
+      "sha256": "3059afe9badcf15fd9e0e23494c89d6b434b2fad5fdc293c68a0268c518c38bc"
     },
     "202512": {
       "bytes": 2448,
       "name": "fidc_cedentes_manifest_202512.json",
-      "sha256": "00301c5c6d77124a964aba4e77991d3650005cfcc21a28a01321ab7a30951bb2"
+      "sha256": "abd5b6441c359683ebc8e7095069858d08931680212c333543d34e6ec3372c23"
     },
-    "202609": {
-      "bytes": 2450,
-      "name": "fidc_cedentes_manifest_202609.json",
-      "sha256": "bb6e4028d80f56b70e804ad0bc593e5933f7d961ecf3203d4c55388d2ee0713a"
+    "202610": {
+      "bytes": 2448,
+      "name": "fidc_cedentes_manifest_202610.json",
+      "sha256": "5072e39299d36c4955a89c7e6d000430d905a268ec9fc151410e2f0eb6f2d4fb"
     }
   },
   "competences": [
     "202312",
     "202412",
     "202512",
-    "202609"
+    "202610"
   ],
-  "current_competence": "202609",
+  "current_competence": "202610",
   "cutoff_rank": 500,
-  "generated_at": "2026-11-11T16:57:41.152852+00:00",
+  "generated_at": "2026-11-20T14:12:47.078634+00:00",
   "limitations": [
     "A Tabela I identifica cedente e não identifica sacado.",
     "Porte Receita separa ME, EPP e Demais e não confirma faturamento.",
@@ -68,35 +68,35 @@
       "pl_top500_sobre_industria_pct": 0.7343801024564661,
       "pl_ultimo_fundo_top_reais": 354519600.08
     },
-    "202609": {
-      "fundos_com_cedente_real": 184,
-      "fundos_industria": 4447,
-      "fundos_sem_cedente_real": 316,
-      "pl_industria_reais": 990748763340.9601,
-      "pl_sem_cedente_real_reais": 420941475898.06006,
-      "pl_top500_reais": 710526180689.27,
-      "pl_top500_sobre_industria_pct": 0.7171608050190892,
-      "pl_ultimo_fundo_top_reais": 383259337.54
+    "202610": {
+      "fundos_com_cedente_real": 188,
+      "fundos_industria": 4490,
+      "fundos_sem_cedente_real": 312,
+      "pl_industria_reais": 1000632177335.64,
+      "pl_sem_cedente_real_reais": 432946938992.83997,
+      "pl_top500_reais": 714650262097.85,
+      "pl_top500_sobre_industria_pct": 0.7141987618274804,
+      "pl_ultimo_fundo_top_reais": 386969408.4
     }
   },
   "outputs": {
     "fidc_cedentes_cadastro_master.csv.gz": {
-      "bytes": 25156,
+      "bytes": 25090,
       "name": "fidc_cedentes_cadastro_master.csv.gz",
-      "rows": 502,
-      "sha256": "4dd16814493023c40a5d10906fba69b3ee2ca233963c998df223101e0786016f"
+      "rows": 506,
+      "sha256": "1413f9b7cd52ed94855405fb81ec67856e21828f6862138992cb120b0beede73"
     },
     "fidc_cedentes_cobertura_top500_2023_2026.csv": {
-      "bytes": 968,
+      "bytes": 963,
       "name": "fidc_cedentes_cobertura_top500_2023_2026.csv",
       "rows": 4,
-      "sha256": "8e636a13c6b9508fc3d63eb44d97738fd211f72c04a41742e7c25b6922dad29a"
+      "sha256": "9805287fce52935d8d20f40cbd9a9252705a4544d0e0921ca61d32f3e1abfc0a"
     },
     "fidc_cedentes_evolucao_segmento_2023_2026.csv": {
-      "bytes": 2248,
+      "bytes": 2232,
       "name": "fidc_cedentes_evolucao_segmento_2023_2026.csv",
       "rows": 27,
-      "sha256": "bee00ea55a66960ff83ce19140dbb65fd6adabd4d4a7576ec4a0359689282da0"
+      "sha256": "b1bea99f0f18c5102bd8936d327b137b027f5fe6c1f9dbf27e03514829e4f186"
     },
     "fidc_cedentes_exclusoes_2023_2026.csv.gz": {
       "bytes": 20059,
@@ -105,34 +105,34 @@
       "sha256": "1f153042664dce5e4ba8bf02ab00119bfd8582a5352ede1932b29f49bdde1fb3"
     },
     "fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz": {
-      "bytes": 52620,
+      "bytes": 52540,
       "name": "fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
-      "rows": 1283,
-      "sha256": "cad4d38c67ac9b5f7747e9161be7488252015bf3a7dde3f08d95cf7121dd15e5"
+      "rows": 1279,
+      "sha256": "b3c7255f5048eb8cdd4361d130f69b2bc9f25c64103e5c1c05059938e50bcb71"
     },
     "fidc_cedentes_pl_segmento_2023_2026.csv": {
-      "bytes": 3499,
+      "bytes": 3481,
       "name": "fidc_cedentes_pl_segmento_2023_2026.csv",
       "rows": 28,
-      "sha256": "c7bc3efc82e062494a7b3b15f3d4c13b69b7ae67d16781e1ab32095aaf114130"
+      "sha256": "829ca5f3cd72257e6e0a4fb1f7022a0687289886b4a23bce12eb0cb192fda713"
     },
     "fidc_cedentes_por_competencia_2023_2026.csv.gz": {
-      "bytes": 54961,
+      "bytes": 54711,
       "name": "fidc_cedentes_por_competencia_2023_2026.csv.gz",
-      "rows": 848,
-      "sha256": "c13f30c7c509b333934f4d7b5f39a6959e28b2cc0798da80f283c438065891e9"
+      "rows": 852,
+      "sha256": "f38d0b64ff7d0fa9318698a550e74a7e68d3242dd31aa4ccfd393d56d8791c91"
     },
     "fidc_cedentes_presenca_tempo_2023_2026.csv.gz": {
-      "bytes": 26243,
+      "bytes": 26210,
       "name": "fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
-      "rows": 502,
-      "sha256": "80db9de1d9006d34a814687dcb50029f6579a772fc9bef33cb41742552b66665"
+      "rows": 506,
+      "sha256": "8e3d92f5a8d097d60d48fe663612ff4ab3ba2164b38f82d33b7f92ea187d28cf"
     },
     "fidc_cedentes_receita_targets.csv": {
-      "bytes": 29190,
+      "bytes": 29410,
       "name": "fidc_cedentes_receita_targets.csv",
-      "rows": 468,
-      "sha256": "aca6e2c84d087c7479bc06a517e77f8781a8b2b1689b4227b6ba44588d51e008"
+      "rows": 472,
+      "sha256": "03336c2f2de46ec96fe093bfaed081c033d51767fb03d9eda2ad8c4e940afa95"
     },
     "fidc_cedentes_reparos_fonte_2023_2026.csv": {
       "bytes": 99,
@@ -141,10 +141,10 @@
       "sha256": "3deca277b2b882a15bdb9ce21177167def9a41cf207245f582c6c7ce283dc79b"
     },
     "fidc_cedentes_top500_2023_2026.csv.gz": {
-      "bytes": 111493,
+      "bytes": 111298,
       "name": "fidc_cedentes_top500_2023_2026.csv.gz",
-      "rows": 2170,
-      "sha256": "dc0533e20135345b560a7d3d9b164cc23fb8b5e6ffee4c3c956281db0c94f37b"
+      "rows": 2172,
+      "sha256": "0a80379bfa31d9aff9f90100748829ba0f19b5b39af1e2a602d60b6d4d2cba9a"
     }
   },
   "registry_source_cut": "Fotografia cadastral auditada; campos novos sem fonte permanecem N/D",
@@ -163,7 +163,7 @@
     "202312": 0,
     "202412": 0,
     "202512": 0,
-    "202609": 0
+    "202610": 0
   },
   "sources": {
     "cvm": [
@@ -182,27 +182,27 @@
         "sha256": "d524616aa78532eddc0a8ac9072b0d15ca7f7fa377f2082b644dc3f0ea239862"
       },
       {
-        "bytes": 3273213,
+        "bytes": 3273471,
         "name": "inf_mensal_fidc_202512.zip",
         "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202512.zip",
         "role": "Informe Mensal FIDC da CVM",
-        "sha256": "522bdff94655f73bba53f288af2d33d366d1cc26e14b0855b64ed35b23e15d43"
+        "sha256": "37f6782efc1fe699603d3e7d2ca3bf95933655c6184638de398b986de8e17291"
       },
       {
-        "bytes": 3641953,
-        "name": "inf_mensal_fidc_202609.zip",
-        "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202609.zip",
+        "bytes": 3620403,
+        "name": "inf_mensal_fidc_202610.zip",
+        "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202610.zip",
         "role": "Informe Mensal FIDC da CVM",
-        "sha256": "104695d4535ccf6542e302f56f6a4ff7c6cfb49de7f65812f3328265388e1a3e"
+        "sha256": "1be13ff3be447bad1477ff8bccc482129c7944a7eb12e35c00c48b4345a1a764"
       }
     ],
     "registry": {
-      "bytes": 25240,
+      "bytes": 25156,
       "mode": "bootstrap_reference_workbook",
-      "name": "audited-registry-8b14285b423ec1f25464f9ec29c410070cce760c173990477f763618b784550a.csv.gz",
+      "name": "audited-registry-4dd16814493023c40a5d10906fba69b3ee2ca233963c998df223101e0786016f.csv.gz",
       "role": "gabarito auditado fornecido pelo usuário; bootstrap temporário, sem consulta BrasilAPI",
-      "rows": 505,
-      "sha256": "8b14285b423ec1f25464f9ec29c410070cce760c173990477f763618b784550a"
+      "rows": 502,
+      "sha256": "4dd16814493023c40a5d10906fba69b3ee2ca233963c998df223101e0786016f"
     }
   }
 }
