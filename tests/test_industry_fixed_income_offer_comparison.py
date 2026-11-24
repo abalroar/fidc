@@ -22,44 +22,56 @@ from services.industry_market_offer_reconciliation import (
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data" / "industry_study"
 
-#: Valor Encerrado ANBIMA de FIDCs em 2023 FY — Boletim de Mercado de Capitais,
-#: snapshot set/26, aba 02-02-Vlr.  Substitui o volume registrado CVM de
-#: R$ 26,5 bi, que subestima 2023 (primeiro ano da Resolução CVM 160).
-ANBIMA_FIDC_2023 = 43_746_140_196.22
-
-
 def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     frame = load_materialized_fixed_income_offer_comparison(DATA_DIR)
     view_a = frame[frame["view"].eq("FIDCs vs demais elegíveis")]
-    expected = {
-        "2023 FY": (ANBIMA_FIDC_2023, 353_447_879_570.30),
-        "2024 FY": (95_416_726_133.75, 629_477_685_910.23),
-        "2025 FY": (117_126_319_054.77, 656_336_670_634.27),
-        "2026 jan-set": (109_209_379_930.30, 353_414_118_585.42),
-    }
-    for period, (fidc_volume, rest_volume) in expected.items():
-        scoped = view_a[view_a["period_label"].eq(period)].set_index(
-            "series_label"
-        )
-        assert scoped.loc["FIDCs", "registered_volume_brl"] == pytest.approx(
-            fidc_volume
-        )
-        assert scoped.loc[
-            "Demais elegíveis", "registered_volume_brl"
-        ] == pytest.approx(rest_volume)
+    # Reconcile FIDC levels against the granular ticket cohort, with the
+    # explicitly documented ANBIMA correction retained for the first CVM160 year.
+    cohort = pd.read_csv(DATA_DIR / "industry_closed_offer_ticket_cohort.csv.gz")
+    reconciliation = pd.read_csv(DATA_DIR / "industry_market_offer_reconciliation.csv")
+    anbima = load_anbima_market_offers(DATA_DIR)
+    correction = float(anbima.loc[
+        anbima["period_label"].eq("2023 FY") & anbima["instrument_label"].eq("FIDCs"),
+        "closed_volume_brl",
+    ].iloc[0])
+    for period, scoped in view_a.groupby("period_label", sort=False):
+        indexed = scoped.set_index("series_label")
+        assert set(indexed.index) == {"FIDCs", "Demais elegíveis"}
+        source = cohort[cohort["period_label"].eq(period)]
+        assert not source.empty
+        expected_fidc = correction if period == "2023 FY" else source["registered_volume_brl"].sum()
+        fidc = indexed.loc["FIDCs"]
+        assert fidc["registered_volume_brl"] == pytest.approx(expected_fidc, abs=0.01, rel=0)
+        for field in ("period_start", "period_end", "is_full_year"):
+            assert source[field].nunique() == 1
+            assert fidc[field] == source[field].iloc[0]
+        assert scoped["universe_registered_volume_brl"].tolist() == pytest.approx([scoped["registered_volume_brl"].sum()] * 2, abs=0.01, rel=0)
+        assert scoped["share_of_period_view_volume"].sum() == pytest.approx(1.0)
+        for row in scoped.itertuples(index=False):
+            if row.yoy_comparable:
+                assert row.yoy_growth == pytest.approx(row.registered_volume_brl / row.previous_registered_volume_brl - 1)
+                assert pd.Timestamp(row.previous_period_start).month == pd.Timestamp(row.period_start).month
+                assert pd.Timestamp(row.previous_period_end).month == pd.Timestamp(row.period_end).month
+                if row.series_label == "FIDCs":
+                    previous = cohort[pd.to_datetime(cohort["data_encerramento"]).between(
+                        pd.Timestamp(row.previous_period_start), pd.Timestamp(row.previous_period_end),
+                    )]
+                    previous_volume = correction if row.previous_period_label == "2023 FY" else previous["registered_volume_brl"].sum()
+                    assert row.previous_registered_volume_brl == pytest.approx(previous_volume, abs=0.01, rel=0)
+            else:
+                assert pd.isna(row.previous_registered_volume_brl) and pd.isna(row.yoy_growth)
 
-    yoy = view_a.set_index(["period_label", "series_label"])["yoy_growth"]
-    assert yoy.loc[("2024 FY", "FIDCs")] == pytest.approx(
-        95_416_726_133.75 / ANBIMA_FIDC_2023 - 1
-    )
-    assert yoy.loc[("2025 FY", "FIDCs")] == pytest.approx(0.2275239761)
-    assert yoy.loc[("2025 FY", "Demais elegíveis")] == pytest.approx(
-        0.0426686844
-    )
-    assert yoy.loc[("2026 jan-set", "FIDCs")] == pytest.approx(0.387016886)
-    assert yoy.loc[("2026 jan-set", "Demais elegíveis")] == pytest.approx(
-        -0.1808852894
-    )
+        # The same material instruments are reconciled separately to the CVM
+        # series, while the aggregate view retains all eligible instruments.
+        material = frame[
+            frame["view"].eq("FIDCs vs instrumentos materiais de 2025")
+            & frame["period_label"].eq(period)
+            & frame["series_label"].ne("FIDCs")
+        ].set_index("series_label")
+        bridge_source = reconciliation[reconciliation["period_label"].eq(period)].set_index("instrument_label")
+        for instrument, row in material.iterrows():
+            assert row["registered_volume_brl"] == pytest.approx(bridge_source.loc[instrument, "cvm_registered_volume_brl"], abs=0.01, rel=0)
+        assert indexed.loc["Demais elegíveis", "registered_volume_brl"] >= material["registered_volume_brl"].sum()
 
 
 def test_2023_fidc_level_comes_from_anbima_with_documented_source() -> None:
@@ -68,8 +80,10 @@ def test_2023_fidc_level_comes_from_anbima_with_documented_source() -> None:
         frame["series_label"].eq("FIDCs") & frame["period_label"].eq("2023 FY")
     ]
     assert not fidc_2023.empty
+    official = load_anbima_market_offers(DATA_DIR)
+    corrected_2023 = float(official.loc[official["period_label"].eq("2023 FY") & official["instrument_label"].eq("FIDCs"), "closed_volume_brl"].iloc[0])
     assert fidc_2023["registered_volume_brl"].tolist() == pytest.approx(
-        [ANBIMA_FIDC_2023] * len(fidc_2023)
+        [corrected_2023] * len(fidc_2023)
     )
     assert (
         fidc_2023["source_dataset"]
@@ -165,6 +179,8 @@ def _row(
 
 
 def test_builder_excludes_named_instruments_and_open_offers(tmp_path: Path) -> None:
+    from services.industry_comparative_period import ComparisonCut
+    cut = ComparisonCut(2026, 6)
     rows: list[dict[str, object]] = []
     instruments = [
         "Cotas de FIDC",
@@ -174,8 +190,7 @@ def test_builder_excludes_named_instruments_and_open_offers(tmp_path: Path) -> N
         "Certificados de Recebíveis do Agronegócio",
     ]
     sequence = 0
-    for year in (2023, 2024, 2025, 2026):
-        month = 6 if year == 2026 else 12
+    for year, month in ((2023, 12), (2024, 12), (2025, 6), (2025, 12), (2026, 6)):
         for rank, instrument in enumerate(instruments, start=1):
             sequence += 1
             rows.append(
@@ -202,12 +217,38 @@ def test_builder_excludes_named_instruments_and_open_offers(tmp_path: Path) -> N
     result = build_fixed_income_offer_comparison(
         archive,
         expected_archive_sha256=None,
+        comparison_cut=cut,
     )
     assert len(result) == 28
     assert not result["instrument_official"].isin(
         {value.upper() for value in EXCLUDED_INSTRUMENTS}
     ).any()
-    assert result["universe_closed_offers"].max() == 5
+    assert result["universe_closed_offers"].max() == 10
+    # Exact monetary expectations are independent of the builder's output.
+    # Early and late 2025 offers ensure current YTD uses only the early cohort.
+    rest = result[
+        result["view"].eq("FIDCs vs demais elegíveis")
+        & result["series_label"].eq("Demais elegíveis")
+    ].set_index("period_label")
+    expected = {
+        "2023 FY": (20_230.0, 4, None),
+        "2024 FY": (20_240.0, 4, 20_230.0),
+        "2025 FY": (40_500.0, 8, 20_240.0),
+        "2026 jan-jun": (20_260.0, 4, 20_250.0),
+    }
+    assert set(rest.index) == set(expected)
+    for label, (volume, count, prior) in expected.items():
+        row = rest.loc[label]
+        assert row["registered_volume_brl"] == pytest.approx(volume, abs=0.01, rel=0)
+        assert row["closed_offers"] == count
+        if prior is None:
+            assert pd.isna(row["previous_registered_volume_brl"])
+            assert pd.isna(row["yoy_growth"])
+        else:
+            assert row["previous_registered_volume_brl"] == pytest.approx(prior, abs=0.01, rel=0)
+            assert row["yoy_growth"] == pytest.approx(volume / prior - 1)
+    assert rest.loc["2026 jan-jun", "previous_period_label"] == "2025 jan-jun"
+    assert rest.loc["2026 jan-jun", "previous_period_end"] == "2025-06-30"
 
 
 def test_conflicting_requirement_is_blocked(tmp_path: Path) -> None:

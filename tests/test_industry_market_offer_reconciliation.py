@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+import hashlib
+import json
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import pandas as pd
@@ -21,29 +23,50 @@ DATA_DIR = ROOT / "data" / "industry_study"
 
 def test_materialized_reconciliation_matches_official_snapshot() -> None:
     frame = load_materialized_market_offer_reconciliation(DATA_DIR)
-    assert len(frame) == 20
+    official_path = DATA_DIR / "industry_anbima_market_offers.csv"
+    manifest = json.loads(
+        (DATA_DIR / "industry_anbima_market_offers_manifest.json").read_text()
+    )
+    assert hashlib.sha256(official_path.read_bytes()).hexdigest() == manifest["output_sha256"]
+    official = load_anbima_market_offers(DATA_DIR).set_index(
+        ["period_label", "instrument_label"]
+    )
     indexed = frame.set_index(["period_label", "instrument_label"])
-    debentures_2025 = indexed.loc[("2025 FY", "Debêntures")]
-    assert debentures_2025["cvm_registered_volume_brl"] == pytest.approx(
-        453_875_574_708.05
-    )
-    assert debentures_2025["cvm_harmonization_volume_brl"] == pytest.approx(
-        38_753_636_501.0
-    )
-    assert debentures_2025["cvm_harmonized_volume_brl"] == pytest.approx(
-        492_629_211_209.05
-    )
-    assert debentures_2025["anbima_closed_volume_brl"] == pytest.approx(
-        493_485_073_108.0017
-    )
-    debentures_2026 = indexed.loc[("2026 jan-set", "Debêntures")]
-    assert debentures_2026["anbima_closed_volume_brl"] == pytest.approx(
-        261_209_653_244.0912
-    )
-    assert debentures_2026["raw_gap_pct"] == pytest.approx(-0.1898436925)
-    assert debentures_2026["harmonized_gap_pct"] == pytest.approx(
-        -0.0076441718
-    )
+    assert len(frame) == len(official) == 20
+    assert indexed.index.is_unique and official.index.is_unique
+    assert set(indexed.index) == set(official.index)
+    meta = manifest["comparison_meta"]
+    current = frame[~frame["is_full_year"]]
+    assert set(current["period_label"]) == {meta["current_period_id"]}
+    assert current["period_start"].eq(meta["current_period_start"]).all()
+    assert current["period_end"].eq(meta["current_period_end"]).all()
+
+    for key, row in indexed.iterrows():
+        source = official.loc[key]
+        for field in ("period_start", "period_end", "is_full_year"):
+            assert row[field] == source[field], (key, field)
+        assert row["anbima_closed_volume_brl"] == pytest.approx(
+            source["closed_volume_brl"], abs=0.01, rel=0,
+        )
+        assert row["anbima_source_workbook_sha256"] == manifest["source_workbook_sha256"]
+        assert row["anbima_source_url"] == source["source_url"] == manifest["source_url"]
+        assert row["anbima_source_sheet"] == source["source_sheet"]
+        assert row["anbima_source_range"] == source["source_range"]
+        raw = float(row["cvm_registered_volume_brl"])
+        bridge = float(row["cvm_harmonization_volume_brl"])
+        closed = float(source["closed_volume_brl"])
+        assert row["cvm_harmonized_volume_brl"] == pytest.approx(raw + bridge, abs=0.01, rel=0)
+        assert row["raw_gap_brl"] == pytest.approx(raw - closed, abs=0.01, rel=0)
+        assert row["harmonized_gap_brl"] == pytest.approx(raw + bridge - closed, abs=0.01, rel=0)
+        if closed:
+            assert row["raw_gap_pct"] == pytest.approx((raw - closed) / closed)
+            assert row["harmonized_gap_pct"] == pytest.approx((raw + bridge - closed) / closed)
+        else:
+            assert pd.isna(row["raw_gap_pct"]) and pd.isna(row["harmonized_gap_pct"])
+        if key[1] == "Debêntures":
+            assert row["cvm_harmonization_instrument"] == "OUTROS TITULOS DE SECURITIZACAO"
+        else:
+            assert bridge == 0
 
 
 def test_anbima_snapshot_blocks_missing_instrument() -> None:
@@ -68,7 +91,7 @@ def _automatic_row(
     }
 
 
-def _synthetic_archive(path: Path) -> Path:
+def _synthetic_archive(path: Path, *, years: tuple[int, ...]) -> Path:
     rows: list[dict[str, object]] = []
     labels = (
         "Debêntures",
@@ -79,8 +102,8 @@ def _synthetic_archive(path: Path) -> Path:
         "Certificados de Recebíveis do Agronegócio",
     )
     sequence = 0
-    for year in (2023, 2024, 2025, 2026):
-        month = 5 if year == 2026 else 12
+    for year in years:
+        month = 1 if year == max(years) else 12
         for index, label in enumerate(labels, start=1):
             sequence += 1
             rows.append(
@@ -123,21 +146,26 @@ def _synthetic_archive(path: Path) -> Path:
 def test_builder_harmonizes_other_securitization_only_for_debentures(
     tmp_path: Path,
 ) -> None:
-    archive = _synthetic_archive(tmp_path / "offers.zip")
     anbima = load_anbima_market_offers(DATA_DIR)
+    years = tuple(sorted(pd.to_datetime(anbima["period_start"]).dt.year.unique()))
+    archive = _synthetic_archive(tmp_path / "offers.zip", years=years)
     result = build_market_offer_reconciliation(
         archive,
         anbima,
         expected_cvm_archive_sha256=None,
     )
-    indexed = result.set_index(["period_label", "instrument_label"])
-    debentures = indexed.loc[("2025 FY", "Debêntures")]
-    fidcs = indexed.loc[("2025 FY", "FIDCs")]
-    assert debentures["cvm_harmonization_volume_brl"] > 0
-    assert debentures["cvm_harmonized_volume_brl"] > debentures[
-        "cvm_registered_volume_brl"
-    ]
-    assert fidcs["cvm_harmonization_volume_brl"] == 0
-    assert fidcs["cvm_harmonized_volume_brl"] == fidcs[
-        "cvm_registered_volume_brl"
-    ]
+    assert len(result) == 20
+    # Every raw and bridge amount is known from the synthetic source records;
+    # self-consistent arithmetic alone cannot establish the source level.
+    instrument_positions = {
+        "Debêntures": 1, "FIDCs": 3, "CRI": 4,
+        "Notas comerciais": 5, "CRA": 6,
+    }
+    for row in result.to_dict("records"):
+        year = pd.Timestamp(row["period_start"]).year
+        raw = float(year * 1_000_000 + instrument_positions[row["instrument_label"]])
+        bridge = float(year * 1_000_000 + 2) if row["instrument_label"] == "Debêntures" else 0.0
+        assert row["cvm_closed_offers"] == 1
+        assert row["cvm_registered_volume_brl"] == pytest.approx(raw, abs=0.01, rel=0)
+        assert row["cvm_harmonization_volume_brl"] == pytest.approx(bridge, abs=0.01, rel=0)
+        assert row["cvm_harmonized_volume_brl"] == pytest.approx(raw + bridge, abs=0.01, rel=0)

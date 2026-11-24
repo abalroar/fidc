@@ -205,6 +205,7 @@ OPTIONAL_DATA_INPUTS = (
     "fic_perimeter_overrides_history.csv",
     "industry_fic_perimeter_review.csv",
     "industry_top15_originator_cohort_review_202609.json",
+    "industry_top15_originator_cohort_review_202610.json",
     # Auditoria da exclusão de FICs e cross-check da taxonomia: viajam com o
     # bundle para que o Excel exportado reproduza o que os gráficos mostram e
     # diga por que cada fundo saiu do universo.

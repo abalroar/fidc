@@ -11775,6 +11775,26 @@ def _revision_offer_period_display(value: object, meta: dict[str, object]) -> st
     return str(value).replace(" FY", "FY").replace("jan-", "jan–")
 
 
+def _revision_offer_originator_label(row: dict[str, object] | pd.Series) -> str:
+    """Expose nominal group inference without changing the underlying attribution."""
+
+    def text(value: object) -> str:
+        return "" if value is None or pd.isna(value) else " ".join(str(value).split())
+
+    label = text(row.get("originator_group")) or "N/D"
+    folded_label = label.casefold()
+    if folded_label in {"n/d", "nd"} or folded_label.startswith(("não identificado", "nao identificado")):
+        return label
+    source = text(row.get("originator_source")).casefold()
+    evidence = " ".join(text(row.get(key)) for key in (
+        "originator_evidence", "originator_evidence_document",
+    )).casefold()
+    nominal = source.startswith("campo_") or any(
+        marker in source for marker in ("regex", "nome", "nominal")
+    ) or any(marker in evidence for marker in ("nominal", "regex", "\\b"))
+    return f"{label} (inferido)" if nominal else label
+
+
 def _revision_offer_current_row(
     payload: dict[str, object],
     annual: pd.DataFrame | None = None,
@@ -16901,11 +16921,12 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             frame["Nº de Inv."] = frame["investor_count"].map(
                 lambda value: _fmt_int(value) if pd.notna(value) else "N/D"
             )
+            frame["originator_display"] = frame.apply(_revision_offer_originator_label, axis=1)
             frame = frame[
                 [
                     "rank",
                     "fund_name_short",
-                    "originator_group",
+                    "originator_display",
                     "Volume",
                     "leader_name",
                     "ibba_participant_label",
@@ -16921,7 +16942,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             frame.columns = [
                 "#",
                 "FIDC",
-                "Originador",
+                "Originador / grupo",
                 "Volume",
                 "Coordenador líder",
                 "IBBA Coord",
@@ -16949,6 +16970,9 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     width="stretch",
                     height=610,
                     column_config={
+                        "Originador / grupo": st.column_config.TextColumn(
+                            help="O sufixo (inferido) identifica atribuição de grupo pelo nome, sem comprovar a entidade jurídica originadora. Vínculos documentais e datas constam no XLSX."
+                        ),
                         "Coordenador líder": st.column_config.TextColumn(
                             help="Coordenador líder informado no requerimento da oferta."
                         ),
@@ -16984,7 +17008,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             "Fonte: CVM, Sistema de Registro de Ofertas (SRE). Cotas de FIDC, "
             "ofertas primárias encerradas, todos os ritos, com volume positivo. "
             "2022 contém sete registros legados e é uma base parcial, sem comparabilidade anual. "
-            "Originador e rating não identificáveis permanecem como N/D."
+            "Grupos por nome são inferidos; vínculos documentais e datas constam no XLSX. "
+            "N/D sem identificação de originador ou rating."
         )
         with st.expander("Como ler as colunas", expanded=False):
             st.caption(

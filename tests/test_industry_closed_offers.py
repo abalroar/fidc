@@ -8,6 +8,7 @@ import math
 import pandas as pd
 import pytest
 
+from services.industry_comparative_period import ComparisonCut
 from services.industry_closed_offers import (
     ANNUAL_FILENAME,
     ClosedOffersDataError,
@@ -22,67 +23,102 @@ from services.industry_closed_offers import (
 )
 
 
+def _published_offer_cohort() -> pd.DataFrame:
+    """Granular input retained independently of the aggregate payload blocks."""
+    frame = pd.read_csv(
+        INDUSTRY_STUDY_DIR / "industry_closed_offer_ticket_cohort.csv.gz",
+        dtype={"numero_requerimento": str},
+        keep_default_na=False,
+    )
+    assert not frame["numero_requerimento"].duplicated().any()
+    frame["data_encerramento"] = pd.to_datetime(frame["data_encerramento"], errors="raise")
+    frame["registered_volume_brl"] = pd.to_numeric(frame["registered_volume_brl"], errors="raise")
+    return frame
+
+
 def test_loads_and_reconciles_materialized_closed_offer_tables() -> None:
     tables = load_closed_offers_tables()
+    cut = ComparisonCut.from_data_dir(INDUSTRY_STUDY_DIR)
 
-    assert tables.annual["year"].tolist() == [2022, 2023, 2024, 2025, 2026]
-    assert len(tables.monthly) == 47
-    assert tables.monthly.iloc[-1]["competence"] == "2026-09"
-    assert bool(tables.monthly.iloc[-1]["is_complete_month"])
-    assert len(tables.originators) == 19
-    assert tables.originators.iloc[0]["originator_group"] == "CloudWalk"
+    assert tables.annual["year"].tolist() == list(range(int(tables.annual["year"].min()), cut.year + 1))
+    assert tables.annual.iloc[-1]["period_end"] == cut.period_end.isoformat()
+    assert tables.monthly["competence"].max() == cut.competence
+    assert not tables.monthly["competence"].duplicated().any()
+    current = tables.monthly[tables.monthly["year"].eq(cut.year)]
+    assert current["month"].tolist() == list(range(1, cut.month + 1))
+    assert current["is_complete_month"].all()
+    assert not tables.originators.empty
+    assert tables.originators["originator_group"].is_unique
+    assert tables.originators["period_end"].eq(cut.period_end.isoformat()).all()
 
 
 def test_full_payload_is_json_serializable_and_has_stable_blocks() -> None:
     payload = build_closed_offers_payload()
+    tables = load_closed_offers_tables()
+    cohort = _published_offer_cohort()
 
     encoded = json.dumps(payload, ensure_ascii=False, allow_nan=False)
     assert encoded
     assert payload["schema"] == "industry_closed_offers.v1"
-    assert payload["annual"]["row_count"] == 5
-    assert payload["monthly"]["row_count"] == 47
+    assert payload["annual"]["row_count"] == len(tables.annual)
+    assert payload["monthly"]["row_count"] == len(tables.monthly)
     assert payload["jan_june_2024_2026"]["row_count"] == 3
     assert payload["jan_may_2024_2026"]["row_count"] == 3
-    assert payload["originators_2026_ytd"]["row_count"] == 19
-    assert payload["annual"]["source"]["archive_sha256"] == (
-        "98b47c9ed0f8c53484e501a0ec2a8943300cdc0b42ef31300fd077dcf07d32f6"
-    )
+    assert payload["originators_2026_ytd"]["row_count"] == len(tables.originators)
+    assert cohort["source_archive_sha256"].nunique() == 1
+    assert payload["annual"]["source"]["archive_sha256"] == cohort["source_archive_sha256"].iloc[0]
+    assert payload["monthly"]["source"]["archive_sha256"] == cohort["source_archive_sha256"].iloc[0]
+    assert payload["comparison_meta"] == ComparisonCut.from_data_dir(INDUSTRY_STUDY_DIR).to_meta()
 
 
 def test_legacy_alias_recalculates_the_current_comparable_ticket_and_volume() -> None:
     tables = load_closed_offers_tables()
     rows = build_jan_june_closed_offers_payload(tables.monthly)["rows"]
     by_year = {row["year"]: row for row in rows}
+    cut = ComparisonCut.from_data_dir(INDUSTRY_STUDY_DIR)
+    cohort = _published_offer_cohort()
 
-    expected = {
-        2024: (707, 59_275_357_674.75, 83_840_675.6361386),
-        2025: (1037, 78_736_878_426.65, 75_927_558.75279653),
-        2026: (1157, 109_209_379_930.30, 94_390_129.58539325),
-    }
-    assert set(by_year) == set(expected)
-    for year, (offers, volume, ticket) in expected.items():
-        assert by_year[year]["closed_offers"] == offers
-        assert math.isclose(by_year[year]["registered_volume_brl"], volume, abs_tol=0.01)
-        assert math.isclose(by_year[year]["mean_registered_ticket_brl"], ticket, abs_tol=0.01)
-        assert by_year[year]["period_start"] == f"{year}-01-01"
-        assert by_year[year]["period_end"] == f"{year}-09-30"
+    assert set(by_year) == set(range(cut.year - 2, cut.year + 1))
+    for year, row in by_year.items():
+        period = cohort[
+            cohort["data_encerramento"].dt.year.eq(year)
+            & cohort["data_encerramento"].dt.month.le(cut.month)
+        ]
+        offers = period["numero_requerimento"].nunique()
+        volume = period["registered_volume_brl"].sum()
+        assert offers > 0
+        assert row["closed_offers"] == offers
+        assert math.isclose(row["registered_volume_brl"], volume, abs_tol=0.01, rel_tol=0)
+        assert math.isclose(row["mean_registered_ticket_brl"], volume / offers, abs_tol=0.01, rel_tol=0)
+        assert row["period_start"] == f"{year}-01-01"
+        assert row["period_end"] == ComparisonCut(year, cut.month).period_end.isoformat()
 
 
 def test_nominable_originator_list_is_complete_sorted_and_reconciled() -> None:
     tables = load_closed_offers_tables()
     rows = list_nominable_originators_2026_ytd(tables.originators)
+    cut = ComparisonCut.from_data_dir(INDUSTRY_STUDY_DIR)
+    cohort = _published_offer_cohort()
+    current = cohort[cohort["data_encerramento"].dt.year.eq(cut.year)]
+    universe_volume = float(current["registered_volume_brl"].sum())
 
-    assert [row["rank"] for row in rows] == list(range(1, 20))
-    assert rows[0]["originator_group"] == "CloudWalk"
-    assert rows[-1]["originator_group"] == "D365"
+    assert [row["rank"] for row in rows] == list(range(1, len(tables.originators) + 1))
+    assert len({row["originator_group"] for row in rows}) == len(rows)
     assert all(row["confidence"] == "alta - regra nominal auditável" for row in rows)
     assert all(
         left["registered_volume_brl"] >= right["registered_volume_brl"]
         for left, right in zip(rows, rows[1:])
     )
     identified = sum(row["registered_volume_brl"] for row in rows)
-    assert math.isclose(identified, 24_424_538_000.0, abs_tol=0.01)
-    assert math.isclose(rows[0]["identified_registered_volume_coverage"], 0.2236487196941171)
+    assert 0 < identified <= universe_volume
+    for row in rows:
+        assert row["universe_closed_offers"] == current["numero_requerimento"].nunique()
+        assert row["universe_registered_volume_brl"] == pytest.approx(universe_volume, abs=0.01, rel=0)
+        assert row["identified_registered_volume_brl"] == pytest.approx(identified, abs=0.01, rel=0)
+        assert row["unidentified_registered_volume_brl"] == pytest.approx(universe_volume - identified, abs=0.01, rel=0)
+        assert row["identified_registered_volume_coverage"] == pytest.approx(identified / universe_volume)
+        assert row["share_of_total_registered_volume"] == pytest.approx(row["registered_volume_brl"] / universe_volume)
+        assert row["share_of_identified_registered_volume"] == pytest.approx(row["registered_volume_brl"] / identified)
 
 
 def test_schema_validation_rejects_missing_required_column() -> None:

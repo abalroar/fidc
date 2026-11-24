@@ -1,13 +1,13 @@
 {
   "schema_version": "carteira-101-document-audit/v2",
-  "scope_name": "top15_by_anbima_type_2025_12_2026_06",
-  "generated_at_utc": "2026-08-04T16:49:34Z",
+  "scope_name": "top15_historical_corpus_plus_202610_selective_primary_reviews",
+  "generated_at_utc": "2026-11-20T14:25:16+00:00",
   "started_at_utc": "2026-08-04T16:47:31Z",
-  "portfolio_cnpjs": 72,
-  "checkpoint_cnpjs": 72,
+  "portfolio_cnpjs": 74,
+  "checkpoint_cnpjs": 74,
   "completed_cnpjs": 72,
   "online_requested": true,
-  "materialization_mode": "cache_only_reextract",
+  "materialization_mode": "prior_scan_plus_selective_primary_review",
   "online_scan_parameters": {
     "max_documents_per_source_kind": 25,
     "max_pages_per_document": 220,
@@ -16,7 +16,7 @@
     "price_parser_version": 2,
     "remuneration_parser_version": 1
   },
-  "online_consulted_cnpjs": 57,
+  "online_consulted_cnpjs": 59,
   "online_error_cnpjs": 0,
   "online_retry_error_cnpjs": 0,
   "source_order": [
@@ -44,61 +44,61 @@
   "coverage": [
     {
       "campo": "originador",
-      "linhas_total": 72,
+      "linhas_total": 74,
       "antes_com_dado": 0,
       "antes_cobertura_pct": 0.0,
-      "depois_com_dado": 5,
-      "depois_cobertura_pct": 0.06944444444444445,
-      "ganho_linhas": 5
+      "depois_com_dado": 6,
+      "depois_cobertura_pct": 0.08108108108108109,
+      "ganho_linhas": 6
     },
     {
       "campo": "cedente",
-      "linhas_total": 72,
+      "linhas_total": 74,
       "antes_com_dado": 0,
       "antes_cobertura_pct": 0.0,
       "depois_com_dado": 8,
-      "depois_cobertura_pct": 0.1111111111111111,
+      "depois_cobertura_pct": 0.10810810810810811,
       "ganho_linhas": 8
     },
     {
       "campo": "sacado_devedor",
-      "linhas_total": 72,
+      "linhas_total": 74,
       "antes_com_dado": 0,
       "antes_cobertura_pct": 0.0,
       "depois_com_dado": 9,
-      "depois_cobertura_pct": 0.125,
+      "depois_cobertura_pct": 0.12162162162162163,
       "ganho_linhas": 9
     },
     {
       "campo": "tipo_recebivel",
-      "linhas_total": 72,
+      "linhas_total": 74,
       "antes_com_dado": 0,
       "antes_cobertura_pct": 0.0,
       "depois_com_dado": 10,
-      "depois_cobertura_pct": 0.1388888888888889,
+      "depois_cobertura_pct": 0.13513513513513514,
       "ganho_linhas": 10
     },
     {
       "campo": "minimo_junior",
-      "linhas_total": 72,
+      "linhas_total": 74,
       "antes_com_dado": 0,
       "antes_cobertura_pct": 0.0,
-      "depois_com_dado": 0,
-      "depois_cobertura_pct": 0.0,
-      "ganho_linhas": 0
+      "depois_com_dado": 1,
+      "depois_cobertura_pct": 0.013513513513513514,
+      "ganho_linhas": 1
     },
     {
       "campo": "minimo_estrutural_total",
-      "linhas_total": 72,
+      "linhas_total": 74,
       "antes_com_dado": 0,
       "antes_cobertura_pct": 0.0,
       "depois_com_dado": 4,
-      "depois_cobertura_pct": 0.05555555555555555,
+      "depois_cobertura_pct": 0.05405405405405406,
       "ganho_linhas": 4
     },
     {
       "campo": "natureza_indice",
-      "linhas_total": 72,
+      "linhas_total": 74,
       "antes_com_dado": 0,
       "antes_cobertura_pct": 0.0,
       "depois_com_dado": 0,
@@ -137,21 +137,55 @@
   },
   "outputs": {
     "emission_field_document_audit.csv": {
-      "bytes": 41451,
-      "sha256": "310af248fe1c56141dbf9f0cc500e798c6ec32d966adbc381b25418bf0f5bb20"
+      "bytes": 43152,
+      "sha256": "a9b036425a974a84f44377a1d3845a6fb6e92da998b1b0441e0fedc56d50c911"
+    },
+    "emission_field_document_checkpoint.jsonl": {
+      "bytes": 648236,
+      "sha256": "28cd5a5650878b5fc86d1aefd90f2e35a2113e0dc3ac621c922d4a79337bf0a9"
     },
     "emission_field_document_coverage.csv": {
-      "bytes": 392,
-      "sha256": "ac335452103e30c461ddb78aea301846d0b77e7ffd6d3a92a7257ee33b7fefcf"
+      "bytes": 425,
+      "sha256": "9c7a2d959578df78df45083e7fd04d2465b54adf752f6f0f858bd5ab95e0e0a3"
     },
     "emission_field_document_evidence.csv.gz": {
-      "bytes": 28018,
-      "sha256": "931003af93dcdb104698511855f097f80c39d19ee9cbce13a69f27c580727cc8"
+      "bytes": 28837,
+      "sha256": "70af98ec45e6a3a763571def1af90f49aed9886f0a3cebb07380961869952339"
     },
     "emission_field_document_prices.csv.gz": {
       "bytes": 11435,
       "sha256": "4bfeede982875fdc2f485c7e671c4b6bb7b36a281e98b98f409ac2313309e455"
     }
   },
-  "checkpoint": "data/industry_study/emission_field_document_audit/emission_field_document_checkpoint.jsonl"
+  "checkpoint": "emission_field_document_audit/emission_field_document_checkpoint.jsonl",
+  "previous_materialization": {
+    "scope_name": "top15_by_anbima_type_2025_12_2026_06",
+    "generated_at_utc": "2026-08-04T16:49:34Z",
+    "portfolio_cnpjs": 72,
+    "checkpoint_cnpjs": 72,
+    "materialization_mode": "cache_only_reextract"
+  },
+  "selective_primary_review": {
+    "reviewed_at_utc": "2026-11-20T14:25:16+00:00",
+    "source_ids": [
+      "1226689",
+      "1359650"
+    ],
+    "added_cnpjs": [
+      "63977188000142",
+      "67148005000137"
+    ],
+    "accepted_fields": {
+      "63977188000142": [
+        "minimo_junior"
+      ],
+      "67148005000137": [
+        "originador"
+      ]
+    },
+    "no_full_rescan": true,
+    "other_fields_not_inferred": true,
+    "audit_review": "industry_top15_originator_cohort_review_202610.json",
+    "prior_inputs_unchanged": true
+  }
 }

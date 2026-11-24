@@ -21,80 +21,52 @@ from services.industry_offer_ticket_distribution import (
 def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None:
     outputs = load_materialized_offer_ticket_outputs()
     distribution = outputs.distribution
-    expected = {
-        "2024 FY": (
-            1_009,
-            95_416_726_133.75,
-            94_565_635.41501486,
-            29_999_999.98,
-            71_992_614_281.85,
-            0.7545072776960997,
-        ),
-        "2025 FY": (
-            1_478,
-            117_126_319_054.77,
-            79_246_494.62433693,
-            25_000_000.0,
-            81_919_067_300.87,
-            0.6994078526668583,
-        ),
-        "2026 jan-set": (
-            1157,
-            109_209_379_930.30,
-            94_390_129.58539324,
-            25_000_000.0,
-            82_584_984_330.36,
-            0.7562077944501441,
-        ),
-    }
-    for label, (
-        offers,
-        volume,
-        mean_ticket,
-        median_ticket,
-        over_100m_volume,
-        over_100m_share,
-    ) in expected.items():
-        period = distribution[distribution["period_label"].eq(label)]
-        assert int(period["closed_offers"].sum()) == offers
-        assert math.isclose(float(period["registered_volume_brl"].sum()), volume, abs_tol=0.01)
-        assert math.isclose(float(period["period_mean_ticket_brl"].iloc[0]), mean_ticket, abs_tol=0.01)
-        assert math.isclose(
-            float(period["period_median_ticket_brl"].iloc[0]), median_ticket, abs_tol=0.01
-        )
+    cohort = outputs.cohort
+    assert not cohort.empty
+    assert cohort["numero_requerimento"].is_unique
+    assert (cohort["registered_volume_brl"] > 0).all()
+    closing = pd.to_datetime(cohort["data_encerramento"])
+    assert closing.between(pd.to_datetime(cohort["period_start"]), pd.to_datetime(cohort["period_end"])).all()
+    assert set(distribution["period_label"]).issubset(set(cohort["period_label"]))
+    source_hashes = set(cohort["source_archive_sha256"])
+    assert len(source_hashes) == 1
+    assert set(distribution["source_archive_sha256"]) == source_hashes
+    for label, period in distribution.groupby("period_label", sort=False):
+        source = cohort[cohort["period_label"].eq(label)]
+        tickets = source["registered_volume_brl"]
+        volume = float(tickets.sum())
+        assert int(period["closed_offers"].sum()) == len(source)
+        assert float(period["registered_volume_brl"].sum()) == pytest.approx(volume, abs=0.01, rel=0)
+        for field, expected in (
+            ("period_mean_ticket_brl", tickets.mean()),
+            ("period_median_ticket_brl", tickets.median()),
+            ("period_p25_ticket_brl", tickets.quantile(0.25)),
+            ("period_p75_ticket_brl", tickets.quantile(0.75)),
+            ("period_p90_ticket_brl", tickets.quantile(0.90)),
+        ):
+            assert period[field].tolist() == pytest.approx([expected] * len(period), abs=0.01, rel=0)
         assert math.isclose(float(period["offer_share"].sum()), 1.0, abs_tol=1e-12)
-        assert math.isclose(
-            float(period["registered_volume_share"].sum()), 1.0, abs_tol=1e-12
-        )
-        assert (period["closed_offers"] > 0).all()
-        assert math.isclose(
-            float(period["over_100m_registered_volume_brl"].iloc[0]),
-            over_100m_volume,
-            abs_tol=0.01,
-        )
-        assert math.isclose(
-            float(period["over_100m_registered_volume_share"].iloc[0]),
-            over_100m_share,
-            abs_tol=1e-12,
-        )
-
-    # Frozen CVM archive checked on 11/11/26 includes late filings and the
-    # complete January–September window; historical requirements stay present.
-    assert len(outputs.cohort) == 4_001
-    assert outputs.cohort["numero_requerimento"].nunique() == 4_001
-    assert set(outputs.cohort["numero_requerimento"].astype(str)).issuperset(
-        {"18460", "18461", "18462", "23074", "25577"}
-    )
+        assert math.isclose(float(period["registered_volume_share"].sum()), 1.0, abs_tol=1e-12)
+        over_100m = tickets[tickets.gt(100_000_000)]
+        assert period["over_100m_closed_offers"].eq(len(over_100m)).all()
+        assert period["over_100m_registered_volume_brl"].tolist() == pytest.approx([over_100m.sum()] * len(period), abs=0.01, rel=0)
+        assert period["over_100m_registered_volume_share"].tolist() == pytest.approx([over_100m.sum() / volume] * len(period))
+        for field in ("period_start", "period_end", "is_full_year"):
+            assert period[field].nunique() == source[field].nunique() == 1
+            assert period[field].iloc[0] == source[field].iloc[0]
 
 
-def test_published_bucket_counts_are_stable() -> None:
-    distribution = load_materialized_offer_ticket_outputs().distribution
-    pivot = distribution.pivot(
-        index="bucket_order", columns="period_label", values="closed_offers"
-    ).sort_index()
-    assert pivot["2024 FY"].tolist() == [231, 237, 175, 158, 94, 83, 31]
-    assert pivot["2025 FY"].tolist() == [352, 376, 241, 232, 141, 100, 36]
-    assert pivot["2026 jan-set"].tolist() == [266, 311, 183, 176, 107, 71, 43]
+def test_published_bucket_counts_follow_declared_ticket_intervals() -> None:
+    outputs = load_materialized_offer_ticket_outputs()
+    for row in outputs.distribution.itertuples(index=False):
+        source = outputs.cohort[outputs.cohort["period_label"].eq(row.period_label)]
+        tickets = source["registered_volume_brl"]
+        in_bucket = tickets.ge(row.ticket_floor_brl) & tickets.lt(row.ticket_ceiling_brl)
+        assert int(row.closed_offers) == int(in_bucket.sum())
+        assert row.registered_volume_brl == pytest.approx(float(tickets[in_bucket].sum()), abs=0.01, rel=0)
+        assert set(source.loc[in_bucket, "bucket_order"]) <= {row.bucket_order}
+        assert row.offer_share == pytest.approx(in_bucket.sum() / len(source))
+        assert row.registered_volume_share == pytest.approx(tickets[in_bucket].sum() / tickets.sum())
 
 
 def _write_source_zip(path: Path, rows: list[dict[str, str]]) -> None:
