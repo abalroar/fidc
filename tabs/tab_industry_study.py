@@ -15654,6 +15654,29 @@ def _render_revision_offer_ticket_distribution(
     )
 
 
+def _issuance_correction_source_details(comparison: pd.DataFrame) -> tuple[str, str, str]:
+    """Read the dated source attached to the corrected 2023 FIDC observation."""
+
+    if comparison.empty:
+        return "N/D", "N/D", ""
+    scoped = comparison[
+        comparison["period_label"].astype(str).eq("2023 FY")
+        & comparison["series_label"].astype(str).eq("FIDCs")
+    ]
+
+    def unique_value(field: str) -> str:
+        if field not in scoped:
+            return "N/D"
+        values = {str(value).strip() for value in scoped[field].dropna()
+                  if str(value).strip() not in {"", "N/D"}}
+        return next(iter(values)) if len(values) == 1 else "N/D"
+
+    snapshot = re.sub(r"^snapshot\s+", "", unique_value("source_as_of_date"), flags=re.I)
+    sheet = re.search(r"\(aba ([^)]+)\)", unique_value("source_dataset"))
+    url = unique_value("source_url")
+    return snapshot, sheet.group(1) if sheet else "N/D", "" if url == "N/D" else url
+
+
 def _render_revision_fixed_income_offer_comparison(
     payload: dict[str, object],
 ) -> None:
@@ -15856,12 +15879,13 @@ def _render_revision_fixed_income_offer_comparison(
         f"Instrumentos materiais = quatro maiores tipos não FIDC em {selection_year}FY. "
         f"Exclusões: {exclusions}."
     )
-    if includes_2023:
+    if includes_2023 and _issuance_correction_applied(comparison):
+        snapshot, sheet, source_url = _issuance_correction_source_details(comparison)
+        source_name = "Boletim de Mercado de Capitais da ANBIMA"
+        source_link = f"[{source_name}]({source_url})" if source_url else source_name
         st.caption(
             "Correção 2023: o ponto de FIDCs em 2023 usa o valor encerrado do "
-            "[Boletim de Mercado de Capitais da ANBIMA]"
-            "(https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais)"
-            " (snapshot mai/26, aba 02-02-Vlr), porque o volume registrado na CVM "
+            f"{source_link} (snapshot {snapshot}, aba {sheet}), porque o volume registrado na CVM "
             "subestima 2023 — primeiro ano da Resolução CVM 160 — em cerca de 40%. "
             "O YoY de 2024 de FIDCs é calculado sobre a base ANBIMA; o gap por "
             "instrumento está em `industry_market_offer_reconciliation.csv`."
